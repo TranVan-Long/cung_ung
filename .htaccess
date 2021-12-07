@@ -1,0 +1,51 @@
+RewriteEngine on
+RewriteBase /
+
+#order deny,allow
+#deny from all
+#allow from 14.162.144.184
+#allow from 118.70.126.231
+#allow from 27.3.179.20
+#allow from 123.24.206.25
+#allow from 43.239.223.157
+#allow from 43.239.223.187
+#allow from 43.239.223.60
+#allow from 210.245.75.51
+#allow from 14.248.82.205
+#allow from 118.70.126.138
+#allow from 14.232.208.241
+
+RewriteRule  ^$ home/index.php
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+<IfModule mod_rewrite.c>
+    #RewriteEngine On
+    #RewriteCond %{HTTPS} off
+    #RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    #RewriteCond %{HTTP_HOST} www\.(.+)$ [NC]
+    #RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+#page hướng dẫn
+RewriteRule ^huong_dan.html$ /home/home_hd.php [NE,L]
+RewriteRule ^quan-ly-vat-tu.html$ /home/quan-ly-vat-tu.php [NE,L]
+
+# quản lý hợp đồng
+RewriteRule ^quan-ly-hop-dong.html$ /home/ql_hop_dong.php [NE,L]
+
+RewriteRule ^quan-ly-chi-tiet-hop-dong-mua.html$ /home/ql_ct_hopd_mua.php [NE,L]
+RewriteRule ^them-hop-dong-mua.html$ /home/ql_them_hd_mua.php [NE,L]
+RewriteRule ^chinh-sua-hop-dong-mua.html$ /home/ql_sua_hd_mua.php [NE,L]
+
+RewriteRule ^quan-ly-chi-tiet-hop-dong-ban.html$ /home/ql_ct_hopd_ban.php [NE,L]
+RewriteRule ^them-hop-dong-ban.html$ /home/ql_them_hd_ban.php [NE,L]
+RewriteRule ^chinh-sua-hop-dong-ban.html$ /home/ql_sua_hd_ban.php [NE,L]
+
+RewriteRule ^quan-ly-chi-tiet-hop-dong-thue-thiet-bi.html$ /home/ql_ct_hopd_thue.php [NE,L]
+RewriteRule ^them-hop-dong-thue-thiet-bi.html$ /home/ql_them_hd_thue.php [NE,L]
+RewriteRule ^chinh-sua-hop-dong-thue-thiet-bi.html$ /home/ql_sua_hd_thue.php [NE,L]
+
+RewriteRule ^quan-ly-chi-tiet-hop-dong-van-chuyen$ /home/ql_ct_hopd_vc.php [NE,L]
+RewriteRule ^them-hop-dong-van-chuyen.html$ /home/ql_them_hd_vc.php [NE,L]
+RewriteRule ^chinh-sua-hop-dong-van-chuyen.html$ /home/ql_sua_hd_vc.php [NE,L]
