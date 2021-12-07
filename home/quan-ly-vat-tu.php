@@ -30,7 +30,7 @@ include("../includes/icon.php");
             </div>
             <div class="c-body">
                 <div class="w-100 left">
-                    <div class="category">
+                    <div class="category v-select2">
                         <select name="category" class="share_select">
                             <option value="">Tìm kiếm theo</option>
                             <option value="1">Mã yêu cầu</option>
@@ -39,7 +39,7 @@ include("../includes/icon.php");
                             <option value="4">Ngày phải hoàn thành</option>
                         </select>
                     </div>
-                    <div class="search-box">
+                    <div class="search-box v-select2">
                         <select name="search" class="share_select">
                             <option value="">Nhập thông tin cần tìm kiếm</option>
                         </select>

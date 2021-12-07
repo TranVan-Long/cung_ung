@@ -36,13 +36,13 @@ include("../includes/icon.php");
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left v-select2">
                             <label for="chon-phong-ban">Phòng ban<span class="text-red">*</span></label>
                             <select name="chon-phong-ban" id="chon-phong-ban" class="share_select">
                                 <option value="">Công trình</option>
                             </select>
                         </div>
-                        <div class="form-col-50 right">
+                        <div class="form-col-50 right v-select2">
                             <label for="nguoi-yeu-cau">Người yêu cầu<span class="text-red">*</span></label>
                             <select name="nguoi-yeu-cau" id="nguoi-yeu-cau" class="share_select">
                                 <option value="">Nguyễn Văn A</option>
@@ -50,7 +50,7 @@ include("../includes/icon.php");
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50">
+                        <div class="form-col-50 v-select2">
                             <label for="cong-trinh">Công trình<span class="text-red">*</span></label>
                             <select name="cong-trinh" id="cong-trinh" class="share_select">
                                 <option value="">Nâng cấp quốc lộ 999</option>
