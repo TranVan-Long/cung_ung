@@ -128,6 +128,10 @@ img {
     margin-top: 65px;
 }
 
+.mt_20 {
+    margin-top: 20px;
+}
+
 .mt_25 {
     margin-top: 25px;
 }
@@ -150,6 +154,10 @@ img {
 
 .mb_26 {
     margin-bottom: 26px;
+}
+
+.mr_10 {
+    margin-right: 10px;
 }
 
 .form-group .form-control.h_border {
@@ -176,6 +184,10 @@ img {
 
 .dflex_jc {
     justify-content: center;
+}
+
+.flex_jct {
+    justify-content: space-between;
 }
 
 .share_brd_radius {
@@ -227,7 +239,11 @@ img {
 }
 
 .share_tb_seven {
-    width: 50%;
+    width: 3%;
+}
+
+.share_tb_eight {
+    width: 7%;
 }
 
 .share_distance .form-row {
@@ -1985,6 +2001,30 @@ img {
     min-width: 2572px;
 }
 
+.ql_ctiet_hd_thue .table {
+    min-width: 3648px;
+}
+
+.ql_them_hd_thue .table {
+    min-width: 3812px;
+}
+
+.ql_ctiet_hd_vc .table {
+    min-width: 2000px;
+}
+
+.ql_don_hang .table {
+    min-width: 2553px;
+}
+
+.ql_ct_dh_mua .table, .ql_ct_dh_ban .table {
+    min-width: 2248px;
+}
+
+.ql_them_dh .table, .ql_sua_dh .table, .ql_sua_dh_ban .table, .ql_them_dh_ban .table {
+    min-width: 2867px;
+}
+
 .table .form-group {
     width: 100%;
     margin-bottom: 0;
@@ -2009,14 +2049,6 @@ img {
     margin-left: 10px;
 }
 
-.ql_ctiet_hd_thue .table {
-    min-width: 3648px;
-}
-
-.ql_them_hd_thue .table {
-    min-width: 3812px;
-}
-
 thead th.sh_bor_r {
     border-right: 1px solid #FFFFFF;
 }
@@ -2025,10 +2057,14 @@ thead th.sh_bor_b {
     border-bottom: 1px solid #FFFFFF;
 }
 
-.ql_ctiet_hd_vc .table {
-    min-width: 2000px;
+.ql_chung .c-top {
+    border-bottom: 1px solid #474747;
+    padding-bottom: 28px;
 }
 
+.add_creart_hd {
+    line-height: 36px;
+}
 
 
 

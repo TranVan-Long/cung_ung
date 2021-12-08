@@ -49,3 +49,9 @@ RewriteRule ^chinh-sua-hop-dong-thue-thiet-bi.html$ /home/ql_sua_hd_thue.php [NE
 RewriteRule ^quan-ly-chi-tiet-hop-dong-van-chuyen$ /home/ql_ct_hopd_vc.php [NE,L]
 RewriteRule ^them-hop-dong-van-chuyen.html$ /home/ql_them_hd_vc.php [NE,L]
 RewriteRule ^chinh-sua-hop-dong-van-chuyen.html$ /home/ql_sua_hd_vc.php [NE,L]
+
+# quản lý vật tư
+RewriteRule ^quan-ly-vat-tu.html$ /home/quan-ly-vat-tu.php [NE,L]
+RewriteRule ^quan-ly-chi-tiet-yeu-cau-vat-tu.html$ /home/chi-tiet-yeu-cau-vat-tu.php [NE,L]
+RewriteRule ^chinh-sua-yeu-cau-vat-tu.html$ /home/chinh-sua-yeu-cau-vat-tu.php [NE,L]
+RewriteRule ^them-yeu-cau-vat-tu.html$ /home/them-yeu-cau-vat-tu.php [NE,L]

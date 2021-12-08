@@ -14,9 +14,9 @@
 $(".collapse").click(function (){
     var id = $(this).attr("data-tab");
 
-    $(".collapse").removeClass("active");
+    // $(".collapse").removeClass("active");
     $(".collapse ul").removeClass("active");
 
-    $(this).addClass("active");
+    // $(this).addClass("active");
     $('#' + id).addClass("active");
 })

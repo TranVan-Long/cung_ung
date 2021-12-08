@@ -52,7 +52,7 @@ p {
     margin-left: calc(-0.5 * var(--bs-gutter-x));
 }
 
-.row > * {
+.row>* {
     flex-shrink: 0;
     width: 100%;
     max-width: 100%;
@@ -71,9 +71,11 @@ input[type=text], input[type=date] {
     border: 1px solid #666666;
     border-radius: 4px;
 }
-.date-input{
+
+.date-input {
     background: #ffffff url("/img/calendar.png") 97% 50% no-repeat;
 }
+
 [type=date] {
     background: #ffffff url("/img/calendar.png") 97% 50% no-repeat;
 }
@@ -300,8 +302,10 @@ textarea[placeholder] {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .side-bar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .main-container {
@@ -374,7 +378,7 @@ textarea[placeholder] {
     border-radius: 20px 0 0 20px;
 }
 
-.side-bar li.active > a, .side-bar li.active > p {
+.side-bar li.active>a, .side-bar li.active>p {
     color: #fff;
     background: #2A38A2;
     border-radius: 20px 0 0 20px;
@@ -387,7 +391,8 @@ textarea[placeholder] {
     transition: height 2s;
 
 }
-.side-bar .menu ul.active{
+
+.side-bar .menu ul.active {
     display: block !important;
 }
 
@@ -657,11 +662,11 @@ td {
     border-radius: 4px;
 }
 
-.filter-container:hover input ~ .checkmark {
+.filter-container:hover input~.checkmark {
     background-color: #ccc;
 }
 
-.filter-container input:checked ~ .checkmark {
+.filter-container input:checked~.checkmark {
     background-color: #fff;
 }
 
@@ -671,7 +676,7 @@ td {
     display: none;
 }
 
-.filter-container input:checked ~ .checkmark:after {
+.filter-container input:checked~.checkmark:after {
     display: block;
 }
 
@@ -686,7 +691,7 @@ td {
 
 /*=======================================*/
 
-span.select2-selection.select2-selection--single {
+.v-select2 .select2-selection.select2-selection--single {
     font-size: 16px;
     line-height: 19px;
     height: 36px !important;
@@ -694,19 +699,19 @@ span.select2-selection.select2-selection--single {
     float: left;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__rendered {
+.v-select2 .select2-container--default .select2-selection--single .select2-selection__rendered {
     line-height: 19px;
     padding-top: 7px;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__arrow {
+.v-select2 .select2-container--default .select2-selection--single .select2-selection__arrow {
     top: 5px;
     right: 5px;
 }
 
-.select2-container--default .select2-selection--single {
-    border: 1px solid #474747;
-    border-radius: 4px;
+.v-select2 .select2-container--default .select2-selection--single {
+    border: 1px solid #666666;
+    border-radius: 8px;
 }
 
 .v-btn {
@@ -887,7 +892,8 @@ select#display {
     border-radius: 20px;
     cursor: pointer;
 }
-.table-scroll table th{
+
+.table-scroll table th {
     width: 10%;
 }
 

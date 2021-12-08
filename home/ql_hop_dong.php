@@ -32,13 +32,13 @@ include "../includes/icon.php";
             </div>
 
             <div class="content">
-                <div class="c-top">
-                    <h4 class="c-name">Hợp đồng</h4>
+                <div class="c-top d_flex flex_jct fl_agi">
+                    <h4 class="c-name share_fsize_four share_clr_one">Hợp đồng</h4>
                     <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
                 </div>
                 <div class="c-body">
                     <div class="filter1">
-                        <div class="share_select category">
+                        <div class="share_form_select category">
                             <select name="category" class="tim_kiem">
                                 <option value="">Tìm kiếm theo</option>
                                 <option value="1">Hợp đồng mua vật tư</option>
@@ -47,13 +47,13 @@ include "../includes/icon.php";
                                 <option value="4">Hợp đồng thuê vận chuyển</option>
                             </select>
                         </div>
-                        <div class="share_select search-box">
+                        <div class="share_form_select search-box">
                             <select name="search" class="tim_kiem_o">
                                 <option value="">Nhập thông tin cần tìm kiếm</option>
                             </select>
                         </div>
                         <div class="add_hopd">
-                            <p class="btn btn-blue add-btn add_creart_hd share_cursor">&plus; Thêm mới</p>
+                            <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">&plus; Thêm mới</p>
                             <div class="all_hopd share_bgr_tow">
                                 <p class="hd_mua_vt">
                                     <a class="share_clr_one share_fsize_one" href="/them-hop-dong-mua.html">Hợp đồng mua vật tư</a>
@@ -170,9 +170,9 @@ include "../includes/icon.php";
                         </div>
                     </div>
                 </div>
-                <div class="c-foot">
-                    <div class="display">
-                        <label for="display">Hiển thị</label>
+                <div class="c-foot d_flex flex_jct fl_agi mt_20">
+                    <div class="display d_flex fl_agi">
+                        <label for="display" class="mr_10">Hiển thị</label>
                         <select name="display" id="display">
                             <option value="10">10</option>
                             <option value="20">20</option>

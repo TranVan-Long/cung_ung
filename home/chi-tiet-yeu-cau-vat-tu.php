@@ -150,7 +150,6 @@ include("../includes/icon.php");
                     <a href="chinh-sua-yeu-cau-vat-tu.php" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
                 </div>
             </div>
-            <div class=""></div>
         </div>
     </div>
 </div>
