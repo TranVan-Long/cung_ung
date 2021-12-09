@@ -20,7 +20,7 @@
             </a>
             <ul id="sub-menu1">
                 <li>
-                    <a href="../home/nha-cung-cap.php"><span><?php echo $ic_circle ?></span> Hợp đồng</a>
+                    <a href="#"><span><?php echo $ic_circle ?></span> Hợp đồng</a>
                 </li>
                 <li>
                     <a href="#"><span><?php echo $ic_circle ?></span>Đơn hàng</a>
@@ -53,10 +53,10 @@
             <a><span><?php echo $ic_producer ?></span>Nhà cung cấp</a>
             <ul id="sub-menu3">
                 <li>
-                    <a href="../home/nha-cung-cap.php"><span><?php echo $ic_circle ?></span>Nhà cung cấp</a>
+                    <a href="../home/ncc-index.php"><span><?php echo $ic_circle ?></span>Nhà cung cấp</a>
                 </li>
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span>Đánh giá nhà cung cấp</a>
+                    <a href="../home/ncc-rating-index.php"><span><?php echo $ic_circle ?></span>Đánh giá nhà cung cấp</a>
                 </li>
                 <li>
                     <a href="#"><span><?php echo $ic_circle ?></span>Tiêu chí đánh giá</a>

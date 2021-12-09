@@ -7,8 +7,15 @@ include("../includes/icon.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cung ứng xây dựng</title>
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
-    <link href="../css/app.css" rel="stylesheet">
+
+    <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
+    <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
+
+</head>
 
 </head>
 <body>
@@ -92,16 +99,16 @@ include("../includes/icon.php");
                 </div>
 
             </div>
-            <div class="c-foot mt-30">
-                <div class="table-container table-scroll">
+            <div class="left w-100 mt-30">
+                <div class="table-container table-scroll mt-5">
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>STT</th>
-                            <th>Mã vật tư</th>
-                            <th>Tên đầy đủ vật tư thiết bị</th>
-                            <th>Đơn vị tính</th>
-                            <th>Số lượng yêu cầu duyệt</th>
+                            <th class="w-10">STT</th>
+                            <th class="w-15">Mã vật tư</th>
+                            <th class="w-30">Tên đầy đủ vật tư thiết bị</th>
+                            <th class="w-20">Đơn vị tính</th>
+                            <th class="w-25">Số lượng yêu cầu duyệt</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -124,10 +131,10 @@ include("../includes/icon.php");
 
                 </div>
                 <div class="left mt-30">
-                    <a href="#" class="v-btn btn-green">Xuất excel</a>
+                    <p class="v-btn btn-green">Xuất excel</p>
                 </div>
                 <div class="right mt-30">
-                    <a href="#" class="v-btn btn-outline-red modal-btn">Xóa</a>
+                    <p class="v-btn btn-outline-red modal-btn">Xóa</p>
                     <div class="modal text-center">
                         <div class="m-content huy-them">
                             <div class="m-head ">

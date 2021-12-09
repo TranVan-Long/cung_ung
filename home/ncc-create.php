@@ -8,8 +8,13 @@ $date = date('m-d-Y', time())
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cung ứng xây dựng</title>
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
-    <link href="../css/app.css" rel="stylesheet">
+
+    <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
+    <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
 
 </head>
 <body>
@@ -25,7 +30,7 @@ $date = date('m-d-Y', time())
         </div>
         <!--        header end-->
         <div class="content">
-            <div class="mt-20">
+            <div class="mt-30">
                 <h4 class="mt-5">Thêm nhà cung cấp</h4>
             </div>
             <div class="c-body">
@@ -152,43 +157,37 @@ $date = date('m-d-Y', time())
                         </div>
                     </div>
                 </div>
-                <div class="mt-30 left">
-                    <p class="text-blue link-text" id="add-material">&plus; Thêm mới vật tư</p>
-                    <div class="table-container table-scroll mt-5">
+                <div class="mt-50 left w-100">
+                    <p class="d-inline text-bold">Người liên hệ</p>
+                    <p class="text-blue link-text d-inline pl-20" id="add-references">&plus; Thêm người liên hệ</p>
+                    <div class="table-container table-scroll mt-30">
                         <table class="table">
                             <thead>
                             <tr>
-                                <th></th>
-                                <th>Mã vật tư</th>
-                                <th>Tên đầy đủ vật tư thiết bị</th>
-                                <th>Đơn vị tính</th>
-                                <th>Số lượng yêu cầu duyệt</th>
+                                <th class="w-5"></th>
+                                <th class="w-30">Họ tên</th>
+                                <th class="w-30">Chức vụ</th>
+                                <th class="w-20">Điện thoại</th>
+                                <th class="w-30">Email</th>
                             </tr>
                             </thead>
-                            <tbody id="materials">
+                            <tbody id="rererences">
                             <tr class="item">
-                                <td class="materials-act"><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                                <td>
+                                    <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
                                 </td>
-                                <td class="materials-id">
-                                    <select name="materials-id" class="share_select"></select>
+                                <td>
+                                    <input type="text">
                                 </td>
-                                <td class="materials-name">
-                                    <select name="materials-name" class="share_select"></select>
+                                <td>
+                                    <input type="text">
                                 </td>
-                                <td class="materials-unit"><input type="text" readonly disabled></td>
-                                <td class="materials-qty"><input type="text"></td>
-                            </tr>
-                            <tr class="item">
-                                <td class="materials-act"><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                                <td>
+                                    <input type="text">
                                 </td>
-                                <td class="materials-id">
-                                    <select name="materials-id" class="share_select"></select>
+                                <td>
+                                    <input type="text">
                                 </td>
-                                <td class="materials-name">
-                                    <select name="materials-name" class="share_select"></select>
-                                </td>
-                                <td class="materials-unit"><input type="text" readonly disabled></td>
-                                <td class="materials-qty"><input type="text"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -213,15 +212,14 @@ $date = date('m-d-Y', time())
                                     <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                                 </div>
                                 <div class="right">
-                                    <a href="quan-ly-vat-tu.php" class="v-btn btn-green right">Đồng ý</a>
+                                    <a href="ncc-index.php" class="v-btn btn-green right">Đồng ý</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a href="quan-ly-vat-tu.php" class="v-btn btn-blue ml-20">Xong</a>
+                    <a href="ncc-index.php" class="v-btn btn-blue ml-20">Xong</a>
                 </div>
             </div>
-            <div class=""></div>
         </div>
     </div>
 </div>

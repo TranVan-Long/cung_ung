@@ -19,7 +19,7 @@
                     <a href="#"><img class="head-avatar" src="/img/avt4.png"></a>
                 </div>
                 <div class="left mt-10">
-                    <h5>Nguyễn Văn A <span><?php echo $ic_chevron_down ?></span></h5>
+                    <h5 class="user-name">Nguyễn Văn A <span><?php echo $ic_chevron_down ?></span></h5>
                 </div>
                 <ul class="dropdown-content">
                     <li><i class="ic ic-user"></i> Thông tin tài khoản</li>

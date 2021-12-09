@@ -7,8 +7,15 @@ include("../includes/icon.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cung ứng xây dựng</title>
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
-    <link href="../css/app.css" rel="stylesheet">
+
+    <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
+    <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
+
+</head>
 
 </head>
 <body>
@@ -28,7 +35,7 @@ include("../includes/icon.php");
                 <h4 class="left">Yêu cầu vật tư công trình</h4>
                 <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
             </div>
-            <div class="c-body">
+            <div class="c-body mt-20">
                 <div class="w-100 left">
                     <div class="category v-select2">
                         <select name="category" class="share_select">
@@ -71,7 +78,7 @@ include("../includes/icon.php");
                         <span class="checkmark"></span>
                     </label>
                 </div>
-                <div class="c-content">
+                <div class="left w-100">
                     <div class="table-container">
                         <table class="table">
                             <thead>

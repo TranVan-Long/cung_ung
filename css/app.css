@@ -12,7 +12,18 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
     color: #474747;
 }
-
+h5{
+    font-size: 18px;
+    line-height: 21px;
+}
+h5.user-name{
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+}
+h5.user-name span{
+    padding-left: 48px;
+}
 
 * {
     box-sizing: border-box;
@@ -25,7 +36,8 @@ ul, p {
 }
 
 ul span {
-    padding: 0 11px 0 9px;
+    width: 22px;
+    margin-right: 12px;
 }
 
 li {
@@ -70,6 +82,9 @@ input[type=text], input[type=date] {
     padding: 9px 10px;
     border: 1px solid #666666;
     border-radius: 8px;
+}
+td input[type=text], td input[type=date]{
+    border-radius: 4px;
 }
 .date-input{
     background: #ffffff url("/img/calendar.png") 97% 50% no-repeat;
@@ -120,10 +135,22 @@ textarea[placeholder] {
     padding-bottom: 10px;
     border-bottom: 1px solid #666666;
 }
+.bordered{
+    padding: 20px 16px;
+    border: 1px solid #474747;
+    border-radius: 8px;
+}
 
 .border-top {
     padding-top: 10px;
     border-top: 1px solid #666666;
+}
+.border-top2 {
+    padding-top: 10px;
+    border-top: 1px solid rgba(102, 102, 102, 0.24);
+}
+.border-top-w{
+    border-top: 1px solid #ffffff;
 }
 
 .border-bottom-2 {
@@ -146,43 +173,63 @@ textarea[placeholder] {
 .d-flex {
     display: flex !important;
 }
-
+.w-5{
+    width: 5%;
+}
 .w-10 {
     width: 10%;
 }
-
+.w-15 {
+    width: 15%;
+}
 .w-20 {
     width: 20%;
 }
-
+.w-25 {
+    width: 25%;
+}
 .w-30 {
     width: 30%;
 }
-
+.w-35{
+    width: 35%;
+}
 .w-40 {
     width: 40%;
 }
-
+.w-45{
+    width: 45%;
+}
 .w-50 {
     width: 50%;
 }
-
+.w-55{
+    width: 55%;
+}
 .w-60 {
     width: 60%;
 }
-
+.w-65{
+    width: 65%;
+}
 .w-70 {
     width: 70%;
 }
-
+.w-75{
+    width: 75%;
+}
 .w-80 {
     width: 80%;
 }
-
+.w-85{
+    width: 85%;
+}
 .w-90 {
     width: 90%;
 }
-
+.w-95{
+    width: 95%;
+}
 .w-100 {
     width: 100%;
 }
@@ -208,7 +255,10 @@ textarea[placeholder] {
 }
 
 .text-bold {
-    font-weight: 550;
+    font-weight: bold;
+}
+.text-500{
+    font-weight: 500;
 }
 
 .ml-5 {
@@ -269,6 +319,9 @@ textarea[placeholder] {
 .mt-30 {
     margin-top: 30px;
 }
+.mt-50{
+    margin-top: 50px;
+}
 
 .mb-5 {
     margin-bottom: 5px;
@@ -316,7 +369,7 @@ textarea[placeholder] {
     float: left;
 }
 
-.side-bar::-webkit-scrollbar, .table-container::-webkit-scrollbar {
+.side-bar::-webkit-scrollbar {
     display: none;
 }
 
@@ -381,13 +434,13 @@ textarea[placeholder] {
     position: relative;
 }
 
-.side-bar li a, .side-bar li a {
+.side-bar li a {
     height: 52px;
-    display: block;
     font-size: 16px;
     line-height: 19px;
-    padding-left: 10px;
-    padding-top: 13px;
+    padding-left: 26px;
+    display: flex;
+    align-items: center;
 }
 
 .side-bar li a:hover, .side-bar li a:hover {
@@ -416,7 +469,7 @@ textarea[placeholder] {
 #sub-menu1:before, #sub-menu2:before, #sub-menu3:before, #sub-menu4:before, #sub-menu5:before {
     content: "";
     width: 2px;
-    left: 29px;
+    left: 36px;
     top: 50px;
     background-color: #4C5BD4;
     position: absolute;
@@ -528,13 +581,15 @@ p.removeItem2{
 }
 
 .nav-item .badge {
+    width: 8px;
+    height: 8px;
     position: absolute;
-    top: 2px;
-    right: 24px;
+    top: 3px;
+    right: 12px;
     padding: 4px;
     border-radius: 50%;
-    background: red;
-    color: white;
+    background: #EB5757;
+    color: #ffffff;
 }
 
 .c-top {
@@ -546,7 +601,6 @@ p.removeItem2{
 .c-body {
     width: 100%;
     float: left;
-    margin-top: 20px;
 }
 
 .c-body:after {
@@ -572,8 +626,6 @@ p.removeItem2{
 /*table css*/
 
 .table-container {
-    width: 100%;
-    float: left;
     border-left: 1px solid #474747;
     border-right: 1px solid #474747;
     border-top-left-radius: 8px;
@@ -622,13 +674,15 @@ thead th:last-child {
 }
 
 td {
-    padding: 17px 10px 18px 10px;
+    padding: 18px 10px 18px 10px;
     text-align: center;
     font-size: 14px;
     line-height: 16px;
     color: #474747;
 }
-
+.td-input{
+    padding: 8px 10px 8px 10px;
+}
 #materials td {
     padding: 8px;
 }
@@ -754,7 +808,9 @@ td {
     border: 1px solid #666666;
     border-radius: 8px;
 }
-
+td .v-select2 .select2-container--default .select2-selection--single {
+    border-radius: 4px;
+}
 .v-btn {
     cursor: pointer;
     width: 148px;
@@ -871,27 +927,6 @@ select#display {
 .dropdown .dropdown-content.active {
     display: block;
 }
-
-.materials-act {
-    width: 10%;
-}
-
-.materials-id {
-    width: 15%;
-}
-
-.materials-name {
-    width: 32%;
-}
-
-.materials-unit {
-    width: 16%;
-}
-
-.materials-qty {
-    width: 37%;
-}
-
 .form-group {
     width: 100%;
     float: left;
@@ -921,6 +956,9 @@ select#display {
 .table-scroll {
     max-height: 155px;
 }
+.table-h-207{
+    max-height: 207px;
+}
 
 
 .table-scroll::-webkit-scrollbar {
@@ -937,10 +975,6 @@ select#display {
     border-radius: 20px;
     cursor: pointer;
 }
-.table-scroll table th{
-    width: 10%;
-}
-
 .modal {
     display: none;
     position: fixed;
@@ -1012,6 +1046,7 @@ select#display {
     position: absolute;
     z-index: 1;
     background: rgba(196, 196, 196, 0.5);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .scr-btn:hover{
     background: rgba(196, 196, 196, 0.7);

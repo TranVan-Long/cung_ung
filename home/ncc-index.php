@@ -33,7 +33,7 @@ include("../includes/icon.php");
                 <h4 class="left">Nhà cung cấp</h4>
                 <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
             </div>
-            <div class="c-body">
+            <div class="c-body mt-20">
                 <div class="w-100 left">
                     <div class="category v-select2">
                         <select name="category" class="share_select">
@@ -49,7 +49,7 @@ include("../includes/icon.php");
                             <option value="">Nhập thông tin cần tìm kiếm</option>
                         </select>
                     </div>
-                    <a class="v-btn btn-blue add-btn" href="../home/ncc-them.php">&plus; Thêm mới</a>
+                    <a class="v-btn btn-blue add-btn" href="../home/ncc-create.php">&plus; Thêm mới</a>
                 </div>
                 <div class="w-100 left table-wrapper">
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
@@ -62,191 +62,113 @@ include("../includes/icon.php");
                                 <th>Mã nhà cung cấp</th>
                                 <th>Tên gọi tắt</th>
                                 <th>Tên nhà cung cấp</th>
-                                <th>Mã số thuế</th>
-                                <th>Tên giao dịch</th>
-                                <th>Địa chỉ ĐKKD</th>
+                                <th>Địa chỉ</th>
                                 <th>Số ĐKKD</th>
-                                <th>Địa chỉ liên hệ</th>
-                                <th>Fax</th>
-                                <th>Điện thoại</th>
-                                <th>Website</th>
-                                <th>Email</th>
                                 <th>Sản phẩm cung ứng</th>
-                                <th>Thông tin khác</th>
+                                <th>Mã số thuế</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td>1</td>
-                                <td><a href="chi-tiet-yeu-cau-vat-tu.php">NCC-198-24201</a></td>
-                                <td>NCC1</td>
-                                <td>Nhà cung cấp 1</td>
-                                <td>09988776485</td>
-                                <td>NCC001</td>
+                                <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                <td>CTA</td>
+                                <td>Công ty A</td>
                                 <td>Số 5, phố X, phường X, quận X</td>
                                 <td>9988332818</td>
-                                <td>Số 5, phố X, phường X, quận X</td>
-                                <td>0123456789</td>
-                                <td>01234567889</td>
-                                <td>ncca.com.vn</td>
-                                <td>ncca@gmail.com</td>
                                 <td>Sắt thép</td>
-                                <td>Không có</td>
+                                <td>01234567889</td>
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td><a href="chi-tiet-yeu-cau-vat-tu.php">NCC-198-24201</a></td>
-                                <td>NCC1</td>
-                                <td>Nhà cung cấp 1</td>
-                                <td>09988776485</td>
-                                <td>NCC001</td>
+                                <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                <td>CTA</td>
+                                <td>Công ty A</td>
                                 <td>Số 5, phố X, phường X, quận X</td>
                                 <td>9988332818</td>
-                                <td>Số 5, phố X, phường X, quận X</td>
-                                <td>0123456789</td>
-                                <td>01234567889</td>
-                                <td>ncca.com.vn</td>
-                                <td>ncca@gmail.com</td>
                                 <td>Sắt thép</td>
-                                <td>Không có</td>
+                                <td>01234567889</td>
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td><a href="chi-tiet-yeu-cau-vat-tu.php">NCC-198-24201</a></td>
-                                <td>NCC1</td>
-                                <td>Nhà cung cấp 1</td>
-                                <td>09988776485</td>
-                                <td>NCC001</td>
+                                <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                <td>CTA</td>
+                                <td>Công ty A</td>
                                 <td>Số 5, phố X, phường X, quận X</td>
                                 <td>9988332818</td>
-                                <td>Số 5, phố X, phường X, quận X</td>
-                                <td>0123456789</td>
-                                <td>01234567889</td>
-                                <td>ncca.com.vn</td>
-                                <td>ncca@gmail.com</td>
                                 <td>Sắt thép</td>
-                                <td>Không có</td>
+                                <td>01234567889</td>
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td><a href="chi-tiet-yeu-cau-vat-tu.php">NCC-198-24201</a></td>
-                                <td>NCC1</td>
-                                <td>Nhà cung cấp 1</td>
-                                <td>09988776485</td>
-                                <td>NCC001</td>
+                                <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                <td>CTA</td>
+                                <td>Công ty A</td>
                                 <td>Số 5, phố X, phường X, quận X</td>
                                 <td>9988332818</td>
-                                <td>Số 5, phố X, phường X, quận X</td>
-                                <td>0123456789</td>
-                                <td>01234567889</td>
-                                <td>ncca.com.vn</td>
-                                <td>ncca@gmail.com</td>
                                 <td>Sắt thép</td>
-                                <td>Không có</td>
+                                <td>01234567889</td>
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td><a href="chi-tiet-yeu-cau-vat-tu.php">NCC-198-24201</a></td>
-                                <td>NCC1</td>
-                                <td>Nhà cung cấp 1</td>
-                                <td>09988776485</td>
-                                <td>NCC001</td>
+                                <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                <td>CTA</td>
+                                <td>Công ty A</td>
                                 <td>Số 5, phố X, phường X, quận X</td>
                                 <td>9988332818</td>
-                                <td>Số 5, phố X, phường X, quận X</td>
-                                <td>0123456789</td>
-                                <td>01234567889</td>
-                                <td>ncca.com.vn</td>
-                                <td>ncca@gmail.com</td>
                                 <td>Sắt thép</td>
-                                <td>Không có</td>
+                                <td>01234567889</td>
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td><a href="chi-tiet-yeu-cau-vat-tu.php">NCC-198-24201</a></td>
-                                <td>NCC1</td>
-                                <td>Nhà cung cấp 1</td>
-                                <td>09988776485</td>
-                                <td>NCC001</td>
+                                <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                <td>CTA</td>
+                                <td>Công ty A</td>
                                 <td>Số 5, phố X, phường X, quận X</td>
                                 <td>9988332818</td>
-                                <td>Số 5, phố X, phường X, quận X</td>
-                                <td>0123456789</td>
-                                <td>01234567889</td>
-                                <td>ncca.com.vn</td>
-                                <td>ncca@gmail.com</td>
                                 <td>Sắt thép</td>
-                                <td>Không có</td>
+                                <td>01234567889</td>
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td><a href="chi-tiet-yeu-cau-vat-tu.php">NCC-198-24201</a></td>
-                                <td>NCC1</td>
-                                <td>Nhà cung cấp 1</td>
-                                <td>09988776485</td>
-                                <td>NCC001</td>
+                                <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                <td>CTA</td>
+                                <td>Công ty A</td>
                                 <td>Số 5, phố X, phường X, quận X</td>
                                 <td>9988332818</td>
-                                <td>Số 5, phố X, phường X, quận X</td>
-                                <td>0123456789</td>
-                                <td>01234567889</td>
-                                <td>ncca.com.vn</td>
-                                <td>ncca@gmail.com</td>
                                 <td>Sắt thép</td>
-                                <td>Không có</td>
+                                <td>01234567889</td>
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td><a href="chi-tiet-yeu-cau-vat-tu.php">NCC-198-24201</a></td>
-                                <td>NCC1</td>
-                                <td>Nhà cung cấp 1</td>
-                                <td>09988776485</td>
-                                <td>NCC001</td>
+                                <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                <td>CTA</td>
+                                <td>Công ty A</td>
                                 <td>Số 5, phố X, phường X, quận X</td>
                                 <td>9988332818</td>
-                                <td>Số 5, phố X, phường X, quận X</td>
-                                <td>0123456789</td>
-                                <td>01234567889</td>
-                                <td>ncca.com.vn</td>
-                                <td>ncca@gmail.com</td>
                                 <td>Sắt thép</td>
-                                <td>Không có</td>
+                                <td>01234567889</td>
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td><a href="chi-tiet-yeu-cau-vat-tu.php">NCC-198-24201</a></td>
-                                <td>NCC1</td>
-                                <td>Nhà cung cấp 1</td>
-                                <td>09988776485</td>
-                                <td>NCC001</td>
+                                <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                <td>CTA</td>
+                                <td>Công ty A</td>
                                 <td>Số 5, phố X, phường X, quận X</td>
                                 <td>9988332818</td>
-                                <td>Số 5, phố X, phường X, quận X</td>
-                                <td>0123456789</td>
-                                <td>01234567889</td>
-                                <td>ncca.com.vn</td>
-                                <td>ncca@gmail.com</td>
                                 <td>Sắt thép</td>
-                                <td>Không có</td>
+                                <td>01234567889</td>
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td><a href="chi-tiet-yeu-cau-vat-tu.php">NCC-198-24201</a></td>
-                                <td>NCC1</td>
-                                <td>Nhà cung cấp 1</td>
-                                <td>09988776485</td>
-                                <td>NCC001</td>
+                                <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                <td>CTA</td>
+                                <td>Công ty A</td>
                                 <td>Số 5, phố X, phường X, quận X</td>
                                 <td>9988332818</td>
-                                <td>Số 5, phố X, phường X, quận X</td>
-                                <td>0123456789</td>
-                                <td>01234567889</td>
-                                <td>ncca.com.vn</td>
-                                <td>ncca@gmail.com</td>
                                 <td>Sắt thép</td>
-                                <td>Không có</td>
+                                <td>01234567889</td>
                             </tr>
-
                             </tbody>
                         </table>
                     </div>
