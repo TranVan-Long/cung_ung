@@ -28,17 +28,26 @@ function RefSelect2() {
 
 $("#add-material").click(function () {
     $("#materials").append("<tr class=\"item\">\n" +
-        "                                <td><p class=\"removeItem\"><i class=\"ic-delete remove-btn\"></i></p>\n" +
-        "                                </td>\n" +
-        "                                <td class=\"v-select2\">\n" +
-        "                                    <select name=\"materials-id\" class=\"share_select\"></select>\n" +
-        "                                </td>\n" +
-        "                                <td class=\"v-select2\">\n" +
-        "                                    <select name=\"materials-name\" class=\"share_select\"></select>\n" +
-        "                                </td>\n" +
-        "                                <td><input type=\"text\" readonly disabled></td>\n" +
-        "                                <td><input type=\"text\"></td>\n" +
-        "                            </tr>");
+        "                                    <td class=\"w-10\">\n" +
+        "                                        <p class=\"removeItem\"><i class=\"ic-delete remove-btn\"></i></p>\n" +
+        "                                    </td>\n" +
+        "                                    <td class=\"w-20\">\n" +
+        "                                        <div class=\"v-select2\">\n" +
+        "                                            <select name=\"materials-id\" class=\"share_select\"></select>\n" +
+        "                                        </div>\n" +
+        "                                    </td>\n" +
+        "                                    <td class=\"w-25\">\n" +
+        "                                        <div class=\"v-select2\">\n" +
+        "                                            <select name=\"materials-name\" class=\"share_select\"></select>\n" +
+        "                                        </div>\n" +
+        "                                    </td>\n" +
+        "                                    <td class=\"w-20\">\n" +
+        "                                        <input type=\"text\" readonly disabled>\n" +
+        "                                    </td>\n" +
+        "                                    <td class=\"w-25\">\n" +
+        "                                        <input type=\"text\">\n" +
+        "                                    </td>\n" +
+        "                                </tr>");
     RefSelect2();
 });
 $(document).on('click', '.removeItem', function () {
@@ -93,21 +102,22 @@ $(document).on('click', '.removeItem2', function (){
 
 $("#add-references").click(function () {
     $("#rererences").append("<tr class=\"item\">\n" +
-        "                                <td><p class=\"removeItem\"><i class=\"ic-delete remove-btn\"></i></p>\n" +
-        "                                </td>\n" +
-        "                                <td>\n" +
-        "                                    <input type=\"text\">\n" +
-        "                                </td>\n" +
-        "                                <td>\n" +
-        "                                    <input type=\"text\">\n" +
-        "                                </td>\n" +
-        "                                <td>\n" +
-        "                                    <input type=\"text\">\n" +
-        "                                </td>\n" +
-        "                                <td>\n" +
-        "                                    <input type=\"text\">\n" +
-        "                                </td>\n" +
-        "                            </tr>");
+        "                                        <td class=\"w-5\">\n" +
+        "                                            <p class=\"removeItem\"><i class=\"ic-delete remove-btn\"></i></p>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-30\">\n" +
+        "                                            <input type=\"text\">\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-30\">\n" +
+        "                                            <input type=\"text\">\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-20\">\n" +
+        "                                            <input type=\"text\">\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-30\">\n" +
+        "                                            <input type=\"text\">\n" +
+        "                                        </td>\n" +
+        "                                    </tr>");
     RefSelect2();
 });
 $(document).on('click', '.removeItem', function () {
@@ -117,29 +127,29 @@ $(document).on('click', '.removeItem', function () {
 
 $("#add-ratting-ruler").click(function () {
     $("#ratting-ruler").append("<tr class=\"item\">\n" +
-        "                                <td><p class=\"removeItem\"><i class=\"ic-delete remove-btn\"></i></p>\n" +
-        "                                </td>\n" +
-        "                                <td>\n" +
-        "                                    <p>1</p>\n" +
-        "                                </td>\n" +
-        "                                <td>\n" +
-        "                                    <div class=\"v-select2\">\n" +
-        "                                        <select name=\"chi-nhanh-ngan-hang\" class=\"share_select\"></select>\n" +
-        "                                    </div>\n" +
-        "                                </td>\n" +
-        "                                <td>\n" +
-        "                                    <p>&nbsp;</p>\n" +
-        "                                </td>\n" +
-        "                                <td>\n" +
-        "                                    <input type=\"text\">\n" +
-        "                                </td>\n" +
-        "                                <td>\n" +
-        "                                    <p>&nbsp;</p>\n" +
-        "                                </td>\n" +
-        "                                <td>\n" +
-        "                                    <p>&nbsp;</p>\n" +
-        "                                </td>\n" +
-        "                            </tr>");
+        "                                        <td class=\"w-5\"><p class=\"removeItem\"><i class=\"ic-delete remove-btn\"></i></p>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-5\">\n" +
+        "                                            <p>1</p>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-20\">\n" +
+        "                                            <div class=\"v-select2\">\n" +
+        "                                                <select name=\"chi-nhanh-ngan-hang\" class=\"share_select\"></select>\n" +
+        "                                            </div>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-10\">\n" +
+        "                                            <p>&nbsp;</p>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-20\">\n" +
+        "                                            <input type=\"text\">\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-20\">\n" +
+        "                                            <p>&nbsp;</p>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-20\">\n" +
+        "                                            <p>&nbsp;</p>\n" +
+        "                                        </td>\n" +
+        "                                    </tr>");
     RefSelect2();
 });
 $(document).on('click', '.removeItem', function () {
@@ -148,20 +158,22 @@ $(document).on('click', '.removeItem', function () {
 });
 
 
-
-
+$(window).on("load resize ", function() {
+    var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+    $('.tbl-header').css({'padding-right':scrollWidth});
+}).resize();
 
 // scroll button
 $('.scr-l-btn').click(function(e) {
     e.preventDefault();
-    $('.table-container').animate({
+    $('.table-wrapper').animate({
         scrollLeft: "+=300px"
     }, "slow");
 });
 
 $('.scr-r-btn').click(function(e) {
     e.preventDefault();
-    $('.table-container').animate({
+    $('.table-wrapper').animate({
         scrollLeft: "-=300px"
     }, "slow");
 });

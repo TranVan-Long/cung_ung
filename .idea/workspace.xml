@@ -5,25 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="759d4d1f-94e3-486c-bcbb-c68eecc3cb9f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/home/ncc-details.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/ncc-edit.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/ncc-rating-index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/ncc-ratting-create.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/ncc-ratting-details.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/calendar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/home/ncc-ratting-edit.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/chi-tiet-yeu-cau-vat-tu.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/chi-tiet-yeu-cau-vat-tu.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/chinh-sua-yeu-cau-vat-tu.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/chinh-sua-yeu-cau-vat-tu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/ncc-them.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/ncc-create.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/nha-cung-cap.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/ncc-index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/ncc-create.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/ncc-create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/ncc-details.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/ncc-details.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/ncc-edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/ncc-edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/ncc-index.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/ncc-index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/quan-ly-vat-tu.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/quan-ly-vat-tu.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home/them-yeu-cau-vat-tu.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/them-yeu-cau-vat-tu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/icon.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/icon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/ql_header_nv.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/ql_header_nv.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/includes/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/sidebar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/sidebar-accordion.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/sidebar-accordion.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +73,7 @@
       <updated>1638866171829</updated>
       <workItem from="1638866173272" duration="13413000" />
       <workItem from="1638925835458" duration="21713000" />
-      <workItem from="1639011982662" duration="7409000" />
+      <workItem from="1639011982662" duration="29744000" />
     </task>
     <servers />
   </component>

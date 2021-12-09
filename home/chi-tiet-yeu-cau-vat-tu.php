@@ -100,35 +100,49 @@ include("../includes/icon.php");
 
             </div>
             <div class="left w-100 mt-30">
-                <div class="table-container table-scroll mt-5">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th class="w-10">STT</th>
-                            <th class="w-15">Mã vật tư</th>
-                            <th class="w-30">Tên đầy đủ vật tư thiết bị</th>
-                            <th class="w-20">Đơn vị tính</th>
-                            <th class="w-25">Số lượng yêu cầu duyệt</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>VT-000-99877</td>
-                            <td>Ống nhựa 0,5 m</td>
-                            <td>Cái</td>
-                            <td>50</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>VT-000-99877</td>
-                            <td>Ống nhựa 0,5 m</td>
-                            <td>Cái</td>
-                            <td>50</td>
-                        </tr>
-                        </tbody>
-                    </table>
-
+                <div class="table-wrapper mt-5">
+                    <div class="table-container">
+                        <div class="tbl-header">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <thead>
+                                <tr>
+                                    <th class="w-10">STT</th>
+                                    <th class="w-15">Mã vật tư</th>
+                                    <th class="w-30">Tên đầy đủ vật tư thiết bị</th>
+                                    <th class="w-20">Đơn vị tính</th>
+                                    <th class="w-25">Số lượng yêu cầu duyệt</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="tbl-content table-2-row">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tbody id="materials">
+                                <tr>
+                                    <td class="w-10">1</td>
+                                    <td class="w-20">VT-000-99877</td>
+                                    <td class="w-25">Ống nhựa 0,5 m</td>
+                                    <td class="w-20">Cái</td>
+                                    <td class="w-25">50</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-10">1</td>
+                                    <td class="w-20">VT-000-99877</td>
+                                    <td class="w-25">Ống nhựa 0,5 m</td>
+                                    <td class="w-20">Cái</td>
+                                    <td class="w-25">50</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-10">1</td>
+                                    <td class="w-20">VT-000-99877</td>
+                                    <td class="w-25">Ống nhựa 0,5 m</td>
+                                    <td class="w-20">Cái</td>
+                                    <td class="w-25">50</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <div class="left mt-30">
                     <p class="v-btn btn-green">Xuất excel</p>

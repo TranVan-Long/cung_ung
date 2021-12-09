@@ -160,38 +160,45 @@ $date = date('m-d-Y', time())
                 <div class="mt-50 left w-100">
                     <p class="d-inline text-bold">Người liên hệ</p>
                     <p class="text-blue link-text d-inline pl-20" id="add-references">&plus; Thêm người liên hệ</p>
-                    <div class="table-container table-scroll mt-30">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th class="w-5"></th>
-                                <th class="w-30">Họ tên</th>
-                                <th class="w-30">Chức vụ</th>
-                                <th class="w-20">Điện thoại</th>
-                                <th class="w-30">Email</th>
-                            </tr>
-                            </thead>
-                            <tbody id="rererences">
-                            <tr class="item">
-                                <td>
-                                    <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                                </td>
-                                <td>
-                                    <input type="text">
-                                </td>
-                                <td>
-                                    <input type="text">
-                                </td>
-                                <td>
-                                    <input type="text">
-                                </td>
-                                <td>
-                                    <input type="text">
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-
+                    <div class="table-wrapper mt-30">
+                        <div class="table-container">
+                            <div class="tbl-header">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <thead>
+                                    <tr>
+                                        <th class="w-5"></th>
+                                        <th class="w-30">Họ tên</th>
+                                        <th class="w-30">Chức vụ</th>
+                                        <th class="w-20">Điện thoại</th>
+                                        <th class="w-30">Email</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="tbl-content table-2-row">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <tbody id="rererences">
+                                    <tr class="item">
+                                        <td class="w-5">
+                                            <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                                        </td>
+                                        <td class="w-30">
+                                            <input type="text">
+                                        </td>
+                                        <td class="w-30">
+                                            <input type="text">
+                                        </td>
+                                        <td class="w-20">
+                                            <input type="text">
+                                        </td>
+                                        <td class="w-30">
+                                            <input type="text">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

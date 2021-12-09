@@ -79,101 +79,109 @@ include("../includes/icon.php");
                     </label>
                 </div>
                 <div class="left w-100">
+                    <div class="table-wrapper">
                     <div class="table-container">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>Số phiếu yêu cầu</th>
-                                <th>Ngày gửi</th>
-                                <th>Công trình</th>
-                                <th>Ngày phải hoàn thành</th>
-                                <th>Trạng thái duyệt</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><a href="chi-tiet-yeu-cau-vat-tu.php">YC-000-02983</a></td>
-                                <td>29/10/2021</td>
-                                <td>Xây dựng nhà văn hóa</td>
-                                <td>10/11/2021</td>
-                                <td>Đã duyệt</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a href="#">YC-000-02983</a></td>
-                                <td>29/10/2021</td>
-                                <td>Xây dựng nhà văn hóa</td>
-                                <td>10/11/2021</td>
-                                <td>Chờ duyệt</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><a href="#">YC-000-02983</a></td>
-                                <td>29/10/2021</td>
-                                <td>Xây dựng nhà văn hóa</td>
-                                <td>10/11/2021</td>
-                                <td>Đã bị từ chối</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><a href="#">YC-000-02983</a></td>
-                                <td>29/10/2021</td>
-                                <td>Xây dựng nhà văn hóa</td>
-                                <td>10/11/2021</td>
-                                <td>Đã hoàn thành</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td><a href="#">YC-000-02983</a></td>
-                                <td>29/10/2021</td>
-                                <td>Xây dựng nhà văn hóa</td>
-                                <td>10/11/2021</td>
-                                <td>Đã duyệt</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td><a href="#">YC-000-02983</a></td>
-                                <td>29/10/2021</td>
-                                <td>Xây dựng nhà văn hóa</td>
-                                <td>10/11/2021</td>
-                                <td>Chờ duyệt</td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td><a href="#">YC-000-02983</a></td>
-                                <td>29/10/2021</td>
-                                <td>Xây dựng nhà văn hóa</td>
-                                <td>10/11/2021</td>
-                                <td>Đã bị từ chối</td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td><a href="#">YC-000-02983</a></td>
-                                <td>29/10/2021</td>
-                                <td>Xây dựng nhà văn hóa</td>
-                                <td>10/11/2021</td>
-                                <td>Đã hoàn thành</td>
-                            </tr>
-                            <tr>
-                                <td>9</td>
-                                <td><a href="#">YC-000-02983</a></td>
-                                <td>29/10/2021</td>
-                                <td>Xây dựng nhà văn hóa</td>
-                                <td>10/11/2021</td>
-                                <td>Đã duyệt</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td><a href="#">YC-000-02983</a></td>
-                                <td>29/10/2021</td>
-                                <td>Xây dựng nhà văn hóa</td>
-                                <td>10/11/2021</td>
-                                <td>Chờ duyệt</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <div class="tbl-header">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Số phiếu yêu cầu</th>
+                                    <th>Ngày gửi</th>
+                                    <th>Công trình</th>
+                                    <th>Ngày phải hoàn thành</th>
+                                    <th>Trạng thái duyệt</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="tbl-content">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><a href="chi-tiet-yeu-cau-vat-tu.php">YC-000-02983</a></td>
+                                    <td>29/10/2021</td>
+                                    <td>Xây dựng nhà văn hóa</td>
+                                    <td>10/11/2021</td>
+                                    <td>Đã duyệt</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><a href="#">YC-000-02983</a></td>
+                                    <td>29/10/2021</td>
+                                    <td>Xây dựng nhà văn hóa</td>
+                                    <td>10/11/2021</td>
+                                    <td>Chờ duyệt</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><a href="#">YC-000-02983</a></td>
+                                    <td>29/10/2021</td>
+                                    <td>Xây dựng nhà văn hóa</td>
+                                    <td>10/11/2021</td>
+                                    <td>Đã bị từ chối</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><a href="#">YC-000-02983</a></td>
+                                    <td>29/10/2021</td>
+                                    <td>Xây dựng nhà văn hóa</td>
+                                    <td>10/11/2021</td>
+                                    <td>Đã hoàn thành</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><a href="#">YC-000-02983</a></td>
+                                    <td>29/10/2021</td>
+                                    <td>Xây dựng nhà văn hóa</td>
+                                    <td>10/11/2021</td>
+                                    <td>Đã duyệt</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td><a href="#">YC-000-02983</a></td>
+                                    <td>29/10/2021</td>
+                                    <td>Xây dựng nhà văn hóa</td>
+                                    <td>10/11/2021</td>
+                                    <td>Chờ duyệt</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td><a href="#">YC-000-02983</a></td>
+                                    <td>29/10/2021</td>
+                                    <td>Xây dựng nhà văn hóa</td>
+                                    <td>10/11/2021</td>
+                                    <td>Đã bị từ chối</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td><a href="#">YC-000-02983</a></td>
+                                    <td>29/10/2021</td>
+                                    <td>Xây dựng nhà văn hóa</td>
+                                    <td>10/11/2021</td>
+                                    <td>Đã hoàn thành</td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td><a href="#">YC-000-02983</a></td>
+                                    <td>29/10/2021</td>
+                                    <td>Xây dựng nhà văn hóa</td>
+                                    <td>10/11/2021</td>
+                                    <td>Đã duyệt</td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td><a href="#">YC-000-02983</a></td>
+                                    <td>29/10/2021</td>
+                                    <td>Xây dựng nhà văn hóa</td>
+                                    <td>10/11/2021</td>
+                                    <td>Chờ duyệt</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>

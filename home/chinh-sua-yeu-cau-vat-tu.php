@@ -85,53 +85,60 @@ include("../includes/icon.php");
                 </div>
                 <div class="mt-30 left w-100">
                     <p class="text-blue link-text" id="add-material">&plus; Thêm mới vật tư</p>
-                    <div class="table-container table-scroll mt-5">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th class="w-10"></th>
-                                <th class="w-20">Mã vật tư</th>
-                                <th class="w-25">Tên đầy đủ vật tư thiết bị</th>
-                                <th class="w-20">Đơn vị tính</th>
-                                <th class="w-25">Số lượng yêu cầu duyệt</th>
-                            </tr>
-                            </thead>
-                            <tbody id="materials">
-                            <tr class="item">
-                                <td><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                                </td>
-                                <td>
-                                    <div class="v-select2">
-                                        <select name="materials-id" class="share_select"></select>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="v-select2">
-                                        <select name="materials-name" class="share_select"></select>
-                                    </div>
-                                </td>
-                                <td><input type="text" readonly disabled></td>
-                                <td><input type="text"></td>
-                            </tr>
-                            <tr class="item">
-                                <td><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                                </td>
-                                <td>
-                                    <div class="v-select2">
-                                        <select name="materials-id" class="share_select"></select>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="v-select2">
-                                        <select name="materials-name" class="share_select"></select>
-                                    </div>
-                                </td>
-                                <td><input type="text" readonly disabled></td>
-                                <td><input type="text"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-
+                    <div class="table-wrapper mt-5">
+                        <div class="table-container">
+                            <div class="tbl-header">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <thead>
+                                    <tr>
+                                        <th class="w-10"></th>
+                                        <th class="w-20">Mã vật tư</th>
+                                        <th class="w-25">Tên đầy đủ vật tư thiết bị</th>
+                                        <th class="w-20">Đơn vị tính</th>
+                                        <th class="w-25">Số lượng yêu cầu duyệt</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="tbl-content table-2-row">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <tbody id="materials">
+                                    <tr class="item">
+                                        <td class="w-10"><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                                        </td>
+                                        <td class="w-20">
+                                            <div class="v-select2">
+                                                <select name="materials-id" class="share_select"></select>
+                                            </div>
+                                        </td>
+                                        <td class="w-25">
+                                            <div class="v-select2">
+                                                <select name="materials-name" class="share_select"></select>
+                                            </div>
+                                        </td>
+                                        <td class="w-20"><input type="text" readonly disabled></td>
+                                        <td class="w-25"><input type="text"></td>
+                                    </tr>
+                                    <tr class="item">
+                                        <td class="w-10"><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                                        </td>
+                                        <td class="w-20">
+                                            <div class="v-select2">
+                                                <select name="materials-id" class="share_select"></select>
+                                            </div>
+                                        </td>
+                                        <td class="w-25">
+                                            <div class="v-select2">
+                                                <select name="materials-name" class="share_select"></select>
+                                            </div>
+                                        </td>
+                                        <td class="w-20"><input type="text" readonly disabled></td>
+                                        <td class="w-25"><input type="text"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

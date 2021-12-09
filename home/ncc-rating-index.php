@@ -30,7 +30,7 @@ include("../includes/icon.php");
         <!--        header end-->
         <div class="content">
             <div class="c-top border-bottom-2">
-                <h4 class="left">Nhà cung cấp</h4>
+                <h4 class="left">Đánh giá nhà cung cấp</h4>
                 <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
             </div>
             <div class="c-body mt-20">
@@ -38,10 +38,9 @@ include("../includes/icon.php");
                     <div class="category v-select2">
                         <select name="category" class="share_select">
                             <option value="">Tìm kiếm theo</option>
-                            <option value="1">Mã nhà cung cấp</option>
-                            <option value="2">Tên nhà cung cấp</option>
-                            <option value="3">Số ĐKKD</option>
-                            <option value="4">Mã số thuế</option>
+                            <option value="1">Ngày gửi</option>
+                            <option value="2">Công trình</option>
+                            <option value="3">Ngày phải hoàn thành</option>
                         </select>
                     </div>
                     <div class="search-box v-select2">
@@ -49,7 +48,7 @@ include("../includes/icon.php");
                             <option value="">Nhập thông tin cần tìm kiếm</option>
                         </select>
                     </div>
-                    <a class="v-btn btn-blue add-btn" href="../home/ncc-create.php">&plus; Thêm mới</a>
+                    <a class="v-btn btn-blue add-btn" href="../home/ncc-ratting-create.php">&plus; Thêm mới</a>
                 </div>
                 <div class="scr-wrapper mt-30">
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
@@ -61,13 +60,11 @@ include("../includes/icon.php");
                                     <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th>Mã nhà cung cấp</th>
-                                        <th>Tên gọi tắt</th>
-                                        <th>Tên nhà cung cấp</th>
-                                        <th>Địa chỉ</th>
-                                        <th>Số ĐKKD</th>
-                                        <th>Sản phẩm cung ứng</th>
-                                        <th>Mã số thuế</th>
+                                        <th>Số phiếu</th>
+                                        <th>Ngày đánh giá</th>
+                                        <th>Nhà cung cấp</th>
+                                        <th>Điểm</th>
+                                        <th>Đánh giá khác</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -77,103 +74,83 @@ include("../includes/icon.php");
                                     <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
-                                        <td>CTA</td>
-                                        <td>Công ty A</td>
-                                        <td>Số 5, phố X, phường X, quận X</td>
-                                        <td>9988332818</td>
-                                        <td>Sắt thép</td>
-                                        <td>01234567889</td>
+                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td>27/10/2021</td>
+                                        <td>Nhà cung cấp A</td>
+                                        <td>8/10</td>
+                                        <td>Không có</td>
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
-                                        <td>CTA</td>
-                                        <td>Công ty A</td>
-                                        <td>Số 5, phố X, phường X, quận X</td>
-                                        <td>9988332818</td>
-                                        <td>Sắt thép</td>
-                                        <td>01234567889</td>
+                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td>27/10/2021</td>
+                                        <td>Nhà cung cấp A</td>
+                                        <td>8/10</td>
+                                        <td>Không có</td>
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
-                                        <td>CTA</td>
-                                        <td>Công ty A</td>
-                                        <td>Số 5, phố X, phường X, quận X</td>
-                                        <td>9988332818</td>
-                                        <td>Sắt thép</td>
-                                        <td>01234567889</td>
+                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td>27/10/2021</td>
+                                        <td>Nhà cung cấp A</td>
+                                        <td>8/10</td>
+                                        <td>Không có</td>
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
-                                        <td>CTA</td>
-                                        <td>Công ty A</td>
-                                        <td>Số 5, phố X, phường X, quận X</td>
-                                        <td>9988332818</td>
-                                        <td>Sắt thép</td>
-                                        <td>01234567889</td>
+                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td>27/10/2021</td>
+                                        <td>Nhà cung cấp A</td>
+                                        <td>8/10</td>
+                                        <td>Không có</td>
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
-                                        <td>CTA</td>
-                                        <td>Công ty A</td>
-                                        <td>Số 5, phố X, phường X, quận X</td>
-                                        <td>9988332818</td>
-                                        <td>Sắt thép</td>
-                                        <td>01234567889</td>
+                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td>27/10/2021</td>
+                                        <td>Nhà cung cấp A</td>
+                                        <td>8/10</td>
+                                        <td>Không có</td>
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
-                                        <td>CTA</td>
-                                        <td>Công ty A</td>
-                                        <td>Số 5, phố X, phường X, quận X</td>
-                                        <td>9988332818</td>
-                                        <td>Sắt thép</td>
-                                        <td>01234567889</td>
+                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td>27/10/2021</td>
+                                        <td>Nhà cung cấp A</td>
+                                        <td>8/10</td>
+                                        <td>Không có</td>
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
-                                        <td>CTA</td>
-                                        <td>Công ty A</td>
-                                        <td>Số 5, phố X, phường X, quận X</td>
-                                        <td>9988332818</td>
-                                        <td>Sắt thép</td>
-                                        <td>01234567889</td>
+                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td>27/10/2021</td>
+                                        <td>Nhà cung cấp A</td>
+                                        <td>8/10</td>
+                                        <td>Không có</td>
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
-                                        <td>CTA</td>
-                                        <td>Công ty A</td>
-                                        <td>Số 5, phố X, phường X, quận X</td>
-                                        <td>9988332818</td>
-                                        <td>Sắt thép</td>
-                                        <td>01234567889</td>
+                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td>27/10/2021</td>
+                                        <td>Nhà cung cấp A</td>
+                                        <td>8/10</td>
+                                        <td>Không có</td>
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
-                                        <td>CTA</td>
-                                        <td>Công ty A</td>
-                                        <td>Số 5, phố X, phường X, quận X</td>
-                                        <td>9988332818</td>
-                                        <td>Sắt thép</td>
-                                        <td>01234567889</td>
+                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td>27/10/2021</td>
+                                        <td>Nhà cung cấp A</td>
+                                        <td>8/10</td>
+                                        <td>Không có</td>
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
-                                        <td>CTA</td>
-                                        <td>Công ty A</td>
-                                        <td>Số 5, phố X, phường X, quận X</td>
-                                        <td>9988332818</td>
-                                        <td>Sắt thép</td>
-                                        <td>01234567889</td>
+                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td>27/10/2021</td>
+                                        <td>Nhà cung cấp A</td>
+                                        <td>8/10</td>
+                                        <td>Không có</td>
                                     </tr>
                                     </tbody>
                                 </table>
