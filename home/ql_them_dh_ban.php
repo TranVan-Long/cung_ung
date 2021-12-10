@@ -47,7 +47,7 @@ include "../includes/icon.php";
                                     </div>
                                     <div class="form-group">
                                         <label>Địa chỉ</label>
-                                        <input type="text" name="dia_chi" class="form-control">
+                                        <input type="text" name="dia_chi" value="aaa" class="form-control" disabled>
                                     </div>
                                 </div>
                                 <div class="form-row w_100 fload_l">

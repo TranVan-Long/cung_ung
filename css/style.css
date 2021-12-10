@@ -80,6 +80,14 @@ img {
     background: #FFA800;
 }
 
+.sh_bgr_four {
+    background: #D6D9F5;
+}
+
+.sh_bgr_five {
+    background: #D9F2E3;
+}
+
 .share_clr_one {
     color: #474747;
 }
@@ -144,6 +152,10 @@ img {
     margin-top: 30px;
 }
 
+.mb_10 {
+    margin-bottom: 10px;
+}
+
 .mb_20 {
     margin-bottom: 20px;
 }
@@ -158,6 +170,18 @@ img {
 
 .mr_10 {
     margin-right: 10px;
+}
+
+.mr_30 {
+    margin-right: 30px;
+}
+
+.ml_20 {
+    margin-left: 20px;
+}
+
+.ml_50 {
+    margin-left: 50px;
 }
 
 .form-group .form-control.h_border {
@@ -214,6 +238,10 @@ img {
     height: 36px;
 }
 
+.share_h_52 {
+    height: 52px;
+}
+
 .share_tb_one {
     width: 5%;
 }
@@ -250,6 +278,7 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 0;
 }
 
 .share_distance .form-row .form-group {
@@ -1924,10 +1953,6 @@ img {
     background: #E2E2E2;
 }
 
-.share_xuat_gmc p:last-child {
-    margin-left: 20px;
-}
-
 .xuat_gmc_two p:nth-child(1) {
     border: 1px solid #FF3333;
 }
@@ -1946,10 +1971,6 @@ img {
     overflow-y: auto;
 }
 
-.ctn_table_ct .table {
-    min-width: 2624px;
-    min-height: 30px;
-}
 
 .bao_hanh {
     justify-content: space-between;
@@ -2025,6 +2046,18 @@ img {
     min-width: 2867px;
 }
 
+.ql_ho_so_tt .table {
+    min-width: 2424px;
+}
+
+.ql_ct_hs_tt .table {
+    min-width: 3275px;
+}
+
+.ql_phieu_tt .table {
+    min-width: 2202px;
+}
+
 .table .form-group {
     width: 100%;
     margin-bottom: 0;
@@ -2066,6 +2099,27 @@ thead th.sh_bor_b {
     line-height: 36px;
 }
 
+.ql_them_hs_tt .them_moi_vt {
+    margin-top: 70px;
+}
+
+.ql_them_phieu_tt .ctn_table .table {
+    min-width: 0;
+}
+
+.form-them-nganh {
+    margin-top: 50px;
+}
+
+.form-them-nganh .tieu_de {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #474747;
+}
+
+.tien_chi_tra {
+    border-bottom: 1px solid #474747;
+    margin-bottom: 45px;
+}
 
 
 @media screen and (max-width: 1366px) {

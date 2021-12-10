@@ -50,6 +50,18 @@ RewriteRule ^quan-ly-chi-tiet-hop-dong-van-chuyen$ /home/ql_ct_hopd_vc.php [NE,L
 RewriteRule ^them-hop-dong-van-chuyen.html$ /home/ql_them_hd_vc.php [NE,L]
 RewriteRule ^chinh-sua-hop-dong-van-chuyen.html$ /home/ql_sua_hd_vc.php [NE,L]
 
+# quản lý đơn hàng
+RewriteRule ^quan-ly-don-hang.html$ /home/ql_don_hang.php [NE,L]
+
+RewriteRule ^chi-tiet-don-hang-ban.html$ /home/ql_ct_dh_ban.php [NE,L]
+RewriteRule ^them-don-hang-ban.html$ /home/ql_them_dh_ban.php [NE,L]
+RewriteRule ^chinh-sua-don-hang-ban.html$ /home/ql_sua_dh_ban.php [NE,L]
+
+RewriteRule ^chi-tiet-don-hang-mua.html$ /home/ql_ct_dh_mua.php [NE,L]
+RewriteRule ^them-don-hang-mua.html$ /home/ql_them_dh_mua.php [NE,L]
+RewriteRule ^chinh-sua-don-hang-mua.html$ /home/ql_sua_dh_mua.php [NE,L]
+
+
 # quản lý vật tư
 RewriteRule ^quan-ly-vat-tu.html$ /home/quan-ly-vat-tu.php [NE,L]
 RewriteRule ^quan-ly-chi-tiet-yeu-cau-vat-tu.html$ /home/chi-tiet-yeu-cau-vat-tu.php [NE,L]

@@ -7,7 +7,7 @@ include "../includes/icon.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Quản lý đơn hàng</title>
+    <title>Quản lý hồ sơ thanh toán</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
 
     <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -24,7 +24,7 @@ include "../includes/icon.php";
 </head>
 
 <body>
-    <div class="main-container ql_don_hang ql_chung">
+    <div class="main-container ql_ho_so_tt ql_chung">
         <? include('../includes/sidebar.php') ?>
         <div class="container">
             <div class="header-container">
@@ -33,7 +33,7 @@ include "../includes/icon.php";
 
             <div class="content">
                 <div class="c-top d_flex flex_jct fl_agi">
-                    <h4 class="c-name share_fsize_four share_clr_one">Đơn hàng</h4>
+                    <h4 class="c-name share_fsize_four share_clr_one">Hồ sơ thanh toán</h4>
                     <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
                 </div>
                 <div class="c-body">
@@ -54,14 +54,6 @@ include "../includes/icon.php";
                         </div>
                         <div class="add_hopd">
                             <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">&plus; Thêm mới</p>
-                            <div class="all_hopd share_bgr_tow">
-                                <p class="hd_mua_vt">
-                                    <a class="share_clr_one share_fsize_one" href="them-don-hang-mua.html">Đơn hàng mua vật tư</a>
-                                </p>
-                                <p class="hopd_bvt">
-                                    <a class="share_clr_one share_fsize_one" href="them-don-hang-ban.html">Đơn hàng bán vật tư</a>
-                                </p>
-                            </div>
                         </div>
                     </div>
 
@@ -73,96 +65,75 @@ include "../includes/icon.php";
                                     <thead>
                                         <tr>
                                             <th class="share_tb_seven">STT</th>
-                                            <th class="share_tb_two">Số đơn hàng</th>
-                                            <th class="share_tb_two">Số hợp đồng</th>
-                                            <th class="share_tb_one">Ngày ký</th>
-                                            <th class="share_tb_one">Thời hạn</th>
-                                            <th class="share_tb_four">Nhà cung cấp</th>
-                                            <th class="share_tb_two">Công trình</th>
-                                            <th class="share_tb_two">Loại hợp đồng</th>
-                                            <th class="share_tb_eight">Trạng thái</th>
-                                            <th class="share_tb_two">Tạm ứng</th>
-                                            <th class="share_tb_two">Giá trị cần phải trả</th>
+                                            <th class="share_tb_eight">Đợt nghiệm thu</th>
+                                            <th class="share_tb_two">Thời gian nghiệm thu</th>
+                                            <th class="share_tb_two">Đơn vị thực hiện</th>
+                                            <th class="share_tb_two">Hợp đồng đơn hàng</th>
+                                            <th class="share_tb_one">Thời hạn thanh toán</th>
+                                            <th class="share_tb_two">Giá trị thực hiện sau VAT</th>
+                                            <th class="share_tb_one">Giá trị bảo hành</th>
+                                            <th class="share_tb_two">Thu hồi tạm ứng</th>
+                                            <th class="share_tb_two">Đã thanh toán</th>
+                                            <th class="share_tb_two">Còn lại</th>
+                                            <th class="share_tb_two">Trạng thái</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="#">ĐH - 0001</a></td>
-                                            <td>HĐ-999-34369</td>
+                                            <td><a href="#">NT-001-19835</a></td>
                                             <td>14/10/2021</td>
-                                            <td>30/10/2021</td>
                                             <td>Công ty X</td>
-                                            <td>Nâng cáp toàn nhà 20A</td>
-                                            <td>Hợp đông mua vật tư</td>
-                                            <td>Hoàn thành</td>
+                                            <td>ĐH-001-28736</td>
+                                            <td>30/11/2021</td>
+                                            <td>11.500.000</td>
+                                            <td>450.000</td>
                                             <td>0</td>
                                             <td>0</td>
+                                            <td>11.500.000</td>
+                                            <td>Chưa hoàn thành</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="#">ĐH - 0001</a></td>
-                                            <td>HĐ-999-34369</td>
+                                            <td><a href="#">NT-001-19835</a></td>
                                             <td>14/10/2021</td>
-                                            <td>30/10/2021</td>
                                             <td>Công ty X</td>
-                                            <td>Nâng cáp toàn nhà 20A</td>
-                                            <td>Hợp đông mua vật tư</td>
+                                            <td>HĐ-001-28736</td>
+                                            <td>30/11/2021</td>
+                                            <td>11.500.000</td>
+                                            <td>450.000</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>11.500.000</td>
                                             <td>Hoàn thành</td>
-                                            <td>0</td>
-                                            <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="#">ĐH - 0001</a></td>
-                                            <td>HĐ-999-34369</td>
+                                            <td><a href="#">NT-001-19835</a></td>
                                             <td>14/10/2021</td>
-                                            <td>30/10/2021</td>
                                             <td>Công ty X</td>
-                                            <td>Nâng cáp toàn nhà 20A</td>
-                                            <td>Hợp đông mua vật tư</td>
-                                            <td>Hoàn thành</td>
+                                            <td>ĐH-001-28736</td>
+                                            <td>30/11/2021</td>
+                                            <td>11.500.000</td>
+                                            <td>450.000</td>
                                             <td>0</td>
                                             <td>0</td>
+                                            <td>11.500.000</td>
+                                            <td>Chưa hoàn thành</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="#">ĐH - 0001</a></td>
-                                            <td>HĐ-999-34369</td>
+                                            <td><a href="#">NT-001-19835</a></td>
                                             <td>14/10/2021</td>
-                                            <td>30/10/2021</td>
                                             <td>Công ty X</td>
-                                            <td>Nâng cáp toàn nhà 20A</td>
-                                            <td>Hợp đông mua vật tư</td>
+                                            <td>HĐ-001-28736</td>
+                                            <td>30/11/2021</td>
+                                            <td>11.500.000</td>
+                                            <td>450.000</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>11.500.000</td>
                                             <td>Hoàn thành</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><a href="#">ĐH - 0001</a></td>
-                                            <td>HĐ-999-34369</td>
-                                            <td>14/10/2021</td>
-                                            <td>30/10/2021</td>
-                                            <td>Công ty X</td>
-                                            <td>Nâng cáp toàn nhà 20A</td>
-                                            <td>Hợp đông mua vật tư</td>
-                                            <td>Hoàn thành</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><a href="#">ĐH - 0001</a></td>
-                                            <td>HĐ-999-34369</td>
-                                            <td>14/10/2021</td>
-                                            <td>30/10/2021</td>
-                                            <td>Công ty X</td>
-                                            <td>Nâng cáp toàn nhà 20A</td>
-                                            <td>Hợp đông mua vật tư</td>
-                                            <td>Hoàn thành</td>
-                                            <td>0</td>
-                                            <td>0</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -203,6 +174,10 @@ $(".tim_kiem, .tim_kiem_o").select2({
     width: '100%',
 });
 
+$(".add_creart_hd").click(function(){
+    window.location.href = "them-moi-ho-so-thanh-toan.html";
+});
+
 (function(w) {
     w.addEventListener('load', function() {
         const btn_right = document.querySelector('.scroll_right'),
@@ -228,19 +203,6 @@ $(".tim_kiem, .tim_kiem_o").select2({
         });
     });
 })(window);
-
-var add_creart_hd = $(".add_creart_hd");
-var all_hopd = $(".all_hopd");
-
-$(".add_creart_hd").click(function(){
-    $(".all_hopd").toggleClass("active");
-})
-
-$(window).click(function(e){
-    if(!add_creart_hd.is(e.target) && !all_hopd.is(e.target) && add_creart_hd.has(e.target).length == 0){
-        all_hopd.removeClass("active");
-    }
-})
 </script>
 
 </html>
