@@ -73,7 +73,7 @@ p {
     margin-top: var(--bs-gutter-y);
 }
 
-input[type=text], input[type=date] {
+input{
     width: 100%;
     height: 36px;
     font-size: 16px;
@@ -83,7 +83,7 @@ input[type=text], input[type=date] {
     border: 1px solid #666666;
     border-radius: 8px;
 }
-td input[type=text], td input[type=date]{
+td input{
     border-radius: 4px;
 }
 .date-input{
@@ -530,6 +530,9 @@ textarea[placeholder] {
 .ic-logout {
     content: url("/img/logout.png");
 }
+.ic-more-v{
+    content: url("/img/more-vertical.png");
+}
 
 .ic-question {
     position: absolute;
@@ -550,11 +553,15 @@ textarea[placeholder] {
     content: url("/img/remove.png");
 }
 .ic-delete2{
+    cursor: pointer;
     content: url("/img/remove-2.png");
 }
 p.removeItem2{
-    cursor: pointer;
     margin-top: -64px;
+    margin-right: 50px;
+}
+p.removeItem3{
+    margin-top: -32px;
     margin-right: 50px;
 }
 
@@ -629,6 +636,9 @@ p.removeItem2{
     overflow-x: scroll;
     overflow-y: hidden;
 }
+.scr-wrapper::-webkit-scrollbar{
+    display: none;
+}
 
 .table-container{
     width: 100%;
@@ -687,6 +697,18 @@ td a{
     background: #fafafa;
 }
 .tbl-content::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 20px;
+    background: #C4C4C4;
+}
+.table-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+.table-wrapper::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background: #fafafa;
+}
+.table-wrapper::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     border-radius: 20px;
     background: #C4C4C4;
@@ -999,7 +1021,9 @@ select#display {
 .m-body {
     line-height: 2.0;
     padding: 10px 20px;
-
+}
+.m-body p{
+    cursor: pointer;
 }
 
 .m-foot {
@@ -1050,4 +1074,47 @@ select#display {
 .scr-r-btn{
     left: 10px;
     border-radius: 8px 0 0 8px;
+}
+.rate-val{
+    height: 52px;
+    padding-top: 12px;
+}
+.more{
+    position: relative;
+}
+.tbl-menu{
+    right: 0;
+    top: 20px;
+    position: absolute;
+}
+.tbl-menu:after {
+    cursor: pointer;
+    content: '\2807';
+    font-size: 30px;
+    right: 0;
+
+}
+.tbl-menu-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    width: 400px;
+    height: 72px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.12);
+    padding: 10px;
+    text-align: left;
+    right: 0;
+    top: 52px;
+    border-radius: 8px;
+    z-index: 1;
+}
+.tbl-menu-content.active{
+    display: block;
+}
+.tbl-menu-text{
+    cursor: pointer;
+    padding-left: 36px;
+}
+.manual-value{
+    display: none;
 }

@@ -59,7 +59,7 @@
                     <a href="../home/ncc-rating-index.php"><span><?php echo $ic_circle ?></span>Đánh giá nhà cung cấp</a>
                 </li>
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span>Tiêu chí đánh giá</a>
+                    <a href="../home/ratting-rules-index.php"><span><?php echo $ic_circle ?></span>Tiêu chí đánh giá</a>
                 </li>
             </ul>
         </li>

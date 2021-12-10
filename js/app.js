@@ -1,6 +1,23 @@
+var dropDown = $('ul .dropdown');
+var dropDownContent = $('li ul .dropdown-content');
+var tblMenu = $('td .tbl-menu');
+var  tblMenuContent = $('td .tbl-menu-content');
+
 $('.dropdown').click(function (){
-    $('.dropdown-content').slideToggle();
+    $(this).parents('ul').find('.dropdown-content').slideToggle();
 });
+
+$('.tbl-menu').click(function (){
+    $(this).parents("td").find(".tbl-menu-content").toggleClass('active');
+});
+$(window).click(function (e){
+    if (!tblMenu.is(e.target) && !tblMenuContent.is(e.target) && tblMenuContent.has(e.target).length === 0){
+        tblMenuContent.removeClass('active');
+    }
+    // if (!dropDown.is(e.target) && !dropDownContent.is(e.target) && dropDownContent.has(e.target).length === 0){
+    //     dropDownContent.slideUp();
+    // }
+})
 
 
 $('.modal-btn').click(function () {
@@ -157,6 +174,31 @@ $(document).on('click', '.removeItem', function () {
     return false;
 });
 
+$('#add-rules-value').click(function (){
+    $('#rules-value').append("<div class=\"value border-bottom left w-100 pb-20\">\n" +
+        "                            <div class=\"form-row left\">\n" +
+        "                                <div class=\"form-col-50 left\">\n" +
+        "                                    <label for=\"gia-tri\">Giá trị<span\n" +
+        "                                                class=\"text-red\">*</span></label>\n" +
+        "                                    <input type=\"text\" id=\"gia-tri\" name=\"gia-tri\"\n" +
+        "                                           placeholder=\"Nhập giá trị\">\n" +
+        "                                </div>\n" +
+        "                                <div class=\"form-col-50 left ml-10-p\">\n" +
+        "                                    <label for=\"ten-hien-thi\">Tên hiển thị</label>\n" +
+        "                                    <input type=\"text\" id=\"ten-hien-thi\" name=\"ten-hien-thi\" placeholder=\"Nhập tên hiển thị\">\n" +
+        "                                </div>\n" +
+        "                            </div>\n" +
+        "                            <div class=\"right\">\n" +
+        "                                <p class=\"removeItem3\"><i class=\"ic-delete2\"></i></p>\n" +
+        "                            </div>\n" +
+        "                        </div>");
+    RefSelect2();
+})
+$(document).on('click', '.removeItem3', function (){
+    $(this).parents('div.value').remove();
+    return false;
+})
+
 
 $(window).on("load resize ", function() {
     var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
@@ -177,3 +219,23 @@ $('.scr-r-btn').click(function(e) {
         scrollLeft: "-=300px"
     }, "slow");
 });
+$('#value-type').on('change', function() {
+    var selectedValue = this.value;
+    if (selectedValue == 2){
+        $('.manual-value').show();
+    }else {
+        $('.manual-value').hide();
+    }
+});
+
+$('.tbl-menu').click(function (){
+    var id = $(this).attr("data-tab");
+
+    $(".tbl-menu-content").removeClass("active");
+
+    $('#'+ id).addClass("active");
+
+
+})
+
+
