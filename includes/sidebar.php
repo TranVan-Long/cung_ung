@@ -64,7 +64,7 @@
             </ul>
         </li>
         <li>
-            <a href="#"><span><?php echo $ic_customer ?></span>Khách hàng</a>
+            <a href="../home/kh-index.php"><span><?php echo $ic_customer ?></span>Khách hàng</a>
         </li>
         <li class="collapse" data-tab="sub-menu4">
             <a href=""><span><?php echo $ic_report ?></span>Báo cáo</a>
