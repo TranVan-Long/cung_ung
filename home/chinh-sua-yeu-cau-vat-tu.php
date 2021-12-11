@@ -84,7 +84,6 @@ include("../includes/icon.php");
                     </div>
                 </div>
                 <div class="mt-30 left w-100">
-                    <p class="text-blue link-text" id="add-material">&plus; Thêm mới vật tư</p>
                     <div class="table-wrapper mt-5">
                         <div class="table-container">
                             <div class="tbl-header">
@@ -92,7 +91,7 @@ include("../includes/icon.php");
                                     <thead>
                                     <tr>
                                         <th class="w-10"></th>
-                                        <th class="w-20">Mã vật tư</th>
+                                        <th class="w-15">Mã vật tư</th>
                                         <th class="w-25">Tên đầy đủ vật tư thiết bị</th>
                                         <th class="w-20">Đơn vị tính</th>
                                         <th class="w-25">Số lượng yêu cầu duyệt</th>
@@ -106,7 +105,7 @@ include("../includes/icon.php");
                                     <tr class="item">
                                         <td class="w-10"><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
                                         </td>
-                                        <td class="w-20">
+                                        <td class="w-15">
                                             <div class="v-select2">
                                                 <select name="materials-id" class="share_select"></select>
                                             </div>
@@ -122,7 +121,7 @@ include("../includes/icon.php");
                                     <tr class="item">
                                         <td class="w-10"><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
                                         </td>
-                                        <td class="w-20">
+                                        <td class="w-15">
                                             <div class="v-select2">
                                                 <select name="materials-id" class="share_select"></select>
                                             </div>

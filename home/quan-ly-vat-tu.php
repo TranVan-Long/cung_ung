@@ -85,12 +85,12 @@ include("../includes/icon.php");
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <thead>
                                 <tr>
-                                    <th>STT</th>
-                                    <th>Số phiếu yêu cầu</th>
-                                    <th>Ngày gửi</th>
-                                    <th>Công trình</th>
-                                    <th>Ngày phải hoàn thành</th>
-                                    <th>Trạng thái duyệt</th>
+                                    <th class="w-5">STT</th>
+                                    <th class="w-15">Số phiếu yêu cầu</th>
+                                    <th class="w-10">Ngày gửi</th>
+                                    <th class="w-20">Công trình</th>
+                                    <th class="w-15">Ngày phải hoàn thành</th>
+                                    <th class="w-15">Trạng thái duyệt</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -99,12 +99,12 @@ include("../includes/icon.php");
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td><a href="chi-tiet-yeu-cau-vat-tu.php">YC-000-02983</a></td>
-                                    <td>29/10/2021</td>
-                                    <td>Xây dựng nhà văn hóa</td>
-                                    <td>10/11/2021</td>
-                                    <td>Đã duyệt</td>
+                                    <td class="w-5">1</td>
+                                    <td class="w-15"><a href="chi-tiet-yeu-cau-vat-tu.php">YC-000-02983</a></td>
+                                    <td class="w-10">29/10/2021</td>
+                                    <td class="w-20">Xây dựng nhà văn hóa</td>
+                                    <td class="w-15">10/11/2021</td>
+                                    <td class="w-15">Đã duyệt</td>
                                 </tr>
                                 <tr>
                                     <td>2</td>

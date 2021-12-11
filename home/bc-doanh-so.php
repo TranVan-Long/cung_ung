@@ -30,7 +30,7 @@ include("../includes/icon.php");
         <!--        header end-->
         <div class="content">
             <div class="c-top border-bottom-2">
-                <h4 class="left">Khách hàng</h4>
+                <h4 class="left">Báo cáo doanh số bán hàng</h4>
                 <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
             </div>
             <div class="c-body mt-20">

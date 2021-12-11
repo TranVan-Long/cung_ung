@@ -144,10 +144,10 @@ include("../includes/icon.php");
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <thead>
                                 <tr>
-                                    <th>Họ tên</th>
-                                    <th>Chức vụ</th>
-                                    <th>Điện thoại</th>
-                                    <th>Email</th>
+                                    <th class="w-20">Họ tên</th>
+                                    <th class="w-20">Chức vụ</th>
+                                    <th class="w-10">Điện thoại</th>
+                                    <th class="w-20">Email</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -156,10 +156,10 @@ include("../includes/icon.php");
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <tbody>
                                 <tr>
-                                    <td>Nguyễn Văn A</td>
-                                    <td>Giám đốc</td>
-                                    <td>0123456789</td>
-                                    <td>mail01101011@gmail.com</td>
+                                    <td class="w-20">Nguyễn Văn A</td>
+                                    <td class="w-20">Giám đốc</td>
+                                    <td class="w-10">0123456789</td>
+                                    <td class="w-20">mail01101011@gmail.com</td>
                                 </tr>
                                 </tbody>
                             </table>

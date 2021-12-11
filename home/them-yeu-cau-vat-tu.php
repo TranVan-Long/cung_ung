@@ -94,7 +94,7 @@ $date = date('m-d-Y', time())
                                     <thead>
                                     <tr>
                                         <th class="w-10"></th>
-                                        <th class="w-20">Mã vật tư</th>
+                                        <th class="w-15">Mã vật tư</th>
                                         <th class="w-25">Tên đầy đủ vật tư thiết bị</th>
                                         <th class="w-20">Đơn vị tính</th>
                                         <th class="w-25">Số lượng yêu cầu duyệt</th>
@@ -109,7 +109,7 @@ $date = date('m-d-Y', time())
                                         <td class="w-10">
                                             <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
                                         </td>
-                                        <td class="w-20">
+                                        <td class="w-15">
                                             <div class="v-select2">
                                                 <select name="materials-id" class="share_select"></select>
                                             </div>
@@ -130,7 +130,7 @@ $date = date('m-d-Y', time())
                                         <td class="w-10">
                                             <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
                                         </td>
-                                        <td class="w-20">
+                                        <td class="w-15">
                                             <div class="v-select2">
                                                 <select name="materials-id" class="share_select"></select>
                                             </div>

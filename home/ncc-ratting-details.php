@@ -112,15 +112,15 @@ include("../includes/icon.php");
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <thead>
                                 <tr>
-                                    <th scope="col" rowspan="2">STT</th>
-                                    <th scope="col" rowspan="2">Tiêu chí đánh giá</th>
-                                    <th scope="col" rowspan="2">Hệ số</th>
-                                    <th colspan="3" scope="colgroup">Đánh giá</th>
+                                    <th scope="col" rowspan="2" class="w-5">STT</th>
+                                    <th scope="col" rowspan="2" class="w-20">Tiêu chí đánh giá</th>
+                                    <th scope="col" rowspan="2" class="w-10">Hệ số</th>
+                                    <th colspan="3" scope="colgroup" class="">Đánh giá</th>
                                 </tr>
                                 <tr class="border-top-w">
-                                    <th scope="colgroup">Điểm đánh giá</th>
-                                    <th scope="colgroup">Điểm</th>
-                                    <th scope="colgroup">Đánh giá chi tiết</th></tr>
+                                    <th scope="colgroup" class="">Điểm đánh giá</th>
+                                    <th scope="colgroup" class="">Điểm</th>
+                                    <th scope="colgroup" class="">Đánh giá chi tiết</th></tr>
                                 </thead>
                             </table>
                         </div>
@@ -128,11 +128,11 @@ include("../includes/icon.php");
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Chắt lượng sản phẩm</td>
-                                    <td>2</td>
-                                    <td>10</td>
-                                    <td>20</td>
+                                    <td class="w-5">1</td>
+                                    <td class="w-20">Chắt lượng sản phẩm</td>
+                                    <td class="w-10">2</td>
+                                    <td class="">10</td>
+                                    <td class="">20</td>
                                     <td>Chất lượng sản phẩm rất tốt</td>
                                 </tr>
                                 <tr>

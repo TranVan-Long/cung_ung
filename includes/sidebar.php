@@ -67,26 +67,26 @@
             <a href="../home/kh-index.php"><span><?php echo $ic_customer ?></span>Khách hàng</a>
         </li>
         <li class="collapse" data-tab="sub-menu4">
-            <a href=""><span><?php echo $ic_report ?></span>Báo cáo</a>
+            <a><span><?php echo $ic_report ?></span>Báo cáo</a>
             <ul id="sub-menu4">
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span>Doanh số bán hàng</a>
+                    <a href="../home/bc-doanh-so.php"><span><?php echo $ic_circle ?></span>Doanh số bán hàng</a>
                 </li>
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span>Công nợ phải thu</a>
+                    <a href="../home/bc-cong-no-thu.php"><span><?php echo $ic_circle ?></span>Công nợ phải thu</a>
                 </li>
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span>Công nợ phải trả</a>
+                    <a href="../home/bc-cong-no-tra.php"><span><?php echo $ic_circle ?></span>Công nợ phải trả</a>
                 </li>
             </ul>
         </li>
-        <li><a href="#">
+        <li><a>
             <span>
                 <?php echo $ic_setting ?>
             </span>
                 Cài đặt chung</a></li>
         <li class="collapse" data-tab="sub-menu5">
-            <a href=""><span><?php echo $ic_cds ?></span>Chuyển đổi số 365</a>
+            <a><span><?php echo $ic_cds ?></span>Chuyển đổi số 365</a>
             <ul id="sub-menu5">
                 <li>
                     <a href="#"><span><?php echo $ic_circle ?></span>Chấm công</a>

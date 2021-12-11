@@ -55,19 +55,19 @@ include("../includes/icon.php");
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
                     <div class="scr-btn scr-r-btn left"><i class="ic-chevron-right"></i></div>
                     <div class="table-wrapper">
-                        <div class="table-container">
+                        <div class="table-container table-full-width">
                             <div class="tbl-header">
                                 <table cellpadding="0" cellspacing="0" border="0">
                                     <thead>
                                     <tr>
-                                        <th>STT</th>
-                                        <th>Mã nhà cung cấp</th>
-                                        <th>Tên gọi tắt</th>
-                                        <th>Tên nhà cung cấp</th>
-                                        <th>Địa chỉ</th>
-                                        <th>Số ĐKKD</th>
-                                        <th>Sản phẩm cung ứng</th>
-                                        <th>Mã số thuế</th>
+                                        <th class="w-5">STT</th>
+                                        <th class="w-10">Mã nhà cung cấp</th>
+                                        <th class="w-10">Tên gọi tắt</th>
+                                        <th class="w-10">Tên nhà cung cấp</th>
+                                        <th class="w-20">Địa chỉ</th>
+                                        <th class="w-10">Số ĐKKD</th>
+                                        <th class="w-10">Sản phẩm cung ứng</th>
+                                        <th class="w-10">Mã số thuế</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -76,14 +76,14 @@ include("../includes/icon.php");
                                 <table cellpadding="0" cellspacing="0" border="0">
                                     <tbody>
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
-                                        <td>CTA</td>
-                                        <td>Công ty A</td>
-                                        <td>Số 5, phố X, phường X, quận X</td>
-                                        <td>9988332818</td>
-                                        <td>Sắt thép</td>
-                                        <td>01234567889</td>
+                                        <td class="w-5">1</td>
+                                        <td class="w-10"><a href="ncc-details.php">NCC-198-24201</a></td>
+                                        <td class="w-10">CTA</td>
+                                        <td class="w-10">Công ty A</td>
+                                        <td class="w-20">Số 5, phố X, phường X, quận X</td>
+                                        <td class="w-10">9988332818</td>
+                                        <td class="w-10">Sắt thép</td>
+                                        <td class="w-10">01234567889</td>
                                     </tr>
                                     <tr>
                                         <td>1</td>

@@ -5,13 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="759d4d1f-94e3-486c-bcbb-c68eecc3cb9f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/home/kh-create.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/kh-details.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/kh-edit.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home/kh-index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/home/bc-doanh-so.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/chi-tiet-yeu-cau-vat-tu.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/chi-tiet-yeu-cau-vat-tu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/chinh-sua-yeu-cau-vat-tu.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/chinh-sua-yeu-cau-vat-tu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/kh-index.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/kh-index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/ncc-details.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/ncc-details.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/ncc-index.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/ncc-index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/ncc-rating-index.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/ncc-rating-index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/ncc-ratting-details.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/ncc-ratting-details.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/quan-ly-vat-tu.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/quan-ly-vat-tu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/ratting-rules-index.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/ratting-rules-index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home/them-yeu-cau-vat-tu.php" beforeDir="false" afterPath="$PROJECT_DIR$/home/them-yeu-cau-vat-tu.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/includes/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +76,8 @@
       <workItem from="1638866173272" duration="13413000" />
       <workItem from="1638925835458" duration="21713000" />
       <workItem from="1639011982662" duration="31153000" />
-      <workItem from="1639100525646" duration="28070000" />
+      <workItem from="1639100525646" duration="28201000" />
+      <workItem from="1639184547791" duration="12968000" />
     </task>
     <servers />
   </component>

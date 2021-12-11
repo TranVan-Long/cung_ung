@@ -56,9 +56,9 @@ include("../includes/icon.php");
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <thead>
                                 <tr>
-                                    <th rowspan="2">STT</th>
+                                    <th rowspan="2" class="w-10">STT</th>
                                     <th rowspan="2">Tiêu chí đánh giá</th>
-                                    <th rowspan="2">Hệ số</th>
+                                    <th rowspan="2" class="w-10">Hệ số</th>
                                     <th rowspan="2">Kiểu giá trị</th>
                                     <th colspan="2" scope="colgroup">Danh sách giá trị</th>
                                 </tr>
@@ -73,9 +73,9 @@ include("../includes/icon.php");
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <tbody>
                                 <tr class="more">
-                                    <td>1</td>
+                                    <td class="w-10">1</td>
                                     <td>Chất lượng sản phẩm</td>
-                                    <td>2</td>
+                                    <td class="w-10">2</td>
                                     <td>Danh sách</td>
                                     <td>
                                         <p class="rate-val">10</p>

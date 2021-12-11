@@ -633,20 +633,23 @@ p.removeItem3{
 /*table css*/
 
 .table-wrapper{
+    width: 100%;
+    float: left;
     overflow-x: scroll;
     overflow-y: hidden;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 .scr-wrapper::-webkit-scrollbar{
     display: none;
 }
-
 .table-container{
+    min-width: 1457px;
     width: 100%;
-    min-width: 1366px;
     float: left;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-
+}
+.table-full-width{
+    min-width: 1457px;
 }
 table{
     width:100%;
@@ -686,6 +689,9 @@ td{
 td a{
     color: #474747;
     text-decoration: none;
+}
+td:nth-last-child(1){
+    padding-left: 8px;
 }
 
 .tbl-content::-webkit-scrollbar {

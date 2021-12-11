@@ -120,22 +120,15 @@ include("../includes/icon.php");
                                 <tbody id="materials">
                                 <tr>
                                     <td class="w-10">1</td>
-                                    <td class="w-20">VT-000-99877</td>
-                                    <td class="w-25">Ống nhựa 0,5 m</td>
+                                    <td class="w-15">VT-000-99877</td>
+                                    <td class="w-30">Ống nhựa 0,5 m</td>
                                     <td class="w-20">Cái</td>
                                     <td class="w-25">50</td>
                                 </tr>
                                 <tr>
                                     <td class="w-10">1</td>
-                                    <td class="w-20">VT-000-99877</td>
-                                    <td class="w-25">Ống nhựa 0,5 m</td>
-                                    <td class="w-20">Cái</td>
-                                    <td class="w-25">50</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-10">1</td>
-                                    <td class="w-20">VT-000-99877</td>
-                                    <td class="w-25">Ống nhựa 0,5 m</td>
+                                    <td class="w-15">VT-000-99877</td>
+                                    <td class="w-30">Ống nhựa 0,5 m</td>
                                     <td class="w-20">Cái</td>
                                     <td class="w-25">50</td>
                                 </tr>

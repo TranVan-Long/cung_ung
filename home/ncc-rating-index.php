@@ -54,17 +54,17 @@ include("../includes/icon.php");
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
                     <div class="scr-btn scr-r-btn left"><i class="ic-chevron-right"></i></div>
                     <div class="table-wrapper">
-                        <div class="table-container">
+                        <div class="table-container table-full-width">
                             <div class="tbl-header">
                                 <table cellpadding="0" cellspacing="0" border="0">
                                     <thead>
                                     <tr>
-                                        <th>STT</th>
-                                        <th>Số phiếu</th>
-                                        <th>Ngày đánh giá</th>
-                                        <th>Nhà cung cấp</th>
-                                        <th>Điểm</th>
-                                        <th>Đánh giá khác</th>
+                                        <th class="w-5">STT</th>
+                                        <th class="w-15">Số phiếu</th>
+                                        <th class="w-10">Ngày đánh giá</th>
+                                        <th class="w-15">Nhà cung cấp</th>
+                                        <th class="w-5">Điểm</th>
+                                        <th class="w-20">Đánh giá khác</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -73,12 +73,12 @@ include("../includes/icon.php");
                                 <table cellpadding="0" cellspacing="0" border="0">
                                     <tbody>
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
-                                        <td>27/10/2021</td>
-                                        <td>Nhà cung cấp A</td>
-                                        <td>8/10</td>
-                                        <td>Không có</td>
+                                        <td class="w-5">1</td>
+                                        <td class="w-15"><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td class="w-10">27/10/2021</td>
+                                        <td class="w-15">Nhà cung cấp A</td>
+                                        <td class="w-5">8/10</td>
+                                        <td class="w-20">Không có</td>
                                     </tr>
                                     <tr>
                                         <td>1</td>

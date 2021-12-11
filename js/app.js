@@ -45,26 +45,26 @@ function RefSelect2() {
 
 $("#add-material").click(function () {
     $("#materials").append("<tr class=\"item\">\n" +
-        "                                    <td class=\"w-10\">\n" +
-        "                                        <p class=\"removeItem\"><i class=\"ic-delete remove-btn\"></i></p>\n" +
-        "                                    </td>\n" +
-        "                                    <td class=\"w-20\">\n" +
-        "                                        <div class=\"v-select2\">\n" +
-        "                                            <select name=\"materials-id\" class=\"share_select\"></select>\n" +
-        "                                        </div>\n" +
-        "                                    </td>\n" +
-        "                                    <td class=\"w-25\">\n" +
-        "                                        <div class=\"v-select2\">\n" +
-        "                                            <select name=\"materials-name\" class=\"share_select\"></select>\n" +
-        "                                        </div>\n" +
-        "                                    </td>\n" +
-        "                                    <td class=\"w-20\">\n" +
-        "                                        <input type=\"text\" readonly disabled>\n" +
-        "                                    </td>\n" +
-        "                                    <td class=\"w-25\">\n" +
-        "                                        <input type=\"text\">\n" +
-        "                                    </td>\n" +
-        "                                </tr>");
+        "                                        <td class=\"w-10\">\n" +
+        "                                            <p class=\"removeItem\"><i class=\"ic-delete remove-btn\"></i></p>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-15\">\n" +
+        "                                            <div class=\"v-select2\">\n" +
+        "                                                <select name=\"materials-id\" class=\"share_select\"></select>\n" +
+        "                                            </div>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-25\">\n" +
+        "                                            <div class=\"v-select2\">\n" +
+        "                                                <select name=\"materials-name\" class=\"share_select\"></select>\n" +
+        "                                            </div>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-20\">\n" +
+        "                                            <input type=\"text\" readonly disabled>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-25\">\n" +
+        "                                            <input type=\"text\">\n" +
+        "                                        </td>\n" +
+        "                                    </tr>");
     RefSelect2();
 });
 $(document).on('click', '.removeItem', function () {
