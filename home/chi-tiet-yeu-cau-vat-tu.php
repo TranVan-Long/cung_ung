@@ -7,8 +7,15 @@ include("../includes/icon.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cung ứng xây dựng</title>
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
-    <link href="../css/app.css" rel="stylesheet">
+
+    <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
+    <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
+
+</head>
 
 </head>
 <body>
@@ -92,42 +99,49 @@ include("../includes/icon.php");
                 </div>
 
             </div>
-            <div class="c-foot mt-30">
-                <div class="table-container table-scroll">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Mã vật tư</th>
-                            <th>Tên đầy đủ vật tư thiết bị</th>
-                            <th>Đơn vị tính</th>
-                            <th>Số lượng yêu cầu duyệt</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>VT-000-99877</td>
-                            <td>Ống nhựa 0,5 m</td>
-                            <td>Cái</td>
-                            <td>50</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>VT-000-99877</td>
-                            <td>Ống nhựa 0,5 m</td>
-                            <td>Cái</td>
-                            <td>50</td>
-                        </tr>
-                        </tbody>
-                    </table>
-
+            <div class="left w-100 mt-30">
+                <div class="table-wrapper mt-5">
+                    <div class="table-container">
+                        <div class="tbl-header">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <thead>
+                                <tr>
+                                    <th class="w-10">STT</th>
+                                    <th class="w-15">Mã vật tư</th>
+                                    <th class="w-30">Tên đầy đủ vật tư thiết bị</th>
+                                    <th class="w-20">Đơn vị tính</th>
+                                    <th class="w-25">Số lượng yêu cầu duyệt</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="tbl-content table-2-row">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tbody id="materials">
+                                <tr>
+                                    <td class="w-10">1</td>
+                                    <td class="w-15">VT-000-99877</td>
+                                    <td class="w-30">Ống nhựa 0,5 m</td>
+                                    <td class="w-20">Cái</td>
+                                    <td class="w-25">50</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-10">1</td>
+                                    <td class="w-15">VT-000-99877</td>
+                                    <td class="w-30">Ống nhựa 0,5 m</td>
+                                    <td class="w-20">Cái</td>
+                                    <td class="w-25">50</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <div class="left mt-30">
-                    <a href="#" class="v-btn btn-green">Xuất excel</a>
+                    <p class="v-btn btn-green">Xuất excel</p>
                 </div>
                 <div class="right mt-30">
-                    <a href="#" class="v-btn btn-outline-red modal-btn">Xóa</a>
+                    <p class="v-btn btn-outline-red modal-btn">Xóa</p>
                     <div class="modal text-center">
                         <div class="m-content huy-them">
                             <div class="m-head ">
@@ -150,6 +164,7 @@ include("../includes/icon.php");
                     <a href="chinh-sua-yeu-cau-vat-tu.php" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
                 </div>
             </div>
+            <div class=""></div>
         </div>
     </div>
 </div>

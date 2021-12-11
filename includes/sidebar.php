@@ -20,7 +20,7 @@
             </a>
             <ul id="sub-menu1">
                 <li>
-                    <a href="../home/nha-cung-cap.php"><span><?php echo $ic_circle ?></span> Hợp đồng</a>
+                    <a href="#"><span><?php echo $ic_circle ?></span> Hợp đồng</a>
                 </li>
                 <li>
                     <a href="#"><span><?php echo $ic_circle ?></span>Đơn hàng</a>
@@ -53,40 +53,40 @@
             <a><span><?php echo $ic_producer ?></span>Nhà cung cấp</a>
             <ul id="sub-menu3">
                 <li>
-                    <a href="../home/nha-cung-cap.php"><span><?php echo $ic_circle ?></span>Nhà cung cấp</a>
+                    <a href="../home/ncc-index.php"><span><?php echo $ic_circle ?></span>Nhà cung cấp</a>
                 </li>
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span>Đánh giá nhà cung cấp</a>
+                    <a href="../home/ncc-rating-index.php"><span><?php echo $ic_circle ?></span>Đánh giá nhà cung cấp</a>
                 </li>
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span>Tiêu chí đánh giá</a>
+                    <a href="../home/ratting-rules-index.php"><span><?php echo $ic_circle ?></span>Tiêu chí đánh giá</a>
                 </li>
             </ul>
         </li>
         <li>
-            <a href="#"><span><?php echo $ic_customer ?></span>Khách hàng</a>
+            <a href="../home/kh-index.php"><span><?php echo $ic_customer ?></span>Khách hàng</a>
         </li>
         <li class="collapse" data-tab="sub-menu4">
-            <a href=""><span><?php echo $ic_report ?></span>Báo cáo</a>
+            <a><span><?php echo $ic_report ?></span>Báo cáo</a>
             <ul id="sub-menu4">
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span>Doanh số bán hàng</a>
+                    <a href="../home/bc-doanh-so.php"><span><?php echo $ic_circle ?></span>Doanh số bán hàng</a>
                 </li>
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span>Công nợ phải thu</a>
+                    <a href="../home/bc-cong-no-thu.php"><span><?php echo $ic_circle ?></span>Công nợ phải thu</a>
                 </li>
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span>Công nợ phải trả</a>
+                    <a href="../home/bc-cong-no-tra.php"><span><?php echo $ic_circle ?></span>Công nợ phải trả</a>
                 </li>
             </ul>
         </li>
-        <li><a href="#">
+        <li><a>
             <span>
                 <?php echo $ic_setting ?>
             </span>
                 Cài đặt chung</a></li>
         <li class="collapse" data-tab="sub-menu5">
-            <a href=""><span><?php echo $ic_cds ?></span>Chuyển đổi số 365</a>
+            <a><span><?php echo $ic_cds ?></span>Chuyển đổi số 365</a>
             <ul id="sub-menu5">
                 <li>
                     <a href="#"><span><?php echo $ic_circle ?></span>Chấm công</a>
@@ -104,3 +104,5 @@
         </li>
     </ul>
 </div>
+
+

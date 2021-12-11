@@ -7,8 +7,15 @@ include("../includes/icon.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cung ứng xây dựng</title>
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
-    <link href="../css/app.css" rel="stylesheet">
+
+    <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
+    <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
+
+</head>
 
 </head>
 <body>
@@ -36,13 +43,13 @@ include("../includes/icon.php");
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left v-select2">
                             <label for="chon-phong-ban">Phòng ban<span class="text-red">*</span></label>
                             <select name="chon-phong-ban" id="chon-phong-ban" class="share_select">
                                 <option value="">Công trình</option>
                             </select>
                         </div>
-                        <div class="form-col-50 right">
+                        <div class="form-col-50 right v-select2">
                             <label for="nguoi-yeu-cau">Người yêu cầu<span class="text-red">*</span></label>
                             <select name="nguoi-yeu-cau" id="nguoi-yeu-cau" class="share_select">
                                 <option value="">Nguyễn Văn A</option>
@@ -50,7 +57,7 @@ include("../includes/icon.php");
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50">
+                        <div class="form-col-50 v-select2">
                             <label for="cong-trinh">Công trình<span class="text-red">*</span></label>
                             <select name="cong-trinh" id="cong-trinh" class="share_select">
                                 <option value="">Nâng cấp quốc lộ 999</option>
@@ -76,45 +83,61 @@ include("../includes/icon.php");
                         </div>
                     </div>
                 </div>
-                <div class="mt-30 left">
-                    <p class="text-blue link-text" id="add-material">&plus; Thêm mới vật tư</p>
-                    <div class="table-container table-scroll mt-5">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>Mã vật tư</th>
-                                <th>Tên đầy đủ vật tư thiết bị</th>
-                                <th>Đơn vị tính</th>
-                                <th>Số lượng yêu cầu duyệt</th>
-                            </tr>
-                            </thead>
-                            <tbody id="materials">
-                            <tr class="item">
-                                <td class="materials-act"><p class="removeItem"><i class="ic-delete remove-btn"></i></p></td>
-                                <td class="materials-id">
-                                    <select name="materials-id" class="share_select"></select>
-                                </td>
-                                <td class="materials-name">
-                                    <select name="materials-name" class="share_select"></select>
-                                </td>
-                                <td class="materials-unit"><input type="text" readonly disabled></td>
-                                <td class="materials-qty"><input type="text"></td>
-                            </tr>
-                            <tr class="item">
-                                <td class="materials-act"><p class="removeItem"><i class="ic-delete remove-btn"></i></p></td>
-                                <td class="materials-id">
-                                    <select name="materials-id" class="share_select"></select>
-                                </td>
-                                <td class="materials-name">
-                                    <select name="materials-name" class="share_select"></select>
-                                </td>
-                                <td class="materials-unit"><input type="text" readonly disabled></td>
-                                <td class="materials-qty"><input type="text"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-
+                <div class="mt-30 left w-100">
+                    <div class="table-wrapper mt-5">
+                        <div class="table-container">
+                            <div class="tbl-header">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <thead>
+                                    <tr>
+                                        <th class="w-10"></th>
+                                        <th class="w-15">Mã vật tư</th>
+                                        <th class="w-25">Tên đầy đủ vật tư thiết bị</th>
+                                        <th class="w-20">Đơn vị tính</th>
+                                        <th class="w-25">Số lượng yêu cầu duyệt</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="tbl-content table-2-row">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <tbody id="materials">
+                                    <tr class="item">
+                                        <td class="w-10"><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                                        </td>
+                                        <td class="w-15">
+                                            <div class="v-select2">
+                                                <select name="materials-id" class="share_select"></select>
+                                            </div>
+                                        </td>
+                                        <td class="w-25">
+                                            <div class="v-select2">
+                                                <select name="materials-name" class="share_select"></select>
+                                            </div>
+                                        </td>
+                                        <td class="w-20"><input type="text" readonly disabled></td>
+                                        <td class="w-25"><input type="text"></td>
+                                    </tr>
+                                    <tr class="item">
+                                        <td class="w-10"><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                                        </td>
+                                        <td class="w-15">
+                                            <div class="v-select2">
+                                                <select name="materials-id" class="share_select"></select>
+                                            </div>
+                                        </td>
+                                        <td class="w-25">
+                                            <div class="v-select2">
+                                                <select name="materials-name" class="share_select"></select>
+                                            </div>
+                                        </td>
+                                        <td class="w-20"><input type="text" readonly disabled></td>
+                                        <td class="w-25"><input type="text"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
