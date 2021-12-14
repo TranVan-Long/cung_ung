@@ -33,7 +33,7 @@ include "../includes/icon.php";
 
             <div class="content">
                 <div class="ctn_ctiet_hd w_100 fload_l">
-                    <div class="chi_tiet_hd w_100 fload_l">
+                    <div class="chi_tiet_hd mt_25 w_100 fload_l">
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 fload_l share_fsize_tow share_clr_one cr_weight_bold">Sửa hợp đồng thuê vận chuyển</h4>
                         <div class="ctiet_dk_hp w_100 fload_l">
                             <form action="" class="form_add_hp_mua share_distance w_100 fload_l" method="">
@@ -161,49 +161,53 @@ include "../includes/icon.php";
                                 </div>
                                 <div class="them_moi_vt w_100 fload_l">
                                     <p class="add_vat_tu cr_weight share_fsize_tow share_clr_four share_cursor">+ Thêm mới vật tư</p>
-                                    <div class="ctn_table w_100 fload_l">
+                                    <div class="ctn_table w_100 fload_l khac_ctn_vc">
                                         <table class="table w_100 fload_l">
                                             <thead>
                                                 <tr>
-                                                    <th class="share_tb_one" rowspan="2"></th>
-                                                    <th class="share_tb_five" rowspan="2">Vật tư / Tên thiết bị / Vật tư vận chuyển</th>
-                                                    <th class="share_tb_six sh_bor_b" colspan="2">Khối lượng</th>
-                                                    <th class="share_tb_four" rowspan="2">Đơn giá</th>
-                                                    <th class="share_tb_four" rowspan="2">Thành tiền</th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="share_tb_three">Đơn vị tính</th>
-                                                    <th class="share_tb_three sh_bor_r">Khối lượng</th>
+                                                    <th class="share_tb_one"></th>
+                                                    <th class="share_tb_five">Vật tư / Tên thiết bị / Vật tư vận chuyển</th>
+                                                    <th class="share_tb_six mass_pad">
+                                                        <div class="w_100 fload_l">
+                                                            <p class="w_100 fload_l khoi_luong share_clr_tow">Khối lượng</p>
+                                                            <div class="d_flex w_100 fload_l dvi_khoil">
+                                                                <p class="ft-pl share_clr_tow">Đơn vị tính</p>
+                                                                <p class="ft-pl share_clr_tow">Khối lượng</p>
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    <th class="share_tb_four">Đơn giá</th>
+                                                    <th class="share_tb_four">Thành tiền</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>
+                                                    <td class="share_tb_one">
                                                         <p>
                                                             <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
                                                         </p>
                                                     </td>
-                                                    <td>
+                                                    <td class="share_tb_five">
                                                         <div class="form-group">
                                                             <input type="text" name="thietb_vt" class="form-control">
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td class="share_tb_three">
                                                         <div class="form-group">
                                                             <input type="text" name="so_luong" class="form-control">
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td class="share_tb_three">
                                                         <div class="form-group">
                                                             <input type="text" name="khoi_luong" class="form-control">
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td class="share_tb_four">
                                                         <div class="form-group">
                                                             <input type="text" name="don_gia" class="form-control">
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td class="share_tb_four">
                                                         <div class="form-group">
                                                             <input type="text" name="thanh_tien" class="form-control">
                                                         </div>
@@ -237,6 +241,47 @@ include "../includes/icon.php";
     $(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia, .ma_vatt").select2({
         width: '100%',
     });
+
+    $('.add_vat_tu').click(function(){
+        var html = `<tr>
+                        <td class="share_tb_one">
+                            <p>
+                                <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
+                            </p>
+                        </td>
+                        <td class="share_tb_five">
+                            <div class="form-group">
+                                <input type="text" name="thietb_vt" class="form-control">
+                            </div>
+                        </td>
+                        <td class="share_tb_three">
+                            <div class="form-group">
+                                <input type="text" name="so_luong" class="form-control">
+                            </div>
+                        </td>
+                        <td class="share_tb_three">
+                            <div class="form-group">
+                                <input type="text" name="khoi_luong" class="form-control">
+                            </div>
+                        </td>
+                        <td class="share_tb_four">
+                            <div class="form-group">
+                                <input type="text" name="don_gia" class="form-control">
+                            </div>
+                        </td>
+                        <td class="share_tb_four">
+                            <div class="form-group">
+                                <input type="text" name="thanh_tien" class="form-control">
+                            </div>
+                        </td>
+                    </tr>`;
+        $(".ctn_table .table tbody").append(html);
+        widthSelect();
+
+        if($(".ctn_table .table tbody").height() > 105.5){
+            $(".ctn_table .table thead tr").css('width','calc(100% - 10px)');
+        }
+    })
 </script>
 
 </html>

@@ -7,7 +7,7 @@ include "../includes/icon.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sửa hồ sơ thanh toán</title>
+    <title>Chỉnh sửa hồ sơ thanh toán</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
 
     <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -24,7 +24,7 @@ include "../includes/icon.php";
 </head>
 
 <body>
-    <div class="main-container ql_them_hs_tt ql_ct_hs_tt">
+    <div class="main-container ql_sua_hs_tt ql_ct_hs_tt">
         <? include('../includes/sidebar.php') ?>
         <div class="container">
             <div class="header-container">
@@ -33,7 +33,7 @@ include "../includes/icon.php";
 
             <div class="content">
                 <div class="ctn_ctiet_hd w_100 fload_l">
-                    <div class="chi_tiet_hd w_100 fload_l">
+                    <div class="chi_tiet_hd mt_25 w_100 fload_l">
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 fload_l share_fsize_tow share_clr_one cr_weight_bold">Sửa hồ sơ thanh toán</h4>
                         <div class="ctiet_dk_hp w_100 fload_l">
                             <form action="" class="form_add_hp_mua share_distance w_100 fload_l" method="">
@@ -76,70 +76,110 @@ include "../includes/icon.php";
                                     </div>
                                 </div>
                                 <div class="them_moi_vt w_100 fload_l">
-                                    <div class="ctn_table w_100 fload_l">
+                                    <div class="ctn_table w_100 fload_l khac_ctn_vc">
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th class="share_tb_one" rowspan="2">STT</th>
-                                                    <th class="share_tb_three" rowspan="2">Vật tư</th>
-                                                    <th class="share_tb_two" rowspan="2">Đơn vị tính</th>
-                                                    <th class="share_tb_two sh_bor_b" colspan="2">Đơn hàng</th>
-                                                    <th class="share_tb_two" rowspan="2">Đơn giá thực hiện</th>
-                                                    <th class="share_tb_four sh_bor_b" colspan="4">Khối lượng thực hiện</th>
-                                                    <th class="share_tb_four sh_bor_b" colspan="4">Giá trị thực hiện</th>
-                                                    <th class="share_tb_tow sh_bor_b" colspan="2">Giá trị đơn hàng còn lại</th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="share_tb_one">Số lượng</th>
-                                                    <th class="share_tb_one sh_bor_r">Giá trị</th>
-                                                    <th class="share_tb_one">Lũy kế kỳ trước</th>
-                                                    <th class="share_tb_one">Kỳ này</th>
-                                                    <th class="share_tb_one">Lũy kế đến nay</th>
-                                                    <th class="share_tb_one sh_bor_r">% thực hiện</th>
-                                                    <th class="share_tb_one">Lũy kế kỳ trước</th>
-                                                    <th class="share_tb_one">Kỳ này</th>
-                                                    <th class="share_tb_one">Lũy kế đến nay</th>
-                                                    <th class="share_tb_one sh_bor_r">% thực hiện</th>
-                                                    <th class="share_tb_one">Khối lượng</th>
-                                                    <th class="share_tb_one">Giá trị</th>
+                                                    <th class="share_tb_one">STT</th>
+                                                    <th class="share_tb_three">Vật tư</th>
+                                                    <th class="share_tb_two">Đơn vị tính</th>
+                                                    <th class="share_tb_two mass_pad">
+                                                        <div class="w_100 fload_l">
+                                                            <p class="w_100 fload_l khoi_luong share_clr_tow">Đơn hàng</p>
+                                                            <div class="d_flex w_100 fload_l dvi_khoil">
+                                                                <p class="ft-pl share_clr_tow">Số lượng</p>
+                                                                <p class="ft-pl share_clr_tow">Giá trị</p>
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    <th class="share_tb_two">Đơn giá thực hiện</th>
+                                                    <th class="share_tb_four mass_pad">
+                                                        <div class="w_100 fload_l">
+                                                            <p class="w_100 fload_l khoi_luong share_clr_tow">Khối lượng thực hiện</p>
+                                                            <div class="d_flex w_100 fload_l dvi_khoil">
+                                                                <p class="ft-pl sh_bor_r share_clr_tow">Lũy kế kỳ trước</p>
+                                                                <p class="ft-pl sh_bor_r share_clr_tow">Kỳ này</p>
+                                                                <p class="ft-pl sh_bor_r share_clr_tow">Lũy kế đến nay</p>
+                                                                <p class="ft-pl share_clr_tow">% thực hiện</p>
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    <th class="share_tb_four mass_pad">
+                                                        <div class="w_100 fload_l">
+                                                            <p class="w_100 fload_l khoi_luong share_clr_tow">Giá trị thực hiện</p>
+                                                            <div class="d_flex w_100 fload_l dvi_khoil">
+                                                                <p class="ft-pl sh_bor_r share_clr_tow">Lũy kế kỳ trước</p>
+                                                                <p class="ft-pl sh_bor_r share_clr_tow">Kỳ này</p>
+                                                                <p class="ft-pl sh_bor_r share_clr_tow">Lũy kế đến nay</p>
+                                                                <p class="ft-pl share_clr_tow">% thực hiện</p>
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    <th class="share_tb_two mass_pad">
+                                                        <div class="w_100 fload_l">
+                                                            <p class="w_100 fload_l khoi_luong share_clr_tow">Giá trị đơn hàng còn lại</p>
+                                                            <div class="d_flex w_100 fload_l dvi_khoil">
+                                                                <p class="ft-pl share_clr_tow">Khối lượng</p>
+                                                                <p class="ft-pl share_clr_tow">Giá trị</p>
+                                                            </div>
+                                                        </div>
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>I</td>
-                                                    <td>Nâng cấp quốc lộ 999</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>33.000.000</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>13.000.000</td>
-                                                    <td>20.000.000</td>
-                                                    <td>33.000.000</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                <tr class="sh_bgr_four">
+                                                    <td class="share_tb_one cr_weight share_clr_four">I</td>
+                                                    <td class="share_tb_three cr_weight share_clr_four">Nâng cấp quốc lộ 999</td>
+                                                    <td class="share_tb_two cr_weight share_clr_four"></td>
+                                                    <td class="share_tb_one cr_weight share_clr_four"></td>
+                                                    <td class="share_tb_one cr_weight share_clr_four">33.000.000</td>
+                                                    <td class="share_tb_two cr_weight share_clr_four"></td>
+                                                    <td class="share_tb_one cr_weight share_clr_four"></td>
+                                                    <td class="share_tb_one cr_weight share_clr_four"></td>
+                                                    <td class="share_tb_one cr_weight share_clr_four"></td>
+                                                    <td class="share_tb_one cr_weight share_clr_four"></td>
+                                                    <td class="share_tb_one cr_weight share_clr_four ">13.000.000</td>
+                                                    <td class="share_tb_one cr_weight share_clr_four">20.000.000</td>
+                                                    <td class="share_tb_one cr_weight share_clr_four">33.000.000</td>
+                                                    <td class="share_tb_one cr_weight share_clr_four"></td>
+                                                    <td class="share_tb_one cr_weight share_clr_four"></td>
+                                                    <td class="share_tb_one cr_weight share_clr_four"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>1</td>
-                                                    <td>Dầu hỏa</td>
-                                                    <td>lit</td>
-                                                    <td>650</td>
-                                                    <td>11.000.000</td>
-                                                    <td>13.000</td>
-                                                    <td>43</td>
-                                                    <td>20</td>
-                                                    <td>60</td>
-                                                    <td>50 %</td>
-                                                    <td>20.000.000</td>
-                                                    <td>13.000.000</td>
-                                                    <td>10.000.000</td>
-                                                    <td>10 %</td>
-                                                    <td>10</td>
-                                                    <td></td>
+                                                    <td class="share_tb_one">1</td>
+                                                    <td class="share_tb_three">Dầu hỏa</td>
+                                                    <td class="share_tb_two">lit</td>
+                                                    <td class="share_tb_one">650</td>
+                                                    <td class="share_tb_one">11.000.000</td>
+                                                    <td class="share_tb_two">13.000</td>
+                                                    <td class="share_tb_one">43</td>
+                                                    <td class="share_tb_one">20</td>
+                                                    <td class="share_tb_one">60</td>
+                                                    <td class="share_tb_one">50 %</td>
+                                                    <td class="share_tb_one">20.000.000</td>
+                                                    <td class="share_tb_one">13.000.000</td>
+                                                    <td class="share_tb_one">10.000.000</td>
+                                                    <td class="share_tb_one">10 %</td>
+                                                    <td class="share_tb_one">10</td>
+                                                    <td class="share_tb_one"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="share_tb_one">2</td>
+                                                    <td class="share_tb_three">Xăng</td>
+                                                    <td class="share_tb_two">lit</td>
+                                                    <td class="share_tb_one">650</td>
+                                                    <td class="share_tb_one">11.000.000</td>
+                                                    <td class="share_tb_two">13.000</td>
+                                                    <td class="share_tb_one">43</td>
+                                                    <td class="share_tb_one">20</td>
+                                                    <td class="share_tb_one">60</td>
+                                                    <td class="share_tb_one">50 %</td>
+                                                    <td class="share_tb_one">20.000.000</td>
+                                                    <td class="share_tb_one">13.000.000</td>
+                                                    <td class="share_tb_one">10.000.000</td>
+                                                    <td class="share_tb_one">10 %</td>
+                                                    <td class="share_tb_one">10</td>
+                                                    <td class="share_tb_one"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -166,7 +206,7 @@ include "../includes/icon.php";
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/sidebar-accordion.js"></script>
 <script>
-    $(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia, .ma_vatt").select2({
+    $(".all_nhacc, .all_da_ct").select2({
         width: '100%',
     });
 </script>

@@ -36,7 +36,7 @@ include "../includes/icon.php";
                     <h4 class="c-name share_fsize_four share_clr_one">Phiếu thanh toán</h4>
                     <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
                 </div>
-                <div class="c-body">
+                <div class="c-body mt_20">
                     <div class="filter1">
                         <div class="share_form_select category">
                             <select name="category" class="tim_kiem">

@@ -199,7 +199,9 @@ img {
 .ml_50 {
     margin-left: 50px;
 }
-
+.padd_l{
+    padding-left: 5px;
+}
 .form-group .form-control.h_border {
     border: 0;
     outline: 0;
@@ -282,6 +284,14 @@ img {
     width: 30%;
 }
 
+.share_tb_nine {
+    width: 40%;
+}
+
+.share_tb_ten {
+    width: 12%;
+}
+
 .share_tb_seven {
     width: 3%;
 }
@@ -328,6 +338,10 @@ img {
     height: 24px;
     border: 1px solid #474747;
     border-radius: 4px;
+}
+
+.form-group input[readonly] {
+    background: #FFFFFF;
 }
 
 .form-group .form-control {
@@ -1854,6 +1868,20 @@ img {
     background: #FFFFFF;
 }
 
+.table th {
+    border-top: 0;
+    border-right: 1px solid #FFFFFF;
+    border-left: 0;
+}
+
+.table {
+    border-collapse: collapse;
+}
+
+.table th:last-child {
+    border-right: 0;
+}
+
 .share_tb_hd::-webkit-scrollbar, .ctn_table_ct::-webkit-scrollbar, .ctn_table::-webkit-scrollbar {
     height: 10px;
     position: relative;
@@ -2085,6 +2113,7 @@ img {
 
 .ctn_table .table tbody td {
     padding: 8px 8px 7px 8px;
+    border-top: 0px;
 }
 
 .form-button {
@@ -2102,11 +2131,11 @@ img {
     margin-left: 10px;
 }
 
-thead th.sh_bor_r {
+.sh_bor_r {
     border-right: 1px solid #FFFFFF;
 }
 
-thead th.sh_bor_b {
+.sh_bor_b {
     border-bottom: 1px solid #FFFFFF;
 }
 
@@ -2129,6 +2158,7 @@ thead th.sh_bor_b {
 
 .form-them-nganh {
     margin-top: 50px;
+    margin-bottom: 30px;
 }
 
 .form-them-nganh .tieu_de {
@@ -2138,7 +2168,7 @@ thead th.sh_bor_b {
 
 .tien_chi_tra {
     border-bottom: 1px solid #474747;
-    margin-bottom: 45px;
+    margin-bottom: 16px;
 }
 
 /* bieu do cot ghep */
@@ -2225,12 +2255,11 @@ thead th.sh_bor_b {
     display: none !important;
 }
 
-.chart, .charts {
+.chart, .tt_charts, .tt_charts_one {
     float: left;
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 15px;
     min-height: 0 !important;
 }
 
@@ -2306,6 +2335,376 @@ thead th.sh_bor_b {
 
 .tieu_de_chart .tieu_de_ct {
     padding-right: 81px;
+}
+
+#tt_three_ctiet .highcharts-legend-item.highcharts-column-series {
+    display: none !important;
+
+}
+
+.titl_chr {
+    margin-bottom: 40px;
+}
+
+.titl_chr p {
+    padding-left: 30px;
+    position: relative;
+}
+
+.titl_chr p::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+}
+
+.hd_mua_chr {
+    margin-bottom: 15px;
+}
+
+.hd_mua_chr::before {
+    background: #E09A6A;
+}
+
+.hd_ban_chr::before {
+    background: #9D92C8;
+}
+
+.content_hcot {
+    overflow-x: auto;
+}
+
+#tt_three_ctiet {
+    min-width: 1315px;
+}
+
+.content_hcot::-webkit-scrollbar {
+    height: 0;
+}
+
+.content_hcot::-webkit-scrollbar-track, .content_hcot::-webkit-scrollbar-thumb {
+    background: #FFFFFF;
+}
+
+.table thead {
+    background: #4C5BD4;
+}
+
+
+.ctn_table .table tbody {
+    display: block;
+    max-height: 106px;
+    overflow: auto;
+}
+
+.ql_sua_hs_tt .ctn_table .table tbody, .ql_sua_phieu_tt .ctn_table .table tbody {
+    max-height: 400px;
+}
+
+.ctn_table .table tbody::-webkit-scrollbar {
+    width: 10px;
+}
+
+.ctn_table .table tbody::-webkit-scrollbar-track {
+    background: #FAFAFA;
+}
+
+.ctn_table .table tbody::-webkit-scrollbar-thumb {
+    background: #C4C4C4;
+    border-radius: 22px;
+}
+
+.ctn_table .table thead, .ctn_table .table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.ctn_table .table tbody tr {
+    border-bottom: 0.5px solid #474747;
+}
+
+.ctn_table .table thead tr {
+    display: flex;
+}
+
+.ctn_table .table thead tr th {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.khoi_luong {
+    padding: 16px 0px 16px 0px;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+.khac_ctn_vc th {
+    height: 104px;
+}
+
+.ctn_table .table thead tr th.mass_pad {
+    padding: 0;
+}
+
+.dvi_khoil .ft-pl {
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dvi_khoil .ft-pl:first-child {
+    border-right: 1px solid #FFFFFF;
+}
+
+/* nhan thong bao */
+
+.tax-onoffswitch {
+    position: relative;
+    width: 28px;
+    float: left;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.onoffswitch-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.onoffswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.onoffswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 11px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.onoffswitch-inner:before {
+    content: "";
+    background-color: #4C5BD4;
+}
+
+.onoffswitch-inner:after {
+    content: "";
+    background-color: #CCCCCC;
+}
+
+.onoffswitch-switch {
+    display: block;
+    width: 15px;
+    height: 15px;
+    background: #FFFFFF;
+    position: absolute;
+    top: -2px;
+    bottom: 0;
+    right: 13px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease-in 0s;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+    right: -2px;
+}
+
+/* end */
+.ctn_top_sett {
+    border-bottom: 1px solid #474747;
+    padding-bottom: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+}
+
+.cai_dtl {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #474747;
+    width: 198px;
+    float: left;
+    text-align: center;
+}
+
+.ctn_top_sett p {
+    position: relative;
+
+}
+
+.ctn_top_sett p.active a {
+    color: #4C5BD4;
+}
+
+.ctn_top_sett p.active::before {
+    content: "";
+    position: absolute;
+    background: url(../img/gach_chan.png)no-repeat;
+    width: 100%;
+    height: 10px;
+    top: 25px;
+    left: 0;
+}
+
+.ctn_languega {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #474747;
+}
+
+.ct_select .all_languega {
+    width: 148px;
+    height: 32px;
+    border: 1px solid #474747;
+    border-radius: 10px;
+}
+
+.quyen_nd {
+    padding: 28px 20px 16px 0px;
+    border-bottom: 1px solid #474747;
+}
+
+.ctn_top_tbao {
+    padding: 32px 20px 0px 0px;
+}
+
+.nhac_nho .ctn_top_tbao {
+    padding: 0px 20px 0px 0px;
+}
+
+.ctn_ct_tbao {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    display: block;
+}
+
+.ctn_ct_tbao.active {
+    display: none;
+}
+
+.tbao_one {
+    padding: 20px 35px;
+    border-bottom: 1px dashed #CCCCCC;
+}
+
+.tbao_one:last-child {
+    border-bottom: 0;
+}
+
+.dropd img {
+    transform: rotate(90deg);
+}
+
+.dropd.active img {
+    transform: rotate(270deg);
+}
+
+.phan_quyen_nd .table {
+    min-width: 988px;
+}
+
+.phan_quyen_nd .ctn_table .table tbody {
+    max-height: 472px;
+}
+
+.ctn_sett .quay_lai {
+    position: relative;
+    float: left;
+    margin-bottom: 26px;
+    padding-left: 15px;
+}
+
+.ctn_sett .quay_lai::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: url(../img/prew_href.png)no-repeat;
+    width: 6px;
+    height: 12px;
+}
+
+.form_search {
+    width: 400px;
+    float: left;
+}
+
+.form_search .search_nvpb {
+    width: 100%;
+    float: left;
+    height: 36px;
+    border: 1px solid #666666;
+    border-radius: 8px;
+}
+
+.th_tilt_tb {
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 988px;
+}
+
+.phan_quyen_nd .table thead {
+    background: #F1F9FC;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.phan_quyen_nd .table thead th {
+    color: #474747;
+    border-right: 1px solid #D8D8D8;
+}
+
+.phan_quyen_nd .table thead th:last-child, .phan_quyen_nd .table tbody td:last-child {
+    border-right: 0;
+}
+
+.phan_quyen_nd .table thead tr {
+    width: calc(100% - 10px);
+}
+
+.phan_quyen_nd .table tbody td {
+    border-right: 1px solid #D8D8D8;
+}
+
+.phan_quyen_nd .table tbody td:first-child {
+    text-align: left;
+    padding-left: 22px;
+}
+
+.form-gr input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+}
+
+.phan_quyen_nd .table tbody tr.no_bor_bott {
+    border-bottom: 0;
 }
 
 @media screen and (max-width: 1366px) {

@@ -24,7 +24,7 @@ include "../includes/icon.php";
 </head>
 
 <body>
-    <div class="main-container ql_them_phieu_tt">
+    <div class="main-container ql_them_phieu_tt ql_sua_phieu_tt">
         <? include('../includes/sidebar.php') ?>
         <div class="container">
             <div class="header-container">
@@ -33,7 +33,7 @@ include "../includes/icon.php";
 
             <div class="content">
                 <div class="ctn_ctiet_hd w_100 fload_l">
-                    <div class="chi_tiet_hd w_100 fload_l">
+                    <div class="chi_tiet_hd mt_25 w_100 fload_l">
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 fload_l share_fsize_tow share_clr_one cr_weight_bold">
                             Chỉnh sửa phiếu thanh toán  </h4>
                         <div class="ctiet_dk_hp w_100 fload_l">
@@ -122,12 +122,12 @@ include "../includes/icon.php";
                                     </div>
                                 </div>
                                 <div class="form-them-nganh w_100 fload_l">
-                                    <div class="tieu_de  w_100 fload_l d_flex fl_wrap mb_10">
+                                    <div class="tieu_de w_100 fload_l d_flex fl_wrap mb_10">
                                         <p class="mr_30 share_fsize_tow share_clr_one cr_weight">Danh sách tài khoản ngân hàng</p>
-                                        <p class="share_clr_four share_fsize_tow cr_weight share_cursor">+ Thêm mới tài khoản ngân hàng</p>
+                                        <p class="share_clr_four share_fsize_tow cr_weight share_cursor add_ngan_hang">+ Thêm mới tài khoản ngân hàng</p>
                                     </div>
-                                    <div class="tien_chi_tra  w_100 fload_l d_flex fl_agi">
-                                        <div class="form-ctra  w_100 fload_l">
+                                    <div class="tien_chi_tra w_100 fload_l d_flex fl_agi">
+                                        <div class="form-ctra w_100 fload_l">
                                             <div class="form-row">
                                                 <div class="form-group share_form_select">
                                                     <label>Tên ngân hàng <span class="cr_red">*</span></label>
@@ -140,7 +140,7 @@ include "../includes/icon.php";
                                                 </div>
                                             </div>
                                             <div class="form-row">
-                                                <div class="form-group">
+                                                <div class="form-group share_form_select">
                                                     <label>Số tài khoản <span class="cr_red">*</span></label>
                                                     <select name="so_taik"
                                                         class="form-control so_taik"></select>
@@ -151,7 +151,7 @@ include "../includes/icon.php";
                                                 </div>
                                             </div>
                                         </div>
-                                        <span class="remove_tnh ml_50"><img src="../img/remove-2.png" alt="xóa"></span>
+                                        <span class="remove_tnh ml_50 share_cursor"><img src="../img/remove-2.png" alt="xóa"></span>
                                     </div>
                                 </div>
                                 <div class="them_moi_vt w_100 fload_l">
@@ -219,9 +219,58 @@ include "../includes/icon.php";
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/sidebar-accordion.js"></script>
 <script>
-$(".all_nhacc, .ten_nganhang, .chi_nhanh, .chu_taik").select2({
-    width: '100%',
-});
+    $(".all_nhacc, .ten_nganhang, .chi_nhanh, .chu_taik, .so_taik").select2({
+        width: '100%',
+    });
+
+    function CheckSelect(){
+        $(".ten_nganhang, .so_taik, .chu_taik").select2({
+            width: '100%',
+        });
+    }
+
+    $(".add_ngan_hang").click(function(){
+        var html = `<div class="tien_chi_tra w_100 fload_l d_flex fl_agi">
+                        <div class="form-ctra w_100 fload_l">
+                            <div class="form-row">
+                                <div class="form-group share_form_select">
+                                    <label>Tên ngân hàng <span class="cr_red">*</span></label>
+                                    <select name="ten_nganhang"
+                                        class="form-control ten_nganhang"></select>
+                                </div>
+                                <div class="form-group share_form_select">
+                                    <label>Chi nhánh <span class="cr_red">*</span></label>
+                                    <select name="chi_nhanh" class="form-control chi_nhanh"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group share_form_select">
+                                    <label>Số tài khoản <span class="cr_red">*</span></label>
+                                    <select name="so_taik"
+                                        class="form-control so_taik"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Chủ tài khoản </label>
+                                    <input type="text" name="chu_taik" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <span class="remove_tnh ml_50 share_cursor"><img src="../img/remove-2.png" alt="xóa"></span>
+                    </div>`;
+        $(".form-them-nganh").append(html);
+        CheckSelect();
+    });
+
+
+    $(document).on('click','.remove_tnh', function(){
+        $(this).parents(".tien_chi_tra").remove();
+    })
+
+    $(document).ready(function(){
+        if($(".them_moi_vt .table tbody").height() > 395.5){
+            $(".them_moi_vt .table thead tr").css("width",'calc(100% - 10px)');
+        }
+    })
 </script>
 
 </html>

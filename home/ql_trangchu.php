@@ -80,14 +80,19 @@ include "../includes/icon.php";
                         <div class="tieu_de_bd w_100 fload_l d_flex mb_20 flex_jct">
                             <h3 class="tieu_de_ct share_fsize_four share_clr_one mb_10">Công nợ phải trả</h3>
                             <div class="filter_mdy">
-                                <select name="tim_kiem" class="form_search_dmy">
+                                <select name="tim_kiem" class="form_search_dmy cong_no_tra">
                                     <option value="1">Theo ngày</option>
                                     <option value="2">Theo tháng</option>
                                     <option value="3">Theo năm</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="charts"></div>
+                        <div class="tt_charts">
+                            <div class="charts"></div>
+                        </div>
+                        <div class="tt_charts_one">
+                            <div class="charts_one share_dnone"></div>
+                        </div>
                         <div class="ttin_ctiet w_100 fload_l mb_20">
                             <div class="tcong_no w_100 fload_l d_flex mb_10 fl_wrap flex_jct">
                                 <p class="share_fsize_tow share_clr_one">Tổng công nợ</p>
@@ -127,67 +132,71 @@ include "../includes/icon.php";
                             <tbody>
                                 <tr>
                                     <th></th>
-                                    <td>3</td>
-                                    <td>4</td>
+                                    <td>3000000</td>
+                                    <td>4000000</td>
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <td>2</td>
-                                    <td>0</td>
+                                    <td>2000000</td>
+                                    <td>10000000</td>
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <td>5</td>
-                                    <td>11</td>
+                                    <td>5000000</td>
+                                    <td>11000000</td>
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <td>1</td>
-                                    <td>19</td>
+                                    <td>1000000</td>
+                                    <td>19000000</td>
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <td>2</td>
-                                    <td>4</td>
+                                    <td>2000000</td>
+                                    <td>4000000</td>
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <td>2</td>
-                                    <td>50</td>
+                                    <td>20000000</td>
+                                    <td>50000000</td>
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <td>2</td>
-                                    <td>4</td>
+                                    <td>2000000</td>
+                                    <td>40000000</td>
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <td>2</td>
-                                    <td>4</td>
+                                    <td>2000000</td>
+                                    <td>4000000</td>
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <td>2</td>
-                                    <td>4</td>
+                                    <td>2000000</td>
+                                    <td>40000000</td>
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <td>2</td>
-                                    <td>4</td>
+                                    <td>20000000</td>
+                                    <td>40000000</td>
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <td>2</td>
-                                    <td>4</td>
+                                    <td>20000000</td>
+                                    <td>40000000</td>
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <td>2</td>
-                                    <td>4</td>
+                                    <td>20000000</td>
+                                    <td>40000000</td>
                                 </tr>
 
                             </tbody>
                         </table>
+                    </div>
+                    <div class="titl_chr w_100 fload_l">
+                        <p class="hd_mua_chr share_clr_one share_fsize_tow">Hợp đồng mua</p>
+                        <p class="hd_ban_chr share_clr_one share_fsize_tow">Hợp đồng bán</p>
                     </div>
                 </div>
             </div>
@@ -205,10 +214,23 @@ include "../includes/icon.php";
 <script src="../js/accessibility.js"></script>
 <!-- end -->
 <script type="text/javascript" src="../js/sidebar-accordion.js"></script>
-
 <script>
+    $(".cong_no_tra").change(function(){
+        var id = $(this).val();
+        if(id == 1){
+            $(".charts").css('display','block');
+            $(".charts_one").css('display','none');
+        }else if(id == 2){
+            $(".charts").css('display','none');
+            $(".charts_one").css('display','block');
+        }
+    })
+</script>
+<script>
+    var a = 4400000;
+    var b = 55000000;
     var options = {
-        series: [44000006, 5500000],
+        series: [a, b],
         chart: {
             width: 280,
             type: 'pie',
@@ -255,15 +277,36 @@ include "../includes/icon.php";
     chart.render();
 </script>
 <script>
+    var options = {
+        series: [4500000, 5000000],
+        chart: {
+            width: 280,
+            type: 'pie',
+        },
+        colors: ['#F2994A', '#EB5757'],
+        labels: ['Đã thu', 'Chưa thu'],
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+    var chart = new ApexCharts(document.querySelector(".charts_one"), options);
+    chart.render();
+</script>
+<script>
     Highcharts.chart('tt_three_ctiet', {
         data: {
             table: 'datatable'
         },
         chart: {
             type: 'column'
-        },
-        title: {
-            text: ''
         },
 
         yAxis: {
@@ -278,6 +321,7 @@ include "../includes/icon.php";
                 }
             },
         },
+
         tooltip: {
             style: {
                 color: '#474747',
@@ -298,7 +342,10 @@ include "../includes/icon.php";
             ],
         },
 
-        colors: ['#E09A6A', '#9D92C8'],
+        title: false,
+        subtitle: false,
+
+        colors: ['#E09A6A ', '#9D92C8'],
     });
 </script>
 

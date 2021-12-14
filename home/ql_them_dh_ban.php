@@ -31,7 +31,7 @@ include "../includes/icon.php";
                 <? include('../includes/ql_header_nv.php') ?>
             </div>
 
-            <div class="content">
+            <div class="content mt_20">
                 <div class="ctn_ctiet_hd w_100 fload_l">
                     <div class="chi_tiet_hd w_100 fload_l">
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 fload_l share_fsize_tow share_clr_one cr_weight_bold">

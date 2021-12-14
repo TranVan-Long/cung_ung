@@ -36,7 +36,7 @@ include "../includes/icon.php";
                     <h4 class="c-name share_fsize_four share_clr_one">Hợp đồng</h4>
                     <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
                 </div>
-                <div class="c-body">
+                <div class="c-body mt_20">
                     <div class="filter1">
                         <div class="share_form_select category">
                             <select name="category" class="tim_kiem">
@@ -93,7 +93,7 @@ include "../includes/icon.php";
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="#">HĐ - 0001</a></td>
+                                            <td><a href="quan-ly-chi-tiet-hop-dong-mua.html">HĐ - 0001</a></td>
                                             <td>29/10/2021</td>
                                             <td>Hợp đồng mua vật tư</td>
                                             <td>12/10/2021 - 30/10/2021</td>
