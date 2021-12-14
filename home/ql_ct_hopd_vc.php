@@ -127,29 +127,49 @@
                             </div>
                         </div>
                         <div class="ctiet_hopd_vt w_100 fload_l">
-                            <div class="ctn_table_ct w_100 fload_l">
+                            <div class="ctn_table_ct w_100 fload_l khac_ctn_vc">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="share_tb_one" rowspan="2">STT</th>
-                                            <th class="share_tb_five" rowspan="2">Vật tư / Tên thiết bị / Vật tư vận chuyển</th>
-                                            <th class="share_tb_six sh_bor_b" colspan="2">Khối lượng</th>
-                                            <th class="share_tb_four" rowspan="2">Đơn giá</th>
-                                            <th class="share_tb_four" rowspan="2">Thành tiền</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="share_tb_three">Đơn vị tính</th>
-                                            <th class="share_tb_three sh_bor_r">Khối lượng</th>
+                                            <th class="share_tb_one">STT</th>
+                                            <th class="share_tb_five">Vật tư / Tên thiết bị / Vật tư vận chuyển</th>
+                                            <th class="share_tb_six mass_pad">
+                                                <div class="w_100 fload_l">
+                                                    <p class="w_100 fload_l khoi_luong share_clr_tow">Khối lượng</p>
+                                                    <div class="d_flex w_100 fload_l dvi_khoil">
+                                                        <p class="ft-pl share_clr_tow">Đơn vị tính</p>
+                                                        <p class="ft-pl share_clr_tow">Khối lượng</p>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th class="share_tb_four">Đơn giá</th>
+                                            <th class="share_tb_four">Thành tiền</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Cát vàng</td>
-                                            <td>m3</td>
-                                            <td>1000</td>
-                                            <td>150</td>
-                                            <td>15000</td>
+                                            <td class="share_tb_one">1</td>
+                                            <td class="share_tb_five">Cát vàng</td>
+                                            <td class="share_tb_three">m3</td>
+                                            <td class="share_tb_three">1000</td>
+                                            <td class="share_tb_four">150</td>
+                                            <td class="share_tb_four">15000</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="share_tb_one">1</td>
+                                            <td class="share_tb_five">Cát vàng</td>
+                                            <td class="share_tb_three">m3</td>
+                                            <td class="share_tb_three">1000</td>
+                                            <td class="share_tb_four">150</td>
+                                            <td class="share_tb_four">15000</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="share_tb_one">1</td>
+                                            <td class="share_tb_five">Cát vàng</td>
+                                            <td class="share_tb_three">m3</td>
+                                            <td class="share_tb_three">1000</td>
+                                            <td class="share_tb_four">150</td>
+                                            <td class="share_tb_four">15000</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -175,7 +195,7 @@
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/sidebar-accordion.js"></script>
-
 
 </html>

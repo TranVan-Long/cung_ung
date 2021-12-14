@@ -168,7 +168,7 @@ include "../includes/icon.php";
                         </div>
                         <div class="ctiet_hopd_vt w_100 fload_l">
                             <div class="ctn_table_ct w_100 fload_l">
-                                <table class="table">
+                                <table class="table w_100 fload_l">
                                     <thead>
                                         <tr>
                                             <th class="share_tb_one">STT</th>
@@ -186,43 +186,43 @@ include "../includes/icon.php";
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>VT-0001</td>
-                                            <td>Xi măng</td>
-                                            <td>m3</td>
-                                            <td>Công ty A</td>
-                                            <td>Việt Nam</td>
-                                            <td>100</td>
-                                            <td>100.000</td>
-                                            <td>1.000.000</td>
-                                            <td>0</td>
-                                            <td>1.000.000</td>
+                                            <td class="share_tb_one">1</td>
+                                            <td class="share_tb_two">VT-0001</td>
+                                            <td class="share_tb_two">Xi măng</td>
+                                            <td class="share_tb_two">m3</td>
+                                            <td class="share_tb_two">Công ty A</td>
+                                            <td class="share_tb_two">Việt Nam</td>
+                                            <td class="share_tb_one">100</td>
+                                            <td class="share_tb_two">100.000</td>
+                                            <td class="share_tb_two">1.000.000</td>
+                                            <td class="share_tb_two">0</td>
+                                            <td class="share_tb_two">1.000.000</td>
                                         </tr>
                                         <tr>
-                                            <td>1</td>
-                                            <td>VT-0001</td>
-                                            <td>Xi măng</td>
-                                            <td>m3</td>
-                                            <td>Công ty A</td>
-                                            <td>Việt Nam</td>
-                                            <td>100</td>
-                                            <td>100.000</td>
-                                            <td>1.000.000</td>
-                                            <td>0</td>
-                                            <td>1.000.000</td>
+                                            <td class="share_tb_one">2</td>
+                                            <td class="share_tb_two">VT-0001</td>
+                                            <td class="share_tb_two">Xi măng</td>
+                                            <td class="share_tb_two">m3</td>
+                                            <td class="share_tb_two">Công ty A</td>
+                                            <td class="share_tb_two">Việt Nam</td>
+                                            <td class="share_tb_one">100</td>
+                                            <td class="share_tb_two">100.000</td>
+                                            <td class="share_tb_two">1.000.000</td>
+                                            <td class="share_tb_two">0</td>
+                                            <td class="share_tb_two">1.000.000</td>
                                         </tr>
                                         <tr>
-                                            <td>1</td>
-                                            <td>VT-0001</td>
-                                            <td>Xi măng</td>
-                                            <td>m3</td>
-                                            <td>Công ty A</td>
-                                            <td>Việt Nam</td>
-                                            <td>100</td>
-                                            <td>100.000</td>
-                                            <td>1.000.000</td>
-                                            <td>0</td>
-                                            <td>1.000.000</td>
+                                            <td class="share_tb_one">3</td>
+                                            <td class="share_tb_two">VT-0001</td>
+                                            <td class="share_tb_two">Xi măng</td>
+                                            <td class="share_tb_two">m3</td>
+                                            <td class="share_tb_two">Công ty A</td>
+                                            <td class="share_tb_two">Việt Nam</td>
+                                            <td class="share_tb_one">100</td>
+                                            <td class="share_tb_two">100.000</td>
+                                            <td class="share_tb_two">1.000.000</td>
+                                            <td class="share_tb_two">0</td>
+                                            <td class="share_tb_two">1.000.000</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -248,6 +248,7 @@ include "../includes/icon.php";
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/sidebar-accordion.js"></script>
 <script>
 $(".tim_kiem, .tim_kiem_o").select2({

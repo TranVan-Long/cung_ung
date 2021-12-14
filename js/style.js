@@ -16,4 +16,24 @@ $(document).on('click', '.remo_cot_ngang', function () {
     } else {
         $(".ctn_table .table thead tr").css('width', '100%');
     }
+});
+
+
+$('.user-name').click(function () {
+    $(this).parents('ul').find('.dropdown-content').toggleClass("active");
+});
+
+var dropd = $(".user-name");
+var dropc = $(".dropdown-content");
+
+$(window).click(function (e) {
+    if (!dropd.is(e.target) && !dropc.is(e.target) && dropc.has(e.target).length == 0) {
+        dropc.removeClass("active");
+    }
+});
+
+$(document).ready(function () {
+    if ($(".ctn_table_ct .table tbody").height() > 159.5) {
+        $(".ctn_table_ct .table thead tr").css("width", "calc(100% - 10px)");
+    }
 })

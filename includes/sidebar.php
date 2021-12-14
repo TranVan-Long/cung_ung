@@ -1,35 +1,46 @@
+<?
+
+$hop_dong = ['/quan-ly-hop-dong.html','/chi-tiet-hop-dong.html','/quan-ly-chi-tiet-hop-dong-mua.html','/them-hop-dong-mua.html','/chinh-sua-hop-dong-mua.html',
+            '/quan-ly-chi-tiet-hop-dong-ban.html','/them-hop-dong-ban.html','/chinh-sua-hop-dong-ban.html','/quan-ly-chi-tiet-hop-dong-thue-thiet-bi.html',
+            '/them-hop-dong-thue-thiet-bi.html','/chinh-sua-hop-dong-thue-thiet-bi.html','/quan-ly-chi-tiet-hop-dong-van-chuyen','/them-hop-dong-van-chuyen.html',
+            '/chinh-sua-hop-dong-van-chuyen.html','/quan-ly-don-hang.html','/chi-tiet-don-hang-ban.html','/them-don-hang-ban.html','/chinh-sua-don-hang-ban.html',
+            '/chi-tiet-don-hang-mua.html','/them-don-hang-mua.html','/chinh-sua-don-hang-mua.html','/quan-ly-ho-so-thanh-toan.html','/them-ho-so-thanh-toan.html',
+            '/chinh-sua-ho-so-thanh-toan.html','/quan-ly-phieu-thanh-toan.html','/them-phieu-thanh-toan.html','/chinh-sua-phieu-thanh-toan.html',
+            '/quan-ly-phieu-thanh-toan.html','/them-phieu-thanh-toan.html','/chinh-sua-phieu-thanh-toan.html'];
+
+?>
 <div class="side-bar">
     <div class="logo-container">
         <a href="#"><img alt="tim viec 365" class="logo" src="/img/logo_o.png"></a>
     </div>
     <ul class="menu">
-        <li>
-            <a href="">
+        <li class="<?= ($_SERVER['REDIRECT_URL'] == '/quan-ly-trang-chu.html') ? "active":"" ?>">
+            <a href="quan-ly-trang-chu.html">
             <span><?php echo $ic_home ?></span> Trang chủ
             </a>
         </li>
-        <li>
-            <a href="../home/quan-ly-vat-tu.php">
+        <li class="<?= ($_SERVER['REDIRECT_URL'] == '/quan-ly-yeu-cau-vat-tu.html') ? "active" : "" ?>">
+            <a href="quan-ly-yeu-cau-vat-tu.html">
             <span><?php echo $ic_wall; ?></span> Yêu cầu vật tư
             </a>
         </li>
-        <li class="collapse" data-tab="sub-menu1">
+        <li class="collapse <?= (in_array($_SERVER['REDIRECT_URL'], $hop_dong)) ? "active":"" ?>" data-tab="sub-menu1" >
             <a>
                 <span><?php echo $ic_hop_dong ?></span>
                 Hợp đồng
             </a>
-            <ul id="sub-menu1">
+            <ul id="sub-menu1" class="<?= (in_array($_SERVER['REDIRECT_URL'], $hop_dong)) ? "active":"" ?>">
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span> Hợp đồng</a>
+                    <a href="quan-ly-hop-dong.html" class="<?= ($_SERVER['REDIRECT_URL'] == '/quan-ly-hop-dong.html') ? "active" : "" ?>"><span><?php echo $ic_circle ?></span> Hợp đồng</a>
                 </li>
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span>Đơn hàng</a>
+                    <a href="quan-ly-don-hang.html" class="<?= ($_SERVER['REDIRECT_URL'] == '/quan-ly-don-hang.html') ? "active" : "" ?>"><span><?php echo $ic_circle ?></span>Đơn hàng</a>
                 </li>
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span>Hồ sơ thanh toán</a>
+                    <a href="quan-ly-ho-so-thanh-toan.html" class="<?= ($_SERVER['REDIRECT_URL'] == '/quan-ly-ho-so-thanh-toan.html') ? "active" : "" ?>"><span><?php echo $ic_circle ?></span>Hồ sơ thanh toán</a>
                 </li>
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span>Phiếu thanh toán</a>
+                    <a href="quan-ly-phieu-thanh-toan.html" class="<?= ($_SERVER['REDIRECT_URL'] == '/quan-ly-phieu-thanh-toan.html') ? "active" : "" ?>"><span><?php echo $ic_circle ?></span>Phiếu thanh toán</a>
                 </li>
             </ul>
         </li>
@@ -104,5 +115,3 @@
         </li>
     </ul>
 </div>
-
-

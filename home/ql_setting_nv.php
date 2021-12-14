@@ -36,8 +36,8 @@ include "../includes/icon.php";
                     <div class="chi_tiet_cd mt_25 w_100 fload_l">
                         <div class="top_sett w_100 fload_l">
                             <div class="ctn_top_sett w_100 fload_l">
-                                <p class="caidc_ql active"><a href="quan-ly-cai-dat.html" class="cai_dtl">Cài đặt chung</a></p>
-                                <p class="his_ql"><a href="nhat-ky-hoat-dong.html" class="cai_dtl">Nhật ký hoạt động</a></p>
+                                <p class="caidc_ql active"><a href="quan-ly-cai-dat-nhan-vien.html" class="cai_dtl">Cài đặt chung</a></p>
+                                <p class="his_ql"><a href="nhat-ky-hoat-dong-nhan-vien.html" class="cai_dtl">Nhật ký hoạt động</a></p>
                             </div>
                         </div>
                         <div class="ctn_sett w_100 fload_l">
@@ -50,12 +50,6 @@ include "../includes/icon.php";
                                             <option value="2">English</option>
                                         </select>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="quyen_nd w_100 fload_l">
-                                <div class="ctn_quyen d_flex flex_jct fl_agi">
-                                    <a href="cai-dat-phan-quyen.html" class="share_fsize_one share_clr_one cr_weight">Quyền người dùng</a>
-                                    <span class="dg_quyen share_cursor"><img src="../img/exp.png" alt="quyền người dùng"></span>
                                 </div>
                             </div>
                             <div class="thong_bao w_100 fload_l mb_25">

@@ -36,13 +36,13 @@ include "../includes/icon.php";
                     <div class="chi_tiet_cd mt_25 w_100 fload_l">
                         <div class="top_sett w_100 fload_l">
                             <div class="ctn_top_sett w_100 fload_l">
-                                <p class="caidc_ql active"><a href="#" class="cai_dtl">Cài đặt chung</a></p>
-                                <p class="his_ql"><a href="#" class="cai_dtl">Nhật ký hoạt động</a></p>
+                                <p class="caidc_ql active"><a href="quan-ly-cai-dat.html" class="cai_dtl">Cài đặt chung</a></p>
+                                <p class="his_ql"><a href="nhat-ky-hoat-dong.html" class="cai_dtl">Nhật ký hoạt động</a></p>
                             </div>
                         </div>
                         <div class="ctn_sett w_100 fload_l">
                             <div class="w_100 fload_l">
-                                <a href="#" class="quay_lai share_fsize_one share_clr_one">Quay lại</a>
+                                <a href="quan-ly-cai-dat.html" class="quay_lai share_fsize_one share_clr_one">Quay lại</a>
                             </div>
                             <div class="search_pq w_100 mb_20 fload_l">
                                 <p class="share_fsize_two share_clr_one mb_10">Nhân viên / Phòng ban</p>
@@ -68,7 +68,7 @@ include "../includes/icon.php";
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="share_tb_five">Yêu cầu vật tư</td>
+                                                <td class="share_tb_five"><p>Yêu cầu vật tư</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">
@@ -97,7 +97,7 @@ include "../includes/icon.php";
 
                                             </tr>
                                             <tr class="no_bor_bott">
-                                                <td class="share_tb_five">Hợp đồng</td>
+                                                <td class="share_tb_five"><p>Hợp đồng</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">
@@ -125,7 +125,7 @@ include "../includes/icon.php";
                                                 </td>
                                             </tr>
                                             <tr class="no_bor_bott">
-                                                <td class="share_tb_five">Hợp đồng</td>
+                                                <td class="share_tb_five"><p class="padd_l">Hợp đồng</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">
@@ -153,7 +153,7 @@ include "../includes/icon.php";
                                                 </td>
                                             </tr>
                                             <tr class="no_bor_bott">
-                                                <td class="share_tb_five">Đơn hàng</td>
+                                                <td class="share_tb_five"><p class="padd_l">Đơn hàng</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">
@@ -181,7 +181,7 @@ include "../includes/icon.php";
                                                 </td>
                                             </tr>
                                             <tr class="no_bor_bott">
-                                                <td class="share_tb_five">Hồ sơ thanh toán</td>
+                                                <td class="share_tb_five"><p class="padd_l">Hồ sơ thanh toán</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">
@@ -209,7 +209,7 @@ include "../includes/icon.php";
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="share_tb_five">Phiếu thanh toán</td>
+                                                <td class="share_tb_five"><p class="padd_l">Phiếu thanh toán</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">
@@ -265,7 +265,7 @@ include "../includes/icon.php";
                                                 </td>
                                             </tr>
                                             <tr class="no_bor_bott">
-                                                <td class="share_tb_five">Bảng giá</td>
+                                                <td class="share_tb_five"><p class="padd_l">Bảng giá</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">
@@ -293,7 +293,7 @@ include "../includes/icon.php";
                                                 </td>
                                             </tr>
                                             <tr class="no_bor_bott">
-                                                <td class="share_tb_five">Yêu cầu báo giá</td>
+                                                <td class="share_tb_five"><p class="padd_l">Yêu cầu báo giá</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">
@@ -321,7 +321,7 @@ include "../includes/icon.php";
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="share_tb_five">Báo giá</td>
+                                                <td class="share_tb_five"><p class="padd_l">Báo giá</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">
@@ -377,7 +377,7 @@ include "../includes/icon.php";
                                                 </td>
                                             </tr>
                                             <tr class="no_bor_bott">
-                                                <td class="share_tb_five">Nhà cung cấp</td>
+                                                <td class="share_tb_five"><p class="padd_l">Nhà cung cấp</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">
@@ -405,7 +405,7 @@ include "../includes/icon.php";
                                                 </td>
                                             </tr>
                                             <tr class="no_bor_bott">
-                                                <td class="share_tb_five">Đánh giá nhà cung cấp</td>
+                                                <td class="share_tb_five"><p class="padd_l">Đánh giá nhà cung cấp</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">
@@ -433,7 +433,7 @@ include "../includes/icon.php";
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="share_tb_five">Tiêu chí đánh giá</td>
+                                                <td class="share_tb_five"><p class="padd_l">Tiêu chí đánh giá</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">
@@ -501,7 +501,7 @@ include "../includes/icon.php";
                                                 <td class="share_tb_three"></td>
                                             </tr>
                                             <tr class="no_bor_bott">
-                                                <td class="share_tb_five">Doanh số bán hàng</td>
+                                                <td class="share_tb_five"><p class="padd_l">Doanh số bán hàng</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">
@@ -513,7 +513,7 @@ include "../includes/icon.php";
                                                 <td class="share_tb_three"></td>
                                             </tr>
                                             <tr class="no_bor_bott">
-                                                <td class="share_tb_five">Công nợ phải thu</td>
+                                                <td class="share_tb_five"><p class="padd_l">Công nợ phải thu</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">
@@ -525,7 +525,7 @@ include "../includes/icon.php";
                                                 <td class="share_tb_three"></td>
                                             </tr>
                                             <tr>
-                                                <td class="share_tb_five">Báo cáo</td>
+                                                <td class="share_tb_five"><p class="padd_l">Báo cáo</p></td>
                                                 <td class="share_tb_three">
                                                     <div class="form-gr">
                                                         <input type="checkbox" value="1" name="xem">

@@ -199,9 +199,19 @@ img {
 .ml_50 {
     margin-left: 50px;
 }
-.padd_l{
-    padding-left: 5px;
+
+.ml_5 {
+    margin-left: 5px;
 }
+
+.padd_l {
+    padding-left: 15px;
+}
+
+.padd_t {
+    padding-top: 5px;
+}
+
 .form-group .form-control.h_border {
     border: 0;
     outline: 0;
@@ -2106,6 +2116,10 @@ img {
     min-width: 2202px;
 }
 
+.ql_ctiet_hd .table {
+    min-width: 2624px;
+}
+
 .table .form-group {
     width: 100%;
     margin-bottom: 0;
@@ -2399,24 +2413,30 @@ img {
     overflow: auto;
 }
 
+.ctn_table_ct .table tbody {
+    display: block;
+    max-height: 160px;
+    overflow: auto;
+}
+
 .ql_sua_hs_tt .ctn_table .table tbody, .ql_sua_phieu_tt .ctn_table .table tbody {
     max-height: 400px;
 }
 
-.ctn_table .table tbody::-webkit-scrollbar {
+.ctn_table .table tbody::-webkit-scrollbar, .ctn_table_ct .table tbody::-webkit-scrollbar {
     width: 10px;
 }
 
-.ctn_table .table tbody::-webkit-scrollbar-track {
+.ctn_table .table tbody::-webkit-scrollbar-track, .ctn_table_ct .table tbody::-webkit-scrollbar-track {
     background: #FAFAFA;
 }
 
-.ctn_table .table tbody::-webkit-scrollbar-thumb {
+.ctn_table .table tbody::-webkit-scrollbar-thumb, .ctn_table_ct .table tbody::-webkit-scrollbar-thumb {
     background: #C4C4C4;
     border-radius: 22px;
 }
 
-.ctn_table .table thead, .ctn_table .table tbody tr {
+.ctn_table .table thead, .ctn_table .table tbody tr, .ctn_table_ct .table thead, .ctn_table_ct .table tbody tr {
     display: table;
     width: 100%;
     table-layout: fixed;
@@ -2426,11 +2446,11 @@ img {
     border-bottom: 0.5px solid #474747;
 }
 
-.ctn_table .table thead tr {
+.ctn_table .table thead tr, .ctn_table_ct .table thead tr {
     display: flex;
 }
 
-.ctn_table .table thead tr th {
+.ctn_table .table thead tr th, .ctn_table_ct .table thead tr th {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2445,7 +2465,7 @@ img {
     height: 104px;
 }
 
-.ctn_table .table thead tr th.mass_pad {
+.table thead tr th.mass_pad {
     padding: 0;
 }
 
@@ -2616,11 +2636,11 @@ img {
     border-bottom: 0;
 }
 
-.dropd img {
+.dropd img, .avt_dropd {
     transform: rotate(90deg);
 }
 
-.dropd.active img {
+.dropd.active img, .dropd_ctiet.active .avt_dropd {
     transform: rotate(270deg);
 }
 
@@ -2705,6 +2725,57 @@ img {
 
 .phan_quyen_nd .table tbody tr.no_bor_bott {
     border-bottom: 0;
+}
+
+.thead_nhatk {
+    padding-right: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.thead_nhatk p, .ctiet_nd_nhatk p {
+    padding: 17px 10px 18px 10px;
+}
+
+.thead_nhatk p:first-child {
+    padding-left: 25px;
+}
+
+.ctiet_nhatk {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 0px 0px 15px 15px;
+}
+
+.ctn_ctiet_nky .dropd_ctiet {
+    width: 100%;
+    float: left;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.ctn_ctiet_nky {
+    width: 100%;
+    float: left;
+    border-bottom: 1px dashed #CCCCCC;
+}
+
+.ctiet_nd_nhatk {
+    border-bottom: 1px dashed #CCCCCC;
+}
+
+.ctiet_nd_nhatk:last-child, .ctn_ctiet_nky:last-child {
+    border-bottom: 0;
+}
+
+.dropd_ctiet {
+    padding: 20px 0px 0px 25px;
+}
+
+.ctiet_nd_nhatk p:last-child {
+    justify-content: left;
+    align-items: flex-start;
 }
 
 @media screen and (max-width: 1366px) {

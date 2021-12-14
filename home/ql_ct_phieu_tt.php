@@ -143,28 +143,28 @@ include "../includes/icon.php";
                                     </thead>
                                     <tbody>
                                         <tr class="sh_bgr_four">
-                                            <td class="tex_left share_clr_four cr_weight">Tổng</td>
-                                            <td class="share_clr_four cr_weight">25.000.000</td>
-                                            <td></td>
-                                            <td class="share_clr_four cr_weight">25.000.000</td>
+                                            <td class="tex_left share_clr_four cr_weight share_tb_five">Tổng</td>
+                                            <td class="share_clr_four cr_weight share_tb_five">25.000.000</td>
+                                            <td class="share_tb_five"></td>
+                                            <td class="share_clr_four cr_weight share_tb_five">25.000.000</td>
                                         </tr>
                                         <tr class="sh_bgr_five">
-                                            <td class="tex_left">HS-2021-09089</td>
-                                            <td>25.000.000</td>
-                                            <td>30/10/2021</td>
-                                            <td>25.000.000</td>
+                                            <td class="tex_left share_tb_five">HS-2021-09089</td>
+                                            <td class="share_tb_five">25.000.000</td>
+                                            <td class="share_tb_five">30/10/2021</td>
+                                            <td class="share_tb_five">25.000.000</td>
                                         </tr>
                                         <tr>
-                                            <td class="tex_left">Công trình xây dựng cầu XYZ</td>
-                                            <td>25.000.000</td>
-                                            <td></td>
-                                            <td>25.000.000</td>
+                                            <td class="tex_left share_tb_five">Công trình xây dựng cầu XYZ</td>
+                                            <td class="share_tb_five">25.000.000</td>
+                                            <td class="share_tb_five"></td>
+                                            <td class="share_tb_five">25.000.000</td>
                                         </tr>
                                         <tr>
-                                            <td class="tex_left">TT-08954</td>
-                                            <td>25.000.000</td>
-                                            <td></td>
-                                            <td>25.000.000</td>
+                                            <td class="tex_left share_tb_five">TT-08954</td>
+                                            <td class="share_tb_five">25.000.000</td>
+                                            <td class="share_tb_five"></td>
+                                            <td class="share_tb_five">25.000.000</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -189,6 +189,7 @@ include "../includes/icon.php";
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/sidebar-accordion.js"></script>
 
 

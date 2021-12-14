@@ -111,34 +111,49 @@ include "../includes/icon.php";
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Cần trục tháp</td>
-                                            <td>Không có</td>
-                                            <td>2</td>
-                                            <td>13/11/2021 - 15/11/2021</td>
-                                            <td>Cái</td>
-                                            <td>2</td>
-                                            <td>2.000.000</td>
-                                            <td>2.000.000</td>
-                                            <td>0</td>
-                                            <td>10.000.000</td>
-                                            <td>Không có</td>
-                                            <td>Không có</td>
+                                            <td class="share_tb_one">1</td>
+                                            <td class="share_tb_two">Cần trục tháp</td>
+                                            <td class="share_tb_two">Không có</td>
+                                            <td class="share_tb_one">2</td>
+                                            <td class="share_tb_two">13/11/2021 - 15/11/2021</td>
+                                            <td class="share_tb_one">Cái</td>
+                                            <td class="share_tb_one">2</td>
+                                            <td class="share_tb_one">2.000.000</td>
+                                            <td class="share_tb_one">2.000.000</td>
+                                            <td class="share_tb_two">0</td>
+                                            <td class="share_tb_two">10.000.000</td>
+                                            <td class="share_tb_two">Không có</td>
+                                            <td class="share_tb_two">Không có</td>
                                         </tr>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Cần trục tháp</td>
-                                            <td>Không có</td>
-                                            <td>2</td>
-                                            <td>13/11/2021 - 15/11/2021</td>
-                                            <td>Cái</td>
-                                            <td>2</td>
-                                            <td>2.000.000</td>
-                                            <td>2.000.000</td>
-                                            <td>0</td>
-                                            <td>10.000.000</td>
-                                            <td>Không có</td>
-                                            <td>Không có</td>
+                                            <td class="share_tb_one">1</td>
+                                            <td class="share_tb_two">Cần trục tháp</td>
+                                            <td class="share_tb_two">Không có</td>
+                                            <td class="share_tb_one">2</td>
+                                            <td class="share_tb_two">13/11/2021 - 15/11/2021</td>
+                                            <td class="share_tb_one">Cái</td>
+                                            <td class="share_tb_one">2</td>
+                                            <td class="share_tb_one">2.000.000</td>
+                                            <td class="share_tb_one">2.000.000</td>
+                                            <td class="share_tb_two">0</td>
+                                            <td class="share_tb_two">10.000.000</td>
+                                            <td class="share_tb_two">Không có</td>
+                                            <td class="share_tb_two">Không có</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="share_tb_one">1</td>
+                                            <td class="share_tb_two">Cần trục tháp</td>
+                                            <td class="share_tb_two">Không có</td>
+                                            <td class="share_tb_one">2</td>
+                                            <td class="share_tb_two">13/11/2021 - 15/11/2021</td>
+                                            <td class="share_tb_one">Cái</td>
+                                            <td class="share_tb_one">2</td>
+                                            <td class="share_tb_one">2.000.000</td>
+                                            <td class="share_tb_one">2.000.000</td>
+                                            <td class="share_tb_two">0</td>
+                                            <td class="share_tb_two">10.000.000</td>
+                                            <td class="share_tb_two">Không có</td>
+                                            <td class="share_tb_two">Không có</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -164,6 +179,7 @@ include "../includes/icon.php";
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/sidebar-accordion.js"></script>
 
 

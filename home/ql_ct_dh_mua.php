@@ -174,46 +174,46 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>VT-0001</td>
-                                            <td>Xi măng</td>
-                                            <td>m3</td>
-                                            <td>Hãng A</td>
-                                            <td>100</td>
-                                            <td>15/11/2021</td>
-                                            <td>1.000</td>
-                                            <td>1000000</td>
-                                            <td>10%</td>
-                                            <td>1.000.000</td>
-                                            <td>Khu B</td>
+                                            <td class="share_tb_one">1</td>
+                                            <td class="share_tb_two">VT-0001</td>
+                                            <td class="share_tb_two">Xi măng</td>
+                                            <td class="share_tb_one">m3</td>
+                                            <td class="share_tb_two">Hãng A</td>
+                                            <td class="share_tb_one">100</td>
+                                            <td class="share_tb_two">15/11/2021</td>
+                                            <td class="share_tb_two">1.000</td>
+                                            <td class="share_tb_two">1000000</td>
+                                            <td class="share_tb_one">10%</td>
+                                            <td class="share_tb_two">1.000.000</td>
+                                            <td class="share_tb_two">Khu B</td>
                                         </tr>
                                         <tr>
-                                            <td>1</td>
-                                            <td>VT-0001</td>
-                                            <td>Xi măng</td>
-                                            <td>m3</td>
-                                            <td>Hãng A</td>
-                                            <td>100</td>
-                                            <td>15/11/2021</td>
-                                            <td>1.000</td>
-                                            <td>1000000</td>
-                                            <td>10%</td>
-                                            <td>1.000.000</td>
-                                            <td>Khu B</td>
+                                            <td class="share_tb_one">1</td>
+                                            <td class="share_tb_two">VT-0001</td>
+                                            <td class="share_tb_two">Xi măng</td>
+                                            <td class="share_tb_one">m3</td>
+                                            <td class="share_tb_two">Hãng A</td>
+                                            <td class="share_tb_one">100</td>
+                                            <td class="share_tb_two">15/11/2021</td>
+                                            <td class="share_tb_two">1.000</td>
+                                            <td class="share_tb_two">1000000</td>
+                                            <td class="share_tb_one">10%</td>
+                                            <td class="share_tb_two">1.000.000</td>
+                                            <td class="share_tb_two">Khu B</td>
                                         </tr>
                                         <tr>
-                                            <td>1</td>
-                                            <td>VT-0001</td>
-                                            <td>Xi măng</td>
-                                            <td>m3</td>
-                                            <td>Hãng A</td>
-                                            <td>100</td>
-                                            <td>15/11/2021</td>
-                                            <td>1.000</td>
-                                            <td>1000000</td>
-                                            <td>10%</td>
-                                            <td>1.000.000</td>
-                                            <td>Khu B</td>
+                                            <td class="share_tb_one">1</td>
+                                            <td class="share_tb_two">VT-0001</td>
+                                            <td class="share_tb_two">Xi măng</td>
+                                            <td class="share_tb_one">m3</td>
+                                            <td class="share_tb_two">Hãng A</td>
+                                            <td class="share_tb_one">100</td>
+                                            <td class="share_tb_two">15/11/2021</td>
+                                            <td class="share_tb_two">1.000</td>
+                                            <td class="share_tb_two">1000000</td>
+                                            <td class="share_tb_one">10%</td>
+                                            <td class="share_tb_two">1.000.000</td>
+                                            <td class="share_tb_two">Khu B</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -239,6 +239,7 @@
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/sidebar-accordion.js"></script>
 
 

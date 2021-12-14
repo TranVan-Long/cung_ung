@@ -29,8 +29,8 @@ RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 
 #page hướng dẫn
 RewriteRule ^huong_dan.html$ /home/home_hd.php [NE,L]
-RewriteRule ^quan-ly-vat-tu.html$ /home/quan-ly-vat-tu.php [NE,L]
 
+RewriteRule ^quan-ly-trang-chu.html$ /home/ql_trangchu.php [NE,L]
 # quản lý hợp đồng
 RewriteRule ^quan-ly-hop-dong.html$ /home/ql_hop_dong.php [NE,L]
 
@@ -46,7 +46,7 @@ RewriteRule ^quan-ly-chi-tiet-hop-dong-thue-thiet-bi.html$ /home/ql_ct_hopd_thue
 RewriteRule ^them-hop-dong-thue-thiet-bi.html$ /home/ql_them_hd_thue.php [NE,L]
 RewriteRule ^chinh-sua-hop-dong-thue-thiet-bi.html$ /home/ql_sua_hd_thue.php [NE,L]
 
-RewriteRule ^quan-ly-chi-tiet-hop-dong-van-chuyen$ /home/ql_ct_hopd_vc.php [NE,L]
+RewriteRule ^quan-ly-chi-tiet-hop-dong-van-chuyen.html$ /home/ql_ct_hopd_vc.php [NE,L]
 RewriteRule ^them-hop-dong-van-chuyen.html$ /home/ql_them_hd_vc.php [NE,L]
 RewriteRule ^chinh-sua-hop-dong-van-chuyen.html$ /home/ql_sua_hd_vc.php [NE,L]
 
@@ -61,9 +61,30 @@ RewriteRule ^chi-tiet-don-hang-mua.html$ /home/ql_ct_dh_mua.php [NE,L]
 RewriteRule ^them-don-hang-mua.html$ /home/ql_them_dh_mua.php [NE,L]
 RewriteRule ^chinh-sua-don-hang-mua.html$ /home/ql_sua_dh_mua.php [NE,L]
 
+# quản lý hồ sơ thanh toán
+RewriteRule ^quan-ly-ho-so-thanh-toan.html$ /home/ql_ho_so_tt.php [NE,L]
+RewriteRule ^chi-tiet-ho-so-thanh-toan.html$ /home/ql_ct_hs_tt.php [NE,L]
+RewriteRule ^them-ho-so-thanh-toan.html$ /home/ql_them_hs_tt.php [NE,L]
+RewriteRule ^chinh-sua-ho-so-thanh-toan.html$ /home/ql_sua_hs_tt.php [NE,L]
+
+# quản lý phiếu thanh toán
+RewriteRule ^quan-ly-phieu-thanh-toan.html$ /home/ql_phieu_tt.php [NE,L]
+RewriteRule ^chi-tiet-phieu-thanh-toan.html$ /home/ql_ct_phieu_tt.php [NE,L]
+RewriteRule ^chi-tiet-phieu-thanh-toan-tam-ung.html$ /home/ql_ct_phieu_tt_tu.php [NE,L]
+RewriteRule ^them-phieu-thanh-toan.html$ /home/ql_them_phieu_tt.php [NE,L]
+RewriteRule ^chinh-sua-phieu-thanh-toan.html$ /home/ql_sua_phieu_tt.php [NE,L]
 
 # quản lý vật tư
-RewriteRule ^quan-ly-vat-tu.html$ /home/quan-ly-vat-tu.php [NE,L]
+RewriteRule ^quan-ly-yeu-cau-vat-tu.html$ /home/quan-ly-vat-tu.php [NE,L]
 RewriteRule ^quan-ly-chi-tiet-yeu-cau-vat-tu.html$ /home/chi-tiet-yeu-cau-vat-tu.php [NE,L]
 RewriteRule ^chinh-sua-yeu-cau-vat-tu.html$ /home/chinh-sua-yeu-cau-vat-tu.php [NE,L]
 RewriteRule ^them-yeu-cau-vat-tu.html$ /home/them-yeu-cau-vat-tu.php [NE,L]
+
+# quản lý cài đặt quản lý
+RewriteRule ^quan-ly-cai-dat.html$ /home/ql_setting_ql.php [NE,L]
+RewriteRule ^cai-dat-phan-quyen.html$ /home/ql_phan_quyen.php [NE,L]
+RewriteRule ^nhat-ky-hoat-dong.html$ /home/ql_nhatky.php [NE,L]
+
+# quản lý cài đặt nhân viên
+RewriteRule ^quan-ly-cai-dat-nhan-vien.html$ /home/ql_setting_nv.php [NE,L]
+RewriteRule ^nhat-ky-hoat-dong-nhan-vien.html$ /home/ql_nhatky_nv.php [NE,L]
