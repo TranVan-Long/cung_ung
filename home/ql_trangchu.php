@@ -184,6 +184,7 @@ include "../includes/icon.php";
                                     <th></th>
                                     <td>20000000</td>
                                     <td>40000000</td>
+
                                 </tr>
                                 <tr>
                                     <th></th>
