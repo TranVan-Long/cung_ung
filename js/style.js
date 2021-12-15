@@ -2,6 +2,18 @@ $(".hd_button .cancel_add").click(function () {
     window.location.href = "quan-ly-hop-dong.html";
 });
 
+$(".dh_button .cancel_add").click(function () {
+    window.location.href = "quan-ly-don-hang.html";
+});
+
+$(".hs_button .cancel_add").click(function () {
+    window.location.href = "quan-ly-ho-so-thanh-toan.html";
+});
+
+$(".phieu_button .cancel_add").click(function () {
+    window.location.href = "quan-ly-phieu-thanh-toan.html";
+});
+
 function widthSelect() {
     $(".ma_vatt, .ten_vatt").select2({
         width: '100%',

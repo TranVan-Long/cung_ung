@@ -6,7 +6,7 @@ include("../includes/icon.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cung ứng xây dựng</title>
+    <title>Tiêu chí đánh giá</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
@@ -48,7 +48,7 @@ include("../includes/icon.php");
                             <option value="">Nhập thông tin cần tìm kiếm</option>
                         </select>
                     </div>
-                    <a class="v-btn btn-blue add-btn" href="../home/ratting-rules-create.php">&plus; Thêm mới</a>
+                    <a class="v-btn btn-blue add-btn" href="../home/rating-rules-create.php">&plus; Thêm mới</a>
                 </div>
                 <div class="table-wrapper left w-100 mt-30">
                     <div class="table-container">
@@ -60,7 +60,7 @@ include("../includes/icon.php");
                                     <th rowspan="2">Tiêu chí đánh giá</th>
                                     <th rowspan="2" class="w-10">Hệ số</th>
                                     <th rowspan="2">Kiểu giá trị</th>
-                                    <th colspan="2" scope="colgroup">Danh sách giá trị</th>
+                                    <th class="border-bottom-w" colspan="2" scope="colgroup">Danh sách giá trị</th>
                                 </tr>
                                 <tr>
                                     <th scope="colgroup">Giá trị</th>
@@ -78,19 +78,19 @@ include("../includes/icon.php");
                                     <td class="w-10">2</td>
                                     <td>Danh sách</td>
                                     <td>
-                                        <p class="rate-val">10</p>
-                                        <p class="rate-val">5</p>
-                                        <p class="rate-val">0</p>
+                                        <p class="table-text">10</p>
+                                        <p class="table-text">5</p>
+                                        <p class="table-text">0</p>
                                     </td>
                                     <td>
-                                        <p class="rate-val">Tốt<span class="tbl-menu" data-tab="1"></span>
+                                        <p class="table-text">Tốt<span class="tbl-menu" data-tab="1"></span>
                                         <ul class="tbl-menu-content" id="1">
-                                            <li class="mb-10"><a href="ratting-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
                                             <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
                                         </ul>
                                         </p>
-                                        <p class="rate-val">Trung bình</p>
-                                        <p class="rate-val">Kém</p>
+                                        <p class="table-text">Trung bình</p>
+                                        <p class="table-text">Kém</p>
                                     </td>
                                 </tr>
                                 <tr class="more">
@@ -102,7 +102,7 @@ include("../includes/icon.php");
                                     <td>
                                         <span class="tbl-menu" data-tab="2"></span>
                                         <ul class="tbl-menu-content" id="2">
-                                            <li class="mb-10"><a href="ratting-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
                                             <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
                                         </ul>
                                     </td>
@@ -115,7 +115,7 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="3"></span>
                                         <ul class="tbl-menu-content" id="3">
-                                            <li class="mb-10"><a href="ratting-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
                                             <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
                                         </ul>
                                     </td>
@@ -128,7 +128,7 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="4"></span>
                                         <ul class="tbl-menu-content" id="4">
-                                            <li class="mb-10"><a href="ratting-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
                                             <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
                                         </ul>
                                     </td>
@@ -141,7 +141,7 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="5"></span>
                                         <ul class="tbl-menu-content" id="5">
-                                            <li class="mb-10"><a href="ratting-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
                                             <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
                                         </ul>
                                     </td>
@@ -154,7 +154,7 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="6"></span>
                                         <ul class="tbl-menu-content" id="6">
-                                            <li class="mb-10"><a href="ratting-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
                                             <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
                                         </ul>
                                     </td>
@@ -167,7 +167,7 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="7"></span>
                                         <ul class="tbl-menu-content" id="7">
-                                            <li class="mb-10"><a href="ratting-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
                                             <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
                                         </ul>
                                     </td>
@@ -180,7 +180,7 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="8"></span>
                                         <ul class="tbl-menu-content" id="8">
-                                            <li class="mb-10"><a href="ratting-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
                                             <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
                                         </ul>
                                     </td>
@@ -193,7 +193,7 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="9"></span>
                                         <ul class="tbl-menu-content" id="9">
-                                            <li class="mb-10"><a href="ratting-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
                                             <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
                                         </ul>
                                     </td>
@@ -206,7 +206,7 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="10"></span>
                                         <ul class="tbl-menu-content" id="10">
-                                            <li class="mb-10"><a href="ratting-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
                                             <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
                                         </ul>
                                     </td>

@@ -88,7 +88,7 @@ include "../includes/icon.php";
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="#">ĐH - 0001</a></td>
+                                            <td><a href="chi-tiet-don-hang-ban.html">ĐH - 0001</a></td>
                                             <td>HĐ-999-34369</td>
                                             <td>14/10/2021</td>
                                             <td>30/10/2021</td>
@@ -101,7 +101,7 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="#">ĐH - 0001</a></td>
+                                            <td><a href="chi-tiet-don-hang-mua.html">ĐH - 0001</a></td>
                                             <td>HĐ-999-34369</td>
                                             <td>14/10/2021</td>
                                             <td>30/10/2021</td>

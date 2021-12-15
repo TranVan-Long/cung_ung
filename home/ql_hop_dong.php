@@ -105,9 +105,9 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="#">HĐ - 0001</a></td>
+                                            <td><a href="quan-ly-chi-tiet-hop-dong-ban.html">HĐ - 0002</a></td>
                                             <td>29/10/2021</td>
-                                            <td>Hợp đồng mua vật tư</td>
+                                            <td>Hợp đồng bán vật tư</td>
                                             <td>12/10/2021 - 30/10/2021</td>
                                             <td>10/11/2021</td>
                                             <td>Công ty A</td>
@@ -117,9 +117,9 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="#">HĐ - 0001</a></td>
+                                            <td><a href="quan-ly-chi-tiet-hop-dong-thue-thiet-bi.html">HĐ - 0001</a></td>
                                             <td>29/10/2021</td>
-                                            <td>Hợp đồng mua vật tư</td>
+                                            <td>Hợp đồng thuê thiết bị vật tư</td>
                                             <td>12/10/2021 - 30/10/2021</td>
                                             <td>10/11/2021</td>
                                             <td>Công ty A</td>
@@ -129,9 +129,9 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="#">HĐ - 0001</a></td>
+                                            <td><a href="quan-ly-chi-tiet-hop-dong-van-chuyen.html">HĐ - 0001</a></td>
                                             <td>29/10/2021</td>
-                                            <td>Hợp đồng mua vật tư</td>
+                                            <td>Hợp đồng thuê vận chuyển</td>
                                             <td>12/10/2021 - 30/10/2021</td>
                                             <td>10/11/2021</td>
                                             <td>Công ty A</td>

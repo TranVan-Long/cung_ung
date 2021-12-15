@@ -7,7 +7,7 @@ $date = date('m-d-Y', time())
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Thêm yêu cầu vật tư</title>
+    <title>Cỉnh sửa yêu cầu báo giá</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
@@ -33,27 +33,46 @@ $date = date('m-d-Y', time())
         <!--        header end-->
         <div class="content">
             <div class="mt-20">
-                <h4 class="mt-5">Thêm yêu cầu vật tư</h4>
+                <h4 class="mt-5">Chỉnh sửa yêu cầu báo giá</h4>
             </div>
             <div class="c-body">
                 <div class="form-control">
                     <div class="form-row left">
-                        <div class="form-col-50">
-                            <label for="so-phieu">Số phiếu yêu cầu<span class="text-red">*</span></label>
-                            <input type="text" id="so-phieu" name="so-phieu" value="PH-009-01029" disabled required>
+                        <div class="form-col-50 left">
+                            <label for="so-phieu">Số phiếu yêu cầu</label>
+                            <input type="text" id="so-phieu" name="so-phieu" value="BG-101-38475" disabled required>
+                        </div>
+                        <div class="form-col-50 right">
+                            <label for="ngay-danh-gia">Ngày lập</label>
+                            <input class="date-input" type="date" id="ngay-danh-gia" name="ngay-danh-gia"
+                                   value="2021-10-18">
+                        </div>
+                    </div>
+                    <div class="form-row left">
+                        <div class="form-col-50 left">
+                            <label for="nguoi-lap">Người lập</label>
+                            <input type="text" id="nguoi-lap" name="nguoi-lap" value="Nguyễn Văn A" disabled>
                         </div>
                     </div>
                     <div class="form-row left">
                         <div class="form-col-50 left v-select2">
-                            <label for="chon-phong-ban">Chọn phòng ban<span class="text-red">*</span></label>
+                            <label for="chon-phong-ban">Nhà cung cấp<span class="text-red">*</span></label>
                             <select name="chon-phong-ban" id="chon-phong-ban" class="share_select">
-                                <option value="">-- Chọn phòng ban --</option>
+                                <option value="">-- Chọn nhà cung cấp --</option>
+                                <option value="A" selected>Công ty A</option>
+                                <option value="B">Công ty B</option>
+                                <option value="C">Công ty C</option>
+                                <option value="D">Công ty D</option>
                             </select>
                         </div>
                         <div class="form-col-50 right v-select2">
-                            <label for="nguoi-yeu-cau">Người yêu cầu<span class="text-red">*</span></label>
-                            <select name="nguoi-yeu-cau" id="nguoi-yeu-cau" class="share_select">
-                                <option value="">-- Chọn người yêu cầu --</option>
+                            <label for="nguoi-tiep-nhan">Người tiếp nhận báo giá<span class="text-red">*</span></label>
+                            <select name="nguoi-tiep-nhan" id="nguoi-tiep-nhan" class="share_select">
+                                <option value="">-- Chọn người tiếp nhận báo giá --</option>
+                                <option value="a">Nguyễn Văn A</option>
+                                <option value="b" selected>Nguyễn Văn B</option>
+                                <option value="c">Nguyễn Thị C</option>
+                                <option value="d">Nguyễn Thị D</option>
                             </select>
                         </div>
                     </div>
@@ -62,51 +81,55 @@ $date = date('m-d-Y', time())
                             <label for="cong-trinh">Chọn công trình<span class="text-red">*</span></label>
                             <select name="cong-trinh" id="cong-trinh" class="share_select">
                                 <option value="">-- Chọn công trình --</option>
+                                <option value="Nâng cấp quốc lộ 999" selected>Nâng cấp quốc lộ 999</option>
+                                <option value="Xây dựng nhà dân dụng">Xây dựng nhà dân dụng</option>
+                                <option value="Nâng cấp trường học">Nâng cấp trường học</option>
+                                <option value="Xây dựng nhà sinh hoạt văn hóa">Xây dựng nhà sinh hoạt văn hóa</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
-                            <label for="ngay-tao-yeu-cau">Ngày tạo yêu cầu</label>
-                            <input class="date-input" type="text" id="ngay-tao-yeu-cau" value="<?php echo $date ?>"
-                                   name="ngay-tao-yeu-cau"
-                                   disabled>
-                        </div>
-                        <div class="form-col-50 right">
-                            <label for="deadline">Ngày phải hoàn thành yêu cầu</label>
-                            <input class="" type="date" id="deadline" name="deadline"
-                                   placeholder="Chọn ngày phải hoàn thành yêu cầu">
+                        <div class="form-col-100 left">
+                            <label for="noi-dung-thu">Nội dung thư </label>
+                            <textarea id="noi-dung-thu" name="noi-dung-thu" placeholder="Nhập nội dung thư">Báo giá</textarea>
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-100 left">
-                            <label for="dien-giai">Diễn giải</label>
-                            <textarea id="dien-giai" name="dien-giai" placeholder="Nhập diễn giải"></textarea>
+                        <div class="form-col-50 left">
+                            <label for="mail-nhan-bao-gia">Mail nhận báo giá</label>
+                            <input type="text" id="mail-nhan-bao-gia" name="mail-nhan-bao-gia" placeholder="Nhập mail nhận báo giá" value="cccccc@gmail.com">
+                        </div>
+                        <div class="form-col-50 right d-flex">
+                            <div class="d_flex align-items-center checkbox-lbs mt-30">
+                                <label class="mb-0 mr-30">Giá đã bao gồm VAT</label>
+                                <input type="checkbox" name="gia-VAT">
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="mt-30 left w-100">
-                    <p class="text-blue link-text" id="add-material">&plus; Thêm mới vật tư</p>
+                    <p class="text-blue link-text text-500" id="add-quote">&plus; Thêm mới vật tư</p>
                     <div class="table-wrapper mt-5">
-                        <div class="table-container">
+                        <div class="table-container table-medium">
                             <div class="tbl-header">
                                 <table cellpadding="0" cellspacing="0" border="0">
                                     <thead>
                                     <tr>
-                                        <th class="w-10"></th>
+                                        <th class="w-5"></th>
                                         <th class="w-15">Mã vật tư</th>
-                                        <th class="w-25">Tên đầy đủ vật tư thiết bị</th>
-                                        <th class="w-20">Đơn vị tính</th>
-                                        <th class="w-25">Số lượng yêu cầu duyệt</th>
+                                        <th class="w-30">Tên đầy đủ vật tư thiết bị</th>
+                                        <th class="w-25">Hãng sản xuất</th>
+                                        <th class="w-10">Đơn vị tính</th>
+                                        <th class="w-15">Số lượng</th>
                                     </tr>
                                     </thead>
                                 </table>
                             </div>
                             <div class="tbl-content table-2-row">
                                 <table cellpadding="0" cellspacing="0" border="0">
-                                    <tbody id="materials">
+                                    <tbody id="quote-me">
                                     <tr class="item">
-                                        <td class="w-10">
+                                        <td class="w-5">
                                             <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
                                         </td>
                                         <td class="w-15">
@@ -114,20 +137,25 @@ $date = date('m-d-Y', time())
                                                 <select name="materials-id" class="share_select"></select>
                                             </div>
                                         </td>
+                                        <td class="w-30">
+                                            <div class="v-select2">
+                                                <select name="materials-name" class="share_select"></select>
+                                            </div>
+                                        </td>
                                         <td class="w-25">
                                             <div class="v-select2">
                                                 <select name="materials-name" class="share_select"></select>
                                             </div>
                                         </td>
-                                        <td class="w-20">
+                                        <td class="w-10">
                                             <input type="text" readonly disabled>
                                         </td>
-                                        <td class="w-25">
+                                        <td class="w-15">
                                             <input type="text">
                                         </td>
                                     </tr>
                                     <tr class="item">
-                                        <td class="w-10">
+                                        <td class="w-5">
                                             <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
                                         </td>
                                         <td class="w-15">
@@ -135,15 +163,20 @@ $date = date('m-d-Y', time())
                                                 <select name="materials-id" class="share_select"></select>
                                             </div>
                                         </td>
+                                        <td class="w-30">
+                                            <div class="v-select2">
+                                                <select name="materials-name" class="share_select"></select>
+                                            </div>
+                                        </td>
                                         <td class="w-25">
                                             <div class="v-select2">
                                                 <select name="materials-name" class="share_select"></select>
                                             </div>
                                         </td>
-                                        <td class="w-20">
+                                        <td class="w-10">
                                             <input type="text" readonly disabled>
                                         </td>
-                                        <td class="w-25">
+                                        <td class="w-15">
                                             <input type="text">
                                         </td>
                                     </tr>
@@ -156,52 +189,31 @@ $date = date('m-d-Y', time())
             </div>
             <div class="c-foot mt-30">
                 <div class="right">
-                    <button class="v-btn btn-outline-blue modal-btn" data-target="cancel">Hủy</button>
-                    <a href="quan-ly-vat-tu.php" class="v-btn btn-blue ml-20">Xong</a>
+                    <p class="v-btn btn-outline-blue modal-btn" data-target="cancel">Hủy</p>
+                    <a href="bg-yeu-cau.php" class="v-btn btn-blue ml-20">Xong</a>
                 </div>
             </div>
-<!--            modal cancel-->
+            <!--            modal cancel-->
             <div class="modal text-center" id="cancel">
-                <div class="m-content">
+                <div class="m-content huy-them">
                     <div class="m-head ">
                         Thông báo <span class="dismiss cancel">&times;</span>
                     </div>
                     <div class="m-body">
-                        <p>Bạn có chắc chắn muốn hủy việc thêm yêu cầu vật tư?</p>
+                        <p>Bạn có chắc chắn muốn hủy việc chỉnh sửa yêu cầu báo giá?</p>
                         <p>Các thông tin bạn đã nhập sẽ không được lưu.</p>
                     </div>
                     <div class="m-foot d-inline-block">
                         <div class="left">
-                            <button class="v-btn btn-outline-blue left cancel">Hủy</button>
+                            <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
                         <div class="right">
-                            <a href="quan-ly-vat-tu.php" class="v-btn btn-green right">Đồng ý</a>
+                            <a href="bg-yeu-cau.php" class="v-btn btn-green right">Đồng ý</a>
                         </div>
                     </div>
                 </div>
             </div>
-<!--            modal cancel end-->
-<!--            modal delete-->
-            <div class="modal text-center" id="delete">
-                <div class="m-content">
-                    <div class="m-head ">
-                        Thông báo <span class="dismiss cancel">&times;</span>
-                    </div>
-                    <div class="m-body">
-                        <p>Bạn có chắc chắn muốn hủy việc thêm yêu cầu vật tư?</p>
-                        <p>Các thông tin bạn đã nhập sẽ không được lưu.</p>
-                    </div>
-                    <div class="m-foot d-inline-block">
-                        <div class="left">
-                            <button class="v-btn btn-outline-blue left cancel">Hủy</button>
-                        </div>
-                        <div class="right">
-                            <a href="quan-ly-vat-tu.php" class="v-btn btn-green right">Đồng ý</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-<!--            modal delete end-->
+            <!--            modal cancel end-->
         </div>
     </div>
 </div>

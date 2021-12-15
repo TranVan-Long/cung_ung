@@ -192,7 +192,7 @@ $(".tim_kiem, .tim_kiem_o").select2({
 });
 
 $(".add_creart_hd").click(function(){
-    window.location.href = "them_moi_phieu_thanh_toan.html";
+    window.location.href = "them-phieu-thanh-toan.html";
 });
 
 (function(w) {

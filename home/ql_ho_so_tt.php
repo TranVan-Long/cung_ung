@@ -81,7 +81,7 @@ include "../includes/icon.php";
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="#">NT-001-19835</a></td>
+                                            <td><a href="">NT-001-19835</a></td>
                                             <td>14/10/2021</td>
                                             <td>Công ty X</td>
                                             <td>ĐH-001-28736</td>
@@ -175,7 +175,7 @@ $(".tim_kiem, .tim_kiem_o").select2({
 });
 
 $(".add_creart_hd").click(function(){
-    window.location.href = "them-moi-ho-so-thanh-toan.html";
+    window.location.href = "them-ho-so-thanh-toan.html";
 });
 
 (function(w) {

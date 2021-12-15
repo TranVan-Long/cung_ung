@@ -7,7 +7,7 @@ $date = date('m-d-Y', time())
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cung ứng xây dựng</title>
+    <title>Thêm tiêu chí đánh giá</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
@@ -105,12 +105,12 @@ $date = date('m-d-Y', time())
                                         <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                                     </div>
                                     <div class="right">
-                                        <a href="ratting-rules-index.php" class="v-btn btn-green right">Đồng ý</a>
+                                        <a href="rating-rules-index.php" class="v-btn btn-green right">Đồng ý</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <a href="ratting-rules-index.php" class="v-btn btn-blue ml-20">Xong</a>
+                        <a href="rating-rules-index.php" class="v-btn btn-blue ml-20">Xong</a>
                     </div>
                 </div>
             </div>

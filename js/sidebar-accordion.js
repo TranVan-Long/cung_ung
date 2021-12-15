@@ -20,3 +20,4 @@ $(".collapse").click(function (){
     // $(this).addClass("active");
     $('#' + id).addClass("active");
 })
+

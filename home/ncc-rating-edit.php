@@ -7,7 +7,7 @@ $date = date('m-d-Y', time())
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cung ứng xây dựng</title>
+    <title>Chỉnh sửa phiếu đánh giá</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
@@ -129,7 +129,7 @@ $date = date('m-d-Y', time())
                                         <th class="w-5" rowspan="2">STT</th>
                                         <th class="w-20" rowspan="2">Tiêu chí đánh giá</th>
                                         <th class="w-10" rowspan="2">Hệ số</th>
-                                        <th colspan="3" scope="colgroup">Đánh giá</th>
+                                        <th colspan="3" scope="colgroup" class="border-bottom-w">Đánh giá</th>
                                     </tr>
                                     <tr class="border-top-w">
                                         <th class="w-20" scope="colgroup">Điểm đánh giá</th>

@@ -88,3 +88,29 @@ RewriteRule ^nhat-ky-hoat-dong.html$ /home/ql_nhatky.php [NE,L]
 # quản lý cài đặt nhân viên
 RewriteRule ^quan-ly-cai-dat-nhan-vien.html$ /home/ql_setting_nv.php [NE,L]
 RewriteRule ^nhat-ky-hoat-dong-nhan-vien.html$ /home/ql_nhatky_nv.php [NE,L]
+
+# quản lý khách hàng
+RewriteRule ^quan-ly-khach-hang.html$ /home/kh-index.php [NE,L]
+RewriteRule ^quan-ly-chi-tiet-khach-hang.html$ /home/kh-details.php [NE,L]
+RewriteRule ^them-khach-hang.html$ /home/kh-create.php [NE,L]
+RewriteRule ^chinh-sua-khach-hang.html$ /home/kh-edit.php [NE,L]
+
+# quản lý nhà cung cấp
+RewriteRule ^quan-ly-nha-cung-cap.html$ /home/ncc-index.php [NE,L]
+RewriteRule ^quan-ly-chi-tiet-nha-cung-cap.html$ /home/ncc-details.php [NE,L]
+RewriteRule ^them-nha-cung-cap.html$ /home/ncc-create.php [NE,L]
+RewriteRule ^chinh-sua-nha-cung-cap.html$ /home/ncc-edit.php [NE,L]
+
+# đánh giá nhà cung cấp
+RewriteRule ^danh-gia-nha-cung-cap.html$ /home/ncc-rating-index.php [NE,L]
+RewriteRule ^chi-tiet-danh-gia-nha-cung-cap.html$ /home/ncc-rating-details.php [NE,L]
+RewriteRule ^them-danh-gia-nha-cung-cap.html$ /home/ncc-rating-create.php [NE,L]
+RewriteRule ^chinh-sua-danh-gia-nha-cung-cap.html$ /home/ncc-rating-edit.php [NE,L]
+
+# tieu chi danh gia
+RewriteRule ^tieu-chi-danh-gia.html$ /home/rating-rules-index.php [NE,L]
+RewriteRule ^them-tieu-chi-danh-gia.html$ /home/rating-rules-create.php [NE,L]
+RewriteRule ^chinh-sua-tieu-chi-danh-gia.html$ /home/rating-rules-edit.php [NE,L]
+
+# báo cáo
+RewriteRule ^bao-cao-doanh-so-ban-hang.html$ /home/bc-doanh-so.php [NE,L]

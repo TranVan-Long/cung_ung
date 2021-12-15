@@ -6,7 +6,7 @@ include("../includes/icon.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cung ứng xây dựng</title>
+    <title>Chi tiết nhà cung cấp</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
@@ -170,30 +170,29 @@ include("../includes/icon.php");
                     <a href="#" class="v-btn btn-green">Xuất excel</a>
                 </div>
                 <div class="right mt-30">
-                    <p class="v-btn btn-outline-red modal-btn">Xóa</p>
-                    <div class="modal text-center">
-                        <div class="m-content huy-them">
-                            <div class="m-head ">
-                                Xóa đơn hàng <span class="dismiss cancel">&times;</span>
-                            </div>
-                            <div class="m-body">
-                                <p>Bạn có chắc chắn muốn xóa nhà cung cấp này?</p>
-                                <p>Thao tác này sẽ không thể hoàn tác.</p>
-                            </div>
-                            <div class="m-foot d-inline-block">
-                                <div class="left">
-                                    <p class="v-btn btn-outline-blue left cancel">Hủy</p>
-                                </div>
-                                <div class="right">
-                                    <a href="ncc-index.php" class="v-btn btn-green right">Đồng ý</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <p class="v-btn btn-outline-red modal-btn" data-target="delete">Xóa</p>
                     <a href="ncc-edit.php" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
                 </div>
             </div>
-            <div class=""></div>
+            <div class="modal text-center" id="delete">
+                <div class="m-content huy-them">
+                    <div class="m-head ">
+                        Xóa đơn hàng <span class="dismiss cancel">&times;</span>
+                    </div>
+                    <div class="m-body">
+                        <p>Bạn có chắc chắn muốn xóa nhà cung cấp này?</p>
+                        <p>Thao tác này sẽ không thể hoàn tác.</p>
+                    </div>
+                    <div class="m-foot d-inline-block">
+                        <div class="left">
+                            <p class="v-btn btn-outline-blue left cancel">Hủy</p>
+                        </div>
+                        <div class="right">
+                            <a href="ncc-index.php" class="v-btn btn-green right">Đồng ý</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

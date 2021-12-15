@@ -6,7 +6,7 @@ include("../includes/icon.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cung ứng xây dựng</title>
+    <title>Chỉnh sửa yêu cầu vật tư </title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
@@ -84,6 +84,7 @@ include("../includes/icon.php");
                     </div>
                 </div>
                 <div class="mt-30 left w-100">
+                    <p class="text-blue text-500 link-text d-inline pl-20" id="add-material">&plus; Thêm mới vật tư</p>
                     <div class="table-wrapper mt-5">
                         <div class="table-container">
                             <div class="tbl-header">
@@ -102,8 +103,64 @@ include("../includes/icon.php");
                             <div class="tbl-content table-2-row">
                                 <table cellpadding="0" cellspacing="0" border="0">
                                     <tbody id="materials">
-                                    <tr class="item">
-                                        <td class="w-10"><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                                    <tr class="item" id="item1">
+                                        <td class="w-10">
+                                            <p><i class="ic-delete remove-item" data-target="delete-materials-1"></i></p>
+                                            <div class="modal text-center" id="delete-materials-1">
+                                                <div class="m-content">
+                                                    <div class="m-head ">
+                                                        Thông báo <span class="dismiss cancel">&times;</span>
+                                                    </div>
+                                                    <div class="m-body">
+                                                        <p>Bạn có chắc chắn muốn xóa vật tư này?</p>
+                                                        <p>Thao tác này sẽ không thể hoàn tác.</p>
+                                                    </div>
+                                                    <div class="m-foot d-inline-block">
+                                                        <div class="left">
+                                                            <p class="v-btn btn-outline-blue left cancel">Hủy</p>
+                                                        </div>
+                                                        <div class="right">
+                                                            <button class="v-btn btn-green right confirm-delete" data-target="item1">Đồng ý</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="w-15">
+                                            <div class="v-select2">
+                                                <select name="materials-id" class="share_select"></select>
+                                            </div>
+                                        </td>
+                                        <td class="w-25">
+                                            <div class="v-select2">
+                                                <select name="materials-name" class="share_select"></select>
+                                            </div>
+                                        </td>
+                                        <td class="w-20"><input type="text" readonly disabled></td>
+                                        <td class="w-25"><input type="text"></td>
+                                    </tr>
+                                    <tr class="item" id="item2">
+                                        <td class="w-10">
+                                            <p><i class="ic-delete remove-item" data-target="delete-materials-2"></i></p>
+                                            <div class="modal text-center" id="delete-materials-2">
+                                                <div class="m-content">
+                                                    <div class="m-head">
+                                                        Thông báo <span class="dismiss cancel">&times;</span>
+                                                    </div>
+                                                    <div class="m-body">
+                                                        <p>Bạn có chắc chắn muốn xóa vật tư này?</p>
+                                                        <p>Thao tác này sẽ không thể hoàn tác.</p>
+                                                    </div>
+                                                    <div class="m-foot d-inline-block">
+                                                        <div class="left">
+                                                            <p class="v-btn btn-outline-blue left cancel">Hủy</p>
+                                                        </div>
+                                                        <div class="right">
+                                                            <button class="v-btn btn-green right confirm-delete" data-target="item2">Đồng ý</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td class="w-15">
                                             <div class="v-select2">
@@ -119,7 +176,8 @@ include("../includes/icon.php");
                                         <td class="w-25"><input type="text"></td>
                                     </tr>
                                     <tr class="item">
-                                        <td class="w-10"><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                                        <td class="w-10">
+                                            <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
                                         </td>
                                         <td class="w-15">
                                             <div class="v-select2">
@@ -131,8 +189,12 @@ include("../includes/icon.php");
                                                 <select name="materials-name" class="share_select"></select>
                                             </div>
                                         </td>
-                                        <td class="w-20"><input type="text" readonly disabled></td>
-                                        <td class="w-25"><input type="text"></td>
+                                        <td class="w-20">
+                                            <input type="text" readonly disabled>
+                                        </td>
+                                        <td class="w-25">
+                                            <input type="text">
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -143,30 +205,32 @@ include("../includes/icon.php");
             </div>
             <div class="c-foot mt-30">
                 <div class="right">
-                    <p class="v-btn btn-outline-blue modal-btn">Hủy</p>
-                    <div class="modal text-center">
-                        <div class="m-content huy-them">
-                            <div class="m-head ">
-                                Thông báo <span class="dismiss cancel">&times;</span>
-                            </div>
-                            <div class="m-body">
-                                <p>Bạn có chắc chắn muốn hủy việc chỉnh sửa phiếu nhập kho?</p>
-                                <p>Các thông tin bạn đã chỉnh sửa sẽ không được lưu.</p>
-                            </div>
-                            <div class="m-foot d-inline-block">
-                                <div class="left">
-                                    <p class="v-btn btn-outline-blue left cancel">Hủy</p>
-                                </div>
-                                <div class="right">
-                                    <a href="quan-ly-vat-tu.php" class="v-btn btn-green right">Đồng ý</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <p class="v-btn btn-outline-blue modal-btn" data-target="cancel">Hủy</p>
                     <a href="quan-ly-vat-tu.php" class="v-btn btn-blue ml-20">Xong</a>
                 </div>
             </div>
             <div class=""></div>
+        </div>
+    </div>
+
+    <!--    modal-->
+    <div class="modal text-center" id="cancel">
+        <div class="m-content">
+            <div class="m-head ">
+                Thông báo <span class="dismiss cancel">&times;</span>
+            </div>
+            <div class="m-body">
+                <p>Bạn có chắc chắn muốn hủy việc chỉnh sửa phiếu nhập kho?</p>
+                <p>Các thông tin bạn đã chỉnh sửa sẽ không được lưu.</p>
+            </div>
+            <div class="m-foot d-inline-block">
+                <div class="left">
+                    <p class="v-btn btn-outline-blue left cancel">Hủy</p>
+                </div>
+                <div class="right">
+                    <a href="quan-ly-vat-tu.php" class="v-btn btn-green right">Đồng ý</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

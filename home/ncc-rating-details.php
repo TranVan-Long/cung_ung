@@ -6,7 +6,7 @@ include("../includes/icon.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cung ứng xây dựng</title>
+    <title>Chi tiết phiếu đánh giá</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
@@ -115,7 +115,7 @@ include("../includes/icon.php");
                                     <th scope="col" rowspan="2" class="w-5">STT</th>
                                     <th scope="col" rowspan="2" class="w-20">Tiêu chí đánh giá</th>
                                     <th scope="col" rowspan="2" class="w-10">Hệ số</th>
-                                    <th colspan="3" scope="colgroup" class="">Đánh giá</th>
+                                    <th colspan="3" scope="colgroup" class="border-bottom-w">Đánh giá</th>
                                 </tr>
                                 <tr class="border-top-w">
                                     <th scope="colgroup" class="">Điểm đánh giá</th>
@@ -176,7 +176,7 @@ include("../includes/icon.php");
                     </div>
 <!--                    end modal-->
 
-                    <a href="ncc-ratting-edit.php" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
+                    <a href="ncc-rating-edit.php" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
                 </div>
             </div>
             <div class=""></div>

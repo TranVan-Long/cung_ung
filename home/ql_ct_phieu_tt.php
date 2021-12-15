@@ -177,7 +177,7 @@ include "../includes/icon.php";
                             <div class="xuat_gmc_two share_xuat_gmc d_flex">
                                 <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red">Xóa</p>
                                 <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                    <a href="chinh-sua-hop-dong-van-chuyen.html" class="share_clr_tow">Chỉnh sửa</a>
+                                    <a href="chinh-sua-phei_thanh-toan.html" class="share_clr_tow">Chỉnh sửa</a>
                                 </p>
                             </div>
                         </div>

@@ -6,7 +6,7 @@ include("../includes/icon.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cung ứng xây dựng</title>
+    <title>Đánh giá nhà cung cấp</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
@@ -48,13 +48,13 @@ include("../includes/icon.php");
                             <option value="">Nhập thông tin cần tìm kiếm</option>
                         </select>
                     </div>
-                    <a class="v-btn btn-blue add-btn" href="../home/ncc-ratting-create.php">&plus; Thêm mới</a>
+                    <a class="v-btn btn-blue add-btn" href="../home/ncc-rating-create.php">&plus; Thêm mới</a>
                 </div>
                 <div class="scr-wrapper mt-30">
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
                     <div class="scr-btn scr-r-btn left"><i class="ic-chevron-right"></i></div>
                     <div class="table-wrapper">
-                        <div class="table-container table-full-width">
+                        <div class="table-container table-medium">
                             <div class="tbl-header">
                                 <table cellpadding="0" cellspacing="0" border="0">
                                     <thead>
@@ -74,7 +74,7 @@ include("../includes/icon.php");
                                     <tbody>
                                     <tr>
                                         <td class="w-5">1</td>
-                                        <td class="w-15"><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td class="w-15"><a href="ncc-rating-details.php">PH-009-73635</a></td>
                                         <td class="w-10">27/10/2021</td>
                                         <td class="w-15">Nhà cung cấp A</td>
                                         <td class="w-5">8/10</td>
@@ -82,7 +82,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td><a href="ncc-rating-details.php">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -90,7 +90,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td><a href="ncc-rating-details.php">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -98,7 +98,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td><a href="ncc-rating-details.php">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -106,7 +106,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td><a href="ncc-rating-details.php">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -114,7 +114,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td><a href="ncc-rating-details.php">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -122,7 +122,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td><a href="ncc-rating-details.php">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -130,7 +130,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td><a href="ncc-rating-details.php">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -138,7 +138,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td><a href="ncc-rating-details.php">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -146,7 +146,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-ratting-details.php">PH-009-73635</a></td>
+                                        <td><a href="ncc-rating-details.php">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>

@@ -7,7 +7,7 @@ $date = date('m-d-Y', time())
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cung ứng xây dựng</title>
+    <title>Thêm nhà cung cấp</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
@@ -112,7 +112,7 @@ $date = date('m-d-Y', time())
                         </div>
                     </div>
                 </div>
-                <div class="mt-30 left w-100">
+                <div class="form-control mt-30 left w-100">
                     <div class="border-bottom">
                         <p class="d-inline text-bold">Danh sách tài khoản ngân hàng</p>
                         <p class="text-blue link-text d-inline pl-20" id="add-bank-acc">&plus; Thêm mới tài khoản ngân
@@ -204,27 +204,27 @@ $date = date('m-d-Y', time())
             </div>
             <div class="c-foot mt-30">
                 <div class="right">
-                    <p class="v-btn btn-outline-blue modal-btn">Hủy</p>
-                    <div class="modal text-center">
-                        <div class="m-content">
-                            <div class="m-head ">
-                                Thông báo <span class="dismiss cancel">&times;</span>
-                            </div>
-                            <div class="m-body">
-                                <p>Bạn có chắc chắn muốn hủy việc thêm nhà cung cấp?</p>
-                                <p>Các thông tin bạn đã nhập sẽ không được lưu.</p>
-                            </div>
-                            <div class="m-foot d-inline-block">
-                                <div class="left">
-                                    <p class="v-btn btn-outline-blue left cancel">Hủy</p>
-                                </div>
-                                <div class="right">
-                                    <a href="ncc-index.php" class="v-btn btn-green right">Đồng ý</a>
-                                </div>
-                            </div>
+                    <p class="v-btn btn-outline-blue modal-btn" data-target="cancel">Hủy</p>
+                    <a href="ncc-index.php" class="v-btn btn-blue ml-20">Xong</a>
+                </div>
+            </div>
+            <div class="modal text-center" id="cancel">
+                <div class="m-content">
+                    <div class="m-head ">
+                        Thông báo <span class="dismiss cancel">&times;</span>
+                    </div>
+                    <div class="m-body">
+                        <p>Bạn có chắc chắn muốn hủy việc thêm nhà cung cấp?</p>
+                        <p>Các thông tin bạn đã nhập sẽ không được lưu.</p>
+                    </div>
+                    <div class="m-foot d-inline-block">
+                        <div class="left">
+                            <p class="v-btn btn-outline-blue left cancel">Hủy</p>
+                        </div>
+                        <div class="right">
+                            <a href="ncc-index.php" class="v-btn btn-green right">Đồng ý</a>
                         </div>
                     </div>
-                    <a href="ncc-index.php" class="v-btn btn-blue ml-20">Xong</a>
                 </div>
             </div>
         </div>

@@ -3,9 +3,16 @@ var dropDownContent = $('li ul .dropdown-content');
 var tblMenu = $('td .tbl-menu');
 var  tblMenuContent = $('td .tbl-menu-content');
 
-$('.dropdown').click(function (){
-    $(this).parents('ul').find('.dropdown-content').slideToggle();
+
+$('.user-name').click(function () {
+    $(this).parents('ul').find('.dropdown-content').toggleClass("active");
 });
+
+var dropd = $(".user-name");var dropc = $(".dropdown-content");
+
+$(window).click(function (e) {if (!dropd.is(e.target) && !dropc.is(e.target) && dropc.has(e.target).length == 0) {dropc.removeClass("active");}
+});
+
 
 $('.tbl-menu').click(function (){
     $(this).parents("td").find(".tbl-menu-content").toggleClass('active');
@@ -21,7 +28,12 @@ $(window).click(function (e){
 
 
 $('.modal-btn').click(function () {
-    $('.modal').fadeIn();
+    var id = $(this).attr("data-target");
+    $('#'+ id).fadeIn();
+});
+$('.remove-item').click(function () {
+    var id = $(this).attr("data-target");
+    $('#'+ id).fadeIn();
 });
 
 $('.cancel').click(function () {
@@ -34,13 +46,11 @@ $(window).click(function (e) {
 });
 
 
-
 function RefSelect2() {
     $(".share_select").select2({
         width: '100%',
     });
 }
-
 
 
 $("#add-material").click(function () {
@@ -67,11 +77,6 @@ $("#add-material").click(function () {
         "                                    </tr>");
     RefSelect2();
 });
-$(document).on('click', '.removeItem', function () {
-    $(this).parents('tr').remove();
-    return false;
-});
-
 
 $('#add-bank-acc').click(function (){
     $('#bank-list').append("<div class=\"bank border-bottom left w-100 pb-20\">\n" +
@@ -112,10 +117,6 @@ $('#add-bank-acc').click(function (){
         "                        </div>");
     RefSelect2();
 })
-$(document).on('click', '.removeItem2', function (){
-    $(this).parents('div.bank').remove();
-    return false;
-})
 
 $("#add-references").click(function () {
     $("#rererences").append("<tr class=\"item\">\n" +
@@ -136,10 +137,6 @@ $("#add-references").click(function () {
         "                                        </td>\n" +
         "                                    </tr>");
     RefSelect2();
-});
-$(document).on('click', '.removeItem', function () {
-    $(this).parents('tr').remove();
-    return false;
 });
 
 $("#add-ratting-ruler").click(function () {
@@ -169,10 +166,6 @@ $("#add-ratting-ruler").click(function () {
         "                                    </tr>");
     RefSelect2();
 });
-$(document).on('click', '.removeItem', function () {
-    $(this).parents('tr').remove();
-    return false;
-});
 
 $('#add-rules-value').click(function (){
     $('#rules-value').append("<div class=\"value border-bottom left w-100 pb-20\">\n" +
@@ -193,11 +186,59 @@ $('#add-rules-value').click(function (){
         "                            </div>\n" +
         "                        </div>");
     RefSelect2();
-})
+});
+
+$('#add-quote').click(function (){
+    $('#quote-me').append("<tr class=\"item\">\n" +
+        "                                        <td class=\"w-5\">\n" +
+        "                                            <p class=\"removeItem\"><i class=\"ic-delete remove-btn\"></i></p>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-15\">\n" +
+        "                                            <div class=\"v-select2\">\n" +
+        "                                                <select name=\"materials-id\" class=\"share_select\"></select>\n" +
+        "                                            </div>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-30\">\n" +
+        "                                            <div class=\"v-select2\">\n" +
+        "                                                <select name=\"materials-name\" class=\"share_select\"></select>\n" +
+        "                                            </div>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-25\">\n" +
+        "                                            <div class=\"v-select2\">\n" +
+        "                                                <select name=\"materials-name\" class=\"share_select\"></select>\n" +
+        "                                            </div>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-10\">\n" +
+        "                                            <input type=\"text\" readonly disabled>\n" +
+        "                                        </td>\n" +
+        "                                        <td class=\"w-15\">\n" +
+        "                                            <input type=\"text\">\n" +
+        "                                        </td>\n" +
+        "                                    </tr>");
+    RefSelect2();
+});
+
+
+$(document).on('click', '.removeItem', function () {
+    $(this).parents('tr').remove();
+    return false;
+});
+$(document).on('click', '.removeItem2', function (){
+    $(this).parents('div.bank').remove();
+    return false;
+});
 $(document).on('click', '.removeItem3', function (){
     $(this).parents('div.value').remove();
     return false;
-})
+});
+$(document).on('click', '.confirm-delete', function () {
+    var target = $(this).attr('data-target')
+    $('#'+ target).remove();
+    return false;
+});
+
+
+
 
 
 $(window).on("load resize ", function() {
@@ -219,6 +260,9 @@ $('.scr-r-btn').click(function(e) {
         scrollLeft: "-=300px"
     }, "slow");
 });
+
+
+
 $('#value-type').on('change', function() {
     var selectedValue = this.value;
     if (selectedValue == 2){
@@ -227,6 +271,7 @@ $('#value-type').on('change', function() {
         $('.manual-value').hide();
     }
 });
+
 
 $('.tbl-menu').click(function (){
     var id = $(this).attr("data-tab");

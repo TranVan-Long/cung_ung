@@ -6,7 +6,7 @@ include("../includes/icon.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cung ứng xây dựng</title>
+    <title>Báo cáo doanh số bán hàng</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
@@ -49,7 +49,6 @@ include("../includes/icon.php");
                             <option value="">Nhập thông tin cần tìm kiếm</option>
                         </select>
                     </div>
-                    <a class="v-btn btn-blue add-btn" href="../home/kh-create.php">&plus; Thêm mới</a>
                 </div>
                 <div class="scr-wrapper mt-30">
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
@@ -60,14 +59,15 @@ include("../includes/icon.php");
                                 <table cellpadding="0" cellspacing="0" border="0">
                                     <thead>
                                     <tr>
-                                        <th class="w-5">STT</th>
-                                        <th class="w-10">Mã khách hàng</th>
-                                        <th class="w-10">Tên gọi tắt</th>
-                                        <th class="w-15">Tên khách hàng</th>
-                                        <th class="w-25">Địa chỉ liên hệ</th>
-                                        <th class="w-10">Mã số thuế</th>
-                                        <th class="w-10">Điện thoại</th>
-                                        <th class="w-15">Email</th>
+                                        <th class="w-10">STT</th>
+                                        <th class="w-20">Mã vật tư</th>
+                                        <th class="w-35">Tên đầy đủ vật tư thiết bị</th>
+                                        <th class="w-25">Số hợp đồng</th>
+                                        <th class="w-25">Ngày hợp đồng</th>
+                                        <th class="w-35">Công trình</th>
+                                        <th class="w-30">Giá trị theo hợp đồng</th>
+                                        <th class="w-30">Giá trị thực hiện</th>
+                                        <th class="w-25">Tiến độ(%)</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -76,104 +76,264 @@ include("../includes/icon.php");
                                 <table cellpadding="0" cellspacing="0" border="0">
                                     <tbody>
                                     <tr>
-                                        <td class="w-5">1</td>
-                                        <td class="w-10"><a href="kh-details.php">KH-002-38476</a></td>
-                                        <td class="w-10">NVA</td>
-                                        <td class="w-15">Nguyễn Văn A</td>
-                                        <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td class="w-10">97766519367782</td>
-                                        <td class="w-10">0987543671</td>
-                                        <td class="w-15">mail1234@gmail.com</td>
+                                        <td class="w-10">1</td>
+                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-35">Ống nhựa 0,5m</td>
+                                        <td class="w-25">
+                                            <p class="table-text">HĐ-123-47589</p>
+                                            <p class="table-text">HĐ-098-37465</p>
+                                        </td>
+                                        <td class="w-25">
+                                            <p class="table-text">05/11/2021</p>
+                                            <p class="table-text">06/11/2021</p>
+                                        </td>
+                                        <td class="w-35">
+                                            <p class="table-text">Xây dựng nhà dân dụng</p>
+                                            <p class="table-text">Xây dựng nhà sinh hoạt văn hóa phường</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">10.000.000</p>
+                                            <p class="table-text">10.000.000</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">9.000.000</p>
+                                            <p class="table-text">9.000.000</p>
+                                        </td>
+                                        <td class="w-25"><p class="table-text">90</p></td>
                                     </tr>
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="kh-details.php">KH-002-38476</a></td>
-                                        <td>NVA</td>
-                                        <td>Nguyễn Văn A</td>
-                                        <td>Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td>97766519367782</td>
-                                        <td>0987543671</td>
-                                        <td>mail1234@gmail.com</td>
+                                        <td class="w-10">1</td>
+                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-35">Ống nhựa 0,5m</td>
+                                        <td class="w-25">
+                                            <p class="table-text">HĐ-123-47589</p>
+                                            <p class="table-text">HĐ-098-37465</p>
+                                        </td>
+                                        <td class="w-25">
+                                            <p class="table-text">05/11/2021</p>
+                                            <p class="table-text">06/11/2021</p>
+                                        </td>
+                                        <td class="w-35">
+                                            <p class="table-text">Xây dựng nhà dân dụng</p>
+                                            <p class="table-text">Xây dựng nhà sinh hoạt văn hóa phường</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">10.000.000</p>
+                                            <p class="table-text">10.000.000</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">9.000.000</p>
+                                            <p class="table-text">9.000.000</p>
+                                        </td>
+                                        <td class="w-25"><p class="table-text">90</p></td>
                                     </tr>
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="kh-details.php">KH-002-38476</a></td>
-                                        <td>NVA</td>
-                                        <td>Nguyễn Văn A</td>
-                                        <td>Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td>97766519367782</td>
-                                        <td>0987543671</td>
-                                        <td>mail1234@gmail.com</td>
+                                        <td class="w-10">1</td>
+                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-35">Ống nhựa 0,5m</td>
+                                        <td class="w-25">
+                                            <p class="table-text">HĐ-123-47589</p>
+                                            <p class="table-text">HĐ-098-37465</p>
+                                        </td>
+                                        <td class="w-25">
+                                            <p class="table-text">05/11/2021</p>
+                                            <p class="table-text">06/11/2021</p>
+                                        </td>
+                                        <td class="w-35">
+                                            <p class="table-text">Xây dựng nhà dân dụng</p>
+                                            <p class="table-text">Xây dựng nhà sinh hoạt văn hóa phường</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">10.000.000</p>
+                                            <p class="table-text">10.000.000</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">9.000.000</p>
+                                            <p class="table-text">9.000.000</p>
+                                        </td>
+                                        <td class="w-25"><p class="table-text">90</p></td>
                                     </tr>
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="kh-details.php">KH-002-38476</a></td>
-                                        <td>NVA</td>
-                                        <td>Nguyễn Văn A</td>
-                                        <td>Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td>97766519367782</td>
-                                        <td>0987543671</td>
-                                        <td>mail1234@gmail.com</td>
+                                        <td class="w-10">1</td>
+                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-35">Ống nhựa 0,5m</td>
+                                        <td class="w-25">
+                                            <p class="table-text">HĐ-123-47589</p>
+                                            <p class="table-text">HĐ-098-37465</p>
+                                        </td>
+                                        <td class="w-25">
+                                            <p class="table-text">05/11/2021</p>
+                                            <p class="table-text">06/11/2021</p>
+                                        </td>
+                                        <td class="w-35">
+                                            <p class="table-text">Xây dựng nhà dân dụng</p>
+                                            <p class="table-text">Xây dựng nhà sinh hoạt văn hóa phường</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">10.000.000</p>
+                                            <p class="table-text">10.000.000</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">9.000.000</p>
+                                            <p class="table-text">9.000.000</p>
+                                        </td>
+                                        <td class="w-25"><p class="table-text">90</p></td>
                                     </tr>
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="kh-details.php">KH-002-38476</a></td>
-                                        <td>NVA</td>
-                                        <td>Nguyễn Văn A</td>
-                                        <td>Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td>97766519367782</td>
-                                        <td>0987543671</td>
-                                        <td>mail1234@gmail.com</td>
+                                        <td class="w-10">1</td>
+                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-35">Ống nhựa 0,5m</td>
+                                        <td class="w-25">
+                                            <p class="table-text">HĐ-123-47589</p>
+                                            <p class="table-text">HĐ-098-37465</p>
+                                        </td>
+                                        <td class="w-25">
+                                            <p class="table-text">05/11/2021</p>
+                                            <p class="table-text">06/11/2021</p>
+                                        </td>
+                                        <td class="w-35">
+                                            <p class="table-text">Xây dựng nhà dân dụng</p>
+                                            <p class="table-text">Xây dựng nhà sinh hoạt văn hóa phường</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">10.000.000</p>
+                                            <p class="table-text">10.000.000</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">9.000.000</p>
+                                            <p class="table-text">9.000.000</p>
+                                        </td>
+                                        <td class="w-25"><p class="table-text">90</p></td>
                                     </tr>
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="kh-details.php">KH-002-38476</a></td>
-                                        <td>NVA</td>
-                                        <td>Nguyễn Văn A</td>
-                                        <td>Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td>97766519367782</td>
-                                        <td>0987543671</td>
-                                        <td>mail1234@gmail.com</td>
+                                        <td class="w-10">1</td>
+                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-35">Ống nhựa 0,5m</td>
+                                        <td class="w-25">
+                                            <p class="table-text">HĐ-123-47589</p>
+                                            <p class="table-text">HĐ-098-37465</p>
+                                        </td>
+                                        <td class="w-25">
+                                            <p class="table-text">05/11/2021</p>
+                                            <p class="table-text">06/11/2021</p>
+                                        </td>
+                                        <td class="w-35">
+                                            <p class="table-text">Xây dựng nhà dân dụng</p>
+                                            <p class="table-text">Xây dựng nhà sinh hoạt văn hóa phường</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">10.000.000</p>
+                                            <p class="table-text">10.000.000</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">9.000.000</p>
+                                            <p class="table-text">9.000.000</p>
+                                        </td>
+                                        <td class="w-25"><p class="table-text">90</p></td>
                                     </tr>
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="kh-details.php">KH-002-38476</a></td>
-                                        <td>NVA</td>
-                                        <td>Nguyễn Văn A</td>
-                                        <td>Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td>97766519367782</td>
-                                        <td>0987543671</td>
-                                        <td>mail1234@gmail.com</td>
+                                        <td class="w-10">1</td>
+                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-35">Ống nhựa 0,5m</td>
+                                        <td class="w-25">
+                                            <p class="table-text">HĐ-123-47589</p>
+                                            <p class="table-text">HĐ-098-37465</p>
+                                        </td>
+                                        <td class="w-25">
+                                            <p class="table-text">05/11/2021</p>
+                                            <p class="table-text">06/11/2021</p>
+                                        </td>
+                                        <td class="w-35">
+                                            <p class="table-text">Xây dựng nhà dân dụng</p>
+                                            <p class="table-text">Xây dựng nhà sinh hoạt văn hóa phường</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">10.000.000</p>
+                                            <p class="table-text">10.000.000</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">9.000.000</p>
+                                            <p class="table-text">9.000.000</p>
+                                        </td>
+                                        <td class="w-25"><p class="table-text">90</p></td>
                                     </tr>
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="kh-details.php">KH-002-38476</a></td>
-                                        <td>NVA</td>
-                                        <td>Nguyễn Văn A</td>
-                                        <td>Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td>97766519367782</td>
-                                        <td>0987543671</td>
-                                        <td>mail1234@gmail.com</td>
+                                        <td class="w-10">1</td>
+                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-35">Ống nhựa 0,5m</td>
+                                        <td class="w-25">
+                                            <p class="table-text">HĐ-123-47589</p>
+                                            <p class="table-text">HĐ-098-37465</p>
+                                        </td>
+                                        <td class="w-25">
+                                            <p class="table-text">05/11/2021</p>
+                                            <p class="table-text">06/11/2021</p>
+                                        </td>
+                                        <td class="w-35">
+                                            <p class="table-text">Xây dựng nhà dân dụng</p>
+                                            <p class="table-text">Xây dựng nhà sinh hoạt văn hóa phường</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">10.000.000</p>
+                                            <p class="table-text">10.000.000</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">9.000.000</p>
+                                            <p class="table-text">9.000.000</p>
+                                        </td>
+                                        <td class="w-25"><p class="table-text">90</p></td>
                                     </tr>
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="kh-details.php">KH-002-38476</a></td>
-                                        <td>NVA</td>
-                                        <td>Nguyễn Văn A</td>
-                                        <td>Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td>97766519367782</td>
-                                        <td>0987543671</td>
-                                        <td>mail1234@gmail.com</td>
+                                        <td class="w-10">1</td>
+                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-35">Ống nhựa 0,5m</td>
+                                        <td class="w-25">
+                                            <p class="table-text">HĐ-123-47589</p>
+                                            <p class="table-text">HĐ-098-37465</p>
+                                        </td>
+                                        <td class="w-25">
+                                            <p class="table-text">05/11/2021</p>
+                                            <p class="table-text">06/11/2021</p>
+                                        </td>
+                                        <td class="w-35">
+                                            <p class="table-text">Xây dựng nhà dân dụng</p>
+                                            <p class="table-text">Xây dựng nhà sinh hoạt văn hóa phường</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">10.000.000</p>
+                                            <p class="table-text">10.000.000</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">9.000.000</p>
+                                            <p class="table-text">9.000.000</p>
+                                        </td>
+                                        <td class="w-25"><p class="table-text">90</p></td>
                                     </tr>
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="kh-details.php">KH-002-38476</a></td>
-                                        <td>NVA</td>
-                                        <td>Nguyễn Văn A</td>
-                                        <td>Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td>97766519367782</td>
-                                        <td>0987543671</td>
-                                        <td>mail1234@gmail.com</td>
+                                        <td class="w-10">1</td>
+                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-35">Ống nhựa 0,5m</td>
+                                        <td class="w-25">
+                                            <p class="table-text">HĐ-123-47589</p>
+                                            <p class="table-text">HĐ-098-37465</p>
+                                        </td>
+                                        <td class="w-25">
+                                            <p class="table-text">05/11/2021</p>
+                                            <p class="table-text">06/11/2021</p>
+                                        </td>
+                                        <td class="w-35">
+                                            <p class="table-text">Xây dựng nhà dân dụng</p>
+                                            <p class="table-text">Xây dựng nhà sinh hoạt văn hóa phường</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">10.000.000</p>
+                                            <p class="table-text">10.000.000</p>
+                                        </td>
+                                        <td class="w-30">
+                                            <p class="table-text">9.000.000</p>
+                                            <p class="table-text">9.000.000</p>
+                                        </td>
+                                        <td class="w-25"><p class="table-text">90</p></td>
                                     </tr>
 
                                     </tbody>

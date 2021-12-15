@@ -7,7 +7,7 @@ $date = date('m-d-Y', time())
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cung ứng xây dựng</title>
+    <title>Chỉnh sửa khách hàng</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
@@ -101,7 +101,7 @@ $date = date('m-d-Y', time())
                         </div>
                     </div>
                 </div>
-                <div class="mt-30 left w-100">
+                <div class="form-control mt-30 left w-100">
                     <div class="border-bottom">
                         <p class="d-inline text-bold">Danh sách tài khoản ngân hàng</p>
                         <p class="text-blue link-text d-inline pl-20 text-500" id="add-bank-acc">&plus; Thêm mới tài khoản ngân
