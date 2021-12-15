@@ -541,15 +541,11 @@ textarea[placeholder] {
     position: relative;
 }
 
-.logo-container {
+.logo-container, .header-container {
     display: flex;
     justify-content: center;
 }
 
-.header-container {
-    display: flex;
-    justify-content: center;
-}
 
 .header .header-left {
     font-size: 16px;
@@ -660,7 +656,7 @@ p.removeItem3 {
     float: left;
 }
 
-.c-body {
+.c-body, .c-foot {
     width: 100%;
     float: left;
 }
@@ -671,10 +667,7 @@ p.removeItem3 {
     clear: both;
 }
 
-.c-foot {
-    width: 100%;
-    float: left;
-}
+
 
 .c-help {
     font-size: 15px;
