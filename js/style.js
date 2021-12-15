@@ -14,6 +14,12 @@ $(".phieu_button .cancel_add").click(function () {
     window.location.href = "quan-ly-phieu-thanh-toan.html";
 });
 
+$(".collapse").click(function () {
+    var id = $(this).attr("data-tab");
+    $(".collapse ul").removeClass("active");
+    $('#' + id).addClass("active");
+});
+
 function widthSelect() {
     $(".ma_vatt, .ten_vatt").select2({
         width: '100%',
@@ -31,15 +37,16 @@ $(document).on('click', '.remo_cot_ngang', function () {
 });
 
 
-$('.user-name').click(function () {
+$('.user-name, .head-avatar').click(function () {
     $(this).parents('ul').find('.dropdown-content').toggleClass("active");
 });
 
 var dropd = $(".user-name");
 var dropc = $(".dropdown-content");
+var head_avatar = $(".head-avatar");
 
 $(window).click(function (e) {
-    if (!dropd.is(e.target) && !dropc.is(e.target) && dropc.has(e.target).length == 0) {
+    if (!dropd.is(e.target) && !dropc.is(e.target) && !head_avatar.is(e.target) && dropc.has(e.target).length == 0) {
         dropc.removeClass("active");
     }
 });

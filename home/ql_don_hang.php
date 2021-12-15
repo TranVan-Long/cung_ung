@@ -197,7 +197,7 @@ include "../includes/icon.php";
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/sidebar-accordion.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
 <script>
 $(".tim_kiem, .tim_kiem_o").select2({
     width: '100%',

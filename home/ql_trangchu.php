@@ -213,7 +213,7 @@ include "../includes/icon.php";
 <script src="../js/exporting.js"></script>
 <script src="../js/accessibility.js"></script>
 <!-- end -->
-<script type="text/javascript" src="../js/sidebar-accordion.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
 <script>
     $(".cong_no_tra").change(function(){
         var id = $(this).val();

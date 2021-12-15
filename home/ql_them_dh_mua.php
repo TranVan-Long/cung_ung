@@ -288,7 +288,6 @@ include "../includes/icon.php";
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
-<script type="text/javascript" src="../js/sidebar-accordion.js"></script>
 <script>
     $(".all_nhacc, .all_nguoilh, .all_pban, .all_da_ct, .all_hopd, .ma_vatt, .ten_vatt").select2({
         width: '100%',

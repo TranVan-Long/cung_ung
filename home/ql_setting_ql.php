@@ -161,7 +161,7 @@ include "../includes/icon.php";
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/sidebar-accordion.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
 <script>
     $(".thong_bao .dropd").click(function(){
         $(this).toggleClass("active");

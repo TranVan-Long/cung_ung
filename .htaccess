@@ -114,3 +114,13 @@ RewriteRule ^chinh-sua-tieu-chi-danh-gia.html$ /home/rating-rules-edit.php [NE,L
 
 # báo cáo
 RewriteRule ^bao-cao-doanh-so-ban-hang.html$ /home/bc-doanh-so.php [NE,L]
+RewriteRule ^bao-cao-cong-no-phai-thu.html$ /home/bc-cong-no-phai-thu.php [NE,L]
+RewriteRule ^bao-cao-cong-no-phai-tra.html$ /home/bc-cong-no-phai-tra.php [NE,L]
+
+# bảng giá
+RewriteRule ^quan-ly-bang-gia.html$ /home/bg-bang-gia.php [NE,L]
+
+RewriteRule ^quan-ly-yeu-cau-bao-gia.html$ /home/bg-yeu-cau.php [NE,L]
+RewriteRule ^chi-tiet-yeu-cau-bao-gia.html$ /home/bg-chi-tiet.php [NE,L]
+RewriteRule ^them-yeu-cau-bao-gia.html$ /home/bg-them-yc.php [NE,L]
+RewriteRule ^chinh-sua-yeu-cau-bao-gia.html$ /home/bg-sua-yc.php [NE,L]
