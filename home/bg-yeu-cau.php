@@ -51,7 +51,7 @@ include("../includes/icon.php");
                             <option value="">Nhập thông tin cần tìm kiếm</option>
                         </select>
                     </div>
-                    <a class="v-btn btn-blue add-btn" href="bg-them-yc.php">&plus; Thêm mới</a>
+                    <a class="v-btn btn-blue add-btn" href="them-yeu-cau-bao-gia.html">&plus; Thêm mới</a>
 
                 </div>
                 <div class="table-wrapper mt-20">

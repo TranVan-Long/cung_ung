@@ -1,16 +1,16 @@
-$(".hd_button .cancel_add").click(function () {
+$(".hd_dy_pop .save_new_dp").click(function () {
     window.location.href = "quan-ly-hop-dong.html";
 });
 
-$(".dh_button .cancel_add").click(function () {
+$(".dh_dy_pop .save_new_dp").click(function () {
     window.location.href = "quan-ly-don-hang.html";
 });
 
-$(".hs_button .cancel_add").click(function () {
+$(".hs_dy_pop .save_new_dp").click(function () {
     window.location.href = "quan-ly-ho-so-thanh-toan.html";
 });
 
-$(".phieu_button .cancel_add").click(function () {
+$(".phieu_dy_pop .save_new_dp").click(function () {
     window.location.href = "quan-ly-phieu-thanh-toan.html";
 });
 
@@ -55,4 +55,16 @@ $(document).ready(function () {
     if ($(".ctn_table_ct .table tbody").height() > 159.5) {
         $(".ctn_table_ct .table thead tr").css("width", "calc(100% - 10px)");
     }
-})
+});
+
+var modal_share = $(".modal_share");
+var close_dectl = $(".close_dectl");
+var js_btn_huy = $(".js_btn_huy");
+
+close_dectl.click(function () {
+    modal_share.hide();
+});
+
+js_btn_huy.click(function () {
+    modal_share.hide();
+});

@@ -200,6 +200,38 @@ include "../includes/icon.php";
             </div>
         </div>
     </div>
+
+    <div class="modal_share modal_share_tow">
+        <div class="modal-content">
+            <div class="info_modal">
+                <div class="modal-header">
+                    <div class="header_ctn_share">
+                        <h4 class="ctn_share_h share_clr_tow tex_center cr_weight_bold">THÔNG BÁO</h4>
+                        <span class="close_detl close_dectl">&times;</span>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="ctn_body_modal">
+                        <div class="madal_form">
+                            <div class="ctiet_pop ctiet_pop_vc">
+                                <p class="share_fsize_tow share_clr_one">Bạn có chắc chắn muốn hủy việc tạo hồ sơ?</p>
+                                <p class="share_fsize_tow share_clr_one">Thao tác này sẽ không thể hoàn tác.</p>
+                            </div>
+                            <div class="form_butt_ht">
+                                <div class="tow_butt_flex d_flex hs_dy_pop">
+                                    <button type="button"
+                                        class="js_btn_huy share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
+                                    <button type="button"
+                                        class="share_w_148 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                        ý</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
@@ -207,6 +239,11 @@ include "../includes/icon.php";
 <script>
     $(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia, .ma_vatt").select2({
         width: '100%',
+    });
+
+    var cancel_add = $(".cancel_add");
+    cancel_add.click(function(){
+        modal_share.show();
     });
 </script>
 

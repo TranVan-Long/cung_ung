@@ -7,8 +7,8 @@ $all_hopd = ['/quan-ly-hop-dong.html','/chi-tiet-hop-dong.html','/quan-ly-chi-ti
             '/them-hop-dong-thue-thiet-bi.html','/chinh-sua-hop-dong-thue-thiet-bi.html','/quan-ly-chi-tiet-hop-dong-van-chuyen.html','/them-hop-dong-van-chuyen.html',
             '/chinh-sua-hop-dong-van-chuyen.html','/quan-ly-don-hang.html','/chi-tiet-don-hang-ban.html','/them-don-hang-ban.html','/chinh-sua-don-hang-ban.html',
             '/chi-tiet-don-hang-mua.html','/them-don-hang-mua.html','/chinh-sua-don-hang-mua.html','/quan-ly-ho-so-thanh-toan.html','/them-ho-so-thanh-toan.html',
-            '/chinh-sua-ho-so-thanh-toan.html','/quan-ly-phieu-thanh-toan.html','/them-phieu-thanh-toan.html','/chinh-sua-phieu-thanh-toan.html',
-            '/quan-ly-phieu-thanh-toan.html','/them-phieu-thanh-toan.html','/chinh-sua-phieu-thanh-toan.html'];
+            '/chinh-sua-ho-so-thanh-toan.html','/chi-tiet-ho-so-thanh-toan.html','/quan-ly-phieu-thanh-toan.html','/them-phieu-thanh-toan.html',
+            '/chinh-sua-phieu-thanh-toan.html','/chi-tiet-phieu-thanh-toan.html','/chi-tiet-phieu-thanh-toan-tam-ung.html'];
 
 $hop_dong = ['/quan-ly-hop-dong.html','/chi-tiet-hop-dong.html','/quan-ly-chi-tiet-hop-dong-mua.html','/them-hop-dong-mua.html','/chinh-sua-hop-dong-mua.html',
             '/quan-ly-chi-tiet-hop-dong-ban.html','/them-hop-dong-ban.html','/chinh-sua-hop-dong-ban.html','/quan-ly-chi-tiet-hop-dong-thue-thiet-bi.html',
@@ -20,9 +20,10 @@ $don_hang = ['/quan-ly-don-hang.html','/chi-tiet-don-hang-ban.html','/them-don-h
 
 $ho_so_tt = ['/quan-ly-ho-so-thanh-toan.html','/chi-tiet-ho-so-thanh-toan.html','/them-ho-so-thanh-toan.html','/chinh-sua-ho-so-thanh-toan.html'];
 
-$phieu_tt = ['/quan-ly-phieu-thanh-toan.html','/chi-tiet-phieu-thanh-toan.html','/chi-tiet-phieu-thanh-toan-tam-ung.html','/them-phieu-thanh-toan.html','/chinh-sua-phieu-thanh-toan.html'];
+$phieu_tt = ['/quan-ly-phieu-thanh-toan.html','/chi-tiet-phieu-thanh-toan.html','/chi-tiet-phieu-thanh-toan-tam-ung.html',
+            '/them-phieu-thanh-toan.html','/chinh-sua-phieu-thanh-toan.html'];
 
-$all_ncc = ['/quan-ly-nha-cung-cap.html','.quan-ly-chi-tiet-nha-cung-cap.html','/them-nha-cung-cap.html','/chinh-sua-nha-cung-cap.html',
+$all_ncc = ['/quan-ly-nha-cung-cap.html','/quan-ly-chi-tiet-nha-cung-cap.html','/them-nha-cung-cap.html','/chinh-sua-nha-cung-cap.html',
             '/tieu-chi-danh-gia.html','/them-tieu-chi-danh-gia.html','/chinh-sua-tieu-chi-danh-gia.html','/danh-gia-nha-cung-cap.html',
             '/them-danh-gia-nha-cung-cap.html','/chinh-sua-danh-gia-nha-cung-cap.html','/chi-tiet-danh-gia-nha-cung-cap.html'];
 

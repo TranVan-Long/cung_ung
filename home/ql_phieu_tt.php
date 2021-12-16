@@ -82,7 +82,7 @@ include "../includes/icon.php";
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="#">PH - 0001</a></td>
+                                            <td><a href="chi-tiet-phieu-thanh-toan-tam-ung.html">PH - 0001</a></td>
                                             <td>Tạm ứng</td>
                                             <td>10/11/2021</td>
                                             <td>ĐH - 0001</td>
@@ -94,7 +94,7 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="#">PH - 0001</a></td>
+                                            <td><a href="chi-tiet-phieu-thanh-toan.html">PH - 0001</a></td>
                                             <td>Theo hợp đồng</td>
                                             <td>10/11/2021</td>
                                             <td>HĐ - 0001</td>

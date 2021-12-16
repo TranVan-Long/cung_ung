@@ -34,7 +34,7 @@ include "../includes/icon.php";
             <div class="content">
                 <div class="ctn_ctiet_hd w_100 fload_l">
                     <div class="chi_tiet_hd mt_25 w_100 fload_l">
-                        <a class="prew_href share_fsize_one mb_25 share_clr_one" href="quan-ly-hop-dong.html">Quay lại</a>
+                        <a class="prew_href share_fsize_one mb_25 share_clr_one" href="quan-ly-phieu-thanh-toan.html">Quay lại</a>
                         <h4 class="tieu_de_ct w_100 fload_l share_fsize_tow share_clr_four cr_weight_bold mb_25">Chi tiết phiếu thanh toán</h4>
                         <div class="ctiet_dk_hp w_100 fload_l">
                             <div class="chitiet_hd w_100 fload_l">
@@ -175,10 +175,42 @@ include "../includes/icon.php";
                                 <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight">Xuất Excel</p>
                             </div>
                             <div class="xuat_gmc_two share_xuat_gmc d_flex">
-                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red">Xóa</p>
+                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_phieu_tt">Xóa</p>
                                 <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                    <a href="chinh-sua-phei_thanh-toan.html" class="share_clr_tow">Chỉnh sửa</a>
+                                    <a href="chinh-sua-phieu-thanh-toan.html" class="share_clr_tow">Chỉnh sửa</a>
                                 </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal_share modal_share_tow">
+        <div class="modal-content">
+            <div class="info_modal">
+                <div class="modal-header">
+                    <div class="header_ctn_share">
+                        <h4 class="ctn_share_h share_clr_tow tex_center cr_weight_bold">XÓA PHIẾU THANH TOÁN</h4>
+                        <span class="close_detl close_dectl">&times;</span>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="ctn_body_modal">
+                        <div class="madal_form">
+                            <div class="ctiet_pop">
+                                <p class="share_fsize_tow share_clr_one">Bạn có chắc chắn muốn xóa phiếu thanh toán này?</p>
+                                <p class="share_fsize_tow share_clr_one">Thao tác này sẽ không thể hoàn tác.</p>
+                            </div>
+                            <div class="form_butt_ht">
+                                <div class="tow_butt_flex d_flex">
+                                    <button type="button"
+                                        class="js_btn_huy share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
+                                    <button type="button"
+                                        class="share_w_148 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                        ý</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -190,6 +222,13 @@ include "../includes/icon.php";
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
+<script type="text/javascript">
+    var remove_phieu_tt = $(".remove_phieu_tt");
 
+    remove_phieu_tt.click(function() {
+        modal_share.show();
+    });
+
+</script>
 
 </html>

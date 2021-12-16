@@ -81,7 +81,7 @@ include "../includes/icon.php";
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="">NT-001-19835</a></td>
+                                            <td><a href="chi-tiet-ho-so-thanh-toan.html">NT-001-19835</a></td>
                                             <td>14/10/2021</td>
                                             <td>Công ty X</td>
                                             <td>ĐH-001-28736</td>

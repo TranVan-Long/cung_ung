@@ -8,7 +8,7 @@ include "../includes/icon.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chi tiết hợp đồng mua</title>
-    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
 
     <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -32,8 +32,10 @@ include "../includes/icon.php";
             <div class="content">
                 <div class="ctn_ctiet_hd w_100 fload_l">
                     <div class="chi_tiet_hd mt_27 w_100 fload_l">
-                        <a class="prew_href share_fsize_one mb_26 share_clr_one" href="quan-ly-hop-dong.html">Quay lại</a>
-                        <h4 class="tieu_de_ct w_100 fload_l share_fsize_tow share_clr_four mb_25 cr_weight_bold">Chi tiết hợp đồng mua</h4>
+                        <a class="prew_href share_fsize_one mb_26 share_clr_one" href="quan-ly-hop-dong.html">Quay
+                            lại</a>
+                        <h4 class="tieu_de_ct w_100 fload_l share_fsize_tow share_clr_four mb_25 cr_weight_bold">Chi
+                            tiết hợp đồng mua</h4>
                         <div class="ctiet_dk_hp w_100 fload_l">
                             <div class="chitiet_hd w_100 fload_l">
                                 <div class="ctiet_hd_left fload_l">
@@ -231,13 +233,48 @@ include "../includes/icon.php";
                         <div class="xuat_gmc w_100 fload_l d_flex">
                             <div class="xuat_gmc_one share_xuat_gmc d_flex">
                                 <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight">Xuất Excel</p>
-                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_clr_four ml_20">Gửi mail</p>
+                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_clr_four ml_20">Gửi
+                                    mail</p>
                             </div>
                             <div class="xuat_gmc_two share_xuat_gmc d_flex">
-                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red">Xóa</p>
+                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">
+                                    Xóa</p>
                                 <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
                                     <a href="chinh-sua-hop-dong-mua.html" class="share_clr_tow">Chỉnh sửa</a>
                                 </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- popup xóa -->
+
+    <div class="modal_share modal_share_tow">
+        <div class="modal-content">
+            <div class="info_modal">
+                <div class="modal-header">
+                    <div class="header_ctn_share">
+                        <h4 class="ctn_share_h share_clr_tow tex_center cr_weight_bold">XÓA HỢP ĐỒNG MUA</h4>
+                        <span class="close_detl close_dectl">&times;</span>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="ctn_body_modal">
+                        <div class="madal_form">
+                            <div class="ctiet_pop">
+                                <p class="share_fsize_tow share_clr_one">Bạn có chắc chắn muốn xóa hợp đồng mua này?</p>
+                                <p class="share_fsize_tow share_clr_one">Thao tác này sẽ không thể hoàn tác.</p>
+                            </div>
+                            <div class="form_butt_ht">
+                                <div class="tow_butt_flex d_flex">
+                                    <button type="button"
+                                        class="js_btn_huy share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
+                                    <button type="button"
+                                        class="share_w_148 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                        ý</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -254,6 +291,23 @@ $(".tim_kiem, .tim_kiem_o").select2({
     width: '100%',
 });
 
+var modal_share = $(".modal_share");
+var remove_hd = $(".remove_hd");
+
+var close_dectl = $(".close_dectl");
+var js_btn_huy = $(".js_btn_huy");
+
+remove_hd.click(function() {
+    modal_share.show();
+});
+
+close_dectl.click(function() {
+    modal_share.hide();
+});
+
+js_btn_huy.click(function() {
+    modal_share.hide();
+});
 </script>
 
 </html>
