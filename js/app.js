@@ -1,17 +1,7 @@
-var dropDown = $('ul .dropdown');
-var dropDownContent = $('li ul .dropdown-content');
+
 var tblMenu = $('td .tbl-menu');
 var  tblMenuContent = $('td .tbl-menu-content');
 
-
-$('.user-name').click(function () {
-    $(this).parents('ul').find('.dropdown-content').toggleClass("active");
-});
-
-var dropd = $(".user-name");var dropc = $(".dropdown-content");
-
-$(window).click(function (e) {if (!dropd.is(e.target) && !dropc.is(e.target) && dropc.has(e.target).length == 0) {dropc.removeClass("active");}
-});
 
 
 $('.tbl-menu').click(function (){
@@ -21,9 +11,6 @@ $(window).click(function (e){
     if (!tblMenu.is(e.target) && !tblMenuContent.is(e.target) && tblMenuContent.has(e.target).length === 0){
         tblMenuContent.removeClass('active');
     }
-    // if (!dropDown.is(e.target) && !dropDownContent.is(e.target) && dropDownContent.has(e.target).length === 0){
-    //     dropDownContent.slideUp();
-    // }
 })
 
 
@@ -188,7 +175,7 @@ $('#add-rules-value').click(function (){
     RefSelect2();
 });
 
-$('#add-quote').click(function (){
+$('#add-quote').click(function () {
     $('#quote-me').append("<tr class=\"item\">\n" +
         "                                        <td class=\"w-5\">\n" +
         "                                            <p class=\"removeItem\"><i class=\"ic-delete remove-btn\"></i></p>\n" +
@@ -282,5 +269,3 @@ $('.tbl-menu').click(function (){
 
 
 })
-
-

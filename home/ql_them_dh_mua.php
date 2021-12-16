@@ -285,7 +285,7 @@ include "../includes/icon.php";
         </div>
     </div>
 
-    <div class="modal_share modal_share_tow">
+    <div class="modal_share modal_share_tow them_dh_mua">
         <div class="modal-content">
             <div class="info_modal">
                 <div class="modal-header">
@@ -316,6 +316,7 @@ include "../includes/icon.php";
             </div>
         </div>
     </div>
+    <? include("../modals/modal_logout.php")?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

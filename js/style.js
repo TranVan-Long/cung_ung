@@ -1,3 +1,13 @@
+
+var dropd = $(".user-name");
+var dropc = $(".dropdown-content");
+var head_avatar = $(".head-avatar");
+
+$(window).click(function (e) {
+    if (!dropd.is(e.target) && !dropc.is(e.target) && !head_avatar.is(e.target) && dropc.has(e.target).length == 0) {
+        dropc.removeClass("active");
+    }
+});
 $(".hd_dy_pop .save_new_dp").click(function () {
     window.location.href = "quan-ly-hop-dong.html";
 });
@@ -41,15 +51,6 @@ $('.user-name, .head-avatar').click(function () {
     $(this).parents('ul').find('.dropdown-content').toggleClass("active");
 });
 
-var dropd = $(".user-name");
-var dropc = $(".dropdown-content");
-var head_avatar = $(".head-avatar");
-
-$(window).click(function (e) {
-    if (!dropd.is(e.target) && !dropc.is(e.target) && !head_avatar.is(e.target) && dropc.has(e.target).length == 0) {
-        dropc.removeClass("active");
-    }
-});
 
 $(document).ready(function () {
     if ($(".ctn_table_ct .table tbody").height() > 159.5) {
@@ -68,3 +69,48 @@ close_dectl.click(function () {
 js_btn_huy.click(function () {
     modal_share.hide();
 });
+
+$(".nnho_blk").click(function () {
+    $(this).parents(".nav-item").find(".nhac_nho").toggleClass("active");
+});
+
+$(".tbao_blk").click(function () {
+    $(this).parents(".nav-item").find(".thong_bao").toggleClass("active");
+});
+
+var nnho_blk = $(".nnho_blk");
+var nhac_nho = $(".nhac_nho");
+
+var tbao_blk = $(".tbao_blk");
+var thong_bao = $(".thong_bao");
+
+
+var dang_xuat = $(".dang_xuat");
+var logout_ht = $(".logout_ht");
+var huy_button = $(".huy_button");
+
+dang_xuat.click(function () {
+    logout_ht.show();
+});
+
+huy_button.click(function () {
+    logout_ht.hide();
+});
+
+$(window).click(function (e) {
+    if (!nnho_blk.is(e.target) && !nhac_nho.is(e.target) && nnho_blk.has(e.target).length === 0) {
+        nhac_nho.removeClass("active");
+    }
+
+    if (!tbao_blk.is(e.target) && !thong_bao.is(e.target) && tbao_blk.has(e.target).length === 0) {
+        thong_bao.removeClass("active");
+    }
+
+    if ($(e.target).is(".logout_ht")) {
+        logout_ht.hide();
+    }
+});
+
+$(".logout_all").click(function () {
+    window.location.href = "/";
+})

@@ -189,7 +189,7 @@ include "../includes/icon.php";
                                                     <td class="share_tb_five"></td>
                                                     <td class="share_tb_five">
                                                         <div class="form-group">
-                                                            <input type="text" name="so_tien_ctra" class="form-group tex_center">
+                                                            <input type="text" name="so_tien_ctra" class="form-control tex_center">
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -244,6 +244,7 @@ include "../includes/icon.php";
             </div>
         </div>
     </div>
+    <? include("../modals/modal_logout.php")?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

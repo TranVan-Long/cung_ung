@@ -51,7 +51,7 @@ include "../includes/icon.php";
                             </div>
                             <div class="ctiet_nhatk share_bgr_tow w_100 fload_l">
                                 <div class="ctn_ctiet_nky">
-                                    <p class="dropd_ctiet w_100 fload_l"><span class="mr_10">Hôm nay</span> <img src="../img/exp.png" alt="" class="avt_dropd share_cursor"></p>
+                                    <p class="dropd_ctiet w_100 fload_l share_cursor"><span class="mr_10">Hôm nay</span> <img src="../img/exp.png" alt="" class="avt_dropd share_cursor"></p>
                                     <div class="ctiet_nd_nhatk w_100 fload_l d_flex">
                                         <p class="share_tb_four"></p>
                                         <p class="share_tb_nine share_fsize_tow"><span class="cr_weight">Yêu cầu mua vật tư mới</span><br><span>Bạn đã đề xuất mua thêm vật tư</span></p>
@@ -66,7 +66,7 @@ include "../includes/icon.php";
                                     </div>
                                 </div>
                                 <div class="ctn_ctiet_nky">
-                                    <p class="dropd_ctiet"><span class="mr_10">15/11/2021</span> <img src="../img/exp.png" alt="" class="avt_dropd share_cursor"></p>
+                                    <p class="dropd_ctiet share_cursor"><span class="mr_10">15/11/2021</span> <img src="../img/exp.png" alt="" class="avt_dropd share_cursor"></p>
                                     <div class="ctiet_nd_nhatk w_100 fload_l d_flex">
                                         <p class="share_tb_four"></p>
                                         <p class="share_tb_nine share_fsize_tow"><span class="cr_weight">Yêu cầu mua vật tư mới</span><br><span>Bạn đã đề xuất mua thêm vật tư</span></p>
@@ -87,6 +87,7 @@ include "../includes/icon.php";
             </div>
         </div>
     </div>
+    <? include("../modals/modal_logout.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
@@ -94,7 +95,7 @@ include "../includes/icon.php";
 
 <script type="text/javascript">
     $(".dropd_ctiet").click(function(){
-        $(this).parents(".ctn_ctiet_nky").find(".ctiet_nd_nhatk").toggle();
+        $(this).parents(".ctn_ctiet_nky").toggleClass("active");
     })
 </script>
 </html>
