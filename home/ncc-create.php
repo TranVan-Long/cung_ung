@@ -205,7 +205,7 @@ $date = date('m-d-Y', time())
             <div class="c-foot mt-30">
                 <div class="right">
                     <p class="v-btn btn-outline-blue modal-btn" data-target="cancel">Hủy</p>
-                    <a href="ncc-index.php" class="v-btn btn-blue ml-20">Xong</a>
+                    <p class="v-btn btn-blue ml-20">Xong</p>
                 </div>
             </div>
             <div class="modal text-center" id="cancel">
@@ -222,7 +222,7 @@ $date = date('m-d-Y', time())
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
                         <div class="right">
-                            <a href="ncc-index.php" class="v-btn btn-green right">Đồng ý</a>
+                            <p class="v-btn btn-green right">Đồng ý</p>
                         </div>
                     </div>
                 </div>
@@ -233,7 +233,7 @@ $date = date('m-d-Y', time())
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/style.js"></script>
-<script type="text/javascript" src="../js/select.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
+
 </html>

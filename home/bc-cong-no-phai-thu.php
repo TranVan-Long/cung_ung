@@ -29,13 +29,13 @@ include("../includes/icon.php");
         </div>
         <!--        header end-->
         <div class="content">
-            <div class="c-top border-bottom-2">
+            <div class="w-100 left mt-35 pb-30 border-bottom">
                 <h4 class="left">Báo cáo công nợ phải thu</h4>
                 <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
             </div>
-            <div class="c-body mt-20">
+            <div class="c-body">
                 <div class="w-100 left">
-                    <div class="category v-select2">
+                    <div class="category v-select2 mt-20">
                         <select name="category" class="share_select">
                             <option value="">Tìm kiếm theo</option>
                             <option value="1">Mã khách hàng</option>
@@ -44,13 +44,13 @@ include("../includes/icon.php");
                             <option value="4">Email</option>
                         </select>
                     </div>
-                    <div class="search-box v-select2">
+                    <div class="search-box v-select2 mt-20">
                         <select name="search" class="share_select">
                             <option value="">Nhập thông tin cần tìm kiếm</option>
                         </select>
                     </div>
                 </div>
-                <div class="scr-wrapper mt-30">
+                <div class="scr-wrapper mt-20">
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
                     <div class="scr-btn scr-r-btn left"><i class="ic-chevron-right"></i></div>
                     <div class="table-wrapper">
@@ -482,7 +482,6 @@ include("../includes/icon.php");
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/style.js"></script>
-<script type="text/javascript" src="../js/select.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
 </html>

@@ -79,6 +79,7 @@ RewriteRule ^quan-ly-yeu-cau-vat-tu.html$ /home/quan-ly-vat-tu.php [NE,L]
 RewriteRule ^quan-ly-chi-tiet-yeu-cau-vat-tu.html$ /home/chi-tiet-yeu-cau-vat-tu.php [NE,L]
 RewriteRule ^chinh-sua-yeu-cau-vat-tu.html$ /home/chinh-sua-yeu-cau-vat-tu.php [NE,L]
 RewriteRule ^them-yeu-cau-vat-tu.html$ /home/them-yeu-cau-vat-tu.php [NE,L]
+RewriteRule ^duyet-yeu-cau-vat-tu.html$ /home/duyet-yc-vt.php [NE,L]
 
 # quản lý cài đặt quản lý
 RewriteRule ^quan-ly-cai-dat.html$ /home/ql_setting_ql.php [NE,L]
@@ -121,6 +122,16 @@ RewriteRule ^bao-cao-cong-no-phai-tra.html$ /home/bc-cong-no-phai-tra.php [NE,L]
 RewriteRule ^quan-ly-bang-gia.html$ /home/bg-bang-gia.php [NE,L]
 
 RewriteRule ^quan-ly-yeu-cau-bao-gia.html$ /home/bg-yeu-cau.php [NE,L]
-RewriteRule ^chi-tiet-yeu-cau-bao-gia.html$ /home/bg-chi-tiet.php [NE,L]
+RewriteRule ^chi-tiet-yeu-cau-bao-gia.html$ /home/bg-chi-tiet-yc.php [NE,L]
 RewriteRule ^them-yeu-cau-bao-gia.html$ /home/bg-them-yc.php [NE,L]
 RewriteRule ^chinh-sua-yeu-cau-bao-gia.html$ /home/bg-sua-yc.php [NE,L]
+
+RewriteRule ^quan-ly-bao-gia.html$ /home/bg-index.php [NE,L]
+RewriteRule ^chi-tiet-bao-gia.html$ /home/bg-details.php [NE,L]
+RewriteRule ^them-bao-gia.html$ /home/bg-create.php [NE,L]
+RewriteRule ^chinh-sua-bao-gia.html$ /home/bg-edit.php [NE,L]
+
+RewriteRule ^quan-ly-bao-gia-cho-khach-hang.html$ /home/bg-kh-index.php [NE,L]
+RewriteRule ^chi-tiet-bao-gia-cho-khach-hang.html$ /home/bg-kh-details.php [NE,L]
+RewriteRule ^them-bao-gia-cho-khach-hang.html$ /home/bg-kh-create.php [NE,L]
+RewriteRule ^chinh-sua-bao-gia-cho-khach-hang.html$ /home/bg-kh-edit.php [NE,L]

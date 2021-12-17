@@ -1104,7 +1104,9 @@ img {
     display: flex;
 }
 
-
+.logout_ht .tow_butt_flex button {
+    border: 1px solid #4c5bd4;
+}
 
 .bg_wra .hd_log .bg_log {
     display: block;
@@ -1412,7 +1414,7 @@ img {
 .ctn_cu_one .content_ct_six {
     background: url(../img/hinh_nen_one.png)no-repeat;
     background-size: 100% 100%;
-    padding: 16px 0px 44px 0px;
+    padding: 19px 0px 21px 0px;
 }
 
 .ten_ndgia {
@@ -1424,23 +1426,31 @@ img {
 }
 
 .tnghiem_avt {
-    margin-left: 20px;
+    margin-left: 2%;
 }
 
 .tnghiem_one {
-    background: #FFFFFF;
-    margin: 30px 0px 0px 20px;
-    padding: 48px 38px;
+    background: url(../img/avt_tn_one.png)no-repeat;
+    background-size: 100% 100%;
     border-radius: 20px;
     position: relative;
     z-index: 2;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.avt_tnghiem, .tnghien_ima, .tnghien_ima_one {
+.tnghiem_one .tieu_de {
+    margin-top: 48px;
+}
+
+.avt_tnghiem {
     position: relative;
     float: left;
     z-index: 1;
+}
+
+.tnghiem_tatca {
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .thun_avt_one {
@@ -1449,43 +1459,8 @@ img {
     float: left;
 }
 
-.tnghien_ima::after, .tnghien_ima::before {
-    content: "";
-    position: absolute;
-    float: left;
-    left: -20px;
-    background: url(../img/avt_exp_one.png)no-repeat;
-    width: 102px;
-    height: 102px;
-}
-
-.tnghien_ima::after {
-    top: 10px;
-}
-
-.tnghien_ima::before {
-    bottom: -20px;
-}
-
 .avt_tnghiem {
     align-items: center;
-}
-
-.thun_avt_one img {
-    margin-top: 30px;
-    width: 491px;
-    border-radius: 20px;
-}
-
-.tnghien_ima_one::before {
-    content: "";
-    position: absolute;
-    float: left;
-    background: url(../img/anh_nen.png)no-repeat;
-    width: 404px;
-    height: 332px;
-    top: 10px;
-    right: -20px;
 }
 
 .tnghiem_one .tieu_de {
@@ -2051,9 +2026,6 @@ img {
     border-radius: 8px;
     border: 1px solid #666666;
     height: 36px;
-    padding: 10px;
-    font-size: 16px;
-    line-height: 19px;
     color: #474747;
 
 }
@@ -2811,6 +2783,17 @@ img {
     }
 
     /* end */
+    .header {
+        width: calc(100% - 40px);
+    }
+
+    .content {
+        width: calc(100% - 102px);
+    }
+
+    p.removeItem2 {
+        margin-right: 10px;
+    }
 }
 
 @media screen and (max-width: 1024px) {

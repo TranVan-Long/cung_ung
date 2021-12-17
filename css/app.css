@@ -1,5 +1,4 @@
 body {
-    font-family: roboto, sans-serif;
     font-size: 16px;
     line-height: 19px;
     color: #474747;
@@ -34,11 +33,6 @@ h5.user-name::before {
     background: url(../img/drop_down.png)no-repeat;
     width: 12px;
     height: 5px;
-}
-
-* {
-    box-sizing: border-box;
-    outline: 0
 }
 
 ul, p {
@@ -89,7 +83,6 @@ p {
     height: 36px;
     font-size: 16px;
     line-height: 19px;
-    font-family: roboto, sans-serif;
     padding: 9px 10px;
     border: 1px solid #666666;
 }
@@ -146,7 +139,6 @@ textarea {
     height: 72px;
     font-size: 16px;
     line-height: 19px;
-    font-family: roboto, sans-serif;
     padding: 9px 10px;
     border: 1px solid #666666;
     border-radius: 8px;
@@ -156,6 +148,9 @@ textarea[placeholder] {
     color: #666666;
 }
 
+.modal textarea {
+    resize: none;
+}
 
 .bordered {
     padding: 20px 16px;
@@ -205,6 +200,10 @@ textarea[placeholder] {
 
 .d-inline-block {
     display: inline-block !important;
+}
+
+.d-block {
+    display: block !important;
 }
 
 .d-flex {
@@ -387,7 +386,7 @@ textarea[placeholder] {
     margin-right: 10px;
 }
 
-.mr20 {
+.mr-20 {
     margin-right: 20px;
 }
 
@@ -411,8 +410,24 @@ textarea[placeholder] {
     margin-top: 20px;
 }
 
+.mt-25 {
+    margin-top: 25px;
+}
+
 .mt-30 {
     margin-top: 30px;
+}
+
+.mt-35 {
+    margin-top: 35px;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
+
+.mt-45 {
+    margin-top: 45px;
 }
 
 .mt-50 {
@@ -441,6 +456,14 @@ textarea[placeholder] {
 
 .pb-20 {
     padding-bottom: 20px;
+}
+
+.pb-25 {
+    padding-bottom: 25px;
+}
+
+.pb-30 {
+    padding-bottom: 30px;
 }
 
 .text-red {
@@ -500,11 +523,19 @@ textarea[placeholder] {
 
 .header {
     width: calc(100% - 194px);
-    height: 56px;
     box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
     padding: 10px;
     border-radius: 8px;
     margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chi_tiet_item {
+    display: flex;
+    align-items: center;
 }
 
 .content {
@@ -621,7 +652,6 @@ textarea[placeholder] {
     font-size: 16px;
     line-height: 28px;
     padding-left: 20px;
-    margin-top: 5px;
     float: left;
     text-align: left;
 }
@@ -680,11 +710,11 @@ textarea[placeholder] {
 
 p.removeItem2 {
     margin-top: -64px;
-    margin-right: 50px;
+    margin-right: 20px;
 }
 
 p.removeItem3 {
-    margin-top: -32px;
+    margin-top: 32px;
     margin-right: 50px;
 }
 
@@ -704,8 +734,8 @@ p.removeItem3 {
 }
 
 .nav-avatar img {
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -765,6 +795,10 @@ p.removeItem3 {
     border: 1px solid #474747;
 }
 
+.modal .table-wrapper {
+    float: none;
+}
+
 .scr-wrapper::-webkit-scrollbar {
     display: none;
 }
@@ -800,6 +834,10 @@ p.removeItem3 {
 
 .table-sm {
     min-width: 988px;
+}
+
+.table-680 {
+    min-width: 680px;
 }
 
 table {
@@ -920,12 +958,13 @@ td:nth-last-child(1) {
 
 .category {
     width: 316px;
+    margin-right: 20px;
     float: left;
 }
 
 .search-box {
+    margin-right: 20px;
     width: 316px;
-    margin-left: 20px;
     float: left;
 }
 
@@ -1005,8 +1044,8 @@ td:nth-last-child(1) {
 }
 
 .v-select2 .select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 19px;
-    padding-top: 7px;
+    line-height: 36px;
+    color: #666666;
 }
 
 .v-select2 .select2-container--default .select2-selection--single .select2-selection__arrow {
@@ -1028,12 +1067,14 @@ td .v-select2 .select2-container--default .select2-selection--single {
     width: 148px;
     height: 36px;
     font-size: 16px;
-    font-weight: 550;
-    padding: 10px 20px;
+    font-weight: 500;
     border: none;
     border-radius: 8px;
     float: left;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-blue {
@@ -1195,12 +1236,9 @@ select#display {
     box-sizing: border-box
 }
 
-@media only screen and (min-width: 48em) {
-    .form-col-50 {
-        width: 40%;
-    }
+.form-col-50 {
+    width: 42%;
 }
-
 
 .modal {
     display: none;
@@ -1233,27 +1271,45 @@ select#display {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.acceptance-modal {
+    width: 720px;
+}
+
+.rejection-modal {
+    width: 500px;
+}
+
 .m-head {
     height: 54px;
     padding: 17px 16px;
     background-color: #4c5bd4;
     color: #ffffff;
     text-transform: uppercase;
-    font-weight: 550;
+    font-weight: 500;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    text-align: center;
 }
 
 .m-body {
     line-height: 2.0;
-    padding: 10px 20px;
+    padding: 20px 14px 0px 14px;
+    margin-bottom: 20px;
+}
+
+.rejection-modal .m-body {
+    padding: 20px 50px 0px 50px;
 }
 
 .m-foot {
     width: 100%;
-    padding: 20px 60px 25px 60px;
+    padding: 0px 60px 25px 60px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+
+.acceptance-modal .m-foot {
+    padding: 15px 20px 42px 20px;
 }
 
 
@@ -1333,22 +1389,10 @@ select#display {
     border-bottom-right-radius: 10px;
 }
 
-.ctiet_pop {
-    width: 100%;
-    float: left;
-    margin-top: 23px;
-    padding: 0px 30px;
-}
-
-.ctiet_pop.ctiet_pop_vc {
-    padding: 0px 14px;
-}
-
 .form_butt_ht {
     width: 100%;
     float: left;
-    margin-bottom: 25px;
-    padding: 0px 52px;
+    padding: 0px 46px;
 }
 
 .ctiet_pop, .ctiet_pop p {
@@ -1366,9 +1410,6 @@ select#display {
 }
 
 .tow_butt_flex {
-    width: 100%;
-    float: left;
-    justify-content: space-between;
     flex-wrap: wrap;
 }
 
@@ -1391,7 +1432,7 @@ select#display {
 .madal_form {
     width: 100%;
     float: left;
-    padding: 25px 20px;
+    padding: 25px 14px;
 }
 
 .titl_dele_nv .log_tlt {
@@ -1402,14 +1443,16 @@ select#display {
     width: 100%;
     float: left;
     display: flex;
+    justify-content: space-between;
+}
+
+.logout_ht .tow_butt_flex {
     justify-content: space-around;
 }
 
 .tow_butt_flex button {
     width: 140px;
     height: 36px;
-    border-radius: 6px;
-    outline: 0;
 }
 
 .nav-item {
@@ -1525,7 +1568,7 @@ select#display {
 
 .dismiss {
     float: right;
-    font-size: 46px;
+    font-size: 32px;
     font-weight: normal;
 }
 
@@ -1623,3 +1666,9 @@ select#display {
     border-radius: 4px;
     border: 1px solid #666666;
 }
+
+/* long */
+.ds_tk_nhang .form-row:first-child{
+    margin-top: 0;
+}
+/* end */

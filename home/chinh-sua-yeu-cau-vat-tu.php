@@ -120,7 +120,7 @@ include("../includes/icon.php");
                                                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                                                         </div>
                                                         <div class="right">
-                                                            <button class="v-btn btn-green right confirm-delete" data-target="item1">Đồng ý</button>
+                                                            <button class="v-btn sh_bgr_six share_clr_tow right confirm-delete" data-target="item1">Đồng ý</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -156,7 +156,7 @@ include("../includes/icon.php");
                                                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                                                         </div>
                                                         <div class="right">
-                                                            <button class="v-btn btn-green right confirm-delete" data-target="item2">Đồng ý</button>
+                                                            <button class="v-btn sh_bgr_six share_clr_tow right confirm-delete" data-target="item2">Đồng ý</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -172,29 +172,8 @@ include("../includes/icon.php");
                                                 <select name="materials-name" class="share_select"></select>
                                             </div>
                                         </td>
-                                        <td class="w-20"><input type="text" readonly disabled></td>
+                                        <td class="w-20"><input type="text" disabled></td>
                                         <td class="w-25"><input type="text"></td>
-                                    </tr>
-                                    <tr class="item">
-                                        <td class="w-10">
-                                            <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                                        </td>
-                                        <td class="w-15">
-                                            <div class="v-select2">
-                                                <select name="materials-id" class="share_select"></select>
-                                            </div>
-                                        </td>
-                                        <td class="w-25">
-                                            <div class="v-select2">
-                                                <select name="materials-name" class="share_select"></select>
-                                            </div>
-                                        </td>
-                                        <td class="w-20">
-                                            <input type="text" readonly disabled>
-                                        </td>
-                                        <td class="w-25">
-                                            <input type="text">
-                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -206,7 +185,7 @@ include("../includes/icon.php");
             <div class="c-foot mt-30">
                 <div class="right">
                     <p class="v-btn btn-outline-blue modal-btn" data-target="cancel">Hủy</p>
-                    <a href="quan-ly-vat-tu.php" class="v-btn btn-blue ml-20">Xong</a>
+                    <button type="button" class="v-btn btn-blue ml-20">Xong</button>
                 </div>
             </div>
             <div class=""></div>
@@ -220,7 +199,7 @@ include("../includes/icon.php");
                 Thông báo <span class="dismiss cancel">&times;</span>
             </div>
             <div class="m-body">
-                <p>Bạn có chắc chắn muốn hủy việc chỉnh sửa phiếu nhập kho?</p>
+                <p>Bạn có chắc chắn muốn hủy việc chỉnh sửa yêu cầu vật tư?</p>
                 <p>Các thông tin bạn đã chỉnh sửa sẽ không được lưu.</p>
             </div>
             <div class="m-foot d-inline-block">
@@ -228,7 +207,7 @@ include("../includes/icon.php");
                     <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                 </div>
                 <div class="right">
-                    <a href="quan-ly-vat-tu.php" class="v-btn btn-green right">Đồng ý</a>
+                    <a href="quan-ly-yeu-cau-vat-tu.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</a>
                 </div>
             </div>
         </div>
@@ -238,6 +217,5 @@ include("../includes/icon.php");
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
-<script type="text/javascript" src="../js/select.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 </html>

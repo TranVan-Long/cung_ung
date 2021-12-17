@@ -53,7 +53,7 @@ include("../includes/icon.php");
                 <div class="table-wrapper left w-100 mt-30">
                     <div class="table-container">
                         <div class="tbl-header">
-                            <table>
+                            <table cellpadding="0" cellspacing="0" border="0">
                                 <thead>
                                 <tr>
                                     <th rowspan="2" class="w-10">STT</th>
@@ -70,7 +70,7 @@ include("../includes/icon.php");
                             </table>
                         </div>
                         <div class="tbl-content">
-                            <table>
+                            <table cellpadding="0" cellspacing="0" border="0">
                                 <tbody>
                                 <tr class="more">
                                     <td class="w-10">1</td>
@@ -264,7 +264,7 @@ include("../includes/icon.php");
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/style.js"></script>
-<script type="text/javascript" src="../js/select.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
+
 </html>

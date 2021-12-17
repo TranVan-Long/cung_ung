@@ -227,7 +227,7 @@
                     <div class="ctn_body_modal">
                         <div class="madal_form">
                             <div class="ctiet_pop">
-                                <p class="share_fsize_tow share_clr_one">Bạn có chắc chắn muốn hủy việc sửa đơn hàng?</p>
+                                <p class="share_fsize_tow share_clr_one">Bạn có chắc chắn muốn hủy việc sửa phiếu thanh toán?</p>
                                 <p class="share_fsize_tow share_clr_one">Thao tác này sẽ không thể hoàn tác.</p>
                             </div>
                             <div class="form_butt_ht">

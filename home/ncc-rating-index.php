@@ -54,9 +54,9 @@ include("../includes/icon.php");
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
                     <div class="scr-btn scr-r-btn left"><i class="ic-chevron-right"></i></div>
                     <div class="table-wrapper">
-                        <div class="table-container table-medium">
+                        <div class="table-container table-md">
                             <div class="tbl-header">
-                                <table cellpadding="0" cellspacing="0" border="0">
+                                <table>
                                     <thead>
                                     <tr>
                                         <th class="w-5">STT</th>
@@ -70,7 +70,7 @@ include("../includes/icon.php");
                                 </table>
                             </div>
                             <div class="tbl-content">
-                                <table cellpadding="0" cellspacing="0" border="0">
+                                <table>
                                     <tbody>
                                     <tr>
                                         <td class="w-5">1</td>
@@ -186,7 +186,18 @@ include("../includes/icon.php");
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/style.js"></script>
-<script type="text/javascript" src="../js/select.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
+<script>
+    $(document).ready(function(){
+        if($(".table-wrapper").width() < 1251){
+            $(".scr-r-btn").css("display","block");
+            $(".scr-l-btn").css("display","block");
+        }else{
+            $(".scr-r-btn").css("display","none");
+            $(".scr-l-btn").css("display","none");
+        }
+    })
+
+</script>
 </html>

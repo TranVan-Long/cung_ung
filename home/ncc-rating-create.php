@@ -120,7 +120,7 @@ $date = date('m-d-Y', time())
                     <div class="table-wrapper mt-30">
                         <div class="table-container">
                             <div class="tbl-header">
-                                <table cellpadding="0" cellspacing="0" border="0">
+                                <table>
                                     <thead>
                                     <tr>
                                         <th class="w-5" rowspan="2"></th>
@@ -138,7 +138,7 @@ $date = date('m-d-Y', time())
                                 </table>
                             </div>
                             <div class="tbl-content table-2-row">
-                                <table cellpadding="0" cellspacing="0" border="0">
+                                <table>
                                     <tbody id="ratting-ruler">
                                     <tr class="item">
                                         <td class="w-5"><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
@@ -202,7 +202,6 @@ $date = date('m-d-Y', time())
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/style.js"></script>
-<script type="text/javascript" src="../js/select.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
 </html>

@@ -383,7 +383,6 @@
                         <div class="container">
                             <div class="ctn_tnghiem w_100 fload_l">
                                 <div class="tnghiem_tatca w_100 fload_l d_flex">
-                                    <div class="tnghien_ima"></div>
                                     <div class="tnghiem_one fload_l">
                                         <h3 class="tieu_de share_clr_one w_100 tex_center">Hãy trải nghiệm ngay trên app</h3>
                                         <div class="avt_tnghiem w_100 fload_l d_flex">
@@ -400,9 +399,8 @@
                                     </div>
                                     <div class="tnghiem_avt fload_l">
                                         <div class="thun_avt_one">
-                                            <img src="../img/anh_c.png" alt="trải nghiệm ngay trên app">
+                                            <img src="../img/avt_tn_two.png" alt="trải nghiệm ngay trên app">
                                         </div>
-                                        <div class="tnghien_ima_one"></div>
                                     </div>
                                 </div>
                             </div>

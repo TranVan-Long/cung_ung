@@ -204,6 +204,7 @@ $(".tim_kiem, .tim_kiem_o").select2({
     width: '100%',
 });
 
+
 (function(w) {
     w.addEventListener('load', function() {
         const btn_right = document.querySelector('.scroll_right'),
@@ -213,7 +214,7 @@ $(".tim_kiem, .tim_kiem_o").select2({
         let content_scoll_left = content.scrollLeft;
 
         btn_right.addEventListener('click', () => {
-            content_scoll_left += 100;
+            content_scoll_left += 300;
             if (content_scoll_left >= content_scroll_width) {
                 content_scoll_left = content_scroll_width;
             }
@@ -221,7 +222,7 @@ $(".tim_kiem, .tim_kiem_o").select2({
         });
 
         btn_left.addEventListener('click', () => {
-            content_scoll_left -= 100;
+            content_scoll_left -= 300;
             if (content_scoll_left <= 0) {
                 content_scoll_left = 0;
             }

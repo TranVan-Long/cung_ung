@@ -37,9 +37,10 @@ include "../includes/icon.php";
                     <h4 class="left">Yêu cầu vật tư công trình</h4>
                     <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
                 </div>
-                <div class="c-body mt-20">
+                <div class="c-body">
                     <div class="w-100 left">
-                        <div class="category v-select2">
+                        <div class="right mt-20"><a class="v-btn btn-blue add-btn" href="them-yeu-cau-vat-tu.html">&plus; Thêm mới</a></div>
+                        <div class="category v-select2 mt-20">
                             <select name="category" class="share_select">
                                 <option value="">Tìm kiếm theo</option>
                                 <option value="1">Mã yêu cầu</option>
@@ -48,34 +49,33 @@ include "../includes/icon.php";
                                 <option value="4">Ngày phải hoàn thành</option>
                             </select>
                         </div>
-                        <div class="search-box v-select2">
+                        <div class="search-box v-select2 mt-20">
                             <select name="search" class="share_select">
                                 <option value="">Nhập thông tin cần tìm kiếm</option>
                             </select>
                         </div>
-                        <a class="v-btn btn-blue add-btn" href="them-yeu-cau-vat-tu.html">&plus; Thêm mới</a>
                     </div>
                     <div class="filter2">
                         <label class="filter-container" for="all">Tất cả
-                            <input type="radio" id="all" name="filter1" value="all" checked>
+                            <input type="radio" id="all" name="filter1" value="1" checked>
                             <span class="checkmark"></span>
                         </label>
                         <label class="filter-container" for="approved">Đã duyệt
-                            <input type="radio" id="approved" name="filter1" value="approved">
+                            <input type="radio" id="approved" name="filter1" value="2">
                             <span class="checkmark"></span>
                         </label>
                         <label class="filter-container" for="not-approved">Chưa duyệt
-                            <input type="radio" id="not-approved" name="filter1" value="not-approved">
+                            <input type="radio" id="not-approved" name="filter1" value="3">
                             <span class="checkmark"></span>
                         </label>
                     </div>
                     <div class="filter3">
                         <label class="filter-container" for="not-completed">Thuộc công trình chưa hoàn thành
-                            <input type="radio" id="not-completed" name="filter2" value="not-completed" checked>
+                            <input type="radio" id="not-completed" name="filter2" value="1" checked>
                             <span class="checkmark"></span>
                         </label>
                         <label class="filter-container" for="completed">Thuộc công trình đã hoàn thành
-                            <input type="radio" id="completed" name="filter2" value="completed">
+                            <input type="radio" id="completed" name="filter2" value="2">
                             <span class="checkmark"></span>
                         </label>
                     </div>
@@ -100,8 +100,9 @@ include "../includes/icon.php";
                                     <tbody>
                                         <tr>
                                             <td class="w-5">1</td>
-                                            <td class="w-15"><a
-                                                    href="quan-ly-chi-tiet-yeu-cau-vat-tu.html">YC-000-02983</a></td>
+                                            <td class="w-15">
+                                                <a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html">YC-000-02983</a>
+                                            </td>
                                             <td class="w-10">29/10/2021</td>
                                             <td class="w-20">Xây dựng nhà văn hóa</td>
                                             <td class="w-15">10/11/2021</td>
@@ -210,13 +211,13 @@ include "../includes/icon.php";
             </div>
         </div>
     </div>
-    <? include("../modals/modal_logout.php") ?>
+<? include('../modals/modal_logout.php') ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
-<script type="text/javascript" src="../js/select.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+
 
 
 </html>

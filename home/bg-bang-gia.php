@@ -38,7 +38,7 @@ include("../includes/icon.php");
             <div class="c-body mt-10">
                 <div class="w-100 left">
                     <label for="gia-vat-tu-ngay">Bảng giá vật tư ngày</label>
-                    <input class="date-input" type="text" id="gia-vat-tu-ngay" name="gia-vat-tu-ngay" onfocus="this.type='date'">
+                    <input class="date-input" type="date" id="gia-vat-tu-ngay" name="gia-vat-tu-ngay">
                 </div>
                 <div class="w-100 left mt-20">
                     <div class="category v-select2">
@@ -62,7 +62,7 @@ include("../includes/icon.php");
                     <div class="table-wrapper">
                         <div class="table-container table-full-width">
                             <div class="tbl-header">
-                                <table cellpadding="0" cellspacing="0" border="0">
+                                <table>
                                     <thead>
                                     <tr>
 
@@ -83,7 +83,7 @@ include("../includes/icon.php");
                                 </table>
                             </div>
                             <div class="tbl-content">
-                                <table cellpadding="0" cellspacing="0" border="0">
+                                <table>
                                     <tbody>
                                     <tr>
                                         <td class="w-10">1</td>
@@ -231,6 +231,5 @@ include("../includes/icon.php");
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
-<script type="text/javascript" src="../js/select.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 </html>

@@ -55,20 +55,18 @@ $date = date('m-d-Y', time())
                                     <option value="">-- Chọn kiểu giá trị --</option>
                                     <option value="1">Nhập tay</option>
                                     <option value="2">Danh sách</option>
-
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="mt-30 left w-100 manual-value">
+                <div class="form-control mt-30 left w-100 manual-value">
                     <div class="border-bottom">
                         <p class="d-inline text-bold">Danh sách giá trị</p>
                         <p class="text-blue link-text d-inline pl-20" id="add-rules-value">&plus; Thêm mới tài giá trị</p>
                     </div>
                     <div id="rules-value">
-                        <div class="value border-bottom left w-100 pb-20">
+                        <div class="value border-bottom left w-100 pb-20 d-flex spc-btw align-items-center">
                             <div class="form-row left">
                                 <div class="form-col-50 left">
                                     <label for="gia-tri">Giá trị<span
@@ -119,7 +117,7 @@ $date = date('m-d-Y', time())
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/style.js"></script>
-<script type="text/javascript" src="../js/select.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
+
 </html>

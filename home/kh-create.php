@@ -41,7 +41,7 @@ $date = date('m-d-Y', time())
                             <input type="text" id="ma-khach-hang" name="ma-khach-hang" value="KH-987-554324" disabled
                                    required>
                         </div>
-                        <div class="form-col-50 left ml-10-p">
+                        <div class="form-col-50 right ml-10-p">
                             <label for="ma-so-thue">Mã số thuế</label>
                             <input type="text" id="ma-so-thue" name="ma-so-thue" placeholder="Nhập Mã số thuế">
                         </div>
@@ -52,7 +52,7 @@ $date = date('m-d-Y', time())
                             <input type="text" id="ten-khach-hang" name="ten-khach-hang"
                                    placeholder="Nhập tên khách hàng">
                         </div>
-                        <div class="form-col-50 left ml-10-p">
+                        <div class="form-col-50 right ml-10-p">
                             <label for="ten-giao-dich">Tên giao dịch<span class="text-red">*</span></label>
                             <input type="text" id="ten-giao-dich" name="ten-giao-dich" placeholder="Nhập tên giao dịch">
                         </div>
@@ -69,7 +69,7 @@ $date = date('m-d-Y', time())
                             <label for="dia-chi-dkkd">Địa chỉ ĐKKD</label>
                             <input type="text" id="dia-chi-dkkd" name="dia-chi-dkkd" placeholder="Nhập địa chỉ ĐKKD">
                         </div>
-                        <div class="form-col-50 left ml-10-p">
+                        <div class="form-col-50 right ml-10-p">
                             <label for="so-dkkd">Số ĐKKD</label>
                             <input type="text" id="so-dkkd" name="so-dkkd" placeholder="Nhập số ĐKKD">
                         </div>
@@ -80,7 +80,7 @@ $date = date('m-d-Y', time())
                             <input type="text" id="dia-chi-lien-he" name="dia-chi-lien-he"
                                    placeholder="Nhập địa chỉ liên hệ">
                         </div>
-                        <div class="form-col-50 left ml-10-p">
+                        <div class="form-col-50 right ml-10-p">
                             <label for="fax">Fax</label>
                             <input type="text" id="fax" name="fax" placeholder="Nhập Fax">
                         </div>
@@ -90,7 +90,7 @@ $date = date('m-d-Y', time())
                             <label for="dien-thoai">Điện thoại</label>
                             <input type="text" id="dien-thoai" name="dien-thoai" placeholder="Nhập điện thoại">
                         </div>
-                        <div class="form-col-50 left ml-10-p">
+                        <div class="form-col-50 right ml-10-p">
                             <label for="website">Website</label>
                             <input type="text" id="website" name="website" placeholder="Nhập Website">
                         </div>
@@ -102,10 +102,10 @@ $date = date('m-d-Y', time())
                         </div>
                     </div>
                 </div>
-                <div class="mt-30 left w-100">
+                <div class="mt-30 left w-100 form-control">
                     <div class="border-bottom">
                         <p class="d-inline text-bold">Danh sách tài khoản ngân hàng</p>
-                        <p class="text-blue link-text d-inline pl-20" id="add-bank-acc">&plus; Thêm mới tài khoản ngân
+                        <p class="text-blue link-text d-inline pl-20 cr_weight" id="add-bank-acc">&plus; Thêm mới tài khoản ngân
                             hàng</p>
                     </div>
                     <div id="bank-list">
@@ -150,8 +150,8 @@ $date = date('m-d-Y', time())
             </div>
             <div class="c-foot mt-30">
                 <div class="right">
-                    <p class="v-btn btn-outline-blue modal-btn">Hủy</p>
-                    <div class="modal text-center">
+                    <p class="v-btn btn-outline-blue modal-btn" data-target="cancel">Hủy</p>
+                    <div class="modal text-center" id="cancel">
                         <div class="m-content">
                             <div class="m-head ">
                                 Thông báo <span class="dismiss cancel">&times;</span>
@@ -165,21 +165,23 @@ $date = date('m-d-Y', time())
                                     <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                                 </div>
                                 <div class="right">
-                                    <a href="ncc-index.php" class="v-btn btn-green right">Đồng ý</a>
+                                    <a href="quan-ly-khach-hang.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a href="ncc-index.php" class="v-btn btn-blue ml-20">Xong</a>
+                    <p class="v-btn btn-blue ml-20">Xong</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<? include("../modals/modal_logout.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
-<script type="text/javascript" src="../js/select.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+
+
 </html>

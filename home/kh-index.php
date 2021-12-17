@@ -18,19 +18,15 @@ include("../includes/icon.php");
 </head>
 <body>
 <div class="main-container">
-    <!--    a-side menu-->
     <?php include("../includes/sidebar.php") ?>
-    <!--    a-side menu end-->
 
     <div class="container">
-        <!--        header-->
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
-        <!--        header end-->
         <div class="content">
             <div class="c-top border-bottom-2">
-                <h4 class="left">Khách hàng</h4>
+                <h4 class="left share_fsize_four">Khách hàng</h4>
                 <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
             </div>
             <div class="c-body mt-20">
@@ -49,7 +45,7 @@ include("../includes/icon.php");
                             <option value="">Nhập thông tin cần tìm kiếm</option>
                         </select>
                     </div>
-                    <a class="v-btn btn-blue add-btn" href="../home/kh-create.php">&plus; Thêm mới</a>
+                    <a class="v-btn btn-blue add-btn" href="them-khach-hang.html">&plus; Thêm mới</a>
                 </div>
                 <div class="scr-wrapper mt-30">
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
@@ -57,7 +53,7 @@ include("../includes/icon.php");
                     <div class="table-wrapper">
                         <div class="table-container table-full-width">
                             <div class="tbl-header">
-                                <table cellpadding="0" cellspacing="0" border="0">
+                                <table>
                                     <thead>
                                     <tr>
                                         <th class="w-5">STT</th>
@@ -73,11 +69,11 @@ include("../includes/icon.php");
                                 </table>
                             </div>
                             <div class="tbl-content">
-                                <table cellpadding="0" cellspacing="0" border="0">
+                                <table>
                                     <tbody>
                                     <tr>
                                         <td class="w-5">1</td>
-                                        <td class="w-10"><a href="kh-details.php">KH-002-38476</a></td>
+                                        <td class="w-10"><a href="quan-ly-chi-tiet-khach-hang.html">KH-002-38476</a></td>
                                         <td class="w-10">NVA</td>
                                         <td class="w-15">Nguyễn Văn A</td>
                                         <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
@@ -87,7 +83,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="kh-details.php">KH-002-38476</a></td>
+                                        <td><a href="quan-ly-chi-tiet-khach-hang.html">KH-002-38476</a></td>
                                         <td>NVA</td>
                                         <td>Nguyễn Văn A</td>
                                         <td>Số 12, ngõ 65, phố X, phường X, quận X</td>
@@ -191,7 +187,6 @@ include("../includes/icon.php");
                         <option value="20">20</option>
                     </select>
                 </div>
-                <!--                    pagination-->
                 <div class="pagination mt-10">
                     <ul>
                         <li><a href="#"><?php echo $ic_lt ?></a></li>
@@ -207,10 +202,11 @@ include("../includes/icon.php");
         </div>
     </div>
 </div>
+<? include("../modals/modal_logout.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
-<script type="text/javascript" src="../js/select.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+
 </html>

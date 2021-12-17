@@ -1,6 +1,7 @@
 <?
 
-$yc_vattu = ['/quan-ly-yeu-cau-vat-tu.html','/them-yeu-cau-vat-tu.html','/chinh-sua-yeu-cau-vat-tu.html','/quan-ly-chi-tiet-yeu-cau-vat-tu.html'];
+$yc_vattu = ['/quan-ly-yeu-cau-vat-tu.html','/quan-ly-yeu-cau-vat-tu-nhan-vien.html','/them-yeu-cau-vat-tu.html','/chinh-sua-yeu-cau-vat-tu.html',
+            '/quan-ly-chi-tiet-yeu-cau-vat-tu.html','/duyet-yeu-cau-vat-tu.html'];
 
 $all_hopd = ['/quan-ly-hop-dong.html','/chi-tiet-hop-dong.html','/quan-ly-chi-tiet-hop-dong-mua.html','/them-hop-dong-mua.html','/chinh-sua-hop-dong-mua.html',
             '/quan-ly-chi-tiet-hop-dong-ban.html','/them-hop-dong-ban.html','/chinh-sua-hop-dong-ban.html','/quan-ly-chi-tiet-hop-dong-thue-thiet-bi.html',
@@ -39,9 +40,15 @@ $bao_cao = ['/bao-cao-doanh-so-ban-hang.html','/bao-cao-cong-no-phai-thu.html','
 
 $cai_dat = ['/quan-ly-cai-dat.html','/cai-dat-phan-quyen.html','/nhat-ky-hoat-dong.html','/quan-ly-cai-dat-nhan-vien.html','/nhat-ky-hoat-dong-nhan-vien.html'];
 
-$bang_gia = ['/quan-ly-bang-gia.html','/quan-ly-yeu-cau-bao-gia.html','/chi-tiet-yeu-cau-bao-gia.html','/them-yeu-cau-bao-gia.html','/chinh-sua-yeu-cau-bao-gia.html'];
+$bang_gia = ['/quan-ly-bang-gia.html', '/quan-ly-yeu-cau-bao-gia.html', '/chi-tiet-yeu-cau-bao-gia.html', '/them-yeu-cau-bao-gia.html', '/chinh-sua-yeu-cau-bao-gia.html',
+    '/quan-ly-bao-gia.html', '/chi-tiet-bao-gia.html', '/them-bao-gia.html', '/chinh-sua-bao-gia.html',
+    '/quan-ly-bao-gia-cho-khach-hang.html', '/chi-tiet-bao-gia-cho-khach-hang.html', '/them-bao-gia-cho-khach-hang.html', '/chinh-sua-bao-gia-cho-khach-hang.html'];
 
-$yc_baogia = ['/quan-ly-yeu-cau-bao-gia.html','/chi-tiet-yeu-cau-bao-gia.html','/them-yeu-cau-bao-gia.html','/chinh-sua-yeu-cau-bao-gia.html'];
+$yc_baogia = ['/quan-ly-yeu-cau-bao-gia.html', '/chi-tiet-yeu-cau-bao-gia.html', '/them-yeu-cau-bao-gia.html', '/chinh-sua-yeu-cau-bao-gia.html'];
+
+$bao_gia = ['/quan-ly-bao-gia.html', '/chi-tiet-bao-gia.html', '/them-bao-gia.html', '/chinh-sua-bao-gia.html'];
+
+$bao_gia_kh = ['/quan-ly-bao-gia-cho-khach-hang.html', '/chi-tiet-bao-gia-cho-khach-hang.html', '/them-bao-gia-cho-khach-hang.html', '/chinh-sua-bao-gia-cho-khach-hang.html'];
 
 
 
@@ -94,11 +101,13 @@ $yc_baogia = ['/quan-ly-yeu-cau-bao-gia.html','/chi-tiet-yeu-cau-bao-gia.html','
                     </a>
                 </li>
                 <li>
-                    <a href="#"><span><?php echo $ic_circle ?></span>Báo giá
+                    <a href="quan-ly-bao-gia.html" class="<?= (in_array($_SERVER['REDIRECT_URL'], $bao_gia)) ? "active":"" ?>">
+                        <span><?php echo $ic_circle ?></span>Báo giá
                     </a>
                 </li>
                 <li>
-                    <a href="# "><span><?php echo $ic_circle ?></span>Báo giá cho khách hàng
+                    <a href="quan-ly-bao-gia-cho-khach-hang.html" class="<?= (in_array($_SERVER['REDIRECT_URL'], $bao_gia_kh)) ? "active":"" ?>">
+                        <span><?php echo $ic_circle ?></span>Báo giá cho khách hàng
                     </a>
                 </li>
             </ul>

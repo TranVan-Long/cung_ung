@@ -150,7 +150,7 @@ include "../includes/icon.php";
                                                 </div>
                                             </div>
                                         </div>
-                                        <span class="remove_tnh ml_50 share_cursor"><img src="../img/remove-2.png" alt="xóa"></span>
+                                        <span class="remove_tnh ml_50 mr_10 share_cursor"><img src="../img/remove-2.png" alt="xóa"></span>
                                     </div>
                                 </div>
                                 <div class="them_moi_vt w_100 fload_l">
@@ -286,7 +286,7 @@ $(".all_nhacc, .ten_nganhang, .chi_nhanh, .chu_taik, .so_taik, .all_ltt").select
                                 </div>
                             </div>
                         </div>
-                        <span class="remove_tnh ml_50 share_cursor"><img src="../img/remove-2.png" alt="xóa"></span>
+                        <span class="remove_tnh ml_50 mr_10 share_cursor"><img src="../img/remove-2.png" alt="xóa"></span>
                     </div>`;
         $(".form-them-nganh").append(html);
         CheckSelect();

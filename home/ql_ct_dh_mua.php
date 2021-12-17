@@ -35,119 +35,119 @@
                         <h4 class="tieu_de_ct w_100 fload_l share_fsize_tow share_clr_four mb_25 cr_weight_bold">Chi tiết đơn hàng mua vật tư</h4>
                         <div class="ctiet_dk_hp w_100 fload_l">
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Tên nhà cung cấp</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Công ty X</p>
                                 </div>
-                                <div class="ctiet_hd_right">
+                                <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Địa chỉ</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Phố A, Phường X, Quận Y</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Người liên hệ</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Nguyễn Văn A</p>
                                 </div>
-                                <div class="ctiet_hd_right">
+                                <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Số điện thoại / Fax</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">0904565124</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                               <div class="ctiet_hd_left fload_l">
+                               <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Hợp đồng</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">HĐ-091-01250</p>
                                 </div>
-                                <div class="ctiet_hd_right ">
+                                <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Số đơn hàng</p>
                                     <p class="cr_weight share_fsize_tow">ĐH-090-19850</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Ngày ký</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">14/10/2021</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Dự án / Công trình</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Nâng cấp quốc lộ 999</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thời hạn đơn hàng</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">19/10/2021</p>
                                 </div>
-                                <div class="ctiet_hd_right">
+                                <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Đơn vị nhận hàng</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Công ty M</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Người nhận hàng</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Nguyễn Thị B</p>
                                 </div>
-                                <div class="ctiet_hd_right">
+                                <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Phòng ban</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Phòng X</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Số điện thoại người nhận</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">0177815939</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Giữ lại bảo hành</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">10% tương đương 200.000</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Ghi chú</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Không có</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Giá trị trước VAT</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">23.000.000,0</p>
                                 </div>
-                                <div class="ctiet_hd_right">
+                                <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Đơn giá đã bao gồm VAT</p>
                                     <p class="cr_weight share_fsize_tow cr_red">Không</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thuế suất VAT</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">10%</p>
                                 </div>
-                                <div class="ctiet_hd_right">
+                                <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Tiền chiết khấu</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">0,0</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Giá trị sau VAT</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">25.300.000,0</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Chi phí vận chuyển</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">0</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Ghi chú vận chuyển</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Không có</p>
                                 </div>

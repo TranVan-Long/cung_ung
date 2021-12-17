@@ -35,43 +35,43 @@ include "../includes/icon.php";
                         <h4 class="tieu_de_ct w_100 fload_l share_fsize_tow share_clr_four mb_25 cr_weight_bold">Chi tiết hồ sơ thanh toán</h4>
                         <div class="ctiet_dk_hp w_100 fload_l">
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Hợp đồng / Đơn hàng</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">HĐ-198-24201</p>
                                 </div>
-                                <div class="ctiet_hd_right">
+                                <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Đơn vị thực hiện</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Công ty A</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Đợt nghiệm thu</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">NT-999-19511</p>
                                 </div>
-                                <div class="ctiet_hd_right">
+                                <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thời gian</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">14/10/2021</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thời hạn thanh toán</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">14/10/2021</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Trạng thái</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Chưa hoàn thành</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l">
+                                <div class="ctiet_hd_left fload_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Người lập</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Nguyễn Văn A</p>
                                 </div>
-                                <div class="ctiet_hd_right">
+                                <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Ngày lập</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">10/10/2021</p>
                                 </div>

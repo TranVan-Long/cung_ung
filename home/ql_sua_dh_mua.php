@@ -302,7 +302,7 @@ include "../includes/icon.php";
                                 <p class="share_fsize_tow share_clr_one">Thao tác này sẽ không thể hoàn tác.</p>
                             </div>
                             <div class="form_butt_ht">
-                                <div class="tow_butt_flex d_flex hd_dy_pop">
+                                <div class="tow_butt_flex d_flex dh_dy_pop">
                                     <button type="button"
                                         class="js_btn_huy share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
                                     <button type="button"

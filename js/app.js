@@ -1,37 +1,19 @@
-
 var tblMenu = $('td .tbl-menu');
-var  tblMenuContent = $('td .tbl-menu-content');
+var tblMenuContent = $('td .tbl-menu-content');
 
-
-
-$('.tbl-menu').click(function (){
+$('.tbl-menu').click(function () {
     $(this).parents("td").find(".tbl-menu-content").toggleClass('active');
 });
-$(window).click(function (e){
-    if (!tblMenu.is(e.target) && !tblMenuContent.is(e.target) && tblMenuContent.has(e.target).length === 0){
+$(window).click(function (e) {
+    if (!tblMenu.is(e.target) && !tblMenuContent.is(e.target) && tblMenuContent.has(e.target).length === 0) {
         tblMenuContent.removeClass('active');
     }
 })
 
-
-$('.modal-btn').click(function () {
-    var id = $(this).attr("data-target");
-    $('#'+ id).fadeIn();
+// select2
+$(".share_select").select2({
+    width: '100%',
 });
-$('.remove-item').click(function () {
-    var id = $(this).attr("data-target");
-    $('#'+ id).fadeIn();
-});
-
-$('.cancel').click(function () {
-    $('.modal').fadeOut();
-});
-$(window).click(function (e) {
-    if ($(e.target).is('.modal')) {
-        $('.modal').fadeOut();
-    }
-});
-
 
 function RefSelect2() {
     $(".share_select").select2({
@@ -39,7 +21,32 @@ function RefSelect2() {
     });
 }
 
+// select2 end
 
+// modal
+$('.modal-btn').click(function () {
+    $('.modal').fadeOut();
+    var id = $(this).attr("data-target");
+    $('#' + id).fadeIn();
+});
+$('.remove-item').click(function () {
+    var id = $(this).attr("data-target");
+    $('#' + id).fadeIn();
+});
+
+$('.cancel').click(function () {
+    $('.modal').fadeOut();
+});
+
+$(window).click(function (e) {
+    if ($(e.target).is('.modal')) {
+        $('.modal').fadeOut();
+    }
+});
+// modal end
+
+
+// them vat tu
 $("#add-material").click(function () {
     $("#materials").append("<tr class=\"item\">\n" +
         "                                        <td class=\"w-10\">\n" +
@@ -64,8 +71,8 @@ $("#add-material").click(function () {
         "                                    </tr>");
     RefSelect2();
 });
-
-$('#add-bank-acc').click(function (){
+// them tai khoan ngan hang
+$('#add-bank-acc').click(function () {
     $('#bank-list').append("<div class=\"bank border-bottom left w-100 pb-20\">\n" +
         "                            <div class=\"form-row left\">\n" +
         "                                <div class=\"form-col-50 left\">\n" +
@@ -104,7 +111,7 @@ $('#add-bank-acc').click(function (){
         "                        </div>");
     RefSelect2();
 })
-
+// them nguoi lien he
 $("#add-references").click(function () {
     $("#rererences").append("<tr class=\"item\">\n" +
         "                                        <td class=\"w-5\">\n" +
@@ -125,7 +132,7 @@ $("#add-references").click(function () {
         "                                    </tr>");
     RefSelect2();
 });
-
+// them tieu chi danh gia
 $("#add-ratting-ruler").click(function () {
     $("#ratting-ruler").append("<tr class=\"item\">\n" +
         "                                        <td class=\"w-5\"><p class=\"removeItem\"><i class=\"ic-delete remove-btn\"></i></p>\n" +
@@ -153,14 +160,14 @@ $("#add-ratting-ruler").click(function () {
         "                                    </tr>");
     RefSelect2();
 });
-
-$('#add-rules-value').click(function (){
-    $('#rules-value').append("<div class=\"value border-bottom left w-100 pb-20\">\n" +
+// them gia tri tieu chi danh gia
+$('#add-rules-value').click(function () {
+    $('#rules-value').append("<div class=\"value border-bottom left w-100 pb-20 d-flex spc-btw align-items-center\">\n" +
         "                            <div class=\"form-row left\">\n" +
         "                                <div class=\"form-col-50 left\">\n" +
         "                                    <label for=\"gia-tri\">Giá trị<span\n" +
         "                                                class=\"text-red\">*</span></label>\n" +
-        "                                    <input type=\"text\" id=\"gia-tri\" name=\"gia-tri\"\n" +
+        "                                    <input type=\"number\" id=\"gia-tri\" name=\"gia-tri\"\n" +
         "                                           placeholder=\"Nhập giá trị\">\n" +
         "                                </div>\n" +
         "                                <div class=\"form-col-50 left ml-10-p\">\n" +
@@ -174,7 +181,7 @@ $('#add-rules-value').click(function (){
         "                        </div>");
     RefSelect2();
 });
-
+// them yeu cau thanh toan
 $('#add-quote').click(function () {
     $('#quote-me').append("<tr class=\"item\">\n" +
         "                                        <td class=\"w-5\">\n" +
@@ -205,43 +212,40 @@ $('#add-quote').click(function () {
     RefSelect2();
 });
 
-
+// xoa item
 $(document).on('click', '.removeItem', function () {
     $(this).parents('tr').remove();
     return false;
 });
-$(document).on('click', '.removeItem2', function (){
+$(document).on('click', '.removeItem2', function () {
     $(this).parents('div.bank').remove();
     return false;
 });
-$(document).on('click', '.removeItem3', function (){
+$(document).on('click', '.removeItem3', function () {
     $(this).parents('div.value').remove();
     return false;
 });
 $(document).on('click', '.confirm-delete', function () {
     var target = $(this).attr('data-target')
-    $('#'+ target).remove();
+    $('#' + target).remove();
     return false;
 });
 
-
-
-
-
-$(window).on("load resize ", function() {
+// resize table on windows resize
+$(window).on("load resize ", function () {
     var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
-    $('.tbl-header').css({'padding-right':scrollWidth});
+    $('.tbl-header').css({'padding-right': scrollWidth});
 }).resize();
 
-// scroll button
-$('.scr-l-btn').click(function(e) {
+// scroll left button function
+$('.scr-l-btn').click(function (e) {
     e.preventDefault();
     $('.table-wrapper').animate({
         scrollLeft: "+=300px"
     }, "slow");
 });
-
-$('.scr-r-btn').click(function(e) {
+// scroll right button function
+$('.scr-r-btn').click(function (e) {
     e.preventDefault();
     $('.table-wrapper').animate({
         scrollLeft: "-=300px"
@@ -249,23 +253,24 @@ $('.scr-r-btn').click(function(e) {
 });
 
 
-
-$('#value-type').on('change', function() {
+$('#value-type').on('change', function () {
     var selectedValue = this.value;
-    if (selectedValue == 2){
+
+    if (selectedValue == 2) {
         $('.manual-value').show();
-    }else {
+
+    } else {
         $('.manual-value').hide();
+        $('.value').remove();
     }
+
 });
 
 
-$('.tbl-menu').click(function (){
+$('.tbl-menu').click(function () {
     var id = $(this).attr("data-tab");
 
     $(".tbl-menu-content").removeClass("active");
 
-    $('#'+ id).addClass("active");
-
-
+    $('#' + id).addClass("active");
 })

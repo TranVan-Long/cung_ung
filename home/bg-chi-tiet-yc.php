@@ -32,7 +32,7 @@ include("../includes/icon.php");
         <!--        header end-->
         <div class="content">
             <div class="mt-20 left">
-                <a class="text-black" href="quan-ly-vat-tu.php"><?php echo $ic_lt ?> Quay lại</a>
+                <a class="text-black" href="quan-ly-yeu-cau-bao-gia.html"><?php echo $ic_lt ?> Quay lại</a>
                 <h4 class="text-blue mt-20">Chi tiết yêu cầu báo giá</h4>
             </div>
             <div class="c-body">
@@ -91,9 +91,9 @@ include("../includes/icon.php");
             </div>
             <div class="left w-100 mt-30">
                 <div class="table-wrapper mt-5">
-                    <div class="table-container table-medium">
+                    <div class="table-container table-md">
                         <div class="tbl-header">
-                            <table cellpadding="0" cellspacing="0" border="0">
+                            <table>
                                 <thead>
                                 <tr>
                                     <th class="w-10">STT</th>
@@ -107,7 +107,7 @@ include("../includes/icon.php");
                             </table>
                         </div>
                         <div class="tbl-content table-2-row">
-                            <table cellpadding="0" cellspacing="0" border="0">
+                            <tabl>
                                 <tbody id="materials">
                                 <tr>
                                     <td class="w-10">1</td>
@@ -126,7 +126,7 @@ include("../includes/icon.php");
                                     <td class="w-20">30</td>
                                 </tr>
                                 </tbody>
-                            </table>
+                            </tabl>
                         </div>
                     </div>
                 </div>
@@ -135,7 +135,7 @@ include("../includes/icon.php");
                 </div>
                 <div class="right mt-30">
                     <button class="v-btn btn-outline-red modal-btn" data-target="delete-vt">Xóa</button>
-                    <a href="bg-sua-yc.php" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
+                    <a href="chinh-sua-yeu-cau-bao-gia.html" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
                 </div>
             </div>
 
@@ -166,7 +166,6 @@ include("../includes/icon.php");
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/style.js"></script>
-<script type="text/javascript" src="../js/select.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
 </html>
