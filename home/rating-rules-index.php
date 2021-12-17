@@ -17,17 +17,13 @@ include("../includes/icon.php");
 
 </head>
 <body>
-<div class="main-container">
-    <!--    a-side menu-->
+<div class="main-container ql_chung">
     <?php include("../includes/sidebar.php") ?>
-    <!--    a-side menu end-->
 
     <div class="container">
-        <!--        header-->
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
-        <!--        header end-->
         <div class="content">
             <div class="c-top border-bottom-2">
                 <h4 class="left">Đánh giá nhà cung cấp</h4>
@@ -53,7 +49,7 @@ include("../includes/icon.php");
                 <div class="table-wrapper left w-100 mt-30">
                     <div class="table-container">
                         <div class="tbl-header">
-                            <table cellpadding="0" cellspacing="0" border="0">
+                            <table>
                                 <thead>
                                 <tr>
                                     <th rowspan="2" class="w-10">STT</th>
@@ -70,7 +66,7 @@ include("../includes/icon.php");
                             </table>
                         </div>
                         <div class="tbl-content">
-                            <table cellpadding="0" cellspacing="0" border="0">
+                            <table>
                                 <tbody>
                                 <tr class="more">
                                     <td class="w-10">1</td>
@@ -245,7 +241,6 @@ include("../includes/icon.php");
                         <option value="20">20</option>
                     </select>
                 </div>
-                <!--                    pagination-->
                 <div class="pagination mt-10">
                     <ul>
                         <li><a href="#"><?php echo $ic_lt ?></a></li>

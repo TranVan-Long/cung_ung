@@ -8,20 +8,24 @@ include("../includes/icon.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Báo cáo công nợ phải thu</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
     <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
     <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
     <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
-
 </head>
+
 <body>
 <div class="main-container">
     <!--    a-side menu-->
     <?php include("../includes/sidebar.php") ?>
     <!--    a-side menu end-->
-
     <div class="container">
         <!--        header-->
         <div class="header-container">
@@ -29,11 +33,11 @@ include("../includes/icon.php");
         </div>
         <!--        header end-->
         <div class="content">
-            <div class="w-100 left mt-35 pb-30 border-bottom">
-                <h4 class="left">Báo cáo công nợ phải thu</h4>
+            <div class="w-100 left mt-35 pb-40 border-bottom">
+                <p class="left page-title">Báo cáo công nợ phải thu</p>
                 <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
             </div>
-            <div class="c-body">
+            <div class="w-100 left">
                 <div class="w-100 left">
                     <div class="category v-select2 mt-20">
                         <select name="category" class="share_select">
@@ -54,7 +58,7 @@ include("../includes/icon.php");
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
                     <div class="scr-btn scr-r-btn left"><i class="ic-chevron-right"></i></div>
                     <div class="table-wrapper">
-                        <div class="table-container table-full-width">
+                        <div class="table-container table-2204">
                             <div class="tbl-header">
                                 <table>
                                     <thead>
@@ -79,7 +83,7 @@ include("../includes/icon.php");
                                     <tbody>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">KH-000-09876</a></td>
+                                        <td class="w-20">KH-000-09876</td>
                                         <td class="w-30">Nguyễn Văn A</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-555-09382</p>
@@ -116,7 +120,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">KH-000-09876</a></td>
+                                        <td class="w-20">KH-000-09876</td>
                                         <td class="w-30">Nguyễn Văn A</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-555-09382</p>
@@ -153,7 +157,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">KH-000-09876</a></td>
+                                        <td class="w-20">KH-000-09876</td>
                                         <td class="w-30">Nguyễn Văn A</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-555-09382</p>
@@ -190,7 +194,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">KH-000-09876</a></td>
+                                        <td class="w-20">KH-000-09876</td>
                                         <td class="w-30">Nguyễn Văn A</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-555-09382</p>
@@ -227,7 +231,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">KH-000-09876</a></td>
+                                        <td class="w-20">KH-000-09876</td>
                                         <td class="w-30">Nguyễn Văn A</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-555-09382</p>
@@ -264,7 +268,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">KH-000-09876</a></td>
+                                        <td class="w-20">KH-000-09876</td>
                                         <td class="w-30">Nguyễn Văn A</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-555-09382</p>
@@ -301,7 +305,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">KH-000-09876</a></td>
+                                        <td class="w-20">KH-000-09876</td>
                                         <td class="w-30">Nguyễn Văn A</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-555-09382</p>
@@ -338,7 +342,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">KH-000-09876</a></td>
+                                        <td class="w-20">KH-000-09876</td>
                                         <td class="w-30">Nguyễn Văn A</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-555-09382</p>
@@ -375,7 +379,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">KH-000-09876</a></td>
+                                        <td class="w-20">KH-000-09876</td>
                                         <td class="w-30">Nguyễn Văn A</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-555-09382</p>
@@ -410,44 +414,6 @@ include("../includes/icon.php");
                                             <p class="table-text">3,446</p>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">KH-000-09876</a></td>
-                                        <td class="w-30">Nguyễn Văn A</td>
-                                        <td class="w-25">
-                                            <p class="table-text">HĐ-555-09382</p>
-                                            <p class="table-text">HĐ-999-15950</p>
-                                        </td>
-                                        <td class="w-25">
-                                            <p class="table-text">05/11/2021</p>
-                                            <p class="table-text">06/11/2021</p>
-                                        </td>
-                                        <td class="w-35">
-                                            <p class="table-text">Nâng cấp cầu vượt</p>
-                                            <p class="table-text">Xây dựng nhà dân dụng</p>
-                                        </td>
-                                        <td class="w-30">
-                                            <p class="table-text">15.000.000.000</p>
-                                            <p class="table-text">4.000.000.000</p>
-                                        </td>
-                                        <td class="w-30">
-                                            <p class="table-text">10.000.000.000</p>
-                                            <p class="table-text">2.000.000.000</p>
-                                        </td>
-                                        <td class="w-25">
-                                            <p class="table-text">66,6666667</p>
-                                            <p class="table-text">50</p>
-                                        </td>
-                                        <td class="w-25">
-                                            <p class="table-text">5.000.000.000</p>
-                                            <p class="table-text">2.000.000.000</p>
-                                        </td>
-                                        <td class="w-25">
-                                            <p class="table-text">2,566</p>
-                                            <p class="table-text">3,446</p>
-                                        </td>
-                                    </tr>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -455,7 +421,7 @@ include("../includes/icon.php");
                     </div>
                 </div>
             </div>
-            <div class="c-foot mt-20 left">
+            <div class="w-100 left mt-20 left">
                 <div class="display">
                     <label for="display">Hiển thị</label>
                     <select name="display" id="display">
@@ -478,6 +444,7 @@ include("../includes/icon.php");
             </div>
         </div>
     </div>
+    <?php include("../modals/modal_logout.php") ?>
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>

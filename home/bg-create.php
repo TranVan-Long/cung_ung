@@ -1,6 +1,5 @@
 <?php
 include("../includes/icon.php");
-$date = date('m-d-Y', time())
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,20 +8,24 @@ $date = date('m-d-Y', time())
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Thêm báo giá</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
     <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
     <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
     <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
-
 </head>
+
 <body>
 <div class="main-container">
     <!--    a-side menu-->
     <?php include("../includes/sidebar.php") ?>
     <!--    a-side menu end-->
-
     <div class="container">
         <!--        header-->
         <div class="header-container">
@@ -30,12 +33,12 @@ $date = date('m-d-Y', time())
         </div>
         <!--        header end-->
         <div class="content">
-            <div class="mt-30">
-                <h4 class="mt-5">Thêm báo giá</h4>
+            <div class="mt-25">
+                <p class="left page-title">Thêm báo giá</p>
             </div>
-            <div class="c-body">
+            <div class="w-100 left mt-10">
                 <div class="form-control">
-                    <div class="form-row left">
+                    <div class="form-row left mt-20">
                         <div class="form-col-50 left">
                             <label for="so-bao-gia">Số báo giá<span class="text-red">*</span></label>
                             <input type="text" id="so-bao-gia" name="so-bao-gia" value="BG-999-09827" disabled
@@ -46,7 +49,7 @@ $date = date('m-d-Y', time())
                             <input type="date" id="ngay-gui" name="ngay-gui">
                         </div>
                     </div>
-                    <div class="form-row left">
+                    <div class="form-row left mt-20">
                         <div class="form-col-50 left">
                             <div class="v-select2">
                                 <label for="nguoi-lap">Người lập</label>
@@ -73,7 +76,7 @@ $date = date('m-d-Y', time())
                             </div>
                         </div>
                     </div>
-                    <div class="form-row left">
+                    <div class="form-row left mt-20">
                         <div class="form-col-50 left">
                             <div class="v-select2">
                                 <label for="so-yeu-cau">Theo yêu cầu báo giá số<span class="text-red">*</span></label>
@@ -87,7 +90,7 @@ $date = date('m-d-Y', time())
                             </div>
                         </div>
                     </div>
-                    <div class="form-row left">
+                    <div class="form-row left mt-20">
                         <div class="form-col-50 left">
                             <label for="ap-dung-tu">Thời gian áp dụng</label>
                             <div class="d-flex align-items-center spc-btw w-100 left">
@@ -104,7 +107,7 @@ $date = date('m-d-Y', time())
                 </div>
                 <div class="mt-50 left w-100">
                     <div class="table-wrapper mt-15">
-                        <div class="table-container table-2k8">
+                        <div class="table-container table-2848">
                             <div class="tbl-header">
                                 <table>
                                     <thead>
@@ -211,7 +214,7 @@ $date = date('m-d-Y', time())
                     </div>
                 </div>
             </div>
-            <div class="c-foot mt-30">
+            <div class="w-100 left mt-30">
                 <div class="right">
                     <p class="v-btn btn-outline-blue modal-btn" data-target="cancel">Hủy</p>
                     <button class="v-btn btn-blue ml-20">Xong</button>
@@ -231,18 +234,19 @@ $date = date('m-d-Y', time())
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
                         <div class="right">
-                            <a href="quan-ly-bao-gia.html" class="v-btn btn-green right">Đồng ý</a>
+                            <button class="v-btn btn-green right">Đồng ý</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <?php include("../modals/modal_logout.php") ?>
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
 
 </html>

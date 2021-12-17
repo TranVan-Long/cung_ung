@@ -17,17 +17,13 @@ include("../includes/icon.php");
 
 </head>
 <body>
-<div class="main-container">
-    <!--    a-side menu-->
+<div class="main-container ql_chung">
     <?php include("../includes/sidebar.php") ?>
-    <!--    a-side menu end-->
 
     <div class="container">
-        <!--        header-->
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
-        <!--        header end-->
         <div class="content">
             <div class="c-top border-bottom-2">
                 <h4 class="left">Đánh giá nhà cung cấp</h4>

@@ -17,7 +17,7 @@ include("../includes/icon.php");
 
 </head>
 <body>
-<div class="main-container">
+<div class="main-container ql_chung">
     <?php include("../includes/sidebar.php") ?>
 
     <div class="container">

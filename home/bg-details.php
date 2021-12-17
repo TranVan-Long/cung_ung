@@ -8,13 +8,17 @@ include("../includes/icon.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chi tiết báo giá</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
     <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
     <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
     <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
-
 </head>
 
 </head>
@@ -23,7 +27,6 @@ include("../includes/icon.php");
     <!--    a-side menu-->
     <?php include("../includes/sidebar.php") ?>
     <!--    a-side menu end-->
-
     <div class="container">
         <!--        header-->
         <div class="header-container">
@@ -33,47 +36,47 @@ include("../includes/icon.php");
         <div class="content">
             <div class="mt-20 left">
                 <a class="text-black" href="quan-ly-bao-gia.html"><?php echo $ic_lt ?> Quay lại</a>
-                <h5 class="text-blue mt-20">Chi tiết báo giá</h5>
+                <p class="page-title text-blue mt-20">Chi tiết báo giá</p>
             </div>
             <div class="w-100 left">
                 <div class="form-control">
-                    <div class="form-row left">
-                        <div class="form-col-50 left">
+                    <div class="form-row left pt-10 mt-10">
+                        <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50">Số báo giá</p>
                             <p class="right text-right w-50 text-bold">BG-000-10176</p>
                         </div>
-                        <div class="form-col-50 right">
+                        <div class="form-col-50 right pr-10">
                             <p class="left text-left w-50">Ngày gửi</p>
                             <p class="right text-right w-50 text-bold">18/10/2021</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2">
-                        <div class="form-col-50 left">
+                    <div class="form-row left border-top2 pt-10 mt-10">
+                        <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50">Người lập</p>
                             <p class="right text-right w-50 text-bold">Nguyễn Văn A</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2">
-                        <div class="form-col-50 left">
+                    <div class="form-row left border-top2 pt-10 mt-10">
+                        <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50"> Nhà cung cấp</p>
                             <p class="right text-right w-50 text-bold">Công ty A</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2">
-                        <div class="form-col-50 left">
+                    <div class="form-row left border-top2 pt-10 mt-10">
+                        <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50">Theo yêu cầu báo giá số</p>
                             <p class="right text-right w-50 text-bold">BG-083-47474</p>
                         </div>
-                        <div class="form-col-50 right">
+                        <div class="form-col-50 right pr-10">
                             <p class="left text-left w-50">Thời gian áp dụng</p>
                             <p class="right text-right w-50 text-bold">18/10/2021 - 05/05/2022</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="w-100 left mt-30">
+            <div class="w-100 left mt-35">
                 <div class="table-wrapper mt-30">
-                    <div class="table-container table-3k">
+                    <div class="table-container table-3192">
                         <div class="tbl-header">
                             <table>
                                 <thead>
@@ -118,40 +121,41 @@ include("../includes/icon.php");
                         </div>
                     </div>
                 </div>
-                <div class="left mt-30">
-                    <a href="#" class="v-btn btn-green">Xuất excel</a>
+                <div class="left mt-15 mr-20">
+                    <button class="v-btn btn-green">Xuất excel</button>
                 </div>
-                <div class="right mt-30">
-                    <p class="v-btn btn-outline-red modal-btn" data-target="delete">Xóa</p>
-                    <a href="chinh-sua-bao-gia.html" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
-                </div>
-            </div>
-            <div class="modal text-center" id="delete">
-                <div class="m-content huy-them">
-                    <div class="m-head ">
-                        XÓA BÁO GIÁ<span class="dismiss cancel">&times;</span>
-                    </div>
-                    <div class="m-body">
-                        <p>Bạn có chắc chắn muốn xóa thông tin báo giá này?</p>
-                        <p>Thao tác này sẽ không thể hoàn tác.</p>
-                    </div>
-                    <div class="m-foot d-inline-block">
-                        <div class="left">
-                            <p class="v-btn btn-outline-blue left cancel">Hủy</p>
-                        </div>
-                        <div class="right">
-                            <a href="ncc-index.php" class="v-btn btn-green right">Đồng ý</a>
-                        </div>
-                    </div>
+                <div class="right">
+                    <p class="v-btn btn-outline-red modal-btn mt-15" data-target="delete">Xóa</p>
+                    <a href="chinh-sua-bao-gia.html" class="v-btn btn-blue mt-15 ml-20">Chỉnh sửa</a>
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal text-center" id="delete">
+        <div class="m-content huy-them">
+            <div class="m-head ">
+                XÓA BÁO GIÁ<span class="dismiss cancel">&times;</span>
+            </div>
+            <div class="m-body">
+                <p>Bạn có chắc chắn muốn xóa thông tin báo giá này?</p>
+                <p>Thao tác này sẽ không thể hoàn tác.</p>
+            </div>
+            <div class="m-foot d-flex spc-btw">
+                <div class="left">
+                    <p class="v-btn btn-outline-blue left cancel">Hủy</p>
+                </div>
+                <div class="right">
+                    <button type="button" class="v-btn btn-green-2 right">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php include("../modals/modal_logout.php") ?>
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
 
 </html>
