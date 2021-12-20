@@ -65,8 +65,8 @@ include("../includes/icon.php");
                                     <thead>
                                     <tr>
                                         <th class="w-10">STT</th>
-                                        <th class="w-20">Mã khách hàng</th>
-                                        <th class="w-30">Tên khách hàng</th>
+                                        <th class="w-20">Mã cung cấp</th>
+                                        <th class="w-30">Tên nhà cung cấp</th>
                                         <th class="w-25">Số hợp đồng</th>
                                         <th class="w-25">Ngày hợp đồng</th>
                                         <th class="w-35">Công trình</th>
@@ -481,9 +481,11 @@ include("../includes/icon.php");
                 </div>
             </div>
         </div>
-        <?php include("../modals/modal_logout.php") ?>
     </div>
 </div>
+<?php include "../modals/modal_logout.php"?>
+<? include("../modals/modal_menu.php") ?>
+
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

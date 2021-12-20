@@ -212,7 +212,9 @@ $date = date('m-d-Y', time())
         </div>
     </div>
 </div>
-<? include("../modals/modal_logout.php") ?>
+<?php include "../modals/modal_logout.php"?>
+<? include("../modals/modal_menu.php") ?>
+
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

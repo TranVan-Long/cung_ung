@@ -82,7 +82,7 @@ include "../includes/icon.php";
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="chi-tiet-phieu-thanh-toan-tam-ung.html">PH - 0001</a></td>
+                                            <td><a href="chi-tiet-phieu-thanh-toan-tam-ung.html" class="share_clr_four">PH - 0001</a></td>
                                             <td>Tạm ứng</td>
                                             <td>10/11/2021</td>
                                             <td>ĐH - 0001</td>
@@ -94,7 +94,7 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="chi-tiet-phieu-thanh-toan.html">PH - 0001</a></td>
+                                            <td><a href="chi-tiet-phieu-thanh-toan.html" class="share_clr_four">PH - 0001</a></td>
                                             <td>Theo hợp đồng</td>
                                             <td>10/11/2021</td>
                                             <td>HĐ - 0001</td>
@@ -182,7 +182,9 @@ include "../includes/icon.php";
             </div>
         </div>
     </div>
-    <? include("../modals/modal_logout.php")?>
+    <?php include "../modals/modal_logout.php"?>
+    <? include("../modals/modal_menu.php") ?>
+
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

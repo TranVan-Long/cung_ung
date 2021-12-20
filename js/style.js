@@ -24,6 +24,13 @@ $(".phieu_dy_pop .save_new_dp").click(function () {
     window.location.href = "quan-ly-phieu-thanh-toan.html";
 });
 
+var avt_menu = $(".avt_menu");
+var modal_menu = $(".modal_menu");
+
+$(".avt_menu").click(function () {
+    $(".modal_menu").show();
+});
+
 $(".collapse").click(function () {
     var id = $(this).attr("data-tab");
     $(".collapse ul").removeClass("active");
@@ -108,6 +115,10 @@ $(window).click(function (e) {
 
     if ($(e.target).is(".logout_ht")) {
         logout_ht.hide();
+    }
+
+    if ($(e.target).is(".modal_menu")) {
+        modal_menu.hide();
     }
 });
 

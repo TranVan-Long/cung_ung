@@ -1,7 +1,12 @@
 <div class="header">
-    <div class="header-left">
-            <span>Công ty TNHH...</span>|
-            <span class="text-bold">ID: 123456</span>
+    <div class="header-left d_flex fl_agi">
+            <div class="side_menu_hd mr_30 d_flex fl_agi">
+                <img src="../img/menu.png" alt="menu" class="avt_menu">
+            </div>
+            <div class="ctiet_cty">
+                <span>Công ty TNHH...</span>|
+                <span class="text-bold">ID: 123456</span>
+            </div>
     </div>
     <div class="right text-right">
         <ul class="right chi_tiet_item mr-20">

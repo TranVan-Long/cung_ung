@@ -440,6 +440,7 @@ include("../includes/icon.php");
         </div>
     </div>
     <?php include("../modals/modal_logout.php") ?>
+    <? include("../modals/modal_menu.php") ?>
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>

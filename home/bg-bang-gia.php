@@ -274,7 +274,9 @@ include("../includes/icon.php");
                 </div>
             </div>
         </div>
-        <?php include("../modals/modal_logout.php") ?>
+        <?php include "../modals/modal_logout.php"?>
+        <? include("../modals/modal_menu.php") ?>
+
     </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
@@ -303,6 +305,8 @@ $(".search_dgia, .timk_nhacc").select2({
 $(".see_ds").click(function(){
     if($(".ctiet_ds_nha_cc .table tbody").height() > 249.5){
         $(".ctiet_ds_nha_cc .table thead tr").css('width','calc(100% - 10px)');
+    }else if($(".ctiet_ds_nha_cc .table tbody").height() < 249.5){
+        $(".ctiet_ds_nha_cc .table thead tr").css('width','100%');
     }
 });
 

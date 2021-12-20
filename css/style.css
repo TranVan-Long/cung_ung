@@ -2204,21 +2204,25 @@ img {
 }
 
 .tt_left_one {
-    width: 70%;
+    width: calc(100% - 252px);
+    flex-wrap: wrap;
 }
 
 .tt_right_one {
-    width: 28%;
+    width: 232px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .til_fulln {
     float: left;
-    padding: 25px 26px;
+    padding: 20px 26px 19px 26px;
 }
 
 .titl_avt_full {
     float: left;
-    padding-right: 58px;
+    padding: 0px 55px 0px 15px;
 }
 
 .ten_nvien_ql {
@@ -2228,8 +2232,11 @@ img {
 }
 
 .titl_avt_full img {
-    width: 281px;
-    height: 117px;
+    width: 228px;
+    height: 151px;
+    margin-top: -40px;
+    position: relative;
+    z-index: 1;
 }
 
 .tt_right_one {
@@ -2853,6 +2860,10 @@ img {
     width: 60%;
 }
 
+.side_menu_hd, .modal_menu {
+    display: none;
+}
+
 @media screen and (max-width: 1366px) {
 
     /* footer */
@@ -2912,6 +2923,89 @@ img {
     }
 
     /* end footer */
+    .side_menu_hd {
+        display: block;
+        float: left;
+    }
+
+    .side_menu_hd img {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .side-bar {
+        display: none;
+    }
+
+    .main-container .container, .header {
+        width: 100%;
+    }
+
+    .header {
+        margin-top: 0;
+        z-index: 2;
+    }
+
+    .header .header-left {
+        padding-left: 8px;
+    }
+
+    .modal_menu {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        margin-top: 56px;
+        padding-top: 0px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: calc(100vh - 56px);
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, .4);
+    }
+
+    .modal_menu .modal-content {
+        position: relative;
+        margin: auto;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s;
+    }
+
+    .modal_menu .ctn_menu_mobi {
+        width: 280px;
+    }
+
+    .modal_menu .side-bar {
+        display: block;
+    }
+
+    .collapse ul::before {
+        content: "";
+        width: 2px;
+        left: 34px;
+        top: 50px;
+        background-color: #4C5BD4;
+        position: absolute;
+        display: block;
+        z-index: 1;
+        height: 180px;
+    }
+
+    .collapse.share_height ul::before {
+        height: 134px;
+    }
+
+    .content {
+        width: calc(100% - 36px);
+    }
 
 }
 

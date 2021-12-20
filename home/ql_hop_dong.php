@@ -93,7 +93,7 @@ include "../includes/icon.php";
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="quan-ly-chi-tiet-hop-dong-mua.html">HĐ - 0001</a></td>
+                                            <td><a href="quan-ly-chi-tiet-hop-dong-mua.html" class="share_clr_four">HĐ - 0001</a></td>
                                             <td>29/10/2021</td>
                                             <td>Hợp đồng mua vật tư</td>
                                             <td>12/10/2021 - 30/10/2021</td>
@@ -105,7 +105,7 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="quan-ly-chi-tiet-hop-dong-ban.html">HĐ - 0002</a></td>
+                                            <td><a href="quan-ly-chi-tiet-hop-dong-ban.html" class="share_clr_four">HĐ - 0002</a></td>
                                             <td>29/10/2021</td>
                                             <td>Hợp đồng bán vật tư</td>
                                             <td>12/10/2021 - 30/10/2021</td>
@@ -117,7 +117,7 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="quan-ly-chi-tiet-hop-dong-thue-thiet-bi.html">HĐ - 0001</a></td>
+                                            <td><a href="quan-ly-chi-tiet-hop-dong-thue-thiet-bi.html" class="share_clr_four">HĐ - 0001</a></td>
                                             <td>29/10/2021</td>
                                             <td>Hợp đồng thuê thiết bị vật tư</td>
                                             <td>12/10/2021 - 30/10/2021</td>
@@ -129,7 +129,7 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="quan-ly-chi-tiet-hop-dong-van-chuyen.html">HĐ - 0001</a></td>
+                                            <td><a href="quan-ly-chi-tiet-hop-dong-van-chuyen.html" class="share_clr_four">HĐ - 0001</a></td>
                                             <td>29/10/2021</td>
                                             <td>Hợp đồng thuê vận chuyển</td>
                                             <td>12/10/2021 - 30/10/2021</td>
@@ -195,7 +195,9 @@ include "../includes/icon.php";
             </div>
         </div>
     </div>
-    <? include("../modals/modal_logout.php") ?>
+    <?php include "../modals/modal_logout.php"?>
+    <? include("../modals/modal_menu.php") ?>
+
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

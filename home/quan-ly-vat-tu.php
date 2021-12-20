@@ -97,7 +97,7 @@ include "../includes/icon.php";
                                         <tr>
                                             <td class="w-5">1</td>
                                             <td class="w-15">
-                                                <a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html">YC-000-02983</a>
+                                                <a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html" class="share_clr_four">YC-000-02983</a>
                                             </td>
                                             <td class="w-10">29/10/2021</td>
                                             <td class="w-20">Xây dựng nhà văn hóa</td>
@@ -106,7 +106,7 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>2</td>
-                                            <td><a href="#">YC-000-02983</a></td>
+                                            <td><a href="#" class="share_clr_four">YC-000-02983</a></td>
                                             <td>29/10/2021</td>
                                             <td>Xây dựng nhà văn hóa</td>
                                             <td>10/11/2021</td>
@@ -114,7 +114,7 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>3</td>
-                                            <td><a href="#">YC-000-02983</a></td>
+                                            <td><a href="#" class="share_clr_four">YC-000-02983</a></td>
                                             <td>29/10/2021</td>
                                             <td>Xây dựng nhà văn hóa</td>
                                             <td>10/11/2021</td>
@@ -207,7 +207,9 @@ include "../includes/icon.php";
             </div>
         </div>
     </div>
-<? include('../modals/modal_logout.php') ?>
+    <?php include "../modals/modal_logout.php"?>
+    <? include("../modals/modal_menu.php") ?>
+
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

@@ -88,7 +88,7 @@ include "../includes/icon.php";
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="chi-tiet-don-hang-ban.html">ĐH - 0001</a></td>
+                                            <td><a href="chi-tiet-don-hang-ban.html" class="share_clr_four">ĐH - 0001</a></td>
                                             <td>HĐ-999-34369</td>
                                             <td>14/10/2021</td>
                                             <td>30/10/2021</td>
@@ -101,7 +101,7 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="chi-tiet-don-hang-mua.html">ĐH - 0001</a></td>
+                                            <td><a href="chi-tiet-don-hang-mua.html" class="share_clr_four">ĐH - 0001</a></td>
                                             <td>HĐ-999-34369</td>
                                             <td>14/10/2021</td>
                                             <td>30/10/2021</td>
@@ -114,7 +114,7 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="#">ĐH - 0001</a></td>
+                                            <td><a href="#" class="share_clr_four">ĐH - 0001</a></td>
                                             <td>HĐ-999-34369</td>
                                             <td>14/10/2021</td>
                                             <td>30/10/2021</td>
@@ -194,7 +194,9 @@ include "../includes/icon.php";
             </div>
         </div>
     </div>
-    <? include("../modals/modal_logout.php")?>
+    <?php include "../modals/modal_logout.php"?>
+    <? include("../modals/modal_menu.php") ?>
+
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

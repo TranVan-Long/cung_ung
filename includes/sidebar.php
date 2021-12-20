@@ -41,8 +41,8 @@ $bao_cao = ['/bao-cao-doanh-so-ban-hang.html','/bao-cao-cong-no-phai-thu.html','
 $cai_dat = ['/quan-ly-cai-dat.html','/cai-dat-phan-quyen.html','/nhat-ky-hoat-dong.html','/quan-ly-cai-dat-nhan-vien.html','/nhat-ky-hoat-dong-nhan-vien.html'];
 
 $bang_gia = ['/quan-ly-bang-gia.html', '/quan-ly-yeu-cau-bao-gia.html', '/chi-tiet-yeu-cau-bao-gia.html', '/them-yeu-cau-bao-gia.html', '/chinh-sua-yeu-cau-bao-gia.html',
-    '/quan-ly-bao-gia.html', '/chi-tiet-bao-gia.html', '/them-bao-gia.html', '/chinh-sua-bao-gia.html',
-    '/quan-ly-bao-gia-cho-khach-hang.html', '/chi-tiet-bao-gia-cho-khach-hang.html', '/them-bao-gia-cho-khach-hang.html', '/chinh-sua-bao-gia-cho-khach-hang.html'];
+            '/quan-ly-bao-gia.html', '/chi-tiet-bao-gia.html', '/them-bao-gia.html', '/chinh-sua-bao-gia.html',
+            '/quan-ly-bao-gia-cho-khach-hang.html', '/chi-tiet-bao-gia-cho-khach-hang.html', '/them-bao-gia-cho-khach-hang.html', '/chinh-sua-bao-gia-cho-khach-hang.html'];
 
 $yc_baogia = ['/quan-ly-yeu-cau-bao-gia.html', '/chi-tiet-yeu-cau-bao-gia.html', '/them-yeu-cau-bao-gia.html', '/chinh-sua-yeu-cau-bao-gia.html'];
 

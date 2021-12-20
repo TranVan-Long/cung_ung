@@ -1,5 +1,20 @@
 <?php
-include "../includes/icon.php";
+    include "../includes/icon.php";
+
+    $date = strtotime(date('Y-m-d', time()));
+    $date_f = date('d/m/Y', $date);
+    $date = getdate($date);
+    $weekday = $date['weekday'];
+
+    $array_t = array(
+        'Monday' => 'Thứ 2',
+        'Tuesday' => 'Thứ 3',
+        'Wednesday' => 'Thứ 4',
+        'Thursday' => 'Thứ 5',
+        'Friday' => 'Thứ 6',
+        'Saturday' => 'Thứ 7',
+        'Sunday' => 'Chủ nhật',
+    );
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,15 +52,18 @@ include "../includes/icon.php";
                         <div class="til_fulln">
                             <h1 class="ten_nvien_ql  w_100 float_l cr_weight"><span class="share_clr_one">Xin
                                     chào,</span> <span class="share_clr_four">Nguyễn Văn A</span></h1>
-                            <p>Chúc bạn một ngày mới làm việc hiệu quả!</p>
+                            <p class="share_clr_three mb_10">Chúc bạn một ngày mới làm việc hiệu quả!</p>
                         </div>
                         <div class="titl_avt_full">
                             <img src="../img/pana.png" alt="ảnh đại diện">
                         </div>
                     </div>
                     <div class="tt_right_one staff_fulln">
-                        <h3 class="time_tt cr_weight share_clr_one">08:00</h3>
-                        <p class="cr_weight share_clr_one share_fsize_tow">Thứ ba, 11/05/2021</p>
+                        <div class="ctn_tt_right w_100 float_l">
+                            <h3 class="time_tt cr_weight share_clr_one w_100 float_l">08:00</h3>
+                            <p class="cr_weight share_clr_one share_fsize_tow w_100 float_l"><?= $array_t[$weekday] ?>,
+                                <?= $date_f ?></p>
+                        </div>
                     </div>
                 </div>
                 <div class="ctt_tt_two mb_20 w_100 float_l">
@@ -204,6 +222,8 @@ include "../includes/icon.php";
         </div>
     </div>
     <? include("../modals/modal_logout.php")?>
+    <? include("../modals/modal_menu.php") ?>
+
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
@@ -217,138 +237,143 @@ include "../includes/icon.php";
 <!-- end -->
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
-    $(".cong_no_tra").change(function(){
-        var id = $(this).val();
-        if(id == 1){
-            $(".charts").css('display','block');
-            $(".charts_one").css('display','none');
-        }else if(id == 2){
-            $(".charts").css('display','none');
-            $(".charts_one").css('display','block');
+
+$(".cong_no_tra").change(function() {
+    var id = $(this).val();
+    if (id == 1) {
+        $(".charts").css('display', 'block');
+        $(".charts_one").css('display', 'none');
+    } else if (id == 2) {
+        $(".charts").css('display', 'none');
+        $(".charts_one").css('display', 'block');
+    }
+})
+</script>
+
+<script>
+var a = 4400000;
+var b = 55000000;
+var options = {
+    series: [a, b],
+    chart: {
+        width: 280,
+        type: 'pie',
+    },
+    colors: ['#219653', '#F2C94C'],
+    labels: ['Đã thu', 'Chưa thu'],
+    responsive: [{
+        breakpoint: 480,
+        options: {
+            chart: {
+                width: 160
+            },
+            legend: {
+                position: 'bottom'
+            }
         }
-    })
+    }]
+};
+var chart = new ApexCharts(document.querySelector(".chart"), options);
+chart.render();
 </script>
-<script>
-    var a = 4400000;
-    var b = 55000000;
-    var options = {
-        series: [a, b],
-        chart: {
-            width: 280,
-            type: 'pie',
-        },
-        colors: ['#219653', '#F2C94C'],
-        labels: ['Đã thu', 'Chưa thu'],
-        responsive: [{
-            breakpoint: 480,
-            options: {
-                chart: {
-                    width: 160
-                },
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }]
-    };
-    var chart = new ApexCharts(document.querySelector(".chart"), options);
-    chart.render();
-</script>
-<script>
-    var options = {
-        series: [4400000, 55000000],
-        chart: {
-            width: 280,
-            type: 'pie',
-        },
-        colors: ['#F2994A', '#EB5757'],
-        labels: ['Đã thu', 'Chưa thu'],
-        responsive: [{
-            breakpoint: 480,
-            options: {
-                chart: {
-                    width: 200
-                },
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }]
-    };
-    var chart = new ApexCharts(document.querySelector(".charts"), options);
-    chart.render();
-</script>
-<script>
-    var options = {
-        series: [4500000, 5000000],
-        chart: {
-            width: 280,
-            type: 'pie',
-        },
-        colors: ['#F2994A', '#EB5757'],
-        labels: ['Đã thu', 'Chưa thu'],
-        responsive: [{
-            breakpoint: 480,
-            options: {
-                chart: {
-                    width: 200
-                },
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }]
-    };
-    var chart = new ApexCharts(document.querySelector(".charts_one"), options);
-    chart.render();
-</script>
-<script>
-    Highcharts.chart('tt_three_ctiet', {
-        data: {
-            table: 'datatable'
-        },
-        chart: {
-            type: 'column'
-        },
 
-        yAxis: {
-            allowDecimals: false,
-            title: {
-                text: ''
+<script>
+var options = {
+    series: [4400000, 55000000],
+    chart: {
+        width: 280,
+        type: 'pie',
+    },
+    colors: ['#F2994A', '#EB5757'],
+    labels: ['Đã thu', 'Chưa thu'],
+    responsive: [{
+        breakpoint: 480,
+        options: {
+            chart: {
+                width: 200
             },
-            labels: {
-                style: {
-                    color: '#474747',
-                    fontSize: '14px',
-                }
-            },
-        },
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }]
+};
+var chart = new ApexCharts(document.querySelector(".charts"), options);
+chart.render();
+</script>
 
-        tooltip: {
+<script>
+var options = {
+    series: [4500000, 5000000],
+    chart: {
+        width: 280,
+        type: 'pie',
+    },
+    colors: ['#F2994A', '#EB5757'],
+    labels: ['Đã thu', 'Chưa thu'],
+    responsive: [{
+        breakpoint: 480,
+        options: {
+            chart: {
+                width: 200
+            },
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }]
+};
+var chart = new ApexCharts(document.querySelector(".charts_one"), options);
+chart.render();
+</script>
+
+<script>
+Highcharts.chart('tt_three_ctiet', {
+    data: {
+        table: 'datatable'
+    },
+    chart: {
+        type: 'column'
+    },
+
+    yAxis: {
+        allowDecimals: false,
+        title: {
+            text: ''
+        },
+        labels: {
+            style: {
+                color: '#474747',
+                fontSize: '14px',
+            }
+        },
+    },
+
+    tooltip: {
+        style: {
+            color: '#474747',
+            fontSize: '14px',
+        }
+    },
+
+    xAxis: {
+        labels: {
             style: {
                 color: '#474747',
                 fontSize: '14px',
             }
         },
 
-        xAxis: {
-            labels: {
-                style: {
-                    color: '#474747',
-                    fontSize: '14px',
-                }
-            },
+        categories: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8',
+            'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+        ],
+    },
 
-            categories: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8',
-                'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
-            ],
-        },
+    title: false,
+    subtitle: false,
 
-        title: false,
-        subtitle: false,
-
-        colors: ['#E09A6A ', '#9D92C8'],
-    });
+    colors: ['#E09A6A ', '#9D92C8'],
+});
 </script>
 
 </html>

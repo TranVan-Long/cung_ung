@@ -73,7 +73,8 @@ include("../includes/icon.php");
                                     <tbody>
                                     <tr>
                                         <td class="w-5">1</td>
-                                        <td class="w-10"><a href="quan-ly-chi-tiet-khach-hang.html">KH-002-38476</a></td>
+                                        <td class="w-10">
+                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="share_clr_four">KH-002-38476</a></td>
                                         <td class="w-10">NVA</td>
                                         <td class="w-15">Nguyễn Văn A</td>
                                         <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
@@ -83,7 +84,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="quan-ly-chi-tiet-khach-hang.html">KH-002-38476</a></td>
+                                        <td><a href="quan-ly-chi-tiet-khach-hang.html" class="share_clr_four">KH-002-38476</a></td>
                                         <td>NVA</td>
                                         <td>Nguyễn Văn A</td>
                                         <td>Số 12, ngõ 65, phố X, phường X, quận X</td>
@@ -202,7 +203,9 @@ include("../includes/icon.php");
         </div>
     </div>
 </div>
-<? include("../modals/modal_logout.php") ?>
+<?php include "../modals/modal_logout.php"?>
+<? include("../modals/modal_menu.php") ?>
+
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

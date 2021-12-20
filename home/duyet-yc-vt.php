@@ -33,61 +33,61 @@ include("../includes/icon.php");
         <div class="content">
             <div class="mt-20 left">
                 <a class="text-black" href="quan-ly-yeu-cau-vat-tu.html"><?php echo $ic_lt ?> Quay lại</a>
-                <h4 class="text-blue mt-20">Chi tiết yêu cầu vật tư</h4>
+                <h4 class="text-blue mt-20 mb_25">Chi tiết yêu cầu vật tư</h4>
             </div>
             <div class="c-body">
 
                 <div class="form-control">
                     <div class="form-row left">
-                        <div class="form-col-50 pl-10">
+                        <div class="form-col-50 mb_12 pt-10 pl-10 pb-10">
                             <p class="left text-left w-50">Số phiếu yêu cầu</p>
-                            <p class="right text-right w-50 text-bold">YC-000-00094</p>
+                            <p class="right text-right w-50 cr_weight">YC-000-00094</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left pl-10">
+                        <div class="form-col-50 mb_12 pt-10 left pl-10">
                             <p class="left text-left w-50"> Người yêu cầu</p>
-                            <p class="right text-right w-50 text-bold"> Nguyễn Văn A</p>
+                            <p class="right text-right w-50 cr_weight"> Nguyễn Văn A</p>
                         </div>
-                        <div class="form-col-50 right pr-10">
+                        <div class="form-col-50 mb_12 pt-10 right pr-10">
                             <p class="left text-left w-50">Phòng ban</p>
-                            <p class="right text-right w-50 text-bold">Dự án</p>
+                            <p class="right text-right w-50 cr_weight">Dự án</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left pl-10">
+                        <div class="form-col-50 mb_12 pt-10 left pl-10">
                             <p class="left text-left w-50"> Ngày tạo yêu cầu</p>
-                            <p class="right text-right w-50 text-bold"> 30/10/2021</p>
+                            <p class="right text-right w-50 cr_weight"> 30/10/2021</p>
                         </div>
-                        <div class="form-col-50 right pr-10">
+                        <div class="form-col-50 mb_12 pt-10 right pr-10">
                             <p class="left text-left w-50">Ngày phải hoàn thành yêu cầu</p>
-                            <p class="right text-right w-50 text-bold">10/11/2021</p>
+                            <p class="right text-right w-50 cr_weight">10/11/2021</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2">
-                        <div class="form-col-50 pl-10">
+                    <div class="form-row left border-top2 pb-10">
+                        <div class="form-col-50 mb_12 pt-10 pl-10">
                             <p class="left text-left w-50">Công trình</p>
-                            <p class="right text-right w-50 text-bold">Xây dựng nhà sinh hoạt văn hóa phường</p>
+                            <p class="right text-right w-50 cr_weight">Xây dựng nhà sinh hoạt văn hóa phường</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left pl-10">
+                        <div class="form-col-50 mb_12 pt-10 left pl-10">
                             <p class="left text-left w-50">Diễn giải</p>
-                            <p class="right text-right w-50 text-bold">Sử dụng để nối thêm đường ống nước</p>
+                            <p class="right text-right w-50 cr_weight">Sử dụng để nối thêm đường ống nước</p>
                         </div>
-                        <div class="form-col-50 right pr-10">
+                        <div class="form-col-50 mb_12 pt-10 right pr-10">
                             <p class="left text-left w-50">Trạng thái</p>
-                            <p class="right text-right w-50 text-bold">Chưa duyệt</p>
+                            <p class="right text-right w-50 cr_weight">Chưa duyệt</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2 d-none">
-                        <div class="form-col-50 left pl-10">
+                        <div class="form-col-50 mb_12 pt-10 left pl-10">
                             <p class="left text-left w-50">Người duyệt</p>
-                            <p class="right text-right w-50 text-bold">Nguyễn Thị B</p>
+                            <p class="right text-right w-50 cr_weight">Nguyễn Thị B</p>
                         </div>
-                        <div class="form-col-50 right pr-10">
+                        <div class="form-col-50 mb_12 right pr-10">
                             <p class="left text-left w-50">Ngày duyệt</p>
-                            <p class="right text-right w-50 text-bold">20/11/2021</p>
+                            <p class="right text-right w-50 cr_weight">20/11/2021</p>
                         </div>
                     </div>
                 </div>
@@ -136,7 +136,7 @@ include("../includes/icon.php");
                     <button class="v-btn btn-blue modal-btn" data-target="accept">Duyệt</button>
                 </div>
             </div>
-<!--            modal tu choi-->
+            <!-- modal tu choi -->
             <div class="modal text-center" id="decide">
                 <div class="m-content">
                     <div class="m-head ">
@@ -151,12 +151,12 @@ include("../includes/icon.php");
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
                         <div class="right">
-                            <button class="v-btn btn-green right modal-btn" data-target="rejection" >Đồng ý</button>
+                            <button class="v-btn share_clr_tow sh_bgr_six right modal-btn" data-target="rejection" >Đồng ý</button>
                         </div>
                     </div>
                 </div>
             </div>
-<!--            modal ly do tu choi-->
+            <!-- modal ly do tu choi -->
             <div class="modal" id="rejection">
                 <div class="m-content rejection-modal">
                     <div class="m-head text-center">Từ chối yêu cầu vật tư
@@ -164,19 +164,19 @@ include("../includes/icon.php");
                     </div>
                     <div class="m-body">
                         <p>Lý do từ chỗi yêu cầu</p>
-                        <textarea name="" id="" cols="30" rows="10" placeholder="Nhập lý do từ chối yêu cầu"></textarea>
+                        <textarea name="ly_do" id="" cols="30" rows="10" placeholder="Nhập lý do từ chối yêu cầu"></textarea>
                     </div>
                     <div class="m-foot d-inline-block">
                         <div class="left">
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
                         <div class="right">
-                            <button class="v-btn btn-green right">Đồng ý</button>
+                            <button class="v-btn share_clr_tow sh_bgr_six right">Đồng ý</button>
                         </div>
                     </div>
                 </div>
             </div>
-<!--            modal chap nhan-->
+            <!-- modal chap nhan -->
             <div class="modal text-center" id="accept">
                 <div class="m-content">
                     <div class="m-head">
@@ -191,7 +191,7 @@ include("../includes/icon.php");
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
                         <div class="right">
-                            <button class="v-btn btn-green right modal-btn" data-target="acceptance">Đồng ý</button>
+                            <button class="v-btn share_clr_tow sh_bgr_six right modal-btn" data-target="acceptance">Đồng ý</button>
                         </div>
                     </div>
                 </div>
@@ -254,7 +254,7 @@ include("../includes/icon.php");
                     <div class="m-foot d-inline-block">
                         <div class="right">
                             <p class="v-btn btn-outline-blue right cancel mr-20">Hủy</p>
-                            <button class="v-btn btn-green right">Đồng ý</button>
+                            <button class="v-btn share_clr_tow sh_bgr_six right">Đồng ý</button>
                         </div>
                     </div>
                 </div>
@@ -262,6 +262,9 @@ include("../includes/icon.php");
         </div>
     </div>
 </div>
+<?php include "../modals/modal_logout.php"?>
+<? include("../modals/modal_menu.php") ?>
+
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
