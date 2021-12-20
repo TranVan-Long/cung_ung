@@ -20,86 +20,82 @@ $date = date('m-d-Y', time())
 
 </head>
 <body>
-<div class="main-container">
-    <!--    a-side menu-->
+<div class="main-container bg_them_yc">
     <?php include("../includes/sidebar.php") ?>
-    <!--    a-side menu end-->
 
     <div class="container">
-        <!--        header-->
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
-        <!--        header end-->
         <div class="content">
-            <div class="mt-20">
-                <h4 class="mt-5">Thêm yêu cầu báo giá</h4>
+            <div class="mt-25 mb_25">
+                <h4>Thêm yêu cầu báo giá</h4>
             </div>
             <div class="c-body">
                 <div class="form-control">
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="so-phieu">Số phiếu yêu cầu</label>
-                            <input type="text" id="so-phieu" name="so-phieu" value="YC-985-12579" disabled required>
+                            <input type="text" id="so-phieu" name="so-phieu" value="YC-985-12579" disabled>
                         </div>
-                        <div class="form-col-50 right">
+                        <div class="form-col-50 right mb_15">
                             <label for="ngay-danh-gia">Ngày lập</label>
                             <input class="date-input" type="text" id="ngay-danh-gia" name="ngay-danh-gia"
                                    placeholder="Chọn ngày lập" onfocus="this.type='date'">
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="nguoi-lap">Người lập</label>
                             <input type="text" id="nguoi-lap" name="nguoi-lap" value="Nguyễn Văn A" disabled>
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left v-select2">
-                            <label for="chon-phong-ban">Nhà cung cấp<span class="text-red">*</span></label>
+                        <div class="form-col-50 left v-select2 mb_15">
+                            <label for="chon-phong-ban">Nhà cung cấp <span class="text-red">*</span></label>
                             <select name="chon-phong-ban" id="chon-phong-ban" class="share_select">
                                 <option value="">-- Chọn nhà cung cấp --</option>
-                                <option value="A">Công ty A</option>
-                                <option value="B">Công ty B</option>
-                                <option value="C">Công ty C</option>
-                                <option value="D">Công ty D</option>
+                                <option value="1">Công ty A</option>
+                                <option value="2">Công ty B</option>
+                                <option value="3">Công ty C</option>
+                                <option value="4">Công ty D</option>
                             </select>
                         </div>
-                        <div class="form-col-50 right v-select2">
-                            <label for="nguoi-tiep-nhan">Người tiếp nhận báo giá<span class="text-red">*</span></label>
+                        <div class="form-col-50 right v-select2 mb_15">
+                            <label for="nguoi-tiep-nhan">Người tiếp nhận báo giá <span class="text-red">*</span></label>
                             <select name="nguoi-tiep-nhan" id="nguoi-tiep-nhan" class="share_select">
                                 <option value="">-- Chọn người tiếp nhận báo giá --</option>
-                                <option value="a">Nguyễn Văn A</option>
-                                <option value="b">Nguyễn Văn B</option>
-                                <option value="c">Nguyễn Thị C</option>
-                                <option value="d">Nguyễn Thị D</option>
+                                <option value="1">Nguyễn Văn A</option>
+                                <option value="2">Nguyễn Văn B</option>
+                                <option value="3">Nguyễn Thị C</option>
+                                <option value="4">Nguyễn Thị D</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 v-select2">
-                            <label for="cong-trinh">Chọn công trình<span class="text-red">*</span></label>
+                        <div class="form-col-50 v-select2 mb_15">
+                            <label for="cong-trinh">Chọn công trình <span class="text-red">*</span></label>
                             <select name="cong-trinh" id="cong-trinh" class="share_select">
                                 <option value="">-- Chọn công trình --</option>
-                                <option value="Nâng cấp quốc lộ 999">Nâng cấp quốc lộ 999</option>
-                                <option value="Xây dựng nhà dân dụng">Xây dựng nhà dân dụng</option>
-                                <option value="Nâng cấp trường học">Nâng cấp trường học</option>
-                                <option value="Xây dựng nhà sinh hoạt văn hóa">Xây dựng nhà sinh hoạt văn hóa</option>
+                                <option value="1">Nâng cấp quốc lộ 999</option>
+                                <option value="2">Xây dựng nhà dân dụng</option>
+                                <option value="3">Nâng cấp trường học</option>
+                                <option value="4">Xây dựng nhà sinh hoạt văn hóa</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-100 left">
+                        <div class="form-col-100 left mb_15">
                             <label for="noi-dung-thu">Nội dung thư </label>
                             <textarea id="noi-dung-thu" name="noi-dung-thu" placeholder="Nhập nội dung thư"></textarea>
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="mail-nhan-bao-gia">Mail nhận báo giá</label>
                             <input type="text" id="mail-nhan-bao-gia" name="mail-nhan-bao-gia" placeholder="Nhập mail nhận báo giá">
                         </div>
-                        <div class="form-col-50 right d-flex">
+                        <div class="form-col-50 right d-flex mb_15">
                             <div class="d_flex align-items-center checkbox-lbs mt-30">
                                 <label class="mb-0 mr-30">Giá đã bao gồm VAT</label>
                                 <input type="checkbox" name="gia-VAT">
@@ -109,7 +105,7 @@ $date = date('m-d-Y', time())
                 </div>
                 <div class="mt-30 left w-100">
                     <p class="text-blue link-text text-500" id="add-quote">&plus; Thêm mới vật tư</p>
-                    <div class="table-wrapper mt-5">
+                    <div class="table-wrapper mt-10">
                         <div class="table-container table-md">
                             <div class="tbl-header">
                                 <table>
@@ -190,10 +186,10 @@ $date = date('m-d-Y', time())
             <div class="c-foot mt-30">
                 <div class="right">
                     <p class="v-btn btn-outline-blue modal-btn" data-target="cancel">Hủy</p>
-                    <a href="bg-yeu-cau.php" class="v-btn btn-blue ml-20">Xong</a>
+                    <p class="v-btn btn-blue ml-20">Xong</p>
                 </div>
             </div>
-<!--            modal cancel-->
+
             <div class="modal text-center" id="cancel">
                 <div class="m-content huy-them">
                     <div class="m-head ">
@@ -208,15 +204,15 @@ $date = date('m-d-Y', time())
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
                         <div class="right">
-                            <a href="bg-yeu-cau.php" class="v-btn btn-green right">Đồng ý</a>
+                            <a href="quan-ly-yeu-cau-bao-gia.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</a>
                         </div>
                     </div>
                 </div>
             </div>
-<!--            modal cancel end-->
         </div>
     </div>
 </div>
+<? include("../modals/modal_logout.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

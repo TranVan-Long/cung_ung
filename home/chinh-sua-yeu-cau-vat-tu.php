@@ -20,36 +20,32 @@ include("../includes/icon.php");
 </head>
 <body>
 <div class="main-container">
-    <!--    a-side menu-->
     <?php include("../includes/sidebar.php") ?>
-    <!--    a-side menu end-->
 
     <div class="container">
-        <!--        header-->
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
-        <!--        header end-->
         <div class="content">
-            <div class="mt-20">
-                <h4 class="mt-5">Chỉnh sửa yêu cầu vật tư</h4>
+            <div class="mt-25 mb_25">
+                <h4>Chỉnh sửa yêu cầu vật tư</h4>
             </div>
             <div class="c-body">
                 <div class="form-control">
                     <div class="form-row left">
-                        <div class="form-col-50">
+                        <div class="form-col-50 mb_15">
                             <label for="so-phieu">Số phiếu yêu cầu<span class="text-red">*</span></label>
                             <input type="text" id="so-phieu" name="so-phieu" value="PH-000-99999" disabled required>
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left v-select2">
+                        <div class="form-col-50 left v-select2 mb_15">
                             <label for="chon-phong-ban">Phòng ban<span class="text-red">*</span></label>
                             <select name="chon-phong-ban" id="chon-phong-ban" class="share_select">
                                 <option value="">Công trình</option>
                             </select>
                         </div>
-                        <div class="form-col-50 right v-select2">
+                        <div class="form-col-50 right v-select2 mb_15">
                             <label for="nguoi-yeu-cau">Người yêu cầu<span class="text-red">*</span></label>
                             <select name="nguoi-yeu-cau" id="nguoi-yeu-cau" class="share_select">
                                 <option value="">Nguyễn Văn A</option>
@@ -57,7 +53,7 @@ include("../includes/icon.php");
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 v-select2">
+                        <div class="form-col-50 v-select2 mb_15">
                             <label for="cong-trinh">Công trình<span class="text-red">*</span></label>
                             <select name="cong-trinh" id="cong-trinh" class="share_select">
                                 <option value="">Nâng cấp quốc lộ 999</option>
@@ -65,19 +61,19 @@ include("../includes/icon.php");
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="ngay-tao-yeu-cau">Ngày tạo yêu cầu</label>
                             <input type="date" id="ed-created-date" name="ngay-tao-yeu-cau"
                                    value="2021-01-11" disabled>
                         </div>
-                        <div class="form-col-50 right">
+                        <div class="form-col-50 right mb_15">
                             <label for="deadline">Ngày phải hoàn thành yêu cầu</label>
                             <input type="date" id="ed-deadline" name="deadline"
                                    value="2021-01-11">
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-100 left">
+                        <div class="form-col-100 left mb-5">
                             <label for="dien-giai">Diễn giải</label>
                             <textarea id="dien-giai" name="dien-giai">Không có</textarea>
                         </div>
@@ -85,10 +81,10 @@ include("../includes/icon.php");
                 </div>
                 <div class="mt-30 left w-100">
                     <p class="text-blue text-500 link-text d-inline pl-20" id="add-material">&plus; Thêm mới vật tư</p>
-                    <div class="table-wrapper mt-5">
+                    <div class="table-wrapper mt-10">
                         <div class="table-container">
                             <div class="tbl-header">
-                                <table cellpadding="0" cellspacing="0" border="0">
+                                <table>
                                     <thead>
                                     <tr>
                                         <th class="w-10"></th>
@@ -101,7 +97,7 @@ include("../includes/icon.php");
                                 </table>
                             </div>
                             <div class="tbl-content table-2-row">
-                                <table cellpadding="0" cellspacing="0" border="0">
+                                <table>
                                     <tbody id="materials">
                                     <tr class="item" id="item1">
                                         <td class="w-10">
@@ -213,6 +209,7 @@ include("../includes/icon.php");
         </div>
     </div>
 </div>
+<? include("../modals/modal_logout.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

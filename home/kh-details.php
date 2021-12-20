@@ -28,74 +28,74 @@ include("../includes/icon.php");
         <div class="content">
             <div class="mt-20 left">
                 <a class="text-black" href="quan-ly-khach-hang.html"><?php echo $ic_lt ?> Quay lại</a>
-                <h5 class="text-blue mt-20 mb_10">Chi tiết Khách hàng</h5>
+                <h5 class="text-blue mt-20 mb_25">Chi tiết Khách hàng</h5>
             </div>
             <div class="w-100 left">
                 <div class="form-control">
                     <div class="form-row left">
-                        <div class="form-col-50 left pl-10">
+                        <div class="form-col-50 left pl-10 mb_12">
                             <p class="left text-left w-50">Mã khách hàng</p>
                             <p class="right text-right w-50 cr_weight">KH-000-99999</p>
                         </div>
-                        <div class="form-col-50 right pr-10">
+                        <div class="form-col-50 right pr-10 mb_12">
                             <p class="left text-left w-50">Tên gọi tắt</p>
                             <p class="right text-right w-50 cr_weight">NVA</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left pl-10">
+                        <div class="form-col-50 left pl-10 mb_12 pt-10">
                             <p class="left text-left w-50">Tên khách hàng</p>
                             <p class="right text-right w-50 cr_weight">Nguyễn Văn A</p>
                         </div>
-                        <div class="form-col-50 right pr-10">
+                        <div class="form-col-50 right pr-10 mb_12 pt-10">
                             <p class="left text-left w-50">Tên giao dịch</p>
                             <p class="right text-right w-50 cr_weight">NVA01</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left pl-10">
+                        <div class="form-col-50 left pl-10 mb_12 pt-10">
                             <p class="left text-left w-50"> Mã số thuế</p>
                             <p class="right text-right w-50 cr_weight">09988776485</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left pl-10">
+                        <div class="form-col-50 left pl-10 mb_12 pt-10 ">
                             <p class="left text-left w-50">Địa chỉ ĐKKD</p>
                             <p class="right text-right w-50 cr_weight">Số 5, phố X, phường X, quận X</p>
                         </div>
-                        <div class="form-col-50 right pr-10">
+                        <div class="form-col-50 right pr-10 mb_12 pt-10">
                             <p class="left text-left w-50">Số ĐKKD</p>
                             <p class="right text-right w-50 cr_weight">15339876543210</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left pl-10">
+                        <div class="form-col-50 left pl-10 mb_12 pt-10">
                             <p class="left text-left w-50">Địa chỉ liên hệ</p>
                             <p class="right text-right w-50 cr_weight">Số 5, phố X, phường X, quận X</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left pl-10">
+                        <div class="form-col-50 left pl-10 mb_12 pt-10">
                             <p class="left text-left w-50">Điện thoại</p>
                             <p class="right text-right w-50 cr_weight">01234567889</p>
                         </div>
-                        <div class="form-col-50 right pr-10">
+                        <div class="form-col-50 right pr-10 mb_12 pt-10">
                             <p class="left text-left w-50">Fax</p>
                             <p class="right text-right w-50 cr_weight">0123456789</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left pl-10">
+                        <div class="form-col-50 left pl-10 mb_12 pt-10">
                             <p class="left text-left w-50">Website</p>
                             <p class="right text-right w-50 cr_weight">ncca.com.vn</p>
                         </div>
-                        <div class="form-col-50 right pr-10">
+                        <div class="form-col-50 right pr-10 mb_12 pt-10">
                             <p class="left text-left w-50">E-mail</p>
                             <p class="right text-right w-50 cr_weight">ncca@gmail.com</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left pl-10">
+                        <div class="form-col-50 left pl-10 mb_12 pt-10">
                             <p class="left text-left w-50">Mã số thuế</p>
                             <p class="right text-right w-50 cr_weight">009927363528</p>
                         </div>
@@ -106,11 +106,11 @@ include("../includes/icon.php");
                 <p class="cr_weight">Danh sách tài khoản ngân hàng</p>
                 <div class="left w-100 bordered mt-10 ds_tk_nhang">
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_12">
                             <p class="left text-left w-50">Tên ngân hàng</p>
                             <p class="right text-right w-50 cr_weight">Ngân hàng A</p>
                         </div>
-                        <div class="form-col-50 right">
+                        <div class="form-col-50 right mb_12">
                             <p class="left text-left w-50">Chi nhánh</p>
                             <p class="right text-right w-50 cr_weight">Chi nhánh 1</p>
                         </div>

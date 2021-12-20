@@ -24,15 +24,11 @@ include("../includes/icon.php");
 </head>
 <body>
 <div class="main-container">
-    <!--    a-side menu-->
     <?php include("../includes/sidebar.php") ?>
-    <!--    a-side menu end-->
     <div class="container">
-        <!--        header-->
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
-        <!--        header end-->
         <div class="content">
             <div class="mt-20 left">
                 <a class="text-black" href="quan-ly-bao-gia.html"><?php echo $ic_lt ?> Quay lại</a>
@@ -43,33 +39,33 @@ include("../includes/icon.php");
                     <div class="form-row left pt-10 mt-10">
                         <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50">Số báo giá</p>
-                            <p class="right text-right w-50 text-bold">BG-000-10176</p>
+                            <p class="right text-right w-50 cr_weight">BG-000-10176</p>
                         </div>
                         <div class="form-col-50 right pr-10">
                             <p class="left text-left w-50">Ngày gửi</p>
-                            <p class="right text-right w-50 text-bold">18/10/2021</p>
+                            <p class="right text-right w-50 cr_weight">18/10/2021</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2 pt-10 mt-10">
                         <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50">Người lập</p>
-                            <p class="right text-right w-50 text-bold">Nguyễn Văn A</p>
+                            <p class="right text-right w-50 cr_weight">Nguyễn Văn A</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2 pt-10 mt-10">
                         <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50"> Nhà cung cấp</p>
-                            <p class="right text-right w-50 text-bold">Công ty A</p>
+                            <p class="right text-right w-50 cr_weight">Công ty A</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2 pt-10 mt-10">
                         <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50">Theo yêu cầu báo giá số</p>
-                            <p class="right text-right w-50 text-bold">BG-083-47474</p>
+                            <p class="right text-right w-50 cr_weight">BG-083-47474</p>
                         </div>
                         <div class="form-col-50 right pr-10">
                             <p class="left text-left w-50">Thời gian áp dụng</p>
-                            <p class="right text-right w-50 text-bold">18/10/2021 - 05/05/2022</p>
+                            <p class="right text-right w-50 cr_weight">18/10/2021 - 05/05/2022</p>
                         </div>
                     </div>
                 </div>
@@ -145,7 +141,7 @@ include("../includes/icon.php");
                     <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                 </div>
                 <div class="right">
-                    <button type="button" class="v-btn btn-green-2 right">Đồng ý</button>
+                    <button type="button" class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</button>
                 </div>
             </div>
         </div>

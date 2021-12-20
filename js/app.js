@@ -73,42 +73,43 @@ $("#add-material").click(function () {
 });
 // them tai khoan ngan hang
 $('#add-bank-acc').click(function () {
-    $('#bank-list').append("<div class=\"bank border-bottom left w-100 pb-20\">\n" +
-        "                            <div class=\"form-row left\">\n" +
-        "                                <div class=\"form-col-50 left\">\n" +
-        "                                    <div class=\"v-select2\">\n" +
-        "                                        <label for=\"ten-ngan-hang\">Tên ngân hàng<span class=\"text-red\">*</span></label>\n" +
-        "                                        <select name=\"ten-ngan-hang\" class=\"share_select\">\n" +
-        "                                            <option value=\"\">-- Chọn ngân hàng --</option>\n" +
-        "                                        </select>\n" +
-        "                                    </div>\n" +
-        "                                </div>\n" +
-        "                                <div class=\"form-col-50 ml-10-p left\">\n" +
-        "                                    <div class=\"v-select2\">\n" +
-        "                                        <label for=\"chi-nhanh-ngan-hang\">Chi nhánh<span\n" +
-        "                                                    class=\"text-red\">*</span></label>\n" +
-        "                                        <select name=\"chi-nhanh-ngan-hang\" class=\"share_select\">\n" +
-        "                                            <option value=\"\">-- Chọn chi nhánh --</option>\n" +
-        "                                        </select>\n" +
-        "                                    </div>\n" +
-        "                                </div>\n" +
-        "                            </div>\n" +
-        "                            <div class=\"form-row left\">\n" +
-        "                                <div class=\"form-col-50 left\">\n" +
-        "                                    <label for=\"tai-khoan-ngan-hang\">Tài khoản ngân hàng<span\n" +
-        "                                                class=\"text-red\">*</span></label>\n" +
-        "                                    <input type=\"text\" id=\"tai-khoan-ngan-hang\" name=\"tai-khoan-ngan-hang\"\n" +
-        "                                           placeholder=\"Nhập số tài khoản\">\n" +
-        "                                </div>\n" +
-        "                                <div class=\"form-col-50 left ml-10-p\">\n" +
-        "                                    <label for=\"ma-so-thue\">Chủ tài khoản</label>\n" +
-        "                                    <input type=\"text\" id=\"ma-so-thue\" name=\"ma-so-thue\" placeholder=\"Nhập mã số thuế\">\n" +
-        "                                </div>\n" +
-        "                            </div>\n" +
-        "                            <div class=\"right\">\n" +
-        "                                <p class=\"removeItem2\"><i class=\"ic-delete2\"></i></p>\n" +
-        "                            </div>\n" +
-        "                        </div>");
+    var html = `<div class="bank border-bottom left w-100 pb-20 mt-10">
+                    <div class="form-row left">
+                        <div class="form-col-50 left">
+                            <div class="v-select2 mb_15">
+                                <label for="ten-ngan-hang">Tên ngân hàng<span class="text-red">*</span></label>
+                                <select name="ten-ngan-hang" class="share_select">
+                                    <option value="">-- Chọn ngân hàng --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-col-50 ml-10-p left">
+                            <div class="v-select2 mb_15">
+                                <label for="chi-nhanh-ngan-hang">Chi nhánh<span
+                                            class="text-red">*</span></label>
+                                <select name="chi-nhanh-ngan-hang" class="share_select">
+                                    <option value="">-- Chọn chi nhánh --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row left">
+                        <div class="form-col-50 left mb_15">
+                            <label for="tai-khoan-ngan-hang">Tài khoản ngân hàng<span
+                                        class="text-red">*</span></label>
+                            <input type="text" id="tai-khoan-ngan-hang" name="tai-khoan-ngan-hang"
+                                    placeholder="Nhập số tài khoản">
+                        </div>
+                        <div class="form-col-50 left ml-10-p mb_15">
+                            <label for="ma-so-thue">Chủ tài khoản</label>
+                            <input type="text" id="ma-so-thue" name="ma-so-thue" placeholder="Nhập mã số thuế">
+                        </div>
+                    </div>
+                    <div class="right">
+                        <p class="removeItem2"><i class="ic-delete2"></i></p>
+                    </div>
+                </div>`;
+    $('#bank-list').append(html);
     RefSelect2();
 })
 // them nguoi lien he
@@ -162,23 +163,25 @@ $("#add-ratting-ruler").click(function () {
 });
 // them gia tri tieu chi danh gia
 $('#add-rules-value').click(function () {
-    $('#rules-value').append("<div class=\"value border-bottom left w-100 pb-20 d-flex spc-btw align-items-center\">\n" +
-        "                            <div class=\"form-row left\">\n" +
-        "                                <div class=\"form-col-50 left\">\n" +
-        "                                    <label for=\"gia-tri\">Giá trị<span\n" +
-        "                                                class=\"text-red\">*</span></label>\n" +
-        "                                    <input type=\"number\" id=\"gia-tri\" name=\"gia-tri\"\n" +
-        "                                           placeholder=\"Nhập giá trị\">\n" +
-        "                                </div>\n" +
-        "                                <div class=\"form-col-50 left ml-10-p\">\n" +
-        "                                    <label for=\"ten-hien-thi\">Tên hiển thị</label>\n" +
-        "                                    <input type=\"text\" id=\"ten-hien-thi\" name=\"ten-hien-thi\" placeholder=\"Nhập tên hiển thị\">\n" +
-        "                                </div>\n" +
-        "                            </div>\n" +
-        "                            <div class=\"right\">\n" +
-        "                                <p class=\"removeItem3\"><i class=\"ic-delete2\"></i></p>\n" +
-        "                            </div>\n" +
-        "                        </div>");
+    var html = `<div class="value border-bottom left w-100 pb-20 d-flex spc-btw align-items-center mt-10">
+                    <div class="form-row left">
+                        <div class="form-col-50 left">
+                            <label for="gia-tri">Giá trị<span
+                                        class="text-red">*</span></label>
+                            <input type="number" id="gia-tri" name="gia-tri"
+                                    placeholder="Nhập giá trị">
+                        </div>
+                        <div class="form-col-50 left ml-10-p">
+                            <label for="ten-hien-thi">Tên hiển thị</label>
+                            <input type="text" id="ten-hien-thi" name="ten-hien-thi" placeholder="Nhập tên hiển thị">
+                        </div>
+                    </div>
+                    <div class="right">
+                        <p class="removeItem3"><i class="ic-delete2"></i></p>
+                    </div>
+                </div>`;
+
+    $('#rules-value').append(html);
     RefSelect2();
 });
 // them yeu cau thanh toan
@@ -209,6 +212,92 @@ $('#add-quote').click(function () {
         "                                            <input type=\"text\">\n" +
         "                                        </td>\n" +
         "                                    </tr>");
+    RefSelect2();
+});
+// them bao gia khach hang
+$("#them_vt_bg_kh").click(function () {
+    var html = `<tr class="item">
+                    <td class="w-5">
+                        <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                    </td>
+                    <td class="w-15">
+                        <div class="v-select2">
+                            <select class="share_select">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="w-20">
+                        <div class="v-select2">
+                            <select class="share_select">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="w-20">
+                        <div class="v-select2">
+                            <select class="share_select">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="w-15">
+                        <input type="text">
+                    </td>
+                    <td class="w-15">
+                        <input type="text" disabled>
+                    </td>
+                    <td class="w-20">
+                        <input type="text">
+                    </td>
+                    <td class="w-20">
+                        <input type="text" disabled>
+                    </td>
+                </tr>`;
+    $("#rererences_kh").append(html);
+    RefSelect2();
+});
+// them bao gia khach hang
+$("#add_bgia").click(function () {
+    var html = `<tr class="item">
+                    <td class="w-5">
+                        <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                    </td>
+                    <td class="w-15">
+                        <div class="v-select2">
+                            <select class="share_select">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="w-20">
+                        <div class="v-select2">
+                            <select class="share_select">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="w-20">
+                        <div class="v-select2">
+                            <select class="share_select">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="w-15">
+                        <input type="text">
+                    </td>
+                    <td class="w-15">
+                        <input type="text" disabled>
+                    </td>
+                    <td class="w-20">
+                        <input type="text">
+                    </td>
+                    <td class="w-20">
+                        <input type="text" disabled>
+                    </td>
+                </tr>`;
+    $("#rererences_bgia").append(html);
     RefSelect2();
 });
 

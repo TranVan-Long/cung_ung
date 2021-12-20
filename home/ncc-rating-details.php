@@ -20,94 +20,90 @@ include("../includes/icon.php");
 </head>
 <body>
 <div class="main-container">
-    <!--    a-side menu-->
     <?php include("../includes/sidebar.php") ?>
-    <!--    a-side menu end-->
 
     <div class="container">
-        <!--        header-->
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
-        <!--        header end-->
         <div class="content">
             <div class="mt-20 left">
-                <a class="text-black" href="ncc-rating-index.php"><?php echo $ic_lt ?> Quay lại</a>
-                <h5 class="text-blue mt-20">Chi tiết phiếu đánh giá</h5>
+                <a class="text-black" href="danh-gia-nha-cung-cap.html"><?php echo $ic_lt ?> Quay lại</a>
+                <h5 class="text-blue mt-20 mb_25">Chi tiết phiếu đánh giá</h5>
             </div>
             <div class="w-100 left">
                 <div class="form-control">
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_12 pl-10">
                             <p class="left text-left w-50">Số phiếu</p>
-                            <p class="right text-right w-50 text-bold">PH-000-38374</p>
+                            <p class="right text-right w-50 cr_weight">PH-000-38374</p>
                         </div>
-                        <div class="form-col-50 right">
+                        <div class="form-col-50 right mb_12 pr-10">
                             <p class="left text-left w-50">Ngày lập phiếu</p>
-                            <p class="right text-right w-50 text-bold">27/10/2021</p>
+                            <p class="right text-right w-50 cr_weight">27/10/2021</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_12 pl-10 pt-10">
                             <p class="left text-left w-50">Ngày đánh giá</p>
-                            <p class="right text-right w-50 text-bold">27/10/2021</p>
+                            <p class="right text-right w-50 cr_weight">27/10/2021</p>
                         </div>
-                        <div class="form-col-50 right">
+                        <div class="form-col-50 right mb_12 pr-10 pt-10">
                             <p class="left text-left w-50">Người đánh giá</p>
-                            <p class="right text-right w-50 text-bold">Nguyễn Văn A</p>
+                            <p class="right text-right w-50 cr_weight">Nguyễn Văn A</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_12 pl-10 pt-10">
                             <p class="left text-left w-50">Phòng ban</p>
-                            <p class="right text-right w-50 text-bold">Phòng 1</p>
+                            <p class="right text-right w-50 cr_weight">Phòng 1</p>
                         </div>
-                        <div class="form-col-50 right">
+                        <div class="form-col-50 right mb_12 pr-10 pt-10">
                             <p class="left text-left w-50">Người lập</p>
-                            <p class="right text-right w-50 text-bold">Nguyễn Văn A</p>
+                            <p class="right text-right w-50 cr_weight">Nguyễn Văn A</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_12 pl-10 pt-10">
                             <p class="left text-left w-50">Nhà cung cấp</p>
-                            <p class="right text-right w-50 text-bold">NCCA</p>
+                            <p class="right text-right w-50 cr_weight">NCCA</p>
                         </div>
-                        <div class="form-col-50 right">
+                        <div class="form-col-50 right mb_12 pr-10 pt-10">
                             <p class="left text-left w-50">Tên nhà cung cấp</p>
-                            <p class="right text-right w-50 text-bold">Nhà cung cấp A</p>
+                            <p class="right text-right w-50 cr_weight">Nhà cung cấp A</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_12 pl-10 pt-10">
                             <p class="left text-left w-50">Địa chỉ</p>
-                            <p class="right text-right w-50 text-bold">Số 5, phường A, quận A</p>
+                            <p class="right text-right w-50 cr_weight">Số 5, phường A, quận A</p>
                         </div>
-                        <div class="form-col-50 right">
+                        <div class="form-col-50 right mb_12 pr-10 pt-10">
                             <p class="left text-left w-50">Sản phẩm cung ứng</p>
-                            <p class="right text-right w-50 text-bold">Gạch ngói</p>
+                            <p class="right text-right w-50 cr_weight">Gạch ngói</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_12 pl-10 pt-10">
                             <p class="left text-left w-50">Điểm đánh giá</p>
-                            <p class="right text-right w-50 text-bold">8</p>
+                            <p class="right text-right w-50 cr_weight">8</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_12 pl-10 pt-10">
                             <p class="left text-left w-50">Trạng thái</p>
-                            <p class="right text-right w-50 text-bold">Đã hoàn thành</p>
+                            <p class="right text-right w-50 cr_weight">Đã hoàn thành</p>
                         </div>
-                        <div class="form-col-50 right">
+                        <div class="form-col-50 right mb_12 pr-10 pt-10">
                             <p class="left text-left w-50">Đánh giá khác</p>
-                            <p class="right text-right w-50 text-bold">Không có</p>
+                            <p class="right text-right w-50 cr_weight">Không có</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="w-100 left mt-30">
                 <div class="table-wrapper">
-                    <div class="table-container">
+                    <div class="table-container table-1252">
                         <div class="tbl-header">
                             <table>
                                 <thead>
@@ -152,9 +148,7 @@ include("../includes/icon.php");
                     <a href="#" class="v-btn btn-green">Xuất excel</a>
                 </div>
                 <div class="right mt-30">
-                    <a class="v-btn btn-outline-red modal-btn">Xóa</a>
-
-<!--                    modal xoa-->
+                    <p class="v-btn btn-outline-red modal-btn">Xóa</p>
                     <div class="modal text-center">
                         <div class="m-content huy-them">
                             <div class="m-head ">
@@ -169,24 +163,26 @@ include("../includes/icon.php");
                                     <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                                 </div>
                                 <div class="right">
-                                    <a href="ncc-rating-index.php" class="v-btn btn-green right">Đồng ý</a>
+                                    <button type="button" class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-<!--                    end modal-->
-
-                    <a href="ncc-rating-edit.php" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
+                    <a href="chinh-sua-danh-gia-nha-cung-cap.html" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
                 </div>
             </div>
-            <div class=""></div>
         </div>
     </div>
 </div>
+<? include("../modals/modal_logout.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
-
+<script type="text/javascript" src="../js/app.js"></script>
+<script>
+    $(".modal-btn").click(function(){
+        $(".modal").show();
+    })
+</script>
 </html>

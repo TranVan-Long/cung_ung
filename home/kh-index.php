@@ -51,7 +51,7 @@ include("../includes/icon.php");
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
                     <div class="scr-btn scr-r-btn left"><i class="ic-chevron-right"></i></div>
                     <div class="table-wrapper">
-                        <div class="table-container table-full-width">
+                        <div class="table-container table_1457">
                             <div class="tbl-header">
                                 <table>
                                     <thead>

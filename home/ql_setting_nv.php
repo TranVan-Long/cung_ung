@@ -32,16 +32,16 @@ include "../includes/icon.php";
             </div>
 
             <div class="content">
-                <div class="ctn_ctiet_hd w_100 fload_l">
-                    <div class="chi_tiet_cd mt_25 w_100 fload_l">
-                        <div class="top_sett w_100 fload_l">
-                            <div class="ctn_top_sett w_100 fload_l">
+                <div class="ctn_ctiet_hd w_100 float_l">
+                    <div class="chi_tiet_cd mt_25 w_100 float_l">
+                        <div class="top_sett w_100 float_l">
+                            <div class="ctn_top_sett w_100 float_l">
                                 <p class="caidc_ql active"><a href="quan-ly-cai-dat-nhan-vien.html" class="cai_dtl">Cài đặt chung</a></p>
                                 <p class="his_ql"><a href="nhat-ky-hoat-dong-nhan-vien.html" class="cai_dtl">Nhật ký hoạt động</a></p>
                             </div>
                         </div>
-                        <div class="ctn_sett w_100 fload_l">
-                            <div class="languega w_100 fload_l">
+                        <div class="ctn_sett w_100 float_l">
+                            <div class="languega w_100 float_l">
                                 <div class="ctn_languega d_flex flex_jct fl_agi">
                                     <p class="share_fsize_one share_clr_one cr_weight">Ngôn ngữ</p>
                                     <div class="ct_select">
@@ -52,12 +52,12 @@ include "../includes/icon.php";
                                     </div>
                                 </div>
                             </div>
-                            <div class="thong_bao w_100 fload_l mb_25">
-                                <div class="ctn_top_tbao mb_20 w_100 fload_l d_flex flex_jct fl_agi">
+                            <div class="thong_bao w_100 float_l mb_25">
+                                <div class="ctn_top_tbao mb_20 w_100 float_l d_flex flex_jct fl_agi">
                                     <p class="share_fsize_one share_clr_one cr_weight">Thông báo</p>
                                     <span class="dropd share_cursor" data-tab="thong_bao"><img src="../img/exp.png" alt="thông báo"></span>
                                 </div>
-                                <div class="ctn_ct_tbao w_100 fload_l share_bgr_tow" id="thong_bao">
+                                <div class="ctn_ct_tbao w_100 float_l share_bgr_tow" id="thong_bao">
                                     <div class="tbao_one d_flex flex_jct fl_agi">
                                         <p class="share_fsize_tow share_clr_one cr_weight">Nhận thông báo khi có thay đổi ở tất cả các nội dung tôi xem được</p>
                                         <div class="sett_right_one">
@@ -99,12 +99,12 @@ include "../includes/icon.php";
                                     </div>
                                 </div>
                             </div>
-                            <div class="nhac_nho w_100 fload_l">
-                                <div class="ctn_top_tbao mb_20 w_100 fload_l d_flex flex_jct fl_agi">
+                            <div class="nhac_nho w_100 float_l">
+                                <div class="ctn_top_tbao mb_20 w_100 float_l d_flex flex_jct fl_agi">
                                     <p class="share_fsize_one share_clr_one cr_weight">Nhắc nhở</p>
                                     <span class="dropd share_cursor" data-tab="nhac_nho"><img src="../img/exp.png" alt="nhắc nhở"></span>
                                 </div>
-                                <div class="ctn_ct_tbao w_100 fload_l share_bgr_tow" id="nhac_nho">
+                                <div class="ctn_ct_tbao w_100 float_l share_bgr_tow" id="nhac_nho">
                                     <div class="tbao_one d_flex flex_jct fl_agi">
                                         <p class="share_fsize_tow share_clr_one cr_weight">Nhắc nhở khi tất cả các nội dung tôi xem được đến hạn/quá hạn</p>
                                         <div class="sett_right_one">

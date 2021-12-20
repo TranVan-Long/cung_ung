@@ -19,17 +19,13 @@ include("../includes/icon.php");
 
 </head>
 <body>
-<div class="main-container">
-    <!--    a-side menu-->
+<div class="main-container bg_yeu_cau">
     <?php include("../includes/sidebar.php") ?>
-    <!--    a-side menu end-->
 
     <div class="container">
-        <!--        header-->
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
-        <!--        header end-->
         <div class="content">
             <div class="c-top border-bottom pb-20">
                 <h4 class="left">Yêu cầu báo giá</h4>
@@ -51,7 +47,7 @@ include("../includes/icon.php");
                             <option value="">Nhập thông tin cần tìm kiếm</option>
                         </select>
                     </div>
-                    <a class="v-btn btn-blue add-btn" href="bg-them-yc.php">&plus; Thêm mới</a>
+                    <a class="v-btn btn-blue add-btn" href="them-yeu-cau-bao-gia.html">&plus; Thêm mới</a>
 
                 </div>
                 <div class="table-wrapper mt-20">
@@ -157,7 +153,6 @@ include("../includes/icon.php");
                         <option value="20">20</option>
                     </select>
                 </div>
-                <!--                    pagination-->
                 <div class="pagination">
                     <ul>
                         <li><a href="#"><?php echo $ic_lt ?></a></li>
@@ -173,9 +168,10 @@ include("../includes/icon.php");
         </div>
     </div>
 </div>
+<? include("../modals/modal_logout.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
+<script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
-<script type="text/javascript" src="../js/style.js"></script
 </html>

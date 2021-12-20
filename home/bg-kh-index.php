@@ -20,14 +20,11 @@ include("../includes/icon.php");
 <div class="main-container">
     <!--    a-side menu-->
     <?php include("../includes/sidebar.php") ?>
-    <!--    a-side menu end-->
 
     <div class="container">
-        <!--        header-->
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
-        <!--        header end-->
         <div class="content">
             <div class="c-top border-bottom pb-30">
                 <h4 class="left">Báo giá cho khách hàng</h4>
@@ -181,7 +178,6 @@ include("../includes/icon.php");
                         <option value="20">20</option>
                     </select>
                 </div>
-                <!--                    pagination-->
                 <div class="pagination mt-10">
                     <ul>
                         <li><a href="#"><?php echo $ic_lt ?></a></li>
@@ -197,10 +193,11 @@ include("../includes/icon.php");
         </div>
     </div>
 </div>
+<? include("../modals/modal_logout.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
 
 </html>

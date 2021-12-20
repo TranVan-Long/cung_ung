@@ -32,19 +32,19 @@ include "../includes/icon.php";
             </div>
 
             <div class="content">
-                <div class="ctn_ctiet_hd w_100 fload_l">
-                    <div class="chi_tiet_cd mt_25 w_100 fload_l">
-                        <div class="top_sett w_100 fload_l">
-                            <div class="ctn_top_sett w_100 fload_l">
+                <div class="ctn_ctiet_hd w_100 float_l">
+                    <div class="chi_tiet_cd mt_25 w_100 float_l">
+                        <div class="top_sett w_100 float_l">
+                            <div class="ctn_top_sett w_100 float_l">
                                 <p class="caidc_ql active"><a href="quan-ly-cai-dat.html" class="cai_dtl">Cài đặt chung</a></p>
                                 <p class="his_ql"><a href="nhat-ky-hoat-dong.html" class="cai_dtl">Nhật ký hoạt động</a></p>
                             </div>
                         </div>
-                        <div class="ctn_sett w_100 fload_l">
-                            <div class="w_100 fload_l">
+                        <div class="ctn_sett w_100 float_l">
+                            <div class="w_100 float_l">
                                 <a href="quan-ly-cai-dat.html" class="quay_lai share_fsize_one share_clr_one">Quay lại</a>
                             </div>
-                            <div class="search_pq w_100 mb_20 fload_l">
+                            <div class="search_pq w_100 mb_20 float_l">
                                 <p class="share_fsize_two share_clr_one mb_10">Nhân viên / Phòng ban</p>
                                 <div class="form_search share_form_select">
                                     <select name="search" class="form-control search_nvpb">
@@ -54,7 +54,7 @@ include "../includes/icon.php";
                             </div>
                             <div class="phan_quyen_nd">
                                 <div class="ctn_table">
-                                    <p class="th_tilt_tb w_100 fload_l d_flex fl_agi dflex_jc share_bgr_one share_clr_tow cr_weight">QUẢN LÝ PHÂN QUYỀN CHO NGƯỜI DÙNG</p>
+                                    <p class="th_tilt_tb w_100 float_l d_flex fl_agi dflex_jc share_bgr_one share_clr_tow cr_weight">QUẢN LÝ PHÂN QUYỀN CHO NGƯỜI DÙNG</p>
                                     <table class="table">
                                         <thead>
                                             <tr>

@@ -19,59 +19,54 @@ $date = date('m-d-Y', time())
 </head>
 <body>
 <div class="main-container">
-    <!--    a-side menu-->
     <?php include("../includes/sidebar.php") ?>
-    <!--    a-side menu end-->
-
     <div class="container">
-        <!--        header-->
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
-        <!--        header end-->
         <div class="content">
-            <div class="mt-30">
-                <h4 class="mt-5">Chỉnh sửa phiếu đánh giá nhà cung cấp</h4>
+            <div class="mt-30 mb_25">
+                <h4>Chỉnh sửa phiếu đánh giá nhà cung cấp</h4>
             </div>
             <div class="c-body">
                 <div class="form-control">
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="so-phieu">Số phiếu</label>
                             <input type="text" id="so-phieu" name="so-phieu" value="PH-000-09999" disabled>
                         </div>
-                        <div class="form-col-50 left ml-10-p">
+                        <div class="form-col-50 left ml-10-p mb_15">
                             <label for="ngay-lap-phieu">Ngày lấp phiếu<span class="text-red">&ast;</span></label>
                             <input type="text" id="ngay-lap-phieu" name="ngay-lap-phieu"
                                    placeholder="Chọn ngày lập phiếu" value="27-10-2021">
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="ngay-danh-gia">Ngày đánh giá<span class="text-red">*</span></label>
                             <input class="date-input" type="text" id="ngay-danh-gia" name="ngay-danh-gia"
                                    placeholder="Chọn ngày đánh giá" onfocus="this.type='date'" value="2021-10-27">
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="nguoi-danh-gia">Người đánh giá<span class="text-red">*</span></label>
                             <input type="text" id="nguoi-danh-gia" name="nguoi-danh-gia"
                                    placeholder="Nhập người đánh giá" value="Nguyễn Văn A">
                         </div>
-                        <div class="form-col-50 left ml-10-p">
+                        <div class="form-col-50 left ml-10-p mb_15">
                             <label for="phong-ban">Phòng ban</label>
                             <input type="text" id="phong-ban" name="phong-ban" placeholder="Nhập phòng ban" value="Phòng 01">
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="dia-chi-dkkd">Người lập</label>
                             <input type="text" id="dia-chi-dkkd" name="dia-chi-dkkd" placeholder="Nhập người lập" value="Nguyễn Văn A">
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <div class="v-select2">
                                 <label for="nha-cung-cap">Nhà cung cấp<span class="text-red">*</span></label>
                                 <select name="nha-cung-cap" class="share_select">
@@ -87,29 +82,29 @@ $date = date('m-d-Y', time())
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <p>Tên nhà cung cấp</p>
-                            <p class="text-bold mt-10">Nhà cung cấp X</p>
+                            <p class="cr_weight mt-10">Nhà cung cấp X</p>
                         </div>
-                        <div class="form-col-50 left ml-10-p">
+                        <div class="form-col-50 left ml-10-p mb_15">
                             <p>Địa chỉ</p>
-                            <p class="text-bold mt-10">Số 4, đường X, phường X, quận X</p>
+                            <p class="cr_weight mt-10">Số 4, đường X, phường X, quận X</p>
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <p>Sản phẩm cung ứng</p>
-                            <p class="text-bold mt-10">Sắt thép</p>
+                            <p class="cr_weight mt-10">Sắt thép</p>
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <p>Điểm đánh giá</p>
-                            <p class="text-bold mt-10">40</p>
+                            <p class="cr_weight mt-10">40</p>
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="danh-gia-khac">Đánh giá khác</label>
                             <input type="text" id="danh-gia-khac" name="danh-gia-khac"
                                       placeholder="Nhập đánh giá khác">
@@ -119,10 +114,10 @@ $date = date('m-d-Y', time())
                 </div>
                 <div class="mt-50 left w-100">
                     <p class="text-blue link-text d-inline text-500" id="add-ratting-ruler">&plus; Thêm tiêu chí đánh giá</p>
-                    <div class="table-wrapper mt-30">
-                        <div class="table-container">
+                    <div class="table-wrapper mt-10">
+                        <div class="table-container table-1252">
                             <div class="tbl-header">
-                                <table cellpadding="0" cellspacing="0" border="0">
+                                <table>
                                     <thead>
                                     <tr>
                                         <th class="w-5" rowspan="2"></th>
@@ -140,7 +135,7 @@ $date = date('m-d-Y', time())
                                 </table>
                             </div>
                             <div class="tbl-content table-2-row">
-                                <table cellpadding="0" cellspacing="0" border="0">
+                                <table>
                                     <tbody id="ratting-ruler">
                                     <tr class="item">
                                         <td class="w-5"><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
@@ -154,16 +149,16 @@ $date = date('m-d-Y', time())
                                             </div>
                                         </td>
                                         <td class="w-10">
-                                            <p>&nbsp;</p>
+                                            <p>1</p>
                                         </td>
                                         <td class="w-20">
                                             <input type="text">
                                         </td>
                                         <td class="w-20">
-                                            <p>&nbsp;</p>
+                                            <p>1</p>
                                         </td>
                                         <td class="w-20">
-                                            <p>&nbsp;</p>
+                                            <p>1</p>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -190,21 +185,26 @@ $date = date('m-d-Y', time())
                                     <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                                 </div>
                                 <div class="right">
-                                    <a href="ncc-rating-index.php" class="v-btn btn-green right">Đồng ý</a>
+                                    <a href="danh-gia-nha-cung-cap.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a href="ncc-rating-index.php" class="v-btn btn-blue ml-20">Xong</a>
+                    <button type="button" class="v-btn btn-blue ml-20">Xong</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<? include("../modals/modal_logout.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
-
+<script type="text/javascript" src="../js/app.js"></script>
+<script>
+    $(".modal-btn").click(function(){
+        $(".modal").show();
+    })
+</script>
 </html>

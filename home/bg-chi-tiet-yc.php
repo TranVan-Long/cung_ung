@@ -23,15 +23,11 @@ include("../includes/icon.php");
 
 <body>
 <div class="main-container">
-    <!--    a-side menu-->
     <?php include("../includes/sidebar.php") ?>
-    <!--    a-side menu end-->
     <div class="container">
-        <!--        header-->
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
-        <!--        header end-->
         <div class="content">
             <div class="mt-30 left">
                 <a class="text-black" href="quan-ly-yeu-cau-bao-gia.html"><?php echo $ic_lt ?> Quay lại</a>
@@ -42,49 +38,49 @@ include("../includes/icon.php");
                     <div class="form-row left pt-10 mt-10">
                         <div class="form-col-50 pl-10">
                             <p class="left text-left w-50">Số phiếu yêu cầu</p>
-                            <p class="right text-right w-50 text-bold">BG-000-10176</p>
+                            <p class="right text-right w-50 cr_weight">BG-000-10176</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2 pt-10 mt-10">
                         <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50"> Ngày lập</p>
-                            <p class="right text-right w-50 text-bold">18/10/2021</p>
+                            <p class="right text-right w-50 cr_weight">18/10/2021</p>
                         </div>
                         <div class="form-col-50 right pr-10">
                             <p class="left text-left w-50">Người lập</p>
-                            <p class="right text-right w-50 text-bold">Nguyễn Văn A</p>
+                            <p class="right text-right w-50 cr_weight">Nguyễn Văn A</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2 pt-10 mt-10">
                         <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50"> Nhà cung cấp</p>
-                            <p class="right text-right w-50 text-bold">Công ty A</p>
+                            <p class="right text-right w-50 cr_weight">Công ty A</p>
                         </div>
                         <div class="form-col-50 right pr-10">
                             <p class="left text-left w-50">Người tiếp nhận báo giá</p>
-                            <p class="right text-right w-50 text-bold">Nguyễn Thị B</p>
+                            <p class="right text-right w-50 cr_weight">Nguyễn Thị B</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2 pt-10 mt-10">
                         <div class="form-col-50 pl-10">
                             <p class="left text-left w-50">Công trình</p>
-                            <p class="right text-right w-50 text-bold">Nâng cấp quốc lộ 999</p>
+                            <p class="right text-right w-50 cr_weight">Nâng cấp quốc lộ 999</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2 pt-10 mt-10">
                         <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50">Nội dung thư</p>
-                            <p class="right text-right w-50 text-bold">Không có</p>
+                            <p class="right text-right w-50 cr_weight">Không có</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2 pt-10 mt-10">
                         <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50">Mail nhận báo giá</p>
-                            <p class="right text-right w-50 text-bold">ctcccccycyctctc@gmail.com</p>
+                            <p class="right text-right w-50 cr_weight">ctcccccycyctctc@gmail.com</p>
                         </div>
                         <div class="form-col-50 right pr-10">
                             <p class="left text-left w-50">Giá đã bao gồm VAT</p>
-                            <p class="right text-right w-50 text-bold text-green">Có</p>
+                            <p class="right text-right w-50 cr_weight text-green">Có</p>
                         </div>
                     </div>
                 </div>
@@ -142,8 +138,6 @@ include("../includes/icon.php");
         </div>
     </div>
 
-<!--    modal-->
-    <!--            delete modal-->
     <div class="modal text-center" id="delete-vt">
         <div class="m-content">
             <div class="m-head ">
@@ -158,18 +152,16 @@ include("../includes/icon.php");
                     <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                 </div>
                 <div class="right">
-                    <button class="v-btn btn-green-2 right">Đồng ý</button>
+                    <button class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</button>
                 </div>
             </div>
         </div>
     </div>
-    <!--            delete modal end-->
     <?php include("../modals/modal_logout.php") ?>
-<!--    modal end-->
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
 </html>

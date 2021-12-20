@@ -45,13 +45,13 @@ include("../includes/icon.php");
                             <option value="">Nhập thông tin cần tìm kiếm</option>
                         </select>
                     </div>
-                    <a class="v-btn btn-blue add-btn" href="../home/ncc-create.php">&plus; Thêm mới</a>
+                    <a class="v-btn btn-blue add-btn" href="them-nha-cung-cap.html">&plus; Thêm mới</a>
                 </div>
                 <div class="scr-wrapper mt-30">
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
                     <div class="scr-btn scr-r-btn left"><i class="ic-chevron-right"></i></div>
                     <div class="table-wrapper">
-                        <div class="table-container table-full-width">
+                        <div class="table-container table_1928">
                             <div class="tbl-header">
                                 <table>
                                     <thead>
@@ -73,7 +73,7 @@ include("../includes/icon.php");
                                     <tbody>
                                     <tr>
                                         <td class="w-5">1</td>
-                                        <td class="w-10"><a href="ncc-details.php">NCC-198-24201</a></td>
+                                        <td class="w-10"><a href="quan-ly-chi-tiet-nha-cung-cap.html">NCC-198-24201</a></td>
                                         <td class="w-10">CTA</td>
                                         <td class="w-10">Công ty A</td>
                                         <td class="w-20">Số 5, phố X, phường X, quận X</td>
@@ -83,7 +83,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                        <td><a href="quan-ly-chi-tiet-nha-cung-cap.html">NCC-198-24201</a></td>
                                         <td>CTA</td>
                                         <td>Công ty A</td>
                                         <td>Số 5, phố X, phường X, quận X</td>
@@ -93,7 +93,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                        <td><a href="quan-ly-chi-tiet-nha-cung-cap.html">NCC-198-24201</a></td>
                                         <td>CTA</td>
                                         <td>Công ty A</td>
                                         <td>Số 5, phố X, phường X, quận X</td>
@@ -103,7 +103,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                        <td><a href="quan-ly-chi-tiet-nha-cung-cap.html">NCC-198-24201</a></td>
                                         <td>CTA</td>
                                         <td>Công ty A</td>
                                         <td>Số 5, phố X, phường X, quận X</td>
@@ -113,7 +113,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                        <td><a href="quan-ly-chi-tiet-nha-cung-cap.html">NCC-198-24201</a></td>
                                         <td>CTA</td>
                                         <td>Công ty A</td>
                                         <td>Số 5, phố X, phường X, quận X</td>
@@ -123,7 +123,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                        <td><a href="quan-ly-chi-tiet-nha-cung-cap.html">NCC-198-24201</a></td>
                                         <td>CTA</td>
                                         <td>Công ty A</td>
                                         <td>Số 5, phố X, phường X, quận X</td>
@@ -133,7 +133,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                        <td><a href="quan-ly-chi-tiet-nha-cung-cap.html">NCC-198-24201</a></td>
                                         <td>CTA</td>
                                         <td>Công ty A</td>
                                         <td>Số 5, phố X, phường X, quận X</td>
@@ -143,7 +143,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                        <td><a href="quan-ly-chi-tiet-nha-cung-cap.html">NCC-198-24201</a></td>
                                         <td>CTA</td>
                                         <td>Công ty A</td>
                                         <td>Số 5, phố X, phường X, quận X</td>
@@ -153,7 +153,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                        <td><a href="quan-ly-chi-tiet-nha-cung-cap.html">NCC-198-24201</a></td>
                                         <td>CTA</td>
                                         <td>Công ty A</td>
                                         <td>Số 5, phố X, phường X, quận X</td>
@@ -163,7 +163,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="ncc-details.php">NCC-198-24201</a></td>
+                                        <td><a href="quan-ly-chi-tiet-nha-cung-cap.html">NCC-198-24201</a></td>
                                         <td>CTA</td>
                                         <td>Công ty A</td>
                                         <td>Số 5, phố X, phường X, quận X</td>
@@ -186,7 +186,6 @@ include("../includes/icon.php");
                         <option value="20">20</option>
                     </select>
                 </div>
-                <!--                    pagination-->
                 <div class="pagination mt-10">
                     <ul>
                         <li><a href="#"><?php echo $ic_lt ?></a></li>
@@ -202,10 +201,11 @@ include("../includes/icon.php");
         </div>
     </div>
 </div>
+<? include("../modals/modal_logout.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
 
 </html>

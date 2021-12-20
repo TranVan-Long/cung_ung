@@ -29,13 +29,13 @@ include "../includes/icon.php";
                 <? include('../includes/ql_header_nv.php') ?>
             </div>
             <div class="content">
-                <div class="ctn_ctiet_hd w_100 fload_l">
-                    <div class="chi_tiet_hd mt_27 w_100 fload_l">
+                <div class="ctn_ctiet_hd w_100 float_l">
+                    <div class="chi_tiet_hd mt_27 w_100 float_l">
                         <a class="prew_href share_fsize_one share_clr_one mb_26" href="quan-ly-ho-so-thanh-toan.html">Quay lại</a>
-                        <h4 class="tieu_de_ct w_100 fload_l share_fsize_tow share_clr_four mb_25 cr_weight_bold">Chi tiết hồ sơ thanh toán</h4>
-                        <div class="ctiet_dk_hp w_100 fload_l">
-                            <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l pl-10">
+                        <h4 class="tieu_de_ct w_100 float_l share_fsize_tow share_clr_four mb_25 cr_weight_bold">Chi tiết hồ sơ thanh toán</h4>
+                        <div class="ctiet_dk_hp w_100 float_l">
+                            <div class="chitiet_hd w_100 float_l">
+                                <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Hợp đồng / Đơn hàng</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">HĐ-198-24201</p>
                                 </div>
@@ -44,8 +44,8 @@ include "../includes/icon.php";
                                     <p class="cr_weight share_fsize_tow share_clr_one">Công ty A</p>
                                 </div>
                             </div>
-                            <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l pl-10">
+                            <div class="chitiet_hd w_100 float_l">
+                                <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Đợt nghiệm thu</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">NT-999-19511</p>
                                 </div>
@@ -54,20 +54,20 @@ include "../includes/icon.php";
                                     <p class="cr_weight share_fsize_tow share_clr_one">14/10/2021</p>
                                 </div>
                             </div>
-                            <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l pl-10">
+                            <div class="chitiet_hd w_100 float_l">
+                                <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thời hạn thanh toán</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">14/10/2021</p>
                                 </div>
                             </div>
-                            <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l pl-10">
+                            <div class="chitiet_hd w_100 float_l">
+                                <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Trạng thái</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Chưa hoàn thành</p>
                                 </div>
                             </div>
-                            <div class="chitiet_hd w_100 fload_l">
-                                <div class="ctiet_hd_left fload_l pl-10">
+                            <div class="chitiet_hd w_100 float_l">
+                                <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Người lập</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Nguyễn Văn A</p>
                                 </div>
@@ -77,8 +77,8 @@ include "../includes/icon.php";
                                 </div>
                             </div>
                         </div>
-                        <div class="ctiet_hopd_vt w_100 fload_l">
-                            <div class="ctn_table_ct w_100 fload_l khac_ctn_vc">
+                        <div class="ctiet_hopd_vt w_100 float_l">
+                            <div class="ctn_table_ct w_100 float_l khac_ctn_vc">
                                 <table class="table">
                                             <thead>
                                                 <tr>
@@ -86,9 +86,9 @@ include "../includes/icon.php";
                                                     <th class="share_tb_three">Vật tư</th>
                                                     <th class="share_tb_two">Đơn vị tính</th>
                                                     <th class="share_tb_two mass_pad">
-                                                        <div class="w_100 fload_l">
-                                                            <p class="w_100 fload_l khoi_luong share_clr_tow">Đơn hàng</p>
-                                                            <div class="d_flex w_100 fload_l dvi_khoil">
+                                                        <div class="w_100 float_l">
+                                                            <p class="w_100 float_l khoi_luong share_clr_tow">Đơn hàng</p>
+                                                            <div class="d_flex w_100 float_l dvi_khoil">
                                                                 <p class="ft-pl share_clr_tow">Số lượng</p>
                                                                 <p class="ft-pl share_clr_tow">Giá trị</p>
                                                             </div>
@@ -96,9 +96,9 @@ include "../includes/icon.php";
                                                     </th>
                                                     <th class="share_tb_two">Đơn giá thực hiện</th>
                                                     <th class="share_tb_four mass_pad">
-                                                        <div class="w_100 fload_l">
-                                                            <p class="w_100 fload_l khoi_luong share_clr_tow">Khối lượng thực hiện</p>
-                                                            <div class="d_flex w_100 fload_l dvi_khoil">
+                                                        <div class="w_100 float_l">
+                                                            <p class="w_100 float_l khoi_luong share_clr_tow">Khối lượng thực hiện</p>
+                                                            <div class="d_flex w_100 float_l dvi_khoil">
                                                                 <p class="ft-pl sh_bor_r share_clr_tow">Lũy kế kỳ trước</p>
                                                                 <p class="ft-pl sh_bor_r share_clr_tow">Kỳ này</p>
                                                                 <p class="ft-pl sh_bor_r share_clr_tow">Lũy kế đến nay</p>
@@ -107,9 +107,9 @@ include "../includes/icon.php";
                                                         </div>
                                                     </th>
                                                     <th class="share_tb_four mass_pad">
-                                                        <div class="w_100 fload_l">
-                                                            <p class="w_100 fload_l khoi_luong share_clr_tow">Giá trị thực hiện</p>
-                                                            <div class="d_flex w_100 fload_l dvi_khoil">
+                                                        <div class="w_100 float_l">
+                                                            <p class="w_100 float_l khoi_luong share_clr_tow">Giá trị thực hiện</p>
+                                                            <div class="d_flex w_100 float_l dvi_khoil">
                                                                 <p class="ft-pl sh_bor_r share_clr_tow">Lũy kế kỳ trước</p>
                                                                 <p class="ft-pl sh_bor_r share_clr_tow">Kỳ này</p>
                                                                 <p class="ft-pl sh_bor_r share_clr_tow">Lũy kế đến nay</p>
@@ -118,9 +118,9 @@ include "../includes/icon.php";
                                                         </div>
                                                     </th>
                                                     <th class="share_tb_two mass_pad">
-                                                        <div class="w_100 fload_l">
-                                                            <p class="w_100 fload_l khoi_luong share_clr_tow">Giá trị đơn hàng còn lại</p>
-                                                            <div class="d_flex w_100 fload_l dvi_khoil">
+                                                        <div class="w_100 float_l">
+                                                            <p class="w_100 float_l khoi_luong share_clr_tow">Giá trị đơn hàng còn lại</p>
+                                                            <div class="d_flex w_100 float_l dvi_khoil">
                                                                 <p class="ft-pl share_clr_tow">Khối lượng</p>
                                                                 <p class="ft-pl share_clr_tow">Giá trị</p>
                                                             </div>
@@ -205,7 +205,7 @@ include "../includes/icon.php";
                                         </table>
                             </div>
                         </div>
-                        <div class="xuat_gmc w_100 fload_l d_flex">
+                        <div class="xuat_gmc w_100 float_l d_flex">
                             <div class="xuat_gmc_one share_xuat_gmc d_flex">
                                 <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight">Xuất Excel</p>
                             </div>

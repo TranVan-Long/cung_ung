@@ -66,10 +66,10 @@ include "../includes/icon.php";
                     </div>
 
                     <div class="c-content">
-                        <div class="ctn_table_share w_100 fload_l">
+                        <div class="ctn_table_share w_100 float_l">
                             <span class="scroll_left share_cursor"><img src="../img/right_scroll.png" alt="scroll về bên trái"></span>
-                            <div class="share_tb_hd w_100 fload_l">
-                                <table class="table w_100 fload_l">
+                            <div class="share_tb_hd w_100 float_l">
+                                <table class="table w_100 float_l">
                                     <thead>
                                         <tr>
                                             <th class="share_tb_seven">STT</th>

@@ -32,13 +32,13 @@ include "../includes/icon.php";
             </div>
 
             <div class="content mt_20">
-                <div class="ctn_ctiet_hd w_100 fload_l">
-                    <div class="chi_tiet_hd w_100 fload_l">
-                        <h4 class="tieu_de_ct w_100 mt_25 mb_20 fload_l share_fsize_tow share_clr_one cr_weight_bold">
+                <div class="ctn_ctiet_hd w_100 float_l">
+                    <div class="chi_tiet_hd w_100 float_l">
+                        <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Thêm hợp đồng mua</h4>
-                        <div class="ctiet_dk_hp w_100 fload_l">
-                            <form action="" class="form_add_hp_mua share_distance w_100 fload_l" method="">
-                                <div class="form-row w_100 fload_l">
+                        <div class="ctiet_dk_hp w_100 float_l">
+                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" method="">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số hợp đồng</label>
                                         <input type="text" name="so_hd" class="form-control">
@@ -48,7 +48,7 @@ include "../includes/icon.php";
                                         <input type="date" name="ngay_ky" class="form-control">
                                     </div>
                                 </div>
-                                <div class="form-row w_100 fload_l">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Nhà cung cấp <span class="cr_red">*</span></label>
                                         <select name="nha_ccap" class="form-control all_nhacc">
@@ -62,7 +62,7 @@ include "../includes/icon.php";
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-row w_100 fload_l">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group d_flex fl_agi form_lb">
                                         <label>Hợp đồng nguyên tắc</label>
                                         <input type="checkbox" name="hd_ntac">
@@ -74,7 +74,7 @@ include "../includes/icon.php";
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-row w_100 fload_l">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Giá trị trước VAT</label>
                                         <input type="text" name="hd_ntac" value="10000"
@@ -85,7 +85,7 @@ include "../includes/icon.php";
                                         <input type="checkbox" name="dgia_vat">
                                     </div>
                                 </div>
-                                <div class="form-row w_100 fload_l">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Thuế suất VAT</label>
                                         <input type="text" name="thues_vat" class="form-control"
@@ -97,7 +97,7 @@ include "../includes/icon.php";
                                             placeholder="Nhập số tiền chiết khấu">
                                     </div>
                                 </div>
-                                <div class="form-row w_100 fload_l">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Giá trị sau VAT</label>
                                         <input type="text" name="hd_ntac" value="1000"
@@ -105,7 +105,7 @@ include "../includes/icon.php";
                                     </div>
                                     <div class="form-group">
                                         <label>Giữ lại bảo hành</label>
-                                        <div class="bao_hanh w_100 fload_l d_flex fl_agi">
+                                        <div class="bao_hanh w_100 float_l d_flex fl_agi">
                                             <div class="bef_ptram">
                                                 <span class="phan_tram">%</span>
                                                 <input type="text" name="baoh_hd" class="baoh_pt">
@@ -115,10 +115,10 @@ include "../includes/icon.php";
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row w_100 fload_l">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Bảo lãnh thực hiện hợp đồng</label>
-                                        <div class="bao_hanh w_100 fload_l d_flex fl_agi">
+                                        <div class="bao_hanh w_100 float_l d_flex fl_agi">
                                             <div class="bef_ptram">
                                                 <span class="phan_tram">%</span>
                                                 <input type="text" name="baol_hd" class="baoh_pt">
@@ -132,10 +132,10 @@ include "../includes/icon.php";
                                         <input type="date" name="thoih_bl" class="form-control">
                                     </div>
                                 </div>
-                                <div class="form-row w_100 fload_l">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Thời gian thực hiện</label>
-                                        <div class="bao_hanh w_100 fload_l d_flex fl_agi">
+                                        <div class="bao_hanh w_100 float_l d_flex fl_agi">
                                             <input type="date" name="bd_ngay" class="gia_tri">
                                             <span>đến</span>
                                             <input type="date" name="kt_ngay" class="gia_tri">
@@ -146,27 +146,27 @@ include "../includes/icon.php";
                                         <input type="checkbox" name="hd_vanc">
                                     </div>
                                 </div>
-                                <div class="form-group w_100 fload_l">
+                                <div class="form-group w_100 float_l">
                                     <label>Yêu cầu về tiến độ</label>
                                     <textarea name="yc_tiendo" rows="5" class="form-control"
                                         placeholder="Nhập yêu cầu về tiến độ"></textarea>
                                 </div>
-                                <div class="form-group w_100 fload_l">
+                                <div class="form-group w_100 float_l">
                                     <label>Nội dung hợp đồng</label>
                                     <textarea name="noid_hd" rows="5" class="form-control"
                                         placeholder="Nhập nội dung hợp đồng"></textarea>
                                 </div>
-                                <div class="form-group w_100 fload_l">
+                                <div class="form-group w_100 float_l">
                                     <label>Nội dung cần lưu ý</label>
                                     <textarea name="noid_luuy" rows="5" class="form-control"
                                         placeholder="Nhập nội dung cần lưu ý"></textarea>
                                 </div>
-                                <div class="form-group w_100 fload_l">
+                                <div class="form-group w_100 float_l">
                                     <label>Điều khoản thanh toán</label>
                                     <textarea name="dieuk_ttoan" rows="5" class="form-control"
                                         placeholder="Nhập điều khoản thanh toán"></textarea>
                                 </div>
-                                <div class="form-row w_100 fload_l">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Tên ngân hàng</label>
                                         <select name="ngan_hang" class="form-control ten_nganhang">
@@ -179,7 +179,7 @@ include "../includes/icon.php";
                                             placeholder="Nhập số tài khoản">
                                     </div>
                                 </div>
-                                <div class="form-row w_100 fload_l">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Báo giá</label>
                                         <select name="bao_gia" class="form-control bao_gia">
@@ -192,11 +192,11 @@ include "../includes/icon.php";
                                     <textarea name="tthuan_hdon" rows="5" class="form-control"
                                         placeholder="Nhập thỏa thuận hóa đơn"></textarea>
                                 </div>
-                                <div class="them_moi_vt w_100 fload_l">
+                                <div class="them_moi_vt w_100 float_l">
                                     <p class="add_vat_tu cr_weight share_fsize_tow share_clr_four share_cursor">+ Thêm
                                         mới vật tư</p>
-                                    <div class="ctn_table w_100 fload_l">
-                                        <table class="table w_100 fload_l">
+                                    <div class="ctn_table w_100 float_l">
+                                        <table class="table w_100 float_l">
                                             <thead>
                                                 <tr>
                                                     <th class="share_tb_one"></th>

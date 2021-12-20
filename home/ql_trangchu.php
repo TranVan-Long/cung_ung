@@ -32,10 +32,10 @@ include "../includes/icon.php";
             </div>
 
             <div class="content">
-                <div class="ctt_tt_one w_100 fload_l">
+                <div class="ctt_tt_one w_100 float_l">
                     <div class="tt_left_one staff_fulln d_flex flex_jct">
                         <div class="til_fulln">
-                            <h1 class="ten_nvien_ql  w_100 fload_l cr_weight"><span class="share_clr_one">Xin
+                            <h1 class="ten_nvien_ql  w_100 float_l cr_weight"><span class="share_clr_one">Xin
                                     chào,</span> <span class="share_clr_four">Nguyễn Văn A</span></h1>
                             <p>Chúc bạn một ngày mới làm việc hiệu quả!</p>
                         </div>
@@ -48,9 +48,9 @@ include "../includes/icon.php";
                         <p class="cr_weight share_clr_one share_fsize_tow">Thứ ba, 11/05/2021</p>
                     </div>
                 </div>
-                <div class="ctt_tt_two mb_20 w_100 fload_l">
+                <div class="ctt_tt_two mb_20 w_100 float_l">
                     <div class="tt_left_tow staff_fulln">
-                        <div class="tieu_de_bd w_100 fload_l d_flex mb_20 flex_jct">
+                        <div class="tieu_de_bd w_100 float_l d_flex mb_20 flex_jct">
                             <h3 class="tieu_de_ct share_fsize_four share_clr_one mb_10">Công nợ phải thu</h3>
                             <div class="filter_mdy">
                                 <select name="tim_kiem" class="form_search_dmy">
@@ -61,23 +61,23 @@ include "../includes/icon.php";
                             </div>
                         </div>
                         <div class="chart"></div>
-                        <div class="ttin_ctiet w_100 fload_l mb_20">
-                            <div class="tcong_no w_100 fload_l d_flex mb_10 fl_wrap flex_jct">
+                        <div class="ttin_ctiet w_100 float_l mb_20">
+                            <div class="tcong_no w_100 float_l d_flex mb_10 fl_wrap flex_jct">
                                 <p class="share_fsize_tow share_clr_one">Tổng công nợ</p>
                                 <p class="share_fsize_tow share_clr_one cr_weight">1.000.000.000</p>
                             </div>
-                            <div class="da_thu w_100 fload_l d_flex mb_10 fl_wrap flex_jct">
+                            <div class="da_thu w_100 float_l d_flex mb_10 fl_wrap flex_jct">
                                 <p class="dthu share_fsize_tow share_clr_one">Đã thu:</p>
                                 <p class="share_fsize_tow cr_xanh_dam cr_weight">100.000.000</p>
                             </div>
-                            <div class="con_thu w_100 fload_l d_flex mb_10 fl_wrap flex_jct">
+                            <div class="con_thu w_100 float_l d_flex mb_10 fl_wrap flex_jct">
                                 <p class="cphai_thu share_fsize_tow share_clr_one">Còn phải thu</p>
                                 <p class="share_fsize_tow cr_vang cr_weight">900.000.000</p>
                             </div>
                         </div>
                     </div>
-                    <div class="tt_left_tow staff_fulln tt_right_tow fload_l">
-                        <div class="tieu_de_bd w_100 fload_l d_flex mb_20 flex_jct">
+                    <div class="tt_left_tow staff_fulln tt_right_tow float_l">
+                        <div class="tieu_de_bd w_100 float_l d_flex mb_20 flex_jct">
                             <h3 class="tieu_de_ct share_fsize_four share_clr_one mb_10">Công nợ phải trả</h3>
                             <div class="filter_mdy">
                                 <select name="tim_kiem" class="form_search_dmy cong_no_tra">
@@ -93,16 +93,16 @@ include "../includes/icon.php";
                         <div class="tt_charts_one">
                             <div class="charts_one share_dnone"></div>
                         </div>
-                        <div class="ttin_ctiet w_100 fload_l mb_20">
-                            <div class="tcong_no w_100 fload_l d_flex mb_10 fl_wrap flex_jct">
+                        <div class="ttin_ctiet w_100 float_l mb_20">
+                            <div class="tcong_no w_100 float_l d_flex mb_10 fl_wrap flex_jct">
                                 <p class="share_fsize_tow share_clr_one">Tổng công nợ</p>
                                 <p class="share_fsize_tow share_clr_one cr_weight">1.000.000.000</p>
                             </div>
-                            <div class="da_thu w_100 fload_l d_flex mb_10 fl_wrap flex_jct">
+                            <div class="da_thu w_100 float_l d_flex mb_10 fl_wrap flex_jct">
                                 <p class="dtra share_fsize_tow share_clr_one">Đã trả:</p>
                                 <p class="share_fsize_tow cr_da_cam cr_weight">100.000.000</p>
                             </div>
-                            <div class="con_thu w_100 fload_l d_flex mb_10 fl_wrap flex_jct">
+                            <div class="con_thu w_100 float_l d_flex mb_10 fl_wrap flex_jct">
                                 <p class="cphai_tra share_fsize_tow share_clr_one">Còn phải trả:</p>
                                 <p class="share_fsize_tow cr_do_nhat cr_weight">900.000.000</p>
                             </div>
@@ -110,7 +110,7 @@ include "../includes/icon.php";
                     </div>
                 </div>
                 <div class="ctt_tt_three w_100">
-                    <div class="tieu_de_chart w_100 fload_l d_flex">
+                    <div class="tieu_de_chart w_100 float_l d_flex">
                         <h3 class="tieu_de_ct share_fsize_four share_clr_one mb_10">Giá trị hợp đồng mua, bán</h3>
                         <div class="search_chart">
                             <select name="search_chart" class="form_search_dmy share_clr_one share_fsize_tow">
@@ -119,7 +119,7 @@ include "../includes/icon.php";
                             </select>
                         </div>
                     </div>
-                    <div class="content_hcot w_100 fload_l">
+                    <div class="content_hcot w_100 float_l">
                         <div id="tt_three_ctiet"></div>
                         <table id="datatable" class="share_dnone">
                             <thead>
@@ -195,7 +195,7 @@ include "../includes/icon.php";
                             </tbody>
                         </table>
                     </div>
-                    <div class="titl_chr w_100 fload_l">
+                    <div class="titl_chr w_100 float_l">
                         <p class="hd_mua_chr share_clr_one share_fsize_tow">Hợp đồng mua</p>
                         <p class="hd_ban_chr share_clr_one share_fsize_tow">Hợp đồng bán</p>
                     </div>

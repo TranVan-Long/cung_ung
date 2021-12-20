@@ -10,6 +10,10 @@ include("../includes/icon.php");
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
     <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
     <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
     <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
@@ -29,66 +33,66 @@ include("../includes/icon.php");
         <div class="content">
             <div class="mt-20 left">
                 <a class="text-black" href="quan-ly-yeu-cau-vat-tu.html"><?php echo $ic_lt ?> Quay lại</a>
-                <h4 class="text-blue mt-20 mb_10">Chi tiết yêu cầu vật tư</h4>
+                <h4 class="text-blue mt-20 mb_25">Chi tiết yêu cầu vật tư</h4>
             </div>
             <div class="c-body">
                 <div class="form-control">
-                    <div class="form-row left pl-10">
+                    <div class="form-row left pl-10 mb_12">
                         <div class="form-col-50">
                             <p class="left text-left w-50">Số phiếu yêu cầu</p>
-                            <p class="right text-right w-50 text-bold">YC-000-00094</p>
+                            <p class="right text-right w-50 cr_weight">YC-000-00094</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top">
+                    <div class="form-row left border-top pt-10 mb_12">
                         <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50"> Người yêu cầu</p>
-                            <p class="right text-right w-50 text-bold"> Nguyễn Văn A</p>
+                            <p class="right text-right w-50 cr_weight"> Nguyễn Văn A</p>
                         </div>
                         <div class="form-col-50 right pr-10">
                             <p class="left text-left w-50">Phòng ban</p>
-                            <p class="right text-right w-50 text-bold">Dự án</p>
+                            <p class="right text-right w-50 cr_weight">Dự án</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top">
+                    <div class="form-row left border-top pt-10 mb_12">
                         <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50"> Ngày tạo yêu cầu</p>
-                            <p class="right text-right w-50 text-bold"> 30/10/2021</p>
+                            <p class="right text-right w-50 cr_weight"> 30/10/2021</p>
                         </div>
                         <div class="form-col-50 right pr-10">
                             <p class="left text-left w-50">Ngày phải hoàn thành yêu cầu</p>
-                            <p class="right text-right w-50 text-bold">10/11/2021</p>
+                            <p class="right text-right w-50 cr_weight">10/11/2021</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top pl-10">
+                    <div class="form-row left border-top pl-10 pt-10 mb_12">
                         <div class="form-col-50">
                             <p class="left text-left w-50">Công trình</p>
-                            <p class="right text-right w-50 text-bold">Xây dựng nhà sinh hoạt văn hóa phường</p>
+                            <p class="right text-right w-50 cr_weight">Xây dựng nhà sinh hoạt văn hóa phường</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top">
+                    <div class="form-row left border-top pt-10 mb_12">
                         <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50">Diễn giải</p>
-                            <p class="right text-right w-50 text-bold">Sử dụng để nối thêm đường ống nước</p>
+                            <p class="right text-right w-50 cr_weight">Sử dụng để nối thêm đường ống nước</p>
                         </div>
                         <div class="form-col-50 right pr-10">
                             <p class="left text-left w-50">Trạng thái</p>
-                            <p class="right text-right w-50 text-bold">Chưa duyệt</p>
+                            <p class="right text-right w-50 cr_weight">Chưa duyệt</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top d-none">
+                    <div class="form-row left border-top d-none pt-10 mb_12">
                         <div class="form-col-50 left pl-10">
                             <p class="left text-left w-50">Người duyệt</p>
-                            <p class="right text-right w-50 text-bold">Nguyễn Thị B</p>
+                            <p class="right text-right w-50 cr_weight">Nguyễn Thị B</p>
                         </div>
                         <div class="form-col-50 right pr-10">
                             <p class="left text-left w-50">Ngày duyệt</p>
-                            <p class="right text-right w-50 text-bold">20/11/2021</p>
+                            <p class="right text-right w-50 cr_weight">20/11/2021</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top">
+                    <div class="form-row left border-top pt-10 mb_12">
                         <div class="form-col-50 pl-10">
                             <p class="left text-left w-50">Lý do từ chối</p>
-                            <p class="right text-right w-50 text-bold">Không đủ kinh phí</p>
+                            <p class="right text-right w-50 cr_weight">Không đủ kinh phí</p>
                         </div>
                     </div>
                 </div>
@@ -162,6 +166,7 @@ include("../includes/icon.php");
         </div>
     </div>
 </div>
+<? include("../modals/modal_logout.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

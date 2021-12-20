@@ -43,10 +43,10 @@
                 </div>
             </div>
             <div class="content_ql">
-                <div class="hd_one w_100 fload_l">
+                <div class="hd_one w_100 float_l">
                     <div class="container">
-                        <div class="huongd_ctiet w_100 fload_l">
-                            <div class="ungd_hd w_100 fload_l">
+                        <div class="huongd_ctiet w_100 float_l">
+                            <div class="ungd_hd w_100 float_l">
                                 <div class="ctiet_ungd_hd share_bgr_tow">
                                     <div class="avt_mhoa">
                                         <img src="../img/yc_vattu.png" alt="Yêu cầu vật tư">
@@ -123,9 +123,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="ctn_cu_three w_100 fload_l">
+                <div class="ctn_cu_three w_100 float_l">
                     <div class="container">
-                        <div class="content_ct_one w_100 fload_l">
+                        <div class="content_ct_one w_100 float_l">
                             <div class="ctn_baiv">
                                 <h4 class="tieud_baiv share_clr_one">1.1. Máy chấm công bạn hiểu là gì? </h4>
                                 <p class="share_clr_one">Ngay từ thời điểm doanh nghiệp hình thành,các thiết bị chấm công kết hợp với việc điểm danh cơ học của nhân sự trở thành căn cứ tiêu biểu giúp các công ty ghi lại

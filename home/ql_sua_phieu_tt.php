@@ -32,13 +32,13 @@
             </div>
 
             <div class="content">
-                <div class="ctn_ctiet_hd w_100 fload_l">
-                    <div class="chi_tiet_hd mt_25 w_100 fload_l">
-                        <h4 class="tieu_de_ct w_100 mt_25 mb_20 fload_l share_fsize_tow share_clr_one cr_weight_bold">
+                <div class="ctn_ctiet_hd w_100 float_l">
+                    <div class="chi_tiet_hd mt_25 w_100 float_l">
+                        <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Chỉnh sửa phiếu thanh toán  </h4>
-                        <div class="ctiet_dk_hp w_100 fload_l">
-                            <form action="" class="form_add_hp_mua share_distance w_100 fload_l" method="">
-                                <div class="form-row w_100 fload_l">
+                        <div class="ctiet_dk_hp w_100 float_l">
+                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" method="">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Hợp đồng / Đơn hàng <span class="cr_red">*</span></label>
                                         <select name="hdong_dhang" class="form-control all_nhacc">
@@ -50,7 +50,7 @@
                                         <input type="text" name="so_phieu" value="PH-001" class="form-control" disabled>
                                     </div>
                                 </div>
-                                <div class="form-row w_100 fload_l">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Nhà cung cấp</label>
                                         <input type="text" name="khachh_nhacc" class="form-control h_border">
@@ -61,7 +61,7 @@
                                             placeholder="Chọn ngày thanh toán">
                                     </div>
                                 </div>
-                                <div class="form-row w_100 fload_l ">
+                                <div class="form-row w_100 float_l ">
                                     <div class="form-group share_form_select">
                                         <label>Hình thức thanh toán <span class="cr_red">*</span></label>
                                         <select name="hdong_dhang" class="form-control all_hthuc">
@@ -81,7 +81,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-row w_100 fload_l">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Đơn vị chi trả</label>
                                         <p class="cr_weight">Cong ty A</p>
@@ -91,7 +91,7 @@
                                         <p class="cr_weight">Công ty A</p>
                                     </div>
                                 </div>
-                                <div class="form-row w_100 fload_l">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số tiền <span class="cr_red">*</span></label>
                                         <input type="text" name="so_tien" class="form-control"
@@ -103,13 +103,13 @@
                                             placeholder="Nhập tỷ giá">
                                     </div>
                                 </div>
-                                <div class="form-row w_100 fload_l">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Giá trị quy đổi</label>
                                         <input type="text" name="so_tien" class="form-control h_border cr_weight" value="0">
                                     </div>
                                 </div>
-                                <div class="form-row w_100 fload_l">
+                                <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Phí giao dịch</label>
                                         <input type="text" name="phi_giaod" class="form-control"
@@ -121,13 +121,13 @@
                                             placeholder="Nhập người nhận tiền">
                                     </div>
                                 </div>
-                                <div class="form-them-nganh w_100 fload_l">
-                                    <div class="tieu_de w_100 fload_l d_flex fl_wrap mb_10">
+                                <div class="form-them-nganh w_100 float_l">
+                                    <div class="tieu_de w_100 float_l d_flex fl_wrap mb_10">
                                         <p class="mr_30 share_fsize_tow share_clr_one cr_weight">Danh sách tài khoản ngân hàng</p>
                                         <p class="share_clr_four share_fsize_tow cr_weight share_cursor add_ngan_hang">+ Thêm mới tài khoản ngân hàng</p>
                                     </div>
-                                    <div class="tien_chi_tra w_100 fload_l d_flex fl_agi">
-                                        <div class="form-ctra w_100 fload_l">
+                                    <div class="tien_chi_tra w_100 float_l d_flex fl_agi">
+                                        <div class="form-ctra w_100 float_l">
                                             <div class="form-row">
                                                 <div class="form-group share_form_select">
                                                     <label>Tên ngân hàng <span class="cr_red">*</span></label>
@@ -154,8 +154,8 @@
                                         <span class="remove_tnh ml_50 share_cursor"><img src="../img/remove-2.png" alt="xóa"></span>
                                     </div>
                                 </div>
-                                <div class="them_moi_vt w_100 fload_l">
-                                    <div class="ctn_table w_100 fload_l">
+                                <div class="them_moi_vt w_100 float_l">
+                                    <div class="ctn_table w_100 float_l">
                                         <table class="table">
                                             <thead>
                                                 <tr>
@@ -262,8 +262,8 @@
     }
 
     $(".add_ngan_hang").click(function(){
-        var html = `<div class="tien_chi_tra w_100 fload_l d_flex fl_agi">
-                        <div class="form-ctra w_100 fload_l">
+        var html = `<div class="tien_chi_tra w_100 float_l d_flex fl_agi">
+                        <div class="form-ctra w_100 float_l">
                             <div class="form-row">
                                 <div class="form-group share_form_select">
                                     <label>Tên ngân hàng <span class="cr_red">*</span></label>

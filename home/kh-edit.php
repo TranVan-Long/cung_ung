@@ -19,98 +19,93 @@ $date = date('m-d-Y', time())
 </head>
 <body>
 <div class="main-container">
-    <!--    a-side menu-->
     <?php include("../includes/sidebar.php") ?>
-    <!--    a-side menu end-->
 
     <div class="container">
-        <!--        header-->
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
-        <!--        header end-->
         <div class="content">
-            <div class="mt-30">
-                <h5 class="mt-5 text-bold">Chỉnh sửa khách hàng</h5>
+            <div class="mt-30 mb_25">
+                <h5 class="cr_weight">Chỉnh sửa khách hàng</h5>
             </div>
             <div class="c-body">
                 <div class="form-control">
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="ma-khach-hang">Mã khách hàng<span class="text-red">*</span></label>
-                            <input type="text" id="ma-khach-hang" name="ma-khach-hang" value="KH-000-88876" disabled
-                                   required>
+                            <input type="text" id="ma-khach-hang" name="ma-khach-hang" value="KH-000-88876" disabled >
                         </div>
-                        <div class="form-col-50 right ml-10-p">
+                        <div class="form-col-50 right ml-10-p mb_15">
                             <label for="ma-so-thue">Mã số thuế</label>
                             <input type="text" id="ma-so-thue" name="ma-so-thue" placeholder="Nhập mã số thuế">
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="ten-khach-hang">Tên khách hàng<span class="text-red">*</span></label>
                             <input type="text" id="ten-khach-hang" name="ten-khach-hang"
                                    placeholder="Nhập tên khách hàng" value="Nguyễn Văn A">
                         </div>
-                        <div class="form-col-50 right ml-10-p">
+                        <div class="form-col-50 right ml-10-p mb_15">
                             <label for="ten-giao-dich">Tên giao dịch<span class="text-red">*</span></label>
                             <input type="text" id="ten-giao-dich" name="ten-giao-dich" placeholder="Nhập tên giao dịch" value="NVA1">
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="ten-goi-tat">Tên gọi tắt</label>
                             <input type="text" id="ten-goi-tat" name="ten-goi-tat" placeholder="Nhập tên gọi tắt">
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="dia-chi-dkkd">Địa chỉ ĐKKD</label>
                             <input type="text" id="dia-chi-dkkd" name="dia-chi-dkkd" placeholder="Nhập địa chỉ ĐKKD">
                         </div>
-                        <div class="form-col-50 right ml-10-p">
+                        <div class="form-col-50 right ml-10-p mb_15">
                             <label for="so-dkkd">Số ĐKKD</label>
                             <input type="text" id="so-dkkd" name="so-dkkd" placeholder="Nhập số ĐKKD">
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="dia-chi-lien-he">Địa chỉ liên hệ</label>
                             <input type="text" id="dia-chi-lien-he" name="dia-chi-lien-he"
                                    placeholder="Nhập địa chỉ liên hệ">
                         </div>
-                        <div class="form-col-50 right ml-10-p">
+                        <div class="form-col-50 right ml-10-p mb_15">
                             <label for="fax">Fax</label>
                             <input type="text" id="fax" name="fax" placeholder="Nhập Fax">
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="dien-thoai">Điện thoại</label>
                             <input type="text" id="dien-thoai" name="dien-thoai" placeholder="Nhập điện thoại">
                         </div>
-                        <div class="form-col-50 right ml-10-p">
+                        <div class="form-col-50 right ml-10-p mb_15">
                             <label for="website">Website</label>
                             <input type="text" id="website" name="website" placeholder="Nhập Website">
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_15">
                             <label for="e-mail">E-mail<span class="text-red">*</span></label>
                             <input type="text" id="e-mail" name="e-mail" placeholder="Nhập E-mail">
                         </div>
                     </div>
                 </div>
                 <div class="form-control mt-30 left w-100">
-                    <div class="border-bottom">
+                    <div class="border-bottom pb-10">
                         <p class="d-inline text-bold">Danh sách tài khoản ngân hàng</p>
                         <p class="text-blue link-text d-inline pl-20 text-500" id="add-bank-acc">&plus; Thêm mới tài khoản ngân
                             hàng</p>
                     </div>
                     <div id="bank-list">
-                        <div class="bank border-bottom left w-100 pb-20">
+                        <div class="bank border-bottom left w-100 pb-20 mt-10">
                             <div class="form-row left">
-                                <div class="form-col-50 left">
+                                <div class="form-col-50 left mb_15">
                                     <div class="v-select2">
                                         <label for="ten-ngan-hang">Tên ngân hàng<span class="text-red">*</span></label>
                                         <select name="ten-ngan-hang" class="share_select">
@@ -119,7 +114,7 @@ $date = date('m-d-Y', time())
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-col-50 ml-10-p left">
+                                <div class="form-col-50 ml-10-p left mb_15">
                                     <div class="v-select2">
                                         <label for="chi-nhanh-ngan-hang">Chi nhánh<span
                                                 class="text-red">*</span></label>

@@ -19,37 +19,31 @@ $date = date('m-d-Y', time())
 </head>
 <body>
 <div class="main-container">
-    <!--    a-side menu-->
     <?php include("../includes/sidebar.php") ?>
-    <!--    a-side menu end-->
 
     <div class="container">
-        <!--        header-->
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
-        <!--        header end-->
         <div class="content">
-            <div class="mt-30">
-                <h4 class="mt-5">Chỉnh sửa báo giá cho khách hàng</h4>
+            <div class="mt-30 mb_25">
+                <h4>Chỉnh sửa báo giá cho khách hàng</h4>
             </div>
             <div class="c-body">
                 <div class="form-control">
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left mb_12">
                             <label for="so-bao-gia">Số phiếu phản hồi<span class="text-red">*</span></label>
-                            <input type="text" id="so-bao-gia" name="so-bao-gia" value="PH-099-01239" disabled
-                                   required>
+                            <input type="text" id="so-bao-gia" name="so-bao-gia" value="PH-099-01239" disabled >
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
+                        <div class="form-col-50 left pt_10 mb_12">
                             <div class="v-select2">
                                 <label for="khach-hang">Khách hàng<span class="text-red">*</span></label>
                                 <select id="khach-hang" name="khach-hang" class="share_select">
                                     <option value="">-- Chọn khách hàng --</option>
-                                    <option value="Công Ty X" selected>Công ty X</option>
-
+                                    <option value="1" selected>Công ty X</option>
                                 </select>
                             </div>
                         </div>
@@ -76,7 +70,8 @@ $date = date('m-d-Y', time())
                     </div>
                 </div>
                 <div class="mt-50 left w-100">
-                    <div class="table-wrapper mt-15">
+                    <p class="text-blue link-text text-500" id="add_bgia">&plus; Thêm mới vật tư</p>
+                    <div class="table-wrapper mt-10">
                         <div class="table-container table-1k5">
                             <div class="tbl-header">
                                 <table>
@@ -96,83 +91,83 @@ $date = date('m-d-Y', time())
                             </div>
                             <div class="tbl-content table-2-row">
                                 <table>
-                                    <tbody id="rererences">
-                                    <tr class="item">
-                                        <td class="w-5">
-                                            <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                                        </td>
-                                        <td class="w-15">
-                                            <div class="v-select2">
-                                                <select class="share_select">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="w-20">
-                                            <div class="v-select2">
-                                                <select class="share_select">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="w-20">
-                                            <div class="v-select2">
-                                                <select class="share_select">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="w-15">
-                                            <input type="text">
-                                        </td>
-                                        <td class="w-15">
-                                            <input type="text" disabled>
-                                        </td>
-                                        <td class="w-20">
-                                            <input type="text">
-                                        </td>
-                                        <td class="w-20">
-                                            <input type="text" disabled>
-                                        </td>
-                                    </tr>
-                                    <tr class="item">
-                                        <td class="w-5">
-                                            <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                                        </td>
-                                        <td class="w-15">
-                                            <div class="v-select2">
-                                                <select class="share_select">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="w-20">
-                                            <div class="v-select2">
-                                                <select class="share_select">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="w-20">
-                                            <div class="v-select2">
-                                                <select class="share_select">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="w-15">
-                                            <input type="text">
-                                        </td>
-                                        <td class="w-15">
-                                            <input type="text" disabled>
-                                        </td>
-                                        <td class="w-20">
-                                            <input type="text">
-                                        </td>
-                                        <td class="w-20">
-                                            <input type="text" disabled>
-                                        </td>
-                                    </tr>
+                                    <tbody id="rererences_bgia">
+                                        <tr class="item">
+                                            <td class="w-5">
+                                                <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                                            </td>
+                                            <td class="w-15">
+                                                <div class="v-select2">
+                                                    <select class="share_select">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="w-20">
+                                                <div class="v-select2">
+                                                    <select class="share_select">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="w-20">
+                                                <div class="v-select2">
+                                                    <select class="share_select">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="w-15">
+                                                <input type="text">
+                                            </td>
+                                            <td class="w-15">
+                                                <input type="text" disabled>
+                                            </td>
+                                            <td class="w-20">
+                                                <input type="text">
+                                            </td>
+                                            <td class="w-20">
+                                                <input type="text" disabled>
+                                            </td>
+                                        </tr>
+                                        <tr class="item">
+                                            <td class="w-5">
+                                                <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                                            </td>
+                                            <td class="w-15">
+                                                <div class="v-select2">
+                                                    <select class="share_select">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="w-20">
+                                                <div class="v-select2">
+                                                    <select class="share_select">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="w-20">
+                                                <div class="v-select2">
+                                                    <select class="share_select">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="w-15">
+                                                <input type="text">
+                                            </td>
+                                            <td class="w-15">
+                                                <input type="text" disabled>
+                                            </td>
+                                            <td class="w-20">
+                                                <input type="text">
+                                            </td>
+                                            <td class="w-20">
+                                                <input type="text" disabled>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -200,7 +195,7 @@ $date = date('m-d-Y', time())
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
                         <div class="right">
-                            <a href="chi-tiet-bao-gia-cho-khach-hang.html" class="v-btn btn-green right">Đồng ý</a>
+                            <a href="quan-ly-bao-gia-cho-khach-hang.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</a>
                         </div>
                     </div>
                 </div>
@@ -213,7 +208,10 @@ $date = date('m-d-Y', time())
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript">
 
+
+</script>
 </html>

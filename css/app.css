@@ -22,14 +22,13 @@ h5.user-name {
     font-size: 16px;
     line-height: 19px;
     position: relative;
-    padding-right: 25px;
 }
 
 h5.user-name::before {
     content: "";
     position: absolute;
     top: 7px;
-    right: 0;
+    right: -25px;
     background: url(../img/drop_down.png) no-repeat;
     width: 12px;
     height: 5px;
@@ -148,6 +147,7 @@ textarea {
     padding: 9px 10px;
     border: 1px solid #666666;
     border-radius: 8px;
+    resize: none;
 }
 
 textarea[placeholder] {
@@ -452,6 +452,14 @@ textarea[placeholder] {
     margin-bottom: 5px;
 }
 
+.mb_12 {
+    margin-bottom: 12px;
+}
+
+.mb_15 {
+    margin-bottom: 15px;
+}
+
 .mb-10 {
     margin-bottom: 10px;
 }
@@ -462,6 +470,10 @@ textarea[placeholder] {
 
 .mb-30 {
     margin-bottom: 30px;
+}
+
+.pb-10 {
+    padding-bottom: 10px;
 }
 
 .pb-20 {
@@ -868,6 +880,18 @@ p.removeItem3 {
     min-width: 680px;
 }
 
+.table_1928 {
+    min-width: 1928px;
+}
+
+.table_1048 {
+    min-width: 1048px;
+}
+
+.table_1457 {
+    min-width: 1457px;
+}
+
 table {
     width: 100%;
     table-layout: fixed;
@@ -885,7 +909,7 @@ table {
 
 th {
     height: 52px;
-    padding: 7px 15px;
+    padding: 7px 10px;
     text-align: center;
     font-weight: 500;
     font-size: 16px;
@@ -1017,7 +1041,7 @@ td:nth-last-child(1) {
 
 .checkmark {
     position: absolute;
-    top: 5px;
+    top: 3px;
     left: 0;
     height: 12px;
     width: 12px;
@@ -1261,12 +1285,6 @@ select#display {
     background-color: rgba(0, 0, 0, .4);
 
 }
-
-/*.modal-btn{*/
-/*    background: none;*/
-/*    border: none;*/
-/*    cursor: pointer;*/
-/*}*/
 
 .m-content {
     position: relative;
@@ -1670,4 +1688,8 @@ select#display {
 
 .ds_tk_nhang .form-row:first-child {
     margin-top: 0;
+}
+
+.bg_them_yc .table-container {
+    min-width: 1304px;
 }

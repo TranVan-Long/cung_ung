@@ -44,7 +44,7 @@ include("../includes/icon.php");
                             <option value="">Nhập thông tin cần tìm kiếm</option>
                         </select>
                     </div>
-                    <a class="v-btn btn-blue add-btn" href="../home/rating-rules-create.php">&plus; Thêm mới</a>
+                    <a class="v-btn btn-blue add-btn" href="them-tieu-chi-danh-gia.html">&plus; Thêm mới</a>
                 </div>
                 <div class="table-wrapper left w-100 mt-30">
                     <div class="table-container">
@@ -81,8 +81,8 @@ include("../includes/icon.php");
                                     <td>
                                         <p class="table-text">Tốt<span class="tbl-menu" data-tab="1"></span>
                                         <ul class="tbl-menu-content" id="1">
-                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
-                                            <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
+                                            <li class="mb-10"><a href="chinh-sua-tieu-chi-danh-gia.html" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="border-top2"><p class="tbl-menu-text modal-btn mt-10">Xóa</p></li>
                                         </ul>
                                         </p>
                                         <p class="table-text">Trung bình</p>
@@ -98,8 +98,8 @@ include("../includes/icon.php");
                                     <td>
                                         <span class="tbl-menu" data-tab="2"></span>
                                         <ul class="tbl-menu-content" id="2">
-                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
-                                            <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
+                                            <li class="mb-10"><a href="chinh-sua-tieu-chi-danh-gia.html" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="border-top2"><p class="tbl-menu-text modal-btn mt-10">Xóa</p></li>
                                         </ul>
                                     </td>
                                 </tr>
@@ -111,8 +111,8 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="3"></span>
                                         <ul class="tbl-menu-content" id="3">
-                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
-                                            <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
+                                            <li class="mb-10"><a href="chinh-sua-tieu-chi-danh-gia.html" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="border-top2"><p class="tbl-menu-text modal-btn mt-10">Xóa</p></li>
                                         </ul>
                                     </td>
                                 </tr>
@@ -124,8 +124,8 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="4"></span>
                                         <ul class="tbl-menu-content" id="4">
-                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
-                                            <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
+                                            <li class="mb-10"><a href="chinh-sua-tieu-chi-danh-gia.html" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="border-top2"><p class="tbl-menu-text modal-btn mt-10">Xóa</p></li>
                                         </ul>
                                     </td>
                                 </tr>
@@ -137,8 +137,8 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="5"></span>
                                         <ul class="tbl-menu-content" id="5">
-                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
-                                            <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
+                                            <li class="mb-10"><a href="chinh-sua-tieu-chi-danh-gia.html" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="border-top2"><p class="tbl-menu-text modal-btn mt-10">Xóa</p></li>
                                         </ul>
                                     </td>
                                 </tr>
@@ -150,8 +150,8 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="6"></span>
                                         <ul class="tbl-menu-content" id="6">
-                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
-                                            <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
+                                            <li class="mb-10"><a href="chinh-sua-tieu-chi-danh-gia.html" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="border-top2"><p class="tbl-menu-text modal-btn mt-10">Xóa</p></li>
                                         </ul>
                                     </td>
                                 </tr>
@@ -163,8 +163,8 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="7"></span>
                                         <ul class="tbl-menu-content" id="7">
-                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
-                                            <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
+                                            <li class="mb-10"><a href="chinh-sua-tieu-chi-danh-gia.html" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="border-top2"><p class="tbl-menu-text modal-btn mt-10">Xóa</p></li>
                                         </ul>
                                     </td>
                                 </tr>
@@ -176,8 +176,8 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="8"></span>
                                         <ul class="tbl-menu-content" id="8">
-                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
-                                            <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
+                                            <li class="mb-10"><a href="chinh-sua-tieu-chi-danh-gia.html" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="border-top2"><p class="tbl-menu-text modal-btn mt-10">Xóa</p></li>
                                         </ul>
                                     </td>
                                 </tr>
@@ -189,8 +189,8 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="9"></span>
                                         <ul class="tbl-menu-content" id="9">
-                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
-                                            <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
+                                            <li class="mb-10"><a href="chinh-sua-tieu-chi-danh-gia.html" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="border-top2"><p class="tbl-menu-text modal-btn mt-10">Xóa</p></li>
                                         </ul>
                                     </td>
                                 </tr>
@@ -202,8 +202,8 @@ include("../includes/icon.php");
                                     <td></td>
                                     <td><span class="tbl-menu" data-tab="10"></span>
                                         <ul class="tbl-menu-content" id="10">
-                                            <li class="mb-10"><a href="rating-rules-edit.php" class="tbl-menu-text">Chỉnh sửa</a></li>
-                                            <li class="border-top2"><p class="tbl-menu-text modal-btn">Xóa</p></li>
+                                            <li class="mb-10"><a href="chinh-sua-tieu-chi-danh-gia.html" class="tbl-menu-text">Chỉnh sửa</a></li>
+                                            <li class="border-top2"><p class="tbl-menu-text modal-btn mt-10">Xóa</p></li>
                                         </ul>
                                     </td>
                                 </tr>
@@ -226,7 +226,7 @@ include("../includes/icon.php");
                                 <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                             </div>
                             <div class="right">
-                                <a href="ncc-index.php" class="v-btn btn-green right">Đồng ý</a>
+                                <button type="button" class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</button>
                             </div>
                         </div>
                     </div>
@@ -256,10 +256,15 @@ include("../includes/icon.php");
         </div>
     </div>
 </div>
+<? include("../modals/modal_logout.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
-<script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
-
+<script type="text/javascript" src="../js/app.js"></script>
+<script>
+    $(".modal-btn").click(function(){
+        $(".modal").show();
+    })
+</script>
 </html>
