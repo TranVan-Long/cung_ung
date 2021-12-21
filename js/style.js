@@ -2,9 +2,10 @@
 var dropd = $(".user-name");
 var dropc = $(".dropdown-content");
 var head_avatar = $(".head-avatar");
+var mobi_showd = $(".mobi_showd");
 
 $(window).click(function (e) {
-    if (!dropd.is(e.target) && !dropc.is(e.target) && !head_avatar.is(e.target) && dropc.has(e.target).length == 0) {
+    if (!dropd.is(e.target) && !dropc.is(e.target) && !head_avatar.is(e.target) && !mobi_showd.is(e.target) && dropc.has(e.target).length == 0) {
         dropc.removeClass("active");
     }
 });
@@ -54,7 +55,7 @@ $(document).on('click', '.remo_cot_ngang', function () {
 });
 
 
-$('.user-name, .head-avatar').click(function () {
+$('.user-name, .head-avatar, .mobi_showd').click(function () {
     $(this).parents('ul').find('.dropdown-content').toggleClass("active");
 });
 
@@ -62,6 +63,10 @@ $('.user-name, .head-avatar').click(function () {
 $(document).ready(function () {
     if ($(".ctn_table_ct .table tbody").height() > 159.5) {
         $(".ctn_table_ct .table thead tr").css("width", "calc(100% - 10px)");
+    }
+
+    if ($(".header").height() > 56.5) {
+        $(".content").css("margin-top", "84px");
     }
 });
 

@@ -55,7 +55,10 @@
                             <p class="share_clr_three mb_10">Chúc bạn một ngày mới làm việc hiệu quả!</p>
                         </div>
                         <div class="titl_avt_full">
-                            <img src="../img/pana.png" alt="ảnh đại diện">
+                            <picture>
+                                <source media="(max-width: 768px)" srcset="../img/pana_res.png">
+                                <img src="../img/pana.png" alt="ảnh đại diện">
+                            </picture>
                         </div>
                     </div>
                     <div class="tt_right_one staff_fulln">
@@ -68,61 +71,69 @@
                 </div>
                 <div class="ctt_tt_two mb_20 w_100 float_l">
                     <div class="tt_left_tow staff_fulln">
-                        <div class="tieu_de_bd w_100 float_l d_flex mb_20 flex_jct">
-                            <h3 class="tieu_de_ct share_fsize_four share_clr_one mb_10">Công nợ phải thu</h3>
-                            <div class="filter_mdy">
-                                <select name="tim_kiem" class="form_search_dmy">
-                                    <option value="1">Theo ngày</option>
-                                    <option value="2">Theo tháng</option>
-                                    <option value="3">Theo năm</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="chart"></div>
-                        <div class="ttin_ctiet w_100 float_l mb_20">
-                            <div class="tcong_no w_100 float_l d_flex mb_10 fl_wrap flex_jct">
-                                <p class="share_fsize_tow share_clr_one">Tổng công nợ</p>
-                                <p class="share_fsize_tow share_clr_one cr_weight">1.000.000.000</p>
-                            </div>
-                            <div class="da_thu w_100 float_l d_flex mb_10 fl_wrap flex_jct">
-                                <p class="dthu share_fsize_tow share_clr_one">Đã thu:</p>
-                                <p class="share_fsize_tow cr_xanh_dam cr_weight">100.000.000</p>
-                            </div>
-                            <div class="con_thu w_100 float_l d_flex mb_10 fl_wrap flex_jct">
-                                <p class="cphai_thu share_fsize_tow share_clr_one">Còn phải thu</p>
-                                <p class="share_fsize_tow cr_vang cr_weight">900.000.000</p>
+                        <div class="cnt_left_tow">
+                            <div class="ctn_cnt_left">
+                                <div class="tieu_de_bd w_100 float_l d_flex mb_20 flex_jct">
+                                    <h3 class="tieu_de_ct share_fsize_four share_clr_one mb_10">Công nợ phải thu</h3>
+                                    <div class="filter_mdy">
+                                        <select name="tim_kiem" class="form_search_dmy">
+                                            <option value="1">Theo ngày</option>
+                                            <option value="2">Theo tháng</option>
+                                            <option value="3">Theo năm</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="chart"></div>
+                                <div class="ttin_ctiet w_100 float_l mb_20">
+                                    <div class="tcong_no w_100 float_l d_flex mb_10 fl_wrap flex_jct">
+                                        <p class="share_fsize_tow share_clr_one">Tổng công nợ</p>
+                                        <p class="share_fsize_tow share_clr_one cr_weight">1.000.000.000</p>
+                                    </div>
+                                    <div class="da_thu w_100 float_l d_flex mb_10 fl_wrap flex_jct">
+                                        <p class="dthu share_fsize_tow share_clr_one">Đã thu:</p>
+                                        <p class="share_fsize_tow cr_xanh_dam cr_weight">100.000.000</p>
+                                    </div>
+                                    <div class="con_thu w_100 float_l d_flex mb_10 fl_wrap flex_jct">
+                                        <p class="cphai_thu share_fsize_tow share_clr_one">Còn phải thu</p>
+                                        <p class="share_fsize_tow cr_vang cr_weight">900.000.000</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="tt_left_tow staff_fulln tt_right_tow float_l">
-                        <div class="tieu_de_bd w_100 float_l d_flex mb_20 flex_jct">
-                            <h3 class="tieu_de_ct share_fsize_four share_clr_one mb_10">Công nợ phải trả</h3>
-                            <div class="filter_mdy">
-                                <select name="tim_kiem" class="form_search_dmy cong_no_tra">
-                                    <option value="1">Theo ngày</option>
-                                    <option value="2">Theo tháng</option>
-                                    <option value="3">Theo năm</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="tt_charts">
-                            <div class="charts"></div>
-                        </div>
-                        <div class="tt_charts_one">
-                            <div class="charts_one share_dnone"></div>
-                        </div>
-                        <div class="ttin_ctiet w_100 float_l mb_20">
-                            <div class="tcong_no w_100 float_l d_flex mb_10 fl_wrap flex_jct">
-                                <p class="share_fsize_tow share_clr_one">Tổng công nợ</p>
-                                <p class="share_fsize_tow share_clr_one cr_weight">1.000.000.000</p>
-                            </div>
-                            <div class="da_thu w_100 float_l d_flex mb_10 fl_wrap flex_jct">
-                                <p class="dtra share_fsize_tow share_clr_one">Đã trả:</p>
-                                <p class="share_fsize_tow cr_da_cam cr_weight">100.000.000</p>
-                            </div>
-                            <div class="con_thu w_100 float_l d_flex mb_10 fl_wrap flex_jct">
-                                <p class="cphai_tra share_fsize_tow share_clr_one">Còn phải trả:</p>
-                                <p class="share_fsize_tow cr_do_nhat cr_weight">900.000.000</p>
+                        <div class="cnt_left_tow">
+                            <div class="ctn_cnt_left">
+                                <div class="tieu_de_bd w_100 float_l d_flex mb_20 flex_jct">
+                                    <h3 class="tieu_de_ct share_fsize_four share_clr_one mb_10">Công nợ phải trả</h3>
+                                    <div class="filter_mdy">
+                                        <select name="tim_kiem" class="form_search_dmy cong_no_tra">
+                                            <option value="1">Theo ngày</option>
+                                            <option value="2">Theo tháng</option>
+                                            <option value="3">Theo năm</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="tt_charts">
+                                    <div class="charts"></div>
+                                </div>
+                                <div class="tt_charts_one">
+                                    <div class="charts_one share_dnone"></div>
+                                </div>
+                                <div class="ttin_ctiet w_100 float_l mb_20">
+                                    <div class="tcong_no w_100 float_l d_flex mb_10 fl_wrap flex_jct">
+                                        <p class="share_fsize_tow share_clr_one">Tổng công nợ</p>
+                                        <p class="share_fsize_tow share_clr_one cr_weight">1.000.000.000</p>
+                                    </div>
+                                    <div class="da_thu w_100 float_l d_flex mb_10 fl_wrap flex_jct">
+                                        <p class="dtra share_fsize_tow share_clr_one">Đã trả:</p>
+                                        <p class="share_fsize_tow cr_da_cam cr_weight">100.000.000</p>
+                                    </div>
+                                    <div class="con_thu w_100 float_l d_flex mb_10 fl_wrap flex_jct">
+                                        <p class="cphai_tra share_fsize_tow share_clr_one">Còn phải trả:</p>
+                                        <p class="share_fsize_tow cr_do_nhat cr_weight">900.000.000</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -237,143 +248,122 @@
 <!-- end -->
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
-
-$(".cong_no_tra").change(function() {
-    var id = $(this).val();
-    if (id == 1) {
-        $(".charts").css('display', 'block');
-        $(".charts_one").css('display', 'none');
-    } else if (id == 2) {
-        $(".charts").css('display', 'none');
-        $(".charts_one").css('display', 'block');
-    }
-})
-</script>
-
-<script>
-var a = 4400000;
-var b = 55000000;
-var options = {
-    series: [a, b],
-    chart: {
-        width: 280,
-        type: 'pie',
-    },
-    colors: ['#219653', '#F2C94C'],
-    labels: ['Đã thu', 'Chưa thu'],
-    responsive: [{
-        breakpoint: 480,
-        options: {
-            chart: {
-                width: 160
-            },
-            legend: {
-                position: 'bottom'
-            }
+    $(".cong_no_tra").change(function() {
+        var id = $(this).val();
+        if (id == 1) {
+            $(".charts").css('display', 'block');
+            $(".charts_one").css('display', 'none');
+        } else if (id == 2) {
+            $(".charts").css('display', 'none');
+            $(".charts_one").css('display', 'block');
         }
-    }]
-};
-var chart = new ApexCharts(document.querySelector(".chart"), options);
-chart.render();
+    });
+
 </script>
 
 <script>
-var options = {
-    series: [4400000, 55000000],
-    chart: {
-        width: 280,
-        type: 'pie',
-    },
-    colors: ['#F2994A', '#EB5757'],
-    labels: ['Đã thu', 'Chưa thu'],
-    responsive: [{
-        breakpoint: 480,
-        options: {
-            chart: {
-                width: 200
-            },
-            legend: {
-                position: 'bottom'
-            }
-        }
-    }]
-};
-var chart = new ApexCharts(document.querySelector(".charts"), options);
-chart.render();
-</script>
-
-<script>
-var options = {
-    series: [4500000, 5000000],
-    chart: {
-        width: 280,
-        type: 'pie',
-    },
-    colors: ['#F2994A', '#EB5757'],
-    labels: ['Đã thu', 'Chưa thu'],
-    responsive: [{
-        breakpoint: 480,
-        options: {
-            chart: {
-                width: 200
-            },
-            legend: {
-                position: 'bottom'
-            }
-        }
-    }]
-};
-var chart = new ApexCharts(document.querySelector(".charts_one"), options);
-chart.render();
-</script>
-
-<script>
-Highcharts.chart('tt_three_ctiet', {
-    data: {
-        table: 'datatable'
-    },
-    chart: {
-        type: 'column'
-    },
-
-    yAxis: {
-        allowDecimals: false,
-        title: {
-            text: ''
+    var a = 4400000;
+    var b = 55000000;
+    var options = {
+        series: [a, b],
+        chart: {
+            width: 280,
+            type: 'pie',
         },
-        labels: {
-            style: {
-                color: '#474747',
-                fontSize: '14px',
-            }
+        colors: ['#219653', '#F2C94C'],
+        labels: ['Đã thu', 'Chưa thu'],
+        // responsive: [{
+        //     breakpoint: 480,
+        //     options: {
+        //         chart: {
+        //             width: 200
+        //         },
+        //         legend: {
+        //             position: 'bottom'
+        //         }
+        //     }
+        // }]
+    };
+    var chart = new ApexCharts(document.querySelector(".chart"), options);
+    chart.render();
+</script>
+
+<script>
+    var options = {
+        series: [4400000, 55000000],
+        chart: {
+            width: 280,
+            type: 'pie',
         },
-    },
+        colors: ['#F2994A', '#EB5757'],
+        labels: ['Đã thu', 'Chưa thu'],
+    };
+    var chart = new ApexCharts(document.querySelector(".charts"), options);
+    chart.render();
+</script>
 
-    tooltip: {
-        style: {
-            color: '#474747',
-            fontSize: '14px',
-        }
-    },
+<script>
+    var options = {
+        series: [4500000, 5000000],
+        chart: {
+            width: 280,
+            type: 'pie',
+        },
+        colors: ['#F2994A', '#EB5757'],
+        labels: ['Đã thu', 'Chưa thu'],
+    };
+    var chart = new ApexCharts(document.querySelector(".charts_one"), options);
+    chart.render();
+</script>
 
-    xAxis: {
-        labels: {
+<script>
+    Highcharts.chart('tt_three_ctiet', {
+        data: {
+            table: 'datatable'
+        },
+
+        chart: {
+            type: 'column'
+        },
+
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: ''
+            },
+            labels: {
+                style: {
+                    color: '#474747',
+                    fontSize: '14px',
+                }
+            },
+        },
+
+        tooltip: {
             style: {
                 color: '#474747',
                 fontSize: '14px',
             }
         },
 
-        categories: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8',
-            'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
-        ],
-    },
+        xAxis: {
+            labels: {
+                style: {
+                    color: '#474747',
+                    fontSize: '14px',
+                }
+            },
 
-    title: false,
-    subtitle: false,
+            categories: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8',
+                'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+            ],
+        },
 
-    colors: ['#E09A6A ', '#9D92C8'],
-});
+        title: false,
+        subtitle: false,
+
+        colors: ['#E09A6A ', '#9D92C8'],
+    });
 </script>
 
 </html>

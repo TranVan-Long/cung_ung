@@ -30,12 +30,15 @@ include "../includes/icon.php";
             </div>
             <div class="content">
                 <div class="c-top border-bottom-2">
-                    <h4 class="left">Yêu cầu vật tư công trình</h4>
-                    <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
+                    <h4 class="left mr-10">Yêu cầu vật tư công trình</h4>
+                    <div class="c-help d_flex fl_agi">
+                        <i class="ic-question share_clr_four"><?php echo $ic_question ?></i>
+                        <a class="c-help" href="#">Hướng dẫn</a>
+                    </div>
                 </div>
                 <div class="c-body">
                     <div class="w-100 left">
-                        <div class="right mt-20"><a class="v-btn btn-blue add-btn" href="them-yeu-cau-vat-tu.html">&plus; Thêm mới</a></div>
+                        <div class="right them_moi mt-20"><a class="v-btn btn-blue add-btn" href="them-yeu-cau-vat-tu.html">&plus; Thêm mới</a></div>
                         <div class="category v-select2 mt-20">
                             <select name="category" class="share_select">
                                 <option value="">Tìm kiếm theo</option>
@@ -193,7 +196,7 @@ include "../includes/icon.php";
                     </div>
 
                     <div class="pagination">
-                        <ul>
+                        <ul class="mt-10">
                             <li><a href="#"><?php echo $ic_lt ?></a></li>
                             <li class="active"><a href="#">1</a></li>
                             <li><a href="#">2</a></li>

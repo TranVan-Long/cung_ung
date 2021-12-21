@@ -30,8 +30,8 @@ $date = date('m-d-Y', time())
                 <?php include('../includes/ql_header_nv.php') ?>
             </div>
             <div class="content">
-                <div class="mt_25 mb_25">
-                    <h4>Thêm yêu cầu vật tư</h4>
+                <div class="mt_25  w_100 float_l">
+                    <h4 class="mb_25 w_100 float_l">Thêm yêu cầu vật tư</h4>
                 </div>
                 <div class="c-body">
                     <div class="form-control">
@@ -92,7 +92,7 @@ $date = date('m-d-Y', time())
                                             <tr>
                                                 <th class="w-10"></th>
                                                 <th class="w-15">Mã vật tư</th>
-                                                <th class="w-25">Tên đầy đủ vật tư thiết bị</th>
+                                                <th class="w-25">Tên vật tư</th>
                                                 <th class="w-20">Đơn vị tính</th>
                                                 <th class="w-25">Số lượng yêu cầu duyệt</th>
                                             </tr>

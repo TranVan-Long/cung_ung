@@ -99,7 +99,10 @@
             </li>
             <li class="nav-item dropdown">
                 <div class="nav-avatar">
-                    <p><img class="head-avatar" src="/img/avt4.png"></p>
+                    <p>
+                        <img class="head-avatar" src="/img/avt4.png">
+                        <span class="mobi_showd"></span>
+                    </p>
                 </div>
                 <div class="left mt-10">
                     <h5 class="user-name">Nguyễn Văn A</h5>

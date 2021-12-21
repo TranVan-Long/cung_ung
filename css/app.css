@@ -708,9 +708,7 @@ textarea[placeholder] {
 }
 
 .ic-question {
-    position: absolute;
-    top: -8px;
-    left: -44px;
+    margin-right: 10px;
 }
 
 .ic-chevron-left {
