@@ -2,7 +2,7 @@
 include "../includes/icon.php";
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -26,11 +26,11 @@ include "../includes/icon.php";
 <body>
     <div class="main-container ql_them_hd_ban">
         <? include('../includes/sidebar.php') ?>
+
         <div class="container">
             <div class="header-container">
                 <? include('../includes/ql_header_nv.php') ?>
             </div>
-
             <div class="content mt_20">
                 <div class="ctn_ctiet_hd w_100 float_l">
                     <div class="chi_tiet_hd w_100 float_l">

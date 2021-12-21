@@ -157,7 +157,7 @@ $bao_gia_kh = ['/quan-ly-bao-gia-cho-khach-hang.html', '/chi-tiet-bao-gia-cho-kh
                         <li class="<?= (in_array($_SERVER['REDIRECT_URL'], $khach_hang)) ? "active":"" ?>">
                             <a href="quan-ly-khach-hang.html"><span><?php echo $ic_customer ?></span>Khách hàng</a>
                         </li>
-                        <li class="collapse share_cursor <?= (in_array($_SERVER['REDIRECT_URL'], $bao_cao)) ? "active":"" ?>"
+                        <li class="collapse share_cursor share_height  <?= (in_array($_SERVER['REDIRECT_URL'], $bao_cao)) ? "active":"" ?>"
                             data-tab="subt-menu4">
                             <a><span><?php echo $ic_report ?></span>Báo cáo</a>
                             <ul id="subt-menu4"

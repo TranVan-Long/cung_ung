@@ -27,7 +27,10 @@ include("../includes/icon.php");
         <div class="content">
             <div class="c-top border-bottom-2">
                 <h4 class="left share_fsize_four">Khách hàng</h4>
-                <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
+                <div class="c-help d_flex fl_agi">
+                    <i class="ic-question share_clr_four"><?php echo $ic_question ?></i>
+                    <a class="c-help" href="#">Hướng dẫn</a>
+                </div>
             </div>
             <div class="c-body mt-20">
                 <div class="w-100 left">

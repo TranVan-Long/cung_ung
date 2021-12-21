@@ -2140,7 +2140,7 @@ img {
 
 .ql_chung .c-top {
     border-bottom: 1px solid #474747;
-    padding-bottom: 28px;
+    padding-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -2867,6 +2867,41 @@ img {
     display: none;
 }
 
+.nav-item:first-child {
+    padding-left: 10px;
+}
+
+/* long sua header */
+.ctiet_cty {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.ctiet_cty .ten_cty_nv {
+    max-width: 120px;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+}
+
+.ql_chung .c-top {
+    margin-top: 40px;
+}
+
+.bao_hanh {
+    flex-wrap: wrap;
+}
+
+.bao_hanh input {
+    margin-bottom: 5px;
+}
+
+
+/* end sua header */
+
 @media screen and (max-width: 1366px) {
 
     /* footer */
@@ -2945,22 +2980,27 @@ img {
 
     .main-container .container, .header {
         width: 100%;
+        float: left;
     }
 
     .header-container {
         background: #FFFFFF;
-        width: 100%;
         position: fixed;
         z-index: 3;
+        height: 56px;
+        justify-content: unset;
+        display: block;
+        width: 100%;
+        float: left;
     }
 
     .header {
         margin-top: 0;
-        z-index: 2;
+        padding: 10px 20px;
     }
 
     .header .header-left {
-        padding-left: 8px;
+        padding-left: 0px;
     }
 
     .modal_menu {
@@ -3016,6 +3056,10 @@ img {
     .content {
         width: calc(100% - 36px);
         margin-top: 56px;
+    }
+
+    .chi_tiet_hd {
+        margin-top: 25px;
     }
 
 }
@@ -3115,15 +3159,114 @@ img {
         margin-right: 15px;
     }
 
-    .them_moi {
+    .them_moi, .add_hopd, .main-container {
         width: 100%;
+    }
+
+    .ql_chung .search-box {
+        margin-right: 0;
+    }
+
+    .category, .search-box {
+        width: 48%;
+    }
+
+    .filter1 .form_tkiem {
+        width: 100%;
+        float: left;
+    }
+
+    .add_hopd {
+        text-align: right;
+        display: flex;
+        justify-content: right;
+    }
+
+    .share_distance .form-row .form-group {
+        width: 46%;
+    }
+
+    .bao_hanh {
+        flex-wrap: wrap;
+    }
+
+    .bao_hanh input {
+        margin-bottom: 5px;
+    }
+
+    .bao_hanh input[type="date"] {
+        padding: 9px 0px 9px 9px;
+    }
+
+    .bao_hanh .gia_tri {
+        width: 148px;
+    }
+
+    .all_hopd {
+        text-align: left;
+    }
+
+    .stk_xd {
+        word-wrap: break-word;
     }
 
 }
 
-@media screen and (max-width: 535px) {
-    .cnt_left_tow {
+@media(max-width: 747px) {
+    .ctiet_cty {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 543px) {
+    .cnt_left_tow, .m-content, .modal_share .modal-content {
         width: 90%;
+    }
+
+    h5.user-name {
+        display: none;
+    }
+
+    .nav-avatar .mobi_showd {
+        position: relative;
+    }
+
+    .nav-avatar .mobi_showd::before {
+        content: "";
+        position: absolute;
+        right: -20px;
+        top: -4px;
+        background: url(../img/prew_href.png)no-repeat;
+        width: 6px;
+        height: 12px;
+        transform: rotate(270deg);
+    }
+
+    .nav-item:last-child {
+        padding-right: 0;
+    }
+
+    .ctiet_pop p {
+        text-align: left;
+        padding: 0px 27px;
+    }
+
+    .m-body {
+        padding: 20px 39px 0px 39px;
+        text-align: left;
+    }
+
+    .m-foot {
+        padding: 0px 20px;
+        margin-bottom: 12px;
+    }
+
+    .madal_form {
+        padding: 25px 12px;
+    }
+
+    .form_butt_ht {
+        padding: 0;
     }
 }
 
@@ -3261,35 +3404,20 @@ img {
         padding: 25px 17px;
     }
 
-    .ql_trangchu_s .cnt_left_tow, .v-select2 {
+    .ql_trangchu_s .cnt_left_tow, .v-select2, .ql_chung .filter1 .category, .ql_chung .filter1 .search-box {
         width: 100%;
     }
 
-    .side_menu_hd, .category {
+    .side_menu_hd, .category, .ql_chung .filter1 .category {
         margin-right: 0;
     }
 
     .nav-item {
-        padding: 0px 18px;
+        padding: 0px 20px;
     }
 
     .nav-avatar {
         padding: 0px;
-    }
-
-    .nav-avatar .mobi_showd {
-        position: relative;
-    }
-
-    .nav-avatar .mobi_showd::before {
-        content: "";
-        position: absolute;
-        right: -20px;
-        top: -4px;
-        background: url(../img/prew_href.png)no-repeat;
-        width: 6px;
-        height: 12px;
-        transform: rotate(270deg);
     }
 
     .tieu_de_chart .tieu_de_ct {
@@ -3320,7 +3448,99 @@ img {
         line-height: 13px;
     }
 
-    .header {
-        padding: 12px 10px 11px 10px;
+    .logout_ht .modal-content, .m-content {
+        width: 90%;
     }
+
+    /* long */
+    .form-col-50, .ctiet_hd_right, .xuat_gmc_two {
+        float: left;
+        width: 100%;
+    }
+
+    .ctiet_hd_left p:nth-child(2), .ctiet_hd_right p:nth-child(2) {
+        text-align: left;
+        width: 100%;
+    }
+
+    .form-col-50 p, .share_distance .form-row .form-group, .ctiet_hd_left, .ten_ctiet {
+        width: 100%;
+    }
+
+    .share_distance .form-row {
+        display: block;
+    }
+
+    .m-foot {
+        padding: 0 12px;
+    }
+
+    .form-col-50 p {
+        text-align: left;
+    }
+
+    .form-col-50 p:first-child, .ten_ctiet {
+        margin-bottom: 8px;
+    }
+
+    .form-row {
+        border-top: 0;
+    }
+
+    .share_res_ct .form-control .form-row, .share_res_ct .form-col-50, .chitiet_hd {
+        margin-bottom: 0;
+    }
+
+    .share_res_ct .form-col-50 {
+        border-bottom: 1px solid #666666;
+        padding-bottom: 12px;
+    }
+
+    .share_res_ct .form-row .form-col-50:nth-child(2), .ctiet_hd_right {
+        padding-right: 0;
+        padding-left: 10px;
+    }
+
+    .share_res_ct .form-control .form-row:last-child .form-col-50, .chitiet_hd, .chitiet_hd:last-child .ctiet_hd_left, .ql_ctiet_hd_vc .chitiet_hd:last-child .ctiet_hd_right {
+        border-bottom: 0;
+    }
+
+    .xoa_csua {
+        float: left;
+    }
+
+    .pagination li {
+        margin: 0px 5px;
+    }
+
+    .ql_chung .c-top {
+        margin-top: 15px;
+    }
+
+    .all_hopd {
+        width: 300px;
+    }
+
+    .tow_butt_flex {
+        justify-content: space-around;
+    }
+
+    .ctiet_hd_left, .ctiet_hd_right {
+        border-bottom: 0.5px solid rgba(102, 102, 102, 0.24);
+        padding-bottom: 12px;
+        padding-top: 10px;
+    }
+
+    .chitiet_hd {
+        padding-bottom: 0;
+    }
+
+    .ctiet_hd_left p:nth-child(2) {
+        margin: 0;
+    }
+
+    .ql_ctiet_hd_vc .chitiet_hd:last-child .ctiet_hd_left {
+        border-bottom: 0.5px solid rgba(102, 102, 102, 0.24);
+    }
+
 }

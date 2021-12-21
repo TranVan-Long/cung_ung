@@ -74,7 +74,7 @@ include("../includes/icon.php");
                                         <th class="w-30">Thanh toán</th>
                                         <th class="w-25">% thanh toán</th>
                                         <th class="w-25">Còn phải thu</th>
-                                        <th class="w-25">Tỉ lệ hàn mức</th>
+                                        <th class="w-25">Tỉ lệ hạn mức</th>
                                     </tr>
                                     </thead>
                                 </table>

@@ -2,13 +2,13 @@
 include "../includes/icon.php";
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quản lý hợp đồng</title>
-    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
 
     <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -34,46 +34,58 @@ include "../includes/icon.php";
             <div class="content">
                 <div class="c-top d_flex flex_jct fl_agi">
                     <h4 class="c-name share_fsize_four share_clr_one">Hợp đồng</h4>
-                    <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
+                    <div class="c-help d_flex fl_agi">
+                        <i class="ic-question share_clr_four"><?php echo $ic_question ?></i>
+                        <a class="c-help" href="#">Hướng dẫn</a>
+                    </div>
                 </div>
                 <div class="c-body mt_20">
                     <div class="filter1">
-                        <div class="share_form_select category">
-                            <select name="category" class="tim_kiem">
-                                <option value="">Tìm kiếm theo</option>
-                                <option value="1">Hợp đồng mua vật tư</option>
-                                <option value="2">Hợp đồng bán vật tư</option>
-                                <option value="3">Hợp đồng thuê thiết bị</option>
-                                <option value="4">Hợp đồng thuê vận chuyển</option>
-                            </select>
-                        </div>
-                        <div class="share_form_select search-box">
-                            <select name="search" class="tim_kiem_o">
-                                <option value="">Nhập thông tin cần tìm kiếm</option>
-                            </select>
-                        </div>
                         <div class="add_hopd">
-                            <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">&plus; Thêm mới</p>
+                            <p
+                                class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">
+                                &plus; Thêm mới</p>
                             <div class="all_hopd share_bgr_tow">
                                 <p class="hd_mua_vt">
-                                    <a class="share_clr_one share_fsize_one" href="/them-hop-dong-mua.html">Hợp đồng mua vật tư</a>
+                                    <a class="share_clr_one share_fsize_one" href="/them-hop-dong-mua.html">Hợp đồng mua
+                                        vật tư</a>
                                 </p>
                                 <p class="hopd_bvt">
-                                    <a class="share_clr_one share_fsize_one" href="/them-hop-dong-ban.html">Hợp đồng bán vật tư</a>
+                                    <a class="share_clr_one share_fsize_one" href="/them-hop-dong-ban.html">Hợp đồng bán
+                                        vật tư</a>
                                 </p>
                                 <p class="hopd_thue_tb">
-                                    <a class="share_clr_one share_fsize_one" href="/them-hop-dong-thue-thiet-bi.html">Hợp đồng thuê thiết bị</a>
+                                    <a class="share_clr_one share_fsize_one"
+                                        href="/them-hop-dong-thue-thiet-bi.html">Hợp đồng thuê thiết bị</a>
                                 </p>
                                 <p class="hopd_thue_vc">
-                                    <a class="share_clr_one share_fsize_one" href="/them-hop-dong-van-chuyen.html">Hợp đồng thuê vận chuyển</a>
+                                    <a class="share_clr_one share_fsize_one" href="/them-hop-dong-van-chuyen.html">Hợp
+                                        đồng thuê vận chuyển</a>
                                 </p>
+                            </div>
+                        </div>
+                        <div class="form_tkiem d_flex fl_wrap">
+                            <div class="share_form_select category">
+                                <select name="category" class="tim_kiem">
+                                    <option value="">Tìm kiếm theo</option>
+                                    <option value="1">Hợp đồng mua vật tư</option>
+                                    <option value="2">Hợp đồng bán vật tư</option>
+                                    <option value="3">Hợp đồng thuê thiết bị</option>
+                                    <option value="4">Hợp đồng thuê vận chuyển</option>
+                                </select>
+                            </div>
+                            <div class="share_form_select search-box">
+                                <select name="search" class="tim_kiem_o">
+                                    <option value="">Nhập thông tin cần tìm kiếm</option>
+                                </select>
                             </div>
                         </div>
                     </div>
 
                     <div class="c-content">
                         <div class="ctn_table_share w_100 float_l">
-                            <span class="scroll_left share_cursor"><img src="../img/right_scroll.png" alt="scroll về bên trái"></span>
+                            <span class="scroll_left share_cursor"><img src="../img/right_scroll.png"
+                                    alt="scroll về bên trái"></span>
                             <div class="share_tb_hd w_100 float_l">
                                 <table class="table w_100 float_l">
                                     <thead>
@@ -93,7 +105,8 @@ include "../includes/icon.php";
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="quan-ly-chi-tiet-hop-dong-mua.html" class="share_clr_four">HĐ - 0001</a></td>
+                                            <td><a href="quan-ly-chi-tiet-hop-dong-mua.html" class="share_clr_four">HĐ -
+                                                    0001</a></td>
                                             <td>29/10/2021</td>
                                             <td>Hợp đồng mua vật tư</td>
                                             <td>12/10/2021 - 30/10/2021</td>
@@ -105,7 +118,8 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="quan-ly-chi-tiet-hop-dong-ban.html" class="share_clr_four">HĐ - 0002</a></td>
+                                            <td><a href="quan-ly-chi-tiet-hop-dong-ban.html" class="share_clr_four">HĐ -
+                                                    0002</a></td>
                                             <td>29/10/2021</td>
                                             <td>Hợp đồng bán vật tư</td>
                                             <td>12/10/2021 - 30/10/2021</td>
@@ -117,7 +131,8 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="quan-ly-chi-tiet-hop-dong-thue-thiet-bi.html" class="share_clr_four">HĐ - 0001</a></td>
+                                            <td><a href="quan-ly-chi-tiet-hop-dong-thue-thiet-bi.html"
+                                                    class="share_clr_four">HĐ - 0001</a></td>
                                             <td>29/10/2021</td>
                                             <td>Hợp đồng thuê thiết bị vật tư</td>
                                             <td>12/10/2021 - 30/10/2021</td>
@@ -129,7 +144,8 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="quan-ly-chi-tiet-hop-dong-van-chuyen.html" class="share_clr_four">HĐ - 0001</a></td>
+                                            <td><a href="quan-ly-chi-tiet-hop-dong-van-chuyen.html"
+                                                    class="share_clr_four">HĐ - 0001</a></td>
                                             <td>29/10/2021</td>
                                             <td>Hợp đồng thuê vận chuyển</td>
                                             <td>12/10/2021 - 30/10/2021</td>
@@ -166,11 +182,12 @@ include "../includes/icon.php";
                                     </tbody>
                                 </table>
                             </div>
-                            <span class="scroll_right share_cursor"><img src="../img/right_scroll.png" alt="scroll về bên phải"></span>
+                            <span class="scroll_right share_cursor"><img src="../img/right_scroll.png"
+                                    alt="scroll về bên phải"></span>
                         </div>
                     </div>
                 </div>
-                <div class="c-foot d_flex flex_jct fl_agi mt_20">
+                <div class="c-foot d_flex flex_jct fl_agi fl_wrap mt_20">
                     <div class="display d_flex fl_agi">
                         <label for="display" class="mr_10">Hiển thị</label>
                         <select name="display" id="display">
@@ -181,7 +198,7 @@ include "../includes/icon.php";
                         </select>
                     </div>
                     <div class="pagination">
-                        <ul>
+                        <ul class="mt-10">
                             <li><a href="#"><?php echo $ic_lt ?></a></li>
                             <li class="active"><a href="#">1</a></li>
                             <li><a href="#">2</a></li>
@@ -210,8 +227,8 @@ $(".tim_kiem, .tim_kiem_o").select2({
 (function(w) {
     w.addEventListener('load', function() {
         const btn_right = document.querySelector('.scroll_right'),
-        btn_left = document.querySelector('.scroll_left'),
-        content = document.querySelector('.share_tb_hd');
+            btn_left = document.querySelector('.scroll_left'),
+            content = document.querySelector('.share_tb_hd');
         const content_scroll_width = content.scrollWidth;
         let content_scoll_left = content.scrollLeft;
 
@@ -236,12 +253,12 @@ $(".tim_kiem, .tim_kiem_o").select2({
 var add_creart_hd = $(".add_creart_hd");
 var all_hopd = $(".all_hopd");
 
-$(".add_creart_hd").click(function(){
+$(".add_creart_hd").click(function() {
     $(".all_hopd").toggleClass("active");
 })
 
-$(window).click(function(e){
-    if(!add_creart_hd.is(e.target) && !all_hopd.is(e.target) && add_creart_hd.has(e.target).length == 0){
+$(window).click(function(e) {
+    if (!add_creart_hd.is(e.target) && !all_hopd.is(e.target) && add_creart_hd.has(e.target).length == 0) {
         all_hopd.removeClass("active");
     }
 })

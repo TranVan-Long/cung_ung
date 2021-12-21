@@ -34,7 +34,10 @@ include "../includes/icon.php";
             <div class="content">
                 <div class="c-top d_flex flex_jct fl_agi">
                     <h4 class="c-name share_fsize_four share_clr_one">Hồ sơ thanh toán</h4>
-                    <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
+                    <div class="c-help d_flex fl_agi">
+                        <i class="ic-question share_clr_four"><?php echo $ic_question ?></i>
+                        <a class="c-help" href="#">Hướng dẫn</a>
+                    </div>
                 </div>
                 <div class="c-body mt_20">
                     <div class="filter1">

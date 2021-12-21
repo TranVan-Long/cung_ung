@@ -34,11 +34,6 @@ h5.user-name::before {
     height: 5px;
 }
 
-ul, p {
-    padding: 0;
-    margin: 0
-}
-
 ul span {
     width: 22px;
     margin-right: 12px;
@@ -545,8 +540,6 @@ textarea[placeholder] {
 
 .container {
     width: calc(100% - 280px);
-    width: -moz-calc(100% - 280px);
-    width: -webkit-calc(100% - 280px);
     float: right;
     margin-bottom: 148px;
 }
@@ -709,6 +702,8 @@ textarea[placeholder] {
 
 .ic-question {
     margin-right: 10px;
+    width: 36px;
+    height: 36px;
 }
 
 .ic-chevron-left {

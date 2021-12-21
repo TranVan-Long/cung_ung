@@ -1,12 +1,12 @@
 <div class="header">
     <div class="header-left d_flex fl_agi">
-            <div class="side_menu_hd mr_30 d_flex fl_agi">
-                <img src="../img/menu.png" alt="menu" class="avt_menu">
-            </div>
-            <div class="ctiet_cty">
-                <span>Công ty TNHH...</span>|
-                <span class="text-bold">ID: 123456</span>
-            </div>
+        <div class="side_menu_hd mr_30 d_flex fl_agi">
+            <img src="../img/menu.png" alt="menu" class="avt_menu">
+        </div>
+        <div class="ctiet_cty">
+            <span class="ten_cty_nv">Công ty TNHH...</span>|
+            <span class="text-bold">ID: 123456</span>
+        </div>
     </div>
     <div class="right text-right">
         <ul class="right chi_tiet_item mr-20">
@@ -108,7 +108,8 @@
                     <h5 class="user-name">Nguyễn Văn A</h5>
                 </div>
                 <ul class="dropdown-content">
-                    <a href="https://quanlychung.timviec365.vn/quan-ly-thong-tin-tai-khoan-nhan-vien.html" target="_blank">
+                    <a href="https://quanlychung.timviec365.vn/quan-ly-thong-tin-tai-khoan-nhan-vien.html"
+                        target="_blank">
                         <li><i class="ic ic-user"></i> Thông tin tài khoản</li>
                     </a>
                     <a href="#" target="_blank">

@@ -2,7 +2,7 @@
 include "../includes/icon.php";
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -24,16 +24,16 @@ include "../includes/icon.php";
 </head>
 
 <body>
-    <div class="main-container ql_ctiet_hd">
+    <div class="main-container">
         <? include('../includes/sidebar.php') ?>
-        <div class="container">
-            <div class="header-container">
-                <? include('../includes/ql_header_nv.php') ?>
-            </div>
 
-            <div class="content mt_20">
+        <div class="container">
+            <div class="header-container w_100 float_l">
+                <?php include('../includes/ql_header_nv.php') ?>
+            </div>
+            <div class="content">
                 <div class="ctn_ctiet_hd w_100 float_l">
-                    <div class="chi_tiet_hd w_100 float_l">
+                    <div class="chi_tiet_hd mt_20 w_100 float_l">
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Thêm hợp đồng mua</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
@@ -346,9 +346,9 @@ include "../includes/icon.php";
                                 <div class="form-button w_100">
                                     <div class="form_button hd_button">
                                         <button type="button"
-                                            class="cancel_add share_cursor share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
+                                            class="cancel_add mb_10 share_cursor share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
                                         <button type="submit"
-                                            class="save_add share_cursor share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
+                                            class="save_add mb_10 share_cursor share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
                                     </div>
                                 </div>
                             </form>
@@ -372,7 +372,8 @@ include "../includes/icon.php";
                     <div class="ctn_body_modal">
                         <div class="madal_form">
                             <div class="ctiet_pop">
-                                <p class="share_fsize_tow share_clr_one">Bạn có chắc chắn muốn hủy việc thêm hợp đồng mua?</p>
+                                <p class="share_fsize_tow share_clr_one">Bạn có chắc chắn muốn hủy việc thêm hợp đồng
+                                    mua?</p>
                                 <p class="share_fsize_tow share_clr_one">Thao tác này sẽ không thể hoàn tác.</p>
                             </div>
                             <div class="form_butt_ht">
@@ -398,12 +399,12 @@ include "../includes/icon.php";
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
-    $(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia, .ma_vatt, .ten_vatt").select2({
-        width: '100%',
-    });
+$(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia, .ma_vatt, .ten_vatt").select2({
+    width: '100%',
+});
 
-    $('.add_vat_tu').click(function(){
-        var html = `<tr>
+$('.add_vat_tu').click(function() {
+    var html = `<tr>
                         <td class="share_tb_one">
                             <p>
                                 <img src="../img/remove.png" alt="xóa"
@@ -466,18 +467,18 @@ include "../includes/icon.php";
                             </div>
                         </td>
                     </tr>`;
-        $(".ctn_table .table tbody").append(html);
-        widthSelect();
+    $(".ctn_table .table tbody").append(html);
+    widthSelect();
 
-        if($(".ctn_table .table tbody").height() > 105.5){
-            $(".ctn_table .table thead tr").css('width','calc(100% - 10px)');
-        }
-    });
+    if ($(".ctn_table .table tbody").height() > 105.5) {
+        $(".ctn_table .table thead tr").css('width', 'calc(100% - 10px)');
+    }
+});
 
-    var cancel_add = $(".cancel_add");
-    cancel_add.click(function(){
-        modal_share.show();
-    });
+var cancel_add = $(".cancel_add");
+cancel_add.click(function() {
+    modal_share.show();
+});
 </script>
 
 </html>

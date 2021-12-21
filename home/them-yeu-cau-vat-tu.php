@@ -85,7 +85,7 @@ $date = date('m-d-Y', time())
                     <div class="mt-30 left w-100">
                         <p class="text-blue link-text cr_weight" id="add-material">&plus; Thêm mới vật tư</p>
                         <div class="table-wrapper mt-5">
-                            <div class="table-container">
+                            <div class="table-container table-sm">
                                 <div class="tbl-header">
                                     <table>
                                         <thead>
@@ -179,6 +179,7 @@ $date = date('m-d-Y', time())
             </div>
         </div>
     </div>
+
     <?php include "../modals/modal_logout.php"?>
     <? include("../modals/modal_menu.php") ?>
 

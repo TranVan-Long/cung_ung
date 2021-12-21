@@ -27,7 +27,7 @@ include("../includes/icon.php");
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
         <div class="content">
-            <div class="mt-25 mb_25">
+            <div class="mt-25 mb_25 w_100 float_l">
                 <h4>Chỉnh sửa yêu cầu vật tư</h4>
             </div>
             <div class="c-body">
@@ -35,7 +35,7 @@ include("../includes/icon.php");
                     <div class="form-row left">
                         <div class="form-col-50 mb_15">
                             <label for="so-phieu">Số phiếu yêu cầu<span class="text-red">*</span></label>
-                            <input type="text" id="so-phieu" name="so-phieu" value="PH-000-99999" disabled required>
+                            <input type="text" id="so-phieu" name="so-phieu" value="PH-000-99999" disabled>
                         </div>
                     </div>
                     <div class="form-row left">
@@ -82,7 +82,7 @@ include("../includes/icon.php");
                 <div class="mt-30 left w-100">
                     <p class="text-blue text-500 link-text d-inline pl-20" id="add-material">&plus; Thêm mới vật tư</p>
                     <div class="table-wrapper mt-10">
-                        <div class="table-container">
+                        <div class="table-container table-sm">
                             <div class="tbl-header">
                                 <table>
                                     <thead>
