@@ -15,6 +15,8 @@
         'Saturday' => 'Thứ 7',
         'Sunday' => 'Chủ nhật',
     );
+
+    $a = 40000000;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -262,7 +264,7 @@
 </script>
 
 <script>
-    var a = 4400000;
+    var a = <?= $a ?>;
     var b = 55000000;
     var options = {
         series: [a, b],

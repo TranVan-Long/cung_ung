@@ -24,10 +24,10 @@ include "../includes/icon.php";
 </head>
 
 <body>
-    <div class="main-container ">
+    <div class="main-container ql_them_hd_ban">
         <? include('../includes/sidebar.php') ?>
 
-        <div class="container ql_them_hd_ban">
+        <div class="container">
             <div class="header-container">
                 <? include('../includes/ql_header_nv.php') ?>
             </div>

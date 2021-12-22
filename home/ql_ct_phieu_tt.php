@@ -170,15 +170,15 @@ include "../includes/icon.php";
                                 </table>
                             </div>
                         </div>
-                        <div class="xuat_gmc w_100 float_l d_flex">
-                            <div class="xuat_gmc_one share_xuat_gmc d_flex">
-                                <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight">Xuất Excel</p>
-                            </div>
-                            <div class="xuat_gmc_two share_xuat_gmc d_flex">
+                        <div class="xuat_gmc w_100 float_l">
+                            <div class="xuat_gmc_two share_xuat_gmc mb-10 right d_flex">
                                 <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_phieu_tt">Xóa</p>
                                 <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
                                     <a href="chinh-sua-phieu-thanh-toan.html" class="share_clr_tow">Chỉnh sửa</a>
                                 </p>
+                            </div>
+                            <div class="xuat_gmc_one share_xuat_gmc mb-10 left d_flex">
+                                <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight mr-10">Xuất Excel</p>
                             </div>
                         </div>
                     </div>

@@ -47,7 +47,7 @@
             </div>
             <div class="content_ql">
                 <div class="ctn_cu_one">
-                    <div class="content_ct_one">
+                    <div class="content_ct_one doanh_ngb">
                         <div class="ctn_ct_one">
                             <div class="container">
                                 <h2 class="tieu_de share_clr_one w_100 tex_center mt_65">Doanh nghiệp bạn có đang gặp phải... ???</h2>
@@ -70,7 +70,10 @@
                                     </div>
                                     <div class="nd_two">
                                         <div class="nd_avt tex_center">
-                                            <img src="../img/nguoi.png" alt="công nhân">
+                                            <picture>
+                                                <source media="(max-width: 1024px)" srcset="../img/nguoi_res.png">
+                                                <img src="../img/nguoi.png" alt="công nhân">
+                                            </picture>
                                         </div>
                                     </div>
                                     <div class="nd_three">

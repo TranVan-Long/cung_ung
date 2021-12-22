@@ -1,7 +1,7 @@
 <div class="bg_wra">
     <div class="bg_ima_menu">
         <p class="menu_popup btx_modal_ind">
-            <img src="../img/menu.png" alt="">
+            <img src="../img/menu_index.png" alt="">
         <p>
     </div>
     <div class="bg_ima">

@@ -25,7 +25,7 @@ include "../includes/icon.php";
 </head>
 
 <body>
-    <div class="main-container ql_sua_hd">
+    <div class="main-container ql-sua-hd-ban">
          <? include('../includes/sidebar.php') ?>
         <div class="container">
             <div class="header-container">

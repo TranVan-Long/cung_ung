@@ -532,10 +532,11 @@ textarea[placeholder] {
     scrollbar-width: none;
     /* Firefox */
 }
-
-.main-container {
+/* long sua */
+/* .main-container {
     margin: 0 auto;
-}
+} */
+/* end long */
 
 .container {
     width: calc(100% - 280px);

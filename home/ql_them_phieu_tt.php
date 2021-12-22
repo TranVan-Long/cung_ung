@@ -122,7 +122,7 @@ include "../includes/icon.php";
                                 </div>
                                 <div class="form-them-nganh w_100 float_l">
                                     <div class="tieu_de  w_100 float_l d_flex fl_wrap mb_10">
-                                        <p class="mr_30 share_fsize_tow share_clr_one cr_weight">Danh sách tài khoản ngân hàng</p>
+                                        <p class="mr_30 share_fsize_tow share_clr_one cr_weight cate_bank">Danh sách tài khoản ngân hàng</p>
                                         <p class="add_ngan_hang share_clr_four share_fsize_tow cr_weight share_cursor">+ Thêm mới tài khoản ngân hàng</p>
                                     </div>
                                     <div class="tien_chi_tra w_100 float_l d_flex fl_agi">
@@ -200,9 +200,9 @@ include "../includes/icon.php";
                                 <div class="form-button w_100">
                                     <div class="form_button phieu_button">
                                         <button type="button"
-                                            class="cancel_add share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
+                                            class="cancel_add mb-10 share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
                                         <button type="submit"
-                                            class="save_add share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
+                                            class="save_add mb-10 share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
                                     </div>
                                 </div>
                             </form>

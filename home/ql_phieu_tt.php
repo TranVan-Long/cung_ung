@@ -41,22 +41,24 @@ include "../includes/icon.php";
                 </div>
                 <div class="c-body mt_20">
                     <div class="filter1">
-                        <div class="share_form_select category">
-                            <select name="category" class="tim_kiem">
-                                <option value="">Tìm kiếm theo</option>
-                                <option value="1">Hợp đồng mua vật tư</option>
-                                <option value="2">Hợp đồng bán vật tư</option>
-                                <option value="3">Hợp đồng thuê thiết bị</option>
-                                <option value="4">Hợp đồng thuê vận chuyển</option>
-                            </select>
-                        </div>
-                        <div class="share_form_select search-box">
-                            <select name="search" class="tim_kiem_o">
-                                <option value="">Nhập thông tin cần tìm kiếm</option>
-                            </select>
-                        </div>
                         <div class="add_hopd">
                             <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">&plus; Thêm mới</p>
+                        </div>
+                        <div class="form_tkiem d_flex">
+                            <div class="share_form_select category">
+                                <select name="category" class="tim_kiem">
+                                    <option value="">Tìm kiếm theo</option>
+                                    <option value="1">Hợp đồng mua vật tư</option>
+                                    <option value="2">Hợp đồng bán vật tư</option>
+                                    <option value="3">Hợp đồng thuê thiết bị</option>
+                                    <option value="4">Hợp đồng thuê vận chuyển</option>
+                                </select>
+                            </div>
+                            <div class="share_form_select search-box">
+                                <select name="search" class="tim_kiem_o">
+                                    <option value="">Nhập thông tin cần tìm kiếm</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -162,7 +164,7 @@ include "../includes/icon.php";
                         </div>
                     </div>
                 </div>
-                <div class="c-foot d_flex flex_jct fl_agi mt_20">
+                <div class="c-foot d_flex flex_jct fl_agi mt_20 fl_wrap">
                     <div class="display d_flex fl_agi">
                         <label for="display" class="mr_10">Hiển thị</label>
                         <select name="display" id="display">
@@ -171,7 +173,7 @@ include "../includes/icon.php";
                         </select>
                     </div>
                     <div class="pagination">
-                        <ul>
+                        <ul class="mt-10">
                             <li><a href="#"><?php echo $ic_lt ?></a></li>
                             <li class="active"><a href="#">1</a></li>
                             <li><a href="#">2</a></li>
@@ -201,31 +203,19 @@ $(".add_creart_hd").click(function(){
     window.location.href = "them-phieu-thanh-toan.html";
 });
 
-(function(w) {
-    w.addEventListener('load', function() {
-        const btn_right = document.querySelector('.scroll_right'),
-        btn_left = document.querySelector('.scroll_left'),
-        content = document.querySelector('.share_tb_hd');
-        const content_scroll_width = content.scrollWidth;
-        let content_scoll_left = content.scrollLeft;
+$('.scroll_right').click(function (e) {
+    e.preventDefault();
+    $('.share_tb_hd').animate({
+        scrollLeft: "+=300px"
+    }, "slow");
+});
 
-        btn_right.addEventListener('click', () => {
-            content_scoll_left += 100;
-            if (content_scoll_left >= content_scroll_width) {
-                content_scoll_left = content_scroll_width;
-            }
-            content.scrollLeft = content_scoll_left;
-        });
-
-        btn_left.addEventListener('click', () => {
-            content_scoll_left -= 100;
-            if (content_scoll_left <= 0) {
-                content_scoll_left = 0;
-            }
-            content.scrollLeft = content_scoll_left;
-        });
-    });
-})(window);
+$('.scroll_left').click(function (e) {
+    e.preventDefault();
+    $('.share_tb_hd').animate({
+        scrollLeft: "-=300px"
+    }, "slow");
+});
 
 var add_creart_hd = $(".add_creart_hd");
 var all_hopd = $(".all_hopd");

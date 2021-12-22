@@ -75,7 +75,7 @@ include "../includes/icon.php";
                                         <input type="date" name="thoih_ttoan" class="form-control">
                                     </div>
                                 </div>
-                                <div class="them_moi_vt w_100 float_l">
+                                <div class="them_moi_vt w_100 float_l mt_65">
                                     <div class="ctn_table w_100 float_l khac_ctn_vc">
                                         <table class="table">
                                             <thead>

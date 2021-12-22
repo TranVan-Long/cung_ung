@@ -173,7 +173,7 @@ include "../includes/icon.php";
 
                                 <div class="them_moi_vt w_100 float_l mt_25">
                                     <div class="ctn_table w_100 float_l">
-                                        <table class="table w_100 float_l">
+                                        <table class="table">
                                             <thead>
                                                 <tr>
                                                     <th class="share_tb_seven"></th>
@@ -201,9 +201,9 @@ include "../includes/icon.php";
                                                                 class="remo_cot_ngang share_cursor">
                                                         </p>
                                                     </td>
-                                                    <td class="share_tb_seven">
-                                                        <p>1</p>
-                                                    </td>
+
+                                                    <td class="share_tb_seven">1</td>
+
                                                     <td class="share_tb_one">
                                                         <div class="form-group share_form_select">
                                                             <select name="ma_vatt" class="ma_vatt">
@@ -211,64 +211,76 @@ include "../includes/icon.php";
                                                             </select>
                                                         </div>
                                                     </td>
+
                                                     <td class="share_tb_two">
-                                                        <div class="form-group share_form_select">
-                                                            <select name="ten_vatt" class="ten_vatt">
+                                                        <div class="form-group">
+                                                            <select name="name_vt" class="name_vt form-control">
                                                                 <option value=""></option>
                                                             </select>
                                                         </div>
                                                     </td>
+
                                                     <td class="share_tb_seven">
                                                         <div class="form-group">
                                                             <input type="text" name="dvi_tinh"
                                                                 class="form-control" disabled>
                                                         </div>
                                                     </td>
+
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
                                                             <input type="text" name="hsan_xuat" class="form-control">
                                                         </div>
                                                     </td>
+
                                                     <td class="share_tb_eight">
                                                         <div class="form-group">
                                                             <input type="number" name="so_luong_hd" class="form-control" disabled>
                                                         </div>
                                                     </td>
+
                                                     <td class="share_tb_eight">
                                                         <div class="form-group">
                                                             <input type="number" name="so_luong_kt" class="form-control" disabled>
                                                         </div>
                                                     </td>
+
                                                     <td class="share_tb_one">
                                                         <div class="form-group">
                                                             <input type="number" name="sl_knay" class="form-control">
                                                         </div>
                                                     </td>
+
                                                     <td class="share_tb_eight">
                                                         <div class="form-group">
                                                             <input type="date" name="thoig_ghang" class="form-control">
                                                         </div>
                                                     </td>
+
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
                                                             <input type="number" name="don_gia" class="form-control">
                                                         </div>
                                                     </td>
+
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
                                                             <input type="number" name="ttr_vat" class="form-control" disabled>
                                                         </div>
                                                     </td>
+
                                                     <td class="share_tb_seven">
                                                         <div class="form-group">
                                                             <input type="number" name="thue_vat" class="form-control">
                                                         </div>
                                                     </td>
+
                                                     <td class="share_tb_eight">
                                                         <div class="form-group">
                                                             <input type="number" name="tts_vat" class="form-control" disabled>
                                                         </div>
                                                     </td>
+
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
                                                             <input type="text" name="dia_chi_g" class="form-control">
@@ -282,9 +294,9 @@ include "../includes/icon.php";
                                 <div class="form-button w_100">
                                     <div class="form_button dh_button">
                                         <button type="button"
-                                            class="cancel_add share_cursor share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
+                                            class="cancel_add mt-10 share_cursor share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
                                         <button type="submit"
-                                            class="save_add share_cursor share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
+                                            class="save_add mt-10 share_cursor share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
                                     </div>
                                 </div>
                             </form>
@@ -334,7 +346,7 @@ include "../includes/icon.php";
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
-    $(".all_nhacc, .all_nguoilh, .all_pban, .all_da_ct, .all_hopd, .ma_vatt, .ten_vatt").select2({
+    $(".all_nhacc, .all_nguoilh, .all_pban, .all_da_ct, .all_hopd, .ma_vatt").select2({
         width: '100%',
     });
 

@@ -64,7 +64,7 @@ include "../includes/icon.php";
                                 </p>
                             </div>
                         </div>
-                        <div class="form_tkiem d_flex fl_wrap">
+                        <div class="form_tkiem d_flex">
                             <div class="share_form_select category">
                                 <select name="category" class="tim_kiem">
                                     <option value="">Tìm kiếm theo</option>
@@ -224,31 +224,19 @@ $(".tim_kiem, .tim_kiem_o").select2({
     width: '100%',
 });
 
-(function(w) {
-    w.addEventListener('load', function() {
-        const btn_right = document.querySelector('.scroll_right'),
-            btn_left = document.querySelector('.scroll_left'),
-            content = document.querySelector('.share_tb_hd');
-        const content_scroll_width = content.scrollWidth;
-        let content_scoll_left = content.scrollLeft;
+$('.scroll_right').click(function (e) {
+    e.preventDefault();
+    $('.share_tb_hd').animate({
+        scrollLeft: "+=300px"
+    }, "slow");
+});
 
-        btn_right.addEventListener('click', () => {
-            content_scoll_left += 100;
-            if (content_scoll_left >= content_scroll_width) {
-                content_scoll_left = content_scroll_width;
-            }
-            content.scrollLeft = content_scoll_left;
-        });
-
-        btn_left.addEventListener('click', () => {
-            content_scoll_left -= 100;
-            if (content_scoll_left <= 0) {
-                content_scoll_left = 0;
-            }
-            content.scrollLeft = content_scoll_left;
-        });
-    });
-})(window);
+$('.scroll_left').click(function (e) {
+    e.preventDefault();
+    $('.share_tb_hd').animate({
+        scrollLeft: "-=300px"
+    }, "slow");
+});
 
 var add_creart_hd = $(".add_creart_hd");
 var all_hopd = $(".all_hopd");
