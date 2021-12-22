@@ -25,15 +25,16 @@ include "../includes/icon.php";
 </head>
 
 <body>
-    <div class="main-container ql_them_hd_ban">
-        <? include('../includes/sidebar.php') ?>
+    <div class="main-container ql_sua_hd">
+         <? include('../includes/sidebar.php') ?>
         <div class="container">
             <div class="header-container">
                 <? include('../includes/ql_header_nv.php') ?>
             </div>
-            <div class="content">
+
+            <div class="content mt_20">
                 <div class="ctn_ctiet_hd w_100 float_l">
-                    <div class="chi_tiet_hd mt_25 w_100 float_l">
+                    <div class="chi_tiet_hd w_100 float_l">
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Sửa hợp đồng bán</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
                             <form action="" class="form_add_hp_mua share_distance w_100 float_l" method="">

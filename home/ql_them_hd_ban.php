@@ -24,13 +24,14 @@ include "../includes/icon.php";
 </head>
 
 <body>
-    <div class="main-container ql_them_hd_ban">
+    <div class="main-container ">
         <? include('../includes/sidebar.php') ?>
 
-        <div class="container">
+        <div class="container ql_them_hd_ban">
             <div class="header-container">
                 <? include('../includes/ql_header_nv.php') ?>
             </div>
+
             <div class="content mt_20">
                 <div class="ctn_ctiet_hd w_100 float_l">
                     <div class="chi_tiet_hd w_100 float_l">
@@ -124,7 +125,7 @@ include "../includes/icon.php";
                                 <div class="them_moi_vt w_100 float_l">
                                     <p class="add_vat_tu cr_weight share_fsize_tow share_clr_four share_cursor">+ Thêm mới vật tư</p>
                                     <div class="ctn_table w_100 float_l">
-                                        <table class="table w_100 float_l">
+                                        <table class="table cate_ql_b w_100 float_l">
                                             <thead>
                                                 <tr>
                                                     <th class="share_tb_seven"></th>
@@ -209,9 +210,9 @@ include "../includes/icon.php";
                                 <div class="form-button w_100">
                                     <div class="form_button hd_button">
                                         <button type="button"
-                                                class="cancel_add share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
+                                                class="cancel_add share_cursor mb-10 share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
                                         <button type="submit"
-                                                class="save_add share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
+                                                class="save_add share_cursor mb-10 share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
                                     </div>
                                 </div>
                             </form>
@@ -261,7 +262,7 @@ include "../includes/icon.php";
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
-    $(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia, .ma_vatt, .ten_vatt").select2({
+    $(".all_nhacc, .ten_nganhang, .ma_vatt, .ten_vatt").select2({
         width: '100%',
     });
 

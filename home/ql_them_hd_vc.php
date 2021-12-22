@@ -26,6 +26,7 @@ include "../includes/icon.php";
 <body>
     <div class="main-container ql_them_hd_vc ql_ctiet_hd_vc">
         <? include('../includes/sidebar.php') ?>
+
         <div class="container">
             <div class="header-container">
                 <? include('../includes/ql_header_nv.php') ?>

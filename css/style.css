@@ -2061,10 +2061,6 @@ img {
     border-top-right-radius: 10px;
 }
 
-.ctn_table .table {
-    min-width: 2572px;
-}
-
 .ql_ctiet_hd_thue .table {
     min-width: 3648px;
 }
@@ -2103,6 +2099,10 @@ img {
 
 .ql_ctiet_hd .table {
     min-width: 2624px;
+}
+
+.ql_them_hd_ban .table {
+    min-width: 2572px;
 }
 
 .table .form-group {
@@ -2976,6 +2976,12 @@ img {
 
     .side-bar {
         display: none;
+        position: relative;
+        overflow: unset;
+    }
+
+    .modal_menu .side-bar {
+        position: relative;
     }
 
     .main-container .container, .header {
@@ -3212,17 +3218,13 @@ img {
 
 }
 
-@media(max-width: 747px) {
+@media(max-width: 759px) {
     .ctiet_cty {
         display: none;
     }
 }
 
-@media screen and (max-width: 543px) {
-    .cnt_left_tow, .m-content, .modal_share .modal-content {
-        width: 90%;
-    }
-
+@media(max-width: 564px) {
     h5.user-name {
         display: none;
     }
@@ -3244,6 +3246,12 @@ img {
 
     .nav-item:last-child {
         padding-right: 0;
+    }
+}
+
+@media(max-width: 543px) {
+    .cnt_left_tow, .m-content, .modal_share .modal-content {
+        width: 90%;
     }
 
     .ctiet_pop p {
@@ -3542,5 +3550,4 @@ img {
     .ql_ctiet_hd_vc .chitiet_hd:last-child .ctiet_hd_left {
         border-bottom: 0.5px solid rgba(102, 102, 102, 0.24);
     }
-
 }

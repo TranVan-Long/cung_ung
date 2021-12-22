@@ -3,7 +3,6 @@ body {
     line-height: 19px;
     color: #474747;
     background-color: #ffffff;
-    overflow-x: hidden;
     margin: 0
 }
 
@@ -884,12 +883,13 @@ p.removeItem3 {
 .table_1457 {
     min-width: 1457px;
 }
-
-table {
+/* long sua */
+/* table {
     width: 100%;
     table-layout: fixed;
     border-collapse: collapse;
-}
+} */
+/* end long */
 
 .tbl-header {
     background-color: #4c5bd4;
