@@ -13,17 +13,17 @@
         <div class="nav">
             <ul>
                 <li>
-                    <a href="#" class="cr_weight_bold share_fsize_tow share_clr_tow active">Trang chủ</a>
+                    <a href="/" class="cr_weight_bold share_fsize_tow share_clr_tow <?= ($_SERVER['REDIRECT_URL'] == '/') ? "active":"" ?>">Trang chủ</a>
                 </li>
                 <li>
                     <a href="#" class="cr_weight_bold share_fsize_tow share_clr_tow">Tin tức</a>
                 </li>
                 <li>
-                    <a href="#" class="cr_weight_bold share_fsize_tow share_clr_tow">Hướng dẫn</a>
+                    <a href="huong_dan.html" class="cr_weight_bold share_fsize_tow share_clr_tow <?= ($_SERVER['REDIRECT_URL'] == '/huong_dan.html') ? "active":"" ?>">Hướng dẫn</a>
                 </li>
             </ul>
             <div class="hd_log">
-                <!-- <? if(isset($_COOKIE['acc_token']) && isset($_COOKIE['role']) && isset($_COOKIE['rf_token'])) {
+                <? if(isset($_COOKIE['acc_token']) && isset($_COOKIE['role']) && isset($_COOKIE['rf_token'])) {
                         if(isset($_COOKIE['user']) && $_COOKIE['user'] != "" && $_COOKIE['role'] == 1){
                             $token= $_COOKIE['acc_token'];
                             $curl = curl_init();
@@ -99,14 +99,14 @@
                         </div>
                 <? }
             }
-            if (!isset($_COOKIE['acc_token']) && !isset($_COOKIE['role']) && !isset($_COOKIE['rf_token'])) {?> -->
+            if (!isset($_COOKIE['acc_token']) && !isset($_COOKIE['role']) && !isset($_COOKIE['rf_token'])) {?>
                     <div class="bg_log">
-                        <p><a href="lua-chon-dang-ky.html" class="cr_weight_bold share_fsize_tow share_clr_tow">Đăng ký</a>
+                        <p><a href="https://quanlychung.timviec365.vn/lua-chon-dang-ky.html" class="cr_weight_bold share_fsize_tow share_clr_tow">Đăng ký</a>
                             /
-                            <a href="lua-chon-dang-nhap.html" class="cr_weight_bold share_fsize_tow share_clr_tow">Đăng nhập</a>
+                            <a href="https://quanlychung.timviec365.vn/lua-chon-dang-nhap.html" class="cr_weight_bold share_fsize_tow share_clr_tow">Đăng nhập</a>
                         </p>
                     </div>
-                <!-- <? } ?> -->
+                <? } ?>
             </div>
         </div>
     </div>

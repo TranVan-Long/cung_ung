@@ -28,7 +28,7 @@ RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 </IfModule>
 
 #page hướng dẫn
-RewriteRule ^huong_dan.html$ /home/home_hd.php [NE,L]
+RewriteRule ^huong-dan.html$ /home/home_hd.php [NE,L]
 
 RewriteRule ^quan-ly-trang-chu.html$ /home/ql_trangchu.php [NE,L]
 # quản lý hợp đồng

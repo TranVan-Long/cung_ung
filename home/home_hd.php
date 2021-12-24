@@ -2,11 +2,17 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/dat.css">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hướng dẫn</title>
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+    <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
 </head>
 
 <body>
@@ -19,6 +25,7 @@
                         <div class="ctn_butth">
                             <div class="bgr_header">
                                 <picture>
+                                    <source media="(max-width: 480px)" srcset="../img/huongd_res.png">
                                     <img src="../img/banner_hd.png" alt="">
                                 </picture>
                             </div>
@@ -143,7 +150,22 @@
             <? include('../includes/inc_footer.php') ?>
         </div>
     </div>
+    <? include("../modals/modal_menu_tt.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    var btx_modal_ind = $(".btx_modal_ind");
+    var menu_tt = $(".menu_tt");
 
+    btx_modal_ind.click(function(){
+        menu_tt.show();
+    });
+
+    $(window).click(function(e){
+        if($(e.target).is(".menu_tt")){
+            menu_tt.hide();
+        }
+    })
+
+</script>
 </html>
