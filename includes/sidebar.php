@@ -55,7 +55,7 @@ $bao_gia_kh = ['/quan-ly-bao-gia-cho-khach-hang.html', '/chi-tiet-bao-gia-cho-kh
 ?>
 <div class="side-bar">
     <div class="logo-container">
-        <a href="#"><img alt="tim viec 365" class="logo" src="/img/logo_o.png"></a>
+        <a href="quan-ly-trang-chu.html"><img alt="tim viec 365" class="logo" src="/img/logo_o.png"></a>
     </div>
     <ul class="menu">
         <li class="<?= ($_SERVER['REDIRECT_URL'] == '/quan-ly-trang-chu.html') ? "active":"" ?>">

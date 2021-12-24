@@ -19,7 +19,7 @@
                     <a href="#" class="cr_weight_bold share_fsize_tow share_clr_tow">Tin tức</a>
                 </li>
                 <li>
-                    <a href="huong_dan.html" class="cr_weight_bold share_fsize_tow share_clr_tow <?= ($_SERVER['REDIRECT_URL'] == '/huong_dan.html') ? "active":"" ?>">Hướng dẫn</a>
+                    <a href="huong-dan.html" class="cr_weight_bold share_fsize_tow share_clr_tow <?= ($_SERVER['REDIRECT_URL'] == '/huong_dan.html') ? "active":"" ?>">Hướng dẫn</a>
                 </li>
             </ul>
             <div class="hd_log">

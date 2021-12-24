@@ -24,10 +24,10 @@ include "../includes/icon.php";
 </head>
 
 <body>
-    <div class="main-container">
+    <div class="main-container ql_them_hd_mua">
         <? include('../includes/sidebar.php') ?>
 
-        <div class="container ql_them_hd_mua">
+        <div class="container">
             <div class="header-container">
                 <? include('../includes/ql_header_nv.php') ?>
             </div>
@@ -42,7 +42,7 @@ include "../includes/icon.php";
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số hợp đồng</label>
-                                        <input type="text" name="so_hd" class="form-control">
+                                        <input type="text" name="so_hd" class="form-control" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label>Ngày ký hợp đồng <span class="cr_red">*</span></label>
@@ -82,15 +82,15 @@ include "../includes/icon.php";
                                             class="form-control h_border cr_weight">
                                     </div>
                                     <div class="form-group  d_flex fl_agi form_lb">
-                                        <label>Đơn giá đã bao gồm VAT</label>
-                                        <input type="checkbox" name="dgia_vat">
+                                        <label for="dgia_tt">Đơn giá đã bao gồm VAT</label>
+                                        <input type="checkbox" name="dgia_vat" id="dgia_tt">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Thuế suất VAT</label>
                                         <input type="text" name="thues_vat" class="form-control"
-                                            placeholder="Nhập thuế suất VAT">
+                                            placeholder="Nhập thuế suất VAT" >
                                     </div>
                                     <div class="form-group">
                                         <label>Tiền chiết khấu</label>
@@ -200,10 +200,10 @@ include "../includes/icon.php";
                                         <table class="table w_100 float_l">
                                             <thead>
                                                 <tr>
-                                                    <th class="share_tb_one"></th>
+                                                    <th class="share_tb_seven"></th>
                                                     <th class="share_tb_two">Mã vật tư</th>
                                                     <th class="share_tb_three">Tên đầy đủ vật tư thiết bị</th>
-                                                    <th class="share_tb_one">Đơn vị tính</th>
+                                                    <th class="share_tb_eight">Đơn vị tính</th>
                                                     <th class="share_tb_two">Hãng sản xuất</th>
                                                     <th class="share_tb_two">Xuất xứ</th>
                                                     <th class="share_tb_one">Số lượng</th>
@@ -215,7 +215,7 @@ include "../includes/icon.php";
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="share_tb_one">
+                                                    <td class="share_tb_seven">
                                                         <p>
                                                             <img src="../img/remove.png" alt="xóa"
                                                                 class="remo_cot_ngang share_cursor">
@@ -229,26 +229,26 @@ include "../includes/icon.php";
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_three">
-                                                        <div class="form-group share_form_select">
-                                                            <select name="ten_vatt" class="ten_vatt">
+                                                        <div class="form-group">
+                                                            <select name="ten_vatt" class="ten_vatt form-control">
                                                                 <option value=""></option>
                                                             </select>
                                                         </div>
                                                     </td>
-                                                    <td class="share_tb_one">
+                                                    <td class="share_tb_eight">
                                                         <div class="form-group">
-                                                            <input type="text" name="don_vi" class="form-control">
+                                                            <input type="text" name="don_vi" class="form-control" disabled>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
                                                             <input type="text" name="hang-san-xuat"
-                                                                class="form-control">
+                                                                class="form-control" disabled>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
-                                                            <input type="text" name="xuat-xu" class="form-control">
+                                                            <input type="text" name="xuat-xu" class="form-control" disabled>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_one">
@@ -258,75 +258,12 @@ include "../includes/icon.php";
                                                     </td>
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
-                                                            <input type="number" name="don-gia" class="form-control">
+                                                            <input type="number" name="don-gia" class="form-control" disabled>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
-                                                            <input type="number" name="tien_tvat" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="number" name="thue_vat" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="number" name="tien_svat" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="share_tb_one">
-                                                        <p>
-                                                            <img src="../img/remove.png" alt="xóa"
-                                                                class="remo_cot_ngang share_cursor">
-                                                        </p>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group share_form_select">
-                                                            <select name="ma_vatt" class="ma_vatt">
-                                                                <option value=""></option>
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_three">
-                                                        <div class="form-group share_form_select">
-                                                            <select name="ten_vatt" class="ten_vatt">
-                                                                <option value=""></option>
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_one">
-                                                        <div class="form-group">
-                                                            <input type="text" name="don_vi" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="text" name="hang-san-xuat"
-                                                                class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="text" name="xuat-xu" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_one">
-                                                        <div class="form-group">
-                                                            <input type="number" name="so-luong" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="number" name="don-gia" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="number" name="tien_tvat" class="form-control">
+                                                            <input type="number" name="tien_tvat" class="form-control" disabled>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_two">
@@ -336,7 +273,7 @@ include "../includes/icon.php";
                                                     </td>
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
-                                                            <input type="number" name="tien_svat" class="form-control">
+                                                            <input type="number" name="tien_svat" class="form-control" disabled>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -400,74 +337,74 @@ include "../includes/icon.php";
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
-$(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia, .ma_vatt, .ten_vatt").select2({
+$(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia, .ma_vatt").select2({
     width: '100%',
 });
 
 $('.add_vat_tu').click(function() {
     var html = `<tr>
-                        <td class="share_tb_one">
-                            <p>
-                                <img src="../img/remove.png" alt="xóa"
-                                    class="remo_cot_ngang share_cursor">
-                            </p>
-                        </td>
-                        <td class="share_tb_two">
-                            <div class="form-group share_form_select">
-                                <select name="ma_vatt" class="ma_vatt">
-                                    <option value=""></option>
-                                </select>
-                            </div>
-                        </td>
-                        <td class="share_tb_three">
-                            <div class="form-group share_form_select">
-                                <select name="ten_vatt" class="ten_vatt">
-                                    <option value=""></option>
-                                </select>
-                            </div>
-                        </td>
-                        <td class="share_tb_one">
-                            <div class="form-group">
-                                <input type="text" name="don_vi" class="form-control">
-                            </div>
-                        </td>
-                        <td class="share_tb_two">
-                            <div class="form-group">
-                                <input type="text" name="hang-san-xuat"
-                                    class="form-control">
-                            </div>
-                        </td>
-                        <td class="share_tb_two">
-                            <div class="form-group">
-                                <input type="text" name="xuat-xu" class="form-control">
-                            </div>
-                        </td>
-                        <td class="share_tb_one">
-                            <div class="form-group">
-                                <input type="number" name="so-luong" class="form-control">
-                            </div>
-                        </td>
-                        <td class="share_tb_two">
-                            <div class="form-group">
-                                <input type="number" name="don-gia" class="form-control">
-                            </div>
-                        </td>
-                        <td class="share_tb_two">
-                            <div class="form-group">
-                                <input type="number" name="tien_tvat" class="form-control">
-                            </div>
-                        </td>
-                        <td class="share_tb_two">
-                            <div class="form-group">
-                                <input type="number" name="thue_vat" class="form-control">
-                            </div>
-                        </td>
-                        <td class="share_tb_two">
-                            <div class="form-group">
-                                <input type="number" name="tien_svat" class="form-control">
-                            </div>
-                        </td>
-                    </tr>`;
+                    <td class="share_tb_seven">
+                        <p>
+                            <img src="../img/remove.png" alt="xóa"
+                                class="remo_cot_ngang share_cursor">
+                        </p>
+                    </td>
+                    <td class="share_tb_two">
+                        <div class="form-group share_form_select">
+                            <select name="ma_vatt" class="ma_vatt">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="share_tb_three">
+                        <div class="form-group">
+                            <select name="ten_vatt" class="ten_vatt form-control">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="share_tb_eight">
+                        <div class="form-group">
+                            <input type="text" name="don_vi" class="form-control" disabled>
+                        </div>
+                    </td>
+                    <td class="share_tb_two">
+                        <div class="form-group">
+                            <input type="text" name="hang-san-xuat"
+                                class="form-control" disabled>
+                        </div>
+                    </td>
+                    <td class="share_tb_two">
+                        <div class="form-group">
+                            <input type="text" name="xuat-xu" class="form-control" disabled>
+                        </div>
+                    </td>
+                    <td class="share_tb_one">
+                        <div class="form-group">
+                            <input type="number" name="so-luong" class="form-control">
+                        </div>
+                    </td>
+                    <td class="share_tb_two">
+                        <div class="form-group">
+                            <input type="number" name="don-gia" class="form-control" disabled>
+                        </div>
+                    </td>
+                    <td class="share_tb_two">
+                        <div class="form-group">
+                            <input type="number" name="tien_tvat" class="form-control" disabled>
+                        </div>
+                    </td>
+                    <td class="share_tb_two">
+                        <div class="form-group">
+                            <input type="number" name="thue_vat" class="form-control">
+                        </div>
+                    </td>
+                    <td class="share_tb_two">
+                        <div class="form-group">
+                            <input type="number" name="tien_svat" class="form-control" disabled>
+                        </div>
+                    </td>
+                </tr>`;
     $(".ctn_table .table tbody").append(html);
     widthSelect();
 

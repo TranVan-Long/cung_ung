@@ -8,7 +8,12 @@ include "../includes/icon.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quản lý yêu cầu vật tư</title>
-    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
     <link href="../css/select2.min.css" rel="stylesheet" />
 
     <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
@@ -201,8 +206,6 @@ include "../includes/icon.php";
                             <li class="active"><a href="#">1</a></li>
                             <li><a href="#">2</a></li>
                             <li><a href="#">3</a></li>
-                            <!-- <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li> -->
                             <li><a href="#"><?php echo $ic_gt ?></a></li>
                         </ul>
                     </div>

@@ -1,18 +1,19 @@
-<?php
-include("../includes/icon.php");
+<?
+    include("../includes/icon.php");
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chi tiết yêu cầu vật tư</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
-    <link href="../css/select2.min.css" rel="stylesheet"/>
 
     <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+    <link href="../css/select2.min.css" rel="stylesheet"/>
 
     <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
     <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
@@ -89,7 +90,7 @@ include("../includes/icon.php");
                             <p class="right text-right w-50 cr_weight">20/11/2021</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top">
+                    <div class="form-row left border-top share_dnone">
                         <div class="form-col-50 pl-10 pt-10 mb_12">
                             <p class="left text-left w-50">Lý do từ chối</p>
                             <p class="right text-right w-50 cr_weight">Không đủ kinh phí</p>

@@ -30,7 +30,6 @@ var modal_menu = $(".modal_menu");
 
 $(".avt_menu").click(function () {
     $(".modal_menu").show();
-    // $(".header-container").css("position", "fixed");
 });
 
 $(".collapse").click(function () {
@@ -40,7 +39,7 @@ $(".collapse").click(function () {
 });
 
 function widthSelect() {
-    $(".ma_vatt, .ten_vatt").select2({
+    $(".ma_vatt").select2({
         width: '100%',
     });
 }

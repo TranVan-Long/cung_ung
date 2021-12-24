@@ -19,24 +19,19 @@ include("../includes/icon.php");
 
 </head>
 <body>
-<div class="main-container">
-    <!--    a-side menu-->
+<div class="main-container duyet_yc_vtu">
     <?php include("../includes/sidebar.php") ?>
-    <!--    a-side menu end-->
 
     <div class="container">
-        <!--        header-->
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
-        <!--        header end-->
         <div class="content">
             <div class="mt-20 left">
                 <a class="text-black" href="quan-ly-yeu-cau-vat-tu.html"><?php echo $ic_lt ?> Quay lại</a>
                 <h4 class="text-blue mt-20 mb_25">Chi tiết yêu cầu vật tư</h4>
             </div>
             <div class="c-body">
-
                 <div class="form-control">
                     <div class="form-row left">
                         <div class="form-col-50 mb_12 pt-10 pl-10 pb-10">
@@ -75,7 +70,7 @@ include("../includes/icon.php");
                             <p class="left text-left w-50">Diễn giải</p>
                             <p class="right text-right w-50 cr_weight">Sử dụng để nối thêm đường ống nước</p>
                         </div>
-                        <div class="form-col-50 mb_12 pt-10 right pr-10">
+                        <div class="form-col-50 mb_12 pt-10 right pr-10 trang_thai">
                             <p class="left text-left w-50">Trạng thái</p>
                             <p class="right text-right w-50 cr_weight">Chưa duyệt</p>
                         </div>
@@ -132,8 +127,8 @@ include("../includes/icon.php");
                     </div>
                 </div>
                 <div class="right mt-30">
-                    <button class="v-btn btn-outline-red modal-btn mr-20" data-target="decide">Từ chối</button>
-                    <button class="v-btn btn-blue modal-btn" data-target="accept">Duyệt</button>
+                    <button class="v-btn mb_10 btn-outline-red modal-btn mr-20" data-target="decide">Từ chối</button>
+                    <button class="v-btn mb_10 btn-blue modal-btn" data-target="accept">Duyệt</button>
                 </div>
             </div>
             <!-- modal tu choi -->
@@ -180,7 +175,7 @@ include("../includes/icon.php");
             <div class="modal text-center" id="accept">
                 <div class="m-content">
                     <div class="m-head">
-                        Xóa yêu cầu vật tư <span class="dismiss cancel">&times;</span>
+                        Duyệt yêu cầu vật tư <span class="dismiss cancel">&times;</span>
                     </div>
                     <div class="m-body">
                         <p>Bạn có chắc chắn muốn duyệt?</p>
@@ -212,7 +207,7 @@ include("../includes/icon.php");
                         <p class="text-500 mt-40">Số lượng duyệt</p>
                         <div class="w-100">
                             <div class="table-wrapper mt-15">
-                                <div class="table-container">
+                                <div class="table-container table_duyet">
                                     <div class="tbl-header">
                                         <table>
                                             <thead>
@@ -262,7 +257,7 @@ include("../includes/icon.php");
         </div>
     </div>
 </div>
-<?php include "../modals/modal_logout.php"?>
+<? include "../modals/modal_logout.php"?>
 <? include("../modals/modal_menu.php") ?>
 
 </body>

@@ -1,6 +1,7 @@
-<?php
-include("../includes/icon.php");
-$date = date('m-d-Y', time())
+<?
+    include("../includes/icon.php");
+    $date = date('d-m-Y', time());
+    $date1 = date_format(date_create($date),'m/d/Y');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +10,12 @@ $date = date('m-d-Y', time())
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Thêm yêu cầu vật tư</title>
-    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
     <link href="../css/select2.min.css" rel="stylesheet" />
 
     <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
@@ -37,47 +43,47 @@ $date = date('m-d-Y', time())
                     <div class="form-control">
                         <div class="form-row left">
                             <div class="form-col-50 mb_15">
-                                <label for="so-phieu">Số phiếu yêu cầu <span class="text-red">*</span></label>
-                                <input type="text" id="so-phieu" name="so-phieu" value="PH-009-01029" disabled required>
+                                <label for="so-phieu">Số phiếu yêu cầu</label>
+                                <input type="text" id="so-phieu" name="so-phieu" value="PH-009-01029" disabled>
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 left v-select2 mb_15">
-                                <label for="chon-phong-ban">Chọn phòng ban <span class="text-red">*</span></label>
-                                <select name="chon-phong-ban" id="chon-phong-ban" class="share_select">
+                                <label>Phòng ban <span class="text-red">*</span></label>
+                                <select name="chon-phong-ban" class="share_select">
                                     <option value="">-- Chọn phòng ban --</option>
                                 </select>
                             </div>
                             <div class="form-col-50 right v-select2 mb_15">
-                                <label for="nguoi-yeu-cau">Người yêu cầu <span class="text-red">*</span></label>
-                                <select name="nguoi-yeu-cau" id="nguoi-yeu-cau" class="share_select">
+                                <label>Người yêu cầu <span class="text-red">*</span></label>
+                                <select name="nguoi-yeu-cau" class="share_select">
                                     <option value="">-- Chọn người yêu cầu --</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 v-select2 mb_15">
-                                <label for="cong-trinh">Chọn công trình <span class="text-red">*</span></label>
-                                <select name="cong-trinh" id="cong-trinh" class="share_select">
+                                <label>Công trình <span class="text-red">*</span></label>
+                                <select name="cong-trinh" class="share_select">
                                     <option value="">-- Chọn công trình --</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 left mb_15">
-                                <label for="ngay-tao-yeu-cau">Ngày tạo yêu cầu</label>
-                                <input class="date-input" type="text" id="ngay-tao-yeu-cau" value="<?php echo $date ?>"
+                                <label>Ngày tạo yêu cầu</label>
+                                <input class="date-input" type="text" value="<?php echo $date1 ?>"
                                     name="ngay-tao-yeu-cau" disabled>
                             </div>
                             <div class="form-col-50 right mb_15">
-                                <label for="deadline">Ngày phải hoàn thành yêu cầu</label>
-                                <input class="" type="date" id="deadline" name="deadline"
+                                <label>Ngày phải hoàn thành yêu cầu</label>
+                                <input class="" type="date" name="deadline"
                                     placeholder="Chọn ngày phải hoàn thành yêu cầu">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-100 left mb_15">
-                                <label for="dien-giai">Diễn giải</label>
+                                <label>Diễn giải</label>
                                 <textarea id="dien-giai" name="dien-giai" placeholder="Nhập diễn giải"></textarea>
                             </div>
                         </div>
@@ -117,10 +123,10 @@ $date = date('m-d-Y', time())
                                                     </div>
                                                 </td>
                                                 <td class="w-20">
-                                                    <input type="text" disabled>
+                                                    <input type="text" name="dv_tinh" disabled>
                                                 </td>
                                                 <td class="w-25">
-                                                    <input type="text">
+                                                    <input type="text" name="so_luong">
                                                 </td>
                                             </tr>
                                             <tr class="item">
@@ -138,10 +144,10 @@ $date = date('m-d-Y', time())
                                                     </div>
                                                 </td>
                                                 <td class="w-20">
-                                                    <input type="text" name="" disabled>
+                                                    <input type="text" name="dv_tinh" disabled>
                                                 </td>
                                                 <td class="w-25">
-                                                    <input type="text" name="">
+                                                    <input type="text" name="so_luong">
                                                 </td>
                                             </tr>
                                         </tbody>

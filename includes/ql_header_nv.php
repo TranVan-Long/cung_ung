@@ -26,7 +26,7 @@
                                         </div>
                                         <div class="titl_tb_nn">
                                             <a href="#">
-                                                <p class="cr_weight share_clr_one">Nhac nho</p>
+                                                <p class="cr_weight share_clr_one">Nhắn nhở</p>
                                                 <p class="share_clr_one">Nhiều đơn hàng sắp quá hạn!</p>
                                             </a>
                                         </div>
@@ -40,7 +40,7 @@
                                         </div>
                                         <div class="titl_tb_nn">
                                             <a href="#">
-                                                <p class="cr_weight share_clr_one">Nhac nho</p>
+                                                <p class="cr_weight share_clr_one">Nhắn nhở</p>
                                                 <p class="share_clr_one">Nhiều đơn hàng sắp quá hạn!</p>
                                             </a>
                                         </div>
@@ -68,7 +68,7 @@
                                         </div>
                                         <div class="titl_tb_nn">
                                             <a href="#">
-                                                <p class="cr_weight share_clr_one">Thong bao</p>
+                                                <p class="cr_weight share_clr_one">Thông báo</p>
                                                 <p class="share_clr_one">Nhiều đơn hàng sắp quá hạn!</p>
                                             </a>
                                         </div>
@@ -82,7 +82,7 @@
                                         </div>
                                         <div class="titl_tb_nn">
                                             <a href="#">
-                                                <p class="cr_weight share_clr_one">Thong bao</p>
+                                                <p class="cr_weight share_clr_one">Thông báo</p>
                                                 <p class="share_clr_one">Nhiều đơn hàng sắp quá hạn!</p>
                                             </a>
                                         </div>

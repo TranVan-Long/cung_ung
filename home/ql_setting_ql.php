@@ -65,7 +65,7 @@ include "../includes/icon.php";
                                 </div>
                                 <div class="ctn_ct_tbao w_100 float_l share_bgr_tow" id="thong_bao">
                                     <div class="tbao_one d_flex flex_jct fl_agi">
-                                        <p class="share_fsize_tow share_clr_one cr_weight">Nhận thông báo khi có thay đổi ở tất cả các nội dung tôi xem được</p>
+                                        <p class="share_fsize_tow share_clr_one cr_weight pr-10">Nhận thông báo khi có thay đổi ở tất cả các nội dung tôi xem được</p>
                                         <div class="sett_right_one">
                                             <div class="tax-onoffswitch">
                                                 <input type="checkbox" class="onoffswitch-checkbox"
@@ -78,7 +78,7 @@ include "../includes/icon.php";
                                         </div>
                                     </div>
                                     <div class="tbao_one d_flex flex_jct fl_agi">
-                                        <p class="share_fsize_tow share_clr_one cr_weight">Nhận thông báo khi có phản hồi từ các nội dung tôi tạo ra</p>
+                                        <p class="share_fsize_tow share_clr_one cr_weight pr-10">Nhận thông báo khi có phản hồi từ các nội dung tôi tạo ra</p>
                                         <div class="sett_right_one">
                                             <div class="tax-onoffswitch">
                                                 <input type="checkbox" class="onoffswitch-checkbox"
@@ -91,7 +91,7 @@ include "../includes/icon.php";
                                         </div>
                                     </div>
                                     <div class="tbao_one d_flex flex_jct fl_agi">
-                                        <p class="share_fsize_tow share_clr_one cr_weight">Nhận thông báo khi có thay đổi ở các nội dung tôi tạo ra</p>
+                                        <p class="share_fsize_tow share_clr_one cr_weight pr-10">Nhận thông báo khi có thay đổi ở các nội dung tôi tạo ra</p>
                                         <div class="sett_right_one">
                                             <div class="tax-onoffswitch">
                                                 <input type="checkbox" class="onoffswitch-checkbox"
@@ -112,7 +112,7 @@ include "../includes/icon.php";
                                 </div>
                                 <div class="ctn_ct_tbao w_100 float_l share_bgr_tow" id="nhac_nho">
                                     <div class="tbao_one d_flex flex_jct fl_agi">
-                                        <p class="share_fsize_tow share_clr_one cr_weight">Nhắc nhở khi tất cả các nội dung tôi xem được đến hạn/quá hạn</p>
+                                        <p class="share_fsize_tow share_clr_one cr_weight pr-10">Nhắc nhở khi tất cả các nội dung tôi xem được đến hạn/quá hạn</p>
                                         <div class="sett_right_one">
                                             <div class="tax-onoffswitch">
                                                 <input type="checkbox" class="onoffswitch-checkbox"
@@ -125,7 +125,7 @@ include "../includes/icon.php";
                                         </div>
                                     </div>
                                     <div class="tbao_one d_flex flex_jct fl_agi">
-                                        <p class="share_fsize_tow share_clr_one cr_weight">Nhắc nhở khi các nội dung tôi theo dõi đến hạn/quá hạn</p>
+                                        <p class="share_fsize_tow share_clr_one cr_weight pr-10">Nhắc nhở khi các nội dung tôi theo dõi đến hạn/quá hạn</p>
                                         <div class="sett_right_one">
                                             <div class="tax-onoffswitch">
                                                 <input type="checkbox" class="onoffswitch-checkbox"
@@ -138,7 +138,7 @@ include "../includes/icon.php";
                                         </div>
                                     </div>
                                     <div class="tbao_one d_flex flex_jct fl_agi">
-                                        <p class="share_fsize_tow share_clr_one cr_weight">Nhắc nhở khi có các nội dung tôi tạo ra đến hạn/quá hạn</p>
+                                        <p class="share_fsize_tow share_clr_one cr_weight pr-10">Nhắc nhở khi có các nội dung tôi tạo ra đến hạn/quá hạn</p>
                                         <div class="sett_right_one">
                                             <div class="tax-onoffswitch">
                                                 <input type="checkbox" class="onoffswitch-checkbox"

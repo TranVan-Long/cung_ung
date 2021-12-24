@@ -9,6 +9,41 @@ if(!isset($_SESSION))
 require_once '../functions/functions.php';
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
+if (isset($_COOKIE['acc_token'])) {
+
+    $token = $_COOKIE['acc_token'];
+    //Check ip lưu tài khoản ntd
+    $client = @$_SERVER['HTTP_CLIENT_IP'];
+    $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+    $remote = $_SERVER['REMOTE_ADDR'];
+    $ip = '';
+    if (filter_var($client, FILTER_VALIDATE_IP)) {
+        $ip = $client;
+    } elseif (filter_var($forward, FILTER_VALIDATE_IP)) {
+        $ip = $forward;
+    } else {
+        $ip = $remote;
+    }
+    $curl = curl_init();
+    $data = array(
+        'from' => 'cu365',
+        'ip' => $ip,
+    );
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/check_ip_access.php');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    if ($response == 0) {
+        header("Location: https://quanlychung.timviec365.vn/loi-truy-cap.html");
+        die();
+    }
+}
+
 
 if (!isset($_COOKIE['acc_token']) && !isset($_COOKIE['role']) && !isset($_COOKIE['rf_token'])) {
     header('Location: /');

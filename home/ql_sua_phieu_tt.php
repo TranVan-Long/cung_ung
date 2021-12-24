@@ -75,9 +75,8 @@
                                         <label>Loại thanh toán</label>
                                         <select name="hdong_dhang" class="form-control all_hthuc">
                                             <option value="">-- Chọn hình thức thanh toán --</option>
-                                            <option value="1">Tiền mặt</option>
-                                            <option value="2">Bằng thẻ</option>
-                                            <option value="3">Chuyển khoản</option>
+                                            <option value="1">Tạm ứng</option>
+                                            <option value="2">Theo hợp đồng</option>
                                         </select>
                                     </div>
                                 </div>

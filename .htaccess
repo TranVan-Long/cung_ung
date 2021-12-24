@@ -86,6 +86,9 @@ RewriteRule ^quan-ly-cai-dat.html$ /home/ql_setting_ql.php [NE,L]
 RewriteRule ^cai-dat-phan-quyen.html$ /home/ql_phan_quyen.php [NE,L]
 RewriteRule ^nhat-ky-hoat-dong.html$ /home/ql_nhatky.php [NE,L]
 
+RewriteRule ^quan-ly-cai-dat-nhan-vien.html$ /home/ql_setting_nv.php [NE,L]
+RewriteRule ^nhat-ky-hoat-dong-nhan-vien.html$ /home/ql_nhatky_nv.php [NE,L]
+
 # quản lý cài đặt nhân viên
 RewriteRule ^quan-ly-cai-dat-nhan-vien.html$ /home/ql_setting_nv.php [NE,L]
 RewriteRule ^nhat-ky-hoat-dong-nhan-vien.html$ /home/ql_nhatky_nv.php [NE,L]

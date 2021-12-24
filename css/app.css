@@ -94,10 +94,6 @@ p {
     border-radius: 4px;
 }
 
-.date-input {
-    background: #ffffff url("/img/calendar.png") 97% 50% no-repeat;
-}
-
 .date-input-sm {
     padding: 9px 5px !important;
     background-position: 93% 50% !important;
@@ -107,7 +103,16 @@ p {
     padding: 9px;
     font-size: 16px;
     line-height: 19px;
-    background: #ffffff url("/img/calendar.png") 97% 50% no-repeat;
+    color: #666666;
+    background-image: url("/img/calendar.png");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px), 50%;
+}
+
+.date-input {
+    background-image: url("/img/calendar.png");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px), 50%;
 }
 
 [type="date"]::-webkit-inner-spin-button {
@@ -532,6 +537,7 @@ textarea[placeholder] {
     scrollbar-width: none;
     /* Firefox */
 }
+
 /* long sua */
 /* .main-container {
     margin: 0 auto;
@@ -884,6 +890,7 @@ p.removeItem3 {
 .table_1457 {
     min-width: 1457px;
 }
+
 /* long sua */
 /* table {
     width: 100%;
