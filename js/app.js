@@ -73,42 +73,44 @@ $("#add-material").click(function () {
 });
 // them tai khoan ngan hang
 $('#add-bank-acc').click(function () {
-    var html = `<div class="bank border-bottom left w-100 pb-20 mt-10">
-                    <div class="form-row left">
-                        <div class="form-col-50 left">
-                            <div class="v-select2 mb_15">
-                                <label for="ten-ngan-hang">Tên ngân hàng<span class="text-red">*</span></label>
-                                <select name="ten-ngan-hang" class="share_select">
-                                    <option value="">-- Chọn ngân hàng --</option>
-                                </select>
+    var html = `<div class="bank border-bottom left w-100 pb-20 mt-10 d-flex spc-btw">
+                            <div class="bank-form">
+                                <div class="form-row left">
+                                    <div class="form-col-50 left mb_15">
+                                        <div class="v-select2">
+                                            <label for="ten-ngan-hang">Tên ngân hàng<span class="text-red">*</span></label>
+                                            <select name="ten-ngan-hang" class="share_select">
+                                                <option value="">-- Chọn ngân hàng --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-col-50 right mb_15">
+                                        <div class="v-select2">
+                                            <label for="chi-nhanh-ngan-hang">Chi nhánh<span
+                                                        class="text-red">*</span></label>
+                                            <select name="chi-nhanh-ngan-hang" class="share_select">
+                                                <option value="">-- Chọn chi nhánh --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row left">
+                                    <div class="form-col-50 left mb_15">
+                                        <label for="tai-khoan-ngan-hang">Tài khoản ngân hàng<span
+                                                    class="text-red">*</span></label>
+                                        <input type="text" id="tai-khoan-ngan-hang" name="tai-khoan-ngan-hang"
+                                               placeholder="Nhập số tài khoản">
+                                    </div>
+                                    <div class="form-col-50 right mb_15">
+                                        <label for="ma-so-thue">Chủ tài khoản</label>
+                                        <input type="text" id="ma-so-thue" name="ma-so-thue" placeholder="Nhập mã số thuế">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-col-50 ml-10-p left">
-                            <div class="v-select2 mb_15">
-                                <label for="chi-nhanh-ngan-hang">Chi nhánh<span
-                                            class="text-red">*</span></label>
-                                <select name="chi-nhanh-ngan-hang" class="share_select">
-                                    <option value="">-- Chọn chi nhánh --</option>
-                                </select>
+                            <div class="removeItem2">
+                                <i class="ic-delete2"></i>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-row left">
-                        <div class="form-col-50 left mb_15">
-                            <label for="tai-khoan-ngan-hang">Tài khoản ngân hàng<span
-                                        class="text-red">*</span></label>
-                            <input type="text" id="tai-khoan-ngan-hang" name="tai-khoan-ngan-hang"
-                                    placeholder="Nhập số tài khoản">
-                        </div>
-                        <div class="form-col-50 left ml-10-p mb_15">
-                            <label for="ma-so-thue">Chủ tài khoản</label>
-                            <input type="text" id="ma-so-thue" name="ma-so-thue" placeholder="Nhập mã số thuế">
-                        </div>
-                    </div>
-                    <div class="right">
-                        <p class="removeItem2"><i class="ic-delete2"></i></p>
-                    </div>
-                </div>`;
+                        </div>`;
     $('#bank-list').append(html);
     RefSelect2();
 })
@@ -197,12 +199,12 @@ $('#add-quote').click(function () {
         "                                        </td>\n" +
         "                                        <td class=\"w-30\">\n" +
         "                                            <div class=\"v-select2\">\n" +
-        "                                                <select name=\"materials-name\" class=\"share_select\"></select>\n" +
+        "                                                <select name=\"materials-name\"></select>\n" +
         "                                            </div>\n" +
         "                                        </td>\n" +
         "                                        <td class=\"w-25\">\n" +
         "                                            <div class=\"v-select2\">\n" +
-        "                                                <select name=\"materials-name\" class=\"share_select\"></select>\n" +
+        "                                                <select name=\"materials-name\"></select>\n" +
         "                                            </div>\n" +
         "                                        </td>\n" +
         "                                        <td class=\"w-10\">\n" +
@@ -217,86 +219,86 @@ $('#add-quote').click(function () {
 // them bao gia khach hang
 $("#them_vt_bg_kh").click(function () {
     var html = `<tr class="item">
-                    <td class="w-5">
-                        <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                    </td>
-                    <td class="w-15">
-                        <div class="v-select2">
-                            <select class="share_select">
-                                <option value=""></option>
-                            </select>
-                        </div>
-                    </td>
-                    <td class="w-20">
-                        <div class="v-select2">
-                            <select class="share_select">
-                                <option value=""></option>
-                            </select>
-                        </div>
-                    </td>
-                    <td class="w-20">
-                        <div class="v-select2">
-                            <select class="share_select">
-                                <option value=""></option>
-                            </select>
-                        </div>
-                    </td>
-                    <td class="w-15">
-                        <input type="text">
-                    </td>
-                    <td class="w-15">
-                        <input type="text" disabled>
-                    </td>
-                    <td class="w-20">
-                        <input type="text">
-                    </td>
-                    <td class="w-20">
-                        <input type="text" disabled>
-                    </td>
-                </tr>`;
+                                            <td class="w-5">
+                                                <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                                            </td>
+                                            <td class="w-15">
+                                                <div class="v-select2">
+                                                    <select class="share_select">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="w-20">
+                                                <div class="v-select2">
+                                                    <select>
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="w-20">
+                                                <div class="v-select2">
+                                                    <select>
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="w-15">
+                                                <input type="text">
+                                            </td>
+                                            <td class="w-15">
+                                                <input type="text" disabled>
+                                            </td>
+                                            <td class="w-20">
+                                                <input type="text">
+                                            </td>
+                                            <td class="w-20">
+                                                <input type="text" disabled>
+                                            </td>
+                                        </tr>`;
     $("#rererences_kh").append(html);
     RefSelect2();
 });
 // them bao gia khach hang
 $("#add_bgia").click(function () {
     var html = `<tr class="item">
-                    <td class="w-5">
-                        <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                    </td>
-                    <td class="w-15">
-                        <div class="v-select2">
-                            <select class="share_select">
-                                <option value=""></option>
-                            </select>
-                        </div>
-                    </td>
-                    <td class="w-20">
-                        <div class="v-select2">
-                            <select class="share_select">
-                                <option value=""></option>
-                            </select>
-                        </div>
-                    </td>
-                    <td class="w-20">
-                        <div class="v-select2">
-                            <select class="share_select">
-                                <option value=""></option>
-                            </select>
-                        </div>
-                    </td>
-                    <td class="w-15">
-                        <input type="text">
-                    </td>
-                    <td class="w-15">
-                        <input type="text" disabled>
-                    </td>
-                    <td class="w-20">
-                        <input type="text">
-                    </td>
-                    <td class="w-20">
-                        <input type="text" disabled>
-                    </td>
-                </tr>`;
+                                            <td class="w-5">
+                                                <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                                            </td>
+                                            <td class="w-15">
+                                                <div class="v-select2">
+                                                    <select class="share_select">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="w-20">
+                                                <div class="v-select2">
+                                                    <select>
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="w-20">
+                                                <div class="v-select2">
+                                                    <select>
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="w-15">
+                                                <input type="text">
+                                            </td>
+                                            <td class="w-15">
+                                                <input type="text" disabled>
+                                            </td>
+                                            <td class="w-20">
+                                                <input type="text">
+                                            </td>
+                                            <td class="w-20">
+                                                <input type="text" disabled>
+                                            </td>
+                                        </tr>`;
     $("#rererences_bgia").append(html);
     RefSelect2();
 });

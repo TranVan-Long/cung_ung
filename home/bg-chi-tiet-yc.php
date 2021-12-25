@@ -33,58 +33,57 @@ include("../includes/icon.php");
                 <a class="text-black" href="quan-ly-yeu-cau-bao-gia.html"><?php echo $ic_lt ?> Quay lại</a>
                 <p class="text-blue mt-25 page-title">Chi tiết yêu cầu báo giá</p>
             </div>
-            <div class="w-100 left">
-                <div class="form-control">
-                    <div class="form-row left pt-10 mt-10">
-                        <div class="form-col-50 pl-10">
-                            <p class="left text-left w-50">Số phiếu yêu cầu</p>
-                            <p class="right text-right w-50 cr_weight">BG-000-10176</p>
+            <div class="w-100 left mt-10">
+                <div class="form-control detail-form">
+                    <div class="form-row left">
+                        <div class="form-col-50 left p-10 no-border">
+                            <p class="detail-title">Số phiếu yêu cầu</p>
+                            <p class="text-500 detail-data">BG-000-10176</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2 pt-10 mt-10">
-                        <div class="form-col-50 left pl-10">
-                            <p class="left text-left w-50"> Ngày lập</p>
-                            <p class="right text-right w-50 cr_weight">18/10/2021</p>
+                    <div class="form-row left border-top2">
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title"> Ngày lập</p>
+                            <p class="text-500 detail-data">18/10/2021</p>
                         </div>
-                        <div class="form-col-50 right pr-10">
-                            <p class="left text-left w-50">Người lập</p>
-                            <p class="right text-right w-50 cr_weight">Nguyễn Văn A</p>
-                        </div>
-                    </div>
-                    <div class="form-row left border-top2 pt-10 mt-10">
-                        <div class="form-col-50 left pl-10">
-                            <p class="left text-left w-50"> Nhà cung cấp</p>
-                            <p class="right text-right w-50 cr_weight">Công ty A</p>
-                        </div>
-                        <div class="form-col-50 right pr-10">
-                            <p class="left text-left w-50">Người tiếp nhận báo giá</p>
-                            <p class="right text-right w-50 cr_weight">Nguyễn Thị B</p>
+                        <div class="form-col-50 right p-10">
+                            <p class="detail-title">Người lập</p>
+                            <p class="text-500 detail-data">Nguyễn Văn A</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2 pt-10 mt-10">
-                        <div class="form-col-50 pl-10">
-                            <p class="left text-left w-50">Công trình</p>
-                            <p class="right text-right w-50 cr_weight">Nâng cấp quốc lộ 999</p>
+                    <div class="form-row left border-top2">
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title"> Nhà cung cấp</p>
+                            <p class="text-500 detail-data">Công ty A</p>
+                        </div>
+                        <div class="form-col-50 right p-10">
+                            <p class="detail-title">Người tiếp nhận báo giá</p>
+                            <p class="text-500 detail-data">Nguyễn Thị B</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2 pt-10 mt-10">
-                        <div class="form-col-50 left pl-10">
-                            <p class="left text-left w-50">Nội dung thư</p>
-                            <p class="right text-right w-50 cr_weight">Không có</p>
+                    <div class="form-row left border-top2">
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title">Công trình</p>
+                            <p class="text-500 detail-data">Nâng cấp quốc lộ 999</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2 pt-10 mt-10">
-                        <div class="form-col-50 left pl-10">
-                            <p class="left text-left w-50">Mail nhận báo giá</p>
-                            <p class="right text-right w-50 cr_weight">ctcccccycyctctc@gmail.com</p>
+                    <div class="form-row left border-top2">
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title">Nội dung thư</p>
+                            <p class="text-500 detail-data">Không có</p>
                         </div>
-                        <div class="form-col-50 right pr-10">
-                            <p class="left text-left w-50">Giá đã bao gồm VAT</p>
-                            <p class="right text-right w-50 cr_weight text-green">Có</p>
+                    </div>
+                    <div class="form-row left border-top2">
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title">Mail nhận báo giá</p>
+                            <p class="text-500 detail-data">ctcccccycyctctc@gmail.com</p>
+                        </div>
+                        <div class="form-col-50 right p-10">
+                            <p class="detail-title">Giá đã bao gồm VAT</p>
+                            <p class="text-500 detail-data text-green">Có</p>
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="left w-100 mt-50">
                 <div class="table-wrapper mt-40">
@@ -127,17 +126,17 @@ include("../includes/icon.php");
                         </div>
                     </div>
                 </div>
-                <div class="left mt-30">
-                    <button class="v-btn btn-gray">Gửi mail</button>
+                <div class="control-btn right">
+                    <button class="v-btn btn-outline-red modal-btn mr-20 mt-30" data-target="delete-vt">Xóa</button>
+                    <a href="chinh-sua-yeu-cau-bao-gia.html" class="v-btn btn-blue mt-30">Chỉnh sửa</a>
                 </div>
-                <div class="right mt-30">
-                    <button class="v-btn btn-outline-red modal-btn" data-target="delete-vt">Xóa</button>
-                    <a href="chinh-sua-yeu-cau-bao-gia.html" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
+                <div class="control-btn left mr-10">
+                    <button class="v-btn btn-gray mr-20 mt-30">Gửi mail</button>
+                    <button class="v-btn btn-green mt-30">Xuất exel</button>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="modal text-center" id="delete-vt">
         <div class="m-content">
             <div class="m-head ">
@@ -159,7 +158,6 @@ include("../includes/icon.php");
     </div>
     <?php include "../modals/modal_logout.php"?>
     <? include("../modals/modal_menu.php") ?>
-
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>

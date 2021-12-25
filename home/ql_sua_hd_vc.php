@@ -40,7 +40,7 @@ include "../includes/icon.php";
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số hợp đồng</label>
-                                        <input type="text" name="so_hd" value="" class="form-control">
+                                        <input type="text" name="so_hd" value="" class="form-control" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label>Ngày hợp đồng <span class="cr_red">*</span></label>

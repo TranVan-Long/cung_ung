@@ -8,16 +8,19 @@ include("../includes/icon.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Yêu cầu báo giá</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
     <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
     <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
     <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
-
 </head>
 
-</head>
 <body>
 <div class="main-container bg_yeu_cau">
     <?php include("../includes/sidebar.php") ?>
@@ -27,31 +30,35 @@ include("../includes/icon.php");
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
         <div class="content">
-            <div class="c-top border-bottom pb-20">
-                <h4 class="left">Yêu cầu báo giá</h4>
-                <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
+            <div class="w-100 left border-bottom mt-25 pb-20 d-flex align-items-center spc-btw">
+                <p class="page-title">Yêu cầu báo giá</p>
+                <div class="c-help d_flex fl_agi">
+                    <i class="ic-question share_clr_four"><?php echo $ic_question ?></i>
+                    <a class="c-help" href="#">Hướng dẫn</a>
+                </div>
             </div>
-            <div class="w-100 left mt-20">
-                <div class="w-100 left">
-                    <div class="category v-select2">
-                        <select name="category" class="share_select">
-                            <option value="">Tìm kiếm theo</option>
-                            <option value="1">Mã yêu cầu</option>
-                            <option value="2">Người lập</option>
-                            <option value="3">Ngày lập</option>
-                            <option value="4">Nhà cung cấp</option>
-                        </select>
+            <div class="w-100 left">
+                <div class="w-100 left ">
+                    <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-yeu-cau-bao-gia.html">&plus; Thêm mới</a>
+                    <div class="filter">
+                        <div class="category v-select2 mt-20">
+                            <select name="category" class="share_select">
+                                <option value="">Tìm kiếm theo</option>
+                                <option value="1">Mã yêu cầu</option>
+                                <option value="2">Người lập</option>
+                                <option value="3">Ngày lập</option>
+                                <option value="4">Nhà cung cấp</option>
+                            </select>
+                        </div>
+                        <div class="search-box v-select2 mt-20">
+                            <select name="search" class="share_select">
+                                <option value="">Nhập thông tin cần tìm kiếm</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="search-box v-select2">
-                        <select name="search" class="share_select">
-                            <option value="">Nhập thông tin cần tìm kiếm</option>
-                        </select>
-                    </div>
-                    <a class="v-btn btn-blue add-btn" href="them-yeu-cau-bao-gia.html">&plus; Thêm mới</a>
-
                 </div>
                 <div class="table-wrapper mt-20">
-                    <div class="table-container table-sm">
+                    <div class="table-container table-988">
                         <div class="tbl-header">
                             <table>
                                 <thead>
@@ -168,9 +175,8 @@ include("../includes/icon.php");
         </div>
     </div>
 </div>
-<?php include "../modals/modal_logout.php"?>
+<?php include "../modals/modal_logout.php" ?>
 <? include("../modals/modal_menu.php") ?>
-
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

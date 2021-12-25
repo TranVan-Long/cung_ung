@@ -8,16 +8,21 @@ include("../includes/icon.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Báo giá cho khách hàng</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
     <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
     <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
     <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
-
 </head>
+
 <body>
-<div class="main-container">
+<div class="main-container ql_chung">
     <!--    a-side menu-->
     <?php include("../includes/sidebar.php") ?>
 
@@ -26,29 +31,34 @@ include("../includes/icon.php");
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
         <div class="content">
-            <div class="c-top border-bottom pb-30">
-                <h4 class="left">Báo giá cho khách hàng</h4>
-                <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
+            <div class="w-100 left border-bottom mt-25 pb-20 d-flex align-items-center spc-btw">
+                <p class="page-title">Báo giá cho khách hàng</p>
+                <div class="c-help d_flex fl_agi">
+                    <i class="ic-question share_clr_four"><?php echo $ic_question ?></i>
+                    <a class="c-help" href="#">Hướng dẫn</a>
+                </div>
             </div>
-            <div class="c-body mt-20">
+            <div class="w-100 left">
                 <div class="w-100 left">
-                    <div class="category v-select2">
-                        <select name="category" class="share_select">
-                            <option value="">Tìm kiếm theo</option>
-                            <option value="1">Số phiếu phản hồi</option>
-                            <option value="2">Người phản hồi</option>
-                            <option value="3">Ngày phản hồi</option>
-                            <option value="4">Khách hàng</option>
-                            <option value="5">Thời gian áp dụng</option>
-                            <option value="6">Hiệu lực báo giá</option>
-                        </select>
+                    <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-bao-gia-cho-khach-hang.html">&plus; Thêm mới</a>
+                    <div class="filter">
+                        <div class="category v-select2 mt-20">
+                            <select name="category" class="share_select">
+                                <option value="">Tìm kiếm theo</option>
+                                <option value="1">Số phiếu phản hồi</option>
+                                <option value="2">Người phản hồi</option>
+                                <option value="3">Ngày phản hồi</option>
+                                <option value="4">Khách hàng</option>
+                                <option value="5">Thời gian áp dụng</option>
+                                <option value="6">Hiệu lực báo giá</option>
+                            </select>
+                        </div>
+                        <div class="search-box v-select2 mt-20">
+                            <select name="search" class="share_select">
+                                <option value="">Nhập thông tin cần tìm kiếm</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="search-box v-select2">
-                        <select name="search" class="share_select">
-                            <option value="">Nhập thông tin cần tìm kiếm</option>
-                        </select>
-                    </div>
-                    <a class="v-btn btn-blue add-btn" href="them-bao-gia-cho-khach-hang.html">&plus; Thêm mới</a>
                 </div>
                 <div class="scr-wrapper mt-20">
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
@@ -195,11 +205,9 @@ include("../includes/icon.php");
 </div>
 <?php include "../modals/modal_logout.php"?>
 <? include("../modals/modal_menu.php") ?>
-
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
-
 </html>

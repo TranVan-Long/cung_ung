@@ -9,36 +9,40 @@ $date = date('m-d-Y', time())
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chỉnh sửa báo giá cho khách hàng</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
     <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
     <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
     <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
-
 </head>
+
 <body>
 <div class="main-container">
     <?php include("../includes/sidebar.php") ?>
-
     <div class="container">
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
         <div class="content">
-            <div class="mt-30 mb_25">
-                <h4>Chỉnh sửa báo giá cho khách hàng</h4>
+            <div class="left mt-25">
+                <p class="page-title">Chỉnh sửa báo giá cho khách hàng</p>
             </div>
-            <div class="c-body">
-                <div class="form-control">
+            <div class="w-100 left mt-10">
+                <div class="form-control edit-form">
                     <div class="form-row left">
-                        <div class="form-col-50 left mb_12">
+                        <div class="form-col-50 no-border left mb_15">
                             <label for="so-bao-gia">Số phiếu phản hồi<span class="text-red">*</span></label>
                             <input type="text" id="so-bao-gia" name="so-bao-gia" value="PH-099-01239" disabled >
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left pt_10 mb_12">
+                        <div class="form-col-50 no-border left mb_15">
                             <div class="v-select2">
                                 <label for="khach-hang">Khách hàng<span class="text-red">*</span></label>
                                 <select id="khach-hang" name="khach-hang" class="share_select">
@@ -47,7 +51,7 @@ $date = date('m-d-Y', time())
                                 </select>
                             </div>
                         </div>
-                        <div class="form-col-50 left ml-10-p">
+                        <div class="form-col-50 no-border right mb_15">
                             <div class="v-select2">
                                 <label for="ap-dung-tu">Thời gian áp dụng</label>
                                 <div class="d-flex align-items-center spc-btw w-100 left">
@@ -63,7 +67,7 @@ $date = date('m-d-Y', time())
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-100 left">
+                        <div class="w-100 no-border left">
                             <label for="noi-dung-phan-hoi">Nội dung phản hồi</label>
                             <textarea name="noi-dung-phan-hoi" id="noi-dung-phan-hoi" cols="30" rows="10" placeholder="Nhập nội dung phản hồi"></textarea>
                         </div>
@@ -105,14 +109,14 @@ $date = date('m-d-Y', time())
                                             </td>
                                             <td class="w-20">
                                                 <div class="v-select2">
-                                                    <select class="share_select">
+                                                    <select>
                                                         <option value=""></option>
                                                     </select>
                                                 </div>
                                             </td>
                                             <td class="w-20">
                                                 <div class="v-select2">
-                                                    <select class="share_select">
+                                                    <select>
                                                         <option value=""></option>
                                                     </select>
                                                 </div>
@@ -143,14 +147,14 @@ $date = date('m-d-Y', time())
                                             </td>
                                             <td class="w-20">
                                                 <div class="v-select2">
-                                                    <select class="share_select">
+                                                    <select>
                                                         <option value=""></option>
                                                     </select>
                                                 </div>
                                             </td>
                                             <td class="w-20">
                                                 <div class="v-select2">
-                                                    <select class="share_select">
+                                                    <select>
                                                         <option value=""></option>
                                                     </select>
                                                 </div>
@@ -175,10 +179,10 @@ $date = date('m-d-Y', time())
                     </div>
                 </div>
             </div>
-            <div class="c-foot mt-30">
-                <div class="right">
-                    <p class="v-btn btn-outline-blue modal-btn" data-target="cancel">Hủy</p>
-                    <button class="v-btn btn-blue ml-20">Xong</button>
+            <div class="c-foot">
+                <div class="control-btn right">
+                    <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
+                    <button class="v-btn btn-blue mt-20">Xong</button>
                 </div>
             </div>
             <div class="modal text-center" id="cancel">
@@ -203,17 +207,12 @@ $date = date('m-d-Y', time())
         </div>
     </div>
 </div>
-
 <?php include "../modals/modal_logout.php"?>
 <? include("../modals/modal_menu.php") ?>
-
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
-<script type="text/javascript">
-
-
-</script>
+<script type="text/javascript"></script>
 </html>

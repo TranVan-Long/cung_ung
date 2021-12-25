@@ -9,9 +9,9 @@ include("../includes/icon.php");
     <title>Chi tiết yêu cầu báo giá</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
 
-    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
 
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
@@ -24,19 +24,22 @@ include("../includes/icon.php");
 <body>
 <div class="main-container ql_chung">
     <?php include("../includes/sidebar.php") ?>
-
     <div class="container">
         <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
         <div class="content">
-            <div class="w-100 left border-bottom mt-45 pb-30">
+            <div class="w-100 left border-bottom mt-25 pb-20 d-flex align-items-center spc-btw">
                 <p class="left page-title">Báo giá</p>
-                <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
+                <div class="c-help d_flex fl_agi">
+                    <i class="ic-question share_clr_four"><?php echo $ic_question ?></i>
+                    <a class="c-help" href="#">Hướng dẫn</a>
+                </div>
             </div>
             <div class="w-100 left">
                 <div class="w-100 left">
-                        <a class="v-btn btn-blue add-btn mt-20" href="them-bao-gia.html">&plus; Thêm mới</a>
+                    <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-bao-gia.html">&plus; Thêm mới</a>
+                    <div class="filter">
                         <div class="category v-select2 mt-20">
                             <select name="category" class="share_select">
                                 <option value="">Tìm kiếm theo</option>
@@ -52,12 +55,13 @@ include("../includes/icon.php");
                                 <option value="">Nhập thông tin cần tìm kiếm</option>
                             </select>
                         </div>
+                    </div>
                 </div>
                 <div class="scr-wrapper mt-20">
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
                     <div class="scr-btn scr-r-btn left"><i class="ic-chevron-right"></i></div>
                     <div class="table-wrapper">
-                        <div class="table-container table-lg">
+                        <div class="table-container table-1428">
                             <div class="tbl-header">
                                 <table>
                                     <thead>
@@ -186,9 +190,8 @@ include("../includes/icon.php");
         </div>
     </div>
 </div>
-<?php include "../modals/modal_logout.php"?>
+<?php include "../modals/modal_logout.php" ?>
 <? include("../modals/modal_menu.php") ?>
-
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

@@ -8,6 +8,11 @@ include("../includes/icon.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chi tiết báo giá cho khách hàng</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
     <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
@@ -17,7 +22,6 @@ include("../includes/icon.php");
 
 </head>
 
-</head>
 <body>
 <div class="main-container">
     <?php include("../includes/sidebar.php") ?>
@@ -29,40 +33,40 @@ include("../includes/icon.php");
         <div class="content">
             <div class="mt-20 left">
                 <a class="text-black" href="quan-ly-bao-gia-cho-khach-hang.html"><?php echo $ic_lt ?> Quay lại</a>
-                <h5 class="text-blue mt-20 mb_10">Chi tiết báo giá cho khách hàng</h5>
+                <p class="page-title text-blue mt-20 mb_10">Chi tiết báo giá cho khách hàng</p>
             </div>
             <div class="w-100 left mt-10">
-                <div class="form-control">
+                <div class="form-control detail-form">
                     <div class="form-row left">
-                        <div class="form-col-50 left pl-10 mb_12">
-                            <p class="left text-left w-50">Số phiếu phản hồi</p>
-                            <p class="right text-right w-50 cr_weight">PH-123-45678</p>
+                        <div class="form-col-50 left p-10 no-border">
+                            <p class="detail-title">Số phiếu phản hồi</p>
+                            <p class="detail-data text-500">PH-123-45678</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left pl-10 pt-10 mb_12">
-                            <p class="left text-left w-50">Người phản hồi</p>
-                            <p class="right text-right w-50 cr_weight">Nguyễn Văn A</p>
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title">Người phản hồi</p>
+                            <p class="detail-data text-500">Nguyễn Văn A</p>
                         </div>
-                        <div class="form-col-50 right pr-10 pt-10 mb_12">
-                            <p class="left text-left w-50">Ngày phản hồi</p>
-                            <p class="right text-right w-50 cr_weight">18/10/2021</p>
-                        </div>
-                    </div>
-                    <div class="form-row left border-top2">
-                        <div class="form-col-50 left pl-10 pt-10 mb_12">
-                            <p class="left text-left w-50"> Khách hàng</p>
-                            <p class="right text-right w-50 cr_weight">Công ty A</p>
-                        </div>
-                        <div class="form-col-50 right pr-10 pt-10 mb_12">
-                            <p class="left text-left w-50">Thời gian áp dụng</p>
-                            <p class="right text-right w-50 cr_weight">18/10/2021 - 05/05/2022</p>
+                        <div class="form-col-50 right p-10">
+                            <p class="detail-title">Ngày phản hồi</p>
+                            <p class="detail-data text-500">18/10/2021</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left pl-10 pt-10 mb_12">
-                            <p class="left text-left w-50">Nội dung phản hồi</p>
-                            <p class="right text-right w-50 cr_weight">Không có</p>
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title"> Khách hàng</p>
+                            <p class="detail-data text-500">Công ty A</p>
+                        </div>
+                        <div class="form-col-50 right p-10">
+                            <p class="detail-title">Thời gian áp dụng</p>
+                            <p class="detail-data text-500">18/10/2021-05/05/2022</p>
+                        </div>
+                    </div>
+                    <div class="form-row left border-top2">
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title">Nội dung phản hồi</p>
+                            <p class="detail-data text-500">Không có</p>
                         </div>
                     </div>
                 </div>
@@ -114,12 +118,13 @@ include("../includes/icon.php");
                         </div>
                     </div>
                 </div>
-                <div class="left mt-20">
-                    <p class="v-btn btn-gray">Gửi mail</p>
+                <div class="control-btn right">
+                    <p class="v-btn btn-outline-red modal-btn mr-20 mt-20" data-target="delete">Xóa</p>
+                    <a href="chinh-sua-bao-gia-cho-khach-hang.html" class="v-btn btn-blue mt-20">Chỉnh sửa</a>
                 </div>
-                <div class="right mt-20">
-                    <p class="v-btn btn-outline-red modal-btn" data-target="delete">Xóa</p>
-                    <a href="chinh-sua-bao-gia-cho-khach-hang.html" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
+                <div class="control-btn left">
+                    <p class="v-btn btn-gray mr-20 mt-20">Gửi mail</p>
+                    <p class="v-btn"></p>
                 </div>
             </div>
             <div class="modal text-center" id="delete">
@@ -146,7 +151,6 @@ include("../includes/icon.php");
 </div>
 <?php include "../modals/modal_logout.php"?>
 <? include("../modals/modal_menu.php") ?>
-
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

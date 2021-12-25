@@ -40,7 +40,7 @@
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số hợp đồng</label>
-                                        <input type="text" name="so_hd" class="form-control">
+                                        <input type="text" name="so_hd" class="form-control" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label>Ngày ký hợp đồng <span class="cr_red">*</span></label>
@@ -70,6 +70,9 @@
                                         <label>Hình thức hợp đồng</label>
                                         <select name="hinht_hd" class="form-control all_hthuc_hd">
                                             <option value="">-- Chọn hình thức hợp đồng --</option>
+                                            <option value="1">Hợp đồng trọn gói</option>
+                                            <option value="2">Hợp đồng theo đơn giá cố định</option>
+                                            <option value="3">Hợp đồng theo đơn giá điều chỉnh</option>
                                         </select>
                                     </div>
                                 </div>
@@ -225,26 +228,26 @@
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_three">
-                                                        <div class="form-group share_form_select">
-                                                            <select name="ten_vatt" class="ten_vatt">
+                                                        <div class="form-group">
+                                                            <select name="ten_vatt" class="ten_vatt form-control">
                                                                 <option value=""></option>
                                                             </select>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_eight">
                                                         <div class="form-group">
-                                                            <input type="text" name="don_vi" class="form-control">
+                                                            <input type="text" name="don_vi" class="form-control" disabled>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
                                                             <input type="text" name="hang-san-xuat"
-                                                                class="form-control">
+                                                                class="form-control" disabled>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
-                                                            <input type="text" name="xuat-xu" class="form-control">
+                                                            <input type="text" name="xuat-xu" class="form-control" disabled>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_one">
@@ -254,12 +257,12 @@
                                                     </td>
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
-                                                            <input type="number" name="don-gia" class="form-control">
+                                                            <input type="number" name="don-gia" class="form-control" disabled>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
-                                                            <input type="number" name="tien_tvat" class="form-control">
+                                                            <input type="number" name="tien_tvat" class="form-control" disabled>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_two">
@@ -269,7 +272,7 @@
                                                     </td>
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
-                                                            <input type="number" name="tien_svat" class="form-control">
+                                                            <input type="number" name="tien_svat" class="form-control" disabled>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -332,7 +335,7 @@
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
-    $(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia, .ma_vatt, .ten_vatt").select2({
+    $(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia, .ma_vatt").select2({
         width: '100%',
     });
 
@@ -352,26 +355,25 @@
                             </div>
                         </td>
                         <td class="share_tb_three">
-                            <div class="form-group share_form_select">
-                                <select name="ten_vatt" class="ten_vatt">
+                            <div class="form-group">
+                                <select name="ten_vatt" class="ten_vatt form-control">
                                     <option value=""></option>
                                 </select>
                             </div>
                         </td>
                         <td class="share_tb_eight">
                             <div class="form-group">
-                                <input type="text" name="don_vi" class="form-control">
+                                <input type="text" name="don_vi" class="form-control" disabled>
                             </div>
                         </td>
                         <td class="share_tb_two">
                             <div class="form-group">
-                                <input type="text" name="hang-san-xuat"
-                                    class="form-control">
+                                <input type="text" name="hang-san-xuat" class="form-control" disabled>
                             </div>
                         </td>
                         <td class="share_tb_two">
                             <div class="form-group">
-                                <input type="text" name="xuat-xu" class="form-control">
+                                <input type="text" name="xuat-xu" class="form-control" disabled>
                             </div>
                         </td>
                         <td class="share_tb_one">
@@ -381,12 +383,12 @@
                         </td>
                         <td class="share_tb_two">
                             <div class="form-group">
-                                <input type="number" name="don-gia" class="form-control">
+                                <input type="number" name="don-gia" class="form-control" disabled>
                             </div>
                         </td>
                         <td class="share_tb_two">
                             <div class="form-group">
-                                <input type="number" name="tien_tvat" class="form-control">
+                                <input type="number" name="tien_tvat" class="form-control" disabled>
                             </div>
                         </td>
                         <td class="share_tb_two">
@@ -396,7 +398,7 @@
                         </td>
                         <td class="share_tb_two">
                             <div class="form-group">
-                                <input type="number" name="tien_svat" class="form-control">
+                                <input type="number" name="tien_svat" class="form-control" disabled>
                             </div>
                         </td>
                     </tr>`;

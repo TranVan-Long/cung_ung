@@ -76,7 +76,7 @@
                         <div class="cnt_left_tow">
                             <div class="ctn_cnt_left">
                                 <div class="tieu_de_bd w_100 float_l d_flex mb_20 flex_jct">
-                                    <h3 class="tieu_de_ct share_fsize_four share_clr_one mb_10">Công nợ phải thu</h3>
+                                    <h3 class="tieu_de_ct share_fsize_four share_clr_one mb_10 mr_10">Công nợ phải thu</h3>
                                     <div class="filter_mdy">
                                         <select name="tim_kiem" class="form_search_dmy">
                                             <option value="1">Theo ngày</option>
@@ -107,7 +107,7 @@
                         <div class="cnt_left_tow">
                             <div class="ctn_cnt_left">
                                 <div class="tieu_de_bd w_100 float_l d_flex mb_20 flex_jct">
-                                    <h3 class="tieu_de_ct share_fsize_four share_clr_one mb_10">Công nợ phải trả</h3>
+                                    <h3 class="tieu_de_ct share_fsize_four share_clr_one mb_10 mr_10">Công nợ phải trả</h3>
                                     <div class="filter_mdy">
                                         <select name="tim_kiem" class="form_search_dmy cong_no_tra">
                                             <option value="1">Theo ngày</option>

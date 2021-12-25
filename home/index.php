@@ -604,6 +604,7 @@
             <? include('../includes/inc_footer.php') ?>
         </div>
     </div>
+    <? include("../includes/in_chat.php") ?>
      <? include("../modals/modal_menu_tt.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>

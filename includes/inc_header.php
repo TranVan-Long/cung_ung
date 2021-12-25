@@ -44,17 +44,18 @@
                         <div class="bg_log_aff" data="<?= $tt_user['com_id'] ?>">
                             <div class="bg_log_img">
                                 <? if(isset($tt_user['com_logo']) && $tt_user['com_logo'] != "") {?>
-                                <img src="https://chamcong.24hpay.vn/upload/company/logo/<?= $tt_user['com_logo'] ?>" alt="">
+                                    <img src="https://chamcong.24hpay.vn/upload/company/logo/<?= $tt_user['com_logo'] ?>" alt="ảnh đại diện">
                                 <?} else{?>
-                                    <img src="../img/add.png" alt="">
+                                    <img src="../img/avt4.png" alt="ảnh đại diện">
                                 <?}?>
+                                <p class="share_clr_tow share_fsize_tow ml_10">Tran Van Long</p>
                             </div>
                             <div class="bg_logout">
                                 <div class="chd_content">
                                     <p class="chuyen_doi">
-                                        <a href="/quan-ly-ung-dung-cong-ty.html">Chuyển đổi số 365</a>
+                                        <a href="quan-ly-tang-chu.html">Quản lý cung ứng</a>
                                     </p>
-                                    <p class="dang_xuat btx_logout">
+                                    <p class="dang_xuat btx_logout share_cursor">
                                         <a>Đăng xuất</a>
                                     </p>
                                 </div>
@@ -81,17 +82,18 @@
                         <div class="bg_log_aff">
                             <div class="bg_log_img" data="<?= $tt_user['ep_id'] ?>">
                                 <? if(isset($tt_user['ep_image']) && $tt_user['ep_image'] != "") {?>
-                                <img src="https://chamcong.24hpay.vn/upload/employee/<?= $tt_user['ep_image'] ?>" alt="">
+                                <img src="https://chamcong.24hpay.vn/upload/employee/<?= $tt_user['ep_image'] ?>" alt="ảnh đại diện">
                                 <?} else{?>
-                                    <img src="../img/add.png" alt="">
+                                    <img src="../img/avt4.png" alt="ảnh đại diện">
                                 <?}?>
+                                <p class="share_clr_tow share_fsize_tow ml_10">Tran Van Long</p>
                             </div>
                             <div class="bg_logout">
                                 <div class="chd_content">
                                     <p class="chuyen_doi">
-                                        <a href="/quan-ly-ung-dung-cong-ty.html">Chuyển đổi số 365</a>
+                                        <a href="quan-ly-trang-chu.html">Quản lý cung ứng</a>
                                     </p>
-                                    <p class="dang_xuat btx_logout">
+                                    <p class="dang_xuat btx_logout share_cursor">
                                         <a>Đăng xuất</a>
                                     </p>
                                 </div>
@@ -101,7 +103,8 @@
             }
             if (!isset($_COOKIE['acc_token']) && !isset($_COOKIE['role']) && !isset($_COOKIE['rf_token'])) {?>
                     <div class="bg_log">
-                        <p><a href="https://quanlychung.timviec365.vn/lua-chon-dang-ky.html" class="cr_weight_bold share_fsize_tow share_clr_tow">Đăng ký</a>
+                        <p>
+                            <a href="https://quanlychung.timviec365.vn/lua-chon-dang-ky.html" class="cr_weight_bold share_fsize_tow share_clr_tow">Đăng ký</a>
                             /
                             <a href="https://quanlychung.timviec365.vn/lua-chon-dang-nhap.html" class="cr_weight_bold share_fsize_tow share_clr_tow">Đăng nhập</a>
                         </p>

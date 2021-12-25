@@ -21,7 +21,6 @@ include("../includes/icon.php");
     <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
 </head>
 
-</head>
 <body>
 <div class="main-container">
     <?php include("../includes/sidebar.php") ?>
@@ -34,38 +33,38 @@ include("../includes/icon.php");
                 <a class="text-black" href="quan-ly-bao-gia.html"><?php echo $ic_lt ?> Quay lại</a>
                 <p class="page-title text-blue mt-20">Chi tiết báo giá</p>
             </div>
-            <div class="w-100 left">
-                <div class="form-control">
-                    <div class="form-row left pt-10 mt-10">
-                        <div class="form-col-50 left pl-10">
-                            <p class="left text-left w-50">Số báo giá</p>
-                            <p class="right text-right w-50 cr_weight">BG-000-10176</p>
+            <div class="w-100 left mt-10">
+                <div class="form-control detail-form">
+                    <div class="form-row left">
+                        <div class="form-col-50 left p-10 no-border">
+                            <p class="detail-title">Số báo giá</p>
+                            <p class="detail-data text-500">BG-000-10176</p>
                         </div>
-                        <div class="form-col-50 right pr-10">
-                            <p class="left text-left w-50">Ngày gửi</p>
-                            <p class="right text-right w-50 cr_weight">18/10/2021</p>
-                        </div>
-                    </div>
-                    <div class="form-row left border-top2 pt-10 mt-10">
-                        <div class="form-col-50 left pl-10">
-                            <p class="left text-left w-50">Người lập</p>
-                            <p class="right text-right w-50 cr_weight">Nguyễn Văn A</p>
+                        <div class="form-col-50 right p-10">
+                            <p class="detail-title">Ngày gửi</p>
+                            <p class="detail-data text-500">18/10/2021</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2 pt-10 mt-10">
-                        <div class="form-col-50 left pl-10">
-                            <p class="left text-left w-50"> Nhà cung cấp</p>
-                            <p class="right text-right w-50 cr_weight">Công ty A</p>
+                    <div class="form-row left border-top2">
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title">Người lập</p>
+                            <p class="detail-data text-500">Nguyễn Văn A</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2 pt-10 mt-10">
-                        <div class="form-col-50 left pl-10">
-                            <p class="left text-left w-50">Theo yêu cầu báo giá số</p>
-                            <p class="right text-right w-50 cr_weight">BG-083-47474</p>
+                    <div class="form-row left border-top2">
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title"> Nhà cung cấp</p>
+                            <p class="detail-data text-500">Công ty A</p>
                         </div>
-                        <div class="form-col-50 right pr-10">
-                            <p class="left text-left w-50">Thời gian áp dụng</p>
-                            <p class="right text-right w-50 cr_weight">18/10/2021 - 05/05/2022</p>
+                    </div>
+                    <div class="form-row left border-top2">
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title">Theo yêu cầu báo giá số</p>
+                            <p class="detail-data text-500">BG-083-47474</p>
+                        </div>
+                        <div class="form-col-50 right p-10">
+                            <p class="detail-title">Thời gian áp dụng</p>
+                            <p class="detail-data text-500">18/10/2021 - 05/05/2022</p>
                         </div>
                     </div>
                 </div>
@@ -84,11 +83,11 @@ include("../includes/icon.php");
                                     <th class="w-25">Hãng sản xuất</th>
                                     <th class="w-25">Số lượng yêu cầu báo giá</th>
                                     <th class="w-20">Số lượng báo giá</th>
-                                    <th class="w-20">Đơn giá</th>
-                                    <th class="w-25">Tổng tiền trước VAT</th>
-                                    <th class="w-20">Thuế VAT</th>
-                                    <th class="w-25">Tổng sau VAT</th>
-                                    <th class="w-25">Chính sách khác kèm theo</th>
+                                    <th class="w-25">Đơn giá</th>
+                                    <th class="w-20">Tổng tiền trước VAT</th>
+                                    <th class="w-25">Thuế VAT</th>
+                                    <th class="w-20">Tổng sau VAT</th>
+                                    <th class="w-20">Chính sách khác kèm theo</th>
                                     <th class="w-20">Số lượng đã đặt hàng</th>
                                 </tr>
                                 </thead>
@@ -117,12 +116,13 @@ include("../includes/icon.php");
                         </div>
                     </div>
                 </div>
-                <div class="left mt-15 mr-20">
-                    <button class="v-btn btn-green">Xuất excel</button>
+                <div class="control-btn right">
+                    <p class="v-btn btn-outline-red modal-btn mr-20 mt-15" data-target="delete">Xóa</p>
+                    <a href="chinh-sua-bao-gia.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
                 </div>
-                <div class="right">
-                    <p class="v-btn btn-outline-red modal-btn mt-15" data-target="delete">Xóa</p>
-                    <a href="chinh-sua-bao-gia.html" class="v-btn btn-blue mt-15 ml-20">Chỉnh sửa</a>
+                <div class="control-btn left mr-10">
+                    <button class="v-btn btn-green mr-20 mt-15">Xuất excel</button>
+                    <p class="v-btn"></p>
                 </div>
             </div>
         </div>
@@ -148,7 +148,6 @@ include("../includes/icon.php");
     </div>
     <?php include "../modals/modal_logout.php"?>
     <? include("../modals/modal_menu.php") ?>
-
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>

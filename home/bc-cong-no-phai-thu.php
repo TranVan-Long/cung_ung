@@ -29,12 +29,15 @@ include("../includes/icon.php");
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
         <div class="content">
-            <div class="w-100 left mt-35 pb-40 border-bottom">
+            <div class="w-100 left border-bottom mt-25 pb-20 d-flex align-items-center spc-btw">
                 <p class="left page-title">Báo cáo công nợ phải thu</p>
-                <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
+                <div class="c-help d_flex fl_agi">
+                    <i class="ic-question share_clr_four"><?php echo $ic_question ?></i>
+                    <a class="c-help" href="#">Hướng dẫn</a>
+                </div>
             </div>
             <div class="w-100 left">
-                <div class="w-100 left">
+                <div class="filter w-100 left">
                     <div class="category v-select2 mt-20">
                         <select name="category" class="share_select">
                             <option value="">Tìm kiếm theo</option>
@@ -417,7 +420,7 @@ include("../includes/icon.php");
                     </div>
                 </div>
             </div>
-            <div class="w-100 left mt-20 left">
+            <div class="w-100 left mt-10">
                 <div class="display">
                     <label for="display">Hiển thị</label>
                     <select name="display" id="display">

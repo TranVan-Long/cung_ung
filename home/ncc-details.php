@@ -8,6 +8,11 @@ include("../includes/icon.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chi tiết nhà cung cấp</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
     <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
@@ -17,7 +22,7 @@ include("../includes/icon.php");
 
 </head>
 
-</head>
+
 <body>
 <div class="main-container">
     <?php include("../includes/sidebar.php") ?>
@@ -29,105 +34,105 @@ include("../includes/icon.php");
         <div class="content">
             <div class="mt-20 left">
                 <a class="text-black" href="quan-ly-nha-cung-cap.html"><?php echo $ic_lt ?> Quay lại</a>
-                <h5 class="text-blue mt-20 mb_25">Chi tiết nhà cung cấp</h5>
+                <p class="page-title text-blue mt-20">Chi tiết nhà cung cấp</p>
             </div>
-            <div class="w-100 left">
-                <div class="form-control">
+            <div class="w-100 left mt-10">
+                <div class="form-control detail-form">
                     <div class="form-row left">
-                        <div class="form-col-50 left mb_12 pl-10">
-                            <p class="left text-left w-50">Mã nhà cung cấp</p>
-                            <p class="right text-right w-50 cr_weight">NCC-198-24201</p>
+                        <div class="form-col-50 left p-10 no-border">
+                            <p class="detail-title">Mã nhà cung cấp</p>
+                            <p class="detail-data text-500">NCC-198-24201</p>
                         </div>
-                        <div class="form-col-50 right mb_12 pr-10">
-                            <p class="left text-left w-50"> Tên gọi tắt</p>
-                            <p class="right text-right w-50 cr_weight"> NCC1</p>
-                        </div>
-                    </div>
-                    <div class="form-row left border-top2">
-                        <div class="form-col-50 left mb_12 pt-10 pl-10">
-                            <p class="left text-left w-50"> Tên nhà cung cấp</p>
-                            <p class="right text-right w-50 cr_weight"> Nhà cung cấp 1</p>
-                        </div>
-                        <div class="form-col-50 right mb_12 pt-10 pr-10">
-                            <p class="left text-left w-50">Tên giao dịch</p>
-                            <p class="right text-right w-50 cr_weight">NCC001</p>
+                        <div class="form-col-50 right p-10">
+                            <p class="detail-title"> Tên gọi tắt</p>
+                            <p class="detail-data text-500"> NCC1</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left mb_12 pt-10 pl-10">
-                            <p class="left text-left w-50"> Mã số thuế</p>
-                            <p class="right text-right w-50 cr_weight">09988776485</p>
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title"> Tên nhà cung cấp</p>
+                            <p class="detail-data text-500"> Nhà cung cấp 1</p>
+                        </div>
+                        <div class="form-col-50 right p-10">
+                            <p class="detail-title">Tên giao dịch</p>
+                            <p class="detail-data text-500">NCC001</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left mb_12 pt-10 pl-10">
-                            <p class="left text-left w-50">Địa chỉ ĐKKD</p>
-                            <p class="right text-right w-50 cr_weight">Số 5, phố X, phường X, quận X</p>
-                        </div>
-                        <div class="form-col-50 right mb_12 pt-10 pr-10">
-                            <p class="left text-left w-50">Số ĐKKD</p>
-                            <p class="right text-right w-50 cr_weight">9988332818</p>
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title"> Mã số thuế</p>
+                            <p class="detail-data text-500">09988776485</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left mb_12 pt-10 pl-10">
-                            <p class="left text-left w-50">Địa chỉ liên hệ</p>
-                            <p class="right text-right w-50 cr_weight">Số 5, phố X, phường X, quận X</p>
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title">Địa chỉ ĐKKD</p>
+                            <p class="detail-data text-500">Số 5, phố X, phường X, quận X</p>
                         </div>
-                        <div class="form-col-50 right mb_12 pt-10 pr-10">
-                            <p class="left text-left w-50">Fax</p>
-                            <p class="right text-right w-50 cr_weight">0123456789</p>
-                        </div>
-                    </div>
-                    <div class="form-row left border-top2">
-                        <div class="form-col-50 left mb_12 pt-10 pl-10">
-                            <p class="left text-left w-50">Điện thoại</p>
-                            <p class="right text-right w-50 cr_weight">01234567889</p>
-                        </div>
-                        <div class="form-col-50 right mb_12 pt-10 pr-10">
-                            <p class="left text-left w-50">Website</p>
-                            <p class="right text-right w-50 cr_weight">ncca.com.vn</p>
+                        <div class="form-col-50 right p-10">
+                            <p class="detail-title">Số ĐKKD</p>
+                            <p class="detail-data text-500">9988332818</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left mb_12 pt-10 pl-10">
-                            <p class="left text-left w-50">E-mail</p>
-                            <p class="right text-right w-50 cr_weight">ncca@gmail.com</p>
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title">Địa chỉ liên hệ</p>
+                            <p class="detail-data text-500">Số 5, phố X, phường X, quận X</p>
+                        </div>
+                        <div class="form-col-50 right p-10">
+                            <p class="detail-title">Fax</p>
+                            <p class="detail-data text-500">0123456789</p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
-                        <div class="form-col-50 left mb_12 pt-10 pl-10">
-                            <p class="left text-left w-50">Sản phẩm cung ứng</p>
-                            <p class="right text-right w-50 cr_weight">Sắt thép</p>
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title">Điện thoại</p>
+                            <p class="detail-data text-500">01234567889</p>
                         </div>
-                        <div class="form-col-50 right mb_12 pt-10 pr-10">
-                            <p class="left text-left w-50">Thông tin khác</p>
-                            <p class="right text-right w-50 cr_weight">Không có</p>
+                        <div class="form-col-50 right p-10">
+                            <p class="detail-title">Website</p>
+                            <p class="detail-data text-500">ncca.com.vn</p>
+                        </div>
+                    </div>
+                    <div class="form-row left border-top2">
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title">E-mail</p>
+                            <p class="detail-data text-500">ncca@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="form-row left border-top2">
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title">Sản phẩm cung ứng</p>
+                            <p class="detail-data text-500">Sắt thép</p>
+                        </div>
+                        <div class="form-col-50 right p-10">
+                            <p class="detail-title">Thông tin khác</p>
+                            <p class="detail-data text-500">Không có</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="w-100 left mt-30">
                 <p class="cr_weight">Danh sách tài khoản ngân hàng</p>
-                <div class="left w-100 bordered mt-10">
+                <div class="left w-100 bordered mt-10 ds_tk_nhang detail-form">
                     <div class="form-row left">
-                        <div class="form-col-50 left mb_12">
-                            <p class="left text-left w-50"> Tên ngân hàng</p>
-                            <p class="right text-right w-50 cr_weight">Ngân hàng A</p>
+                        <div class="form-col-50 left p-10 no-border">
+                            <p class="detail-title"> Tên ngân hàng</p>
+                            <p class="detail-data text-500">Ngân hàng A</p>
                         </div>
-                        <div class="form-col-50 right mb_12">
-                            <p class="left text-left w-50">Chi nhánh</p>
-                            <p class="right text-right w-50 cr_weight">Chi nhánh 1</p>
+                        <div class="form-col-50 right p-10 no-border">
+                            <p class="detail-title">Chi nhánh</p>
+                            <p class="detail-data text-500">Chi nhánh 1</p>
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left">
-                            <p class="left text-left w-50"> Số tài khoản</p>
-                            <p class="right text-right w-50 cr_weight">0364777829845</p>
+                        <div class="form-col-50 left p-10 no-border">
+                            <p class="detail-title"> Số tài khoản</p>
+                            <p class="detail-data text-500">0364777829845</p>
                         </div>
-                        <div class="form-col-50 right">
-                            <p class="left text-left w-50">Chủ tài khoản</p>
-                            <p class="right text-right w-50 cr_weight">Nguyễn Văn A</p>
+                        <div class="form-col-50 right p-10 no-border">
+                            <p class="detail-title">Chủ tài khoản</p>
+                            <p class="detail-data text-500">Nguyễn Văn A</p>
                         </div>
                     </div>
                 </div>
@@ -135,7 +140,7 @@ include("../includes/icon.php");
             <div class="w-100 left mt-30">
                 <p class="cr_weight">Người liên hệ</p>
                 <div class="table-wrapper mt-10">
-                    <div class="table-container">
+                    <div class="table-container table-988">
                         <div class="tbl-header">
                             <table>
                                 <thead>
@@ -162,12 +167,13 @@ include("../includes/icon.php");
                         </div>
                     </div>
                 </div>
-                <div class="left mt-30">
-                    <a href="#" class="v-btn btn-green">Xuất excel</a>
+                <div class="control-btn right">
+                    <p class="v-btn btn-outline-red modal-btn mr-20 mt-15" data-target="delete">Xóa</p>
+                    <a href="chinh-sua-nha-cung-cap.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
                 </div>
-                <div class="right mt-30">
-                    <p class="v-btn btn-outline-red modal-btn" data-target="delete">Xóa</p>
-                    <a href="chinh-sua-nha-cung-cap.html" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
+                <div class="control-btn left mr-10">
+                    <button class="v-btn btn-green mr-20 mt-15">Xuất excel</button>
+                    <p class="v-btn"></p>
                 </div>
             </div>
             <div class="modal text-center" id="delete">

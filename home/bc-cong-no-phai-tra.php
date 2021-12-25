@@ -16,9 +16,9 @@ include("../includes/icon.php");
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
     <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
-    <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
+    <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media !== 'all')media='all'">
     <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
+    <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media !== 'all')media='all'">
 </head>
 
 <body>
@@ -29,17 +29,20 @@ include("../includes/icon.php");
 
     <div class="container">
         <!--        header-->
-        <div class="d-flex justify-content-center">
+        <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
         <!--        header end-->
         <div class="content">
-            <div class="w-100 left border-bottom mt-35 pb-40">
+            <div class="w-100 left border-bottom mt-25 pb-20 d-flex align-items-center spc-btw">
                 <p class="left page-title">Báo cáo công nợ phải trả</p>
-                <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
+                <div class="c-help d_flex fl_agi">
+                    <i class="ic-question share_clr_four"><?php echo $ic_question ?></i>
+                    <a class="c-help" href="#">Hướng dẫn</a>
+                </div>
             </div>
             <div class="w-100 left">
-                <div class="w-100 left">
+                <div class="filter w-100 left">
                     <div class="category v-select2 mt-20">
                         <select name="category" class="share_select">
                             <option value="">Tìm kiếm theo</option>
@@ -459,7 +462,7 @@ include("../includes/icon.php");
                     </div>
                 </div>
             </div>
-            <div class="w-100 left mt-20">
+            <div class="w-100 left mt-10">
                 <div class="display">
                     <label for="display">Hiển thị</label>
                     <select name="display" id="display">
@@ -467,7 +470,6 @@ include("../includes/icon.php");
                         <option value="20">20</option>
                     </select>
                 </div>
-                <!--                    pagination-->
                 <div class="pagination mt-10">
                     <ul>
                         <li><a href="#"><?php echo $ic_lt ?></a></li>

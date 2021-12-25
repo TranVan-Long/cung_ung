@@ -29,24 +29,24 @@ include("../includes/icon.php");
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
         <div class="content">
-            <div class="mt-25">
-                <p class="left page-title">Thêm báo giá</p>
+            <div class="left mt-25">
+                <p class="page-title">Thêm báo giá</p>
             </div>
             <div class="w-100 left mt-10">
-                <div class="form-control">
-                    <div class="form-row left mt-20">
-                        <div class="form-col-50 left">
+                <div class="form-control edit-form" >
+                    <div class="form-row left">
+                        <div class="form-col-50 no-border mb_15 left">
                             <label for="so-bao-gia">Số báo giá<span class="text-red">*</span></label>
                             <input type="text" id="so-bao-gia" name="so-bao-gia" value="BG-999-09827" disabled
                                    required>
                         </div>
-                        <div class="form-col-50 left ml-10-p">
-                            <label for="ngay-gui">Ngày gửi<span class="text-red">*</span></label>
-                            <input type="date" id="ngay-gui" name="ngay-gui">
+                        <div class="form-col-50 no-border mb_15 right">
+                            <label>Ngày gửi<span class="text-red">*</span></label>
+                            <input type="date" name="ngay-gui">
                         </div>
                     </div>
-                    <div class="form-row left mt-20">
-                        <div class="form-col-50 left">
+                    <div class="form-row left">
+                        <div class="form-col-50 no-border mb_15 left">
                             <div class="v-select2">
                                 <label for="nguoi-lap">Người lập</label>
                                 <select id="nguoi-lap" name="nguoi-lap" class="share_select">
@@ -54,7 +54,7 @@ include("../includes/icon.php");
                                 </select>
                             </div>
                         </div>
-                        <div class="form-col-50 left ml-10-p">
+                        <div class="form-col-50 no-border mb_15 right">
                             <div class="v-select2">
                                 <label for="nha-cung-cap">Nhà cung cấp<span
                                             class="text-red">*</span></label>
@@ -64,8 +64,8 @@ include("../includes/icon.php");
                             </div>
                         </div>
                     </div>
-                    <div class="form-row left mt-20">
-                        <div class="form-col-50 left">
+                    <div class="form-row left">
+                        <div class="form-col-50 no-border mb_15 left">
                             <div class="v-select2">
                                 <label for="so-yeu-cau">Theo yêu cầu báo giá số<span class="text-red">*</span></label>
                                 <select id="so-yeu-cau" name="so-yeu-cau" class="share_select">
@@ -74,8 +74,8 @@ include("../includes/icon.php");
                             </div>
                         </div>
                     </div>
-                    <div class="form-row left mt-20">
-                        <div class="form-col-50 left">
+                    <div class="form-row left">
+                        <div class="form-col-50 no-border mb_15 left">
                             <label for="ap-dung-tu">Thời gian áp dụng</label>
                             <div class="d-flex align-items-center spc-btw w-100 left">
                                 <div class="w-40">
@@ -198,10 +198,10 @@ include("../includes/icon.php");
                     </div>
                 </div>
             </div>
-            <div class="w-100 left mt-30">
-                <div class="right">
-                    <p class="v-btn btn-outline-blue modal-btn" data-target="cancel">Hủy</p>
-                    <button class="v-btn btn-blue ml-20">Xong</button>
+            <div class="w-100 left">
+                <div class="control-btn right">
+                    <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
+                    <button class="v-btn btn-blue mt-20">Xong</button>
                 </div>
             </div>
             <div class="modal text-center" id="cancel">
@@ -227,7 +227,6 @@ include("../includes/icon.php");
     </div>
     <?php include "../modals/modal_logout.php"?>
     <? include("../modals/modal_menu.php") ?>
-
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>

@@ -204,6 +204,10 @@ img {
     margin-left: 20px;
 }
 
+.ml_10 {
+    margin-left: 10px;
+}
+
 .ml_50 {
     margin-left: 50px;
 }
@@ -2822,7 +2826,7 @@ img {
 .sapx_dgia {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    padding: 4px 15px;
+    padding: 4px 0px 4px 15px;
 }
 
 .form_search_dgia {
@@ -2841,7 +2845,7 @@ img {
 
 .list_cate_nhacc .form_search_dgia .select2-container--default .select2-selection--single .select2-selection__arrow {
     top: 2px;
-    right: -27px;
+    right: 6px;
 }
 
 .ctiet_ds_nha_cc .table thead, .ctiet_ds_nha_cc .table tbody, .ctiet_ds_nha_cc .table tbody tr {
@@ -2878,11 +2882,20 @@ img {
 
 .ctiet_ds_nha_cc .table thead th:last-child, .ctiet_ds_nha_cc .table tbody td:last-child {
     width: 40%;
+    text-align: center;
 }
 
 .ctiet_ds_nha_cc .table thead th:first-child, .ctiet_ds_nha_cc .table tbody td:first-child {
     border-right: 1px solid #474747;
     width: 60%;
+}
+
+.search_nhacc .selec_nhacc .select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 9px;
+    right: 10px;
+    content: url("../img/see_search.png");
+    width: 19px;
+    height: 19px;
 }
 
 .side_menu_hd, .modal_menu {
@@ -2977,7 +2990,93 @@ img {
     border-collapse: collapse;
 }
 
+.bg_log_img {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.bg_log_img img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.bg_log_aff {
+    position: relative;
+}
+
+.bg_logout {
+    position: absolute;
+    width: 200px;
+    left: -25px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgb(0 0 0 / 20%);
+    top: 43px;
+}
+
+.bg_logout .chuyen_doi {
+    padding: 10px 10px 5px 10px;
+}
+
+.bg_logout .dang_xuat {
+    padding: 5px 10px 10px 10px;
+}
+
+.chd_content p {
+    text-align: left;
+}
+
+.chd_content p:hover {
+    background: #CCCCCC;
+}
+
+.chd_content p:first-child:hover {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.chd_content p:last-child:hover {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.chd_content p a {
+    font-weight: 500;
+    color: #4C5BD4;
+    text-decoration: none;
+}
+
+.icon_chat {
+    position: absolute;
+    right: 29px;
+    bottom: 40px;
+}
+
+#sky_icon {
+    position: fixed;
+    cursor: pointer;
+    bottom: 41px;
+    right: 48px;
+    z-index: 9999999;
+}
+
+#sky_icon .avt_sky {
+    width: 47px;
+    height: 47px;
+}
+
 /* end sua header */
+/* vuong */
+.info_modal h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 50px 0 10px;
+    text-overflow: ellipsis;
+}
+
+/* end vuong */
 
 @media screen and (max-width: 1366px) {
 
@@ -3716,6 +3815,38 @@ img {
         min-width: 690px;
     }
 
+    /* vuong */
+    .detail-form .form-col-50, .detail-form .form-col-100 {
+        width: 100%;
+        border-top: 1px solid rgba(102, 102, 102, 0.24);
+    }
+
+    .border-top2 {
+        border: none;
+    }
+
+    ul .border-top2 {
+        border-top: 1px solid rgba(102, 102, 102, 0.24);
+    }
+
+    .filter {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .bank-form {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .removeItem2 {
+        top: 5px;
+        right: 10px;
+    }
+
+    /* end vuong */
+
 }
 
 @media(max-width: 759px) {
@@ -3815,7 +3946,7 @@ img {
     }
 }
 
-@media screen and (max-width: 480px) {
+@media(max-width: 480px) {
 
     /* footer */
     .contact, .det .det-ic p, .det .det-ic .link-logo, .det .det-ic {
@@ -4024,7 +4155,7 @@ img {
         text-align: left;
     }
 
-    .form-col-50 p:first-child, .ten_ctiet {
+   .ten_ctiet {
         margin-bottom: 8px;
     }
 
@@ -4305,6 +4436,38 @@ img {
 
     .duyet_yc_vtu .form-row .form-col-50 {
         padding-bottom: 10px;
+    }
+
+    .edit-form .form-col-50, .edit-form .form-col-100 {
+        width: 100%;
+    }
+
+    .filter {
+        display: block;
+    }
+
+    .filter .category, .filter .search-box {
+        width: 100%;
+    }
+
+    .control-btn {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .pagination {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .detail-title, .detail-data {
+        width: 100%;
+        text-align: left;
+    }
+
+    .detail-data {
+        margin-top: 9px;
     }
 
 }

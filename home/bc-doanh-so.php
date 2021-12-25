@@ -24,18 +24,20 @@ include("../includes/icon.php");
 <body>
 <div class="main-container ql_chung">
     <?php include("../includes/sidebar.php") ?>
-
     <div class="container">
-        <div class="d-flex justify-content-center">
+        <div class="header-container">
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
         <div class="content">
-            <div class="w-100 left border-bottom mt-35 pb-40">
+            <div class="w-100 left border-bottom mt-25 pb-20 d-flex align-items-center spc-btw">
                 <p class="left page-title">Báo cáo doanh số bán hàng</p>
-                <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
+                <div class="c-help d_flex fl_agi">
+                    <i class="ic-question share_clr_four"><?php echo $ic_question ?></i>
+                    <a class="c-help" href="#">Hướng dẫn</a>
+                </div>
             </div>
             <div class="w-100 left">
-                <div class="w-100 left">
+                <div class="filter w-100 left">
                     <div class="category v-select2 mt-20">
                         <select name="category" class="share_select">
                             <option value="">Tìm kiếm theo</option>
@@ -78,7 +80,7 @@ include("../includes/icon.php");
                                     <tbody>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-20">VT-000-98765</td>
                                         <td class="w-35">Ống nhựa 0,5m</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-123-47589</p>
@@ -104,7 +106,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-20">VT-000-98765</td>
                                         <td class="w-35">Ống nhựa 0,5m</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-123-47589</p>
@@ -130,7 +132,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-20">VT-000-98765</td>
                                         <td class="w-35">Ống nhựa 0,5m</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-123-47589</p>
@@ -156,7 +158,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-20">VT-000-98765</td>
                                         <td class="w-35">Ống nhựa 0,5m</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-123-47589</p>
@@ -182,7 +184,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-20">VT-000-98765</td>
                                         <td class="w-35">Ống nhựa 0,5m</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-123-47589</p>
@@ -208,7 +210,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-20">VT-000-98765</td>
                                         <td class="w-35">Ống nhựa 0,5m</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-123-47589</p>
@@ -234,7 +236,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-20">VT-000-98765</td>
                                         <td class="w-35">Ống nhựa 0,5m</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-123-47589</p>
@@ -260,7 +262,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-20">VT-000-98765</td>
                                         <td class="w-35">Ống nhựa 0,5m</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-123-47589</p>
@@ -286,7 +288,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-20">VT-000-98765</td>
                                         <td class="w-35">Ống nhựa 0,5m</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-123-47589</p>
@@ -312,7 +314,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-10">1</td>
-                                        <td class="w-20"><a href="bc-details.php">VT-000-98765</a></td>
+                                        <td class="w-20">VT-000-98765</td>
                                         <td class="w-35">Ống nhựa 0,5m</td>
                                         <td class="w-25">
                                             <p class="table-text">HĐ-123-47589</p>
@@ -336,7 +338,6 @@ include("../includes/icon.php");
                                         </td>
                                         <td class="w-25"><p class="table-text">90</p></td>
                                     </tr>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -344,7 +345,7 @@ include("../includes/icon.php");
                     </div>
                 </div>
             </div>
-            <div class="w-100 left mt-20 left">
+            <div class="w-100 left mt-10">
                 <div class="display">
                     <label for="display">Hiển thị</label>
                     <select name="display" id="display">
@@ -368,7 +369,6 @@ include("../includes/icon.php");
     </div>
     <?php include "../modals/modal_logout.php"?>
     <? include("../modals/modal_menu.php") ?>
-
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>

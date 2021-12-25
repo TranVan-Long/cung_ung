@@ -6,16 +6,21 @@ include("../includes/icon.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Quản lý nhà cung cấp</title>
+    <title>Nhà cung cấp</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
     <link rel="preload" as="style" rel="stylesheet" href="../css/app.css">
     <link rel="stylesheet" media="all" href="../css/app.css" media="all" onload="if (media != 'all')media='all'">
     <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
-
 </head>
+
 <body>
 <div class="main-container ql_chung">
     <?php include("../includes/sidebar.php") ?>
@@ -25,29 +30,34 @@ include("../includes/icon.php");
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
         <div class="content">
-            <div class="c-top border-bottom-2">
-                <h4 class="left">Nhà cung cấp</h4>
-                <a class="c-help" href="#"><i class="ic-question"><?php echo $ic_question ?></i>Hướng dẫn</a>
-            </div>
-            <div class="c-body mt-20">
-                <div class="w-100 left">
-                    <div class="category v-select2">
-                        <select name="category" class="share_select">
-                            <option value="">Tìm kiếm theo</option>
-                            <option value="1">Mã nhà cung cấp</option>
-                            <option value="2">Tên nhà cung cấp</option>
-                            <option value="3">Số ĐKKD</option>
-                            <option value="4">Mã số thuế</option>
-                        </select>
-                    </div>
-                    <div class="search-box v-select2">
-                        <select name="search" class="share_select">
-                            <option value="">Nhập thông tin cần tìm kiếm</option>
-                        </select>
-                    </div>
-                    <a class="v-btn btn-blue add-btn" href="them-nha-cung-cap.html">&plus; Thêm mới</a>
+            <div class="w-100 left border-bottom mt-25 pb-20 d-flex align-items-center spc-btw">
+                <p class="left page-title">Nhà cung cấp</p>
+                <div class="c-help d_flex fl_agi">
+                    <i class="ic-question share_clr_four"><?php echo $ic_question ?></i>
+                    <a class="c-help" href="#">Hướng dẫn</a>
                 </div>
-                <div class="scr-wrapper mt-30">
+            </div>
+            <div class="w-100 left">
+                <div class="w-100 left">
+                    <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-nha-cung-cap.html">&plus; Thêm mới</a>
+                    <div class="filter">
+                        <div class="category v-select2 mt-20">
+                            <select name="category" class="share_select">
+                                <option value="">Tìm kiếm theo</option>
+                                <option value="1">Mã nhà cung cấp</option>
+                                <option value="2">Tên nhà cung cấp</option>
+                                <option value="3">Số ĐKKD</option>
+                                <option value="4">Mã số thuế</option>
+                            </select>
+                        </div>
+                        <div class="search-box v-select2 mt-20">
+                            <select name="search" class="share_select">
+                                <option value="">Nhập thông tin cần tìm kiếm</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="scr-wrapper mt-20">
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
                     <div class="scr-btn scr-r-btn left"><i class="ic-chevron-right"></i></div>
                     <div class="table-wrapper">
@@ -181,7 +191,7 @@ include("../includes/icon.php");
                     </div>
                 </div>
             </div>
-            <div class="c-foot mt-20 left">
+            <div class="w-100 left mt-10">
                 <div class="display">
                     <label for="display">Hiển thị</label>
                     <select name="display" id="display">
@@ -211,5 +221,4 @@ include("../includes/icon.php");
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
-
 </html>
