@@ -51,7 +51,7 @@ include "../includes/icon.php";
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Khách hàng <span class="cr_red">*</span></label>
-                                        <select name="nha_ccap" class="form-control all_nhacc">
+                                        <select name="khach_hang" class="form-control all_nhacc">
                                             <option value="">-- Chọn khách hàng --</option>
                                         </select>
                                     </div>
@@ -242,9 +242,9 @@ include "../includes/icon.php";
                             <div class="form_butt_ht">
                                 <div class="tow_butt_flex d_flex hd_dy_pop">
                                     <button type="button"
-                                        class="js_btn_huy share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
+                                        class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
                                     <button type="button"
-                                        class="share_w_148 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                        class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
                                         ý</button>
                                 </div>
                             </div>
@@ -259,6 +259,7 @@ include "../includes/icon.php";
 
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
@@ -341,6 +342,36 @@ include "../includes/icon.php";
     var cancel_add = $(".cancel_add");
     cancel_add.click(function(){
         modal_share.show();
+    });
+
+    $(".save_add").click(function(){
+        var form_add_mua = $(".form_add_hp_mua");
+        form_add_mua.validate({
+            errorPlacement: function(error, element) {
+                error.appendTo(element.parents(".form-group"));
+                error.wrap("<span class='error'>");
+            },
+            rules:{
+                ngay_ky:{
+                    required: true,
+                },
+                khach_hang:{
+                    required: true,
+                }
+            },
+            messages:{
+                 ngay_ky:{
+                    required: "Không được để trống",
+                },
+                khach_hang:{
+                    required: "Không được để trống",
+                }
+            },
+        });
+
+        if(form_add_mua.valid() === true){
+            alert("oke");
+        }
     });
 </script>
 

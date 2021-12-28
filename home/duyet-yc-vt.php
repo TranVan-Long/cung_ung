@@ -19,7 +19,7 @@ include("../includes/icon.php");
 
 </head>
 <body>
-<div class="main-container duyet_yc_vtu">
+<div class="main-container share_res_ct duyet_yc_vtu">
     <?php include("../includes/sidebar.php") ?>
 
     <div class="container">
@@ -34,63 +34,70 @@ include("../includes/icon.php");
             <div class="c-body">
                 <div class="form-control">
                     <div class="form-row left">
-                        <div class="form-col-50 mb_12 pt-10 pl-10 pb-10">
+                        <div class="form-col-50 left pl-10 mb_12">
                             <p class="left text-left w-50">Số phiếu yêu cầu</p>
                             <p class="right text-right w-50 cr_weight">YC-000-00094</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2">
-                        <div class="form-col-50 mb_12 pt-10 left pl-10">
+                    <div class="form-row left border-top">
+                        <div class="form-col-50 left pl-10 pt-10 mb_12">
                             <p class="left text-left w-50"> Người yêu cầu</p>
                             <p class="right text-right w-50 cr_weight"> Nguyễn Văn A</p>
                         </div>
-                        <div class="form-col-50 mb_12 pt-10 right pr-10">
+                        <div class="form-col-50 right pr-10 pt-10 mb_12">
                             <p class="left text-left w-50">Phòng ban</p>
                             <p class="right text-right w-50 cr_weight">Dự án</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2">
-                        <div class="form-col-50 mb_12 pt-10 left pl-10">
+                    <div class="form-row left border-top">
+                        <div class="form-col-50 left pl-10  pt-10 mb_12">
                             <p class="left text-left w-50"> Ngày tạo yêu cầu</p>
                             <p class="right text-right w-50 cr_weight"> 30/10/2021</p>
                         </div>
-                        <div class="form-col-50 mb_12 pt-10 right pr-10">
+                        <div class="form-col-50 right pr-10 pt-10 mb_12">
                             <p class="left text-left w-50">Ngày phải hoàn thành yêu cầu</p>
                             <p class="right text-right w-50 cr_weight">10/11/2021</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2 pb-10">
-                        <div class="form-col-50 mb_12 pt-10 pl-10">
+                    <div class="form-row left border-top">
+                        <div class="form-col-50 left pt-10 mb_12 pl-10">
                             <p class="left text-left w-50">Công trình</p>
                             <p class="right text-right w-50 cr_weight">Xây dựng nhà sinh hoạt văn hóa phường</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2">
-                        <div class="form-col-50 mb_12 pt-10 left pl-10">
+                    <div class="form-row left border-top">
+                        <div class="form-col-50 left pl-10 pt-10 mb_12">
                             <p class="left text-left w-50">Diễn giải</p>
                             <p class="right text-right w-50 cr_weight">Sử dụng để nối thêm đường ống nước</p>
                         </div>
-                        <div class="form-col-50 mb_12 pt-10 right pr-10 trang_thai">
+                        <div class="form-col-50 right pr-10 pt-10 mb_12">
                             <p class="left text-left w-50">Trạng thái</p>
                             <p class="right text-right w-50 cr_weight">Chưa duyệt</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top2 d-none">
-                        <div class="form-col-50 mb_12 pt-10 left pl-10">
+                    <!-- khi duyệt -->
+                    <!-- <div class="form-row left border-top d-none">
+                        <div class="form-col-50 left pl-10 pt-10 mb_12">
                             <p class="left text-left w-50">Người duyệt</p>
                             <p class="right text-right w-50 cr_weight">Nguyễn Thị B</p>
                         </div>
-                        <div class="form-col-50 mb_12 right pr-10">
+                        <div class="form-col-50 right pr-10 pt-10 mb_12">
                             <p class="left text-left w-50">Ngày duyệt</p>
                             <p class="right text-right w-50 cr_weight">20/11/2021</p>
                         </div>
-                    </div>
+                    </div> -->
+                    <!-- không duyệt -->
+                    <!-- <div class="form-row left border-top share_dnone">
+                        <div class="form-col-50 pl-10 pt-10 mb_12">
+                            <p class="left text-left w-50">Lý do từ chối</p>
+                            <p class="right text-right w-50 cr_weight">Không đủ kinh phí</p>
+                        </div>
+                    </div> -->
                 </div>
-
             </div>
             <div class="left w-100 mt-30">
                 <div class="table-wrapper mt-5">
-                    <div class="table-container table-sm">
+                    <div class="table-container table-988">
                         <div class="tbl-header">
                             <table>
                                 <thead>
@@ -126,7 +133,7 @@ include("../includes/icon.php");
                         </div>
                     </div>
                 </div>
-                <div class="right mt-30">
+                <div class="right mt-30 xoa_csua">
                     <button class="v-btn mb_10 btn-outline-red modal-btn mr-20" data-target="decide">Từ chối</button>
                     <button class="v-btn mb_10 btn-blue modal-btn" data-target="accept">Duyệt</button>
                 </div>
@@ -141,11 +148,11 @@ include("../includes/icon.php");
                         <p>Bạn có chắc chắn muốn từ chối?</p>
                         <p>Thao tác này sẽ không thể hoàn tác.</p>
                     </div>
-                    <div class="m-foot d-inline-block">
-                        <div class="left">
+                    <div class="m-foot d_flex flex_jct">
+                        <div class="left mb_10">
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
-                        <div class="right">
+                        <div class="right mb_10">
                             <button class="v-btn share_clr_tow sh_bgr_six right modal-btn" data-target="rejection" >Đồng ý</button>
                         </div>
                     </div>
@@ -157,15 +164,15 @@ include("../includes/icon.php");
                     <div class="m-head text-center">Từ chối yêu cầu vật tư
                         <span class="dismiss cancel">&times;</span>
                     </div>
-                    <div class="m-body">
+                    <div class="m-body form-control">
                         <p>Lý do từ chỗi yêu cầu</p>
                         <textarea name="ly_do" id="" cols="30" rows="10" placeholder="Nhập lý do từ chối yêu cầu"></textarea>
                     </div>
-                    <div class="m-foot d-inline-block">
-                        <div class="left">
+                    <div class="m-foot d_flex flex_jct">
+                        <div class="left mb_10">
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
-                        <div class="right">
+                        <div class="right mb_10">
                             <button class="v-btn share_clr_tow sh_bgr_six right">Đồng ý</button>
                         </div>
                     </div>
@@ -181,17 +188,17 @@ include("../includes/icon.php");
                         <p>Bạn có chắc chắn muốn duyệt?</p>
                         <p>Thao tác này sẽ không thể hoàn tác.</p>
                     </div>
-                    <div class="m-foot d-inline-block">
-                        <div class="left">
+                    <div class="m-foot d_flex">
+                        <div class="left mb_10">
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
-                        <div class="right">
+                        <div class="right mb_10">
                             <button class="v-btn share_clr_tow sh_bgr_six right modal-btn" data-target="acceptance">Đồng ý</button>
                         </div>
                     </div>
                 </div>
             </div>
-<!--            modal duyet-->
+            <!-- modal duyet-->
             <div class="modal" id="acceptance">
                 <div class="m-content acceptance-modal">
                     <div class="m-head text-center">
@@ -246,8 +253,8 @@ include("../includes/icon.php");
                             </div>
                         </div>
                     </div>
-                    <div class="m-foot d-inline-block">
-                        <div class="right">
+                    <div class="m-foot">
+                        <div class="right huy_xong">
                             <p class="v-btn btn-outline-blue right cancel mr-20">Hủy</p>
                             <button class="v-btn share_clr_tow sh_bgr_six right">Đồng ý</button>
                         </div>

@@ -205,7 +205,7 @@ $date = date('m-d-Y', time())
                                             </div>
                                         </td>
                                         <td class="w-10">
-                                            <input type="text" readonly disabled>
+                                            <input type="text" disabled>
                                         </td>
                                         <td class="w-15">
                                             <input type="text">
@@ -224,23 +224,23 @@ $date = date('m-d-Y', time())
                     <button class="v-btn btn-blue mt-30">Xong</button>
                 </div>
             </div>
-            <div class="modal text-center" id="cancel">
-                <div class="m-content">
-                    <div class="m-head ">
-                        Thông báo <span class="dismiss cancel">&times;</span>
-                    </div>
-                    <div class="m-body">
-                        <p>Bạn có chắc chắn muốn hủy việc chỉnh sửa yêu cầu báo giá?</p>
-                        <p>Các thông tin bạn đã nhập sẽ không được lưu.</p>
-                    </div>
-                    <div class="m-foot d-inline-block">
-                        <div class="left">
-                            <p class="v-btn btn-outline-blue left cancel">Hủy</p>
-                        </div>
-                        <div class="right">
-                            <a href="chi-tiet-yeu-cau-bao-gia.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</a>
-                        </div>
-                    </div>
+        </div>
+    </div>
+    <div class="modal text-center" id="cancel">
+        <div class="m-content">
+            <div class="m-head ">
+                Thông báo <span class="dismiss cancel">&times;</span>
+            </div>
+            <div class="m-body">
+                <p>Bạn có chắc chắn muốn hủy việc chỉnh sửa yêu cầu báo giá?</p>
+                <p>Các thông tin bạn đã nhập sẽ không được lưu.</p>
+            </div>
+            <div class="m-foot d-inline-block">
+                <div class="left mb_10">
+                    <p class="v-btn btn-outline-blue left cancel">Hủy</p>
+                </div>
+                <div class="right mb_10">
+                    <a href="chi-tiet-yeu-cau-bao-gia.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</a>
                 </div>
             </div>
         </div>

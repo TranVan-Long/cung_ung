@@ -214,10 +214,10 @@ include("../includes/icon.php");
                         <p>Các thông tin bạn đã nhập sẽ không được lưu.</p>
                     </div>
                     <div class="m-foot d-inline-block">
-                        <div class="left">
+                        <div class="left mb_10">
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
-                        <div class="right">
+                        <div class="right mb_10">
                             <a href="quan-ly-bao-gia.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</a>
                         </div>
                     </div>

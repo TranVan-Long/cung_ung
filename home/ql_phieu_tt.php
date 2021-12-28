@@ -41,7 +41,7 @@ include "../includes/icon.php";
                 </div>
                 <div class="c-body mt_20">
                     <div class="filter1">
-                        <div class="add_hopd">
+                        <div class="add_hopd ml_20">
                             <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">&plus; Thêm mới</p>
                         </div>
                         <div class="form_tkiem d_flex">

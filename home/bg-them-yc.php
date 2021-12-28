@@ -147,7 +147,7 @@ $date = date('m-d-Y', time())
                                             </div>
                                         </td>
                                         <td class="w-10">
-                                            <input type="text" readonly disabled>
+                                            <input type="text" disabled>
                                         </td>
                                         <td class="w-15">
                                             <input type="text">
@@ -173,7 +173,7 @@ $date = date('m-d-Y', time())
                                             </div>
                                         </td>
                                         <td class="w-10">
-                                            <input type="text" readonly disabled>
+                                            <input type="text" disabled>
                                         </td>
                                         <td class="w-15">
                                             <input type="text">
@@ -203,10 +203,10 @@ $date = date('m-d-Y', time())
                         <p>Các thông tin bạn đã nhập sẽ không được lưu.</p>
                     </div>
                     <div class="m-foot d-inline-block">
-                        <div class="left">
+                        <div class="left mb_10">
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
-                        <div class="right">
+                        <div class="right mb_10">
                             <a href="quan-ly-yeu-cau-bao-gia.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</a>
                         </div>
                     </div>

@@ -24,7 +24,7 @@ include "../includes/icon.php";
 </head>
 
 <body>
-    <div class="main-container ql_ct_phieu_tt_tu">
+    <div class="main-container ql_ct_phieu_tt_tu ql_ct_phieu">
         <? include('../includes/sidebar.php') ?>
         <div class="container">
             <div class="header-container">
@@ -99,7 +99,7 @@ include "../includes/icon.php";
                                     <p class="cr_weight share_fsize_tow">0</p>
                                 </div>
                             </div>
-                            <div class="chitiet_hd w_100 float_l">
+                            <div class="chitiet_hd chitiet_hd_brt w_100 float_l">
                                 <div class="ctiet_hd_right float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Người nhận tiền</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Nguyễn Văn A</p>
@@ -125,8 +125,9 @@ include "../includes/icon.php";
                                     <a href="chinh-sua-phieu-thanh-toan.html" class="share_clr_tow">Chỉnh sửa</a>
                                 </p>
                             </div>
-                            <div class="xuat_gmc_one share_xuat_gmc left mb-10 d_flex">
-                                <p class="share_w_148 share_h_36 share_fsize_tow mr-10 share_clr_tow cr_weight">Xuất Excel</p>
+                            <div class="xuat_gmc_one share_xuat_gmc left mb-10 mr-10 d_flex">
+                                <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight">Xuất Excel</p>
+                                <p class="share_w_148 ml_20"></p>
                             </div>
                         </div>
                     </div>
@@ -154,9 +155,9 @@ include "../includes/icon.php";
                             <div class="form_butt_ht">
                                 <div class="tow_butt_flex d_flex">
                                     <button type="button"
-                                        class="js_btn_huy share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
+                                        class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
                                     <button type="button"
-                                        class="share_w_148 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                        class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
                                         ý</button>
                                 </div>
                             </div>

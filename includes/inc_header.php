@@ -44,11 +44,11 @@
                         <div class="bg_log_aff" data="<?= $tt_user['com_id'] ?>">
                             <div class="bg_log_img">
                                 <? if(isset($tt_user['com_logo']) && $tt_user['com_logo'] != "") {?>
-                                    <img src="https://chamcong.24hpay.vn/upload/company/logo/<?= $tt_user['com_logo'] ?>" alt="ảnh đại diện">
+                                    <img src="https://chamcong.24hpay.vn/upload/company/logo/<?= $tt_user['com_logo'] ?>" class="avt_nv_dn" alt="ảnh đại diện">
                                 <?} else{?>
-                                    <img src="../img/avt4.png" alt="ảnh đại diện">
+                                    <img src="../img/avt4.png" class="avt_nv_dn" alt="ảnh đại diện">
                                 <?}?>
-                                <p class="share_clr_tow share_fsize_tow ml_10">Tran Van Long</p>
+                                <p class="share_clr_tow share_fsize_tow ml_10 ten_nv_dn">Tran Van Long</p>
                             </div>
                             <div class="bg_logout">
                                 <div class="chd_content">
@@ -82,11 +82,11 @@
                         <div class="bg_log_aff">
                             <div class="bg_log_img" data="<?= $tt_user['ep_id'] ?>">
                                 <? if(isset($tt_user['ep_image']) && $tt_user['ep_image'] != "") {?>
-                                <img src="https://chamcong.24hpay.vn/upload/employee/<?= $tt_user['ep_image'] ?>" alt="ảnh đại diện">
+                                <img src="https://chamcong.24hpay.vn/upload/employee/<?= $tt_user['ep_image'] ?>" class="avt_nv_dn" alt="ảnh đại diện">
                                 <?} else{?>
-                                    <img src="../img/avt4.png" alt="ảnh đại diện">
+                                    <img src="../img/avt4.png" class="avt_nv_dn" alt="ảnh đại diện">
                                 <?}?>
-                                <p class="share_clr_tow share_fsize_tow ml_10">Tran Van Long</p>
+                                <p class="share_clr_tow share_fsize_tow ml_10 ten_nv_dn">Tran Van Long</p>
                             </div>
                             <div class="bg_logout">
                                 <div class="chd_content">

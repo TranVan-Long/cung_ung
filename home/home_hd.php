@@ -165,7 +165,21 @@
         if($(e.target).is(".menu_tt")){
             menu_tt.hide();
         }
-    })
+    });
+
+    var avt_nv_dn = $(".avt_nv_dn");
+    var ten_nv_dn = $(".ten_nv_dn");
+    var bg_logout = $(".bg_logout");
+
+    $(".avt_nv_dn, .ten_nv_dn").click(function () {
+        $(this).parents(".bg_log_aff").find(".bg_logout").toggleClass('active');
+    });
+
+    $(window).click(function(e){
+        if(!avt_nv_dn.is(e.target) && !ten_nv_dn.is(e.target)  && !bg_logout.is(e.target) && bg_logout.has(e.target).length === 0){
+            bg_logout.removeClass("active");
+        }
+    });
 
 </script>
 </html>

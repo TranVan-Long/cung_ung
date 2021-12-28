@@ -24,7 +24,7 @@
 
 </head>
 <body>
-<div class="main-container share_res_ct">
+<div class="main-container share_res_ct ql_ctiet_vtu">
     <?php include("../includes/sidebar.php") ?>
 
     <div class="container">
@@ -44,7 +44,7 @@
                             <p class="right text-right w-50 cr_weight">YC-000-00094</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top ">
+                    <div class="form-row left border-top">
                         <div class="form-col-50 left pl-10 pt-10 mb_12">
                             <p class="left text-left w-50"> Người yêu cầu</p>
                             <p class="right text-right w-50 cr_weight"> Nguyễn Văn A</p>
@@ -64,8 +64,8 @@
                             <p class="right text-right w-50 cr_weight">10/11/2021</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top pl-10">
-                        <div class="form-col-50 left pt-10 mb_12">
+                    <div class="form-row left border-top">
+                        <div class="form-col-50 left pt-10 mb_12 pl-10">
                             <p class="left text-left w-50">Công trình</p>
                             <p class="right text-right w-50 cr_weight">Xây dựng nhà sinh hoạt văn hóa phường</p>
                         </div>
@@ -80,7 +80,8 @@
                             <p class="right text-right w-50 cr_weight">Chưa duyệt</p>
                         </div>
                     </div>
-                    <div class="form-row left border-top d-none">
+                    <!-- khi duyệt -->
+                    <!-- <div class="form-row left border-top d-none">
                         <div class="form-col-50 left pl-10 pt-10 mb_12">
                             <p class="left text-left w-50">Người duyệt</p>
                             <p class="right text-right w-50 cr_weight">Nguyễn Thị B</p>
@@ -89,19 +90,20 @@
                             <p class="left text-left w-50">Ngày duyệt</p>
                             <p class="right text-right w-50 cr_weight">20/11/2021</p>
                         </div>
-                    </div>
-                    <div class="form-row left border-top share_dnone">
+                    </div> -->
+                    <!-- không duyệt -->
+                    <!-- <div class="form-row left border-top share_dnone">
                         <div class="form-col-50 pl-10 pt-10 mb_12">
                             <p class="left text-left w-50">Lý do từ chối</p>
                             <p class="right text-right w-50 cr_weight">Không đủ kinh phí</p>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
             </div>
             <div class="left w-100 mt-30">
                 <div class="table-wrapper mt-5">
-                    <div class="table-container table-sm">
+                    <div class="table-container table-988">
                         <div class="tbl-header">
                             <table>
                                 <thead>
@@ -137,12 +139,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="right mt-30 xoa_csua">
-                    <button class="v-btn btn-outline-red modal-btn" data-target="delete">Xóa</button>
-                    <a href="chinh-sua-yeu-cau-vat-tu.html" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
+                <div class="right mt-20 xoa_csua">
+                    <button class="v-btn btn-outline-red modal-btn mr-20" data-target="delete">Xóa</button>
+                    <a href="chinh-sua-yeu-cau-vat-tu.html" class="v-btn btn-blue">Chỉnh sửa</a>
                 </div>
-                <div class="left mt-30 mr-10">
-                    <p class="v-btn btn-green">Xuất excel</p>
+                <div class="left mt-20 mr-10 xuatc_gm mr-20">
+                    <p class="v-btn btn-green mr-20">Xuất excel</p>
+                    <p class="share_w_148"></p>
                 </div>
 
             </div>
@@ -155,11 +158,11 @@
                         <p>Bạn có chắc chắn muốn xóa yêu cầu vật tư này?</p>
                         <p>Thao tác này sẽ không thể hoàn tác.</p>
                     </div>
-                    <div class="m-foot d-inline-block">
-                        <div class="left">
+                    <div class="m-foot d_flex flex_jct">
+                        <div class="left mb_10">
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
-                        <div class="right">
+                        <div class="right mb_10">
                             <p class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</p>
                         </div>
                     </div>

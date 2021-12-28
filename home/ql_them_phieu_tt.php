@@ -205,9 +205,9 @@ include "../includes/icon.php";
                             <div class="form_butt_ht">
                                 <div class="tow_butt_flex d_flex phieu_dy_pop">
                                     <button type="button"
-                                        class="js_btn_huy share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
+                                        class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
                                     <button type="button"
-                                        class="share_w_148 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                        class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
                                         ý</button>
                                 </div>
                             </div>
@@ -222,6 +222,7 @@ include "../includes/icon.php";
 
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script>

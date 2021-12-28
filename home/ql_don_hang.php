@@ -41,7 +41,7 @@ include "../includes/icon.php";
                 </div>
                 <div class="c-body mt_20">
                     <div class="filter1">
-                        <div class="add_hopd">
+                        <div class="add_hopd ml_20">
                             <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">
                                 &plus; Thêm mới</p>
                             <div class="all_hopd share_bgr_tow">
@@ -57,19 +57,21 @@ include "../includes/icon.php";
                                 </p>
                             </div>
                         </div>
-                        <div class="share_form_select category">
-                            <select name="category" class="tim_kiem">
-                                <option value="">Tìm kiếm theo</option>
-                                <option value="1">Mã yêu cầu</option>
-                                <option value="2">Ngày gửi</option>
-                                <option value="3">Công trình</option>
-                                <option value="4">Ngày phải hoàn thành</option>
-                            </select>
-                        </div>
-                        <div class="share_form_select search-box">
-                            <select name="search" class="tim_kiem_o">
-                                <option value="">Nhập thông tin cần tìm kiếm</option>
-                            </select>
+                        <div class="form_tkiem d_flex">
+                            <div class="share_form_select category">
+                                <select name="category" class="tim_kiem">
+                                    <option value="">Tìm kiếm theo</option>
+                                    <option value="1">Mã yêu cầu</option>
+                                    <option value="2">Ngày gửi</option>
+                                    <option value="3">Công trình</option>
+                                    <option value="4">Ngày phải hoàn thành</option>
+                                </select>
+                            </div>
+                            <div class="share_form_select search-box">
+                                <select name="search" class="tim_kiem_o">
+                                    <option value="">Nhập thông tin cần tìm kiếm</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 

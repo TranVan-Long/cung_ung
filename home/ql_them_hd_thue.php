@@ -36,7 +36,7 @@ include "../includes/icon.php";
                     <div class="chi_tiet_hd w_100 float_l">
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Thêm hợp đồng thuê</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" method="">
+                            <form action="" class="form_add_hp_mua share_distance w_100 float_l">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số hợp đồng</label>
@@ -184,7 +184,7 @@ include "../includes/icon.php";
                                     <div class="form_button hd_button">
                                         <button type="button"
                                                 class="cancel_add mb_10 share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
-                                        <button type="submit"
+                                        <button type="button"
                                                 class="save_add mb_10 share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
                                     </div>
                                 </div>
@@ -215,9 +215,9 @@ include "../includes/icon.php";
                             <div class="form_butt_ht">
                                 <div class="tow_butt_flex d_flex hd_dy_pop">
                                     <button type="button"
-                                        class="js_btn_huy share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
+                                        class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
                                     <button type="button"
-                                        class="share_w_148 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                        class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
                                         ý</button>
                                 </div>
                             </div>
@@ -232,6 +232,7 @@ include "../includes/icon.php";
 
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
@@ -317,6 +318,36 @@ include "../includes/icon.php";
     var cancel_add = $(".cancel_add");
     cancel_add.click(function(){
         modal_share.show();
+    });
+
+    $(".save_add").click(function(){
+        var form_add_thue = $(".form_add_hp_mua");
+        form_add_thue.validate({
+            errorPlacement: function(error, element) {
+                error.appendTo(element.parents(".form-group"));
+                error.wrap("<span class='error'>");
+            },
+            rules:{
+                ngay_ky:{
+                    required: true,
+                },
+                ten_nhacc:{
+                    required: true,
+                },
+            },
+            messages:{
+                 ngay_ky:{
+                    required: "Không được để trống",
+                },
+                ten_nhacc:{
+                    required: "Không được để trống",
+                },
+            },
+        });
+
+        if(form_add_thue.valid() === true){
+            alert("oke");
+        }
     });
 </script>
 

@@ -219,15 +219,15 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="xuat_gmc w_100 float_l d_flex">
-                            <div class="xuat_gmc_one share_xuat_gmc d_flex">
-                                <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight">Xuất Excel</p>
-                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_clr_four ml_20">Gửi mail</p>
-                            </div>
-                            <div class="xuat_gmc_two share_xuat_gmc d_flex">
+                        <div class="xuat_gmc w_100 float_l">
+                            <div class="xuat_gmc_two share_xuat_gmc d_flex mb_10 right">
                                 <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_dh">Xóa</p>
                                 <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                    <a href="chinh-sua-don-hang-ban.html" class="share_clr_tow">Chỉnh sửa</a></p>
+                                    <a href="chinh-sua-hop-dong-ban.html" class="share_clr_tow">Chỉnh sửa</a></p>
+                            </div>
+                            <div class="xuat_gmc_one share_xuat_gmc d_flex left mb_10 mr_10">
+                                <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight">Xuất Excel</p>
+                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_clr_four ml_20">Gửi mail</p>
                             </div>
                         </div>
                     </div>
@@ -255,9 +255,9 @@
                             <div class="form_butt_ht">
                                 <div class="tow_butt_flex d_flex">
                                     <button type="button"
-                                        class="js_btn_huy share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
+                                        class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
                                     <button type="button"
-                                        class="share_w_148 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                        class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
                                         ý</button>
                                 </div>
                             </div>

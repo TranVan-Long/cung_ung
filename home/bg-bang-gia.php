@@ -230,7 +230,7 @@ include("../includes/icon.php");
                         <div class="ctn_body_modal">
                             <div class="madal_form">
                                 <div class="sapx_dgia w_100 float_l share_bgr_tow d_flex fl_agi mb_15">
-                                    <p class="share_clr_one share_fsize_tow mr_10 cr_weight">Đơn giá:</p>
+                                    <p class="share_clr_one tca_don_gia_nhacc share_fsize_tow mr_10 cr_weight">Đơn giá:</p>
                                     <div class="form_search_dgia">
                                         <select name="search_dgia" class="form-control w_100 search_dgia">
                                             <option value="">Không sắp xếp</option>
@@ -316,7 +316,7 @@ $(".search_dgia, .timk_nhacc").select2({
 
 $(".see_ds").click(function(){
     if($(".ctiet_ds_nha_cc .table tbody").height() > 249.5){
-        $(".ctiet_ds_nha_cc .table thead tr").css('width','calc(100% - 10px)');
+        $(".ctiet_ds_nha_cc .table thead tr").css('width','calc(100% - 9px)');
     }else if($(".ctiet_ds_nha_cc .table tbody").height() < 249.5){
         $(".ctiet_ds_nha_cc .table thead tr").css('width','100%');
     }

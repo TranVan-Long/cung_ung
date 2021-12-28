@@ -42,25 +42,24 @@ include "../includes/icon.php";
                 <div class="c-body mt_20">
                     <div class="filter1">
                         <div class="add_hopd">
-                            <p
-                                class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">
+                            <p class="add_creart_hd ml-10 share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">
                                 &plus; Thêm mới</p>
                             <div class="all_hopd share_bgr_tow">
                                 <p class="hd_mua_vt">
-                                    <a class="share_clr_one share_fsize_one" href="/them-hop-dong-mua.html">Hợp đồng mua
-                                        vật tư</a>
+                                    <a class="share_clr_one share_fsize_one" href="them-hop-dong-mua.html">
+                                        Hợp đồng mua vật tư</a>
                                 </p>
                                 <p class="hopd_bvt">
-                                    <a class="share_clr_one share_fsize_one" href="/them-hop-dong-ban.html">Hợp đồng bán
-                                        vật tư</a>
+                                    <a class="share_clr_one share_fsize_one" href="them-hop-dong-ban.html">
+                                        Hợp đồng bán vật tư</a>
                                 </p>
                                 <p class="hopd_thue_tb">
-                                    <a class="share_clr_one share_fsize_one"
-                                        href="/them-hop-dong-thue-thiet-bi.html">Hợp đồng thuê thiết bị</a>
+                                    <a class="share_clr_one share_fsize_one" href="them-hop-dong-thue-thiet-bi.html">
+                                        Hợp đồng thuê thiết bị</a>
                                 </p>
                                 <p class="hopd_thue_vc">
-                                    <a class="share_clr_one share_fsize_one" href="/them-hop-dong-van-chuyen.html">Hợp
-                                        đồng thuê vận chuyển</a>
+                                    <a class="share_clr_one share_fsize_one" href="them-hop-dong-van-chuyen.html">
+                                        Hợp đồng thuê vận chuyển</a>
                                 </p>
                             </div>
                         </div>
@@ -105,8 +104,9 @@ include "../includes/icon.php";
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="quan-ly-chi-tiet-hop-dong-mua.html" class="share_clr_four">HĐ -
-                                                    0001</a></td>
+                                            <td>
+                                                <a href="quan-ly-chi-tiet-hop-dong-mua.html" class="share_clr_four">
+                                                    HĐ - 0001</a></td>
                                             <td>29/10/2021</td>
                                             <td>Hợp đồng mua vật tư</td>
                                             <td>12/10/2021 - 30/10/2021</td>
@@ -187,8 +187,8 @@ include "../includes/icon.php";
                         </div>
                     </div>
                 </div>
-                <div class="c-foot d_flex flex_jct fl_agi fl_wrap mt_20">
-                    <div class="display d_flex fl_agi">
+                <div class="c-foot w_100 float_l mt_20">
+                    <div class="display mb-10 mr-10">
                         <label for="display" class="mr_10">Hiển thị</label>
                         <select name="display" id="display">
                             <option value="10">10</option>
@@ -197,7 +197,7 @@ include "../includes/icon.php";
                             <option value="40">40</option>
                         </select>
                     </div>
-                    <div class="pagination">
+                    <div class="pagination  mb-10">
                         <ul class="mt-10">
                             <li><a href="#"><?php echo $ic_lt ?></a></li>
                             <li class="active"><a href="#">1</a></li>

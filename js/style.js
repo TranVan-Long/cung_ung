@@ -9,6 +9,7 @@ $(window).click(function (e) {
         dropc.removeClass("active");
     }
 });
+
 $(".hd_dy_pop .save_new_dp").click(function () {
     window.location.href = "quan-ly-hop-dong.html";
 });

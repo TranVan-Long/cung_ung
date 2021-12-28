@@ -1230,12 +1230,9 @@ select#display {
     width: 100%;
 }
 
-.form-col-50, .form-col-100 {
+.form-col-100 {
     position: relative;
     width: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box
 }
 
 .form-col-50 {

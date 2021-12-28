@@ -102,9 +102,7 @@ include "../includes/icon.php";
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Phòng ban</label>
-                                        <select name="phong_ban" class="form-control all_pban">
-                                            <option value="">-- Chọn hợp đồng --</option>
-                                        </select>
+                                        <input type="text" name="phong_ban" class="form-control" placeholder="Nhập phòng ban người nhận">
                                     </div>
                                     <div class="form-group">
                                         <label>Người nhận hàng <span class="cr_red">*</span></label>
@@ -121,10 +119,10 @@ include "../includes/icon.php";
                                         <div class="bao_hanh w_100 float_l d_flex fl_agi">
                                             <div class="bef_ptram">
                                                 <span class="phan_tram">%</span>
-                                                <input type="text" name="baoh_hd" class="baoh_pt">
+                                                <input type="text" name="baoh_hd" class="baoh_pt gr_padd share_fsize_tow">
                                             </div>
                                             <span>tương đương</span>
-                                            <input type="text" name="gia_tri" class="gia_tri">
+                                            <input type="text" name="gia_tri" class="gia_tri gr_padd share_fsize_tow">
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +134,7 @@ include "../includes/icon.php";
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Giá trị trước VAT</label>
-                                        <input type="text" name="giatr_vat" value="10000" class="form-control h_border cr_weight">
+                                        <input type="text" name="giatr_vat" value="10000" class="form-control h_border cr_weight" readonly>
                                     </div>
                                     <div class="form-group  d_flex fl_agi form_lb">
                                         <label>Đơn giá đã bao gồm VAT</label>
@@ -157,7 +155,7 @@ include "../includes/icon.php";
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Giá trị sau VAT</label>
-                                        <input type="text" name="gias_vat" value="10000" class="form-control h_border cr_weight">
+                                        <input type="text" name="gias_vat" value="10000" class="form-control h_border cr_weight" readonly>
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -213,8 +211,8 @@ include "../includes/icon.php";
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_two">
-                                                        <div class="form-group share_form_select">
-                                                            <select name="ten_vatt" class="ten_vatt">
+                                                        <div class="form-group">
+                                                            <select name="ten_vatt" class="ten_vatt form-control">
                                                                 <option value=""></option>
                                                             </select>
                                                         </div>
@@ -252,7 +250,7 @@ include "../includes/icon.php";
                                                     </td>
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
-                                                            <input type="number" name="don_gia" class="form-control">
+                                                            <input type="number" name="don_gia" class="form-control" disabled>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_two">
@@ -315,9 +313,9 @@ include "../includes/icon.php";
                             <div class="form_butt_ht">
                                 <div class="tow_butt_flex d_flex dh_dy_pop">
                                     <button type="button"
-                                        class="js_btn_huy share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
+                                        class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
                                     <button type="button"
-                                        class="share_w_148 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                        class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
                                         ý</button>
                                 </div>
                             </div>
@@ -332,10 +330,11 @@ include "../includes/icon.php";
 
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
-    $(".all_nhacc, .all_nguoilh, .all_pban, .all_da_ct, .all_hopd, .ma_vatt, .ten_vatt").select2({
+    $(".all_nhacc, .all_nguoilh, .all_da_ct, .all_hopd, .ma_vatt").select2({
         width: '100%',
     });
 

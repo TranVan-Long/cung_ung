@@ -88,10 +88,10 @@ include "../includes/icon.php";
                                         <div class="bao_hanh w_100 float_l d_flex fl_agi">
                                             <div class="bef_ptram">
                                                 <span class="phan_tram">%</span>
-                                                <input type="text" name="baoh_hd" class="baoh_pt">
+                                                <input type="text" name="baoh_hd" class="baoh_pt gr_padd share_fsize_tow">
                                             </div>
                                             <span>tương đương</span>
-                                            <input type="text" name="gia_tri" class="gia_tri">
+                                            <input type="text" name="gia_tri" class="gia_tri gr_padd share_fsize_tow">
                                         </div>
                                     </div>
                                 </div>
@@ -101,10 +101,10 @@ include "../includes/icon.php";
                                         <div class="bao_hanh w_100 float_l d_flex fl_agi">
                                             <div class="bef_ptram">
                                                 <span class="phan_tram">%</span>
-                                                <input type="text" name="baol_hd" class="baoh_pt">
+                                                <input type="text" name="baol_hd" class="baoh_pt gr_padd share_fsize_tow">
                                             </div>
                                             <span>tương đương</span>
-                                            <input type="text" name="gia_tri_bl" class="gia_tri">
+                                            <input type="text" name="gia_tri_bl" class="gia_tri gr_padd share_fsize_tow">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -116,9 +116,9 @@ include "../includes/icon.php";
                                     <div class="form-group">
                                         <label>Thời gian thực hiện</label>
                                         <div class="bao_hanh w_100 float_l d_flex fl_agi">
-                                            <input type="date" name="bd_ngay" class="gia_tri">
+                                            <input type="date" name="bd_ngay" class="gia_tri gr_padd share_fsize_tow">
                                             <span>đến</span>
-                                            <input type="date" name="kt_ngay" class="gia_tri">
+                                            <input type="date" name="kt_ngay" class="gia_tri gr_padd share_fsize_tow">
                                         </div>
                                     </div>
                                     <div class="form-group d_flex fl_agi form_lb">
@@ -210,7 +210,7 @@ include "../includes/icon.php";
                                                     </td>
                                                     <td class="share_tb_four">
                                                         <div class="form-group">
-                                                            <input type="text" name="thanh_tien" class="form-control">
+                                                            <input type="text" name="thanh_tien" class="form-control h_border" readonly>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -222,7 +222,7 @@ include "../includes/icon.php";
                                     <div class="form_button hd_button">
                                         <button type="button"
                                                 class="cancel_add share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
-                                        <button type="submit"
+                                        <button type="button"
                                                 class="save_add share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
                                     </div>
                                 </div>
@@ -253,9 +253,9 @@ include "../includes/icon.php";
                             <div class="form_butt_ht">
                                 <div class="tow_butt_flex d_flex hd_dy_pop">
                                     <button type="button"
-                                        class="js_btn_huy share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
+                                        class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
                                     <button type="button"
-                                        class="share_w_148 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                        class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
                                         ý</button>
                                 </div>
                             </div>
@@ -270,6 +270,7 @@ include "../includes/icon.php";
 
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
@@ -306,7 +307,7 @@ include "../includes/icon.php";
                         </td>
                         <td class="share_tb_four">
                             <div class="form-group">
-                                <input type="text" name="thanh_tien" class="form-control">
+                                <input type="text" name="thanh_tien" class="form-control h_border" readonly>
                             </div>
                         </td>
                     </tr>`;
@@ -321,6 +322,42 @@ include "../includes/icon.php";
     var cancel_add = $(".cancel_add");
     cancel_add.click(function(){
         modal_share.show();
+    });
+
+    $(".save_add").click(function(){
+        var form_add_vc = $(".form_add_hp_mua");
+        form_add_vc.validate({
+            errorPlacement: function(error, element) {
+                error.appendTo(element.parents(".form-group"));
+                error.wrap("<span class='error'>");
+            },
+            rules:{
+                ngay_ky:{
+                    required: true,
+                },
+                nha_ccap:{
+                    required: true,
+                },
+                dan_ctrinh:{
+                    required: true,
+                }
+            },
+            messages:{
+                 ngay_ky:{
+                    required: "Không được để trống",
+                },
+                nha_ccap:{
+                    required: "Không được để trống",
+                },
+                dan_ctrinh:{
+                    required: "Không được để trống",
+                }
+            },
+        });
+
+        if(form_add_vc.valid() === true){
+            alert("oke");
+        }
     });
 </script>
 

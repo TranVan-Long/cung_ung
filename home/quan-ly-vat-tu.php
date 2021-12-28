@@ -8,7 +8,7 @@ include "../includes/icon.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quản lý yêu cầu vật tư</title>
-    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
 
     <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -26,7 +26,7 @@ include "../includes/icon.php";
 </head>
 
 <body>
-    <div class="main-container ql_chung">
+    <div class="main-container ql_chung ql_vat_tu">
         <?php include "../includes/sidebar.php"?>
 
         <div class="container">
@@ -43,20 +43,22 @@ include "../includes/icon.php";
                 </div>
                 <div class="c-body">
                     <div class="w-100 left">
-                        <div class="right them_moi mt-20"><a class="v-btn btn-blue add-btn" href="them-yeu-cau-vat-tu.html">&plus; Thêm mới</a></div>
-                        <div class="category v-select2 mt-20">
-                            <select name="category" class="share_select">
-                                <option value="">Tìm kiếm theo</option>
-                                <option value="1">Mã yêu cầu</option>
-                                <option value="2">Ngày gửi</option>
-                                <option value="3">Công trình</option>
-                                <option value="4">Ngày phải hoàn thành</option>
-                            </select>
-                        </div>
-                        <div class="search-box v-select2 mt-20">
-                            <select name="search" class="share_select">
-                                <option value="">Nhập thông tin cần tìm kiếm</option>
-                            </select>
+                        <div class="right them_moi mt-20 ml-10"><a class="v-btn btn-blue add-btn" href="them-yeu-cau-vat-tu.html">&plus; Thêm mới</a></div>
+                        <div class="form_tkiem d_flex">
+                            <div class="category v-select2 mt-20">
+                                <select name="category" class="share_select">
+                                    <option value="">Tìm kiếm theo</option>
+                                    <option value="1">Mã yêu cầu</option>
+                                    <option value="2">Ngày gửi</option>
+                                    <option value="3">Công trình</option>
+                                    <option value="4">Ngày phải hoàn thành</option>
+                                </select>
+                            </div>
+                            <div class="search-box v-select2 mt-20">
+                                <select name="search" class="share_select">
+                                    <option value="">Nhập thông tin cần tìm kiếm</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="filter2">
@@ -84,7 +86,7 @@ include "../includes/icon.php";
                         </label>
                     </div>
                     <div class="table-wrapper">
-                        <div class="table-container table-sm">
+                        <div class="table-container">
                             <div class="tbl-header">
                                 <table>
                                     <thead>
@@ -105,7 +107,8 @@ include "../includes/icon.php";
                                         <tr>
                                             <td class="w-5">1</td>
                                             <td class="w-15">
-                                                <a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html" class="share_clr_four">YC-000-02983</a>
+                                                <a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html"
+                                                    class="share_clr_four">YC-000-02983</a>
                                             </td>
                                             <td class="w-10">29/10/2021</td>
                                             <td class="w-20">Xây dựng nhà văn hóa</td>
@@ -191,16 +194,15 @@ include "../includes/icon.php";
                     </div>
                 </div>
 
-                <div class="c-foot mt-10">
-                    <div class="display">
+                <div class="c-foot mt-20 w_100 float_l">
+                    <div class="display mb-10 mr-10">
                         <label for="display">Hiển thị</label>
                         <select name="display" id="display">
                             <option value="10">10</option>
                             <option value="20">20</option>
                         </select>
                     </div>
-
-                    <div class="pagination">
+                    <div class="pagination mb-10">
                         <ul class="mt-10">
                             <li><a href="#"><?php echo $ic_lt ?></a></li>
                             <li class="active"><a href="#">1</a></li>

@@ -38,7 +38,7 @@ include "../includes/icon.php";
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Thêm hợp đồng mua</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" method="">
+                            <form action="" class="form_add_hp_mua share_distance w_100 float_l">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số hợp đồng</label>
@@ -65,13 +65,16 @@ include "../includes/icon.php";
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group d_flex fl_agi form_lb">
-                                        <label>Hợp đồng nguyên tắc</label>
-                                        <input type="checkbox" name="hd_ntac">
+                                        <label for="hd_nguyent">Hợp đồng nguyên tắc</label>
+                                        <input type="checkbox" id="hd_nguyent" name="hd_ntac">
                                     </div>
                                     <div class="form-group">
                                         <label>Hình thức hợp đồng</label>
                                         <select name="hinht_hd" class="form-control all_hthuc_hd">
                                             <option value="">-- Chọn hình thức hợp đồng --</option>
+                                            <option value="1">Hợp đồng trọn gói</option>
+                                            <option value="2">Hợp đồng theo đơn giá cố định</option>
+                                            <option value="3">Hợp đồng theo đơn giá điều chỉnh</option>
                                         </select>
                                     </div>
                                 </div>
@@ -79,11 +82,11 @@ include "../includes/icon.php";
                                     <div class="form-group">
                                         <label>Giá trị trước VAT</label>
                                         <input type="text" name="hd_ntac" value="10000"
-                                            class="form-control h_border cr_weight">
+                                            class="form-control h_border cr_weight" readonly>
                                     </div>
-                                    <div class="form-group  d_flex fl_agi form_lb">
+                                    <div class="form-group d_flex fl_agi form_lb">
                                         <label for="dgia_tt">Đơn giá đã bao gồm VAT</label>
-                                        <input type="checkbox" name="dgia_vat" id="dgia_tt">
+                                        <input type="checkbox" id="dgia_tt" name="dgia_vat">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -102,7 +105,7 @@ include "../includes/icon.php";
                                     <div class="form-group">
                                         <label>Giá trị sau VAT</label>
                                         <input type="text" name="hd_ntac" value="1000"
-                                            class="form-control h_border cr_weight">
+                                            class="form-control h_border cr_weight" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label>Giữ lại bảo hành</label>
@@ -143,8 +146,8 @@ include "../includes/icon.php";
                                         </div>
                                     </div>
                                     <div class="form-group d_flex fl_agi form_lb">
-                                        <label>Hợp đồng đã bao gồm vận chuyển</label>
-                                        <input type="checkbox" name="hd_vanc">
+                                        <label for="baog_vanc">Hợp đồng đã bao gồm vận chuyển</label>
+                                        <input type="checkbox" id="baog_vanc" name="hd_vanc">
                                     </div>
                                 </div>
                                 <div class="form-group w_100 float_l">
@@ -285,7 +288,7 @@ include "../includes/icon.php";
                                     <div class="form_button hd_button">
                                         <button type="button"
                                             class="cancel_add mb_10 share_cursor share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
-                                        <button type="submit"
+                                        <button type="button"
                                             class="save_add mb_10 share_cursor share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
                                     </div>
                                 </div>
@@ -317,9 +320,9 @@ include "../includes/icon.php";
                             <div class="form_butt_ht">
                                 <div class="tow_butt_flex d_flex hd_dy_pop">
                                     <button type="button"
-                                        class="js_btn_huy share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
+                                        class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
                                     <button type="button"
-                                        class="share_w_148 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                        class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
                                         ý</button>
                                 </div>
                             </div>
@@ -334,89 +337,126 @@ include "../includes/icon.php";
 
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
-$(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia, .ma_vatt").select2({
-    width: '100%',
-});
+    $(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia, .ma_vatt").select2({
+        width: '100%',
+    });
 
-$('.add_vat_tu').click(function() {
-    var html = `<tr>
-                    <td class="share_tb_seven">
-                        <p>
-                            <img src="../img/remove.png" alt="xóa"
-                                class="remo_cot_ngang share_cursor">
-                        </p>
-                    </td>
-                    <td class="share_tb_two">
-                        <div class="form-group share_form_select">
-                            <select name="ma_vatt" class="ma_vatt">
-                                <option value=""></option>
-                            </select>
-                        </div>
-                    </td>
-                    <td class="share_tb_three">
-                        <div class="form-group">
-                            <select name="ten_vatt" class="ten_vatt form-control">
-                                <option value=""></option>
-                            </select>
-                        </div>
-                    </td>
-                    <td class="share_tb_eight">
-                        <div class="form-group">
-                            <input type="text" name="don_vi" class="form-control" disabled>
-                        </div>
-                    </td>
-                    <td class="share_tb_two">
-                        <div class="form-group">
-                            <input type="text" name="hang-san-xuat"
-                                class="form-control" disabled>
-                        </div>
-                    </td>
-                    <td class="share_tb_two">
-                        <div class="form-group">
-                            <input type="text" name="xuat-xu" class="form-control" disabled>
-                        </div>
-                    </td>
-                    <td class="share_tb_one">
-                        <div class="form-group">
-                            <input type="number" name="so-luong" class="form-control">
-                        </div>
-                    </td>
-                    <td class="share_tb_two">
-                        <div class="form-group">
-                            <input type="number" name="don-gia" class="form-control" disabled>
-                        </div>
-                    </td>
-                    <td class="share_tb_two">
-                        <div class="form-group">
-                            <input type="number" name="tien_tvat" class="form-control" disabled>
-                        </div>
-                    </td>
-                    <td class="share_tb_two">
-                        <div class="form-group">
-                            <input type="number" name="thue_vat" class="form-control">
-                        </div>
-                    </td>
-                    <td class="share_tb_two">
-                        <div class="form-group">
-                            <input type="number" name="tien_svat" class="form-control" disabled>
-                        </div>
-                    </td>
-                </tr>`;
-    $(".ctn_table .table tbody").append(html);
-    widthSelect();
+    $('.add_vat_tu').click(function() {
+        var html = `<tr>
+                        <td class="share_tb_seven">
+                            <p>
+                                <img src="../img/remove.png" alt="xóa"
+                                    class="remo_cot_ngang share_cursor">
+                            </p>
+                        </td>
+                        <td class="share_tb_two">
+                            <div class="form-group share_form_select">
+                                <select name="ma_vatt" class="ma_vatt">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </td>
+                        <td class="share_tb_three">
+                            <div class="form-group">
+                                <select name="ten_vatt" class="ten_vatt form-control">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </td>
+                        <td class="share_tb_eight">
+                            <div class="form-group">
+                                <input type="text" name="don_vi" class="form-control" disabled>
+                            </div>
+                        </td>
+                        <td class="share_tb_two">
+                            <div class="form-group">
+                                <input type="text" name="hang-san-xuat"
+                                    class="form-control" disabled>
+                            </div>
+                        </td>
+                        <td class="share_tb_two">
+                            <div class="form-group">
+                                <input type="text" name="xuat-xu" class="form-control" disabled>
+                            </div>
+                        </td>
+                        <td class="share_tb_one">
+                            <div class="form-group">
+                                <input type="number" name="so-luong" class="form-control">
+                            </div>
+                        </td>
+                        <td class="share_tb_two">
+                            <div class="form-group">
+                                <input type="number" name="don-gia" class="form-control" disabled>
+                            </div>
+                        </td>
+                        <td class="share_tb_two">
+                            <div class="form-group">
+                                <input type="number" name="tien_tvat" class="form-control" disabled>
+                            </div>
+                        </td>
+                        <td class="share_tb_two">
+                            <div class="form-group">
+                                <input type="number" name="thue_vat" class="form-control">
+                            </div>
+                        </td>
+                        <td class="share_tb_two">
+                            <div class="form-group">
+                                <input type="number" name="tien_svat" class="form-control" disabled>
+                            </div>
+                        </td>
+                    </tr>`;
+        $(".ctn_table .table tbody").append(html);
+        widthSelect();
 
-    if ($(".ctn_table .table tbody").height() > 105.5) {
-        $(".ctn_table .table thead tr").css('width', 'calc(100% - 10px)');
-    }
-});
+        if ($(".ctn_table .table tbody").height() > 105.5) {
+            $(".ctn_table .table thead tr").css('width', 'calc(100% - 10px)');
+        }
+    });
 
-var cancel_add = $(".cancel_add");
-cancel_add.click(function() {
-    modal_share.show();
-});
+    var cancel_add = $(".cancel_add");
+    cancel_add.click(function() {
+        modal_share.show();
+    });
+
+    $(".save_add").click(function(){
+        var form_add_mua = $(".form_add_hp_mua");
+        form_add_mua.validate({
+            errorPlacement: function(error, element) {
+                error.appendTo(element.parents(".form-group"));
+                error.wrap("<span class='error'>");
+            },
+            rules:{
+                ngay_ky:{
+                    required: true,
+                },
+                nha_ccap:{
+                    required: true,
+                },
+                dan_ctrinh:{
+                    required: true,
+                }
+            },
+            messages:{
+                 ngay_ky:{
+                    required: "Không được để trống",
+                },
+                nha_ccap:{
+                    required: "Không được để trống",
+                },
+                dan_ctrinh:{
+                    required: "Không được để trống",
+                }
+            },
+        });
+
+        if(form_add_mua.valid() === true){
+            alert("oke");
+        }
+    });
 </script>
 
 </html>
