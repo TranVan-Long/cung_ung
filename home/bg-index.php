@@ -167,8 +167,8 @@ include("../includes/icon.php");
                     </div>
                 </div>
             </div>
-            <div class="w-100 left mt-10">
-                <div class="display">
+            <div class="w-100 left mt-10 d-flex flex-wrap spc-btw">
+                <div class="display mr-10">
                     <label for="display">Hiển thị</label>
                     <select name="display" id="display">
                         <option value="10">10</option>

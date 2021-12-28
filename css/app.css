@@ -1,4 +1,5 @@
 body {
+    min-width: 330px;
     font-size: 16px;
     line-height: 19px;
     color: #474747;
@@ -51,6 +52,7 @@ p {
 .form-control input, .table-container td input {
     width: 100%;
     height: 36px;
+    color: #474747;
     font-size: 16px;
     line-height: 19px;
     padding: 9px 10px;
@@ -77,12 +79,11 @@ p {
     background-position: calc(100% - 10px), 50%;
 }
 
-.date-input-sm {
-    padding: 9px 5px !important;
-    background-position: 93% 50% !important;
+.date-input-sm input {
+    padding: 9px 5px;
 }
 
-[type=date] {
+input[type=date] {
     padding: 9px;
     font-size: 16px;
     line-height: 19px;
@@ -90,8 +91,8 @@ p {
     background-image: url("/img/calendar.png");
     background-repeat: no-repeat;
     background-position: calc(100% - 10px), 50%;
+    display: block;
 }
-
 
 [type="date"]::-webkit-inner-spin-button {
     display: none;
@@ -136,7 +137,7 @@ textarea[placeholder] {
 }
 
 .bordered {
-    padding: 20px 16px;
+    padding: 20px 16px 5px 16px;
     border: 1px solid #474747;
     border-radius: 8px;
 }
@@ -188,6 +189,9 @@ textarea[placeholder] {
 .d-flex {
     display: flex;
 }
+.flex-wrap{
+    flex-wrap: wrap;
+}
 
 .align-items-center {
     align-items: center;
@@ -195,6 +199,9 @@ textarea[placeholder] {
 
 .spc-btw {
     justify-content: space-between;
+}
+.spc-around{
+    justify-content: space-around;
 }
 
 .justify-content-center {
@@ -325,7 +332,9 @@ textarea[placeholder] {
     margin-left: 30px;
 }
 
-
+.p-5{
+    padding: 5px;
+}
 
 .p-10 {
     padding: 10px;
@@ -704,15 +713,9 @@ textarea[placeholder] {
     background: none;
 }
 
-.removeItem2 {
+.removeItem2, .removeItem3 {
     position: absolute;
     right: 0;
-    top: 45%;
-}
-
-p.removeItem3 {
-    margin-top: 32px;
-    margin-right: 50px;
 }
 
 .side-bar li .icon:hover {
@@ -792,12 +795,6 @@ p.removeItem3 {
     border: 1px solid #474747;
 }
 
-.table-wrapper table {
-    table-layout: fixed;
-    border-collapse: collapse;
-    width: 100%;
-}
-
 .table-wrapper tr:first-child {
     border-top: none;
 }
@@ -841,6 +838,10 @@ p.removeItem3 {
 
 .table-1428 {
     min-width: 1428px;
+}
+
+.table-1310{
+    min-width: 1310px;
 }
 
 .table-1252 {
@@ -895,8 +896,11 @@ p.removeItem3 {
     border-right: none;
 }
 
-.table-container tr, .table-container th {
+.table-container tr {
     border-bottom: solid 1px #474747;
+}
+.table-container .tbl-content tr:first-child{
+    border-top: solid 1px #474747;
 }
 
 .table-container tr:last-child {
@@ -1166,7 +1170,7 @@ select#display {
     height: 19px;
     float: left;
     padding: 0px 5px;
-    margin: 0 10px;
+    margin: 0 7px;
     border: 1px solid #666666;
     border-radius: 4px;
 }
@@ -1236,7 +1240,7 @@ select#display {
 }
 
 .form-col-50 {
-    width: 42%;
+    width: 45%;
 }
 
 .m-content {
@@ -1604,13 +1608,13 @@ select#display {
     display: none;
     position: absolute;
     background-color: #ffffff;
-    width: 360px;
+    width: 400px;
     height: 72px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.12);
     padding: 10px 20px;
     text-align: left;
-    right: 0;
-    top: 52px;
+    right: 30px;
+    top: 32px;
     border-radius: 8px;
     z-index: 1;
 }
@@ -1619,9 +1623,9 @@ select#display {
     display: block;
 }
 
-.tbl-menu-text {
+.table-container .tbl-menu-text {
     cursor: pointer;
-    padding-left: 36px;
+    padding: 0 9px;
     color: #474747;
 }
 
@@ -1679,11 +1683,12 @@ select#display {
     flex-wrap: nowrap;
 }
 
-.bank {
+.bank, .value {
     position: relative;
+    align-items: center;
 }
 
-.bank-form {
+.bank-form, .value-form {
     float: left;
     width: 95%;
     margin-top: 10px;
@@ -1699,6 +1704,7 @@ select#display {
     width: 50%;
     text-align: right;
     float: right;
+    word-break: break-word;
 }
 
 .no-border {
@@ -1708,4 +1714,9 @@ select#display {
 .control-btn {
     display: flex;
     justify-content: space-around;
+}
+
+.main-form{
+    width: 100%;
+    float: left;
 }

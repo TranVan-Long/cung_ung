@@ -147,10 +147,10 @@ include("../includes/icon.php");
                 <p>Thao tác này sẽ không thể hoàn tác.</p>
             </div>
             <div class="m-foot d-flex spc-btw">
-                <div class="left mb_10">
+                <div class="left mb-10">
                     <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                 </div>
-                <div class="right mb_10">
+                <div class="right mb-10">
                     <button class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</button>
                 </div>
             </div>

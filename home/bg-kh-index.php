@@ -64,7 +64,7 @@ include("../includes/icon.php");
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
                     <div class="scr-btn scr-r-btn left"><i class="ic-chevron-right"></i></div>
                     <div class="table-wrapper">
-                        <div class="table-container table-lg">
+                        <div class="table-container table-1310">
                             <div class="tbl-header">
                                 <table>
                                     <thead>
@@ -180,11 +180,11 @@ include("../includes/icon.php");
                     </div>
                 </div>
             </div>
-            <div class="c-foot mt-20 left">
-                <div class="display">
+            <div class="w-100 left mt-10 d-flex flex-wrap spc-btw">
+                <div class="display mr-10">
                     <label for="display">Hiển thị</label>
                     <select name="display" id="display">
-                        <option value="10" selected>10</option>
+                        <option value="10">10</option>
                         <option value="20">20</option>
                     </select>
                 </div>

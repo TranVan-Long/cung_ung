@@ -194,15 +194,15 @@ include("../includes/icon.php");
                         </div>
                     </div>
                 </div>
-                <div class="w-100 left mt-20">
-                    <div class="display">
+                <div class="w-100 left mt-10 d-flex flex-wrap spc-btw">
+                    <div class="display mr-10">
                         <label for="display">Hiển thị</label>
                         <select name="display" id="display">
                             <option value="10">10</option>
                             <option value="20">20</option>
                         </select>
                     </div>
-                    <div class="pagination">
+                    <div class="pagination mt-10">
                         <ul>
                             <li><a href="#"><?php echo $ic_lt ?></a></li>
                             <li class="active"><a href="#">1</a></li>
@@ -230,7 +230,7 @@ include("../includes/icon.php");
                         <div class="ctn_body_modal">
                             <div class="madal_form">
                                 <div class="sapx_dgia w_100 float_l share_bgr_tow d_flex fl_agi mb_15">
-                                    <p class="share_clr_one tca_don_gia_nhacc share_fsize_tow mr_10 cr_weight">Đơn giá:</p>
+                                    <p class="share_clr_one share_fsize_tow mr_10 cr_weight">Đơn giá:</p>
                                     <div class="form_search_dgia">
                                         <select name="search_dgia" class="form-control w_100 search_dgia">
                                             <option value="">Không sắp xếp</option>
@@ -288,7 +288,6 @@ include("../includes/icon.php");
         </div>
         <?php include "../modals/modal_logout.php"?>
         <? include("../modals/modal_menu.php") ?>
-
     </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
@@ -296,7 +295,6 @@ include("../includes/icon.php");
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript">
-
 var see_ds = $(".see_ds");
 var list_cate_nhacc = $(".list_cate_nhacc");
 
@@ -316,12 +314,10 @@ $(".search_dgia, .timk_nhacc").select2({
 
 $(".see_ds").click(function(){
     if($(".ctiet_ds_nha_cc .table tbody").height() > 249.5){
-        $(".ctiet_ds_nha_cc .table thead tr").css('width','calc(100% - 9px)');
+        $(".ctiet_ds_nha_cc .table thead tr").css('width','calc(100% - 10px)');
     }else if($(".ctiet_ds_nha_cc .table tbody").height() < 249.5){
         $(".ctiet_ds_nha_cc .table thead tr").css('width','100%');
     }
 });
-
 </script>
-
 </html>

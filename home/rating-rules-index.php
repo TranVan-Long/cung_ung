@@ -30,32 +30,34 @@ include("../includes/icon.php");
             <?php include('../includes/ql_header_nv.php') ?>
         </div>
         <div class="content">
-            <div class="c-top border-bottom-2">
-                <h4 class="left">Đánh giá nhà cung cấp</h4>
+            <div class="w-100 left border-bottom mt-25 pb-20 d-flex align-items-center spc-btw">
+                <p class="left page-title">Đánh giá nhà cung cấp</p>
                 <div class="c-help d_flex fl_agi">
                     <i class="ic-question share_clr_four"><?php echo $ic_question ?></i>
                     <a class="c-help" href="#">Hướng dẫn</a>
                 </div>
             </div>
-            <div class="c-body mt-20">
+            <div class="w-100 left">
                 <div class="w-100 left">
-                    <div class="category v-select2">
-                        <select name="category" class="share_select">
-                            <option value="">Tìm kiếm theo</option>
-                            <option value="1">Ngày gửi</option>
-                            <option value="2">Công trình</option>
-                            <option value="3">Ngày phải hoàn thành</option>
-                        </select>
+                    <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-tieu-chi-danh-gia.html">&plus; Thêm mới</a>
+                    <div class="filter">
+                        <div class="category v-select2 mt-20">
+                            <select name="category" class="share_select">
+                                <option value="">Tìm kiếm theo</option>
+                                <option value="1">Ngày gửi</option>
+                                <option value="2">Công trình</option>
+                                <option value="3">Ngày phải hoàn thành</option>
+                            </select>
+                        </div>
+                        <div class="search-box v-select2 mt-20">
+                            <select name="search" class="share_select">
+                                <option value="">Nhập thông tin cần tìm kiếm</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="search-box v-select2">
-                        <select name="search" class="share_select">
-                            <option value="">Nhập thông tin cần tìm kiếm</option>
-                        </select>
-                    </div>
-                    <a class="v-btn btn-blue add-btn" href="them-tieu-chi-danh-gia.html">&plus; Thêm mới</a>
                 </div>
                 <div class="table-wrapper left w-100 mt-30">
-                    <div class="table-container">
+                    <div class="table-container table-988">
                         <div class="tbl-header">
                             <table>
                                 <thead>
@@ -87,12 +89,11 @@ include("../includes/icon.php");
                                         <p class="table-text">0</p>
                                     </td>
                                     <td>
-                                        <p class="table-text">Tốt<span class="tbl-menu" data-tab="1"></span>
+                                        <p class="table-text">Tốt<span class="tbl-menu" data-tab="1"></span></p>
                                         <ul class="tbl-menu-content" id="1">
                                             <li class="mb-10"><a href="chinh-sua-tieu-chi-danh-gia.html" class="tbl-menu-text">Chỉnh sửa</a></li>
                                             <li class="border-top2"><p class="tbl-menu-text modal-btn mt-10">Xóa</p></li>
                                         </ul>
-                                        </p>
                                         <p class="table-text">Trung bình</p>
                                         <p class="table-text">Kém</p>
                                     </td>
@@ -241,8 +242,8 @@ include("../includes/icon.php");
                 </div>
 
             </div>
-            <div class="c-foot mt-20 left">
-                <div class="display">
+            <div class="w-100 left mt-10 d-flex flex-wrap spc-btw">
+                <div class="display mr-10">
                     <label for="display">Hiển thị</label>
                     <select name="display" id="display">
                         <option value="10">10</option>

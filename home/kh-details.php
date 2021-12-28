@@ -110,21 +110,21 @@ include("../includes/icon.php");
                 <p class="cr_weight">Danh sách tài khoản ngân hàng</p>
                 <div class="left w-100 bordered mt-10 ds_tk_nhang detail-form">
                     <div class="form-row left">
-                        <div class="form-col-50 left p-10 no-border">
+                        <div class="form-col-50 left mb_15 no-border">
                             <p class="detail-title">Tên ngân hàng</p>
                             <p class="detail-data text-500">Ngân hàng A</p>
                         </div>
-                        <div class="form-col-50 right p-10 no-border">
+                        <div class="form-col-50 right mb_15 no-border">
                             <p class="detail-title">Chi nhánh</p>
                             <p class="detail-data text-500">Chi nhánh 1</p>
                         </div>
                     </div>
                     <div class="form-row left">
-                        <div class="form-col-50 left p-10 no-border">
+                        <div class="form-col-50 left mb_15 no-border">
                             <p class="detail-title">Số tài khoản</p>
                             <p class="detail-data text-500">0364777829845</p>
                         </div>
-                        <div class="form-col-50 right p-10 no-border">
+                        <div class="form-col-50 right mb_15 no-border">
                             <p class="detail-title">Chủ tài khoản</p>
                             <p class="detail-data text-500">Nguyễn Văn A</p>
                         </div>

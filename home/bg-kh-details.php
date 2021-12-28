@@ -73,7 +73,7 @@ include("../includes/icon.php");
             </div>
             <div class="w-100 left mt-30">
                 <div class="table-wrapper mt-30">
-                    <div class="table-container table-lg">
+                    <div class="table-container table_1457">
                         <div class="tbl-header">
                             <table>
                                 <thead>

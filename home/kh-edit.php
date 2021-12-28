@@ -10,9 +10,9 @@ $date = date('m-d-Y', time())
     <title>Chỉnh sửa khách hàng</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
 
-    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+    <link rel="preload" href="../fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
 
     <link href="../css/select2.min.css" rel="stylesheet"/>
 
@@ -33,153 +33,161 @@ $date = date('m-d-Y', time())
             <div class="left mt-25">
                 <p class="page-title">Chỉnh sửa khách hàng</p>
             </div>
-            <div class="w-100 left mt-10">
-                <div class="form-control edit-form">
-                    <div class="form-row left">
-                        <div class="form-col-50 no-border left mb_15">
-                            <label for="ma-khach-hang">Mã khách hàng<span class="text-red">*</span></label>
-                            <input type="text" id="ma-khach-hang" name="ma-khach-hang" value="KH-000-88876" disabled >
+            <form action="" method="post" class="main-form">
+                <div class="w-100 left mt-10">
+                    <div class="form-control edit-form">
+                        <div class="form-row left">
+                            <div class="form-col-50 no-border left mb_15">
+                                <label>Mã khách hàng<span class="text-red">*</span></label>
+                                <input type="text" name="ma_khach_hang" value="KH-000-88876"
+                                       readonly>
+                            </div>
+                            <div class="form-col-50 no-border right mb_15">
+                                <label>Mã số thuế</label>
+                                <input type="text" name="ma_so_thue" placeholder="Nhập mã số thuế">
+                            </div>
                         </div>
-                        <div class="form-col-50 no-border right mb_15">
-                            <label for="ma-so-thue">Mã số thuế</label>
-                            <input type="text" id="ma-so-thue" name="ma-so-thue" placeholder="Nhập mã số thuế">
+                        <div class="form-row left">
+                            <div class="form-col-50 no-border left mb_15">
+                                <label>Tên khách hàng<span class="text-red">*</span></label>
+                                <input type="text" name="ten_khach_hang"
+                                       placeholder="Nhập tên khách hàng" value="Nguyễn Văn A">
+                            </div>
+                            <div class="form-col-50 no-border right mb_15">
+                                <label>Tên giao dịch<span class="text-red">*</span></label>
+                                <input type="text" name="ten_giao_dich"
+                                       placeholder="Nhập tên giao dịch" value="NVA1">
+                            </div>
+                        </div>
+                        <div class="form-row left">
+                            <div class="form-col-50 no-border left mb_15">
+                                <label>Tên gọi tắt</label>
+                                <input type="text" name="ten_goi_tat" placeholder="Nhập tên gọi tắt">
+                            </div>
+                        </div>
+                        <div class="form-row left">
+                            <div class="form-col-50 no-border left mb_15">
+                                <label>Địa chỉ ĐKKD</label>
+                                <input type="text" name="dia_chi_dkkd"
+                                       placeholder="Nhập địa chỉ ĐKKD">
+                            </div>
+                            <div class="form-col-50 no-border right mb_15">
+                                <label>Số ĐKKD</label>
+                                <input type="text" name="so_dkkd" placeholder="Nhập số ĐKKD">
+                            </div>
+                        </div>
+                        <div class="form-row left">
+                            <div class="form-col-50 no-border left mb_15">
+                                <label>Địa chỉ liên hệ</label>
+                                <input type="text" name="dia_chi_lien_he"
+                                       placeholder="Nhập địa chỉ liên hệ">
+                            </div>
+                            <div class="form-col-50 no-border right mb_15">
+                                <label>Fax</label>
+                                <input type="text" name="fax" placeholder="Nhập Fax">
+                            </div>
+                        </div>
+                        <div class="form-row left">
+                            <div class="form-col-50 no-border left mb_15">
+                                <label>Điện thoại</label>
+                                <input type="text" name="dien_thoai" placeholder="Nhập điện thoại">
+                            </div>
+                            <div class="form-col-50 no-border right mb_15">
+                                <label>Website</label>
+                                <input type="text" name="website" placeholder="Nhập Website">
+                            </div>
+                        </div>
+                        <div class="form-row left">
+                            <div class="form-col-50 no-border left mb_15">
+                                <label>E-mail<span class="text-red">*</span></label>
+                                <input type="text" name="e_mail" placeholder="Nhập E-mail">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-row left">
-                        <div class="form-col-50 no-border left mb_15">
-                            <label for="ten-khach-hang">Tên khách hàng<span class="text-red">*</span></label>
-                            <input type="text" id="ten-khach-hang" name="ten-khach-hang"
-                                   placeholder="Nhập tên khách hàng" value="Nguyễn Văn A">
+                    <div class="form-control edit-form mt-30 left w-100">
+                        <div class="border-bottom pb-10">
+                            <p class="d-inline-block text-bold mr-20 mt-15">Danh sách tài khoản ngân hàng</p>
+                            <p class="d-inline-block text-500 text-blue link-text mt-15" id="add-bank-acc">&plus; Thêm
+                                mới tài khoản ngân
+                                hàng</p>
                         </div>
-                        <div class="form-col-50 no-border right mb_15">
-                            <label for="ten-giao-dich">Tên giao dịch<span class="text-red">*</span></label>
-                            <input type="text" id="ten-giao-dich" name="ten-giao-dich" placeholder="Nhập tên giao dịch" value="NVA1">
-                        </div>
-                    </div>
-                    <div class="form-row left">
-                        <div class="form-col-50 no-border left mb_15">
-                            <label for="ten-goi-tat">Tên gọi tắt</label>
-                            <input type="text" id="ten-goi-tat" name="ten-goi-tat" placeholder="Nhập tên gọi tắt">
-                        </div>
-                    </div>
-                    <div class="form-row left">
-                        <div class="form-col-50 no-border left mb_15">
-                            <label for="dia-chi-dkkd">Địa chỉ ĐKKD</label>
-                            <input type="text" id="dia-chi-dkkd" name="dia-chi-dkkd" placeholder="Nhập địa chỉ ĐKKD">
-                        </div>
-                        <div class="form-col-50 no-border right mb_15">
-                            <label for="so-dkkd">Số ĐKKD</label>
-                            <input type="text" id="so-dkkd" name="so-dkkd" placeholder="Nhập số ĐKKD">
-                        </div>
-                    </div>
-                    <div class="form-row left">
-                        <div class="form-col-50 no-border left mb_15">
-                            <label for="dia-chi-lien-he">Địa chỉ liên hệ</label>
-                            <input type="text" id="dia-chi-lien-he" name="dia-chi-lien-he"
-                                   placeholder="Nhập địa chỉ liên hệ">
-                        </div>
-                        <div class="form-col-50 no-border right mb_15">
-                            <label for="fax">Fax</label>
-                            <input type="text" id="fax" name="fax" placeholder="Nhập Fax">
-                        </div>
-                    </div>
-                    <div class="form-row left">
-                        <div class="form-col-50 no-border left mb_15">
-                            <label for="dien-thoai">Điện thoại</label>
-                            <input type="text" id="dien-thoai" name="dien-thoai" placeholder="Nhập điện thoại">
-                        </div>
-                        <div class="form-col-50 no-border right mb_15">
-                            <label for="website">Website</label>
-                            <input type="text" id="website" name="website" placeholder="Nhập Website">
-                        </div>
-                    </div>
-                    <div class="form-row left">
-                        <div class="form-col-50 no-border left mb_15">
-                            <label for="e-mail">E-mail<span class="text-red">*</span></label>
-                            <input type="text" id="e-mail" name="e-mail" placeholder="Nhập E-mail">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-control edit-form mt-30 left w-100">
-                    <div class="border-bottom pb-10">
-                        <p class="d-inline-block text-bold mr-20 mt-15">Danh sách tài khoản ngân hàng</p>
-                        <p class="d-inline-block text-500 text-blue link-text mt-15" id="add-bank-acc">&plus; Thêm mới tài khoản ngân
-                            hàng</p>
-                    </div>
-                    <div id="bank-list">
-                        <div class="bank border-bottom left w-100 pb-20 mt-10 d-flex spc-btw">
-                            <div class="bank-form">
-                                <div class="form-row left">
-                                    <div class="form-col-50 left mb_15">
-                                        <div class="v-select2">
-                                            <label for="ten-ngan-hang">Tên ngân hàng<span class="text-red">*</span></label>
-                                            <select name="ten-ngan-hang" class="share_select">
-                                                <option value="">-- Chọn ngân hàng --</option>
-                                                <option value="VCB" selected>VCB</option>
-                                            </select>
+                        <div id="bank-list">
+                            <div class="bank border-bottom left w-100 pb-10 d-flex spc-btw">
+                                <div class="bank-form">
+                                    <div class="form-row left">
+                                        <div class="form-col-50 left mb_15">
+                                            <div class="v-select2">
+                                                <label for="ten-ngan-hang">Tên ngân hàng<span class="text-red">*</span></label>
+                                                <select name="ten_ngan_hang" class="share_select">
+                                                    <option value="">-- Chọn ngân hàng --</option>
+                                                    <option value="VCB" selected>VCB</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-col-50 right mb_15">
+                                            <div class="v-select2">
+                                                <label for="chi-nhanh-ngan-hang">Chi nhánh<span
+                                                            class="text-red">*</span></label>
+                                                <select name="chi_nhanh_ngan_hang" class="share_select">
+                                                    <option value="">-- Chọn chi nhánh --</option>
+                                                    <option value="1" selected>Chi nhánh 1</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-col-50 right mb_15">
-                                        <div class="v-select2">
-                                            <label for="chi-nhanh-ngan-hang">Chi nhánh<span
+                                    <div class="form-row left">
+                                        <div class="form-col-50 left mb_15">
+                                            <label>Số tài khoản<span
                                                         class="text-red">*</span></label>
-                                            <select name="chi-nhanh-ngan-hang" class="share_select">
-                                                <option value="">-- Chọn chi nhánh --</option>
-                                                <option value="1" selected>Chi nhánh 1</option>
-                                            </select>
+                                            <input type="text" name="so_tai_khoan"
+                                                   placeholder="Nhập số tài khoản" value="090909090909090">
+                                        </div>
+                                        <div class="form-col-50 right mb_15">
+                                            <label>Chủ tài khoản</label>
+                                            <input type="text" name="chu_tai_khoan"
+                                                   placeholder="Nhập mã số thuế" value="Nguyễn Văn A">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row left">
-                                    <div class="form-col-50 left mb_15">
-                                        <label for="so-tai-khoan">Số tài khoản<span
-                                                    class="text-red">*</span></label>
-                                        <input type="text" id="so-tai-khoan" name="so-tai-khoan"
-                                               placeholder="Nhập số tài khoản" value="090909090909090">
-                                    </div>
-                                    <div class="form-col-50 right mb_15">
-                                        <label for="chu-tai-khoan">Chủ tài khoản</label>
-                                        <input type="text" id="chu-tai-khoan" name="chu-tai-khoan" placeholder="Nhập mã số thuế" value="Nguyễn Văn A">
-                                    </div>
+                                <div class="removeItem2">
+                                    <i class="ic-delete2"></i>
                                 </div>
-                            </div>
-                            <div class="removeItem2">
-                                <i class="ic-delete2"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="w-100 left">
-                <div class="control-btn right">
-                    <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
-                    <button type="button" class="v-btn btn-blue mt-20">Xong</button>
+                <div class="w-100 left">
+                    <div class="control-btn right">
+                        <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
+                        <button type="button" class="v-btn btn-blue mt-20">Xong</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
-        <div class="modal text-center" id="cancel">
-            <div class="m-content">
-                <div class="m-head ">
-                    Thông báo <span class="dismiss cancel">&times;</span>
+
+    </div>
+    <div class="modal text-center" id="cancel">
+        <div class="m-content">
+            <div class="m-head ">
+                Thông báo <span class="dismiss cancel">&times;</span>
+            </div>
+            <div class="m-body">
+                <p>Bạn có chắc chắn muốn hủy việc chỉnh sửa khách hàng?</p>
+                <p>Các thông tin bạn đã nhập sẽ không được lưu.</p>
+            </div>
+            <div class="m-foot d-inline-block">
+                <div class="left mb_10">
+                    <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                 </div>
-                <div class="m-body">
-                    <p>Bạn có chắc chắn muốn hủy việc chỉnh sửa khách hàng?</p>
-                    <p>Các thông tin bạn đã nhập sẽ không được lưu.</p>
-                </div>
-                <div class="m-foot d-inline-block">
-                    <div class="left">
-                        <p class="v-btn btn-outline-blue left cancel">Hủy</p>
-                    </div>
-                    <div class="right">
-                        <a href="quan-ly-chi-tiet-khach-hang.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</a>
-                    </div>
+                <div class="right mb_10">
+                    <a href="quan-ly-chi-tiet-khach-hang.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</a>
                 </div>
             </div>
         </div>
     </div>
+    <?php include "../modals/modal_logout.php" ?>
+    <? include("../modals/modal_menu.php") ?>
 </div>
-<?php include "../modals/modal_logout.php"?>
-<? include("../modals/modal_menu.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>

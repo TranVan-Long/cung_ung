@@ -54,12 +54,12 @@ $("#add-material").click(function () {
         "                                        </td>\n" +
         "                                        <td class=\"w-15\">\n" +
         "                                            <div class=\"v-select2\">\n" +
-        "                                                <select name=\"materials-id\" class=\"share_select\"></select>\n" +
+        "                                                <select name=\"materials_id\" class=\"share_select\"></select>\n" +
         "                                            </div>\n" +
         "                                        </td>\n" +
         "                                        <td class=\"w-25\">\n" +
         "                                            <div class=\"v-select2\">\n" +
-        "                                                <select name=\"materials-name\" class=\"share_select\"></select>\n" +
+        "                                                <select name=\"materials_name\" class=\"share_select\"></select>\n" +
         "                                            </div>\n" +
         "                                        </td>\n" +
         "                                        <td class=\"w-20\">\n" +
@@ -73,44 +73,45 @@ $("#add-material").click(function () {
 });
 // them tai khoan ngan hang
 $('#add-bank-acc').click(function () {
-    var html = `<div class="bank border-bottom left w-100 pb-20 mt-10 d-flex spc-btw">
-                            <div class="bank-form">
-                                <div class="form-row left">
-                                    <div class="form-col-50 left mb_15">
-                                        <div class="v-select2">
-                                            <label for="ten-ngan-hang">Tên ngân hàng<span class="text-red">*</span></label>
-                                            <select name="ten-ngan-hang" class="share_select">
-                                                <option value="">-- Chọn ngân hàng --</option>
-                                            </select>
+    var html = `<div class="bank border-bottom left w-100 pb-10 d-flex spc-btw">
+                                <div class="bank-form">
+                                    <div class="form-row left">
+                                        <div class="form-col-50 left mb_15">
+                                            <div class="v-select2 ">
+                                                <label for="ten-ngan-hang">Tên ngân hàng<span class="text-red">*</span></label>
+                                                <select name="ten_ngan_hang" class="share_select">
+                                                    <option value="">-- Chọn ngân hàng --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-col-50 right mb_15">
+                                            <div class="v-select2">
+                                                <label for="chi-nhanh-ngan-hang">Chi nhánh<span
+                                                            class="text-red">*</span></label>
+                                                <select name="chi_nhanh_ngan-hang" class="share_select">
+                                                    <option value="">-- Chọn chi nhánh --</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-col-50 right mb_15">
-                                        <div class="v-select2">
-                                            <label for="chi-nhanh-ngan-hang">Chi nhánh<span
+                                    <div class="form-row left">
+                                        <div class="form-col-50 left mb_15">
+                                            <label>Tài khoản ngân hàng<span
                                                         class="text-red">*</span></label>
-                                            <select name="chi-nhanh-ngan-hang" class="share_select">
-                                                <option value="">-- Chọn chi nhánh --</option>
-                                            </select>
+                                            <input type="text" name="tai_khoan_ngan_hang"
+                                                   placeholder="Nhập số tài khoản">
+                                        </div>
+                                        <div class="form-col-50 right mb_15">
+                                            <label>Chủ tài khoản</label>
+                                            <input type="text" name="ma_so_thue"
+                                                   placeholder="Nhập mã số thuế">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row left">
-                                    <div class="form-col-50 left mb_15">
-                                        <label for="tai-khoan-ngan-hang">Tài khoản ngân hàng<span
-                                                    class="text-red">*</span></label>
-                                        <input type="text" id="tai-khoan-ngan-hang" name="tai-khoan-ngan-hang"
-                                               placeholder="Nhập số tài khoản">
-                                    </div>
-                                    <div class="form-col-50 right mb_15">
-                                        <label for="ma-so-thue">Chủ tài khoản</label>
-                                        <input type="text" id="ma-so-thue" name="ma-so-thue" placeholder="Nhập mã số thuế">
-                                    </div>
+                                <div class="removeItem2">
+                                    <i class="ic-delete2"></i>
                                 </div>
-                            </div>
-                            <div class="removeItem2">
-                                <i class="ic-delete2"></i>
-                            </div>
-                        </div>`;
+                            </div>`;
     $('#bank-list').append(html);
     RefSelect2();
 })
@@ -165,55 +166,60 @@ $("#add-ratting-ruler").click(function () {
 });
 // them gia tri tieu chi danh gia
 $('#add-rules-value').click(function () {
-    var html = `<div class="value border-bottom left w-100 pb-20 d-flex spc-btw align-items-center mt-10">
-                    <div class="form-row left">
-                        <div class="form-col-50 left">
-                            <label for="gia-tri">Giá trị<span
-                                        class="text-red">*</span></label>
-                            <input type="number" id="gia-tri" name="gia-tri"
-                                    placeholder="Nhập giá trị">
-                        </div>
-                        <div class="form-col-50 left ml-10-p">
-                            <label for="ten-hien-thi">Tên hiển thị</label>
-                            <input type="text" id="ten-hien-thi" name="ten-hien-thi" placeholder="Nhập tên hiển thị">
-                        </div>
-                    </div>
-                    <div class="right">
-                        <p class="removeItem3"><i class="ic-delete2"></i></p>
-                    </div>
-                </div>`;
+    var html = `<div class="value border-bottom left w-100 pb-20 mt-10 d-flex spc-btw">
+                            <div class="value-form">
+                                <div class="form-row left">
+                                    <div class="form-col-50 left mb_15">
+                                        <label>Giá trị<span
+                                                    class="text-red">*</span></label>
+                                        <input type="number" name="gia_tri"
+                                               placeholder="Nhập giá trị">
+                                    </div>
+                                    <div class="form-col-50 right mb_15">
+                                        <label>Tên hiển thị</label>
+                                        <input type="text" name="ten_hien_thi"
+                                               placeholder="Nhập tên hiển thị">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="removeItem3">
+                                <i class="ic-delete2"></i>
+                            </div>
+                        </div>`;
 
     $('#rules-value').append(html);
     RefSelect2();
 });
 // them yeu cau thanh toan
 $('#add-quote').click(function () {
-    $('#quote-me').append("<tr class=\"item\">\n" +
-        "                                        <td class=\"w-5\">\n" +
-        "                                            <p class=\"removeItem\"><i class=\"ic-delete remove-btn\"></i></p>\n" +
-        "                                        </td>\n" +
-        "                                        <td class=\"w-15\">\n" +
-        "                                            <div class=\"v-select2\">\n" +
-        "                                                <select name=\"materials-id\" class=\"share_select\"></select>\n" +
-        "                                            </div>\n" +
-        "                                        </td>\n" +
-        "                                        <td class=\"w-30\">\n" +
-        "                                            <div class=\"v-select2\">\n" +
-        "                                                <select name=\"materials-name\"></select>\n" +
-        "                                            </div>\n" +
-        "                                        </td>\n" +
-        "                                        <td class=\"w-25\">\n" +
-        "                                            <div class=\"v-select2\">\n" +
-        "                                                <select name=\"materials-name\"></select>\n" +
-        "                                            </div>\n" +
-        "                                        </td>\n" +
-        "                                        <td class=\"w-10\">\n" +
-        "                                            <input type=\"text\" readonly disabled>\n" +
-        "                                        </td>\n" +
-        "                                        <td class=\"w-15\">\n" +
-        "                                            <input type=\"text\">\n" +
-        "                                        </td>\n" +
-        "                                    </tr>");
+    var html = '<tr class="item">\n' +
+        '                                            <td class="w-5">\n' +
+        '                                                <p class="removeItem"><i class="ic-delete remove-btn"></i></p>\n' +
+        '                                            </td>\n' +
+        '                                            <td class="w-15">\n' +
+        '                                                <div class="v-select2">\n' +
+        '                                                    <select name="ma_vat_tu" class="share_select"></select>\n' +
+        '                                                </div>\n' +
+        '                                            </td>\n' +
+        '                                            <td class="w-30">\n' +
+        '                                                <div class="v-select2">\n' +
+        '                                                    <select name="ten_day_du"></select>\n' +
+        '                                                </div>\n' +
+        '                                            </td>\n' +
+        '                                            <td class="w-25">\n' +
+        '                                                <div class="v-select2">\n' +
+        '                                                    <select name="hang_san_xuat"></select>\n' +
+        '                                                </div>\n' +
+        '                                            </td>\n' +
+        '                                            <td class="w-10">\n' +
+        '                                                <input type="text" name="don_vi_tinh" disabled>\n' +
+        '                                            </td>\n' +
+        '                                            <td class="w-15">\n' +
+        '                                                <input type="text" name="so_luong">\n' +
+        '                                            </td>\n' +
+        '                                        </tr>'
+
+    $('#quote-me').append(html);
     RefSelect2();
 });
 // them bao gia khach hang
@@ -224,36 +230,36 @@ $("#them_vt_bg_kh").click(function () {
                                             </td>
                                             <td class="w-15">
                                                 <div class="v-select2">
-                                                    <select class="share_select">
+                                                    <select class="share_select" name="ma_vat_tu">
                                                         <option value=""></option>
                                                     </select>
                                                 </div>
                                             </td>
                                             <td class="w-20">
                                                 <div class="v-select2">
-                                                    <select>
+                                                    <select name="ten_day_du">
                                                         <option value=""></option>
                                                     </select>
                                                 </div>
                                             </td>
                                             <td class="w-20">
                                                 <div class="v-select2">
-                                                    <select>
+                                                    <select name="hang_san_suat">
                                                         <option value=""></option>
                                                     </select>
                                                 </div>
                                             </td>
                                             <td class="w-15">
-                                                <input type="text">
+                                                <input type="text" name="so_luong_bao_gia">
                                             </td>
                                             <td class="w-15">
-                                                <input type="text" disabled>
+                                                <input type="text" name="don_vi_tinh" disabled>
                                             </td>
                                             <td class="w-20">
-                                                <input type="text">
+                                                <input type="text" name="don_gia">
                                             </td>
                                             <td class="w-20">
-                                                <input type="text" disabled>
+                                                <input type="text" name="thanh_tien" disabled>
                                             </td>
                                         </tr>`;
     $("#rererences_kh").append(html);
@@ -343,18 +349,30 @@ $('.scr-r-btn').click(function (e) {
     }, "slow");
 });
 
+$(document).ready(function(){
+    var tbl_width = $('.table-container').width()
+    if($(".table-wrapper").width() < tbl_width){
+        $(".scr-r-btn").css("display","block");
+        $(".scr-l-btn").css("display","block");
+    }else{
+        $(".scr-r-btn").css("display","none");
+        $(".scr-l-btn").css("display","none");
+    }
+})
+
+
 
 $('#value-type').on('change', function () {
     var selectedValue = this.value;
 
     if (selectedValue == 2) {
         $('.manual-value').show();
+        $('#rules-value').append("<div class=\"value border-bottom left w-100 pb-20 mt-10 d-flex spc-btw\">\n                            <div class=\"value-form\">\n                                <div class=\"form-row left\">\n                                    <div class=\"form-col-50 left mb_15\">\n                                        <label>Giá trị<span\n                                                    class=\"text-red\">*</span></label>\n                                        <input type=\"number\" name=\"gia_tri\"\n                                               placeholder=\"Nhập giá trị\">\n                                    </div>\n                                    <div class=\"form-col-50 right mb_15\">\n                                        <label>Tên hiển thị</label>\n                                        <input type=\"text\" name=\"ten_hien_thi\"\n                                               placeholder=\"Nhập tên hiển thị\">\n                                    </div>\n                                </div>\n                            </div>\n                            <div class=\"removeItem3\">\n                                <i class=\"ic-delete2\"></i>\n                            </div>\n                        </div>");
 
     } else {
         $('.manual-value').hide();
         $('.value').remove();
     }
-
 });
 
 

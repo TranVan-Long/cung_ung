@@ -40,7 +40,7 @@
                     <div class="form-control">
                         <div class="form-row left">
                             <div class="form-col-50 mb_15">
-                                <label>Số phiếu yêu cầu<span class="text-red">*</span></label>
+                                <label>Số phiếu yêu cầu</label>
                                 <input type="text" name="so-phieu" value="PH-000-99999" disabled>
                             </div>
                         </div>
@@ -48,21 +48,21 @@
                             <div class="form-col-50 left v-select2 mb_15">
                                 <label>Phòng ban<span class="text-red">*</span></label>
                                 <select name="phong_ban" id="chon-phong-ban" class="share_select">
-                                    <option value="">Công trình</option>
+                                    <option value="">-- Chọn phòng ban --</option>
                                 </select>
                             </div>
                             <div class="form-col-50 right v-select2 mb_15">
-                                <label>Người yêu cầu<span class="text-red">*</span></label>
+                                <label>Người yêu cầu <span class="text-red">*</span></label>
                                 <select name="nguoi_yeu_cau" id="nguoi-yeu-cau" class="share_select">
-                                    <option value="">Nguyễn Văn A</option>
+                                    <option value="">-- Chọn người yêu cầu --</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 left v-select2 mb_15">
-                                <label>Công trình<span class="text-red">*</span></label>
+                                <label>Công trình <span class="text-red">*</span></label>
                                 <select name="cong_trinh" id="cong-trinh" class="share_select">
-                                    <option value="">Nâng cấp quốc lộ 999</option>
+                                    <option value="">-- Chọn công trình --</option>
                                 </select>
                             </div>
                         </div>

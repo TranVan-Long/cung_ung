@@ -3514,6 +3514,12 @@ label.error {
     .ql_trangchu_s .ctt_tt_three {
         margin-top: 20px;
     }
+
+    /* vuong */
+    .tbl-menu-content {
+        width: 250px;
+    }
+
 }
 
 @media screen and (max-width: 768px) {
@@ -3895,12 +3901,12 @@ label.error {
         width: 100%;
     }
 
-    .bank-form {
+    .bank-form, .value-form {
         width: 100%;
         margin-top: 15px;
     }
 
-    .removeItem2 {
+    .removeItem2, .removeItem3 {
         top: 5px;
         right: 10px;
     }
@@ -3908,6 +3914,11 @@ label.error {
     .ql_them_yc .form-col-50 {
         width: 46%;
     }
+
+    .edit-form .form-col-50 {
+        width: 48%;
+    }
+
 
     /* end vuong */
     .ctiet_hd_left, .ctiet_hd_right {
