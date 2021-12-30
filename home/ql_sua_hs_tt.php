@@ -34,7 +34,7 @@ include "../includes/icon.php";
             <div class="content">
                 <div class="ctn_ctiet_hd w_100 float_l">
                     <div class="chi_tiet_hd mt_25 w_100 float_l">
-                        <a class="prew_href share_fsize_one mb_20 share_clr_one" href="quan-ly-hop-dong.html">
+                        <a class="prew_href share_fsize_one share_clr_one" href="quan-ly-ho-so-thanh-toan.html">
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Sửa hồ sơ thanh toán</h4>
                         <div class="ctiet_dk_hp w_100 float_l">

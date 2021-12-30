@@ -38,46 +38,41 @@ include("../includes/icon.php");
                     <div class="form-control edit-form">
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
-                                <label for="so-bao-gia">Số báo giá<span class="text-red">*</span></label>
+                                <label for="so-bao-gia">Số báo giá<span class="text-red">&ast;</span></label>
                                 <input type="text" id="so-bao-gia" name="so_bao_gia" value="BG-000-11111" readonly>
                             </div>
                             <div class="form-col-50 no-border right mb_15">
-                                <label for="ngay-gui">Ngày gửi<span class="text-red">*</span></label>
+                                <label for="ngay-gui">Ngày gửi<span class="text-red">&ast;</span></label>
                                 <input type="date" id="ngay-gui" name="ngay_gui" value="2021-10-18">
                             </div>
                         </div>
                         <div class="form-row left">
-                            <div class="form-col-50 no-border left mb_15">
-                                <div class="v-select2">
-                                    <label for="nguoi-lap">Người lập</label>
-                                    <select id="nguoi-lap" name="nguoi_lap" class="share_select">
-                                        <option value="">-- Chọn người lập --</option>
-                                        <option value="1" selected>Nguyễn Văn A</option>
-                                        <option value="2">Nguyễn Văn B</option>
-                                        <option value="3">Nguyễn Thị A</option>
-                                        <option value="4">Nguyễn Thị B</option>
-                                    </select>
-                                </div>
+                            <div class="form-col-50 no-border left mb_15 v-select2">
+                                <label for="nguoi-lap">Người lập</label>
+                                <select id="nguoi-lap" name="nguoi_lap" class="share_select">
+                                    <option value="">-- Chọn người lập --</option>
+                                    <option value="1" selected>Nguyễn Văn A</option>
+                                    <option value="2">Nguyễn Văn B</option>
+                                    <option value="3">Nguyễn Thị A</option>
+                                    <option value="4">Nguyễn Thị B</option>
+                                </select>
                             </div>
-                            <div class="form-col-50 no-border right mb_15">
-                                <div class="v-select2">
-                                    <label for="nha-cung-cap">Nhà cung cấp<span
-                                                class="text-red">*</span></label>
-                                    <select id="nha-cung-cap" name="nha_cung_cap" class="share_select">
-                                        <option value="">-- Chọn nhà cung cấp --</option>
-                                        <option value="1" selected>Công ty A</option>
-                                        <option value="2">Công ty B</option>
-                                        <option value="3">Công ty C</option>
-                                        <option value="4">Công ty D</option>
-                                    </select>
-                                </div>
+                            <div class="form-col-50 no-border right mb_15 v-select2">
+                                <label for="nha-cung-cap">Nhà cung cấp<span
+                                            class="text-red">&ast;</span></label>
+                                <select id="nha-cung-cap" name="nha_cung_cap" class="share_select">
+                                    <option value="">-- Chọn nhà cung cấp --</option>
+                                    <option value="1" selected>Công ty A</option>
+                                    <option value="2">Công ty B</option>
+                                    <option value="3">Công ty C</option>
+                                    <option value="4">Công ty D</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-row left">
-                            <div class="form-col-50 no-border left mb_15">
-                                <div class="v-select2">
+                            <div class="form-col-50 no-border left mb_15 v-select2">
                                     <label for="so-yeu-cau">Theo yêu cầu báo giá số<span
-                                                class="text-red">*</span></label>
+                                                class="text-red">&ast;</span></label>
                                     <select id="so-yeu-cau" name="so_yeu_cau" class="share_select">
                                         <option value="">-- Chọn yêu cầu báo giá --</option>
                                         <option value="1" selected>YC-001-02938</option>
@@ -85,19 +80,20 @@ include("../includes/icon.php");
                                         <option value="3">YC-999-73648</option>
                                         <option value="4">YC-888-39475</option>
                                     </select>
-                                </div>
                             </div>
                         </div>
                         <div class="form-row left">
-                            <div class="form-col-50 no-border left mb_15 range-date-picker">
+                            <div class="form-col-50 no-border mb_15 left">
                                 <label>Thời gian áp dụng</label>
-                                <div class="d-flex align-items-center spc-btw w-100 left fl_wrap">
-                                    <div class="w-40 date-input-sm">
-                                        <input type="date" name="date_from">
+                                <div class="range-date-picker">
+                                    <div class="date-input-sm">
+                                        <input type="date" name="tu_ngay" id="startDate">
                                     </div>
-                                    <p class="text-center">đến</p>
-                                    <div class="w-40 date-input-sm">
-                                        <input type="date" name="date_to">
+                                    <div class="range-date-text">
+                                        <p id="hahaha">đến</p>
+                                    </div>
+                                    <div class="date-input-sm">
+                                        <input type="date" name="den_ngay" id="endDate">
                                     </div>
                                 </div>
                             </div>
@@ -215,7 +211,7 @@ include("../includes/icon.php");
                 <div class="w-100 left">
                     <div class="control-btn right">
                         <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
-                        <button type="button" class="v-btn btn-blue mt-20">Xong</button>
+                        <button type="button" class="v-btn btn-blue mt-20 submit-btn">Xong</button>
                     </div>
                 </div>
             </form>
@@ -245,7 +241,63 @@ include("../includes/icon.php");
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script>
+    $('.submit-btn').click(function () {
+        var form = $('.main-form');
+        $.validator.addMethod("dateRange",
+            function () {
+                var date1 = $("#startDate").val();
+                var date2 = $("#endDate").val();
+                return (date1 < date2);
+            })
+        form.validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent('.form-col-50'));
+                error.appendTo(element.parent('.date-input-sm'));
+                error.wrap('<span class="error">');
+            },
+            rules: {
+                so_bao_gia: {
+                    required: true,
+                },
+                ngay_gui: {
+                    required: true,
+                },
+                nha_cung_cap: {
+                    required: true,
+                },
+                so_yeu_cau: {
+                    required: true,
+                },
+                den_ngay:{
+                    dateRange: true,
+                }
+            },
+            messages: {
+                so_bao_gia: {
+                    required: "Số báo giá không được để trống.",
+                },
+                ngay_gui: {
+                    required: "Vui lòng chọn ngày gửi.",
+                },
+                nha_cung_cap: {
+                    required: "Vui lòng chọn nhà cung cấp.",
+                },
+                so_yeu_cau: {
+                    required: "Vui lòng chọn số yêu cầu."
+                },
+                den_ngay: {
+                    dateRange: "Không được nhỏ hơn ngày bắt đầu."
+                }
+            }
+        });
+        if (form.valid() === true) {
+            alert("pass");
+        }
+    });
+</script>
 </html>

@@ -33,35 +33,34 @@ $date = date('m-d-Y', time())
             <div class="left mt-25">
                 <p class="page-title">Chỉnh sửa báo giá cho khách hàng</p>
             </div>
-            <form action="" method="post" class="main-form">
+            <form action="" class="main-form">
                 <div class="w-100 left mt-10">
                     <div class="form-control edit-form">
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
-                                <label>Số phiếu phản hồi<span class="text-red">*</span></label>
+                                <label>Số phiếu phản hồi<span class="text-red">&ast;</span></label>
                                 <input type="text" name="so_bao_gia" value="PH-099-01239" readonly>
                             </div>
                         </div>
                         <div class="form-row left">
-                            <div class="form-col-50 no-border left mb_15">
-                                <div class="v-select2">
-                                    <label>Khách hàng<span class="text-red">*</span></label>
-                                    <select id="khach-hang" name="khach_hang" class="share_select">
-                                        <option value="">-- Chọn khách hàng --</option>
-                                        <option value="1" selected>Công ty X</option>
-                                    </select>
-                                </div>
+                            <div class="form-col-50 no-border left mb_15 v-select2">
+                                <label>Khách hàng<span class="text-red">&ast;</span></label>
+                                <select id="khach-hang" name="khach_hang" class="share_select">
+                                    <option value="">-- Chọn khách hàng --</option>
+                                    <option value="1" selected>Công ty X</option>
+                                </select>
                             </div>
-
-                            <div class="form-col-50 no-border right mb_15 range-date-picker">
-                                <label for="ap-dung-tu">Thời gian áp dụng</label>
-                                <div class="d-flex align-items-center spc-btw w-100 left fl_wrap">
-                                    <div class="w-40 date-input-sm">
-                                        <input type="date" id="ap-dung-tu" name="ap_dung_tu">
+                            <div class="form-col-50 no-border right mb_15">
+                                <label>Thời gian áp dụng <span class="text-red">&ast;</span></label>
+                                <div class="range-date-picker">
+                                    <div class="date-input-sm">
+                                        <input type="date" name="tu_ngay" id="startDate">
                                     </div>
-                                    <p class="text-center">đến</p>
-                                    <div class="w-40 date-input-sm">
-                                        <input class="" type="date" id="ap-dung-den" name="ngay_gui">
+                                    <div class="range-date-text">
+                                        <p id="hahaha">đến</p>
+                                    </div>
+                                    <div class="date-input-sm">
+                                        <input type="date" name="den_ngay" id="endDate">
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +76,7 @@ $date = date('m-d-Y', time())
                     <div class="mt-50 left w-100">
                         <p class="text-blue link-text text-500" id="add_bgia">&plus; Thêm mới vật tư</p>
                         <div class="table-wrapper mt-10">
-                            <div class="table-container table-1k5">
+                            <div class="table-container table-1532">
                                 <div class="tbl-header">
                                     <table>
                                         <thead>
@@ -183,7 +182,7 @@ $date = date('m-d-Y', time())
                 <div class="w-100 left">
                     <div class="control-btn right">
                         <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
-                        <button type="submit" class="v-btn btn-blue mt-20">Xong</button>
+                        <button type="button" class="v-btn btn-blue mt-20 submit-btn">Xong</button>
                     </div>
                 </div>
             </form>
@@ -203,7 +202,7 @@ $date = date('m-d-Y', time())
                     <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                 </div>
                 <div class="right mb_10">
-                    <a href="quan-ly-bao-gia-cho-khach-hang.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng
+                    <a href="chi-tiet-bao-gia-cho-khach-hang.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng
                         ý</a>
                 </div>
             </div>
@@ -214,8 +213,60 @@ $date = date('m-d-Y', time())
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript"></script>
+<script>
+   $('.submit-btn').click(function () {
+        var form = $('.main-form');
+        $.validator.addMethod("dateRange",
+            function () {
+                var date1 = $("#startDate").val();
+                var date2 = $("#endDate").val();
+                return (date1 < date2);
+            })
+        form.validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent('.form-col-50'));
+                error.appendTo(element.parent('.date-input-sm'));
+                error.wrap('<span class="error">');
+            },
+            rules: {
+                so_bao_gia: {
+                    required: true,
+                },
+                khach_hang: {
+                    required: true,
+                },
+                tu_ngay: {
+                    required: true,
+                },
+                den_ngay: {
+                    required: true,
+                    dateRange: true,
+                }
+            },
+            messages: {
+                so_bao_gia: {
+                    required: "Số báo giá không được để trống.",
+                },
+                khach_hang: {
+                    required: "Vui lòng chọn khách hàng.",
+                },
+                tu_ngay: {
+                    required: "Vui lòng chọn ngày bắt đầu.",
+                },
+                den_ngay: {
+                    required: "Vui lòng chọn ngày kết thúc."
+                    dateRange: "Không được nhỏ hơn ngày bắt đầu."
+                }
+            }
+        });
+        if (form.valid() === true) {
+            alert("pass");
+        }
+    });
+</script>
 </html>

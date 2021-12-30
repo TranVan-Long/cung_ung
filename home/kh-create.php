@@ -31,16 +31,16 @@ $date = date('m-d-Y', time())
         </div>
         <div class="content">
             <div class="left mt-25">
-                <p class="page-title">Thêm khách hàng</p>
+                <a class="text-black" href="quan-ly-khach-hang.html"><?php echo $ic_lt ?> Quay lại</a>
+                <p class="page-title mt-20">Thêm khách hàng</p>
             </div>
-            <form action="" method="post" class="main-form">
+            <form action="" class="main-form">
                 <div class="w-100 left mt-10">
                     <div class="form-control edit-form">
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
-                                <label>Mã khách hàng<span class="text-red">*</span></label>
-                                <input type="text" name="ma_khach_hang" value="KH-987-554324" readonly
-                                       required>
+                                <label>Mã khách hàng<span class="text-red">&ast;</span></label>
+                                <input type="text" name="ma_khach_hang" value="KH-987-554324" readonly>
                             </div>
                             <div class="form-col-50 no-border mb_15 right">
                                 <label>Mã số thuế</label>
@@ -49,12 +49,12 @@ $date = date('m-d-Y', time())
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
-                                <label>Tên khách hàng<span class="text-red">*</span></label>
+                                <label>Tên khách hàng<span class="text-red">&ast;</span></label>
                                 <input type="text" name="ten_khach_hang"
                                        placeholder="Nhập tên khách hàng">
                             </div>
                             <div class="form-col-50 no-border mb_15 right">
-                                <label>Tên giao dịch<span class="text-red">*</span></label>
+                                <label>Tên giao dịch<span class="text-red">&ast;</span></label>
                                 <input type="text" name="ten_giao_dich" placeholder="Nhập tên giao dịch">
                             </div>
 
@@ -98,7 +98,7 @@ $date = date('m-d-Y', time())
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
-                                <label>E-mail<span class="text_red">*</span></label>
+                                <label>E-mail</label>
                                 <input type="text" name="e-mail" placeholder="Nhập E-mail">
                             </div>
                         </div>
@@ -114,34 +114,32 @@ $date = date('m-d-Y', time())
                             <div class="bank border-bottom left w-100 pb-10 d-flex spc-btw">
                                 <div class="bank-form">
                                     <div class="form-row left">
-                                        <div class="form-col-50 left mb_15">
-                                            <div class="v-select2">
-                                                <label for="ten-ngan-hang">Tên ngân hàng<span class="text-red">*</span></label>
-                                                <select name="ten_ngan_hang" class="share_select">
-                                                    <option value="">-- Chọn ngân hàng --</option>
-                                                </select>
-                                            </div>
+                                        <div class="form-col-50 left mb_15 v-select2">
+                                            <label for="ten-ngan-hang">Tên ngân hàng<span
+                                                        class="text-red">&ast;</span></label>
+                                            <select name="ten_ngan_hang" class="share_select">
+                                                <option value="">-- Chọn ngân hàng --</option>
+                                                <option value="1">1</option>
+                                            </select>
                                         </div>
-                                        <div class="form-col-50 right mb_15">
-                                            <div class="v-select2">
-                                                <label for="chi-nhanh-ngan-hang">Chi nhánh<span
-                                                            class="text-red">*</span></label>
-                                                <select name="chi_nhanh_ngan_hang" class="share_select">
-                                                    <option value="">-- Chọn chi nhánh --</option>
-                                                </select>
-                                            </div>
+                                        <div class="form-col-50 right mb_15 v-select2">
+                                            <label for="chi-nhanh-ngan-hang">Chi nhánh<span
+                                                        class="text-red">&ast;</span></label>
+                                            <select name="chi_nhanh_ngan_hang" class="share_select">
+                                                <option value="">-- Chọn chi nhánh --</option>
+                                                <option value="1">1</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-row left">
                                         <div class="form-col-50 left mb_15">
-                                            <label>Tài khoản ngân hàng<span
-                                                        class="text-red">*</span></label>
-                                            <input type="text" name="tai_khoan_ngan_hang"
+                                            <label>Số tài khoản<span class="text-red">&ast;</span></label>
+                                            <input type="text" name="so_tai_khoan"
                                                    placeholder="Nhập số tài khoản">
                                         </div>
                                         <div class="form-col-50 right mb_15">
                                             <label>Chủ tài khoản</label>
-                                            <input type="text" name="ma_so_thue" placeholder="Nhập mã số thuế">
+                                            <input type="text" name="chu_tai_khoan" placeholder="Nhập tên chủ tài khoản">
                                         </div>
                                     </div>
                                 </div>
@@ -155,7 +153,7 @@ $date = date('m-d-Y', time())
                 <div class="w-100 left">
                     <div class="control-btn right">
                         <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
-                        <button type="submit" class="v-btn btn-blue mt-20">Xong</button>
+                        <button type="button" class="v-btn btn-blue mt-20 submit-btn">Xong</button>
                     </div>
                 </div>
             </form>
@@ -185,7 +183,65 @@ $date = date('m-d-Y', time())
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script>
+    $('.submit-btn').click(function () {
+        var form = $('.main-form');
+        form.validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent('.form-col-50'));
+                error.wrap('<span class="error">');
+            },
+            rules: {
+                ma_khach_hang: {
+                    required: true,
+                },
+                ten_khach_hang: {
+                    required: true,
+                },
+                ten_giao_dich: {
+                    required: true,
+                },
+                ten_ngan_hang:{
+                    required: true,
+                },
+                chi_nhanh_ngan_hang:{
+                    required: true,
+                },
+                so_tai_khoan:{
+                    required: true,
+                    number:true,
+                }
+
+            },
+            messages: {
+                ma_khach_hang: {
+                    required: "Mã khách hàng không được để trống.",
+                },
+                ten_khach_hang: {
+                    required: "Tên khách hàng không được để trống.",
+                },
+                ten_giao_dich: {
+                    required: "Tên giao dịch không được để trống.",
+                },
+                ten_ngan_hang:{
+                    required: "Vui lòng chọn ngân hàng.",
+                },
+                chi_nhanh_ngan_hang:{
+                    required: "Vui lòng chọn chi nhánh.",
+                },
+                so_tai_khoan:{
+                    required: "Số tài khoản không được để trống.",
+                    number: "Số tài khoản không đúng định dạng.",
+                }
+            }
+        });
+        if (form.valid() === true) {
+            alert("pass");
+        }
+    });
+</script>
 </html>

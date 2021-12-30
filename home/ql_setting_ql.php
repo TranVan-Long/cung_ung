@@ -55,7 +55,9 @@ include "../includes/icon.php";
                             <div class="quyen_nd w_100 float_l">
                                 <div class="ctn_quyen d_flex flex_jct fl_agi">
                                     <a href="cai-dat-phan-quyen.html" class="share_fsize_one share_clr_one cr_weight">Quyền người dùng</a>
-                                    <span class="dg_quyen share_cursor"><img src="../img/exp.png" alt="quyền người dùng"></span>
+                                    <span class="dg_quyen share_cursor">
+                                        <a href="cai-dat-phan-quyen.html"><img src="../img/exp.png" alt="quyền người dùng"></a>
+                                    </span>
                                 </div>
                             </div>
                             <div class="thong_bao w_100 float_l mb_25">

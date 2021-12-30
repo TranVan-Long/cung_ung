@@ -79,10 +79,6 @@ p {
     background-position: calc(100% - 10px), 50%;
 }
 
-.date-input-sm input {
-    padding: 9px 5px;
-}
-
 input[type=date] {
     padding: 9px;
     font-size: 16px;
@@ -92,6 +88,7 @@ input[type=date] {
     background-repeat: no-repeat;
     background-position: calc(100% - 10px), 50%;
     display: block;
+    position: relative;
 }
 
 [type="date"]::-webkit-inner-spin-button {
@@ -100,6 +97,7 @@ input[type=date] {
 
 [type="date"]::-webkit-calendar-picker-indicator {
     opacity: 0;
+    margin: 0;
 }
 
 [aria-placeholder] {
@@ -189,8 +187,7 @@ textarea[placeholder] {
 .d-flex {
     display: flex;
 }
-
-.flex-wrap {
+.flex-wrap{
     flex-wrap: wrap;
 }
 
@@ -201,8 +198,7 @@ textarea[placeholder] {
 .spc-btw {
     justify-content: space-between;
 }
-
-.spc-around {
+.spc-around{
     justify-content: space-around;
 }
 
@@ -334,7 +330,7 @@ textarea[placeholder] {
     margin-left: 30px;
 }
 
-.p-5 {
+.p-5{
     padding: 5px;
 }
 
@@ -830,7 +826,7 @@ textarea[placeholder] {
     min-width: 1791px;
 }
 
-.table-1k5 {
+.table-1532 {
     min-width: 1532px;
 }
 
@@ -842,7 +838,7 @@ textarea[placeholder] {
     min-width: 1428px;
 }
 
-.table-1310 {
+.table-1310{
     min-width: 1310px;
 }
 
@@ -901,8 +897,7 @@ textarea[placeholder] {
 .table-container tr {
     border-bottom: solid 1px #474747;
 }
-
-.table-container .tbl-content tr:first-child {
+.table-container .tbl-content tr:first-child{
     border-top: solid 1px #474747;
 }
 
@@ -963,7 +958,7 @@ textarea[placeholder] {
 
 
 .table-2-row {
-    max-height: 104px;
+    max-height: 261px;
 }
 
 .table-4-row {
@@ -1105,6 +1100,9 @@ td .v-select2 .select2-container--default .select2-selection--single {
     justify-content: center;
     align-items: center;
 }
+.v-btn:active {
+    transform: translateY(2px);
+}
 
 .btn-blue {
     background: #4C5BD4;
@@ -1167,7 +1165,6 @@ select#display {
     display: inline-block;
     float: right;
 }
-
 .pagination li {
     width: 19px;
     height: 19px;
@@ -1176,9 +1173,15 @@ select#display {
     align-items: center;
     float: left;
     padding: 0px 5px;
-    margin: 0 7px;
+    margin: 0 5px;
     border: 1px solid #666666;
     border-radius: 4px;
+}
+.pagination li:last-child {
+    margin-left: 10px;
+}
+.pagination li:first-child {
+    margin-right: 10px;
 }
 
 .pagination li a {
@@ -1263,8 +1266,15 @@ select#display {
     width: 720px;
 }
 
-
+.text-upper{
+    text-transform: uppercase;
+}
+.flex-start{
+    justify-content: start !important;
+}
 .m-head {
+    position: relative;
+    display: flex;
     height: 54px;
     padding: 17px 16px;
     background-color: #4c5bd4;
@@ -1273,6 +1283,8 @@ select#display {
     font-weight: 550;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
 .m-body {
@@ -1328,6 +1340,12 @@ select#display {
     width: 500px;
 }
 
+.sapx_dgia p{
+    position: absolute;
+    left: 10px;
+    z-index: 1;
+}
+
 .logout_ht .modal-content {
     width: 360px;
 }
@@ -1348,11 +1366,16 @@ select#display {
 .info_modal {
     width: 100%;
     float: left;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 .info_modal .modal-header {
+    display: flex;
+    align-items: center;
     background: #4C5BD4;
     width: 100%;
+    height: 54px;
     float: left;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -1416,7 +1439,7 @@ select#display {
 .madal_form {
     width: 100%;
     float: left;
-    padding: 25px 14px;
+    padding: 0px 15px;
 }
 
 .titl_dele_nv .log_tlt {
@@ -1550,7 +1573,8 @@ select#display {
 /*long modal end*/
 
 .dismiss {
-    float: right;
+    position: absolute;
+    right: 15px;
     font-size: 32px;
     font-weight: normal;
 }
@@ -1722,7 +1746,21 @@ select#display {
     justify-content: space-around;
 }
 
-.main-form {
+.main-form{
     width: 100%;
     float: left;
+}
+.range-date-picker{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    float: left;
+}
+.date-input-sm{
+    width: max(40%, 148px);
+}
+.form-col-50 .range-date-text p{
+    display: inline-block;
+    text-align: center;
+    padding: 10px 5px;
 }

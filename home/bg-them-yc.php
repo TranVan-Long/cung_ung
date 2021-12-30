@@ -32,9 +32,10 @@ $date = date('Y-m-d', time())
         </div>
         <div class="content">
             <div class="mt-30 left">
-                <p class="page-title">Thêm yêu cầu báo giá</p>
+                <a class="text-black" href="quan-ly-yeu-cau-bao-gia.html"><?php echo $ic_lt ?> Quay lại</a>
+                <p class="page-title mt-20">Thêm yêu cầu báo giá</p>
             </div>
-            <form action="" method="post" class="main-form">
+            <form action="" class="main-form">
                 <div class="w-100 left mt-10">
                     <div class="form-control edit-form">
                         <div class="form-row left">
@@ -54,9 +55,9 @@ $date = date('Y-m-d', time())
                             </div>
                         </div>
                         <div class="form-row left">
-                            <div class="form-col-50 no-border left v-select2 mb_15">
-                                <label>Nhà cung cấp <span class="text-red">*</span></label>
-                                <select name="chon_phong_ban" id="chon-phong-ban" class="share_select">
+                            <div class="form-col-50 no-border left mb_15 v-select2">
+                                <label>Nhà cung cấp <span class="text-red">&ast;</span></label>
+                                <select name="nha_cung_cap" id="nha_cung_cap" class="share_select">
                                     <option value="">-- Chọn nhà cung cấp --</option>
                                     <option value="1">Công ty A</option>
                                     <option value="2">Công ty B</option>
@@ -64,8 +65,8 @@ $date = date('Y-m-d', time())
                                     <option value="4">Công ty D</option>
                                 </select>
                             </div>
-                            <div class="form-col-50 no-border right v-select2 mb_15">
-                                <label>Người tiếp nhận báo giá <span class="text-red">*</span></label>
+                            <div class="form-col-50 no-border right mb_15 v-select2">
+                                <label>Người tiếp nhận báo giá <span class="text-red">&ast;</span></label>
                                 <select name="nguoi_tiep_nhan" id="nguoi-tiep-nhan" class="share_select">
                                     <option value="">-- Chọn người tiếp nhận báo giá --</option>
                                     <option value="1">Nguyễn Văn A</option>
@@ -76,8 +77,8 @@ $date = date('Y-m-d', time())
                             </div>
                         </div>
                         <div class="form-row left">
-                            <div class="form-col-50 no-border v-select2 mb_15">
-                                <label>Chọn công trình <span class="text-red">*</span></label>
+                            <div class="form-col-50 no-border mb_15 v-select2">
+                                <label>Chọn công trình</label>
                                 <select name="cong_trinh" id="cong-trinh" class="share_select">
                                     <option value="">-- Chọn công trình --</option>
                                     <option value="1">Nâng cấp quốc lộ 999</option>
@@ -198,11 +199,10 @@ $date = date('Y-m-d', time())
                 <div class="left w-100">
                     <div class="control-btn right">
                         <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
-                        <button type="submit" class="v-btn btn-blue mt-20">Xong</button>
+                        <button type="button" class="v-btn btn-blue mt-20 submit-btn">Xong</button>
                     </div>
                 </div>
             </form>
-
         </div>
     </div>
     <div class="modal text-center" id="cancel">
@@ -230,7 +230,38 @@ $date = date('Y-m-d', time())
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script>
+    $('.submit-btn').click(function () {
+        var form = $('.main-form');
+        form.validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent('.form-col-50'));
+                error.wrap('<span class="error">');
+            },
+            rules: {
+                nha_cung_cap: {
+                    required: true,
+                },
+                nguoi_tiep_nhan: {
+                    required: true,
+                }
+            },
+            messages: {
+                nha_cung_cap: {
+                    required: "Vui lòng chọn nhà cung cấp.",
+                },
+                nguoi_tiep_nhan: {
+                    required: "Vui lòng chọn người tiếp nhận.",
+                }
+            }
+        });
+        if (form.valid() === true) {
+            alert("pass");
+        }
+    });
+</script>
 </html>

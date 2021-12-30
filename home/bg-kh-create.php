@@ -1,6 +1,5 @@
 <?php
 include("../includes/icon.php");
-$date = date('m-d-Y', time())
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,35 +30,36 @@ $date = date('m-d-Y', time())
         </div>
         <div class="content">
             <div class="left mt-25">
-                <p class="page-title">Thêm báo giá cho khách hàng</p>
+                <a class="text-black" href="quan-ly-bao-gia-cho-khach-hang.html"><?php echo $ic_lt ?> Quay lại</a>
+                <p class="page-title mt-20">Thêm báo giá cho khách hàng</p>
             </div>
-            <form action="" method="post" class="main-form">
+            <form action="" class="main-form">
                 <div class="w-100 left mt-10">
                     <div class="form-control edit-form">
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
-                                <label>Số phiếu phản hồi <span class="text-red">*</span></label>
+                                <label>Số phiếu phản hồi <span class="text-red">&ast;</span></label>
                                 <input type="text" name="so_bao_gia" value="PP-998-11182" readonly>
                             </div>
                         </div>
                         <div class="form-row left">
-                            <div class="form-col-50 no-border mb_15 left">
-                                <div class="v-select2 mb_15">
-                                    <label>Khách hàng <span class="text-red">*</span></label>
-                                    <select id="khach-hang" name="khach_hang" class="share_select">
-                                        <option value="">-- Chọn khách hàng --</option>
-                                    </select>
-                                </div>
+                            <div class="form-col-50 no-border mb_15 left v-select2">
+                                <label>Khách hàng <span class="text-red">&ast;</span></label>
+                                <select id="khach-hang" name="khach_hang" class="share_select">
+                                    <option value="">-- Chọn khách hàng --</option>
+                                </select>
                             </div>
-                            <div class="form-col-50 no-border right mb_15 range-date-picker">
-                                <label>Thời gian áp dụng</label>
-                                <div class="d-flex align-items-center spc-btw w-100 left fl_wrap">
-                                    <div class="w-40 date-input-sm">
-                                        <input type="date" name="date_from">
+                            <div class="form-col-50 no-border right mb_15">
+                                <label>Thời gian áp dụng <span class="text-red">&ast;</span></label>
+                                <div class="range-date-picker">
+                                    <div class="date-input-sm">
+                                        <input type="date" name="tu_ngay" id="startDate">
                                     </div>
-                                    <p class="text-center">đến</p>
-                                    <div class="w-40 date-input-sm">
-                                        <input class="" type="date" name="date_to">
+                                    <div class="range-date-text">
+                                        <p id="hahaha">đến</p>
+                                    </div>
+                                    <div class="date-input-sm">
+                                        <input type="date" name="den_ngay" id="endDate">
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@ $date = date('m-d-Y', time())
                     <div class="mt-50 left w-100">
                         <p class="text-blue link-text text-500" id="them_vt_bg_kh">&plus; Thêm mới vật tư</p>
                         <div class="table-wrapper mt-10">
-                            <div class="table-container table-1k5">
+                            <div class="table-container table-1532">
                                 <div class="tbl-header">
                                     <table>
                                         <thead>
@@ -181,7 +181,7 @@ $date = date('m-d-Y', time())
                 <div class="w-100 left">
                     <div class="control-btn right">
                         <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
-                        <button class="v-btn btn-blue mt-20">Xong</button>
+                        <button type="button" class="v-btn btn-blue mt-20 submit-btn">Xong</button>
                     </div>
                 </div>
             </form>
@@ -212,7 +212,72 @@ $date = date('m-d-Y', time())
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script>
+
+    // $('#startDate').on('change', function () {
+    //     var startDate = $('#startDate').val();
+    //     $('#endDate').on('change', function (){
+    //         var endDate = $('#endDate').val();
+    //         if (startDate >= endDate){
+    //             $('#endDate').css('border', '1px solid red')
+    //         }else {
+    //             $('#endDate').css('border', '1px solid #666666')
+    //         }
+    //     })
+    // })
+
+    $('.submit-btn').click(function () {
+        var form = $('.main-form');
+        $.validator.addMethod("dateRange",
+            function () {
+                var date1 = $("#startDate").val();
+                var date2 = $("#endDate").val();
+                return (date1 < date2);
+            })
+        form.validate(  {
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent('.form-col-50'));
+                error.appendTo(element.parent('.date-input-sm'));
+                error.wrap('<span class="error">');
+            },
+            rules: {
+                so_bao_gia: {
+                    required: true,
+                },
+                khach_hang: {
+                    required: true,
+                },
+                tu_ngay: {
+                    required: true,
+                },
+                den_ngay: {
+                    required: true,
+                    dateRange: true,
+                }
+            },
+            messages: {
+                so_bao_gia: {
+                    required: "Số báo giá không được để trống.",
+                },
+                khach_hang: {
+                    required: "Vui lòng chọn khách hàng.",
+                },
+                tu_ngay: {
+                    required: "Vui lòng chọn ngày bắt đầu.",
+                },
+                den_ngay: {
+                    required: "Vui lòng chọn ngày kết thúc.",
+                    dateRange: "Không được nhỏ hơn ngày bắt đầu."
+                }
+            }
+        });
+        if (form.valid() === true) {
+            alert("pass");
+        }
+    });
+</script>
 </html>

@@ -30,19 +30,20 @@ include("../includes/icon.php");
         </div>
         <div class="content">
             <div class="left mt-25">
-                <p class="page-title">Thêm báo giá</p>
+                <a class="text-black" href="quan-ly-bao-gia.html"><?php echo $ic_lt ?> Quay lại</a>
+                <p class="page-title mt-20">Thêm báo giá</p>
             </div>
             <div class="w-100 left mt-10">
                 <form action="" class="main-form">
                     <div class="form-control edit-form">
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
-                                <label>Số báo giá<span class="text-red">*</span></label>
+                                <label>Số báo giá<span class="text-red">&ast;</span></label>
                                 <input type="text" name="so_bao_gia" value="BG-999-09827" readonly
                                        required>
                             </div>
                             <div class="form-col-50 no-border mb_15 right">
-                                <label>Ngày gửi<span class="text-red">*</span></label>
+                                <label>Ngày gửi<span class="text-red">&ast;</span></label>
                                 <input type="date" name="ngay_gui">
                             </div>
                         </div>
@@ -52,40 +53,41 @@ include("../includes/icon.php");
                                     <label for="nguoi-lap">Người lập</label>
                                     <select id="nguoi-lap" name="nguoi_lap" class="share_select">
                                         <option value="">-- Chọn người lập --</option>
+                                        <option value="1">1</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-col-50 no-border mb_15 right">
-                                <div class="v-select2">
-                                    <label for="nha-cung-cap">Nhà cung cấp<span
-                                                class="text-red">*</span></label>
-                                    <select id="nha-cung-cap" name="nha_cung_cap" class="share_select">
-                                        <option value="">-- Chọn nhà cung cấp --</option>
-                                    </select>
-                                </div>
+                            <div class="form-col-50 no-border mb_15 right v-select2">
+                                <label for="nha-cung-cap">Nhà cung cấp<span
+                                            class="text-red">&ast;</span></label>
+                                <select id="nha-cung-cap" name="nha_cung_cap" class="share_select">
+                                    <option value="">-- Chọn nhà cung cấp --</option>
+                                    <option value="1">1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row left">
+                            <div class="form-col-50 no-border mb_15 left v-select2">
+                                <label for="so-yeu-cau">Theo yêu cầu báo giá số<span
+                                            class="text-red">&ast;</span></label>
+                                <select id="so-yeu-cau" name="so_yeu_cau" class="share_select">
+                                    <option value="">-- Chọn yêu cầu báo giá --</option>
+                                    <option value="1">1</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
-                                <div class="v-select2">
-                                    <label for="so-yeu-cau">Theo yêu cầu báo giá số<span
-                                                class="text-red">*</span></label>
-                                    <select id="so-yeu-cau" name="so_yeu_cau" class="share_select">
-                                        <option value="">-- Chọn yêu cầu báo giá --</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row left">
-                            <div class="form-col-50 no-border mb_15 left range-date-picker">
-                                <label for="ap-dung-tu">Thời gian áp dụng</label>
-                                <div class="d-flex align-items-center spc-btw w-100 left fl_wrap">
-                                    <div class="w-40 date-input-sm">
-                                        <input type="date" name="date_from">
+                                <label>Thời gian áp dụng</label>
+                                <div class="range-date-picker">
+                                    <div class="date-input-sm">
+                                        <input type="date" name="tu_ngay" id="startDate">
                                     </div>
-                                    <p class="text-center">đến</p>
-                                    <div class="w-40 date-input-sm">
-                                        <input type="date" name="date_to">
+                                    <div class="range-date-text">
+                                        <p id="hahaha">đến</p>
+                                    </div>
+                                    <div class="date-input-sm">
+                                        <input type="date" name="den_ngay" id="endDate">
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +121,7 @@ include("../includes/icon.php");
                                         <tbody>
                                         <tr class="item">
                                             <td class="w-20">
-                                                <input type="text"name="ma_vat_tu" readonly>
+                                                <input type="text" name="ma_vat_tu" readonly>
                                             </td>
                                             <td class="w-35">
                                                 <input type="text" name="ten_day_du" readonly>
@@ -131,7 +133,7 @@ include("../includes/icon.php");
                                                 <input type="text" name="hang_san_suat" readonly>
                                             </td>
                                             <td class="w-30">
-                                                <input type="text" name="so_luong_yeu_cau">
+                                                <input type="text" name="so_luong_yeu_cau" readonly>
                                             </td>
                                             <td class="w-25">
                                                 <input type="text" name="so_luong_bao_gia">
@@ -157,7 +159,7 @@ include("../includes/icon.php");
                                         </tr>
                                         <tr class="item">
                                             <td class="w-20">
-                                                <input type="text"name="ma_vat_tu" readonly>
+                                                <input type="text" name="ma_vat_tu" readonly>
                                             </td>
                                             <td class="w-35">
                                                 <input type="text" name="ten_day_du" readonly>
@@ -169,7 +171,7 @@ include("../includes/icon.php");
                                                 <input type="text" name="hang_san_suat" readonly>
                                             </td>
                                             <td class="w-30">
-                                                <input type="text" name="so_luong_yeu_cau">
+                                                <input type="text" name="so_luong_yeu_cau" readonly>
                                             </td>
                                             <td class="w-25">
                                                 <input type="text" name="so_luong_bao_gia">
@@ -201,7 +203,7 @@ include("../includes/icon.php");
                     </div>
                     <div class="control-btn right">
                         <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
-                        <button type="submit" class="v-btn btn-blue mt-20">Xong</button>
+                        <button type="button" class="v-btn btn-blue mt-20 submit-btn">Xong</button>
                     </div>
                 </form>
             </div>
@@ -231,8 +233,63 @@ include("../includes/icon.php");
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
-
+<script>
+    $('.submit-btn').click(function () {
+        var form = $('.main-form');
+        $.validator.addMethod("dateRange",
+            function () {
+                var date1 = $("#startDate").val();
+                var date2 = $("#endDate").val();
+                return (date1 < date2);
+            })
+        form.validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent('.form-col-50'));
+                error.appendTo(element.parent('.date-input-sm'));
+                error.wrap('<span class="error">');
+            },
+            rules: {
+                so_bao_gia: {
+                    required: true,
+                },
+                ngay_gui: {
+                    required: true,
+                },
+                nha_cung_cap: {
+                    required: true,
+                },
+                so_yeu_cau: {
+                    required: true,
+                },
+                den_ngay:{
+                    dateRange: true,
+                }
+            },
+            messages: {
+                so_bao_gia: {
+                    required: "Số báo giá không được để trống.",
+                },
+                ngay_gui: {
+                    required: "Vui lòng chọn ngày gửi.",
+                },
+                nha_cung_cap: {
+                    required: "Vui lòng chọn nhà cung cấp.",
+                },
+                so_yeu_cau: {
+                    required: "Vui lòng chọn số yêu cầu."
+                },
+                den_ngay: {
+                    dateRange: "Không được nhỏ hơn ngày bắt đầu."
+                }
+            }
+        });
+        if (form.valid() === true) {
+            alert("pass");
+        }
+    });
+</script>
 </html>

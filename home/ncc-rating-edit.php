@@ -43,19 +43,18 @@ $date = date('m-d-Y', time())
                             </div>
                             <div class="form-col-50 no-border right mb_15">
                                 <label>Ngày lấp phiếu<span class="text-red">&ast;</span></label>
-                                <input type="text" name="ngay_lap_phieu"
-                                       placeholder="Chọn ngày lập phiếu" value="27-10-2021">
+                                <input type="date" name="ngay_lap_phieu" value="2021-10-27">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
-                                <label>Ngày đánh giá<span class="text-red">*</span></label>
+                                <label>Ngày đánh giá<span class="text-red">&ast;</span></label>
                                 <input type="date" name="ngay_danh_gia" value="2021-10-27">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
-                                <label>Người đánh giá<span class="text-red">*</span></label>
+                                <label>Người đánh giá<span class="text-red">&ast;</span></label>
                                 <input type="text" name="nguoi_danh_gia" placeholder="Nhập người đánh giá"
                                        value="Nguyễn Văn A">
                             </div>
@@ -72,9 +71,8 @@ $date = date('m-d-Y', time())
                             </div>
                         </div>
                         <div class="form-row left">
-                            <div class="form-col-50 no-border left mb_15">
-                                <div class="v-select2">
-                                    <label>Nhà cung cấp<span class="text-red">*</span></label>
+                            <div class="form-col-50 no-border left mb_15 v-select2">
+                                    <label for="nha-cung-cap">Nhà cung cấp<span class="text-red">&ast;</span></label>
                                     <select class="share_select" name="nha_cung_cap" id="nha-cung-cap">
                                         <option value="">-- Chọn nhà cung cấp --</option>
                                         <option value="1">Nhà cung cấp A</option>
@@ -82,9 +80,7 @@ $date = date('m-d-Y', time())
                                         <option value="3">Nhà cung cấp C</option>
                                         <option value="4">Nhà cung cấp D</option>
                                         <option value="5" selected>Nhà cung cấp X</option>
-
                                     </select>
-                                </div>
                             </div>
                         </div>
                         <div class="form-row left">
@@ -115,7 +111,11 @@ $date = date('m-d-Y', time())
                                 <input type="text" name="danh_gia_khac"
                                        placeholder="Nhập đánh giá khác">
                             </div>
-
+                            <!--                        <div class="form-col-100 left mb_15">-->
+                            <!--                            <label>Ghi chú</label>-->
+                            <!--                            <textarea type="text" name="danh_gia_khac"-->
+                            <!--                                      placeholder="Nhập ghi chú"></textarea>-->
+                            <!--                        </div>-->
                         </div>
                     </div>
                     <div class="mt-50 left w-100">
@@ -179,8 +179,7 @@ $date = date('m-d-Y', time())
                 <div class="w-100 left">
                     <div class="control-btn right">
                         <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
-
-                        <button type="submit" class="v-btn btn-blue mt-20">Xong</button>
+                        <button type="button" class="v-btn btn-blue mt-20 submit-btn">Xong</button>
                     </div>
                 </div>
             </form>
@@ -208,11 +207,53 @@ $date = date('m-d-Y', time())
     <?php include "../modals/modal_logout.php" ?>
     <? include("../modals/modal_menu.php") ?>
 </div>
-
-
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script>
+    $('.submit-btn').click(function () {
+        var form = $('.main-form');
+        form.validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent('.form-col-50'));
+                error.wrap('<span class="error">');
+            },
+            rules: {
+                ngay_lap_phieu: {
+                    required: true,
+                },
+                ngay_danh_gia: {
+                    required: true,
+                },
+                nguoi_danh_gia: {
+                    required: true,
+                },
+                nha_cung_cap: {
+                    required: true,
+                }
+
+            },
+            messages: {
+                ngay_lap_phieu: {
+                    required: "Ngày lập phiếu không được để trống.",
+                },
+                ngay_danh_gia: {
+                    required: "Ngày đánh giá không được để trống.",
+                },
+                nguoi_danh_gia: {
+                    required: "Người đánh giá không được để trống.",
+                },
+                nha_cung_cap: {
+                    required: "Vui lòng chọn nhà cung cấp.",
+                }
+            }
+        });
+        if (form.valid() === true) {
+            alert("pass");
+        }
+    });
+</script>
 </html>

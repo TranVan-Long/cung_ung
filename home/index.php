@@ -270,10 +270,28 @@
                                                 <img src="../img/avt3.png" alt="ảnh đại diện">
                                             </div>
                                             <div class="ttin_ndgia">
-                                                <p class="ten_ndgia w_100 float_l share_fsize_five cr_weight">Nguyễn Văn
-                                                    A</p>
+                                                <p class="ten_ndgia w_100 float_l share_fsize_five cr_weight">Trần Khánh Linh</p>
                                                 <p class="cvu_ndgia w_100 float_l share_fsize_five share_clr_one">Giám
-                                                    đốc Công ty ABCXYZ</p>
+                                                    đốc Công Ty Tnhh Đầu Tư, Sản Xuất Và Phát Triển Tín Phát </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dtot_one">
+                                        <div class="dgia_ctoi share_bgr_one w_100 float_l">
+                                            <p class="share_fsize_five cr_weight share_clr_tow">Phần mềm rất hữu ích. Nó
+                                                đã giúp cho công việc
+                                                của tôi nhanh chóng hơn. Các hợp đồng, hóa đơn
+                                                hay các yêu cầu đều dễ dàng được xử lý hơn.
+                                                Từ đó, tăng uy tín của chúng tôi với khách hàng.</p>
+                                        </div>
+                                        <div class="nguoi_dgia w_100 float_l d_flex fl_nwrap">
+                                            <div class="avt_dgia">
+                                                <img src="../img/avt3.png" alt="ảnh đại diện">
+                                            </div>
+                                            <div class="ttin_ndgia">
+                                                <p class="ten_ndgia w_100 float_l share_fsize_five cr_weight">Nguyễn Hoàng Hải</p>
+                                                <p class="cvu_ndgia w_100 float_l share_fsize_five share_clr_one">Giám
+                                                    đốc Công ty VNP Group</p>
                                             </div>
                                         </div>
                                     </div>
@@ -291,29 +309,9 @@
                                             </div>
                                             <div class="ttin_ndgia">
                                                 <p class="ten_ndgia w_100 float_l share_fsize_five cr_weight">Nguyễn Văn
-                                                    A</p>
+                                                    Lâm</p>
                                                 <p class="cvu_ndgia w_100 float_l share_fsize_five share_clr_one">Giám
-                                                    đốc Công ty ABCXYZ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="dtot_one">
-                                        <div class="dgia_ctoi share_bgr_one w_100 float_l">
-                                            <p class="share_fsize_five cr_weight share_clr_tow">Phần mềm rất hữu ích. Nó
-                                                đã giúp cho công việc
-                                                của tôi nhanh chóng hơn. Các hợp đồng, hóa đơn
-                                                hay các yêu cầu đều dễ dàng được xử lý hơn.
-                                                Từ đó, tăng uy tín của chúng tôi với khách hàng.</p>
-                                        </div>
-                                        <div class="nguoi_dgia w_100 float_l d_flex fl_nwrap">
-                                            <div class="avt_dgia">
-                                                <img src="../img/avt3.png" alt="ảnh đại diện">
-                                            </div>
-                                            <div class="ttin_ndgia">
-                                                <p class="ten_ndgia w_100 float_l share_fsize_five cr_weight">Nguyễn Văn
-                                                    A</p>
-                                                <p class="cvu_ndgia w_100 float_l share_fsize_five share_clr_one">Giám
-                                                    đốc Công ty ABCXYZ</p>
+                                                    đốc Công Ty Cổ Phần Động Lực</p>
                                             </div>
                                         </div>
                                     </div>

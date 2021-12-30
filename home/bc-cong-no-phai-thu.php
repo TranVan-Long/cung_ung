@@ -41,10 +41,6 @@ include("../includes/icon.php");
                     <div class="category v-select2 mt-20">
                         <select name="category" class="share_select">
                             <option value="">Tìm kiếm theo</option>
-                            <option value="1">Mã khách hàng</option>
-                            <option value="2">Tên khách hàng</option>
-                            <option value="3">Số điện thoại</option>
-                            <option value="4">Email</option>
                         </select>
                     </div>
                     <div class="search-box v-select2 mt-20">
@@ -72,7 +68,7 @@ include("../includes/icon.php");
                                         <th class="w-30">Thanh toán</th>
                                         <th class="w-25">% thanh toán</th>
                                         <th class="w-25">Còn phải thu</th>
-                                        <th class="w-25">Tỉ lệ hàn mức</th>
+                                        <th class="w-25">Tỉ lệ hạn mức</th>
                                     </tr>
                                     </thead>
                                 </table>

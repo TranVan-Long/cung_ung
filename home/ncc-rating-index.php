@@ -56,7 +56,7 @@ include("../includes/icon.php");
                         </div>
                     </div>
                 </div>
-                <div class="scr-wrapper mt-30">
+                <div class="scr-wrapper mt-20">
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
                     <div class="scr-btn scr-r-btn left"><i class="ic-chevron-right"></i></div>
                     <div class="table-wrapper">

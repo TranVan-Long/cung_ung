@@ -32,7 +32,8 @@ $date = date('m-d-Y', time())
         </div>
         <div class="content">
             <div class="left mt-25">
-                <p class="page-title">Thêm phiếu đánh giá nhà cung cấp</p>
+                <a class="text-black" href="danh-gia-nha-cung-cap.html"><?php echo $ic_lt ?> Quay lại</a>
+                <p class="page-title mt-20">Thêm phiếu đánh giá nhà cung cấp</p>
             </div>
             <form action="" class="main-form">
                 <div class="w-100 left mt-10">
@@ -43,21 +44,19 @@ $date = date('m-d-Y', time())
                                 <input type="text" name="so_phieu" value="PH-000-99876" readonly>
                             </div>
                             <div class="form-col-50 no-border mb_15 right">
-                                <label>Ngày lấp phiếu<span class="text-red">&ast;</span></label>
-                                <input type="text" name="ngay_lap_phieu"
-                                       placeholder="Chọn ngày lập phiếu">
+                                <label>Ngày lập phiếu<span class="text-red">&ast;</span></label>
+                                <input type="date" name="ngay_lap_phieu">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
-                                <label>Ngày đánh giá<span class="text-red">*</span></label>
-                                <input class="date-input" type="text" name="ngay_danh_gia"
-                                       placeholder="Chọn ngày đánh giá" onfocus="this.type='date'">
+                                <label>Ngày đánh giá<span class="text-red">&ast;</span></label>
+                                <input type="date" name="ngay_danh_gia">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
-                                <label>Người đánh giá<span class="text-red">*</span></label>
+                                <label>Người đánh giá<span class="text-red">&ast;</span></label>
                                 <input type="text" name="nguoi_danh_gia"
                                        placeholder="Nhập người đánh giá">
                             </div>
@@ -73,39 +72,37 @@ $date = date('m-d-Y', time())
                             </div>
                         </div>
                         <div class="form-row left">
-                            <div class="form-col-50 left">
-                                <div class="v-select2 mb_15">
-                                    <label for="nha-cung-cap">Nhà cung cấp<span class="text-red">*</span></label>
-                                    <select class="share_select"name="nha_cung_cap" id="nha-cung-cap">
-                                        <option value="">-- Chọn nhà cung cấp --</option>
-                                        <option value="1">Nhà cung cấp A</option>
-                                        <option value="2">Nhà cung cấp B</option>
-                                        <option value="3">Nhà cung cấp C</option>
-                                        <option value="4">Nhà cung cấp D</option>
-                                    </select>
-                                </div>
+                            <div class="form-col-50 left mb_15 v-select2">
+                                <label for="nha-cung-cap">Nhà cung cấp<span class="text-red">&ast;</span></label>
+                                <select class="share_select" name="nha_cung_cap" id="nha-cung-cap">
+                                    <option value="">-- Chọn nhà cung cấp --</option>
+                                    <option value="1">Nhà cung cấp A</option>
+                                    <option value="2">Nhà cung cấp B</option>
+                                    <option value="3">Nhà cung cấp C</option>
+                                    <option value="4">Nhà cung cấp D</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
                                 <p class="d-block w-100">Tên nhà cung cấp</p>
-                                <p class="d-block w-100 text-bold mt-10">&nbsp;</p>
+                                <p class="d-block w-100 text-bold mt-10" id="ncc-ten">&nbsp;</p>
                             </div>
                             <div class="form-col-50 no-border mb_15 right">
                                 <p class="d-block w-100">Địa chỉ</p>
-                                <p class="d-block w-100 text-bold mt-10">&nbsp;</p>
+                                <p class="d-block w-100 text-bold mt-10" id="ncc-dia-chi">&nbsp;</p>
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
                                 <p class="d-block w-100">Sản phẩm cung ứng</p>
-                                <p class="d-block w-100 text-bold mt-10">&nbsp;</p>
+                                <p class="d-block w-100 text-bold mt-10" id="ncc-san-pham">&nbsp;</p>
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
                                 <p class="d-block w-100">Điểm đánh giá</p>
-                                <p class="d-block w-100 text-bold mt-10">&nbsp;</p>
+                                <p class="d-block w-100 text-bold mt-10" id="ncc-diem-danh-gia">&nbsp;</p>
                             </div>
                         </div>
                         <div class="form-row left">
@@ -181,7 +178,7 @@ $date = date('m-d-Y', time())
                 <div class="w-100 left">
                     <div class="control-btn right">
                         <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
-                        <button type="submit" class="v-btn btn-blue mt-20">Xong</button>
+                        <button type="button" class="v-btn btn-blue mt-20 submit-btn">Xong</button>
                     </div>
                 </div>
             </form>
@@ -211,7 +208,54 @@ $date = date('m-d-Y', time())
 </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script>
+    $('.submit-btn').click(function () {
+        var form = $('.main-form');
+        form.validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent('.form-col-50'));
+                error.wrap('<span class="error">');
+            },
+            rules: {
+                ngay_lap_phieu: {
+                    required: true,
+                },
+                ngay_danh_gia: {
+                    required: true,
+                },
+                nguoi_danh_gia: {
+                    required: true,
+                },
+                nha_cung_cap: {
+                    required: true,
+                }
+            },
+            messages: {
+                ngay_lap_phieu: {
+                    required: "Ngày lập phiếu không được để trống.",
+                },
+                ngay_danh_gia: {
+                    required: "Ngày đánh giá không được để trống.",
+                },
+                nguoi_danh_gia: {
+                    required: "Người đánh giá không được để trống.",
+                },
+                nha_cung_cap: {
+                    required: "Vui lòng chọn nhà cung cấp.",
+                }
+            }
+        });
+        if (form.valid() === true) {
+            alert("pass");
+        }
+    });
+
+    // $('#nha-cung-cap').on('change',function (){
+    //     var ncc = $(this).val();
+    // });
+</script>
 </html>

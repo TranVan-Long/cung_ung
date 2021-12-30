@@ -139,27 +139,27 @@ include("../includes/icon.php");
                 </div>
             </div>
             <!-- modal tu choi -->
-            <div class="modal text-center" id="decide">
-                <div class="m-content">
-                    <div class="m-head ">
-                        Xóa yêu cầu vật tư <span class="dismiss cancel">&times;</span>
-                    </div>
-                    <div class="m-body">
-                        <p>Bạn có chắc chắn muốn từ chối?</p>
-                        <p>Thao tác này sẽ không thể hoàn tác.</p>
-                    </div>
-                    <div class="m-foot d_flex flex_jct">
-                        <div class="left mb_10">
-                            <p class="v-btn btn-outline-blue left cancel">Hủy</p>
-                        </div>
-                        <div class="right mb_10">
-                            <button class="v-btn share_clr_tow sh_bgr_six right modal-btn" data-target="rejection" >Đồng ý</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="modal text-center" id="decide">-->
+<!--                <div class="m-content">-->
+<!--                    <div class="m-head ">-->
+<!--                        Từ chối yêu cầu vật tư <span class="dismiss cancel">&times;</span>-->
+<!--                    </div>-->
+<!--                    <div class="m-body">-->
+<!--                        <p>Bạn có chắc chắn muốn từ chối?</p>-->
+<!--                        <p>Thao tác này sẽ không thể hoàn tác.</p>-->
+<!--                    </div>-->
+<!--                    <div class="m-foot d_flex flex_jct">-->
+<!--                        <div class="left mb_10">-->
+<!--                            <p class="v-btn btn-outline-blue left cancel">Hủy</p>-->
+<!--                        </div>-->
+<!--                        <div class="right mb_10">-->
+<!--                            <button class="v-btn share_clr_tow sh_bgr_six right modal-btn" data-target="rejection" >Đồng ý</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <!-- modal ly do tu choi -->
-            <div class="modal" id="rejection">
+            <div class="modal" id="decide">
                 <div class="m-content rejection-modal">
                     <div class="m-head text-center">Từ chối yêu cầu vật tư
                         <span class="dismiss cancel">&times;</span>
@@ -179,32 +179,32 @@ include("../includes/icon.php");
                 </div>
             </div>
             <!-- modal chap nhan -->
-            <div class="modal text-center" id="accept">
-                <div class="m-content">
-                    <div class="m-head">
-                        Duyệt yêu cầu vật tư <span class="dismiss cancel">&times;</span>
-                    </div>
-                    <div class="m-body">
-                        <p>Bạn có chắc chắn muốn duyệt?</p>
-                        <p>Thao tác này sẽ không thể hoàn tác.</p>
-                    </div>
-                    <div class="m-foot d_flex">
-                        <div class="left mb_10">
-                            <p class="v-btn btn-outline-blue left cancel">Hủy</p>
-                        </div>
-                        <div class="right mb_10">
-                            <button class="v-btn share_clr_tow sh_bgr_six right modal-btn" data-target="acceptance">Đồng ý</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="modal text-center" id="accept">-->
+<!--                <div class="m-content">-->
+<!--                    <div class="m-head">-->
+<!--                        Duyệt yêu cầu vật tư <span class="dismiss cancel">&times;</span>-->
+<!--                    </div>-->
+<!--                    <div class="m-body">-->
+<!--                        <p>Bạn có chắc chắn muốn duyệt?</p>-->
+<!--                        <p>Thao tác này sẽ không thể hoàn tác.</p>-->
+<!--                    </div>-->
+<!--                    <div class="m-foot d_flex spc-btw">-->
+<!--                        <div class="left mb_10">-->
+<!--                            <p class="v-btn btn-outline-blue left cancel">Hủy</p>-->
+<!--                        </div>-->
+<!--                        <div class="right mb_10">-->
+<!--                            <button class="v-btn share_clr_tow sh_bgr_six right modal-btn" data-target="acceptance">Đồng ý</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <!-- modal duyet-->
-            <div class="modal" id="acceptance">
-                <div class="m-content acceptance-modal">
-                    <div class="m-head text-center">
+            <div class="modal" id="accept">
+                <div class="m-content d-flex justify-content-center flex-wrap acceptance-modal">
+                    <div class="m-head w-100 text-center">
                         Duyệt yêu cầu vật tư <span class="dismiss cancel">&times;</span>
                     </div>
-                    <div class="m-body form-control mt-20">
+                    <div class="m-body left w-100 form-control">
                         <div class="v-select2 w-60">
                             <label for="kho-vat-tu">Lựa chọn kho vật tư</label>
                             <select name="kho-vat-tu" id="kho-vat-tu" class="share_select">

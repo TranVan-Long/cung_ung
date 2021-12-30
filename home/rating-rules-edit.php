@@ -55,9 +55,9 @@ $date = date('m-d-Y', time())
                                 <div class="v-select2">
                                     <label for="nha-cung-cap" id="nha-cung-cap">Chọn kiểu giá trị</label>
                                     <select id="value-type" name="nha_cung_cap" class="share_select">
-                                        <option value="" disabled selected>-- Chọn kiểu giá trị --</option>
-                                        <option value="1">Nhập tay</option>
-                                        <option value="2" selected>Danh sách</option>
+                                        <option value="">-- Chọn kiểu giá trị --</option>
+                                        <option value="1" selected>Nhập tay</option>
+                                        <option value="2">Danh sách</option>
                                     </select>
                                 </div>
                             </div>
@@ -70,32 +70,12 @@ $date = date('m-d-Y', time())
                                 Thêm mới tài giá trị</p>
                         </div>
                         <div id="rules-value">
-                            <div class="value border-bottom left w-100 pb-20 mt-10 d-flex spc-btw">
-                                <div class="value-form">
-                                    <div class="form-row left">
-                                        <div class="form-col-50 left mb_15">
-                                            <label for="gia-tri">Giá trị<span
-                                                        class="text-red">*</span></label>
-                                            <input type="number" id="gia-tri" name="gia_tri"
-                                                   placeholder="Nhập giá trị">
-                                        </div>
-                                        <div class="form-col-50 right mb_15">
-                                            <label for="ten-hien-thi">Tên hiển thị</label>
-                                            <input type="text" id="ten-hien-thi" name="ten_hien_thi"
-                                                   placeholder="Nhập tên hiển thị">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="removeItem3">
-                                    <i class="ic-delete2"></i>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="w-100 left mt-30">
                         <div class="control-btn right">
                             <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
-                            <button type="submit" class="v-btn btn-blue mt-20">Xong</button>
+                            <button type="button" class="v-btn btn-blue mt-20 submit-btn">Xong</button>
                         </div>
                     </div>
                 </div>
@@ -126,7 +106,38 @@ $date = date('m-d-Y', time())
     <? include("../modals/modal_menu.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script>
+    $('.submit-btn').click(function () {
+        var form = $('.main-form');
+        form.validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent('.form-col-50'));
+                error.wrap('<span class="error">');
+            },
+            rules: {
+                tieu_chi_danh_gia: {
+                    required: true,
+                },
+                gia_tri: {
+                    required: true,
+                }
+            },
+            messages: {
+                tieu_chi_danh_gia: {
+                    required: "Tiêu chí đánh giá không được để trống.",
+                },
+                gia_tri: {
+                    required: "Giá trị không được để trống.",
+                }
+            }
+        });
+        if (form.valid() === true) {
+            alert("pass");
+        }
+    });
+</script>
 </html>

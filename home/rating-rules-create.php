@@ -31,7 +31,8 @@ $date = date('m-d-Y', time())
         </div>
         <div class="content">
             <div class="left mt-25">
-                <p class="page-title">Thêm tiêu chí đánh giá</p>
+                <a class="text-black" href="tieu-chi-danh-gia.html"><?php echo $ic_lt ?> Quay lại</a>
+                <p class="page-title mt-20">Thêm tiêu chí đánh giá</p>
             </div>
             <form action="" class="main-form">
                 <div class="w-100 left mt-10">
@@ -71,7 +72,7 @@ $date = date('m-d-Y', time())
                     <div class="w-100 left mt-30">
                         <div class="control-btn right">
                             <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
-                            <button type="submit" class="v-btn btn-blue mt-20">Xong</button>
+                            <button type="button" class="v-btn btn-blue mt-20 submit-btn">Xong</button>
                         </div>
                     </div>
                 </div>
@@ -101,7 +102,38 @@ $date = date('m-d-Y', time())
     <? include("../modals/modal_menu.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script>
+    $('.submit-btn').click(function () {
+        var form = $('.main-form');
+        form.validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent('.form-col-50'));
+                error.wrap('<span class="error">');
+            },
+            rules: {
+                tieu_chi_danh_gia: {
+                    required: true,
+                },
+                gia_tri: {
+                    required: true,
+                }
+            },
+            messages: {
+                tieu_chi_danh_gia: {
+                    required: "Tiêu chí đánh giá không được để trống.",
+                },
+                gia_tri: {
+                    required: "Giá trị không được để trống.",
+                }
+            }
+        });
+        if (form.valid() === true) {
+            alert("pass");
+        }
+    });
+</script>
 </html>

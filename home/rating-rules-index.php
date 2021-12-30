@@ -56,7 +56,7 @@ include("../includes/icon.php");
                         </div>
                     </div>
                 </div>
-                <div class="table-wrapper left w-100 mt-30">
+                <div class="table-wrapper left w-100 mt-20">
                     <div class="table-container table-988">
                         <div class="tbl-header">
                             <table>

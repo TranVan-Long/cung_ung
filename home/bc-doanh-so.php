@@ -41,10 +41,9 @@ include("../includes/icon.php");
                     <div class="category v-select2 mt-20">
                         <select name="category" class="share_select">
                             <option value="">Tìm kiếm theo</option>
-                            <option value="1">Mã khách hàng</option>
-                            <option value="2">Tên khách hàng</option>
-                            <option value="3">Số điện thoại</option>
-                            <option value="4">Email</option>
+                            <option value="1">Mã vật tư</option>
+                            <option value="2">Số hợp đồng</option>
+                            <option value="3">Công trình</option>
                         </select>
                     </div>
                     <div class="search-box v-select2 mt-20">
