@@ -274,17 +274,6 @@
         },
         colors: ['#219653', '#F2C94C'],
         labels: ['Đã thu', 'Chưa thu'],
-        // responsive: [{
-        //     breakpoint: 480,
-        //     options: {
-        //         chart: {
-        //             width: 200
-        //         },
-        //         legend: {
-        //             position: 'bottom'
-        //         }
-        //     }
-        // }]
     };
     var chart = new ApexCharts(document.querySelector(".chart"), options);
     chart.render();
@@ -337,7 +326,8 @@
                 style: {
                     color: '#474747',
                     fontSize: '14px',
-                }
+                },
+                format: "{value}",
             },
         },
 

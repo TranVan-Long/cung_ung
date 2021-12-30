@@ -32,10 +32,12 @@ include "../includes/icon.php";
                 <? include('../includes/ql_header_nv.php') ?>
             </div>
 
-            <div class="content mt_20">
-                <div class="ctn_ctiet_hd w_100 float_l">
+            <div class="content">
+                <div class="ctn_ctiet_hd w_100 float_l mt_20">
                     <div class="chi_tiet_hd w_100 float_l">
-                        <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
+                        <a class="prew_href share_fsize_one mb_20 share_clr_one" href="quan-ly-hop-dong.html">
+                            Quay lại</a>
+                        <h4 class="tieu_de_ct w_100 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Thêm hợp đồng mua</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
                             <form action="" class="form_add_hp_mua share_distance w_100 float_l">
@@ -57,7 +59,7 @@ include "../includes/icon.php";
                                         </select>
                                     </div>
                                     <div class="form-group share_form_select">
-                                        <label>Dự án / Công trình <span class="cr_red">*</span></label>
+                                        <label>Dự án / Công trình</label>
                                         <select name="dan_ctrinh" class="form-control all_da_ct">
                                             <option value="">-- Chọn Dự án / Công trình --</option>
                                         </select>
@@ -68,7 +70,7 @@ include "../includes/icon.php";
                                         <label for="hd_nguyent">Hợp đồng nguyên tắc</label>
                                         <input type="checkbox" id="hd_nguyent" name="hd_ntac">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group share_form_select">
                                         <label>Hình thức hợp đồng</label>
                                         <select name="hinht_hd" class="form-control all_hthuc_hd">
                                             <option value="">-- Chọn hình thức hợp đồng --</option>
@@ -344,6 +346,11 @@ include "../includes/icon.php";
     $(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia, .ma_vatt").select2({
         width: '100%',
     });
+
+    $(".all_hthuc_hd").select2({
+        width: '100%',
+        minimumResultsForSearch: Infinity,
+    })
 
     $('.add_vat_tu').click(function() {
         var html = `<tr>

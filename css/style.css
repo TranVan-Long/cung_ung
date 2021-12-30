@@ -362,10 +362,6 @@ img {
     border-radius: 4px;
 }
 
-.form-group input[readonly] {
-    background: #FFFFFF;
-}
-
 .form-group .form-control {
     width: 100%;
     font-size: 16px;
@@ -1171,7 +1167,7 @@ img {
 }
 
 .fonh_one h1 {
-    width: 100%;
+    width: 96%;
     float: left;
     font-size: 40px;
     line-height: 47px;
@@ -1308,6 +1304,11 @@ img {
     padding: 12px 17px 20px 16px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 4px;
+}
+
+.form_dat_cauh.share_distance .form-group .form-control {
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
 }
 
 .tinhn_one_o {
@@ -1475,8 +1476,8 @@ img {
     align-items: center;
 }
 
-.tnghiem_image_o {
-    margin-left: 20px;
+.tnghiem_image_two {
+    margin-right: 20px;
 }
 
 .tnghiem_image_o p:first-child {
@@ -1542,11 +1543,11 @@ img {
 }
 
 .list_cauh {
-    width: calc(100% - 420px);
+    width: calc(100% - 510px);
 }
 
 .dat_cauh {
-    width: 400px;
+    width: 490px;
     float: right;
     margin-left: 20px;
 }
@@ -1720,7 +1721,7 @@ img {
 }
 
 #huong_dan .fonh_one {
-    width: 38%;
+    width: 41%;
     position: relative;
     margin-left: 151px;
     margin-bottom: 0;
@@ -1985,6 +1986,10 @@ img {
     margin-bottom: 68px;
 }
 
+.ql_ct_phieu_tt_tu .ctiet_dk_hp {
+    margin-bottom: 0;
+}
+
 .chitiet_hd:last-child {
     border-bottom: 0;
 }
@@ -2053,6 +2058,7 @@ img {
 
 
 .bao_hanh {
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
@@ -2061,6 +2067,7 @@ img {
     border: 1px solid #666666;
     height: 36px;
     color: #474747;
+    margin-bottom: 5px;
 
 }
 
@@ -2336,10 +2343,6 @@ img {
     padding: 6px 10px;
 }
 
-.tieu_de_ct {
-    margin-top: 5px;
-}
-
 .da_thu .dthu, .cphai_thu, .dtra, .cphai_tra {
     position: relative;
     padding-left: 25px;
@@ -2449,17 +2452,16 @@ img {
     background: #4C5BD4;
 }
 
-
 .ctn_table .table tbody {
     display: block;
-    max-height: 106px;
+    max-height: 270px;
     overflow-x: auto;
     overflow-y: auto;
 }
 
 .ctn_table_ct .table tbody {
     display: block;
-    max-height: 160px;
+    max-height: 270px;
     overflow: auto;
 }
 
@@ -2949,13 +2951,6 @@ img {
     margin-top: 40px;
 }
 
-.bao_hanh {
-    flex-wrap: wrap;
-}
-
-.bao_hanh input {
-    margin-bottom: 5px;
-}
 
 .name_vt {
     width: 100%;
@@ -2985,7 +2980,7 @@ img {
     color: transparent;
 }
 
-.xem_them {
+.xem_them, .an_bot {
     width: 100%;
     float: left;
     margin-top: 15px;
@@ -2993,7 +2988,7 @@ img {
     padding-right: 15px;
 }
 
-.xem_them::before {
+.xem_them::before, .an_bot::before {
     content: "";
     position: absolute;
     background: url(../img/icon_next.png)no-repeat;
@@ -3121,6 +3116,7 @@ label.error {
     padding: 5px;
 }
 
+
 @media screen and (max-width: 1366px) {
 
     /* footer */
@@ -3150,7 +3146,7 @@ label.error {
         max-width: unset;
     }
 
-    .avt_loii_dd img, .thun_avt_one img, .tnghiem_image_o p img, .tnghiem_image_o img {
+    .avt_loii_dd img, .thun_avt_one img, .fonh_one h1 {
         width: 100%;
     }
 
@@ -3166,6 +3162,14 @@ label.error {
     .tnghiem_image_o {
         width: 45%;
         float: left;
+    }
+
+    .tnghiem_image_o.tnghiem_image_two {
+        float: right;
+    }
+
+    .tnghiem_image_two img {
+        float: right;
     }
 
     .tnghiem_image_o p {

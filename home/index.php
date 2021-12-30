@@ -362,7 +362,7 @@
                                                             placeholder="Nhập mã">
                                                     </div>
                                                     <div class="ma_captcha float_l d_flex">
-                                                        <div class="hien-ma-nhap share_bgr_tow cr_weight ramdum"
+                                                        <div class="hien-ma-nhap share_bgr_tow share_clr_one cr_weight ramdum"
                                                             id="ma-cap">
                                                             <p class="ramdum" id="code" oncopy="return false"
                                                                 oncut="return false" onpaste="return false">456h89</p>
@@ -424,6 +424,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="xem_them share_fsize_one share_clr_four tex_right share_cursor">Xem thêm</div>
+                                                <div class="an_bot share_dnone share_fsize_one share_clr_four tex_right share_cursor">Ẩn bớt</div>
                                             </div>
                                             <div class="choi_chit w_100 float_l share_bgr_tow">
                                                 <div class="nguoid_hoi w_100 float_l">
@@ -468,6 +469,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="xem_them share_fsize_one share_clr_four tex_right share_cursor">Xem thêm</div>
+                                                <div class="an_bot share_dnone share_fsize_one share_clr_four tex_right share_cursor">Ẩn bớt</div>
                                             </div>
                                             <div class="choi_chit w_100 float_l share_bgr_tow">
                                                 <div class="nguoid_hoi w_100 float_l">
@@ -512,6 +514,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="xem_them share_fsize_one share_clr_four tex_right share_cursor">Xem thêm</div>
+                                                <div class="an_bot share_dnone share_fsize_one share_clr_four tex_right share_cursor">Ẩn bớt</div>
                                             </div>
                                         </div>
                                     </div>
@@ -528,7 +531,7 @@
                                         </h3>
                                         <div class="avt_tnghiem w_100 float_l d_flex">
                                             <div class="avt_white w_100 float_l d_flex">
-                                                <div class="tnghiem_image_o">
+                                                <div class="tnghiem_image_o tnghiem_image_two">
                                                     <picture>
                                                         <source media="(max-width: 768px)" srcset="../img/train_rma.png">
                                                         <img src="../img/ma_qr_o.png" alt="mã QR">
@@ -668,12 +671,20 @@
     });
 
     $(".xem_them").click(function(){
-        $(this).parents(".choi_chit").find(".cty_tloi .cauh_ndung .tro_loi_r").toggleClass("active");
+        $(this).parents(".choi_chit").find(".cty_tloi .cauh_ndung .tro_loi_r").addClass("active");
+        $(this).addClass("share_dnone");
+        $(this).parents(".choi_chit").find(".an_bot").removeClass("share_dnone");
     });
 
-    $(".tro_loi_r ").click(function(){
-        $(this).toggleClass("active");
+    $(".an_bot").click(function(){
+        $(this).parents(".choi_chit").find(".cty_tloi .cauh_ndung .tro_loi_r").removeClass("active");
+        $(this).addClass("share_dnone");
+        $(this).parents(".choi_chit").find(".xem_them").removeClass("share_dnone");
     });
+
+    // $(".tro_loi_r").click(function(){
+    //     $(this).toggleClass("active");
+    // });
 
     var avt_nv_dn = $(".avt_nv_dn");
     var ten_nv_dn = $(".ten_nv_dn");

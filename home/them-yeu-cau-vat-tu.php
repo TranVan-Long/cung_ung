@@ -41,12 +41,13 @@
                 </div>
                 <div class="c-body">
                     <div class="ctiet_them_vtu w_100 float_l">
-                        <form action="" class="form_save_add w_100 float_l">
+                        <form action="" class="form_save_add w_100 float_l" method="">
                             <div class="form-control">
                                 <div class="form-row left">
                                     <div class="form-col-50 mb_15">
                                         <label for="so-phieu">Số phiếu yêu cầu</label>
                                         <input type="text" id="so-phieu" name="so-phieu" value="PH-009-01029" disabled>
+                                        <span class="error"></span>
                                     </div>
                                 </div>
                                 <div class="form-row left">
@@ -66,8 +67,9 @@
                                 <div class="form-row left">
                                     <div class="form-col-50 left v-select2 mb_15">
                                         <label>Công trình <span class="text-red">*</span></label>
-                                        <select name="cong_trinh" class="share_select">
+                                        <select name="cong_trinh" class="share_select" id="abcvd">
                                             <option value="">-- Chọn công trình --</option>
+                                            <option value="1">abc</option>
                                         </select>
                                     </div>
                                 </div>
@@ -113,17 +115,20 @@
                                                 <tbody id="materials">
                                                     <tr class="item">
                                                         <td class="w-10">
-                                                            <p class="removeItem"><i class="ic-delete remove-btn"></i>
+                                                            <p class="removeItem"><i
+                                                                    class="ic-delete remove-btn"></i>
                                                             </p>
                                                         </td>
                                                         <td class="w-15">
                                                             <div class="v-select2">
-                                                                <select name="materials_id[]" class="share_select"></select>
+                                                                <select name="materials_id[]"
+                                                                    class="share_select"></select>
                                                             </div>
                                                         </td>
                                                         <td class="w-25">
                                                             <div class="v-select2">
-                                                                <select name="materials_name[]" class="share_select"></select>
+                                                                <select name="materials_name[]"
+                                                                    class="share_select"></select>
                                                             </div>
                                                         </td>
                                                         <td class="w-20">
@@ -135,17 +140,20 @@
                                                     </tr>
                                                     <tr class="item">
                                                         <td class="w-10">
-                                                            <p class="removeItem"><i class="ic-delete remove-btn"></i>
+                                                            <p class="removeItem"><i
+                                                                    class="ic-delete remove-btn"></i>
                                                             </p>
                                                         </td>
                                                         <td class="w-15">
                                                             <div class="v-select2">
-                                                                <select name="materials_id[]" class="share_select"></select>
+                                                                <select name="materials_id[]"
+                                                                    class="share_select"></select>
                                                             </div>
                                                         </td>
                                                         <td class="w-25">
                                                             <div class="v-select2">
-                                                                <select name="materials_name[]" class="share_select"></select>
+                                                                <select name="materials_name[]"
+                                                                    class="share_select"></select>
                                                             </div>
                                                         </td>
                                                         <td class="w-20">
@@ -163,8 +171,9 @@
                             </div>
                             <div class="c-foot mt-30">
                                 <div class="right huy_xong">
-                                    <button type="button" class="v-btn btn-outline-blue modal-btn" data-target="cancel">Hủy</button>
-                                    <button type="button" class="v-btn btn-blue ml-20 luu_them_moi">Xong</a>
+                                    <button type="button" class="v-btn btn-outline-blue modal-btn"
+                                        data-target="cancel">Hủy</button>
+                                    <p class="v-btn btn-blue ml-20 luu_them_moi">Xong</a>
                                 </div>
                             </div>
                         </form>
@@ -204,40 +213,40 @@
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript">
-
-    $(".luu_them_moi").click(function(){
+    $(".luu_them_moi").click(function() {
         var creart_ycvt = $(".form_save_add");
         creart_ycvt.validate({
             errorPlacement: function(error, element) {
                 error.appendTo(element.parents(".form-col-50"));
                 error.wrap("<span class='error'>");
             },
-            rules:{
-                phong_ban:{
+            rules: {
+                phong_ban: {
                     required: true,
                 },
-                nguoi_yeu_cau:{
+                nguoi_yeu_cau: {
                     required: true,
                 },
-                cong_trinh:{
+                cong_trinh: {
                     required: true,
                 },
             },
-            messages:{
-                 phong_ban:{
+            messages: {
+                phong_ban: {
                     required: "Không được để trống",
                 },
-                nguoi_yeu_cau:{
+                nguoi_yeu_cau: {
                     required: "Không được để trống",
                 },
-                cong_trinh:{
+                cong_trinh: {
                     required: "Không được để trống",
                 },
             },
         });
-        if(creart_ycvt.valid() === true){
+        if (creart_ycvt.valid() === true) {
             alert("oke");
         }
-    })
+    });
 </script>
+
 </html>

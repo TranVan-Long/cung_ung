@@ -31,8 +31,10 @@ include "../includes/icon.php";
                 <? include('../includes/ql_header_nv.php') ?>
             </div>
 
-            <div class="content mt_20">
-                <div class="ctn_ctiet_hd w_100 float_l">
+            <div class="content">
+                <div class="ctn_ctiet_hd mt_20 w_100 float_l">
+                    <a class="prew_href share_fsize_one share_clr_one" href="quan-ly-hop-dong.html">
+                            Quay lại</a>
                     <div class="chi_tiet_hd w_100 float_l">
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Thêm hợp đồng thuê</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
@@ -63,7 +65,7 @@ include "../includes/icon.php";
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group d_flex fl_agi form_lb">
-                                        <label>Hợp đồng nguyên tắc</label>
+                                        <label>Thuê nội bộ</label>
                                         <input type="checkbox" name="hd_ntac">
                                     </div>
                                 </div>
@@ -99,8 +101,9 @@ include "../includes/icon.php";
                                                 <tr>
                                                     <th class="share_tb_seven"></th>
                                                     <th class="share_tb_two">Loại tài sản thiết bị</th>
-                                                    <th class="share_tb_one">Số lượng</th>
-                                                    <th class="share_tb_three">Thời gian thuê</th>
+                                                    <th class="share_tb_two">Thông số kỹ thuật</th>
+                                                    <th class="share_tb_seven">Số lượng</th>
+                                                    <th class="share_tb_eight">Thời gian thuê</th>
                                                     <th class="share_tb_eight">Đơn vị tính</th>
                                                     <th class="share_tb_one">Khối lượng dự kiến</th>
                                                     <th class="share_tb_two">Hạn mức ca máy</th>
@@ -125,12 +128,17 @@ include "../includes/icon.php";
                                                             </select>
                                                         </div>
                                                     </td>
-                                                    <td class="share_tb_one">
+                                                    <td class="share_tb_two">
+                                                        <div class="form-group share_form_select">
+                                                            <input type="text" name="thong_so" class="form-control">
+                                                        </div>
+                                                    </td>
+                                                    <td class="share_tb_seven">
                                                         <div class="form-group">
                                                             <input type="text" name="so_luong" class="form-control">
                                                         </div>
                                                     </td>
-                                                    <td class="share_tb_three">
+                                                    <td class="share_tb_eight">
                                                         <div class="form-group">
                                                             <input type="text" name="don_vi" class="form-control">
                                                         </div>

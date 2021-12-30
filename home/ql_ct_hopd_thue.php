@@ -104,7 +104,7 @@ include "../includes/icon.php";
                                             <th class="share_tb_one">Hạn mức ca máy</th>
                                             <th class="share_tb_one">Đơn giá thuế</th>
                                             <th class="share_tb_two">Đơn giá ca máy phụ hồi</th>
-                                            <th class="share_tb_two">Thành tiên dự kiến</th>
+                                            <th class="share_tb_two">Thành tiền dự kiến</th>
                                             <th class="share_tb_two">Thỏa thuận khác</th>
                                             <th class="share_tb_two">Lưu ý</th>
                                         </tr>

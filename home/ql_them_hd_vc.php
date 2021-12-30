@@ -32,9 +32,11 @@ include "../includes/icon.php";
                 <? include('../includes/ql_header_nv.php') ?>
             </div>
 
-            <div class="content mt_20">
-                <div class="ctn_ctiet_hd w_100 float_l">
+            <div class="content">
+                <div class="ctn_ctiet_hd mt_20 w_100 float_l">
                     <div class="chi_tiet_hd w_100 float_l">
+                        <a class="prew_href share_fsize_one share_clr_one" href="quan-ly-hop-dong.html">
+                            Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Thêm hợp đồng thuê vận chuyển</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
                             <form action="" class="form_add_hp_mua share_distance w_100 float_l" method="">
@@ -56,7 +58,7 @@ include "../includes/icon.php";
                                         </select>
                                     </div>
                                     <div class="form-group share_form_select">
-                                        <label>Dự án / Công trình <span class="cr_red">*</span></label>
+                                        <label>Dự án / Công trình</label>
                                         <select name="dan_ctrinh" class="form-control all_da_ct">
                                             <option value="">-- Chọn Dự án / Công trình --</option>
                                         </select>
@@ -338,9 +340,6 @@ include "../includes/icon.php";
                 nha_ccap:{
                     required: true,
                 },
-                dan_ctrinh:{
-                    required: true,
-                }
             },
             messages:{
                  ngay_ky:{
@@ -349,9 +348,6 @@ include "../includes/icon.php";
                 nha_ccap:{
                     required: "Không được để trống",
                 },
-                dan_ctrinh:{
-                    required: "Không được để trống",
-                }
             },
         });
 

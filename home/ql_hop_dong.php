@@ -187,25 +187,23 @@ include "../includes/icon.php";
                         </div>
                     </div>
                 </div>
-                <div class="c-foot w_100 float_l mt_20">
-                    <div class="display mb-10 mr-10">
+                <div class="c-foot w_100 float_l mt_20 d_flex fl_wrap fl_agi flex_jct">
+                    <div class="display mr-10">
                         <label for="display" class="mr_10">Hiển thị</label>
                         <select name="display" id="display">
                             <option value="10">10</option>
                             <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="40">40</option>
                         </select>
                     </div>
-                    <div class="pagination  mb-10">
+                    <div class="pagination">
                         <ul class="mt-10">
-                            <li><a href="#"><?php echo $ic_lt ?></a></li>
+                            <li><a href="#">&lt;</a></li>
                             <li class="active"><a href="#">1</a></li>
                             <li><a href="#">2</a></li>
                             <li><a href="#">3</a></li>
                             <li><a href="#">4</a></li>
                             <li><a href="#">5</a></li>
-                            <li><a href="#"><?php echo $ic_gt ?></a></li>
+                            <li><a href="#">&gt;</a></li>
                         </ul>
                     </div>
                 </div>

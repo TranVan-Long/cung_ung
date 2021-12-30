@@ -31,13 +31,25 @@ include "../includes/icon.php";
                 <? include('../includes/ql_header_nv.php') ?>
             </div>
 
-            <div class="content mt_20">
-                <div class="ctn_ctiet_hd w_100 float_l">
+            <div class="content">
+                <div class="ctn_ctiet_hd mt_20 w_100 float_l">
                     <div class="chi_tiet_hd w_100 float_l">
+                        <a class="prew_href share_fsize_one share_clr_one" href="quan-ly-phieu-thanh-toan.html">
+                            Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Thêm phiếu thanh toán</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
                             <form action="" class="form_add_hp_mua share_distance w_100 float_l" method="">
+                                <div class="form-row w_100 float_l">
+                                    <div class="form-group share_form_select">
+                                        <label>Loại phiếu thanh toán <span class="cr_red">*</span></label>
+                                        <select name="loai_ptt" class="form-control loai_phieu">
+                                            <option value="">-- Chọn loại phiếu thanh toán --</option>
+                                            <option value="1">Phiếu thanh toán hợp đồng</option>
+                                            <option value="2">Phiếu thanh toán đơn hàng</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Hợp đồng / Đơn hàng <span class="cr_red">*</span></label>
@@ -47,7 +59,7 @@ include "../includes/icon.php";
                                     </div>
                                     <div class="form-group">
                                         <label>Số phiếu <span class="cr_red">*</span></label>
-                                        <input type="text" name="so_phieu" value="PH-001" class="form-control" disabled>
+                                        <input type="text" name="so_phieu" value="PH-001" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -90,23 +102,8 @@ include "../includes/icon.php";
                                         <p class="cr_weight">Công ty A</p>
                                     </div>
                                 </div>
-                                <div class="form-row w_100 float_l">
-                                    <div class="form-group">
-                                        <label>Số tiền <span class="cr_red">*</span></label>
-                                        <input type="text" name="so_tien" class="form-control"
-                                            placeholder="Nhập số tiền">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Tỷ giá</label>
-                                        <input type="text" name="ty_gia" class="form-control" placeholder="Nhập tỷ giá">
-                                    </div>
-                                </div>
-                                <div class="form-row w_100 float_l">
-                                    <div class="form-group">
-                                        <label>Giá trị quy đổi</label>
-                                        <input type="text" name="so_tien" class="form-control h_border cr_weight"
-                                            value="0">
-                                    </div>
+                                <div class="ct_form w_100 float_l">
+
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
@@ -121,54 +118,7 @@ include "../includes/icon.php";
                                     </div>
                                 </div>
                                 <div class="form-them-nganh w_100 float_l"></div>
-                                <div class="them_moi_vt w_100 float_l">
-                                    <div class="ctn_table w_100 float_l">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th class="share_tb_five">Hồ sơ thanh toán</th>
-                                                    <th class="share_tb_five">Giá trị còn phải thanh toán</th>
-                                                    <th class="share_tb_five">Thời hạn thanh toán</th>
-                                                    <th class="share_tb_five">Thanh toán</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="sh_bgr_four">
-                                                    <td
-                                                        class="tex_left share_clr_four cr_weight share_h_52 share_tb_five">
-                                                        Tổng</td>
-                                                    <td class="share_clr_four cr_weight share_tb_five">25.000.000</td>
-                                                    <td class="share_tb_five"></td>
-                                                    <td class="share_clr_four cr_weight share_tb_five">25.000.000</td>
-                                                </tr>
-                                                <tr class="sh_bgr_five">
-                                                    <td class="tex_left share_h_52 share_tb_five">HS-2021-09089</td>
-                                                    <td class="share_tb_five">25.000.000</td>
-                                                    <td class="share_tb_five">30/10/2021</td>
-                                                    <td class="share_tb_five">25.000.000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="tex_left share_h_52 share_tb_five">Công trình xây dựng
-                                                        cầu XYZ</td>
-                                                    <td class="share_tb_five">25.000.000</td>
-                                                    <td class="share_tb_five"></td>
-                                                    <td class="share_tb_five">25.000.000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="tex_left share_tb_five">TT-08954</td>
-                                                    <td class="share_tb_five">25.000.000</td>
-                                                    <td class="share_tb_five"></td>
-                                                    <td class="share_tb_five">
-                                                        <div class="form-group">
-                                                            <input type="text" name="so_tien_ctra"
-                                                                class="form-control tex_center">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                <div class="them_moi_vt w_100 float_l"></div>
                                 <div class="form-button w_100">
                                     <div class="form_button phieu_button">
                                         <button type="button"
@@ -230,6 +180,11 @@ $(".all_nhacc, .ten_nganhang, .chi_nhanh, .chu_taik, .so_taik, .all_ltt").select
     width: '100%',
 });
 
+$(".loai_phieu").select2({
+    width: '100%',
+    minimumResultsForSearch: Infinity
+})
+
 function CheckSelect() {
     $(".ten_nganhang, .so_taik, .chu_taik, .chi_nhanh").select2({
         width: '100%',
@@ -240,50 +195,80 @@ $(".all_ltt").change(function() {
     var all_ltt = $(this).val();
     if (all_ltt == 1) {
         $(".them_moi_vt .ctn_table").remove();
+
+        var html = `<div class="ctn_ct_from w_100 float_l">
+                        <div class="form-row w_100 float_l">
+                            <div class="form-group">
+                                <label>Số tiền <span class="cr_red">*</span></label>
+                                <input type="text" name="so_tien" class="form-control"
+                                    placeholder="Nhập số tiền">
+                            </div>
+                            <div class="form-group">
+                                <label>Tỷ giá</label>
+                                <input type="text" name="ty_gia" class="form-control"
+                                    placeholder="Nhập tỷ giá">
+                            </div>
+                        </div>
+                        <div class="form-row w_100 float_l">
+                            <div class="form-group">
+                                <label>Giá trị quy đổi</label>
+                                <input type="text" name="so_tien"
+                                    class="form-control h_border cr_weight" value="0">
+                            </div>
+                        </div>
+                    </div>`;
+
+        $(".ct_form").html(html);
     } else if (all_ltt == 2) {
+        $(".ct_form .ctn_ct_from").remove();
+
         var html = `<div class="ctn_table">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="share_tb_five">Hồ sơ thanh toán</th>
-                                        <th class="share_tb_five">Giá trị còn phải thanh toán</th>
-                                        <th class="share_tb_five">Thời hạn thanh toán</th>
-                                        <th class="share_tb_five">Thanh toán</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="sh_bgr_four">
-                                        <td class="tex_left share_clr_four cr_weight share_h_52 share_tb_five">Tổng</td>
-                                        <td class="share_clr_four cr_weight share_tb_five">25.000.000</td>
-                                        <td class="share_tb_five"></td>
-                                        <td class="share_clr_four cr_weight share_tb_five">25.000.000</td>
-                                    </tr>
-                                    <tr class="sh_bgr_five">
-                                        <td class="tex_left share_h_52 share_tb_five">HS-2021-09089</td>
-                                        <td class="share_tb_five">25.000.000</td>
-                                        <td class="share_tb_five">30/10/2021</td>
-                                        <td class="share_tb_five">25.000.000</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tex_left share_h_52 share_tb_five">Công trình xây dựng cầu XYZ</td>
-                                        <td class="share_tb_five">25.000.000</td>
-                                        <td class="share_tb_five"></td>
-                                        <td class="share_tb_five">25.000.000</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tex_left share_tb_five">TT-08954</td>
-                                        <td class="share_tb_five">25.000.000</td>
-                                        <td class="share_tb_five"></td>
-                                        <td class="share_tb_five">
-                                            <div class="form-group">
-                                                <input type="text" name="so_tien_ctra" class="form-group tex_center">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>`;
-        $(".them_moi_vt ").html(html);
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="share_tb_five">Hồ sơ thanh toán</th>
+                                    <th class="share_tb_five">Giá trị còn phải thanh toán</th>
+                                    <th class="share_tb_five">Thời hạn thanh toán</th>
+                                    <th class="share_tb_five">Thanh toán</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="sh_bgr_four">
+                                    <td class="tex_left share_clr_four cr_weight share_h_52 share_tb_five">Tổng</td>
+                                    <td class="share_clr_four cr_weight share_tb_five">25.000.000</td>
+                                    <td class="share_tb_five"></td>
+                                    <td class="share_clr_four cr_weight share_tb_five">25.000.000</td>
+                                </tr>
+                                <tr class="sh_bgr_five">
+                                    <td class="tex_left share_h_52 share_tb_five">HS-2021-09089</td>
+                                    <td class="share_tb_five">25.000.000</td>
+                                    <td class="share_tb_five">30/10/2021</td>
+                                    <td class="share_tb_five">25.000.000</td>
+                                </tr>
+                                <tr>
+                                    <td class="tex_left share_h_52 share_tb_five">Công trình xây dựng cầu XYZ</td>
+                                    <td class="share_tb_five">25.000.000</td>
+                                    <td class="share_tb_five"></td>
+                                    <td class="share_tb_five">25.000.000</td>
+                                </tr>
+                                <tr>
+                                    <td class="tex_left share_tb_five">TT-08954</td>
+                                    <td class="share_tb_five">25.000.000</td>
+                                    <td class="share_tb_five"></td>
+                                    <td class="share_tb_five">
+                                        <div class="form-group">
+                                            <input type="text" name="so_tien_ctra" class="form-control tex_center">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>`;
+
+        $(".them_moi_vt").html(html);
+    }else{
+        $(".ct_form .ctn_ct_from").remove();
+        $(".them_moi_vt .ctn_table").remove();
     }
 });
 
@@ -307,7 +292,7 @@ $(".all_hthuc").change(function() {
     if (id == 1) {
         $(".form-them-nganh .ctie_form_nhang").remove()
         $(".tien_chi_tra").remove();
-    }else if(id == 2 || id == 3){
+    } else if (id == 2 || id == 3) {
         var html = `<div class="ctie_form_nhang w_100 float_l">
                         <div class="tieu_de  w_100 float_l d_flex fl_wrap mb_10">
                             <p class="mr_30 share_fsize_tow share_clr_one cr_weight cate_bank">Danh sách
@@ -345,12 +330,11 @@ $(".all_hthuc").change(function() {
                                     src="../img/remove-2.png" alt="xóa"></span>
                         </div>
                     </div>`;
-
         $(".form-them-nganh").html(html)
     }
 });
 
-$(document).on('click','.add_ngan_hang', function(){
+$(document).on('click', '.add_ngan_hang', function() {
     var html = `<div class="tien_chi_tra w_100 float_l d_flex fl_agi">
                     <div class="form-ctra w_100 float_l">
                         <div class="form-row">
@@ -381,8 +365,6 @@ $(document).on('click','.add_ngan_hang', function(){
     $(".form-them-nganh").append(html);
     CheckSelect();
 });
-
-
 </script>
 
 </html>

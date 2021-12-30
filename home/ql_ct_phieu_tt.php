@@ -60,19 +60,13 @@ include "../includes/icon.php";
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Hình thức thanh toán</p>
-                                    <p class="cr_weight share_fsize_tow cr_red">Tiền mặt</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one">Tiền mặt</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Loại thanh toán</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">Theo hợp đồng</p>
-                                </div>
-                            </div>
-                            <div class="chitiet_hd w_100 float_l">
-                                <div class="ctiet_hd_left float_l pl-10">
-                                    <p class="ten_ctiet share_fsize_tow share_clr_one">Loại thanh toán</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">Tạm ứng</p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">

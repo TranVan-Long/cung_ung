@@ -31,11 +31,11 @@
                             </div>
                             <div class="bgr_froh">
                                 <div class="fonh_one">
-                                    <h1 class="share_clr_tow cr_weight_bold">Hướng dẫn sử dụng
+                                    <h1 class="share_clr_tow cr_weight_bold">Hướng dẫn sử dụng<br>
                                     phần mềm quản lý cung ứng xây dựng</h1>
                                     <div class="the_nghiem d_flex">
-                                        <img src="../img/gg_play.png" alt="tải phần mềm trên gg play" class="the_ng_one">
-                                        <img src="../img/gg_app.png" alt="tải phần mềm trên gg app" class="the_ng_two">
+                                        <img src="../img/gg_play_res.png" alt="tải phần mềm trên gg play" class="the_ng_one">
+                                        <img src="../img/gg_app_res.png" alt="tải phần mềm trên gg app" class="the_ng_two">
                                     </div>
                                 </div>
                                 <div class="fonh_tow">

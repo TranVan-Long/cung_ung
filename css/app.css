@@ -189,7 +189,8 @@ textarea[placeholder] {
 .d-flex {
     display: flex;
 }
-.flex-wrap{
+
+.flex-wrap {
     flex-wrap: wrap;
 }
 
@@ -200,7 +201,8 @@ textarea[placeholder] {
 .spc-btw {
     justify-content: space-between;
 }
-.spc-around{
+
+.spc-around {
     justify-content: space-around;
 }
 
@@ -332,7 +334,7 @@ textarea[placeholder] {
     margin-left: 30px;
 }
 
-.p-5{
+.p-5 {
     padding: 5px;
 }
 
@@ -840,7 +842,7 @@ textarea[placeholder] {
     min-width: 1428px;
 }
 
-.table-1310{
+.table-1310 {
     min-width: 1310px;
 }
 
@@ -899,7 +901,8 @@ textarea[placeholder] {
 .table-container tr {
     border-bottom: solid 1px #474747;
 }
-.table-container .tbl-content tr:first-child{
+
+.table-container .tbl-content tr:first-child {
     border-top: solid 1px #474747;
 }
 
@@ -1168,6 +1171,9 @@ select#display {
 .pagination li {
     width: 19px;
     height: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     float: left;
     padding: 0px 5px;
     margin: 0 7px;
@@ -1176,7 +1182,7 @@ select#display {
 }
 
 .pagination li a {
-    font-size: 16px;
+    font-size: 13px;
     color: #666666;
 }
 
@@ -1716,7 +1722,7 @@ select#display {
     justify-content: space-around;
 }
 
-.main-form{
+.main-form {
     width: 100%;
     float: left;
 }

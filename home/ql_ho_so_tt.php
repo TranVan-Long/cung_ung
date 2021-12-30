@@ -49,10 +49,9 @@ include "../includes/icon.php";
                             <div class="share_form_select category">
                                 <select name="category" class="tim_kiem">
                                     <option value="">Tìm kiếm theo</option>
-                                    <option value="1">Mã yêu cầu</option>
-                                    <option value="2">Ngày gửi</option>
-                                    <option value="3">Công trình</option>
-                                    <option value="4">Ngày phải hoàn thành</option>
+                                    <option value="1">Đợt nghiệm thu</option>
+                                    <option value="2">Hợp đồng/ đơn hàng</option>
+                                    <option value="3">Trạng thái</option>
                                 </select>
                             </div>
                             <div class="share_form_select search-box">
@@ -156,15 +155,15 @@ include "../includes/icon.php";
                             <option value="20">20</option>
                         </select>
                     </div>
-                    <div class="pagination">
-                        <ul class="mt-10">
-                            <li><a href="#"><?php echo $ic_lt ?></a></li>
+                    <div class="pagination mt_10">
+                        <ul>
+                            <li><a href="#">&lt;</a></li>
                             <li class="active"><a href="#">1</a></li>
                             <li><a href="#">2</a></li>
                             <li><a href="#">3</a></li>
                             <li><a href="#">4</a></li>
                             <li><a href="#">5</a></li>
-                            <li><a href="#"><?php echo $ic_gt ?></a></li>
+                            <li><a href="#">&gt;</a></li>
                         </ul>
                     </div>
                 </div>

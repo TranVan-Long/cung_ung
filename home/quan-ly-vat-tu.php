@@ -202,13 +202,15 @@ include "../includes/icon.php";
                             <option value="20">20</option>
                         </select>
                     </div>
-                    <div class="pagination mb-10">
-                        <ul class="mt-10">
-                            <li><a href="#"><?php echo $ic_lt ?></a></li>
+                    <div class="pagination mt_10">
+                        <ul>
+                            <li><a href="#">&lt;</a></li>
                             <li class="active"><a href="#">1</a></li>
                             <li><a href="#">2</a></li>
                             <li><a href="#">3</a></li>
-                            <li><a href="#"><?php echo $ic_gt ?></a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">&gt;</a></li>
                         </ul>
                     </div>
                 </div>

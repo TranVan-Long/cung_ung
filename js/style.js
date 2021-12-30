@@ -48,7 +48,7 @@ function widthSelect() {
 $(document).on('click', '.remo_cot_ngang', function () {
     $(this).parents(".ctn_table .table tbody tr").remove();
 
-    if ($(".ctn_table .table tbody").height() > 105.5) {
+    if ($(".ctn_table .table tbody").height() > 270.5) {
         $(".ctn_table .table thead tr").css('width', 'calc(100% - 10px)');
     } else {
         $(".ctn_table .table thead tr").css('width', '100%');
@@ -121,7 +121,6 @@ $(window).click(function (e) {
 
     if ($(e.target).is(".modal_menu")) {
         modal_menu.hide();
-        // $(".header-container").css("position", "relative");
     }
 });
 
