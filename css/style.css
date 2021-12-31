@@ -228,6 +228,7 @@ img {
     border: 0;
     outline: 0;
     padding-left: 0;
+    background: #FFFFFF;
 }
 
 .d_flex {
@@ -3106,11 +3107,14 @@ img {
     width: 59px;
 }
 
-.info_modal h4 {
+.info_modal .ctn_share_h {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     white-space: nowrap;
     overflow: hidden;
     line-height: 21px;
-    padding: 0 50px 0 20px;
+    padding: 0px 20px;
     text-overflow: ellipsis;
 
 }
@@ -3130,8 +3134,12 @@ label.error {
     padding: 5px;
 }
 
+.info_modal .ctn_share_h.share_htitl {
+    justify-content: left;
+}
 
-@media screen and (max-width: 1366px) {
+
+@media(max-width: 1366px) {
 
     /* footer */
     .contact .txt {
@@ -3204,7 +3212,18 @@ label.error {
     }
 }
 
-@media screen and (max-width: 1024px) {
+@media(max-width: 1122px) {
+    .range-date-picker {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .date-input-sm {
+        width: 100%;
+    }
+}
+
+@media(max-width: 1024px) {
 
     /* footer */
     .footer {
@@ -3365,6 +3384,10 @@ label.error {
     .content {
         width: calc(100% - 36px);
         margin-top: 56px;
+    }
+
+    .ctn_ctiet_hd {
+        margin-top: 0;
     }
 
     .chi_tiet_hd {
@@ -3541,29 +3564,18 @@ label.error {
     }
 
     .date-input-sm {
-        width: 40%;
+        width: 148px;
     }
 
     .form-col-50 .range-date-text p {
         text-align: center;
-        padding: 10px;
+        padding: 10px 2px;
     }
 
 
 }
 
-@media (max-width: 1122px) {
-    .range-date-picker {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .date-input-sm {
-        width: 100%;
-    }
-}
-
-@media screen and (max-width: 768px) {
+@media(max-width: 768px) {
 
     /* footer */
     .footer {
@@ -4605,20 +4617,34 @@ label.error {
         margin-top: 9px;
     }
 
-    .range-date-picker{
+    .range-date-picker {
         width: 100%;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         justify-content: space-between;
     }
 
-    .date-input-sm{
-        width: 40%;
+    .date-input-sm {
+        width: 148px;
     }
 
-    .form-col-50 .range-date-text p{
+    .form-col-50 .range-date-text p {
         text-align: center;
-        padding: 10px;
+        padding: 10px 2px;
+    }
+}
+
+@media(max-width: 367px) {
+    .range-date-picker {
+        display: block;
     }
 
+    .date-input-sm {
+        width: 100%;
+    }
 
+    .form-col-50 .range-date-text p {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 }

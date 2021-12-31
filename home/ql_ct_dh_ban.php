@@ -223,7 +223,7 @@
                             <div class="xuat_gmc_two share_xuat_gmc d_flex mb_10 right">
                                 <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_dh">Xóa</p>
                                 <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                    <a href="chinh-sua-hop-dong-ban.html" class="share_clr_tow">Chỉnh sửa</a></p>
+                                    <a href="chinh-sua-don-hang-ban.html" class="share_clr_tow">Chỉnh sửa</a></p>
                             </div>
                             <div class="xuat_gmc_one share_xuat_gmc d_flex left mb_10 mr_10">
                                 <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight">Xuất Excel</p>
@@ -248,11 +248,11 @@
                 <div class="modal-body">
                     <div class="ctn_body_modal">
                         <div class="madal_form">
-                            <div class="ctiet_pop">
+                            <div class="ctiet_pop mt_20">
                                 <p class="share_fsize_tow share_clr_one">Bạn có chắc chắn muốn xóa đơn hàng này?</p>
                                 <p class="share_fsize_tow share_clr_one">Thao tác này sẽ không thể hoàn tác.</p>
                             </div>
-                            <div class="form_butt_ht">
+                            <div class="form_butt_ht mb_20">
                                 <div class="tow_butt_flex d_flex">
                                     <button type="button"
                                         class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>

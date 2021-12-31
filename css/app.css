@@ -1371,8 +1371,6 @@ select#display {
 }
 
 .info_modal .modal-header {
-    display: flex;
-    align-items: center;
     background: #4C5BD4;
     width: 100%;
     height: 54px;
@@ -1382,10 +1380,9 @@ select#display {
 }
 
 .ctn_share_h {
-    margin: 18px 0px 17px 0px;
     width: 100%;
     float: left;
-    text-align: center;
+    height: 52px;
 }
 
 .ctn_body_modal {
@@ -1439,7 +1436,7 @@ select#display {
 .madal_form {
     width: 100%;
     float: left;
-    padding: 0px 15px;
+    padding: 0px 14px;
 }
 
 .titl_dele_nv .log_tlt {

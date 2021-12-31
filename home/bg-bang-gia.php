@@ -234,7 +234,7 @@ include("../includes/icon.php");
             <div class="info_modal">
                 <div class="modal-header">
                     <div class="header_ctn_share">
-                        <h4 class="ctn_share_h share_clr_tow tex_left padd_l cr_weight_bold"><span class="text-upper">Bảng giá:</span>
+                        <h4 class="ctn_share_h share_htitl share_clr_tow tex_left padd_l cr_weight_bold"><span class="text-upper">Bảng giá:</span>
                             Tên vật tư thiết bị</h4>
                         <span class="close_detl close_dectl">&times;</span>
                     </div>

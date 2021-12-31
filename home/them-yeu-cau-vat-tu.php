@@ -36,7 +36,8 @@
                 <?php include('../includes/ql_header_nv.php') ?>
             </div>
             <div class="content">
-                <div class="mt_25  w_100 float_l">
+                <div class="mt_25 w_100 float_l">
+                    <a class="prew_href share_fsize_one share_clr_one mb_20" href="quan-ly-yeu-cau-vat-tu.html">Quay lại</a>
                     <h4 class="mb_25 w_100 float_l">Thêm yêu cầu vật tư</h4>
                 </div>
                 <div class="c-body">

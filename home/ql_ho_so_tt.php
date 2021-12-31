@@ -73,7 +73,7 @@ include "../includes/icon.php";
                                             <th class="share_tb_eight">Đợt nghiệm thu</th>
                                             <th class="share_tb_two">Thời gian nghiệm thu</th>
                                             <th class="share_tb_four">Đơn vị thực hiện</th>
-                                            <th class="share_tb_eight">Hợp đồng đơn hàng</th>
+                                            <th class="share_tb_eight">Hợp đồng / Đơn hàng</th>
                                             <th class="share_tb_eight">Thời hạn thanh toán</th>
                                             <th class="share_tb_two">Giá trị thực hiện sau VAT</th>
                                             <th class="share_tb_eight">Giá trị bảo hành</th>

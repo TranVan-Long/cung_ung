@@ -31,7 +31,7 @@ include("../includes/icon.php");
         <div class="content">
             <div class="left mt-25">
                 <a class="text-black" href="quan-ly-bao-gia.html"><?php echo $ic_lt ?> Quay lại</a>
-                <p class="page-title mt-20">Thêm báo giá</p>
+                <p class="share_fsize_four cr_weight_bold mb_10 w_100 float_l mt_20">Thêm báo giá</p>
             </div>
             <div class="w-100 left mt-10">
                 <form action="" class="main-form">

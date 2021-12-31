@@ -31,7 +31,8 @@ $date = date('m-d-Y', time())
         </div>
         <div class="content">
             <div class="left mt-25">
-                <p class="page-title">Chỉnh sửa yêu cầu báo giá</p>
+                <a class="prew_href share_fsize_one share_clr_one mb_26" href="quan-ly-yeu-cau-bao-gia.html">Quay lại</a>
+                <p class="share_fsize_tow cr_weight_bold mb_10 w_100 float_l">Chỉnh sửa yêu cầu báo giá</p>
             </div>
             <form action="" class="main-form">
                 <div class="w-100 left mt-10">

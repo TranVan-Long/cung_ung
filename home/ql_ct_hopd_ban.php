@@ -209,11 +209,11 @@
                 <div class="modal-body">
                     <div class="ctn_body_modal">
                         <div class="madal_form">
-                            <div class="ctiet_pop">
+                            <div class="ctiet_pop mt_20">
                                 <p class="share_fsize_tow share_clr_one">Bạn có chắc chắn muốn xóa hợp đồng bán này?</p>
                                 <p class="share_fsize_tow share_clr_one">Thao tác này sẽ không thể hoàn tác.</p>
                             </div>
-                            <div class="form_butt_ht">
+                            <div class="form_butt_ht mb_20">
                                 <div class="tow_butt_flex d_flex">
                                     <button type="button"
                                         class="js_btn_huy share_cursor mb_10 btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>

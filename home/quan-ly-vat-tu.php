@@ -202,7 +202,7 @@ include "../includes/icon.php";
                             <option value="20">20</option>
                         </select>
                     </div>
-                    <div class="pagination mt_10">
+                    <div class="pagination mt-10">
                         <ul>
                             <li><a href="#">&lt;</a></li>
                             <li class="active"><a href="#">1</a></li>

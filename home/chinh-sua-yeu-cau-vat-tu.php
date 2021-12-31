@@ -33,7 +33,8 @@
         </div>
         <div class="content">
             <div class="mt-25 mb_25 w_100 float_l">
-                <h4>Chỉnh sửa yêu cầu vật tư</h4>
+                <a class="prew_href share_fsize_one share_clr_one mb_20" href="quan-ly-yeu-cau-vat-tu.html">Quay lại</a>
+                <h4 class="w_100 float_l">Chỉnh sửa yêu cầu vật tư</h4>
             </div>
             <div class="c-body">
                 <form action="" class="form-edit w_100 float_l">

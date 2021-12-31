@@ -78,7 +78,7 @@ $date = date('Y-m-d', time())
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 v-select2">
-                                <label>Chọn công trình</label>
+                                <label>Công trình</label>
                                 <select name="cong_trinh" id="cong-trinh" class="share_select">
                                     <option value="">-- Chọn công trình --</option>
                                     <option value="1">Nâng cấp quốc lộ 999</option>

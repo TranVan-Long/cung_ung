@@ -39,7 +39,7 @@ include "../includes/icon.php";
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Chỉnh sửa đơn hàng bán vật tư</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" method="">
+                            <form action="" class="form_add_hp_mua share_distance w_100 float_l">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Tên khách hàng <span class="cr_red">*</span></label>
@@ -307,11 +307,11 @@ include "../includes/icon.php";
                 <div class="modal-body">
                     <div class="ctn_body_modal">
                         <div class="madal_form">
-                            <div class="ctiet_pop">
-                                <p class="share_fsize_tow share_clr_one">Bạn có chắc chắn muốn hủy việc thêm hợp đồng bán?</p>
+                            <div class="ctiet_pop mt_20">
+                                <p class="share_fsize_tow share_clr_one">Bạn có chắc chắn muốn hủy việc sửa đơn hàng bán?</p>
                                 <p class="share_fsize_tow share_clr_one">Thao tác này sẽ không thể hoàn tác.</p>
                             </div>
-                            <div class="form_butt_ht">
+                            <div class="form_butt_ht mb_20">
                                 <div class="tow_butt_flex d_flex dh_dy_pop">
                                     <button type="button"
                                         class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
