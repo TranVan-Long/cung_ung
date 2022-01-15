@@ -40,35 +40,23 @@ $date = date('m-d-Y', time())
                     <div class="form-control edit-form">
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
-                                <label>Số phiếu</label>
-                                <input type="text" name="so_phieu" value="PH-000-99876" readonly>
-                            </div>
-                            <div class="form-col-50 no-border mb_15 right">
                                 <label>Ngày lập phiếu<span class="text-red">&ast;</span></label>
                                 <input type="date" name="ngay_lap_phieu">
                             </div>
-                        </div>
-                        <div class="form-row left">
-                            <div class="form-col-50 no-border mb_15 left">
+                            <div class="form-col-50 no-border mb_15 right">
                                 <label>Ngày đánh giá<span class="text-red">&ast;</span></label>
                                 <input type="date" name="ngay_danh_gia">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
-                                <label>Người đánh giá<span class="text-red">&ast;</span></label>
+                                <label>Người lập<span class="text-red">&ast;</span></label>
                                 <input type="text" name="nguoi_danh_gia"
                                        placeholder="Nhập người đánh giá">
                             </div>
                             <div class="form-col-50 no-border mb_15 right">
                                 <label>Phòng ban</label>
                                 <input type="text" name="phong_ban" placeholder="Nhập phòng ban">
-                            </div>
-                        </div>
-                        <div class="form-row left">
-                            <div class="form-col-50 no-border mb_15 left">
-                                <label>Người lập</label>
-                                <input type="text" name="dia_chi_dkkd" placeholder="Nhập người lập">
                             </div>
                         </div>
                         <div class="form-row left">
@@ -106,15 +94,15 @@ $date = date('m-d-Y', time())
                             </div>
                         </div>
                         <div class="form-row left">
-                            <div class="form-col-50 no-border mb_15 left">
+                            <div class="form-col-100 no-border mb_15 left">
                                 <label>Đánh giá khác</label>
-                                <input type="text" name="danh_gia_khac" placeholder="Nhập đánh giá khác">
+                                <textarea name="danh_gia_khac" placeholder="Nhập đánh giá khác"></textarea>
                             </div>
-                            <!--                        <div class="form-col-100 left mb_15">-->
-                            <!--                            <label>Ghi chú</label>-->
-                            <!--                            <textarea type="text" name="danh_gia_khac"-->
-                            <!--                                      placeholder="Nhập ghi chú"></textarea>-->
-                            <!--                        </div>-->
+                                                   <!-- <div class="form-col-100 left mb_15">
+                                                       <label>Ghi chú</label>
+                                                       <textarea type="text" name="danh_gia_khac"
+                                                                 placeholder="Nhập ghi chú"></textarea>
+                                                   </div> -->
                         </div>
                     </div>
                     <div class="mt-30 left w-100">

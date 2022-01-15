@@ -82,7 +82,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-15">1</td>
                                         <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html">BG-000-45875</a></td>
+                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
                                         <td class="w-30">YC-999-19456</td>
                                         <td class="w-20">18/10/2021</td>
                                         <td class="w-40">18/10/2021 - 05/05/2022</td>
@@ -90,7 +90,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-15">1</td>
                                         <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html">BG-000-45875</a></td>
+                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
                                         <td class="w-30">YC-999-19456</td>
                                         <td class="w-20">18/10/2021</td>
                                         <td class="w-40">18/10/2021 - 05/05/2022</td>
@@ -98,7 +98,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-15">1</td>
                                         <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html">BG-000-45875</a></td>
+                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
                                         <td class="w-30">YC-999-19456</td>
                                         <td class="w-20">18/10/2021</td>
                                         <td class="w-40">18/10/2021 - 05/05/2022</td>
@@ -106,7 +106,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-15">1</td>
                                         <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html">BG-000-45875</a></td>
+                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
                                         <td class="w-30">YC-999-19456</td>
                                         <td class="w-20">18/10/2021</td>
                                         <td class="w-40">18/10/2021 - 05/05/2022</td>
@@ -114,7 +114,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-15">1</td>
                                         <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html">BG-000-45875</a></td>
+                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
                                         <td class="w-30">YC-999-19456</td>
                                         <td class="w-20">18/10/2021</td>
                                         <td class="w-40">18/10/2021 - 05/05/2022</td>
@@ -122,7 +122,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-15">1</td>
                                         <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html">BG-000-45875</a></td>
+                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
                                         <td class="w-30">YC-999-19456</td>
                                         <td class="w-20">18/10/2021</td>
                                         <td class="w-40">18/10/2021 - 05/05/2022</td>
@@ -130,7 +130,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-15">1</td>
                                         <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html">BG-000-45875</a></td>
+                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
                                         <td class="w-30">YC-999-19456</td>
                                         <td class="w-20">18/10/2021</td>
                                         <td class="w-40">18/10/2021 - 05/05/2022</td>
@@ -138,7 +138,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-15">1</td>
                                         <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html">BG-000-45875</a></td>
+                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
                                         <td class="w-30">YC-999-19456</td>
                                         <td class="w-20">18/10/2021</td>
                                         <td class="w-40">18/10/2021 - 05/05/2022</td>
@@ -146,7 +146,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-15">1</td>
                                         <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html">BG-000-45875</a></td>
+                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
                                         <td class="w-30">YC-999-19456</td>
                                         <td class="w-20">18/10/2021</td>
                                         <td class="w-40">18/10/2021 - 05/05/2022</td>
@@ -154,7 +154,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-15">1</td>
                                         <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html">BG-000-45875</a></td>
+                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
                                         <td class="w-30">YC-999-19456</td>
                                         <td class="w-20">18/10/2021</td>
                                         <td class="w-40">18/10/2021 - 05/05/2022</td>

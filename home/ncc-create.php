@@ -39,10 +39,9 @@ $date = date('m-d-Y', time())
                     <div class="form-control edit-form">
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
-                                <label>Mã nhà cung cấp<span class="text-red">&ast;</span></label>
-                                <input type="text" name="ma_nha_cung_cap" value="NC-526-99631"
-                                       readonly
-                                       required>
+                                <label>Tên nhà cung cấp<span class="text-red">&ast;</span></label>
+                                <input type="text" name="ten_nha_cung_cap"
+                                       placeholder="Nhập tên nhà cung cấp">
                             </div>
                             <div class="form-col-50 no-border mb_15 right">
                                 <label>Tên gọi tắt</label>
@@ -50,17 +49,10 @@ $date = date('m-d-Y', time())
                             </div>
                         </div>
                         <div class="form-row left">
-                            <div class="form-col-50 no-border mb_15 left">
-                                <label>Tên nhà cung cấp<span class="text-red">&ast;</span></label>
-                                <input type="text" name="ten_nha_cung_cap"
-                                       placeholder="Nhập tên nhà cung cấp">
-                            </div>
                             <div class="form-col-50 no-border mb_15 right">
                                 <label>Mã số thuế</label>
                                 <input type="text" name="ma_so_thue" placeholder="Nhập mã số thuế">
                             </div>
-                        </div>
-                        <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
                                 <label>Tên giao dịch<span class="text-red">&ast;</span></label>
                                 <input type="text" name="ten_giao_dich"
@@ -129,19 +121,15 @@ $date = date('m-d-Y', time())
                             <div class="bank border-bottom left w-100 pb-10 d-flex spc-btw">
                                 <div class="bank-form">
                                     <div class="form-row left">
-                                        <div class="form-col-50 left mb_15 v-select2">
+                                        <div class="form-col-50 left mb_15">
                                             <label for="ten-ngan-hang">Tên ngân hàng<span
                                                         class="text-red">&ast;</span></label>
-                                            <select name="ten_ngan_hang" class="share_select">
-                                                <option value="">-- Chọn ngân hàng --</option>
-                                            </select>
+                                            <input type="text" name="ten_ngan_hang" placeholder="Nhập tên ngân hàng">
                                         </div>
-                                        <div class="form-col-50 right mb_15 v-select2">
+                                        <div class="form-col-50 right mb_15">
                                             <label for="chi-nhanh-ngan-hang">Chi nhánh<span
                                                         class="text-red">&ast;</span></label>
-                                            <select name="chi_nhanh_ngan_hang" class="share_select">
-                                                <option value="">-- Chọn chi nhánh --</option>
-                                            </select>
+                                            <input type="text" name="chi_nhanh_ngan_hang" placeholder="Nhập tên chi nhánh ngân hàng">
                                         </div>
                                     </div>
                                     <div class="form-row left">

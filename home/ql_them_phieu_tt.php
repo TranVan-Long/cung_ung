@@ -49,17 +49,11 @@ include "../includes/icon.php";
                                             <option value="2">Phiếu thanh toán đơn hàng</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Hợp đồng / Đơn hàng <span class="cr_red">*</span></label>
                                         <select name="hdong_dhang" class="form-control all_nhacc">
                                             <option value="">-- Chọn hợp đồng / Đơn hàng --</option>
                                         </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Số phiếu <span class="cr_red">*</span></label>
-                                        <input type="text" name="so_phieu" value="PH-001" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -76,7 +70,7 @@ include "../includes/icon.php";
                                 <div class="form-row w_100 float_l ">
                                     <div class="form-group share_form_select">
                                         <label>Hình thức thanh toán <span class="cr_red">*</span></label>
-                                        <select name="hdong_dhang" class="form-control all_hthuc">
+                                        <select name="hinh_thuc" class="form-control all_hthuc">
                                             <option value="">-- Chọn hình thức thanh toán --</option>
                                             <option value="1">Tiền mặt</option>
                                             <option value="2">Bằng thẻ</option>
@@ -123,7 +117,7 @@ include "../includes/icon.php";
                                     <div class="form_button phieu_button">
                                         <button type="button"
                                             class="cancel_add mb-10 share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
-                                        <button type="submit"
+                                        <button type="button"
                                             class="save_add mb-10 share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
                                     </div>
                                 </div>
@@ -195,7 +189,6 @@ $(".all_ltt").change(function() {
     var all_ltt = $(this).val();
     if (all_ltt == 1) {
         $(".them_moi_vt .ctn_table").remove();
-
         var html = `<div class="ctn_ct_from w_100 float_l">
                         <div class="form-row w_100 float_l">
                             <div class="form-group">
@@ -364,6 +357,41 @@ $(document).on('click', '.add_ngan_hang', function() {
                 </div>`;
     $(".form-them-nganh").append(html);
     CheckSelect();
+});
+
+$(".save_add").click(function(){
+    var form_validate = $(".form_add_hp_mua");
+    form_validate.validate({
+        errorPlacement: function(error, element) {
+            error.appendTo(element.parents(".form-group"));
+            error.wrap("<span class='error'>");
+        },
+        rules:{
+            loai_ptt:{
+                required: true,
+            },
+            hdong_dhang:{
+                required: true,
+            },
+            hinh_thuc:{
+                required: true,
+            },
+        },
+        messages:{
+            loai_ptt:{
+                required: "Không được để trống",
+            },
+            hdong_dhang:{
+                required: "Không được để trống",
+            },
+            hinh_thuc:{
+                required: "Không được để trống",
+            },
+        }
+    });
+    if(form_validate.valid() === true){
+        alert("đúng");
+    }
 });
 </script>
 

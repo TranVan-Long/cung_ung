@@ -48,7 +48,7 @@
                                 <?} else{?>
                                     <img src="../img/avt4.png" class="avt_nv_dn" alt="ảnh đại diện">
                                 <?}?>
-                                <p class="share_clr_tow share_fsize_tow ml_10 ten_nv_dn">Tran Van Long</p>
+                                <p class="share_clr_tow share_fsize_tow ml_10 ten_nv_dn share_cursor"><?= $tt_user['com_name'] ?></p>
                             </div>
                             <div class="bg_logout">
                                 <div class="chd_content">
@@ -86,7 +86,7 @@
                                 <?} else{?>
                                     <img src="../img/avt4.png" class="avt_nv_dn" alt="ảnh đại diện">
                                 <?}?>
-                                <p class="share_clr_tow share_fsize_tow ml_10 ten_nv_dn">Tran Van Long</p>
+                                <p class="share_clr_tow share_fsize_tow ml_10 ten_nv_dn share_cursor"><?= $tt_user['ep_name'] ?></p>
                             </div>
                             <div class="bg_logout">
                                 <div class="chd_content">

@@ -1,5 +1,12 @@
 <?php
+    include("config.php");
     include "../includes/icon.php";
+
+    if(isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1){
+        $ce_name = $_SESSION['com_name'];
+    }else if(isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2){
+        $ce_name = $_SESSION['ep_name'];
+    }
 
     $date = strtotime(date('Y-m-d', time()));
     $date_f = date('d/m/Y', $date);
@@ -15,8 +22,7 @@
         'Saturday' => 'Thứ 7',
         'Sunday' => 'Chủ nhật',
     );
-
-    $a = 40000000;
+    $a = 4000000;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +59,7 @@
                     <div class="tt_left_one staff_fulln d_flex flex_jct">
                         <div class="til_fulln">
                             <h1 class="ten_nvien_ql  w_100 float_l cr_weight"><span class="share_clr_one">Xin
-                                    chào,</span> <span class="share_clr_four">Nguyễn Văn A</span></h1>
+                                    chào,</span> <span class="share_clr_four"><?= $ce_name ?></span></h1>
                             <p class="share_clr_three mb_10">Chúc bạn một ngày mới làm việc hiệu quả!</p>
                         </div>
                         <div class="titl_avt_full">
@@ -327,7 +333,6 @@
                     color: '#474747',
                     fontSize: '14px',
                 },
-                format: "{value}",
             },
         },
 

@@ -85,7 +85,7 @@ include("../includes/icon.php");
                                     <tbody>
                                     <tr>
                                         <td class="w-15">1</td>
-                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html">PH-000-99999</a></td>
+                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html" class="text-500">PH-000-99999</a></td>
                                         <td class="w-30">Nguyễn Thị A</td>
                                         <td class="w-25">20/11/2021</td>
                                         <td class="w-35">Công ty X</td>
@@ -94,7 +94,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-15">1</td>
-                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html">PH-000-99999</a></td>
+                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html" class="text-500">PH-000-99999</a></td>
                                         <td class="w-30">Nguyễn Thị A</td>
                                         <td class="w-25">20/11/2021</td>
                                         <td class="w-35">Công ty X</td>
@@ -103,7 +103,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-15">1</td>
-                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html">PH-000-99999</a></td>
+                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html" class="text-500">PH-000-99999</a></td>
                                         <td class="w-30">Nguyễn Thị A</td>
                                         <td class="w-25">20/11/2021</td>
                                         <td class="w-35">Công ty X</td>
@@ -112,7 +112,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-15">1</td>
-                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html">PH-000-99999</a></td>
+                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html" class="text-500">PH-000-99999</a></td>
                                         <td class="w-30">Nguyễn Thị A</td>
                                         <td class="w-25">20/11/2021</td>
                                         <td class="w-35">Công ty X</td>
@@ -121,7 +121,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-15">1</td>
-                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html">PH-000-99999</a></td>
+                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html" class="text-500">PH-000-99999</a></td>
                                         <td class="w-30">Nguyễn Thị A</td>
                                         <td class="w-25">20/11/2021</td>
                                         <td class="w-35">Công ty X</td>
@@ -130,7 +130,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-15">1</td>
-                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html">PH-000-99999</a></td>
+                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html" class="text-500">PH-000-99999</a></td>
                                         <td class="w-30">Nguyễn Thị A</td>
                                         <td class="w-25">20/11/2021</td>
                                         <td class="w-35">Công ty X</td>
@@ -139,7 +139,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-15">1</td>
-                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html">PH-000-99999</a></td>
+                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html" class="text-500">PH-000-99999</a></td>
                                         <td class="w-30">Nguyễn Thị A</td>
                                         <td class="w-25">20/11/2021</td>
                                         <td class="w-35">Công ty X</td>
@@ -148,7 +148,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-15">1</td>
-                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html">PH-000-99999</a></td>
+                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html" class="text-500">PH-000-99999</a></td>
                                         <td class="w-30">Nguyễn Thị A</td>
                                         <td class="w-25">20/11/2021</td>
                                         <td class="w-35">Công ty X</td>
@@ -157,7 +157,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-15">1</td>
-                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html">PH-000-99999</a></td>
+                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html" class="text-500">PH-000-99999</a></td>
                                         <td class="w-30">Nguyễn Thị A</td>
                                         <td class="w-25">20/11/2021</td>
                                         <td class="w-35">Công ty X</td>
@@ -166,7 +166,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td class="w-15">1</td>
-                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html">PH-000-99999</a></td>
+                                        <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang.html" class="text-500">PH-000-99999</a></td>
                                         <td class="w-30">Nguyễn Thị A</td>
                                         <td class="w-25">20/11/2021</td>
                                         <td class="w-35">Công ty X</td>

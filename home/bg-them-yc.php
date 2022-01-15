@@ -40,18 +40,12 @@ $date = date('Y-m-d', time())
                     <div class="form-control edit-form">
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
-                                <label>Số phiếu yêu cầu</label>
-                                <input type="text" id="so-phieu" name="so_phieu" value="YC-985-12579" readonly>
+                                <label>Người lập</label>
+                                <input type="text" name="nguoi_lap" value="Nguyễn Văn A" readonly>
                             </div>
                             <div class="form-col-50 no-border right mb_15">
                                 <label>Ngày lập</label>
                                 <input class="date-input" type="date" id="ngay-danh-gia" name="ngay_danh_gia" value="<?echo $date?>">
-                            </div>
-                        </div>
-                        <div class="form-row left">
-                            <div class="form-col-50 no-border left mb_15">
-                                <label>Người lập</label>
-                                <input type="text" name="nguoi_lap" value="Nguyễn Văn A" readonly>
                             </div>
                         </div>
                         <div class="form-row left">
@@ -99,6 +93,10 @@ $date = date('Y-m-d', time())
                             <div class="form-col-50 no-border left mb_15 mr-20">
                                 <label>Mail nhận báo giá</label>
                                 <input type="text" name="mail_nhan_bao_gia" placeholder="Nhập mail nhận báo giá">
+                                <div class="d_flex align-items-center checkbox-lbs mt-15">
+                                    <label for="mail_ngay" class="mb-0 mr-30">Gửi mail ngay</label>
+                                    <input type="checkbox" name="mail_ngay" id="mail_ngay" checked>
+                                </div>
                             </div>
                             <div class="form-col-50 no-border right d-flex mb_15">
                                 <div class="d_flex align-items-center checkbox-lbs mt-30">
@@ -107,19 +105,19 @@ $date = date('Y-m-d', time())
                                 </div>
                             </div>
                         </div>
+                    
                     </div>
                     <div class="mt-30 left w-100">
                         <p class="text-blue link-text text-500" id="add-quote">&plus; Thêm mới vật tư</p>
                         <div class="table-wrapper mt-10">
-                            <div class="table-container table-md">
+                            <div class="table-container table-1252">
                                 <div class="tbl-header">
                                     <table>
                                         <thead>
                                         <tr>
                                             <th class="w-5"></th>
-                                            <th class="w-15">Mã vật tư</th>
-                                            <th class="w-30">Tên đầy đủ vật tư thiết bị</th>
-                                            <th class="w-25">Hãng sản xuất</th>
+                                            <th class="w-15">Vật tư thiết bị</th>
+                                            <th class="w-15">Hãng sản xuất</th>
                                             <th class="w-10">Đơn vị tính</th>
                                             <th class="w-15">Số lượng</th>
                                         </tr>
@@ -135,17 +133,12 @@ $date = date('Y-m-d', time())
                                             </td>
                                             <td class="w-15">
                                                 <div class="v-select2">
-                                                    <select name="ma_vat_tu" class="share_select"></select>
-                                                </div>
-                                            </td>
-                                            <td class="w-30">
-                                                <div class="v-select2">
                                                     <select name="ten_day_du">
                                                         <option value=""></option>
                                                     </select>
                                                 </div>
                                             </td>
-                                            <td class="w-25">
+                                            <td class="w-15">
                                                 <div class="v-select2">
                                                     <select name="hang_san_xuat">
                                                         <option value=""></option>
@@ -165,17 +158,12 @@ $date = date('Y-m-d', time())
                                             </td>
                                             <td class="w-15">
                                                 <div class="v-select2">
-                                                    <select name="ma_vat_tu" class="share_select"></select>
-                                                </div>
-                                            </td>
-                                            <td class="w-30">
-                                                <div class="v-select2">
                                                     <select name="ten_day_du">
                                                         <option value=""></option>
                                                     </select>
                                                 </div>
                                             </td>
-                                            <td class="w-25">
+                                            <td class="w-15">
                                                 <div class="v-select2">
                                                     <select name="hang_san_xuat">
                                                         <option value=""></option>

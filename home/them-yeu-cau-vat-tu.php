@@ -42,15 +42,8 @@
                 </div>
                 <div class="c-body">
                     <div class="ctiet_them_vtu w_100 float_l">
-                        <form action="" class="form_save_add w_100 float_l" method="">
+                        <form class="form_save_add w_100 float_l">
                             <div class="form-control">
-                                <div class="form-row left">
-                                    <div class="form-col-50 mb_15">
-                                        <label for="so-phieu">Số phiếu yêu cầu</label>
-                                        <input type="text" id="so-phieu" name="so-phieu" value="PH-009-01029" disabled>
-                                        <span class="error"></span>
-                                    </div>
-                                </div>
                                 <div class="form-row left">
                                     <div class="form-col-50 left v-select2 mb_15">
                                         <label>Phòng ban <span class="text-red">*</span></label>
@@ -70,7 +63,6 @@
                                         <label>Công trình <span class="text-red">*</span></label>
                                         <select name="cong_trinh" class="share_select" id="abcvd">
                                             <option value="">-- Chọn công trình --</option>
-                                            <option value="1">abc</option>
                                         </select>
                                     </div>
                                 </div>
@@ -78,7 +70,7 @@
                                     <div class="form-col-50 left mb_15">
                                         <label>Ngày tạo yêu cầu</label>
                                         <input class="date-input" type="text" value="<?php echo $date1 ?>"
-                                            name="ngay-tao-yeu-cau" disabled>
+                                            name="ngay-tao-yeu-cau" readonly>
                                     </div>
                                     <div class="form-col-50 right mb_15">
                                         <label>Ngày phải hoàn thành yêu cầu</label>
@@ -103,8 +95,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="w-10"></th>
-                                                        <th class="w-15">Mã vật tư</th>
-                                                        <th class="w-25">Tên vật tư</th>
+                                                        <th class="w-25">Vật tư thiết bị</th>
                                                         <th class="w-20">Đơn vị tính</th>
                                                         <th class="w-25">Số lượng yêu cầu duyệt</th>
                                                     </tr>
@@ -119,12 +110,6 @@
                                                             <p class="removeItem"><i
                                                                     class="ic-delete remove-btn"></i>
                                                             </p>
-                                                        </td>
-                                                        <td class="w-15">
-                                                            <div class="v-select2">
-                                                                <select name="materials_id[]"
-                                                                    class="share_select"></select>
-                                                            </div>
                                                         </td>
                                                         <td class="w-25">
                                                             <div class="v-select2">
@@ -144,12 +129,6 @@
                                                             <p class="removeItem"><i
                                                                     class="ic-delete remove-btn"></i>
                                                             </p>
-                                                        </td>
-                                                        <td class="w-15">
-                                                            <div class="v-select2">
-                                                                <select name="materials_id[]"
-                                                                    class="share_select"></select>
-                                                            </div>
                                                         </td>
                                                         <td class="w-25">
                                                             <div class="v-select2">

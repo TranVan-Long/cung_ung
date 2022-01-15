@@ -239,6 +239,41 @@ include "../includes/icon.php";
     cancel_add.click(function(){
         modal_share.show();
     });
+
+    $(".save_add").click(function(){
+        var form_validate = $(".form_add_hp_mua");
+        form_validate.validate({
+            errorPlacement: function(error, element) {
+                error.appendTo(element.parents(".form-group"));
+                error.wrap("<span class='error'>");
+            },
+            rules:{
+                loai_hs:{
+                    required: true,
+                },
+                hdong_dhang:{
+                    required: true,
+                },
+                dot_nthu:{
+                    required: true,
+                }
+            },
+            messages:{
+                loai_hs:{
+                    required: "Không được để trống",
+                },
+                hdong_dhang:{
+                    required: "Không được để trống",
+                },
+                dot_nthu:{
+                    required: "Không được để trống",
+                }
+            }
+        });
+        if(form_validate.valid() === true){
+            alert("đúng");
+        }
+    });
 </script>
 
 </html>

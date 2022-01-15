@@ -105,7 +105,7 @@ include "../includes/icon.php";
                                         <tr>
                                             <td>1</td>
                                             <td>
-                                                <a href="quan-ly-chi-tiet-hop-dong-mua.html" class="share_clr_four">
+                                                <a href="quan-ly-chi-tiet-hop-dong-mua.html" class="share_clr_four cr_weight">
                                                     HĐ - 0001</a></td>
                                             <td>29/10/2021</td>
                                             <td>Hợp đồng mua vật tư</td>
@@ -118,7 +118,7 @@ include "../includes/icon.php";
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="quan-ly-chi-tiet-hop-dong-ban.html" class="share_clr_four">HĐ -
+                                            <td><a href="quan-ly-chi-tiet-hop-dong-ban.html" class="share_clr_four cr_weight">HĐ -
                                                     0002</a></td>
                                             <td>29/10/2021</td>
                                             <td>Hợp đồng bán vật tư</td>

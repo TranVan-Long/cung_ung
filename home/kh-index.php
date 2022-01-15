@@ -84,7 +84,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-5">1</td>
                                         <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="share_clr_four">KH-002-38476</a></td>
+                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
                                         <td class="w-10">NVA</td>
                                         <td class="w-15">Nguyễn Văn A</td>
                                         <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
@@ -95,7 +95,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-5">1</td>
                                         <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="share_clr_four">KH-002-38476</a></td>
+                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
                                         <td class="w-10">NVA</td>
                                         <td class="w-15">Nguyễn Văn A</td>
                                         <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
@@ -106,7 +106,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-5">1</td>
                                         <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="share_clr_four">KH-002-38476</a></td>
+                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
                                         <td class="w-10">NVA</td>
                                         <td class="w-15">Nguyễn Văn A</td>
                                         <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
@@ -117,7 +117,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-5">1</td>
                                         <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="share_clr_four">KH-002-38476</a></td>
+                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
                                         <td class="w-10">NVA</td>
                                         <td class="w-15">Nguyễn Văn A</td>
                                         <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
@@ -128,7 +128,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-5">1</td>
                                         <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="share_clr_four">KH-002-38476</a></td>
+                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
                                         <td class="w-10">NVA</td>
                                         <td class="w-15">Nguyễn Văn A</td>
                                         <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
@@ -139,7 +139,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-5">1</td>
                                         <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="share_clr_four">KH-002-38476</a></td>
+                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
                                         <td class="w-10">NVA</td>
                                         <td class="w-15">Nguyễn Văn A</td>
                                         <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
@@ -150,7 +150,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-5">1</td>
                                         <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="share_clr_four">KH-002-38476</a></td>
+                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
                                         <td class="w-10">NVA</td>
                                         <td class="w-15">Nguyễn Văn A</td>
                                         <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
@@ -161,7 +161,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-5">1</td>
                                         <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="share_clr_four">KH-002-38476</a></td>
+                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
                                         <td class="w-10">NVA</td>
                                         <td class="w-15">Nguyễn Văn A</td>
                                         <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
@@ -172,7 +172,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-5">1</td>
                                         <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="share_clr_four">KH-002-38476</a></td>
+                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
                                         <td class="w-10">NVA</td>
                                         <td class="w-15">Nguyễn Văn A</td>
                                         <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
@@ -183,7 +183,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-5">1</td>
                                         <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="share_clr_four">KH-002-38476</a></td>
+                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
                                         <td class="w-10">NVA</td>
                                         <td class="w-15">Nguyễn Văn A</td>
                                         <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>

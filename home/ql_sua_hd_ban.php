@@ -3,7 +3,7 @@ include "../includes/icon.php";
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -43,7 +43,7 @@ include "../includes/icon.php";
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số hợp đồng</label>
-                                        <input type="text" name="so_hd" class="form-control" disabled>
+                                        <input type="text" name="so_hd" class="form-control" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label>Ngày ký hợp đồng <span class="cr_red">*</span></label>
@@ -130,10 +130,9 @@ include "../includes/icon.php";
                                         <table class="table w_100 float_l">
                                             <thead>
                                                 <tr>
-                                                    <th class="share_tb_seven"></th>
-                                                    <th class="share_tb_two">Mã vật tư</th>
-                                                    <th class="share_tb_three">Tên đầy đủ vật tư thiết bị</th>
-                                                    <th class="share_tb_eight">Đơn vị tính</th>
+                                                    <th class="share_tb_one"></th>
+                                                    <th class="share_tb_three">Vật tư thiết bị</th>
+                                                    <th class="share_tb_two">Đơn vị tính</th>
                                                     <th class="share_tb_two">Hãng sản xuất</th>
                                                     <th class="share_tb_two">Xuất xứ</th>
                                                     <th class="share_tb_one">Số lượng</th>
@@ -145,26 +144,19 @@ include "../includes/icon.php";
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="share_tb_seven">
+                                                    <td class="share_tb_one">
                                                         <p>
                                                             <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
                                                         </p>
                                                     </td>
-                                                    <td class="share_tb_two">
+                                                    <td class="share_tb_three">
                                                         <div class="form-group share_form_select">
                                                             <select name="ma_vatt" class="ma_vatt">
                                                                 <option value=""></option>
                                                             </select>
                                                         </div>
                                                     </td>
-                                                    <td class="share_tb_three">
-                                                        <div class="form-group">
-                                                            <select name="ten_vatt" class="ten_vatt form-control">
-                                                                <option value=""></option>
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_eight">
+                                                    <td class="share_tb_two">
                                                         <div class="form-group">
                                                             <input type="text" name="don_vi" class="form-control" disabled>
                                                         </div>
@@ -271,7 +263,7 @@ include "../includes/icon.php";
 
     $('.add_vat_tu').click(function(){
         var html = `<tr>
-                        <td class="share_tb_seven">
+                        <td class="share_tb_one">
                             <p>
                                 <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
                             </p>
@@ -290,7 +282,7 @@ include "../includes/icon.php";
                                 </select>
                             </div>
                         </td>
-                        <td class="share_tb_eight">
+                        <td class="share_tb_two">
                             <div class="form-group">
                                 <input type="text" name="don_vi" class="form-control" disabled>
                             </div>
@@ -333,10 +325,6 @@ include "../includes/icon.php";
                     </tr>`;
         $(".ctn_table .table tbody").append(html);
         widthSelect();
-
-        if($(".ctn_table .table tbody").height() > 105.5){
-            $(".ctn_table .table thead tr").css('width','calc(100% - 10px)');
-        }
     });
 
     var cancel_add = $(".cancel_add");

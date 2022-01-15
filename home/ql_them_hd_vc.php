@@ -42,10 +42,6 @@ include "../includes/icon.php";
                             <form action="" class="form_add_hp_mua share_distance w_100 float_l" method="">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
-                                        <label>Số hợp đồng</label>
-                                        <input type="text" name="so_hd" class="form-control" disabled>
-                                    </div>
-                                    <div class="form-group">
                                         <label>Ngày hợp đồng <span class="cr_red">*</span></label>
                                         <input type="date" name="ngay_ky" class="form-control">
                                     </div>

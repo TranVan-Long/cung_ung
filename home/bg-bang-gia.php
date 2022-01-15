@@ -1,5 +1,5 @@
-<?php
-include("../includes/icon.php");
+<?
+    include("../includes/icon.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,7 +93,7 @@ include("../includes/icon.php");
                                         <td class="w-10">Cái</td>
                                         <td class="w-10">60.000</td>
                                         <td class="w-10">70.000</td>
-                                        <td class="w-20 share_clr_four share_cursor see_ds" data-target="cancel">+
+                                        <td class="w-20 share_clr_four share_cursor see_ds text-500" data-target="cancel">+
                                             Xem danh sách giá
                                             theo nhà cung cấp
                                         </td>
@@ -105,7 +105,7 @@ include("../includes/icon.php");
                                         <td class="w-10">Cái</td>
                                         <td class="w-10">60.000</td>
                                         <td class="w-10">70.000</td>
-                                        <td class="w-20 share_clr_four share_cursor see_ds">+ Xem danh sách giá
+                                        <td class="w-20 share_clr_four share_cursor see_ds text-500">+ Xem danh sách giá
                                             theo nhà cung cấp
                                         </td>
                                     </tr>
@@ -116,7 +116,7 @@ include("../includes/icon.php");
                                         <td class="w-10">Cái</td>
                                         <td class="w-10">60.000</td>
                                         <td class="w-10">70.000</td>
-                                        <td class="w-20 share_clr_four share_cursor see_ds">+ Xem danh sách giá
+                                        <td class="w-20 share_clr_four share_cursor see_ds text-500">+ Xem danh sách giá
                                             theo nhà cung cấp
                                         </td>
                                     </tr>
@@ -127,7 +127,7 @@ include("../includes/icon.php");
                                         <td class="w-10">Cái</td>
                                         <td class="w-10">60.000</td>
                                         <td class="w-10">70.000</td>
-                                        <td class="w-20 share_clr_four share_cursor see_ds">+ Xem danh sách giá
+                                        <td class="w-20 share_clr_four share_cursor see_ds text-500">+ Xem danh sách giá
                                             theo nhà cung cấp
                                         </td>
                                     </tr>
@@ -138,7 +138,7 @@ include("../includes/icon.php");
                                         <td class="w-10">Cái</td>
                                         <td class="w-10">60.000</td>
                                         <td class="w-10">70.000</td>
-                                        <td class="w-20 share_clr_four share_cursor see_ds">+ Xem danh sách giá
+                                        <td class="w-20 share_clr_four share_cursor see_ds text-500">+ Xem danh sách giá
                                             theo nhà cung cấp
                                         </td>
                                     </tr>
@@ -149,7 +149,7 @@ include("../includes/icon.php");
                                         <td class="w-10">Cái</td>
                                         <td class="w-10">60.000</td>
                                         <td class="w-10">70.000</td>
-                                        <td class="w-20 share_clr_four share_cursor see_ds">+ Xem danh sách giá
+                                        <td class="w-20 share_clr_four share_cursor see_ds text-500">+ Xem danh sách giá
                                             theo nhà cung cấp
                                         </td>
                                     </tr>
@@ -160,7 +160,7 @@ include("../includes/icon.php");
                                         <td class="w-10">Cái</td>
                                         <td class="w-10">60.000</td>
                                         <td class="w-10">70.000</td>
-                                        <td class="w-20 share_clr_four share_cursor see_ds">+ Xem danh sách giá
+                                        <td class="w-20 share_clr_four share_cursor see_ds text-500">+ Xem danh sách giá
                                             theo nhà cung cấp
                                         </td>
                                     </tr>
@@ -171,7 +171,7 @@ include("../includes/icon.php");
                                         <td class="w-10">Cái</td>
                                         <td class="w-10">60.000</td>
                                         <td class="w-10">70.000</td>
-                                        <td class="w-20 share_clr_four share_cursor see_ds">+ Xem danh sách giá
+                                        <td class="w-20 share_clr_four share_cursor see_ds text-500">+ Xem danh sách giá
                                             theo nhà cung cấp
                                         </td>
                                     </tr>
@@ -182,7 +182,7 @@ include("../includes/icon.php");
                                         <td class="w-10">Cái</td>
                                         <td class="w-10">60.000</td>
                                         <td class="w-10">70.000</td>
-                                        <td class="w-20 share_clr_four share_cursor see_ds">+ Xem danh sách giá
+                                        <td class="w-20 share_clr_four share_cursor see_ds text-500">+ Xem danh sách giá
                                             theo nhà cung cấp
                                         </td>
                                     </tr>
@@ -193,7 +193,7 @@ include("../includes/icon.php");
                                         <td class="w-10">Cái</td>
                                         <td class="w-10">60.000</td>
                                         <td class="w-10">70.000</td>
-                                        <td class="w-20 share_clr_four share_cursor see_ds">+ Xem danh sách giá
+                                        <td class="w-20 share_clr_four share_cursor see_ds text-500">+ Xem danh sách giá
                                             theo nhà cung cấp
                                         </td>
                                     </tr>
@@ -234,7 +234,8 @@ include("../includes/icon.php");
             <div class="info_modal">
                 <div class="modal-header">
                     <div class="header_ctn_share">
-                        <h4 class="ctn_share_h share_htitl share_clr_tow tex_left padd_l cr_weight_bold"><span class="text-upper">Bảng giá:</span>
+                        <h4 class="ctn_share_h share_htitl share_clr_tow tex_left padd_l cr_weight_bold">
+                            <span class="text-upper pr-5">Bảng giá: </span>
                             Tên vật tư thiết bị</h4>
                         <span class="close_detl close_dectl">&times;</span>
                     </div>

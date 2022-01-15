@@ -52,11 +52,6 @@ $("#add-material").click(function () {
                     <td class="w-10">
                         <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
                     </td>
-                    <td class="w-15">
-                        <div class="v-select2">
-                            <select name="materials_id" class="share_select"></select>
-                        </div>
-                    </td>
                     <td class="w-25">
                         <div class="v-select2">
                             <select name="materials_name" class="share_select"></select>
@@ -77,21 +72,15 @@ $('#add-bank-acc').click(function () {
     var html = `<div class="bank border-bottom left w-100 pb-10 d-flex spc-btw">
                     <div class="bank-form">
                         <div class="form-row left">
-                            <div class="form-col-50 left mb_15 v-select2">
+                            <div class="form-col-50 left mb_15">
                                 <label for="ten-ngan-hang">Tên ngân hàng<span
                                             class="text-red">*</span></label>
-                                <select name="ten_ngan_hang" class="share_select">
-                                    <option value="">-- Chọn ngân hàng --</option>
-                                    <option value="1">1</option>
-                                </select>
+                                <input type="text" name="ten_ngan_hang" placeholder="Nhập tên ngân hàng">
                             </div>
-                            <div class="form-col-50 right mb_15 v-select2">
+                            <div class="form-col-50 right mb_15">
                                 <label for="chi-nhanh-ngan-hang">Chi nhánh<span
                                             class="text-red">*</span></label>
-                                <select name="chi_nhanh_ngan_hang" class="share_select">
-                                    <option value="">-- Chọn chi nhánh --</option>
-                                    <option value="1">1</option>
-                                </select>
+                                <input type="text" name="chi_nhanh_ngan_hang" placeholder="Nhập tên chi nhánh ngân hàng">
                             </div>
                         </div>
                         <div class="form-row left">
@@ -198,15 +187,10 @@ $('#add-quote').click(function () {
                     </td>
                     <td class="w-15">
                         <div class="v-select2">
-                            <select name="ma_vat_tu" class="share_select"></select>
-                        </div>
-                    </td>
-                    <td class="w-30">
-                        <div class="v-select2">
                             <select name="ten_day_du"></select>
                         </div>
                     </td>
-                    <td class="w-25">
+                    <td class="w-15">
                         <div class="v-select2">
                             <select name="hang_san_xuat"></select>
                         </div>

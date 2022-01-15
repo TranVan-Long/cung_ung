@@ -81,7 +81,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td class="w-5">1</td>
                                         <td class="w-15">
-                                            <a href="chi-tiet-danh-gia-nha-cung-cap.html" class="share_clr_four">PH-009-73635</a></td>
+                                            <a href="chi-tiet-danh-gia-nha-cung-cap.html" class="text-500">PH-009-73635</a></td>
                                         <td class="w-10">27/10/2021</td>
                                         <td class="w-15">Nhà cung cấp A</td>
                                         <td class="w-5">8/10</td>
@@ -90,7 +90,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td>1</td>
                                         <td>
-                                            <a href="chi-tiet-danh-gia-nha-cung-cap.html" class="share_clr_four">PH-009-73635</a></td>
+                                            <a href="chi-tiet-danh-gia-nha-cung-cap.html" class="text-500">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -99,7 +99,7 @@ include("../includes/icon.php");
                                     <tr>
                                         <td>1</td>
                                         <td>
-                                            <a href="chi-tiet-danh-gia-nha-cung-cap.html" class="share_clr_four">PH-009-73635</a></td>
+                                            <a href="chi-tiet-danh-gia-nha-cung-cap.html" class="text-500">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -107,7 +107,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="chi-tiet-danh-gia-nha-cung-cap.html">PH-009-73635</a></td>
+                                        <td><a href="chi-tiet-danh-gia-nha-cung-cap.html" class="text-500">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -115,7 +115,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="chi-tiet-danh-gia-nha-cung-cap.html">PH-009-73635</a></td>
+                                        <td><a href="chi-tiet-danh-gia-nha-cung-cap.html" class="text-500">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -123,7 +123,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="chi-tiet-danh-gia-nha-cung-cap.html">PH-009-73635</a></td>
+                                        <td><a href="chi-tiet-danh-gia-nha-cung-cap.html" class="text-500">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -131,7 +131,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="chi-tiet-danh-gia-nha-cung-cap.html">PH-009-73635</a></td>
+                                        <td><a href="chi-tiet-danh-gia-nha-cung-cap.html" class="text-500">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -139,7 +139,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="chi-tiet-danh-gia-nha-cung-cap.html">PH-009-73635</a></td>
+                                        <td><a href="chi-tiet-danh-gia-nha-cung-cap.html" class="text-500">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -147,7 +147,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="chi-tiet-danh-gia-nha-cung-cap.html">PH-009-73635</a></td>
+                                        <td><a href="chi-tiet-danh-gia-nha-cung-cap.html" class="text-500">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>
@@ -155,7 +155,7 @@ include("../includes/icon.php");
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><a href="chi-tiet-danh-gia-nha-cung-cap.html">PH-009-73635</a></td>
+                                        <td><a href="chi-tiet-danh-gia-nha-cung-cap.html" class="text-500">PH-009-73635</a></td>
                                         <td>27/10/2021</td>
                                         <td>Nhà cung cấp A</td>
                                         <td>8/10</td>

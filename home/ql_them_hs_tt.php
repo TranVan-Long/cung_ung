@@ -57,8 +57,8 @@ include "../includes/icon.php";
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Đơn vị thực hiện <span class="cr_red">*</span></label>
-                                         <input type="text" name="dia_chi" value="aaa" class="form-control" placeholder="Nhập địa chỉ" disabled>
+                                        <label>Đơn vị thực hiện</label>
+                                         <input type="text" name="dia_chi" value="aaa" class="form-control" placeholder="Nhập địa chỉ" readonly>
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -238,6 +238,41 @@ include "../includes/icon.php";
     var cancel_add = $(".cancel_add");
     cancel_add.click(function(){
         modal_share.show();
+    });
+
+    $(".save_add").click(function(){
+        var form_validate = $(".form_add_hp_mua");
+        form_validate.validate({
+            errorPlacement: function(error, element) {
+                error.appendTo(element.parents(".form-group"));
+                error.wrap("<span class='error'>");
+            },
+            rules:{
+                loai_hs:{
+                    required: true,
+                },
+                hdong_dhang:{
+                    required: true,
+                },
+                dot_nthu:{
+                    required: true,
+                }
+            },
+            messages:{
+                loai_hs:{
+                    required: "Không được để trống",
+                },
+                hdong_dhang:{
+                    required: "Không được để trống",
+                },
+                dot_nthu:{
+                    required: "Không được để trống",
+                }
+            }
+        });
+        if(form_validate.valid() === true){
+            alert("đúng");
+        }
     });
 </script>
 

@@ -83,6 +83,13 @@ include("../includes/icon.php");
                             <p class="text-500 detail-data text-green">Có</p>
                         </div>
                     </div>
+                    <div class="form-row left border-top2">
+                        <div class="form-col-50 left p-10">
+                            <p class="detail-title">Đã gửi mail</p>
+                            <p class="text-500 detail-data text-green">Đã gửi</p>
+                        </div>
+                
+                    </div>
                 </div>
             </div>
             <div class="left w-100 mt-50">

@@ -107,85 +107,84 @@ include "../includes/icon.php";
                                         <tr>
                                             <td class="w-5">1</td>
                                             <td class="w-15">
-                                                <a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html"
-                                                    class="share_clr_four">YC-000-02983</a>
+                                                <a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html" class="text-500">YC-000-02983</a>
                                             </td>
                                             <td class="w-10">29/10/2021</td>
                                             <td class="w-20">Xây dựng nhà văn hóa</td>
                                             <td class="w-15">10/11/2021</td>
-                                            <td class="w-15">Đã duyệt</td>
+                                            <td class="w-15 text-green">Đã duyệt</td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
-                                            <td><a href="#" class="share_clr_four">YC-000-02983</a></td>
+                                            <td><a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html" class="text-500">YC-000-02983</a></td>
                                             <td>29/10/2021</td>
                                             <td>Xây dựng nhà văn hóa</td>
                                             <td>10/11/2021</td>
-                                            <td>Chờ duyệt</td>
+                                            <td class="text-yellow">Chờ duyệt</td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
-                                            <td><a href="#" class="share_clr_four">YC-000-02983</a></td>
+                                            <td><a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html" class="text-500">YC-000-02983</a></td>
                                             <td>29/10/2021</td>
                                             <td>Xây dựng nhà văn hóa</td>
                                             <td>10/11/2021</td>
-                                            <td>Đã bị từ chối</td>
+                                            <td class="text-red">Đã bị từ chối</td>
                                         </tr>
                                         <tr>
                                             <td>4</td>
-                                            <td><a href="#">YC-000-02983</a></td>
+                                            <td><a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html" class="text-500">YC-000-02983</a></td>
                                             <td>29/10/2021</td>
                                             <td>Xây dựng nhà văn hóa</td>
                                             <td>10/11/2021</td>
-                                            <td>Đã hoàn thành</td>
+                                            <td class="text-green">Đã duyệt</td>
                                         </tr>
                                         <tr>
                                             <td>5</td>
-                                            <td><a href="#">YC-000-02983</a></td>
+                                            <td><a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html" class="text-500">YC-000-02983</a></td>
                                             <td>29/10/2021</td>
                                             <td>Xây dựng nhà văn hóa</td>
                                             <td>10/11/2021</td>
-                                            <td>Đã duyệt</td>
+                                            <td class="text-yellow">Chờ duyệt</td>
                                         </tr>
                                         <tr>
                                             <td>6</td>
-                                            <td><a href="#">YC-000-02983</a></td>
+                                            <td><a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html" class="text-500">YC-000-02983</a></td>
                                             <td>29/10/2021</td>
                                             <td>Xây dựng nhà văn hóa</td>
                                             <td>10/11/2021</td>
-                                            <td>Chờ duyệt</td>
+                                            <td class="text-red">Đã bị từ chối</td>
                                         </tr>
                                         <tr>
                                             <td>7</td>
-                                            <td><a href="#">YC-000-02983</a></td>
+                                            <td><a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html" class="text-500">YC-000-02983</a></td>
                                             <td>29/10/2021</td>
                                             <td>Xây dựng nhà văn hóa</td>
                                             <td>10/11/2021</td>
-                                            <td>Đã bị từ chối</td>
+                                            <td class="text-green">Đã duyệt</td>
                                         </tr>
                                         <tr>
                                             <td>8</td>
-                                            <td><a href="#">YC-000-02983</a></td>
+                                            <td><a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html" class="text-500">YC-000-02983</a></td>
                                             <td>29/10/2021</td>
                                             <td>Xây dựng nhà văn hóa</td>
                                             <td>10/11/2021</td>
-                                            <td>Đã hoàn thành</td>
+                                            <td class="text-yellow">Chờ duyệt</td>
                                         </tr>
                                         <tr>
                                             <td>9</td>
-                                            <td><a href="#">YC-000-02983</a></td>
+                                            <td><a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html" class="text-500">YC-000-02983</a></td>
                                             <td>29/10/2021</td>
                                             <td>Xây dựng nhà văn hóa</td>
                                             <td>10/11/2021</td>
-                                            <td>Đã duyệt</td>
+                                            <td class="text-red">Đã bị từ chối</td>
                                         </tr>
                                         <tr>
                                             <td>10</td>
-                                            <td><a href="#">YC-000-02983</a></td>
+                                            <td><a href="quan-ly-chi-tiet-yeu-cau-vat-tu.html" class="text-500">YC-000-02983</a></td>
                                             <td>29/10/2021</td>
                                             <td>Xây dựng nhà văn hóa</td>
                                             <td>10/11/2021</td>
-                                            <td>Chờ duyệt</td>
+                                            <td class="text-green">Đã duyệt</td>
                                         </tr>
                                     </tbody>
                                 </table>

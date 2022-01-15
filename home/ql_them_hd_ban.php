@@ -39,12 +39,8 @@ include "../includes/icon.php";
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Thêm hợp đồng bán</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" method="">
+                            <form class="form_add_hp_mua share_distance w_100 float_l">
                                 <div class="form-row w_100 float_l">
-                                    <div class="form-group">
-                                        <label>Số hợp đồng</label>
-                                        <input type="text" name="so_hd" class="form-control" disabled>
-                                    </div>
                                     <div class="form-group">
                                         <label>Ngày ký hợp đồng <span class="cr_red">*</span></label>
                                         <input type="date" name="ngay_ky" class="form-control">
@@ -130,13 +126,12 @@ include "../includes/icon.php";
                                         <table class="table cate_ql_b w_100 float_l">
                                             <thead>
                                                 <tr>
-                                                    <th class="share_tb_seven"></th>
-                                                    <th class="share_tb_two">Mã vật tư</th>
-                                                    <th class="share_tb_three">Tên đầy đủ vật tư thiết bị</th>
-                                                    <th class="share_tb_eight">Đơn vị tính</th>
+                                                    <th class="share_tb_one"></th>
+                                                    <th class="share_tb_three">Vật tư thiết bị</th>
+                                                    <th class="share_tb_two">Đơn vị tính</th>
                                                     <th class="share_tb_two">Hãng sản xuất</th>
                                                     <th class="share_tb_two">Xuất xứ</th>
-                                                    <th class="share_tb_one">Số lượng</th>
+                                                    <th class="share_tb_two">Số lượng</th>
                                                     <th class="share_tb_two">Đơn giá</th>
                                                     <th class="share_tb_two">Tổng tiền trước VAT</th>
                                                     <th class="share_tb_two">Thuế VAT</th>
@@ -145,26 +140,19 @@ include "../includes/icon.php";
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="share_tb_seven">
+                                                    <td class="share_tb_one">
                                                         <p>
                                                             <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
                                                         </p>
                                                     </td>
-                                                    <td class="share_tb_two">
+                                                    <td class="share_tb_three">
                                                         <div class="form-group share_form_select">
                                                             <select name="ma_vatt" class="ma_vatt">
                                                                 <option value=""></option>
                                                             </select>
                                                         </div>
                                                     </td>
-                                                    <td class="share_tb_three">
-                                                        <div class="form-group">
-                                                            <select name="ten_vatt" class="ten_vatt form-control">
-                                                                <option value=""></option>
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_eight">
+                                                    <td class="share_tb_two">
                                                         <div class="form-group">
                                                             <input type="text" name="don_vi" class="form-control" disabled>
                                                         </div>
@@ -179,7 +167,7 @@ include "../includes/icon.php";
                                                             <input type="text" name="xuat-xu" class="form-control" disabled>
                                                         </div>
                                                     </td>
-                                                    <td class="share_tb_one">
+                                                    <td class="share_tb_two">
                                                         <div class="form-group">
                                                             <input type="number" name="so-luong" class="form-control">
                                                         </div>
@@ -213,7 +201,7 @@ include "../includes/icon.php";
                                     <div class="form_button hd_button">
                                         <button type="button"
                                                 class="cancel_add share_cursor mb-10 share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
-                                        <button type="submit"
+                                        <button type="button"
                                                 class="save_add share_cursor mb-10 share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
                                     </div>
                                 </div>
@@ -271,26 +259,19 @@ include "../includes/icon.php";
 
     $(".add_vat_tu").click(function(){
         var html = `<tr>
-                        <td class="share_tb_seven">
+                        <td class="share_tb_one">
                             <p>
                                 <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
                             </p>
                         </td>
-                        <td class="share_tb_two">
+                        <td class="share_tb_three">
                             <div class="form-group share_form_select">
                                 <select name="ma_vatt" class="ma_vatt">
                                     <option value=""></option>
                                 </select>
                             </div>
                         </td>
-                        <td class="share_tb_three">
-                            <div class="form-group">
-                                <select name="ten_vatt" class="ten_vatt form-control">
-                                    <option value=""></option>
-                                </select>
-                            </div>
-                        </td>
-                        <td class="share_tb_eight">
+                        <td class="share_tb_two">
                             <div class="form-group">
                                 <input type="text" name="don_vi" class="form-control" disabled>
                             </div>
@@ -305,7 +286,7 @@ include "../includes/icon.php";
                                 <input type="text" name="xuat-xu" class="form-control" disabled>
                             </div>
                         </td>
-                        <td class="share_tb_one">
+                        <td class="share_tb_two">
                             <div class="form-group">
                                 <input type="number" name="so-luong" class="form-control">
                             </div>
@@ -333,12 +314,6 @@ include "../includes/icon.php";
                     </tr>`;
         $(".ctn_table .table tbody").append(html);
         widthSelect();
-
-        if ($(".ctn_table .table tbody").height() > 105.5) {
-            $(".ctn_table .table thead tr").css('width', 'calc(100% - 10px)');
-        } else {
-            $(".ctn_table .table thead tr").css('width', '100%');
-        }
     });
 
     var cancel_add = $(".cancel_add");

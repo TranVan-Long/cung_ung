@@ -107,10 +107,10 @@ $date = date('m-d-Y', time())
                             </div>
                         </div>
                         <div class="form-row left">
-                            <div class="form-col-50 no-border left mb_15">
+                            <div class="form-col-100 no-border left mb_15">
                                 <label>Đánh giá khác</label>
-                                <input type="text" name="danh_gia_khac"
-                                       placeholder="Nhập đánh giá khác">
+                                <textarea name="danh_gia_khac"
+                                       placeholder="Nhập đánh giá khác"></textarea>
                             </div>
                             <!--                        <div class="form-col-100 left mb_15">-->
                             <!--                            <label>Ghi chú</label>-->

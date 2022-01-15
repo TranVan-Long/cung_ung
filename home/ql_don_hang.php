@@ -99,7 +99,7 @@ include "../includes/icon.php";
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="chi-tiet-don-hang-ban.html" class="share_clr_four">ĐH -
+                                            <td><a href="chi-tiet-don-hang-ban.html" class="share_clr_four cr_weight">ĐH -
                                                     0001</a></td>
                                             <td>HĐ-999-34369</td>
                                             <td>14/10/2021</td>
@@ -107,13 +107,13 @@ include "../includes/icon.php";
                                             <td>Công ty X</td>
                                             <td>Nâng cáp toàn nhà 20A</td>
                                             <td>Hợp đông mua vật tư</td>
-                                            <td>Hoàn thành</td>
+                                            <td class="text-green">Hoàn thành</td>
                                             <td>0</td>
                                             <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="chi-tiet-don-hang-mua.html" class="share_clr_four">ĐH -
+                                            <td><a href="chi-tiet-don-hang-mua.html" class="share_clr_four cr_weight">ĐH -
                                                     0001</a></td>
                                             <td>HĐ-999-34369</td>
                                             <td>14/10/2021</td>
@@ -121,7 +121,7 @@ include "../includes/icon.php";
                                             <td>Công ty X</td>
                                             <td>Nâng cáp toàn nhà 20A</td>
                                             <td>Hợp đông mua vật tư</td>
-                                            <td>Hoàn thành</td>
+                                            <td class="text-red">Chưa hoàn thành</td>
                                             <td>0</td>
                                             <td>0</td>
                                         </tr>
@@ -193,7 +193,7 @@ include "../includes/icon.php";
                             <option value="20">20</option>
                         </select>
                     </div>
-                    <div class="pagination mt_10">
+                    <div class="pagination mt-10">
                         <ul>
                             <li><a href="#">&lt;</a></li>
                             <li class="active"><a href="#">1</a></li>

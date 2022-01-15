@@ -40,9 +40,9 @@ class db_init
 
 		// Khai bao Server localhost day
 		$this->server = 'localhost';
-		$this->username = 'root';
-		$this->database = 'vltheogio_365';
-		$this->passworddb = 'LuuqL-aHYKgFDyXwecYa';
+		$this->username = 'qlycungung_365vn';
+		$this->database = 'qlycungung_365vn';
+		$this->passworddb = 'Hhp123988!@#123';
 
 		//Khai báo slave server
 		$this->slave_username = $this->username;
@@ -212,7 +212,7 @@ class db_query
 		$this->use_slave = $use_slave;
 		$dbinit = new db_init();
 		$connect_successful = false;
-        
+
 		//Nếu use_slave
 		/*
 		if ( $use_slave == "USE_SLAVE" ){
@@ -322,7 +322,7 @@ class db_query
 		}
 		return $arrayReturn;
 	}
-    
+
     /**
 	 * db_query::objectItems()
 	 * Ham lay ket qua 1 row
@@ -331,7 +331,7 @@ class db_query
     public function objectItems(){
 		return mysql_fetch_object ($this->result);
 	}
-    
+
     /**
 	 * db_query::objectList()
 	 * Ham lay ket qua
@@ -339,12 +339,12 @@ class db_query
 	 */
     public function objectList(){
 		$arrayReturn = array();//mảng rỗng
-		while($row = mysql_fetch_object ($this->result)){	
-		  $arrayReturn[] = $row;				
+		while($row = mysql_fetch_object ($this->result)){
+		  $arrayReturn[] = $row;
 		}
 		return $arrayReturn;
 	}
-    
+
 	/*********************************************************************************************************/
 	/**
 	 * db_query::close()

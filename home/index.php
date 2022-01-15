@@ -1,3 +1,6 @@
+<?
+    $ver = 1;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +17,7 @@
     <link rel="stylesheet" href="../css/slick-theme.css">
     <link rel="stylesheet" href="../css/slick.css">
 
-    <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
+    <link rel="preload" as="style" rel="stylesheet" href="../css/style.css?ver=<?= $ver ?>">
     <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
 
 </head>
@@ -605,12 +608,35 @@
             <? include('../includes/inc_footer.php') ?>
         </div>
     </div>
+    <? include("../modals/modal_logout.php") ?>
     <? include("../includes/in_chat.php") ?>
-     <? include("../modals/modal_menu_tt.php") ?>
+    <? include("../modals/modal_menu_tt.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/slick.min.js"></script>
 <script type="text/javascript">
+
+    var dang_xuat = $(".dang_xuat");
+    var logout_ht = $(".logout_ht");
+    var huy_button = $(".huy_button");
+    $(".logout_all").click(function(){
+        window.location.href = "/dang-xuat.html";
+    });
+
+    dang_xuat.click(function () {
+        logout_ht.show();
+    });
+
+    huy_button.click(function () {
+        logout_ht.hide();
+    });
+
+    $(window).click(function(e){
+        if($(e.target).is(".logout_ht")){
+            logout_ht.hide();
+        }
+    })
+
     $(document).ready(function() {
         var do_xuay = 0;
         $(".img-rest").click(function() {
@@ -622,7 +648,7 @@
             img.css("transform", "rotate(" + deg + "deg)");
             img.css("transition", "0.3s");
         }
-    })
+    });
 
 
     function ramdumso(length) {

@@ -86,7 +86,7 @@ include "../includes/icon.php";
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><a href="chi-tiet-ho-so-thanh-toan.html" class="share_clr_four">NT-001-19835</a></td>
+                                            <td><a href="chi-tiet-ho-so-thanh-toan.html" class="share_clr_four text-500">NT-001-19835</a></td>
                                             <td>14/10/2021</td>
                                             <td>Công ty X</td>
                                             <td>ĐH-001-28736</td>
@@ -96,7 +96,7 @@ include "../includes/icon.php";
                                             <td>0</td>
                                             <td>0</td>
                                             <td>11.500.000</td>
-                                            <td>Chưa hoàn thành</td>
+                                            <td class="text-red">Chưa hoàn thành</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
@@ -110,7 +110,7 @@ include "../includes/icon.php";
                                             <td>0</td>
                                             <td>0</td>
                                             <td>11.500.000</td>
-                                            <td>Hoàn thành</td>
+                                            <td class="text-green">Hoàn thành</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
@@ -155,7 +155,7 @@ include "../includes/icon.php";
                             <option value="20">20</option>
                         </select>
                     </div>
-                    <div class="pagination mt_10">
+                    <div class="pagination mt-10">
                         <ul>
                             <li><a href="#">&lt;</a></li>
                             <li class="active"><a href="#">1</a></li>

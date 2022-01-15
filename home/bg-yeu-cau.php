@@ -77,70 +77,70 @@ include("../includes/icon.php");
                                 <tbody>
                                 <tr>
                                     <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html">BG-098-10293</a></td>
+                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
                                     <td class="w-30">Nguyễn Văn A</td>
                                     <td class="w-15">18/10/2021</td>
                                     <td class="w-30">Công ty X</td>
                                 </tr>
                                 <tr>
                                     <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html">BG-098-10293</a></td>
+                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
                                     <td class="w-30">Nguyễn Văn A</td>
                                     <td class="w-15">18/10/2021</td>
                                     <td class="w-30">Công ty X</td>
                                 </tr>
                                 <tr>
                                     <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html">BG-098-10293</a></td>
+                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
                                     <td class="w-30">Nguyễn Văn A</td>
                                     <td class="w-15">18/10/2021</td>
                                     <td class="w-30">Công ty X</td>
                                 </tr>
                                 <tr>
                                     <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html">BG-098-10293</a></td>
+                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
                                     <td class="w-30">Nguyễn Văn A</td>
                                     <td class="w-15">18/10/2021</td>
                                     <td class="w-30">Công ty X</td>
                                 </tr>
                                 <tr>
                                     <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html">BG-098-10293</a></td>
+                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
                                     <td class="w-30">Nguyễn Văn A</td>
                                     <td class="w-15">18/10/2021</td>
                                     <td class="w-30">Công ty X</td>
                                 </tr>
                                 <tr>
                                     <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html">BG-098-10293</a></td>
+                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
                                     <td class="w-30">Nguyễn Văn A</td>
                                     <td class="w-15">18/10/2021</td>
                                     <td class="w-30">Công ty X</td>
                                 </tr>
                                 <tr>
                                     <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html">BG-098-10293</a></td>
+                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
                                     <td class="w-30">Nguyễn Văn A</td>
                                     <td class="w-15">18/10/2021</td>
                                     <td class="w-30">Công ty X</td>
                                 </tr>
                                 <tr>
                                     <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html">BG-098-10293</a></td>
+                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
                                     <td class="w-30">Nguyễn Văn A</td>
                                     <td class="w-15">18/10/2021</td>
                                     <td class="w-30">Công ty X</td>
                                 </tr>
                                 <tr>
                                     <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html">BG-098-10293</a></td>
+                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
                                     <td class="w-30">Nguyễn Văn A</td>
                                     <td class="w-15">18/10/2021</td>
                                     <td class="w-30">Công ty X</td>
                                 </tr>
                                 <tr>
                                     <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html">BG-098-10293</a></td>
+                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
                                     <td class="w-30">Nguyễn Văn A</td>
                                     <td class="w-15">18/10/2021</td>
                                     <td class="w-30">Công ty X</td>

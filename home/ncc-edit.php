@@ -128,21 +128,15 @@ $date = date('m-d-Y', time())
                             <div class="bank border-bottom left w-100 pb-10 d-flex spc-btw">
                                 <div class="bank-form">
                                     <div class="form-row left">
-                                        <div class="form-col-50 left mb_15 v-select2">
+                                        <div class="form-col-50 left mb_15">
                                             <label for="ten-ngan-hang">Tên ngân hàng<span
                                                         class="text-red">&ast;</span></label>
-                                            <select name="ten_ngan_hang" class="share_select">
-                                                <option value="">-- Chọn ngân hàng --</option>
-                                                <option value="VCB" selected>VCB</option>
-                                            </select>
+                                            <input type="text" name="ten_ngan_hang" placeholder="Nhập tên ngân hàng">
                                         </div>
-                                        <div class="form-col-50 right mb_15 v-select2">
+                                        <div class="form-col-50 right mb_15">
                                             <label for="chi-nhanh-ngan-hang">Chi nhánh<span
                                                         class="text-red">&ast;</span></label>
-                                            <select name="chi_nhanh_ngan_hang" class="share_select">
-                                                <option value="">-- Chọn chi nhánh --</option>
-                                                <option value="1" selected>Chi nhánh 1</option>
-                                            </select>
+                                            <input type="text" name="chi_nhanh_ngan_hang" placeholder="Nhập tên chi nhánh ngân hàng">
                                         </div>
                                     </div>
                                     <div class="form-row left">
@@ -150,7 +144,7 @@ $date = date('m-d-Y', time())
                                             <label>Số tài khoản<span
                                                         class="text-red">&ast;</span></label>
                                             <input type="text" name="so_tai_khoan"
-                                                   placeholder="Nhập số tài khoản" value="09987666678">
+                                                   placeholder="Nhập số tài khoản" value="">
                                         </div>
                                         <div class="form-col-50 right mb_15">
                                             <label>Chủ tài khoản</label>

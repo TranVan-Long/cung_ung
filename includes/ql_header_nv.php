@@ -1,11 +1,36 @@
+<?
+if(isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1){
+    $com_id = $_SESSION['com_id'];
+    $com_name = $_SESSION['com_name'];
+    $ce_name = $_SESSION['com_name'];
+    $image = $_SESSION['com_logo'];
+    if($image != ""){
+        $avt_img = 'https://chamcong.24hpay.vn/upload/company/logo/'.$image;
+    }else{
+        $avt_img='../img/logo_com.png';
+    }
+}else if(isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2){
+    $ce_id = $_SESSION['ep_id'];
+    $ce_name = $_SESSION['ep_name'];
+    $com_id = $_SESSION['user_com_id'];
+    $com_name = $_SESSION['com_name'];
+    $image = $_SESSION['ep_image'];
+    if($image != ""){
+        $avt_img = 'https://chamcong.24hpay.vn/upload/employee/'.$image;
+    }else{
+        $avt_img='../img/logo_com.png';
+    }
+}
+
+?>
 <div class="header">
     <div class="header-left d_flex fl_agi">
         <div class="side_menu_hd mr_30 d_flex fl_agi">
             <img src="../img/menu.png" alt="menu" class="avt_menu">
         </div>
         <div class="ctiet_cty">
-            <span class="ten_cty_nv">Công ty TNHH...</span>|
-            <span class="text-bold">ID: 123456</span>
+            <span class="ten_cty_nv"><?= $com_name ?></span>|
+            <span class="text-bold">ID: <?= $com_id ?></span>
         </div>
     </div>
     <div class="right text-right">
@@ -26,7 +51,7 @@
                                         </div>
                                         <div class="titl_tb_nn">
                                             <a href="#">
-                                                <p class="cr_weight share_clr_one">Nhắn nhở</p>
+                                                <p class="cr_weight share_clr_one">Nhắc nhở</p>
                                                 <p class="share_clr_one">Nhiều đơn hàng sắp quá hạn!</p>
                                             </a>
                                         </div>
@@ -40,7 +65,7 @@
                                         </div>
                                         <div class="titl_tb_nn">
                                             <a href="#">
-                                                <p class="cr_weight share_clr_one">Nhắn nhở</p>
+                                                <p class="cr_weight share_clr_one">Nhắc nhở</p>
                                                 <p class="share_clr_one">Nhiều đơn hàng sắp quá hạn!</p>
                                             </a>
                                         </div>
@@ -100,12 +125,12 @@
             <li class="nav-item dropdown">
                 <div class="nav-avatar">
                     <p>
-                        <img class="head-avatar" src="/img/avt4.png">
+                        <img class="head-avatar" src="<?= $avt_img ?>">
                         <span class="mobi_showd"></span>
                     </p>
                 </div>
                 <div class="left mt-10">
-                    <h5 class="user-name">Nguyễn Văn A</h5>
+                    <h5 class="user-name"><?= $ce_name ?></h5>
                 </div>
                 <ul class="dropdown-content">
                     <a href="https://quanlychung.timviec365.vn/quan-ly-thong-tin-tai-khoan-nhan-vien.html"

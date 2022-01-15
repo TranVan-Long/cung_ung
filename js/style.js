@@ -125,5 +125,5 @@ $(window).click(function (e) {
 });
 
 $(".logout_all").click(function () {
-    window.location.href = "/";
-})
+    window.location.href = "/dang-xuat.html";
+});

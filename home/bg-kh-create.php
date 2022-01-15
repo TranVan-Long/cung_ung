@@ -37,12 +37,6 @@ include("../includes/icon.php");
                 <div class="w-100 left mt-10">
                     <div class="form-control edit-form">
                         <div class="form-row left">
-                            <div class="form-col-50 no-border mb_15 left">
-                                <label>Số phiếu phản hồi <span class="text-red">&ast;</span></label>
-                                <input type="text" name="so_bao_gia" value="PP-998-11182" readonly>
-                            </div>
-                        </div>
-                        <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left v-select2">
                                 <label>Khách hàng <span class="text-red">&ast;</span></label>
                                 <select id="khach-hang" name="khach_hang" class="share_select">

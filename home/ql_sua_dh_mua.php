@@ -49,25 +49,25 @@ include "../includes/icon.php";
                                     </div>
                                     <div class="form-group">
                                         <label>Địa chỉ</label>
-                                        <input type="text" name="dia_chi" class="form-control" disabled>
+                                        <input type="text" name="dia_chi" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Người liên hệ</label>
-                                        <select name="nha_ccap" class="form-control all_nguoilh">
+                                        <select name="nguoi_lh" class="form-control all_nguoilh">
                                             <option value="">Nhập tên người liên hệ</option>
                                         </select>
                                     </div>
                                     <div class="form-group share_form_select">
                                         <label>Số điện thoại / Fax</label>
-                                        <input type="text" name="so_dthoai" value="0987654543" class="form-control" disabled>
+                                        <input type="text" name="so_dthoai" value="0987654543" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Hợp đồng <span class="cr_red">*</span></label>
-                                        <select name="hop-dong" class="form-control all_hopd">
+                                        <select name="hop_dong" class="form-control all_hopd">
                                             <option value="">-- Chọn hợp đồng --</option>
                                         </select>
                                     </div>
@@ -75,7 +75,7 @@ include "../includes/icon.php";
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số đơn hàng</label>
-                                        <input type="text" name="so_dh" value="ĐH-000-09987" class="form-control" disabled>
+                                        <input type="text" name="so_dh" value="ĐH-000-09987" class="form-control" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label>Ngày ký đơn hàng</label>
@@ -86,7 +86,7 @@ include "../includes/icon.php";
                                     <div class="form-group share_form_select">
                                         <label>Dự án / Công trình</label>
                                         <select name="duan_ctrinh" class="form-control all_da_ct">
-                                            <option value="">-- Chọn hợp đồng --</option>
+                                            <option value="">-- Chọn Dự án / Công trình --</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -113,7 +113,7 @@ include "../includes/icon.php";
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số điện thoại người nhận</label>
-                                        <input type="text" name="dient_nnhan" value="090876787" class="form-control" disabled>
+                                        <input type="text" name="dient_nnhan" value="090876787" class="form-control" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label>Giữ lại bảo hành</label>
@@ -221,7 +221,7 @@ include "../includes/icon.php";
                                                     <td class="share_tb_seven">
                                                         <div class="form-group">
                                                             <input type="text" name="dvi_tinh"
-                                                                class="form-control" disabled>
+                                                                class="form-control" readonly>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_two">
@@ -231,12 +231,12 @@ include "../includes/icon.php";
                                                     </td>
                                                     <td class="share_tb_eight">
                                                         <div class="form-group">
-                                                            <input type="number" name="so_luong_hd" class="form-control" disabled>
+                                                            <input type="number" name="so_luong_hd" class="form-control" readonly>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_eight">
                                                         <div class="form-group">
-                                                            <input type="number" name="so_luong_kt" class="form-control" disabled>
+                                                            <input type="number" name="so_luong_kt" class="form-control" readonly>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_one">
@@ -251,12 +251,12 @@ include "../includes/icon.php";
                                                     </td>
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
-                                                            <input type="number" name="don_gia" class="form-control" disabled>
+                                                            <input type="number" name="don_gia" class="form-control" readonly>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_two">
                                                         <div class="form-group">
-                                                            <input type="number" name="ttr_vat" class="form-control" disabled>
+                                                            <input type="number" name="ttr_vat" class="form-control" readonly>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_seven">
@@ -266,7 +266,7 @@ include "../includes/icon.php";
                                                     </td>
                                                     <td class="share_tb_eight">
                                                         <div class="form-group">
-                                                            <input type="number" name="tts_vat" class="form-control" disabled>
+                                                            <input type="number" name="tts_vat" class="form-control" readonly>
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_two">
@@ -283,7 +283,7 @@ include "../includes/icon.php";
                                     <div class="form_button dh_button">
                                         <button type="button"
                                             class="cancel_add share_cursor share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
-                                        <button type="submit"
+                                        <button type="button"
                                             class="save_add share_cursor share_cursor share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
                                     </div>
                                 </div>
@@ -342,6 +342,47 @@ include "../includes/icon.php";
     var cancel_add = $(".cancel_add");
     cancel_add.click(function(){
         modal_share.show();
+    });
+
+    $('.save_add').click(function () {
+        var form = $('.form_add_hp_mua');
+        form.validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent('.form-group'));
+                error.wrap('<span class="error">');
+            },
+            rules: {
+                ten_nhacc: {
+                    required: true,
+                },
+                hop_dong: {
+                    required: true,
+                },
+                donv_nh: {
+                    required: true,
+                },
+                nguoi_nh: {
+                    required: true,
+                }
+            },
+            messages: {
+                ten_nhacc: {
+                    required: "Vui lòng chọn nhà cung cấp.",
+                },
+                hop_dong: {
+                    required: "Vui lòng chọn hợp đồng.",
+                },
+                donv_nh: {
+                    required: "Đơn vị nhận hàng không được để trống.",
+                },
+                nguoi_nh: {
+                    required: "Người nhận hàng không được để trống."
+                }
+            }
+        });
+        if (form.valid() === true) {
+            alert("pass");
+        }
     });
 </script>
 

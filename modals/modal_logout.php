@@ -14,8 +14,8 @@
                                 <p class="share_fsize_tow share_clr_one tex_center log_tlt">Bạn có muốn đăng xuất ra
                                     khỏi hệ thống?</p>
                             </div>
-                            <div class="form_butt_lg">
-                                <div class="tow_butt_flex">
+                            <div class="form_butt_lg ">
+                                <div class="tow_butt_flex mb_20">
                                     <button type="button"
                                         class="share_fsize_three cr_weight share_cursor share_clr_four share_bgr_tow huy_button">Hủy</button>
                                     <button type="button"

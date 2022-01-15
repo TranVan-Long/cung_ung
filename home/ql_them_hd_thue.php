@@ -41,10 +41,6 @@ include "../includes/icon.php";
                             <form action="" class="form_add_hp_mua share_distance w_100 float_l">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
-                                        <label>Số hợp đồng</label>
-                                        <input type="text" name="so_hd" class="form-control" disabled>
-                                    </div>
-                                    <div class="form-group">
                                         <label>Ngày ký hợp đồng <span class="cr_red">*</span></label>
                                         <input type="date" name="ngay_ky" class="form-control">
                                     </div>
@@ -122,14 +118,12 @@ include "../includes/icon.php";
                                                         </p>
                                                     </td>
                                                     <td class="share_tb_two">
-                                                        <div class="form-group share_form_select">
-                                                            <select name="ma_vatt" class="ma_vatt">
-                                                                <option value=""></option>
-                                                            </select>
+                                                        <div class="form-group">
+                                                            <input type="text" name="loai_ts" class="form-control">
                                                         </div>
                                                     </td>
                                                     <td class="share_tb_two">
-                                                        <div class="form-group share_form_select">
+                                                        <div class="form-group">
                                                             <input type="text" name="thong_so" class="form-control">
                                                         </div>
                                                     </td>
@@ -244,7 +238,7 @@ include "../includes/icon.php";
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
-    $(".all_nhacc, .all_duan, .ten_nganhang, .ma_vatt").select2({
+    $(".all_nhacc, .all_duan, .ten_nganhang").select2({
         width: '100%',
     });
 
@@ -256,15 +250,13 @@ include "../includes/icon.php";
                             </p>
                         </td>
                         <td class="share_tb_two">
-                            <div class="form-group share_form_select">
-                                <select name="ma_vatt" class="ma_vatt">
-                                    <option value=""></option>
-                                </select>
+                            <div class="form-group">
+                                <input type="text" name="loai_ts" class="form-control">
                             </div>
                         </td>
-                        <td class="share_tb_one">
+                        <td class="share_tb_two">
                             <div class="form-group">
-                                <input type="text" name="so_luong" class="form-control">
+                                <input type="text" name="thong_so" class="form-control">
                             </div>
                         </td>
                         <td class="share_tb_three">

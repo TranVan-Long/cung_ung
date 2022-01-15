@@ -1,5 +1,6 @@
 <?php
 include("../includes/icon.php");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,11 +39,6 @@ include("../includes/icon.php");
                     <div class="form-control edit-form">
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
-                                <label>Số báo giá<span class="text-red">&ast;</span></label>
-                                <input type="text" name="so_bao_gia" value="BG-999-09827" readonly
-                                       required>
-                            </div>
-                            <div class="form-col-50 no-border mb_15 right">
                                 <label>Ngày gửi<span class="text-red">&ast;</span></label>
                                 <input type="date" name="ngay_gui">
                             </div>
@@ -53,7 +49,6 @@ include("../includes/icon.php");
                                     <label for="nguoi-lap">Người lập</label>
                                     <select id="nguoi-lap" name="nguoi_lap" class="share_select">
                                         <option value="">-- Chọn người lập --</option>
-                                        <option value="1">1</option>
                                     </select>
                                 </div>
                             </div>
@@ -62,7 +57,6 @@ include("../includes/icon.php");
                                             class="text-red">&ast;</span></label>
                                 <select id="nha-cung-cap" name="nha_cung_cap" class="share_select">
                                     <option value="">-- Chọn nhà cung cấp --</option>
-                                    <option value="1">1</option>
                                 </select>
                             </div>
                         </div>
@@ -291,5 +285,7 @@ include("../includes/icon.php");
             alert("pass");
         }
     });
+
+
 </script>
 </html>

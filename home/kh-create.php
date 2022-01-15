@@ -39,30 +39,23 @@ $date = date('m-d-Y', time())
                     <div class="form-control edit-form">
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
-                                <label>Mã khách hàng<span class="text-red">&ast;</span></label>
-                                <input type="text" name="ma_khach_hang" value="KH-987-554324" readonly>
-                            </div>
-                            <div class="form-col-50 no-border mb_15 right">
-                                <label>Mã số thuế</label>
-                                <input type="text" name="ma_so_thue" placeholder="Nhập Mã số thuế">
-                            </div>
-                        </div>
-                        <div class="form-row left">
-                            <div class="form-col-50 no-border mb_15 left">
                                 <label>Tên khách hàng<span class="text-red">&ast;</span></label>
                                 <input type="text" name="ten_khach_hang"
                                        placeholder="Nhập tên khách hàng">
                             </div>
                             <div class="form-col-50 no-border mb_15 right">
-                                <label>Tên giao dịch<span class="text-red">&ast;</span></label>
-                                <input type="text" name="ten_giao_dich" placeholder="Nhập tên giao dịch">
+                                <label>Tên gọi tắt</label>
+                                <input type="text" name="ten_goi_tat" placeholder="Nhập tên gọi tắt">
                             </div>
-
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
-                                <label>Tên gọi tắt</label>
-                                <input type="text" name="ten_goi_tat" placeholder="Nhập tên gọi tắt">
+                                <label>Tên giao dịch<span class="text-red">&ast;</span></label>
+                                <input type="text" name="ten_giao_dich" placeholder="Nhập tên giao dịch">
+                            </div>
+                            <div class="form-col-50 no-border mb_15 right">
+                                <label>Mã số thuế</label>
+                                <input type="text" name="ma_so_thue" placeholder="Nhập Mã số thuế">
                             </div>
                         </div>
                         <div class="form-row left">
@@ -114,21 +107,15 @@ $date = date('m-d-Y', time())
                             <div class="bank border-bottom left w-100 pb-10 d-flex spc-btw">
                                 <div class="bank-form">
                                     <div class="form-row left">
-                                        <div class="form-col-50 left mb_15 v-select2">
+                                        <div class="form-col-50 left mb_15">
                                             <label for="ten-ngan-hang">Tên ngân hàng<span
                                                         class="text-red">&ast;</span></label>
-                                            <select name="ten_ngan_hang" class="share_select">
-                                                <option value="">-- Chọn ngân hàng --</option>
-                                                <option value="1">1</option>
-                                            </select>
+                                            <input type="text" name="ten_ngan_hang" placeholder="Nhập tên ngân hàng">
                                         </div>
                                         <div class="form-col-50 right mb_15 v-select2">
                                             <label for="chi-nhanh-ngan-hang">Chi nhánh<span
                                                         class="text-red">&ast;</span></label>
-                                            <select name="chi_nhanh_ngan_hang" class="share_select">
-                                                <option value="">-- Chọn chi nhánh --</option>
-                                                <option value="1">1</option>
-                                            </select>
+                                            <input type="text" name="chi_nhanh_ngan_hang" placeholder="Nhập tên chi nhánh ngân hàng">
                                         </div>
                                     </div>
                                     <div class="form-row left">

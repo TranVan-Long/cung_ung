@@ -94,6 +94,10 @@ $date = date('m-d-Y', time())
                             <div class="form-col-50 no-border left mb_15">
                                 <label>Mail nhận báo giá</label>
                                 <input type="text" name="mail_nhan_bao_gia" placeholder="Nhập mail nhận báo giá" value="cccccc@gmail.com">
+                                <div class="d_flex align-items-center checkbox-lbs mt-15">
+                                    <label for="mail_ngay" class="mb-0 mr-30">Gửi lại email</label>
+                                    <input type="checkbox" name="mail_ngay" id="mail_ngay" checked>
+                                </div>
                             </div>
                             <div class="form-col-50 no-border right d-flex mb_15">
                                 <div class="d_flex align-items-center checkbox-lbs mt-30">
@@ -106,15 +110,14 @@ $date = date('m-d-Y', time())
                     <div class="mt-30 left w-100">
                         <p class="text-blue link-text text-500" id="add-quote">&plus; Thêm mới vật tư</p>
                         <div class="table-wrapper mt-5">
-                            <div class="table-container table-md">
+                            <div class="table-container table-1252">
                                 <div class="tbl-header">
                                     <table>
                                         <thead>
                                         <tr>
                                             <th class="w-5"></th>
-                                            <th class="w-15">Mã vật tư</th>
-                                            <th class="w-30">Tên đầy đủ vật tư thiết bị</th>
-                                            <th class="w-25">Hãng sản xuất</th>
+                                            <th class="w-15">Vật tư thiết bị</th>
+                                            <th class="w-15">Hãng sản xuất</th>
                                             <th class="w-10">Đơn vị tính</th>
                                             <th class="w-15">Số lượng</th>
                                         </tr>
@@ -130,15 +133,10 @@ $date = date('m-d-Y', time())
                                             </td>
                                             <td class="w-15">
                                                 <div class="v-select2">
-                                                    <select name="ma_vat_tu" class="share_select"></select>
-                                                </div>
-                                            </td>
-                                            <td class="w-30">
-                                                <div class="v-select2">
                                                     <select name="ten_day_du"></select>
                                                 </div>
                                             </td>
-                                            <td class="w-25">
+                                            <td class="w-15">
                                                 <div class="v-select2">
                                                     <select name="hang_san_xuat"></select>
                                                 </div>
@@ -156,15 +154,10 @@ $date = date('m-d-Y', time())
                                             </td>
                                             <td class="w-15">
                                                 <div class="v-select2">
-                                                    <select name="ma_vat_tu" class="share_select"></select>
-                                                </div>
-                                            </td>
-                                            <td class="w-30">
-                                                <div class="v-select2">
                                                     <select name="ten_day_du"></select>
                                                 </div>
                                             </td>
-                                            <td class="w-25">
+                                            <td class="w-15">
                                                 <div class="v-select2">
                                                     <select name="hang_san_xuat"></select>
                                                 </div>

@@ -77,7 +77,9 @@
                         </div>
                         <div class="form-col-50 right pr-10 pt-10 mb_12">
                             <p class="left text-left w-50">Trạng thái</p>
-                            <p class="right text-right w-50 cr_weight">Chưa duyệt</p>
+                            <p class="right text-right w-50 cr_weight text-yellow">Chưa duyệt</p>
+                            <!-- <p class="right text-right w-50 cr_weight text-green">Đã duyệt</p> -->
+                            <!-- <p class="right text-right w-50 cr_weight text-red">Đã bị từ chối</p> -->
                         </div>
                     </div>
                     <!-- khi duyệt -->
