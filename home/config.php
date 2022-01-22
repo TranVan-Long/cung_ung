@@ -58,9 +58,8 @@ if ( isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
         $curl = curl_init();
         $data = array();
         curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-
+        // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/user_info_employee.php');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -99,9 +98,8 @@ if ( isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
                 'refresh_token' => $_COOKIE['rf_token']
             );
             curl_setopt($curl, CURLOPT_POST, 1);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-
+            // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data2);
             curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/refresh_token.php');
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -153,9 +151,8 @@ if ( isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
             $curl = curl_init();
             $data = array();
             curl_setopt($curl, CURLOPT_POST, 1);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-
+            // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
             curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/user_info_employee.php');
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -195,9 +192,8 @@ if ( isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
                     'refresh_token' => $_COOKIE['rf_token']
                 );
                 curl_setopt($curl, CURLOPT_POST, 1);
-                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-
+                // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data2);
                 curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/refresh_token.php');
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -254,9 +250,8 @@ if ( isset($_COOKIE['role']) && $_COOKIE['role'] == 1) {
         $curl = curl_init();
         $data = array();
         curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-
+        // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/user_info_company.php');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -295,9 +290,8 @@ if ( isset($_COOKIE['role']) && $_COOKIE['role'] == 1) {
                 'refresh_token' => $_COOKIE['rf_token']
             );
             curl_setopt($curl, CURLOPT_POST, 1);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-
+            // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data2);
             curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/refresh_token.php');
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -347,9 +341,8 @@ if ( isset($_COOKIE['role']) && $_COOKIE['role'] == 1) {
             $curl = curl_init();
             $data = array();
             curl_setopt($curl, CURLOPT_POST, 1);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-
+            // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
             curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/user_info_company.php');
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -385,9 +378,8 @@ if ( isset($_COOKIE['role']) && $_COOKIE['role'] == 1) {
                     'refresh_token' => $_COOKIE['rf_token']
                 );
                 curl_setopt($curl, CURLOPT_POST, 1);
-                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-
+                // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data2);
                 curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/refresh_token.php');
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

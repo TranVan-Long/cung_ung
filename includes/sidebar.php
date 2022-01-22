@@ -1,5 +1,5 @@
 <?
-
+isset($_GET['id']) ? $id = $_GET['id'] : $id = "";
 $yc_vattu = ['/quan-ly-yeu-cau-vat-tu.html','/quan-ly-yeu-cau-vat-tu-nhan-vien.html','/them-yeu-cau-vat-tu.html','/chinh-sua-yeu-cau-vat-tu.html',
             '/quan-ly-chi-tiet-yeu-cau-vat-tu.html','/duyet-yeu-cau-vat-tu.html'];
 
@@ -24,17 +24,21 @@ $ho_so_tt = ['/quan-ly-ho-so-thanh-toan.html','/chi-tiet-ho-so-thanh-toan.html',
 $phieu_tt = ['/quan-ly-phieu-thanh-toan.html','/chi-tiet-phieu-thanh-toan.html','/chi-tiet-phieu-thanh-toan-tam-ung.html',
             '/them-phieu-thanh-toan.html','/chinh-sua-phieu-thanh-toan.html'];
 
-$all_ncc = ['/quan-ly-nha-cung-cap.html','/quan-ly-chi-tiet-nha-cung-cap.html','/them-nha-cung-cap.html','/chinh-sua-nha-cung-cap.html',
+$ctiet_ncc = '/quan-ly-chi-tiet-nha-cung-cap-'.$id.'.html';
+
+$all_ncc = ['/quan-ly-nha-cung-cap.html',$ctiet_ncc,'/them-nha-cung-cap.html','/chinh-sua-nha-cung-cap.html',
             '/tieu-chi-danh-gia.html','/them-tieu-chi-danh-gia.html','/chinh-sua-tieu-chi-danh-gia.html','/danh-gia-nha-cung-cap.html',
             '/them-danh-gia-nha-cung-cap.html','/chinh-sua-danh-gia-nha-cung-cap.html','/chi-tiet-danh-gia-nha-cung-cap.html'];
 
-$nha_cc = ['/quan-ly-nha-cung-cap.html','/quan-ly-chi-tiet-nha-cung-cap.html','/them-nha-cung-cap.html','/chinh-sua-nha-cung-cap.html'];
+$nha_cc = ['/quan-ly-nha-cung-cap.html',$ctiet_ncc,'/them-nha-cung-cap.html','/chinh-sua-nha-cung-cap.html'];
 
 $tieuc_dg = ['/tieu-chi-danh-gia.html','/them-tieu-chi-danh-gia.html','/chinh-sua-tieu-chi-danh-gia.html'];
 
 $danhg_ncc = ['/danh-gia-nha-cung-cap.html','/them-danh-gia-nha-cung-cap.html','/chinh-sua-danh-gia-nha-cung-cap.html','/chi-tiet-danh-gia-nha-cung-cap.html'];
 
-$khach_hang = ['/quan-ly-khach-hang.html','/them-khach-hang.html','/chinh-sua-khach-hang.html','/quan-ly-chi-tiet-khach-hang.html'];
+$ctiet_kh = '/quan-ly-chi-tiet-khach-hang-'.$id.'.html';
+$edit_kh = '/chinh-sua-khach-hang-'.$id.'.html';
+$khach_hang = ['/quan-ly-khach-hang.html',$ctiet_kh,'/them-khach-hang.html',$edit_kh];
 
 $bao_cao = ['/bao-cao-doanh-so-ban-hang.html','/bao-cao-cong-no-phai-thu.html','/bao-cao-cong-no-phai-tra.html'];
 

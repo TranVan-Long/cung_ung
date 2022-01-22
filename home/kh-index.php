@@ -1,5 +1,10 @@
 <?php
-include("../includes/icon.php");
+    include("config.php");
+    include("../includes/icon.php");
+
+    isset($_GET['page']) ? $page = $_GET['page'] : $page = 1;
+    isset($_GET['ht']) ? $ht = $_GET['ht'] : $ht = 10;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +47,7 @@ include("../includes/icon.php");
                     <a class="v-btn btn-blue add-btn ml-20  mt-20" href="them-khach-hang.html">&plus; Thêm mới</a>
                     <div class="filter">
                         <div class="category v-select2 mt-20">
-                            <select name="category" class="share_select">
+                            <select name="category" class="share_select danh_muc">
                                 <option value="">Tìm kiếm theo</option>
                                 <option value="1">Mã khách hàng</option>
                                 <option value="2">Tên khách hàng</option>
@@ -51,171 +56,14 @@ include("../includes/icon.php");
                             </select>
                         </div>
                         <div class="search-box v-select2 mt-20">
-                            <select name="search" class="share_select">
+                            <select name="search" class="share_select dm_timkiem">
                                 <option value="">Nhập thông tin cần tìm kiếm</option>
                             </select>
                         </div>
                     </div>
                 </div>
-                <div class="scr-wrapper mt-20">
-                    <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
-                    <div class="scr-btn scr-r-btn left"><i class="ic-chevron-right"></i></div>
-                    <div class="table-wrapper">
-                        <div class="table-container table_1457">
-                            <div class="tbl-header">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th class="w-5">STT</th>
-                                        <th class="w-10">Mã khách hàng</th>
-                                        <th class="w-10">Tên gọi tắt</th>
-                                        <th class="w-15">Tên khách hàng</th>
-                                        <th class="w-25">Địa chỉ liên hệ</th>
-                                        <th class="w-10">Mã số thuế</th>
-                                        <th class="w-10">Điện thoại</th>
-                                        <th class="w-15">Email</th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                            <div class="tbl-content">
-                                <table>
-                                    <tbody>
-                                    <tr>
-                                        <td class="w-5">1</td>
-                                        <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
-                                        <td class="w-10">NVA</td>
-                                        <td class="w-15">Nguyễn Văn A</td>
-                                        <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td class="w-10">97766519367782</td>
-                                        <td class="w-10">0987543671</td>
-                                        <td class="w-15">mail1234@gmail.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-5">1</td>
-                                        <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
-                                        <td class="w-10">NVA</td>
-                                        <td class="w-15">Nguyễn Văn A</td>
-                                        <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td class="w-10">97766519367782</td>
-                                        <td class="w-10">0987543671</td>
-                                        <td class="w-15">mail1234@gmail.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-5">1</td>
-                                        <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
-                                        <td class="w-10">NVA</td>
-                                        <td class="w-15">Nguyễn Văn A</td>
-                                        <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td class="w-10">97766519367782</td>
-                                        <td class="w-10">0987543671</td>
-                                        <td class="w-15">mail1234@gmail.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-5">1</td>
-                                        <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
-                                        <td class="w-10">NVA</td>
-                                        <td class="w-15">Nguyễn Văn A</td>
-                                        <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td class="w-10">97766519367782</td>
-                                        <td class="w-10">0987543671</td>
-                                        <td class="w-15">mail1234@gmail.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-5">1</td>
-                                        <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
-                                        <td class="w-10">NVA</td>
-                                        <td class="w-15">Nguyễn Văn A</td>
-                                        <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td class="w-10">97766519367782</td>
-                                        <td class="w-10">0987543671</td>
-                                        <td class="w-15">mail1234@gmail.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-5">1</td>
-                                        <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
-                                        <td class="w-10">NVA</td>
-                                        <td class="w-15">Nguyễn Văn A</td>
-                                        <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td class="w-10">97766519367782</td>
-                                        <td class="w-10">0987543671</td>
-                                        <td class="w-15">mail1234@gmail.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-5">1</td>
-                                        <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
-                                        <td class="w-10">NVA</td>
-                                        <td class="w-15">Nguyễn Văn A</td>
-                                        <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td class="w-10">97766519367782</td>
-                                        <td class="w-10">0987543671</td>
-                                        <td class="w-15">mail1234@gmail.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-5">1</td>
-                                        <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
-                                        <td class="w-10">NVA</td>
-                                        <td class="w-15">Nguyễn Văn A</td>
-                                        <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td class="w-10">97766519367782</td>
-                                        <td class="w-10">0987543671</td>
-                                        <td class="w-15">mail1234@gmail.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-5">1</td>
-                                        <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
-                                        <td class="w-10">NVA</td>
-                                        <td class="w-15">Nguyễn Văn A</td>
-                                        <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td class="w-10">97766519367782</td>
-                                        <td class="w-10">0987543671</td>
-                                        <td class="w-15">mail1234@gmail.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-5">1</td>
-                                        <td class="w-10">
-                                            <a href="quan-ly-chi-tiet-khach-hang.html" class="text-500">KH-002-38476</a></td>
-                                        <td class="w-10">NVA</td>
-                                        <td class="w-15">Nguyễn Văn A</td>
-                                        <td class="w-25">Số 12, ngõ 65, phố X, phường X, quận X</td>
-                                        <td class="w-10">97766519367782</td>
-                                        <td class="w-10">0987543671</td>
-                                        <td class="w-15">mail1234@gmail.com</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="w-100 left mt-10 d-flex flex-wrap spc-btw">
-                <div class="display mr-10">
-                    <label for="display">Hiển thị</label>
-                    <select name="display" id="display">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                    </select>
-                </div>
-                <div class="pagination mt-10">
-                    <ul>
-                        <li><a href="#"><?php echo $ic_lt ?></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#"><?php echo $ic_gt ?></a></li>
-                    </ul>
+                <div class="danh_sach_kh w_100 float_l" data="<?= $page ?>" data1="<?= $ht ?>">
+
                 </div>
             </div>
         </div>
@@ -229,5 +77,59 @@ include("../includes/icon.php");
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript">
+    var danh_muc = $(".danh_muc").val();
+    var search = $(".dm_timkiem").val();
+    var page = $(".danh_sach_kh").attr("data");
+    var hien_thi = $(".danh_sach_kh").attr("data1");
 
+    $(".danh_muc").change(function(){
+        var id_ds = $(this).val();
+        $.ajax({
+            url: '../render/tk-thong-tin-kh.php',
+            type: 'POST',
+            data:{
+                id_ds: id_ds,
+            },
+            success: function(data){
+                $(".dm_timkiem").html(data);
+            }
+        })
+    });
+
+    $.ajax({
+        url: '../render/danh-sach-kh.php',
+        type: 'POST',
+        data:{
+            search: search,
+            danh_muc: danh_muc,
+            page: page,
+            hien_thi: hien_thi,
+        },
+        success: function(data){
+            $(".danh_sach_kh").append(data);
+        }
+    });
+
+    $(".danh_muc, .dm_timkiem").change(function(){
+        var danh_muc = $(".danh_muc").val();
+        var search = $(".dm_timkiem").val();
+        var page = $(".danh_sach_kh").attr("data");
+        var hien_thi = $(".danh_sach_kh").attr("data1");
+        $.ajax({
+            url: '../render/danh-sach-kh.php',
+            type: 'POST',
+            data:{
+                search: search,
+                danh_muc: danh_muc,
+                page: page,
+                hien_thi: hien_thi,
+            },
+            success: function(data){
+                $(".danh_sach_kh").html(data);
+            }
+        })
+    });
+
+</script>
 </html>

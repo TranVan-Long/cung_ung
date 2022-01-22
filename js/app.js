@@ -1,14 +1,4 @@
-var tblMenu = $('td .tbl-menu');
-var tblMenuContent = $('td .tbl-menu-content');
 
-$('.tbl-menu').click(function () {
-    $(this).parents("td").find(".tbl-menu-content").toggleClass('active');
-});
-$(window).click(function (e) {
-    if (!tblMenu.is(e.target) && !tblMenuContent.is(e.target) && tblMenuContent.has(e.target).length === 0) {
-        tblMenuContent.removeClass('active');
-    }
-})
 
 // select2
 $(".share_select").select2({
@@ -73,25 +63,24 @@ $('#add-bank-acc').click(function () {
                     <div class="bank-form">
                         <div class="form-row left">
                             <div class="form-col-50 left mb_15">
-                                <label for="ten-ngan-hang">Tên ngân hàng<span
-                                            class="text-red">*</span></label>
+                                <label>Tên ngân hàng<span class="text-red">*</span></label>
                                 <input type="text" name="ten_ngan_hang" placeholder="Nhập tên ngân hàng">
                             </div>
                             <div class="form-col-50 right mb_15">
-                                <label for="chi-nhanh-ngan-hang">Chi nhánh<span
+                                <label>Chi nhánh<span
                                             class="text-red">*</span></label>
-                                <input type="text" name="chi_nhanh_ngan_hang" placeholder="Nhập tên chi nhánh ngân hàng">
+                                <input type="text" name="ten_chi_nhanh" placeholder="Nhập tên chi nhánh ngân hàng">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 left mb_15">
                                 <label>Số tài khoản<span class="text-red">*</span></label>
-                                <input type="text" name="so_tai_khoan"
+                                <input type="text" name="so_tk"
                                         placeholder="Nhập số tài khoản">
                             </div>
                             <div class="form-col-50 right mb_15">
                                 <label>Chủ tài khoản</label>
-                                <input type="text" name="chu_tai_khoan" placeholder="Nhập tên chủ tài khoản">
+                                <input type="text" name="chu_tk" placeholder="Nhập tên chủ tài khoản">
                             </div>
                         </div>
                     </div>
@@ -104,21 +93,21 @@ $('#add-bank-acc').click(function () {
 })
 // them nguoi lien he
 $("#add-references").click(function () {
-    var html = `<tr class="item">
+    var html = `<tr id="item">
                     <td class="w-5">
                         <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
                     </td>
                     <td class="w-30">
-                        <input type="text">
+                        <input type="text" name="ten_nguoi_lh">
                     </td>
                     <td class="w-30">
-                        <input type="text">
+                        <input type="text" name="chuc_vu">
                     </td>
                     <td class="w-20">
-                        <input type="text">
+                        <input type="text" name="so_dien_thoai_lh">
                     </td>
                     <td class="w-30">
-                        <input type="text">
+                        <input type="text" name="email_lh">
                     </td>
                 </tr>`;
     $("#rererences").append(html);
@@ -315,32 +304,44 @@ $(document).on('click', '.confirm-delete', function () {
 // resize table on windows resize
 $(window).on("load resize ", function () {
     var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
-    $('.tbl-header').css({'padding-right': scrollWidth});
+    $('.tbl-header').css({ 'padding-right': scrollWidth });
 }).resize();
 
-// scroll left button function
-$('.scr-l-btn').click(function (e) {
-    e.preventDefault();
+// // scroll left button function
+// $('.scr-l-btn').click(function (e) {
+//     e.preventDefault();
+//     $('.table-wrapper').animate({
+//         scrollLeft: "+=300px"
+//     }, "slow");
+// });
+// // scroll right button function
+// $('.scr-r-btn').click(function (e) {
+//     e.preventDefault();
+//     $('.table-wrapper').animate({
+//         scrollLeft: "-=300px"
+//     }, "slow");
+// });
+
+function right() {
     $('.table-wrapper').animate({
         scrollLeft: "+=300px"
     }, "slow");
-});
-// scroll right button function
-$('.scr-r-btn').click(function (e) {
-    e.preventDefault();
+};
+
+function left() {
     $('.table-wrapper').animate({
         scrollLeft: "-=300px"
     }, "slow");
-});
+};
 
-$(document).ready(function(){
+$(document).ready(function () {
     var tbl_width = $('.table-container').width()
-    if($(".table-wrapper").width() < tbl_width){
-        $(".scr-r-btn").css("display","block");
-        $(".scr-l-btn").css("display","block");
-    }else{
-        $(".scr-r-btn").css("display","none");
-        $(".scr-l-btn").css("display","none");
+    if ($(".table-wrapper").width() < tbl_width) {
+        $(".scr-r-btn").css("display", "block");
+        $(".scr-l-btn").css("display", "block");
+    } else {
+        $(".scr-r-btn").css("display", "none");
+        $(".scr-l-btn").css("display", "none");
     }
 })
 
@@ -348,9 +349,9 @@ $(document).ready(function(){
 
 $('#value-type').on('change', function () {
     var selectedValue = this.value;
-
     if (selectedValue == 2) {
-        $('.manual-value').show();
+        $('.value-control').show();
+        $('.gia_tri1').remove();
         var html = `<div class="value border-bottom left w-100 pb-20 mt-10 d-flex spc-btw">
                         <div class="value-form">
                             <div class="form-row left">
@@ -370,16 +371,20 @@ $('#value-type').on('change', function () {
                     </div>`;
         $('#rules-value').append(html);
 
-    } else {
-        $('.manual-value').hide();
+    } else if (selectedValue == 1) {
+        $('.value-control').hide();
         $('.value').remove();
+        var html = `<div class="form-col-50 no-border right mb_15 gia_tri1">
+                        <label>Thang điểm<span class="text-red">*</span></label>
+                        <input type="text" name="gia_tri" placeholder="Nhập giá trị lớn nhất">
+                    </div>`;
+        $('.chon_gt').append(html);
+    }
+
+    else {
+        $('.value-control').hide();
+        $('.value').remove();
+        $('.gia_tri1').remove();
     }
 });
 
-$('.tbl-menu').click(function () {
-    var id = $(this).attr("data-tab");
-
-    $(".tbl-menu-content").removeClass("active");
-
-    $('#' + id).addClass("active");
-})

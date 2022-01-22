@@ -1,6 +1,46 @@
 <?php
+
+include("config.php");
 include("../includes/icon.php");
-$date = date('m-d-Y', time())
+$date = strtotime(date('Y-m-d', time()));
+
+if(isset($_GET['id']) && $_GET['id'] != ""){
+    $id = $_GET['id'];
+    $list_dg = mysql_fetch_assoc((new db_query("SELECT `id`, `ngay_danh_gia`, `nguoi_danh_gia`, `phong_ban`, `id_nha_cc`, `danh_gia_khac` FROM `danh_gia` WHERE `id`='$id' ")) -> result);
+
+    $id_ncc = $list_dg['id_nha_cc'];
+
+    if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2){
+        $curl = curl_init();
+        $token = $_COOKIE['acc_token'];
+        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data_list = json_decode($response,true);
+        $data_list_nv =$data_list['data']['items'];
+        $count = count($data_list_nv);
+
+        $user = [];
+        for ($i = 0; $i < $count; $i++){
+            $item1 = $data_list_nv[$i];
+            $user[$item1["ep_id"]] = $item1;
+        }
+
+        $ep_name = $user[$list_dg['nguoi_danh_gia']]['ep_name'];
+        $phong_ban = $user[$list_dg['nguoi_danh_gia']]['dep_name'];
+    }
+
+   $list_nhacc = new db_query("SELECT `id`, `ten_nha_cc_kh`, `phan_loai` FROM `nha_cc_kh` WHERE `phan_loai` = 1 ");
+
+   $list_ncc = mysql_fetch_assoc((new db_query("SELECT `id`, `ten_nha_cc_kh`, `dia_chi_lh`, `sp_cung_ung`, `phan_loai`
+                                                FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id` = '$id_ncc' ")) -> result);
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,35 +80,22 @@ $date = date('m-d-Y', time())
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
                                 <label>Số phiếu</label>
-                                <input type="text" name="so_phieu" value="PH-000-09999" readonly>
+                                <input type="text" name="so_phieu" value="PH-<?= $list_dg['id'] ?>" readonly>
                             </div>
                             <div class="form-col-50 no-border right mb_15">
-                                <label>Ngày lấp phiếu<span class="text-red">&ast;</span></label>
-                                <input type="date" name="ngay_lap_phieu" value="2021-10-27">
-                            </div>
-                        </div>
-                        <div class="form-row left">
-                            <div class="form-col-50 no-border left mb_15">
                                 <label>Ngày đánh giá<span class="text-red">&ast;</span></label>
-                                <input type="date" name="ngay_danh_gia" value="2021-10-27">
+                                <input type="date" name="ngay_danh_gia" value="<?= date('Y-m-d', $list_dg['ngay_danh_gia']) ?>">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
                                 <label>Người đánh giá<span class="text-red">&ast;</span></label>
                                 <input type="text" name="nguoi_danh_gia" placeholder="Nhập người đánh giá"
-                                       value="Nguyễn Văn A">
+                                       value="<?= $ep_name ?>" data-id="<?= $list_dg['nguoi_danh_gia'] ?>">
                             </div>
                             <div class="form-col-50 no-border right mb_15">
                                 <label>Phòng ban</label>
-                                <input type="text" name="phong_ban" placeholder="Nhập phòng ban" value="Phòng 01">
-                            </div>
-                        </div>
-                        <div class="form-row left">
-                            <div class="form-col-50 no-border left mb_15">
-                                <label>Người lập</label>
-                                <input type="text" name="dia_chi_dkkd" placeholder="Nhập người lập"
-                                       value="Nguyễn Văn A">
+                                <input type="text" name="phong_ban" placeholder="Nhập phòng ban" value="<?= $phong_ban ?>" data-id="<?= $list_dg['phong_ban'] ?>">
                             </div>
                         </div>
                         <div class="form-row left">
@@ -76,28 +103,28 @@ $date = date('m-d-Y', time())
                                     <label for="nha-cung-cap">Nhà cung cấp<span class="text-red">&ast;</span></label>
                                     <select class="share_select" name="nha_cung_cap" id="nha-cung-cap">
                                         <option value="">-- Chọn nhà cung cấp --</option>
-                                        <option value="1">Nhà cung cấp A</option>
-                                        <option value="2">Nhà cung cấp B</option>
-                                        <option value="3">Nhà cung cấp C</option>
-                                        <option value="4">Nhà cung cấp D</option>
-                                        <option value="5" selected>Nhà cung cấp X</option>
+                                        <? while($row = mysql_fetch_assoc($list_nhacc -> result)) { ?>
+                                            <option value="<?= $row['id'] ?>" <?= ($row['id'] == $list_dg['id_nha_cc']) ? "selected" : "" ?>><?= $row['ten_nha_cc_kh'] ?></option>
+                                        <?}?>
                                     </select>
                             </div>
                         </div>
-                        <div class="form-row left">
-                            <div class="form-col-50 no-border left mb_15">
-                                <p>Tên nhà cung cấp</p>
-                                <p class="cr_weight mt-10">Nhà cung cấp X</p>
+                        <div class="ctiet_nhacc w_100 float_l">
+                            <div class="form-row left">
+                                <div class="form-col-50 no-border left mb_15">
+                                    <p>Tên nhà cung cấp</p>
+                                    <p class="cr_weight mt-10"><?= $list_ncc['ten_nha_cc_kh'] ?></p>
+                                </div>
+                                <div class="form-col-50 no-border right mb_15">
+                                    <p>Địa chỉ</p>
+                                    <p class="cr_weight mt-10"><?= $list_ncc['dia_chi_lh'] ?></p>
+                                </div>
                             </div>
-                            <div class="form-col-50 no-border right mb_15">
-                                <p>Địa chỉ</p>
-                                <p class="cr_weight mt-10">Số 4, đường X, phường X, quận X</p>
-                            </div>
-                        </div>
-                        <div class="form-row left">
-                            <div class="form-col-50 no-border left mb_15">
-                                <p>Sản phẩm cung ứng</p>
-                                <p class="cr_weight mt-10">Sắt thép</p>
+                            <div class="form-row left">
+                                <div class="form-col-50 no-border left mb_15">
+                                    <p>Sản phẩm cung ứng</p>
+                                    <p class="cr_weight mt-10"><?= $list_ncc['sp_cung_ung'] ?></p>
+                                </div>
                             </div>
                         </div>
                         <div class="form-row left">
@@ -109,14 +136,8 @@ $date = date('m-d-Y', time())
                         <div class="form-row left">
                             <div class="form-col-100 no-border left mb_15">
                                 <label>Đánh giá khác</label>
-                                <textarea name="danh_gia_khac"
-                                       placeholder="Nhập đánh giá khác"></textarea>
+                                <textarea name="danh_gia_khac" placeholder="Nhập đánh giá khác"><?= $list_dg['danh_gia_khac'] ?></textarea>
                             </div>
-                            <!--                        <div class="form-col-100 left mb_15">-->
-                            <!--                            <label>Ghi chú</label>-->
-                            <!--                            <textarea type="text" name="danh_gia_khac"-->
-                            <!--                                      placeholder="Nhập ghi chú"></textarea>-->
-                            <!--                        </div>-->
                         </div>
                     </div>
                     <div class="mt-50 left w-100">
@@ -129,15 +150,16 @@ $date = date('m-d-Y', time())
                                         <thead>
                                         <tr>
                                             <th class="w-5" rowspan="2"></th>
-                                            <th class="w-5" rowspan="2">STT</th>
+                                            <th class="w-10" rowspan="2">STT</th>
                                             <th class="w-20" rowspan="2">Tiêu chí đánh giá</th>
                                             <th class="w-10" rowspan="2">Hệ số</th>
+                                            <th class="w-10" rowspan="2">Thang điểm</th>
                                             <th colspan="3" scope="colgroup" class="border-bottom-w">Đánh giá</th>
                                         </tr>
                                         <tr class="border-top-w">
-                                            <th class="w-20" scope="colgroup">Điểm đánh giá</th>
-                                            <th class="w-20" scope="colgroup">Điểm</th>
-                                            <th class="w-20" scope="colgroup">Đánh giá chi tiết</th>
+                                            <th class="w-15" scope="colgroup">Điểm đánh giá</th>
+                                            <th class="w-15" scope="colgroup">Điểm</th>
+                                            <th class="w-15" scope="colgroup">Đánh giá chi tiết</th>
                                         </tr>
                                         </thead>
                                     </table>
@@ -149,7 +171,7 @@ $date = date('m-d-Y', time())
                                             <td class="w-5"><p class="removeItem"><i class="ic-delete remove-btn"></i>
                                                 </p>
                                             </td>
-                                            <td class="w-5">
+                                            <td class="w-10">
                                                 <p>1</p>
                                             </td>
                                             <td class="w-20">
@@ -158,15 +180,18 @@ $date = date('m-d-Y', time())
                                                 </div>
                                             </td>
                                             <td class="w-10">
-                                                <p>1</p>
+                                                <p>x1</p>
                                             </td>
-                                            <td class="w-20">
+                                            <td class="w-10">
+                                                <p>10</p>
+                                            </td>
+                                            <td class="w-15">
                                                 <input type="text" name="diem_danh_gia">
                                             </td>
-                                            <td class="w-20">
+                                            <td class="w-15">
                                                 <p>1</p>
                                             </td>
-                                            <td class="w-20">
+                                            <td class="w-15">
                                                 <p>1</p>
                                             </td>
                                         </tr>

@@ -1,4 +1,5 @@
 <?php
+include("config.php");
 include("../includes/icon.php");
 $date = date('m-d-Y', time())
 ?>
@@ -92,7 +93,7 @@ $date = date('m-d-Y', time())
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
                                 <label>E-mail</label>
-                                <input type="text" name="e-mail" placeholder="Nhập E-mail">
+                                <input type="text" name="email" placeholder="Nhập E-mail">
                             </div>
                         </div>
                     </div>
@@ -113,20 +114,19 @@ $date = date('m-d-Y', time())
                                             <input type="text" name="ten_ngan_hang" placeholder="Nhập tên ngân hàng">
                                         </div>
                                         <div class="form-col-50 right mb_15 v-select2">
-                                            <label for="chi-nhanh-ngan-hang">Chi nhánh<span
-                                                        class="text-red">&ast;</span></label>
-                                            <input type="text" name="chi_nhanh_ngan_hang" placeholder="Nhập tên chi nhánh ngân hàng">
+                                            <label for="chi-nhanh-ngan-hang">Chi nhánh
+                                                <span class="text-red">&ast;</span></label>
+                                            <input type="text" name="ten_chi_nhanh" placeholder="Nhập tên chi nhánh ngân hàng">
                                         </div>
                                     </div>
                                     <div class="form-row left">
                                         <div class="form-col-50 left mb_15">
                                             <label>Số tài khoản<span class="text-red">&ast;</span></label>
-                                            <input type="text" name="so_tai_khoan"
-                                                   placeholder="Nhập số tài khoản">
+                                            <input type="text" name="so_tk" placeholder="Nhập số tài khoản">
                                         </div>
                                         <div class="form-col-50 right mb_15">
                                             <label>Chủ tài khoản</label>
-                                            <input type="text" name="chu_tai_khoan" placeholder="Nhập tên chủ tài khoản">
+                                            <input type="text" name="chu_tk" placeholder="Nhập tên chủ tài khoản">
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@ $date = date('m-d-Y', time())
             </div>
         </div>
     </div>
-    <?php include "../modals/modal_logout.php" ?>
+    <? include "../modals/modal_logout.php" ?>
     <? include("../modals/modal_menu.php") ?>
 </div>
 </body>
@@ -183,9 +183,6 @@ $date = date('m-d-Y', time())
                 error.wrap('<span class="error">');
             },
             rules: {
-                ma_khach_hang: {
-                    required: true,
-                },
                 ten_khach_hang: {
                     required: true,
                 },
@@ -202,12 +199,8 @@ $date = date('m-d-Y', time())
                     required: true,
                     number:true,
                 }
-
             },
             messages: {
-                ma_khach_hang: {
-                    required: "Mã khách hàng không được để trống.",
-                },
                 ten_khach_hang: {
                     required: "Tên khách hàng không được để trống.",
                 },
@@ -227,7 +220,81 @@ $date = date('m-d-Y', time())
             }
         });
         if (form.valid() === true) {
-            alert("pass");
+            var ten_kh = $("input[name='ten_khach_hang']").val();
+            var ten_goi_tat = $("input[name='ten_goi_tat']").val();
+            var ten_giao_dich = $("input[name='ten_giao_dich']").val();
+            var ma_so_thue = $("input[name='ma_so_thue']").val();
+            var dia_chi_dkkd = $("input[name='dia_chi_dkkd']").val();
+            var so_dkkd = $("input[name='so_dkkd']").val();
+            var dia_chi_lh = $("input[name='dia_chi_lien-he']").val();
+            var fax = $("input[name='fax']").val();
+            var so_dien_thoai = $("input[name='dien_thoai']").val();
+            var website = $("input[name='website']").val();
+            var email = $("input[name='email']").val();
+            var ten_nh = $("input[name='ten_ngan_hang']").val();
+            var ten_ch_nh = $("input[name='ten_chi_nhanh']").val();
+            var so_tai_khoan = $("input[name='so_tk']").val();
+            var chu_tk = $("input[name='chu_tk']").val();
+
+            var ten_nh = document.getElementsByName('ten_ngan_hang');
+            var nh = "";
+            for(var i = 0; i < ten_nh.length; i++){
+                if(ten_nh[i] != ""){
+                    nh += ten_nh[i].value + '_';
+                }
+            };
+
+            var ten_ch_nh = document.getElementsByName('ten_chi_nhanh');
+            var ch = "";
+            for(var j = 0; j < ten_ch_nh.length; j++){
+                if(ten_ch_nh[j] != ""){
+                    ch += ten_ch_nh[j].value + '_';
+                }
+            };
+
+            var so_tai_khoan = document.getElementsByName('so_tk');
+            var stk = "";
+            for(var k = 0; k < so_tai_khoan.length; k++){
+                if(so_tai_khoan[k] != ""){
+                    stk += so_tai_khoan[k].value + '_';
+                }
+            };
+
+            var chu_tk = document.getElementsByName('chu_tk');
+            var ctk = "";
+            for(var l = 0; l < chu_tk.length; l++){
+                ctk += chu_tk[l].value + '_';
+            };
+
+            $.ajax({
+                url: '../ajax/them_kh.php',
+                type: 'POST',
+                data:{
+                    ten_kh: ten_kh,
+                    ten_goi_tat: ten_goi_tat,
+                    ten_giao_dich: ten_giao_dich,
+                    ma_so_thue: ma_so_thue,
+                    dia_chi_dkkd: dia_chi_dkkd,
+                    so_dkkd: so_dkkd,
+                    dia_chi_lh: dia_chi_lh,
+                    fax: fax,
+                    so_dien_thoai: so_dien_thoai,
+                    website: website,
+                    email: email,
+                    ten_nh: nh,
+                    ten_ch_nh: ch,
+                    so_tai_khoan: stk,
+                    chu_tk: ctk,
+                },
+                success: function(data){
+                    if(data == ""){
+                        alert("Bạn đã thêm khách hàng thành công");
+                        window.location.href= '/quan-ly-khach-hang.html';
+                    }else{
+                        alert(data);
+                    }
+                }
+            })
         }
     });
 </script>

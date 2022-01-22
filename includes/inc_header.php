@@ -53,7 +53,7 @@
                             <div class="bg_logout">
                                 <div class="chd_content">
                                     <p class="chuyen_doi">
-                                        <a href="quan-ly-tang-chu.html">Quản lý cung ứng</a>
+                                        <a href="quan-ly-trang-chu.html">Quản lý cung ứng</a>
                                     </p>
                                     <p class="dang_xuat btx_logout share_cursor">
                                         <a>Đăng xuất</a>

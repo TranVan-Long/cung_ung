@@ -1,8 +1,10 @@
 <?
-    $ver = 1;
+    include("config_2.php");
+    $list_ch = new db_query("SELECT * FROM cau_hoi WHERE active = 1 LIMIT 10");
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -339,8 +341,7 @@
                                         <div class="dat_choi_ndung share_bgr_tow w_100 float_l">
                                             <h4 class="tde_dat_cauh w_100 float_l share_clr_four share_fsize_four">Đặt
                                                 câu hỏi với Quản lý cung ứng xây dựng 365</h4>
-                                            <form action="" method=""
-                                                class="form_dat_cauh share_distance w_100 float_l">
+                                            <form class="form_dat_cauh share_distance w_100 float_l">
                                                 <div class="form-group">
                                                     <label>Họ tên</label>
                                                     <input type="text" name="name_nd" class="form-control"
@@ -359,7 +360,7 @@
                                                 <div class="form-group group_o d_flex fl_nwrap fl_agi">
                                                     <div class="nhap_ma float_l">
                                                         <label>Nhập mã Captcha <span class="cr_red">*</span></label>
-                                                        <input type="text" name="name_nd" class="form-control"
+                                                        <input type="text" name="ma_capcha" class="form-control"
                                                             placeholder="Nhập mã">
                                                     </div>
                                                     <div class="ma_captcha float_l d_flex">
@@ -374,149 +375,64 @@
                                                     </div>
                                                 </div>
                                                 <div class="form_submit">
-                                                    <button type="submit"
-                                                        class="w_100 float_l share_cursor share_clr_tow share_bgr_one share_fsize_four">Gửi</button>
+                                                    <button type="button"
+                                                        class="w_100 float_l share_cursor share_clr_tow share_bgr_one share_fsize_four luu_cau_hoi">Gửi</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                     <div class="list_cauh float_l">
                                         <div class="ctiet_cauh w_100 float_l">
-                                            <div class="choi_chit w_100 float_l share_bgr_tow">
-                                                <div class="nguoid_hoi w_100 float_l">
-                                                    <div class="ttin_ctiet_nguoid  w_100 float_l d_flex fl_agi">
-                                                        <p class="anh_dd"><img src="../img/avt4.png" alt="ảnh đại diện">
-                                                        </p>
-                                                        <div class="ten_ndung">
-                                                            <p class="share_fsize_tow cr_weight share_clr_one">Người
-                                                                dùng ẩn danh</p>
-                                                            <p class="share_fsize_tow share_clr_one">8:00 AM,
-                                                                10//10/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="cauh_ndung w_100 float_l">
-                                                        <p class="share_fsize_tow cr_weight share_clr_four">Vì sao khi
-                                                            điểm danh, vị trí nhiều điện thoại định vị vị trí sai hoặc
-                                                            quá xa
-                                                            địa chỉ công ty?</p>
-                                                    </div>
-                                                </div>
-                                                <div class="cty_tloi float_l">
-                                                    <div class="cty_tloi_ct">
-                                                        <div class="ttin_ctiet_nguoid d_flex fl_agi w_100 float_l">
-                                                            <p class="anh_dd"><img src="../img/avt4.png"
-                                                                    alt="ảnh đại diện"></p>
+                                            <? while($item = mysql_fetch_assoc($list_ch->result)) { ?>
+                                                <div class="choi_chit w_100 float_l share_bgr_tow">
+                                                    <div class="nguoid_hoi w_100 float_l">
+                                                        <div class="ttin_ctiet_nguoid  w_100 float_l d_flex fl_agi">
+                                                            <p class="anh_dd"><img src="../img/avt4.png" alt="ảnh đại diện">
+                                                            </p>
                                                             <div class="ten_ndung">
-                                                                <p class="share_fsize_tow cr_weight share_clr_one">
-                                                                    Chuyển đổi số 365</p>
-                                                                <p class="share_fsize_tow share_clr_one">8:00 AM,
-                                                                    10//10/2021</p>
+                                                                <? if($item['name'] == "") {?>
+                                                                    <p class="share_fsize_tow cr_weight share_clr_one">Người dùng ẩn danh</p>
+                                                                <?}else{?>
+                                                                    <p class="share_fsize_tow cr_weight share_clr_one"><?= $item['name'] ?></p>
+                                                                <?}?>
+                                                                <? $date = $item['time'] ?>
+                                                                <p class="share_fsize_tow share_clr_one">
+                                                                    <?= date('H:i', $item['time']); ?>,
+                                                                   <?= date('d/m/Y', $item['time']); ?>
+                                                                </p>
                                                             </div>
                                                         </div>
                                                         <div class="cauh_ndung w_100 float_l">
-                                                            <p class="tro_loi_r share_clr_one">Thứ nhất, Có thể khi đó
-                                                                điện thoại của bạn đang bật chế độ tiết kiệm pin.
-                                                                Trên app chấm công 365 cùng nhiều ứng dụng hoạt động
-                                                                trên điện thoại,
-                                                                để kéo dài thời lượng pin, điện thoại của bạn sẽ chặn
-                                                                không cho
-                                                                các ứng dụng của bạn sử dụng vị trí hoặc dữ liệu.</p>
+                                                            <p class="share_fsize_tow cr_weight share_clr_four"><?= $item['question'] ?></p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="xem_them share_fsize_one share_clr_four tex_right share_cursor">Xem thêm</div>
-                                                <div class="an_bot share_dnone share_fsize_one share_clr_four tex_right share_cursor">Ẩn bớt</div>
-                                            </div>
-                                            <div class="choi_chit w_100 float_l share_bgr_tow">
-                                                <div class="nguoid_hoi w_100 float_l">
-                                                    <div class="ttin_ctiet_nguoid  w_100 float_l d_flex fl_agi">
-                                                        <p class="anh_dd"><img src="../img/avt4.png" alt="ảnh đại diện">
-                                                        </p>
-                                                        <div class="ten_ndung">
-                                                            <p class="share_fsize_tow cr_weight share_clr_one">Người
-                                                                dùng ẩn danh</p>
-                                                            <p class="share_fsize_tow share_clr_one">8:00 AM,
-                                                                10//10/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="cauh_ndung w_100 float_l">
-                                                        <p class="share_fsize_tow cr_weight share_clr_four">Vì sao khi
-                                                            điểm danh, vị trí nhiều điện thoại định vị vị trí sai hoặc
-                                                            quá xa
-                                                            địa chỉ công ty?</p>
-                                                    </div>
-                                                </div>
-                                                <div class="cty_tloi float_l">
-                                                    <div class="cty_tloi_ct">
-                                                        <div class="ttin_ctiet_nguoid d_flex fl_agi w_100 float_l">
-                                                            <p class="anh_dd"><img src="../img/avt4.png"
-                                                                    alt="ảnh đại diện"></p>
-                                                            <div class="ten_ndung">
-                                                                <p class="share_fsize_tow cr_weight share_clr_one">
-                                                                    Chuyển đổi số 365</p>
-                                                                <p class="share_fsize_tow share_clr_one">8:00 AM,
-                                                                    10//10/2021</p>
+                                                    <div class="cty_tloi float_l">
+                                                        <div class="cty_tloi_ct">
+                                                            <div class="ttin_ctiet_nguoid d_flex fl_agi w_100 float_l">
+                                                                <p class="anh_dd"><img src="../img/avt4.png"
+                                                                        alt="ảnh đại diện"></p>
+                                                                <div class="ten_ndung">
+                                                                    <p class="share_fsize_tow cr_weight share_clr_one">
+                                                                        Chuyển đổi số 365</p>
+                                                                    <p class="share_fsize_tow share_clr_one">8:00 AM,
+                                                                        10//10/2021</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="cauh_ndung w_100 float_l">
+                                                                <p class="tro_loi_r share_clr_one">Thứ nhất, Có thể khi đó
+                                                                    điện thoại của bạn đang bật chế độ tiết kiệm pin.
+                                                                    Trên app chấm công 365 cùng nhiều ứng dụng hoạt động
+                                                                    trên điện thoại,
+                                                                    để kéo dài thời lượng pin, điện thoại của bạn sẽ chặn
+                                                                    không cho
+                                                                    các ứng dụng của bạn sử dụng vị trí hoặc dữ liệu.</p>
                                                             </div>
                                                         </div>
-                                                        <div class="cauh_ndung w_100 float_l">
-                                                            <p class="tro_loi_r share_clr_one">Thứ nhất, Có thể khi đó
-                                                                điện thoại của bạn đang bật chế độ tiết kiệm pin.
-                                                                Trên app chấm công 365 cùng nhiều ứng dụng hoạt động
-                                                                trên điện thoại,
-                                                                để kéo dài thời lượng pin, điện thoại của bạn sẽ chặn
-                                                                không cho
-                                                                các ứng dụng của bạn sử dụng vị trí hoặc dữ liệu.</p>
-                                                        </div>
                                                     </div>
+                                                    <div class="xem_them share_fsize_one share_clr_four tex_right share_cursor">Xem thêm</div>
+                                                    <div class="an_bot share_dnone share_fsize_one share_clr_four tex_right share_cursor">Ẩn bớt</div>
                                                 </div>
-                                                <div class="xem_them share_fsize_one share_clr_four tex_right share_cursor">Xem thêm</div>
-                                                <div class="an_bot share_dnone share_fsize_one share_clr_four tex_right share_cursor">Ẩn bớt</div>
-                                            </div>
-                                            <div class="choi_chit w_100 float_l share_bgr_tow">
-                                                <div class="nguoid_hoi w_100 float_l">
-                                                    <div class="ttin_ctiet_nguoid  w_100 float_l d_flex fl_agi">
-                                                        <p class="anh_dd"><img src="../img/avt4.png" alt="ảnh đại diện">
-                                                        </p>
-                                                        <div class="ten_ndung">
-                                                            <p class="share_fsize_tow cr_weight share_clr_one">Người
-                                                                dùng ẩn danh</p>
-                                                            <p class="share_fsize_tow share_clr_one">8:00 AM,
-                                                                10//10/2021</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="cauh_ndung w_100 float_l">
-                                                        <p class="share_fsize_tow cr_weight share_clr_four">Vì sao khi
-                                                            điểm danh, vị trí nhiều điện thoại định vị vị trí sai hoặc
-                                                            quá xa
-                                                            địa chỉ công ty?</p>
-                                                    </div>
-                                                </div>
-                                                <div class="cty_tloi float_l">
-                                                    <div class="cty_tloi_ct">
-                                                        <div class="ttin_ctiet_nguoid d_flex fl_agi w_100 float_l">
-                                                            <p class="anh_dd"><img src="../img/avt4.png"
-                                                                    alt="ảnh đại diện"></p>
-                                                            <div class="ten_ndung">
-                                                                <p class="share_fsize_tow cr_weight share_clr_one">
-                                                                    Chuyển đổi số 365</p>
-                                                                <p class="share_fsize_tow share_clr_one">8:00 AM,
-                                                                    10//10/2021</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="cauh_ndung w_100 float_l">
-                                                            <p class="tro_loi_r share_clr_one">Thứ nhất, Có thể khi đó
-                                                                điện thoại của bạn đang bật chế độ tiết kiệm pin.
-                                                                Trên app chấm công 365 cùng nhiều ứng dụng hoạt động
-                                                                trên điện thoại,
-                                                                để kéo dài thời lượng pin, điện thoại của bạn sẽ chặn
-                                                                không cho
-                                                                các ứng dụng của bạn sử dụng vị trí hoặc dữ liệu.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="xem_them share_fsize_one share_clr_four tex_right share_cursor">Xem thêm</div>
-                                                <div class="an_bot share_dnone share_fsize_one share_clr_four tex_right share_cursor">Ẩn bớt</div>
-                                            </div>
+                                            <?}?>
                                         </div>
                                     </div>
                                 </div>
@@ -613,6 +529,7 @@
     <? include("../modals/modal_menu_tt.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/slick.min.js"></script>
 <script type="text/javascript">
 
@@ -669,9 +586,8 @@
     $(".img-rest").click(function() {
         $(".ramdum").html(ramdumso(6));
         $('#code_input').val($(".ramdum").html());
-    })
-</script>
-<script type="text/javascript">
+    });
+
     var btx_modal_ind = $(".btx_modal_ind");
     var menu_tt = $(".menu_tt");
 
@@ -706,10 +622,6 @@
         $(this).parents(".choi_chit").find(".xem_them").removeClass("share_dnone");
     });
 
-    // $(".tro_loi_r").click(function(){
-    //     $(this).toggleClass("active");
-    // });
-
     var avt_nv_dn = $(".avt_nv_dn");
     var ten_nv_dn = $(".ten_nv_dn");
     var bg_logout = $(".bg_logout");
@@ -724,6 +636,65 @@
         }
     });
 
+    $(".luu_cau_hoi").click(function(){
+        var form_add = $(".form_dat_cauh");
+        form_add.validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parents(".form-group"));
+                error.appendTo(element.parents(".nhap_ma"));
+                error.wrap("<span class='error'>");
+            },
+            rules:{
+                cau_hoi:{
+                    required: true,
+                },
+                so_dient:{
+                    number: true,
+                },
+                ma_capcha:{
+                    required: true,
+                    equalTo: '#code_input',
+                }
+            },
+            messages:{
+                cau_hoi:{
+                    required: "Câu hỏi không được để trống",
+                },
+                so_dient:{
+                    number: "Nhập số điện thoại",
+                },
+                ma_capcha:{
+                    required: "Mã capcha không được để trống",
+                    equalTo: "Mã capcha nhập không đúng",
+                }
+            }
+        });
+        if(form_add.valid() === true){
+            var ho_ten = $("input[name='name_nd']").val();
+            var so_dt = $("input[name='so_dient']").val();
+            var cau_hoi = $("textarea[name='cau_hoi']").val();
+
+            $.ajax({
+                url: '../ajax/cau_hoi.php',
+                type: 'POST',
+                data:{
+                    ho_ten: ho_ten,
+                    so_dt: so_dt,
+                    cau_hoi: cau_hoi,
+                },
+                success: function(data){
+                    if(data == ""){
+                        alert("Bạn đã tạo câu hỏi thành công");
+                        window.location.reload();
+                    }else{
+                        alert(data);
+                        window.location.reload();
+                    }
+
+                }
+            })
+        }
+    })
 
 </script>
 

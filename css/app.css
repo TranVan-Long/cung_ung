@@ -114,6 +114,9 @@ input[disabled], input[readonly] {
     background-color: #EDEDED;
     cursor: not-allowed;
 }
+input.error{
+    border-color:red;
+}
 
 textarea {
     width: 100%;
@@ -709,7 +712,7 @@ textarea[placeholder] {
     content: url("/img/remove.png");
 }
 
-.ic-delete2 {
+.ic-delete2, .xoa_tk_nh {
     cursor: pointer;
     content: url("/img/remove-2.png");
 }
@@ -719,7 +722,7 @@ textarea[placeholder] {
     background: none;
 }
 
-.removeItem2, .removeItem3 {
+.removeItem2, .removeItem3, .xoa_tk_nh {
     position: absolute;
     right: 0;
 }
@@ -1402,10 +1405,6 @@ select#display {
     cursor: pointer;
     padding: 0 9px;
     color: #474747;
-}
-
-.manual-value {
-    display: none;
 }
 
 #gia-vat-tu-ngay {

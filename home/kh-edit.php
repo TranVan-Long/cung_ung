@@ -1,9 +1,20 @@
 <?php
+include("config.php");
 include("../includes/icon.php");
-$date = date('m-d-Y', time())
+$date = strtotime(date('Y-m-d H:i', time()));
+
+if(isset($_GET['id']) && $_GET['id'] !=""){
+    $id = $_GET['id'];
+    $list_kh = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `ma_so_thue`, `ten_giao_dich`, `dia_chi_dkkd`, `so_dkkd`, `dia_chi_lh`,
+                        `fax`, `so_dien_thoai`, `website`, `email`, `phan_loai` FROM `nha_cc_kh` WHERE `id` = '$id' AND `phan_loai` = 2 ");
+    $row = mysql_fetch_assoc($list_kh -> result);
+
+    $list_nh = new db_query("SELECT * FROM `tai_khoan` WHERE `id_nha_cc_kh` = '$id' ");
+}
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,69 +51,69 @@ $date = date('m-d-Y', time())
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
                                 <label>Mã khách hàng<span class="text-red">&ast;</span></label>
-                                <input type="text" name="ma_khach_hang" value="KH-000-88876"
+                                <input type="text" name="ma_khach_hang" value="KH - <?= $row['id'] ?>"
                                        readonly>
                             </div>
                             <div class="form-col-50 no-border right mb_15">
                                 <label>Mã số thuế</label>
                                 <input type="text" name="ma_so_thue" placeholder="Nhập mã số thuế"
-                                       value="0986555777821">
+                                       value="<?= $row['ma_so_thue'] ?>">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
                                 <label>Tên khách hàng<span class="text-red">&ast;</span></label>
                                 <input type="text" name="ten_khach_hang"
-                                       placeholder="Nhập tên khách hàng" value="Công ty X">
+                                       placeholder="Nhập tên khách hàng" value="<?= $row['ten_nha_cc_kh'] ?>">
                             </div>
                             <div class="form-col-50 no-border right mb_15">
                                 <label>Tên giao dịch<span class="text-red">&ast;</span></label>
                                 <input type="text" name="ten_giao_dich"
-                                       placeholder="Nhập tên giao dịch" value="CTX001">
+                                       placeholder="Nhập tên giao dịch" value="<?= $row['ten_giao_dich'] ?>">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
                                 <label>Tên gọi tắt</label>
-                                <input type="text" name="ten_goi_tat" placeholder="Nhập tên gọi tắt" value="X">
+                                <input type="text" name="ten_goi_tat" placeholder="Nhập tên gọi tắt" value="<?= $row['ten_vt'] ?>">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
                                 <label>Địa chỉ ĐKKD</label>
                                 <input type="text" name="dia_chi_dkkd"
-                                       placeholder="Nhập địa chỉ ĐKKD" value="Số 22, đường X, phường X, quận X">
+                                       placeholder="Nhập địa chỉ ĐKKD" value="<?= $row['dia_chi_dkkd'] ?>">
                             </div>
                             <div class="form-col-50 no-border right mb_15">
                                 <label>Số ĐKKD</label>
-                                <input type="text" name="so_dkkd" placeholder="Nhập số ĐKKD" value="KD-0987654472103">
+                                <input type="text" name="so_dkkd" placeholder="Nhập số ĐKKD" value="<?= $row['so_dkkd'] ?>">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
                                 <label>Địa chỉ liên hệ</label>
                                 <input type="text" name="dia_chi_lien_he"
-                                       placeholder="Nhập địa chỉ liên hệ" value="Số 22, đường X, phường X, quận X">
+                                       placeholder="Nhập địa chỉ liên hệ" value="<?= $row['dia_chi_lh'] ?>">
                             </div>
                             <div class="form-col-50 no-border right mb_15">
                                 <label>Fax</label>
-                                <input type="text" name="fax" placeholder="Nhập Fax" value="0223756524">
+                                <input type="text" name="fax" placeholder="Nhập Fax" value="<?= $row['fax'] ?>">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
                                 <label>Điện thoại</label>
-                                <input type="text" name="dien_thoai" placeholder="Nhập điện thoại" value="0223756524">
+                                <input type="text" name="dien_thoai" placeholder="Nhập điện thoại" value="<?= $row['so_dien_thoai'] ?>">
                             </div>
                             <div class="form-col-50 no-border right mb_15">
                                 <label>Website</label>
-                                <input type="text" name="website" placeholder="Nhập Website" value="congtyx.com.vn">
+                                <input type="text" name="website" placeholder="Nhập Website" value="<?= $row['website'] ?>">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
                                 <label>E-mail</label>
-                                <input type="text" name="e_mail" placeholder="Nhập E-mail" value="ctx0000000@gmail.com">
+                                <input type="text" name="email" placeholder="Nhập E-mail" value="<?= $row['email'] ?>">
                             </div>
                         </div>
                     </div>
@@ -114,18 +125,20 @@ $date = date('m-d-Y', time())
                                 hàng</p>
                         </div>
                         <div id="bank-list">
+                            <? while($item = mysql_fetch_assoc($list_nh -> result)) {?>
                             <div class="bank border-bottom left w-100 pb-10 d-flex spc-btw">
                                 <div class="bank-form">
+                                    <input type="hidden" name="id_tk" value="<?= $item['id'] ?>">
                                     <div class="form-row left">
                                         <div class="form-col-50 left mb_15">
                                             <label for="ten-ngan-hang">Tên ngân hàng<span
                                                         class="text-red">&ast;</span></label>
-                                            <input type="text" name="ten_ngan_hang" placeholder="Nhập tên ngân hàng">
+                                            <input type="text" name="ten_nh" placeholder="Nhập tên ngân hàng" value="<?= $item['ten_ngan_hang'] ?>">
                                         </div>
                                         <div class="form-col-50 right mb_15">
                                             <label for="chi-nhanh-ngan-hang">Chi nhánh<span
                                                         class="text-red">&ast;</span></label>
-                                            <inout type="text" name="chi_nhanh_ngan_hang" placeholder="Nhập tên chi nhánh ngân hàng">
+                                            <input type="text" name="chi_nhanh_nh" placeholder="Nhập tên chi nhánh ngân hàng" value="<?= $item['ten_chi_nhanh'] ?>">
                                         </div>
                                     </div>
                                     <div class="form-row left">
@@ -133,26 +146,27 @@ $date = date('m-d-Y', time())
                                             <label>Số tài khoản<span
                                                         class="text-red">&ast;</span></label>
                                             <input type="text" name="so_tai_khoan"
-                                                   placeholder="Nhập số tài khoản" value="090909090909090">
+                                                   placeholder="Nhập số tài khoản" value="<?= $item['so_tk'] ?>">
                                         </div>
                                         <div class="form-col-50 right mb_15">
                                             <label>Chủ tài khoản</label>
                                             <input type="text" name="chu_tai_khoan"
-                                                   placeholder="Nhập tên chủ tài khoản" value="Nguyễn Văn A">
+                                                   placeholder="Nhập tên chủ tài khoản" value="<?= $item['chu_tk'] ?>">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="removeItem2">
+                                <div class="xoa_tk_nh" data-id="<?= $item['id'] ?>">
                                     <i class="ic-delete2"></i>
                                 </div>
                             </div>
+                            <?}?>
                         </div>
                     </div>
                 </div>
                 <div class="w-100 left">
                     <div class="control-btn right">
                         <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
-                        <button type="button" class="v-btn btn-blue mt-20 submit-btn">Xong</button>
+                        <button type="button" class="v-btn btn-blue mt-20 submit-btn" data-id="<?= $row['id'] ?>">Xong</button>
                     </div>
                 </div>
             </form>
@@ -178,7 +192,7 @@ $date = date('m-d-Y', time())
             </div>
         </div>
     </div>
-    <?php include "../modals/modal_logout.php" ?>
+    <? include("../modals/modal_logout.php") ?>
     <? include("../modals/modal_menu.php") ?>
 </div>
 </body>
@@ -240,8 +254,150 @@ $date = date('m-d-Y', time())
             }
         });
         if (form.valid() === true) {
-            alert("pass");
+            var id = $(this).attr("data-id");
+            var ten_kh = $("input[name='ten_khach_hang']").val();
+            var ma_so_thue = $("input[name='ma_so_thue']").val();
+            var ten_giao_dich = $("input[name='ten_giao_dich']").val();
+            var ten_vt = $("input[name='ten_goi_tat']").val();
+            var dia_chi_dkkd = $("input[name='dia_chi_dkkd']").val();
+            var so_dkkd = $("input[name='so_skkd']").val();
+            var dia_chi_lh = $("input[name='dia_chi_lien_he']").val();
+            var fax = $("input[name='fax']").val();
+            var so_dien_thoai = $("input[name='dien_thoai']").val();
+            var website = $("input[name='website']").val();
+            var email = $("input[name='email']").val();
+            var date = "<?= $date ?>";
+
+            var id_tk = document.getElementsByName('id_tk');
+            var itk = "";
+            for(var t = 0; t < id_tk.length; t++){
+                if(id_tk[t] != ""){
+                    itk += id_tk[t].value + '_';
+                }
+            };
+
+            var ten_nh = document.getElementsByName('ten_nh');
+            var nh = "";
+            for(var i = 0; i < ten_nh.length; i++){
+                if(ten_nh[i] != ""){
+                    nh += ten_nh[i].value + '_';
+                }
+            };
+
+            var ten_ch_nh = document.getElementsByName('chi_nhanh_nh');
+            var ch = "";
+            for(var j = 0; j < ten_ch_nh.length; j++){
+                if(ten_ch_nh[j] != ""){
+                    ch += ten_ch_nh[j].value + '_';
+                }
+            };
+
+            var so_tai_khoan = document.getElementsByName('so_tai_khoan');
+            var stk = "";
+            for(var k = 0; k < so_tai_khoan.length; k++){
+                if(so_tai_khoan[k] != ""){
+                    stk += so_tai_khoan[k].value + '_';
+                }
+            };
+
+            var chu_tk = document.getElementsByName('chu_tai_khoan');
+            var ctk = "";
+            for(var l = 0; l < chu_tk.length; l++){
+                ctk += chu_tk[l].value + '_';
+            };
+
+            // them ngan hang
+            var ten_ngan_hang = document.getElementsByName('ten_ngan_hang');
+            var ngan_hang = "";
+            for(var b = 0; b < ten_ngan_hang.length; b++){
+                if(ten_ngan_hang[b] != ""){
+                    ngan_hang += ten_ngan_hang[b].value + '_';
+                }
+            };
+
+            var ten_ch = document.getElementsByName('ten_chi_nhanh');
+            var ch_nh = "";
+            for(var c = 0; c < ten_ch.length; c++){
+                if(ten_ch[c] != ""){
+                    ch_nh += ten_ch[c].value + '_';
+                }
+            };
+
+            var so_tk = document.getElementsByName('so_tk');
+            var tk = "";
+            for(var d = 0; d < so_tk.length; d++){
+                if(so_tk[d] != ""){
+                    tk += so_tk[d].value + '_';
+                }
+            };
+
+            var chu_tai_khoan = document.getElementsByName('chu_tk');
+            var chu_tk = "";
+            for(var r = 0; r < chu_tai_khoan.length; r++){
+                chu_tk += chu_tai_khoan[r].value + '_';
+            };
+
+            $.ajax({
+                url: '../ajax/sua_tt_kh.php',
+                data:{
+                    id: id,
+                    ten_kh: ten_kh,
+                    ma_so_thue: ma_so_thue,
+                    ten_giao_dich: ten_giao_dich,
+                    ten_vt: ten_vt,
+                    dia_chi_dkkd: dia_chi_dkkd,
+                    so_dkkd: so_dkkd,
+                    dia_chi_lh: dia_chi_lh,
+                    fax: fax,
+                    so_dien_thoai: so_dien_thoai,
+                    website: website,
+                    email: email,
+                    date: date,
+
+                    id_tk: itk,
+                    ten_nh: nh,
+                    chi_nhanh: ch,
+                    so_tk: stk,
+                    chu_tk: ctk,
+
+                    ten_nh_moi: ngan_hang,
+                    ten_ch_moi: ch_nh,
+                    so_tk_moi: tk,
+                    chu_tk_moi: chu_tk,
+
+                },
+                type: 'POST',
+
+                success: function(data){
+                    if(data == ""){
+                        alert("Cập nhật thông tin khách hàng thành công");
+                        window.location.href = '/quan-ly-khach-hang.html';
+                    }else{
+                        alert(data);
+                    }
+                }
+            });
         }
+    });
+
+    $(".xoa_tk_nh").click(function(){
+        var id = $(this).attr("data-id");
+
+        $.ajax({
+            url: '../ajax/xoa_tk_nh.php',
+            type: 'POST',
+            data:{
+                id: id,
+            },
+            success: function(data){
+                if(data == ""){
+                    alert("Bạn đã xóa ngân hàng thành công");
+                    window.location.reload();
+                }else{
+                    alert(data);
+                }
+            }
+        });
     });
 </script>
 </html>
