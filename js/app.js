@@ -19,10 +19,11 @@ $('.modal-btn').click(function () {
     var id = $(this).attr("data-target");
     $('#' + id).fadeIn();
 });
-$('.remove-item').click(function () {
-    var id = $(this).attr("data-target");
-    $('#' + id).fadeIn();
-});
+
+// $('.remove-item').click(function () {
+//     var id = $(this).attr("data-target");
+//     $('#' + id).fadeIn();
+// });
 
 $('.cancel').click(function () {
     $('.modal').fadeOut();
@@ -37,26 +38,27 @@ $(window).click(function (e) {
 
 
 // them vat tu
-$("#add-material").click(function () {
-    var html = `<tr class="item">
-                    <td class="w-10">
-                        <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                    </td>
-                    <td class="w-25">
-                        <div class="v-select2">
-                            <select name="materials_name" class="share_select"></select>
-                        </div>
-                    </td>
-                    <td class="w-20">
-                        <input type="text" readonly disabled>
-                    </td>
-                    <td class="w-25">
-                        <input type="text">
-                    </td>
-                </tr>`;
-    $("#materials").append(html);
-    RefSelect2();
-});
+// $("#add-material").click(function () {
+//     var html = `<tr class="item">
+//                     <td class="w-10">
+//                         <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+//                     </td>
+//                     <td class="w-25">
+//                         <div class="v-select2">
+//                             <select name="materials_name" class="share_select"></select>
+//                         </div>
+//                     </td>
+//                     <td class="w-20">
+//                         <input type="text" readonly disabled>
+//                     </td>
+//                     <td class="w-25">
+//                         <input type="text">
+//                     </td>
+//                 </tr>`;
+//     $("#materials").append(html);
+//     RefSelect2();
+// });
+
 // them tai khoan ngan hang
 $('#add-bank-acc').click(function () {
     var html = `<div class="bank border-bottom left w-100 pb-10 d-flex spc-btw">
@@ -90,7 +92,8 @@ $('#add-bank-acc').click(function () {
                 </div>`;
     $('#bank-list').append(html);
     RefSelect2();
-})
+});
+
 // them nguoi lien he
 $("#add-references").click(function () {
     var html = `<tr id="item">
@@ -113,35 +116,48 @@ $("#add-references").click(function () {
     $("#rererences").append(html);
     RefSelect2();
 });
+
 // them tieu chi danh gia
-$("#add-ratting-ruler").click(function () {
-    var html = `<tr class="item">
-                    <td class="w-5"><p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                    </td>
-                    <td class="w-5">
-                        <p>1</p>
-                    </td>
-                    <td class="w-20">
-                        <div class="v-select2">
-                            <select name="chi-nhanh-ngan-hang" class="share_select"></select>
-                        </div>
-                    </td>
-                    <td class="w-10">
-                        <p>&nbsp;</p>
-                    </td>
-                    <td class="w-20">
-                        <input type="text">
-                    </td>
-                    <td class="w-20">
-                        <p>&nbsp;</p>
-                    </td>
-                    <td class="w-20">
-                        <p>&nbsp;</p>
-                    </td>
-                </tr>`;
-    $("#ratting-ruler").append(html);
-    RefSelect2();
-});
+// $("#add-ratting-ruler").click(function () {
+//     var x = 1;
+//     $('.one_stt').each(function () {
+//         $(this).text(x);
+//         x++;
+//     });
+//     var html = `<tr class="item" data="">
+//                     <td class="w-5"><p class="removeItem"><i class="ic-delete remove-btn"></i>
+//                         </p>
+//                     </td>
+//                     <td class="w-10">
+//                         <p class="one_stt">`+ x +`</p>
+//                     </td>
+//                     <td class="w-20">
+//                         <div class="v-select2">
+//                             <select name="ten_tchi_dg" class="share_select ten_tieuchi">
+//                                 <option value="">Chọn tiêu chí đánh giá</option>
+//                             </select>
+//                         </div>
+//                     </td>
+//                     <td class="w-10">
+//                         <p></p>
+//                     </td>
+//                     <td class="w-10">
+//                         <p></p>
+//                     </td>
+//                     <td class="w-15">
+//                         <input type="text" name="diem_danh_gia">
+//                     </td>
+//                     <td class="w-15">
+//                         <p></p>
+//                     </td>
+//                     <td class="w-15">
+//                         <input type="text" name="dg_ctiet">
+//                     </td>
+//                 </tr>`;
+//     $("#ratting-ruler").append(html);
+//     RefSelect2();
+// });
+
 // them gia tri tieu chi danh gia
 $('#add-rules-value').click(function () {
     var html = `<div class="value border-bottom left w-100 pb-20 mt-10 d-flex spc-btw">
@@ -168,33 +184,35 @@ $('#add-rules-value').click(function () {
     $('#rules-value').append(html);
     RefSelect2();
 });
-// them yeu cau thanh toan
-$('#add-quote').click(function () {
-    var html = `<tr class="item">
-                    <td class="w-5">
-                        <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                    </td>
-                    <td class="w-15">
-                        <div class="v-select2">
-                            <select name="ten_day_du"></select>
-                        </div>
-                    </td>
-                    <td class="w-15">
-                        <div class="v-select2">
-                            <select name="hang_san_xuat"></select>
-                        </div>
-                    </td>
-                    <td class="w-10">
-                        <input type="text" name="don_vi_tinh" disabled>
-                    </td>
-                    <td class="w-15">
-                        <input type="text" name="so_luong">
-                    </td>
-                </tr>`;
 
-    $('#quote-me').append(html);
-    RefSelect2();
-});
+// them yeu cau thanh toan
+// $('#add-quote').click(function () {
+//     var html = `<tr class="item">
+//                     <td class="w-5">
+//                         <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+//                     </td>
+//                     <td class="w-15">
+//                         <div class="v-select2">
+//                             <select name="ten_day_du"></select>
+//                         </div>
+//                     </td>
+//                     <td class="w-15">
+//                         <div class="v-select2">
+//                             <select name="hang_san_xuat"></select>
+//                         </div>
+//                     </td>
+//                     <td class="w-10">
+//                         <input type="text" name="don_vi_tinh" disabled>
+//                     </td>
+//                     <td class="w-15">
+//                         <input type="text" name="so_luong">
+//                     </td>
+//                 </tr>`;
+
+//     $('#quote-me').append(html);
+//     RefSelect2();
+// });
+
 // them bao gia khach hang
 $("#them_vt_bg_kh").click(function () {
     var html = `<tr class="item">
@@ -238,6 +256,7 @@ $("#them_vt_bg_kh").click(function () {
     $("#rererences_kh").append(html);
     RefSelect2();
 });
+
 // them bao gia khach hang
 $("#add_bgia").click(function () {
     var html = `<tr class="item">
@@ -285,6 +304,11 @@ $("#add_bgia").click(function () {
 // xoa item
 $(document).on('click', '.removeItem', function () {
     $(this).parents('tr').remove();
+    var x = 1;
+    $('.one_stt').each(function () {
+        $(this).text(x);
+        x++;
+    });
     return false;
 });
 $(document).on('click', '.removeItem2', function () {
@@ -295,11 +319,11 @@ $(document).on('click', '.removeItem3', function () {
     $(this).parents('div.value').remove();
     return false;
 });
-$(document).on('click', '.confirm-delete', function () {
-    var target = $(this).attr('data-target')
-    $('#' + target).remove();
-    return false;
-});
+// $(document).on('click', '.confirm-delete', function () {
+//     var target = $(this).attr('data-target')
+//     $('#' + target).remove();
+//     return false;
+// });
 
 // resize table on windows resize
 $(window).on("load resize ", function () {
@@ -387,4 +411,3 @@ $('#value-type').on('change', function () {
         $('.gia_tri1').remove();
     }
 });
-

@@ -17,6 +17,7 @@ $thong_tin_khac     = $_POST['thong_tin_khac'];
 $phan_loai          = 1;
 
 $ten_ngan_hang      = $_POST['ten_ngan_hang'];
+
 $ten_chi_nhanh      = $_POST['ten_chi_nhanh'];
 $so_tk              = $_POST['so_tk'];
 $chu_tk             = $_POST['chu_tk'];
@@ -26,6 +27,8 @@ $ten_nguoi_lh       = $_POST['ten_nguoi_lh'];
 $chuc_vu            = $_POST['chuc_vu'];
 $so_dien_thoai_lh   = $_POST['so_dien_thoai_lh'];
 $email_lh           = $_POST['email_lh'];
+
+$ep_id              = $_POST['ep_id'];
 
 $ngay_tao = strtotime(date('Y-m-d H:i:s', time()));
 
@@ -46,9 +49,14 @@ if ($ten_nha_cc_kh != "" && $co1 > 0 && $co2 > 0) {
                             VALUES ('','$id_ncc ','$ten_ngan_hang[$j]','$ten_chi_nhanh[$j]','$so_tk[$j]','$chu_tk[$j]')");
     }
     for ($i = 0; $i < count($ten_nguoi_lh); $i++) {
-        $nguoi_lh = new db_query("INSERT INTO `nguoi_lien_he` (`id`, `id_nha_cc`, `ten_nguoi_lh`, `chuc_vu`, `so_dien_thoai`, `email`) 
+        $nguoi_lh = new db_query("INSERT INTO `nguoi_lien_he` (`id`, `id_nha_cc`, `ten_nguoi_lh`, `chuc_vu`, `so_dien_thoai`, `email`)
                                 VALUES ('', '$id_ncc ', '$ten_nguoi_lh[$i]', '$chuc_vu[$i]', '$so_dien_thoai_lh[$i]', '$email_lh[$i]')");
     }
+
+    //save log
+    $noi_dung = 'Bạn đã thêm nhà cung cấp: ' . $ten_nha_cc_kh . '. Mã: NCC-' . $id_ncc;
+    $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_gio`, `noi_dung`)
+                        VALUES('', '$ep_id', '$ngay_tao', '$noi_dung')");
 } else {
-    echo "fail!";
+    echo "Thao tác thất bại vui lòng thử lại!";
 }

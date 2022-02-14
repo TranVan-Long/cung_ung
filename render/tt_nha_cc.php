@@ -23,6 +23,7 @@ if($id != ""){
         <p class="d-block w-100 text-bold mt-10" id="ncc-san-pham"><?= $item['sp_cung_ung'] ?></p>
     </div>
 </div>
+
 <?}else{?>
 
 <div class="form-row left">

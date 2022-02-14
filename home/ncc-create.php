@@ -1,7 +1,8 @@
 <?php
 include("config.php");
 include("../includes/icon.php");
-$date = date('m-d-Y', time())
+$date = date('m-d-Y', time());
+$ep_id = $_SESSION['ep_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -119,11 +120,11 @@ $date = date('m-d-Y', time())
                                         <div class="form-row left">
                                             <div class="form-col-50 left mb_15">
                                                 <label">Tên ngân hàng<span class="text-red">&ast;</span></label>
-                                                <input type="text" name="ten_ngan_hang" placeholder="Nhập tên ngân hàng">
+                                                    <input type="text" name="ten_ngan_hang" placeholder="Nhập tên ngân hàng">
                                             </div>
                                             <div class="form-col-50 right mb_15">
                                                 <label">Chi nhánh<span class="text-red">&ast;</span></label>
-                                                <input type="text" name="ten_chi_nhanh" placeholder="Nhập tên chi nhánh ngân hàng">
+                                                    <input type="text" name="ten_chi_nhanh" placeholder="Nhập tên chi nhánh ngân hàng">
                                             </div>
                                         </div>
                                         <div class="form-row left">
@@ -281,25 +282,25 @@ $date = date('m-d-Y', time())
         if (form.valid() === true) {
 
             //thong tin nha cung cap
-            var ten_nha_cc_kh   = $("input[name='ten_nha_cc_kh'").val();
-            var ten_vt          = $("input[name='ten_vt']").val();
-            var ten_giao_dich   = $("input[name='ten_giao_dich']").val();
-            var ma_so_thue      = $("input[name='ma_so_thue']").val();
-            var dia_chi_dkkd    = $("input[name='dia_chi_dkkd']").val();
-            var so_dkkd         = $("input[name='so_dkkd']").val();
-            var dia_chi_lh      = $("input[name='dia_chi_lh']").val();
-            var fax             = $("input[name='fax']").val();
-            var so_dien_thoai   = $("input[name='so_dien_thoai']").val();
-            var website         = $("input[name='website']").val();
-            var email           = $("input[name='email']").val();
-            var sp_cung_ung     = $("input[name='sp_cung_ung']").val();
-            var thong_tin_khac  = $("input[name='thong_tin_khac']").val();
+            var ten_nha_cc_kh = $("input[name='ten_nha_cc_kh'").val();
+            var ten_vt = $("input[name='ten_vt']").val();
+            var ten_giao_dich = $("input[name='ten_giao_dich']").val();
+            var ma_so_thue = $("input[name='ma_so_thue']").val();
+            var dia_chi_dkkd = $("input[name='dia_chi_dkkd']").val();
+            var so_dkkd = $("input[name='so_dkkd']").val();
+            var dia_chi_lh = $("input[name='dia_chi_lh']").val();
+            var fax = $("input[name='fax']").val();
+            var so_dien_thoai = $("input[name='so_dien_thoai']").val();
+            var website = $("input[name='website']").val();
+            var email = $("input[name='email']").val();
+            var sp_cung_ung = $("input[name='sp_cung_ung']").val();
+            var thong_tin_khac = $("input[name='thong_tin_khac']").val();
 
             // ngan hang
-            var ten_ngan_hang   = new Array();
-            var ten_chi_nhanh   = new Array();
-            var so_tk           = new Array();
-            var chu_tk          = new Array();
+            var ten_ngan_hang = new Array();
+            var ten_chi_nhanh = new Array();
+            var so_tk = new Array();
+            var chu_tk = new Array();
             $("input[name='ten_ngan_hang']").each(function() {
                 $ten_nh = $(this).val();
                 if ($ten_nh != "") {
@@ -326,10 +327,10 @@ $date = date('m-d-Y', time())
             });
 
             // nguoi lien he
-            var ten_nguoi_lh        = new Array();
-            var chuc_vu             = new Array();
-            var so_dien_thoai_lh    = new Array();
-            var email_lh            = new Array();
+            var ten_nguoi_lh = new Array();
+            var chuc_vu = new Array();
+            var so_dien_thoai_lh = new Array();
+            var email_lh = new Array();
             $("input[name='ten_nguoi_lh']").each(function() {
                 $ten_nlh = $(this).val();
                 if ($ten_nlh != "") {
@@ -357,45 +358,51 @@ $date = date('m-d-Y', time())
                 }
             });
 
+            //get user id
+            var ep_id = '<?= $ep_id ?>';
+
 
             $.ajax({
                 url: '../ajax/ncc_them.php',
                 type: 'POST',
                 data: {
-                    ten_nha_cc_kh:      ten_nha_cc_kh,
-                    ten_vt:             ten_vt,
-                    ten_giao_dich:      ten_giao_dich,
-                    ma_so_thue:         ma_so_thue,
-                    dia_chi_dkkd:       dia_chi_dkkd,
-                    so_dkkd:            so_dkkd,
-                    dia_chi_lh:         dia_chi_lh,
-                    fax:                fax,
-                    so_dien_thoai:      so_dien_thoai,
-                    website:            website,
-                    email:              email,
-                    sp_cung_ung:        sp_cung_ung,
-                    thong_tin_khac:     thong_tin_khac,
+                    ten_nha_cc_kh: ten_nha_cc_kh,
+                    ten_vt: ten_vt,
+                    ten_giao_dich: ten_giao_dich,
+                    ma_so_thue: ma_so_thue,
+                    dia_chi_dkkd: dia_chi_dkkd,
+                    so_dkkd: so_dkkd,
+                    dia_chi_lh: dia_chi_lh,
+                    fax: fax,
+                    so_dien_thoai: so_dien_thoai,
+                    website: website,
+                    email: email,
+                    sp_cung_ung: sp_cung_ung,
+                    thong_tin_khac: thong_tin_khac,
 
-                    ten_ngan_hang:      ten_ngan_hang,
-                    ten_chi_nhanh:      ten_chi_nhanh,
-                    so_tk:              so_tk,
-                    chu_tk:             chu_tk,
+                    ten_ngan_hang: ten_ngan_hang,
+                    ten_chi_nhanh: ten_chi_nhanh,
+                    so_tk: so_tk,
+                    chu_tk: chu_tk,
 
-                    ten_nguoi_lh:       ten_nguoi_lh,
-                    chuc_vu:            chuc_vu,
-                    so_dien_thoai_lh:   so_dien_thoai_lh,
-                    email_lh:           email_lh
+                    ten_nguoi_lh: ten_nguoi_lh,
+                    chuc_vu: chuc_vu,
+                    so_dien_thoai_lh: so_dien_thoai_lh,
+                    email_lh: email_lh,
+
+                    ep_id:ep_id
                 },
                 success: function(data) {
                     if (data == "") {
                         alert("Thêm nhà cung cấp thành công!");
-                        window.location.href='quan-ly-nha-cung-cap.html';
+                        window.location.href = 'quan-ly-nha-cung-cap.html';
                     } else {
-                        alert("Thêm nhà cung cấp không thành công!");
+                        alert(data);
                     }
                 }
             })
         }
     });
 </script>
+
 </html>

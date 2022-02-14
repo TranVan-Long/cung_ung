@@ -7,6 +7,7 @@ if(!isset($_SESSION))
 
 require_once("../classes/database.php");
 require_once '../functions/functions.php';
+require_once '../functions/pagebreak.php' ;
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 if (isset($_COOKIE['acc_token'])) {
@@ -422,4 +423,5 @@ if ( isset($_COOKIE['role']) && $_COOKIE['role'] == 1) {
         }
     }
 }
+
 ?>

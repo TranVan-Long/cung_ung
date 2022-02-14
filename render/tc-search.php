@@ -4,10 +4,11 @@ $category = $_POST['category'];
 $search = $_POST['search'];
 $page = $_POST['page'];
 $display = $_POST['display'];
-
 $url = '/tieu-chi-danh-gia.html';
 $start = ($page - 1) * $display;
 $start = abs($start);
+
+$ep_id = $_SESSION['ep_id'];
 
 if ($category == 1) {
     if ($search == "") {
@@ -29,7 +30,7 @@ if ($category == 1) {
         $counter = new db_query("SELECT COUNT(`id`) AS numb FROM `tieu_chi_danh_gia` WHERE `kieu_gia_tri` = '$search'");
         $num = mysql_fetch_assoc($counter->result)['numb'];
     }
-} elseif($category == "") {
+} elseif ($category == "") {
     $list_tc = new db_query("SELECT * FROM `tieu_chi_danh_gia` LIMIT $start, $display");
     $counter = new db_query("SELECT COUNT(`id`) AS numb FROM `tieu_chi_danh_gia`");
     $num = mysql_fetch_assoc($counter->result)['numb'];
@@ -181,11 +182,15 @@ $page_numb = ceil($num / $display);
     })
     $(".delete-tc").click(function() {
         var id = $(this).attr("data-id");
+        //get user id
+        var ep_id = '<?= $ep_id ?>';
         $.ajax({
             url: '../ajax/tc_xoa.php',
             type: 'POST',
             data: {
                 id: id,
+                //user id
+                ep_id: ep_id
             },
             success: function(data) {
                 if (data == "") {

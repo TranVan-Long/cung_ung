@@ -1,7 +1,43 @@
 <?
-    include("../includes/icon.php");
-    $date = date('d-m-Y', time());
-    $date1 = date_format(date_create($date),'m/d/Y');
+include("../includes/icon.php");
+include('config.php');
+$date = date('Y-m-d', time());
+
+if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response, true);
+    $data_list_nv = $data_list['data']['items'];
+} elseif (isset($_SESSION['quyen']) && ($_SESSION['quyen'] == 2)) {
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response, true);
+    $data_list_nv = $data_list['data']['items'];
+    $user_id = $_SESSION['ep_id'];
+    $user_name = $_SESSION['ep_name'];
+}
+foreach ($data_list_nv as $key => $items) {
+    if ($user_id == $items['ep_id']) {
+        $dept_id    = $items['dep_id'];
+        $dept_name  = $items['dep_name'];
+        $comp_id = $items['com_id'];
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,42 +83,40 @@
                                 <div class="form-row left">
                                     <div class="form-col-50 left v-select2 mb_15">
                                         <label>Phòng ban <span class="text-red">*</span></label>
-                                        <select name="phong_ban" class="share_select">
-                                            <option value="">-- Chọn phòng ban --</option>
-                                        </select>
+                                        <input type="text" name="phong_ban" value="<?= $dept_name ?>" readonly>
                                     </div>
                                     <div class="form-col-50 right v-select2 mb_15">
                                         <label>Người yêu cầu <span class="text-red">*</span></label>
-                                        <select name="nguoi_yeu_cau" class="share_select">
-                                            <option value="">-- Chọn người yêu cầu --</option>
-                                        </select>
+                                        <input type="text" name="nguoi_yeu_cau" id="nguoi_yeu_cau" value="<?= $user_name ?>" readonly>
+
                                     </div>
                                 </div>
                                 <div class="form-row left">
                                     <div class="form-col-50 left v-select2 mb_15">
                                         <label>Công trình <span class="text-red">*</span></label>
-                                        <select name="cong_trinh" class="share_select" id="abcvd">
+                                        <select name="cong_trinh" class="share_select" id="cong_trinh">
                                             <option value="">-- Chọn công trình --</option>
+                                            <option value="1123">Xây nhà văn hóa phường</option>
+                                            <option value="2234">Xây nhà tình nghĩa</option>
+                                            <option value="5678">Sửa đường liên xã</option>
+                                            <option value="9102">Xây các thứ các thứ</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-row left">
                                     <div class="form-col-50 left mb_15">
                                         <label>Ngày tạo yêu cầu</label>
-                                        <input class="date-input" type="text" value="<?php echo $date1 ?>"
-                                            name="ngay-tao-yeu-cau" readonly>
+                                        <input type="date" value="<?php echo $date ?>" name="ngay_tao_yeu_cau" readonly>
                                     </div>
                                     <div class="form-col-50 right mb_15">
                                         <label>Ngày phải hoàn thành yêu cầu</label>
-                                        <input class="" type="date" name="deadline"
-                                            placeholder="Chọn ngày phải hoàn thành yêu cầu">
+                                        <input type="date" name="ngay_phai_hoan_thanh" placeholder="Chọn ngày phải hoàn thành yêu cầu">
                                     </div>
                                 </div>
                                 <div class="form-row left">
                                     <div class="form-col-100 left mb_15">
                                         <label>Diễn giải</label>
-                                        <textarea id="dien-giai" name="dien-giai"
-                                            placeholder="Nhập diễn giải"></textarea>
+                                        <textarea id="dien_giai" name="dien_giai" placeholder="Nhập diễn giải"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -105,44 +139,7 @@
                                         <div class="tbl-content table-2-row">
                                             <table>
                                                 <tbody id="materials">
-                                                    <tr class="item">
-                                                        <td class="w-10">
-                                                            <p class="removeItem"><i
-                                                                    class="ic-delete remove-btn"></i>
-                                                            </p>
-                                                        </td>
-                                                        <td class="w-25">
-                                                            <div class="v-select2">
-                                                                <select name="materials_name[]"
-                                                                    class="share_select"></select>
-                                                            </div>
-                                                        </td>
-                                                        <td class="w-20">
-                                                            <input type="text" name="dv_tinh" disabled>
-                                                        </td>
-                                                        <td class="w-25">
-                                                            <input type="text" name="so_luong[]">
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="item">
-                                                        <td class="w-10">
-                                                            <p class="removeItem"><i
-                                                                    class="ic-delete remove-btn"></i>
-                                                            </p>
-                                                        </td>
-                                                        <td class="w-25">
-                                                            <div class="v-select2">
-                                                                <select name="materials_name[]"
-                                                                    class="share_select"></select>
-                                                            </div>
-                                                        </td>
-                                                        <td class="w-20">
-                                                            <input type="text" name="dv_tinh" disabled>
-                                                        </td>
-                                                        <td class="w-25">
-                                                            <input type="text" name="so_luong[]">
-                                                        </td>
-                                                    </tr>
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
@@ -151,9 +148,8 @@
                             </div>
                             <div class="c-foot mt-30">
                                 <div class="right huy_xong">
-                                    <button type="button" class="v-btn btn-outline-blue modal-btn"
-                                        data-target="cancel">Hủy</button>
-                                    <p class="v-btn btn-blue ml-20 luu_them_moi">Xong</a>
+                                    <button type="button" class="v-btn btn-outline-blue modal-btn" data-target="cancel">Hủy</button>
+                                    <p class="v-btn btn-blue ml-20 submit-btn">Xong</a>
                                 </div>
                             </div>
                         </form>
@@ -183,7 +179,7 @@
             </div>
         </div>
     </div>
-    <?php include "../modals/modal_logout.php"?>
+    <?php include "../modals/modal_logout.php" ?>
     <? include("../modals/modal_menu.php") ?>
 
 </body>
@@ -193,9 +189,36 @@
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript">
-    $(".luu_them_moi").click(function() {
-        var creart_ycvt = $(".form_save_add");
-        creart_ycvt.validate({
+    $("#add-material").click(function() {
+        $.ajax({
+            url: '../ajax/ycvt_them_vt.php',
+            type: 'POST',
+            success: function(data) {
+                $("#materials").append(data);
+            }
+        });
+    });
+    function change_vt() {
+        $(".materials_name").change(function(){
+            var id_vt = $(this).val();
+            var _this = $(this);
+            $.ajax({
+                url: '../render/vat_tu_yc_bg.php',
+                type: 'POST',
+                data:{
+                    id_vt: id_vt,
+                },
+                success: function(data){
+                    _this.parents(".item").html(data);
+                }
+            })
+        });
+        RefSelect2();
+    };
+
+    $(".submit-btn").click(function() {
+        var create_ycvt = $(".form_save_add");
+        create_ycvt.validate({
             errorPlacement: function(error, element) {
                 error.appendTo(element.parents(".form-col-50"));
                 error.wrap("<span class='error'>");
@@ -223,8 +246,66 @@
                 },
             },
         });
-        if (creart_ycvt.valid() === true) {
-            alert("oke");
+        if (create_ycvt.valid() === true) {
+            var cong_trinh = $("#cong_trinh").val();
+            var ngay_tao_yeu_cau = $("input[name='ngay_tao_yeu_cau']").val();
+            var ngay_phai_hoan_thanh = $("input[name='ngay_phai_hoan_thanh']").val();
+            var dien_giai = $("#dien_giai").val();
+
+            var vat_tu = new Array();
+            $("#materials_name").each(function() {
+                var ten_vat_tu = $(this).val();
+                if (ten_vat_tu != "") {
+                    vat_tu.push(ten_vat_tu);
+                }
+            });
+
+            var dv_tinh = new Array();
+            $("input[name='dv_tinh']").each(function() {
+                var dvt = $(this).val();
+                if (dvt != "") {
+                    dv_tinh.push(dvt);
+                }
+            });
+            var so_luong = new Array();
+            $("input[name='so_luong']").each(function() {
+                var sl = $(this).val();
+                if (sl != "") {
+                    so_luong.push(sl);
+                }
+            });
+
+            //get user id
+            var user_id = "<?= $user_id ?>";
+            var comp_id = "<?= $comp_id ?>";
+
+            $.ajax({
+                url: '../ajax/ycvt_them.php',
+                type: 'POST',
+                data: {
+                    cong_trinh: cong_trinh,
+                    ngay_tao_yeu_cau: ngay_tao_yeu_cau,
+                    ngay_phai_hoan_thanh: ngay_phai_hoan_thanh,
+                    dien_giai: dien_giai,
+
+                    vat_tu: vat_tu,
+                    dv_tinh: dv_tinh,
+                    so_luong: so_luong,
+
+                    user_id: user_id,
+                    comp_id: comp_id,
+
+
+                },
+                success: function(data) {
+                    if (data == "") {
+                        alert("Thêm yêu cầu thành công!");
+                        window.location.href = 'quan-ly-yeu-cau-vat-tu.html';
+                    } else {
+                        alert(data);
+                    }
+                }
+            })
         }
     });
 </script>

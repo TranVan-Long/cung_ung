@@ -24,11 +24,11 @@ $list_id = $_POST['list_id'];
         <? }
     }
 } else if ($list_id == '4') {
-    $danh_sach = new db_query("SELECT `id`, `email`, `phan_loai` FROM `nha_cc_kh` WHERE `phan_loai` = 1 ");
+    $danh_sach = new db_query("SELECT `id`, `ma_so_thue`, `phan_loai` FROM `nha_cc_kh` WHERE `phan_loai` = 1 ");
     while ($item = mysql_fetch_assoc($danh_sach->result)) {
-        if ($item['email'] != "") {
+        if ($item['ma_so_thue'] != "") {
         ?>
-            <option value="<?= $item['id'] ?>"><?= $item['email'] ?></option>
+            <option value="<?= $item['id'] ?>"><?= $item['ma_so_thue'] ?></option>
 <? }
     }
 } ?>

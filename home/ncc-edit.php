@@ -9,6 +9,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $ncc_bank = new db_query("SELECT * FROM `tai_khoan` WHERE `id_nha_cc_kh` = '" . $ncc_id . "' ");
     $ncc_contact = new db_query("SELECT * FROM `nguoi_lien_he` WHERE `id_nha_cc` = '" . $ncc_id . "' ");
     $ncc_detail = mysql_fetch_assoc($ncc_get->result);
+    $ep_id = $_SESSION['ep_id'];
 }
 ?>
 <!DOCTYPE html>
@@ -238,7 +239,8 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    <? } ?>
+                                                    </div>
+                                                <? } ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -434,6 +436,9 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 email_lh.push($(this).val());
             });
 
+            //get user id
+            var ep_id = '<?= $ep_id ?>';
+
 
             $.ajax({
                 url: '../ajax/ncc_sua.php',
@@ -478,7 +483,10 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     ten_nguoi_lh: ten_nguoi_lh,
                     chuc_vu: chuc_vu,
                     so_dien_thoai_lh: so_dien_thoai_lh,
-                    email_lh: email_lh
+                    email_lh: email_lh,
+
+                    //user id
+                    ep_id: ep_id
                 },
                 success: function(data) {
                     if (data == "") {

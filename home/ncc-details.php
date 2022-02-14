@@ -8,6 +8,9 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $ncc_bank = new db_query("SELECT * FROM `tai_khoan` WHERE `id_nha_cc_kh` = '" . $ncc_id . "' ");
     $ncc_contact = new db_query("SELECT * FROM `nguoi_lien_he` WHERE `id_nha_cc` = '" . $ncc_id . "' ");
     $ncc_detail = mysql_fetch_assoc($ncc_get->result);
+
+    $ep_name = $_SESSION['ep_name'];
+    $ep_id = $_SESSION['ep_id'];
 }
 ?>
 <!DOCTYPE html>
@@ -220,22 +223,28 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript">
-    $(".delete-ncc").click(function(){
+    $(".delete-ncc").click(function() {
         var id = $(this).attr("data-id");
+        //log record
+        var ep_id = '<?= $ep_id ?>';
+        var ncc_name = '<?= $ncc_detail['ten_nha_cc_kh'] ?>';
         $.ajax({
             url: '../ajax/ncc_xoa.php',
             type: 'POST',
-            data:{
+            data: {
                 id: id,
+                ep_id: ep_id,
+                ncc_name: ncc_name
             },
-            success: function(data){
-                if(data == ""){
+            success: function(data) {
+                if (data == "") {
                     window.location.href = '/quan-ly-nha-cung-cap.html';
-                }else{
+                } else {
                     alert("Bị lỗi");
                 }
             }
         });
     })
 </script>
+
 </html>

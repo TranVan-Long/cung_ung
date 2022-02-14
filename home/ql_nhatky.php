@@ -1,5 +1,16 @@
 <?php
 include "../includes/icon.php";
+include("config.php");
+
+if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])){
+    if($_COOKIE['role'] = 1){
+        $user_id = $_SESSION['ep_id'];
+    }else if($_COOKIE['role'] = 2){
+        $user_id = $_SESSION['com_id'];
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

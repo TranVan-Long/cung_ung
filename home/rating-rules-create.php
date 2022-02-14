@@ -1,7 +1,8 @@
 <?php
 include("config.php");
 include("../includes/icon.php");
-$date = date('m-d-Y', time())
+$date = date('m-d-Y', time());
+$ep_id = $_SESSION['ep_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +47,7 @@ $date = date('m-d-Y', time())
                                 </div>
                                 <div class="form-col-50 no-border right mb_15">
                                     <label>Hệ số</label>
-                                    <input type="text" name="he_so" placeholder="Nhập hệ số">
+                                    <input type="number" name="he_so" placeholder="Nhập hệ số">
                                 </div>
                             </div>
                             <div class="form-row left chon_gt">
@@ -60,7 +61,7 @@ $date = date('m-d-Y', time())
                                 </div>
                                 <div class="form-col-50 no-border right mb_15 gia_tri1">
                                     <label>Thang điểm <span class="text-red">&ast;</span></label>
-                                    <input type="text" name="gia_tri" placeholder="Nhập giá trị lớn nhất">
+                                    <input type="number" name="gia_tri" placeholder="Nhập điểm tối đa">
                                 </div>
                             </div>
                         </div>
@@ -161,6 +162,8 @@ $date = date('m-d-Y', time())
                     ten_hien_thi.push($tht);
                 }
             })
+             //get user id
+             var ep_id = '<?= $ep_id ?>';
             $.ajax({
                 url: '../ajax/tc_them.php',
                 type: 'POST',
@@ -171,6 +174,9 @@ $date = date('m-d-Y', time())
 
                     gia_tri: gia_tri,
                     ten_hien_thi: ten_hien_thi,
+
+                    //user id
+                    ep_id:ep_id
                 },
                 success: function(data) {
                     if (data == "") {
@@ -184,5 +190,4 @@ $date = date('m-d-Y', time())
         }
     });
 </script>
-
 </html>

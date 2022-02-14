@@ -1,15 +1,35 @@
 <?php
 include("config.php");
 include("../includes/icon.php");
-$date = date('m-d-Y', time());
+$date = date('d-m-Y', time());
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $tieu_chi_id = $_GET['id'];
     $list_tc = new db_query("SELECT * FROM `tieu_chi_danh_gia` WHERE `id` = '" . $tieu_chi_id . "' ");
-    $list_gt = new db_query("SELECT * FROM `ds_gia_tri_dg` WHERE `id_tieu_chi` = $tieu_chi_id ");
+    $list_gt = new db_query("SELECT * FROM `ds_gia_tri_dg` WHERE `id_tieu_chi` = '" . $tieu_chi_id . "' ");
     $tc_detail = mysql_fetch_assoc($list_tc->result);
     $gt = mysql_fetch_assoc($list_gt->result);
-    $thang_diem = $gt['gia_tri'];
+    $ep_id = $_SESSION['ep_id'];
 }
+
+// $curl = curl_init();
+//     $token = $_SESSION['access_token'];
+//     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+//     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+//     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+//     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
+//     $response = curl_exec($curl);
+//     curl_close($curl);
+
+//     $data_list = json_decode($response,true);
+//     $data_list_nv = $data_list['data']['items'];
+
+//     echo "<pre>";
+//     print_r($response);
+//     echo "</pre>";
+//     die();
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +75,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 </div>
                                 <div class="form-col-50 no-border right mb_15">
                                     <label>Hệ số</label>
-                                    <input type="text" name="he_so" placeholder="Nhập hệ số" value="<?= $tc_detail['he_so'] ?>">
+                                    <input type="text" name="he_so" placeholder="Nhập hệ số" value="<?= $tc_detail['he_so'] ?>" readonly>
                                 </div>
                             </div>
 
@@ -63,24 +83,21 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <div class="form-row left chon_gt">
                                     <div class="form-col-50 no-border left mb_15 v-select2">
                                         <label>Chọn kiểu giá trị</label>
-                                        <select id="value-type" name="kieu_gia_tri" class="share_select">
-                                            <!-- <option value="">-- Chọn kiểu giá trị --</option> -->
+                                        <select id="value-type" name="kieu_gia_tri" class="share_select" disabled>
                                             <option value="1" selected>Nhập tay</option>
-                                            <option value="2">Danh sách</option>
                                         </select>
                                     </div>
                                     <div class="form-col-50 no-border right mb_15 gia_tri1">
+                                        <input type="hiden" class="d-none" name="id_gia_tri_old" value="<?= $gt['id'] ?>">
                                         <label>Thang điểm <span class="text-red">&ast;</span></label>
-                                        <input type="text" name="gia_tri" placeholder="Nhập giá trị lớn nhất" value="<?= $thang_diem; ?>">
+                                        <input type="text" name="gia_tri_old" placeholder="Nhập giá trị lớn nhất" value="<?= $gt['gia_tri'] ?>" readonly>
                                     </div>
                                 </div>
                             <? } elseif ($tc_detail['kieu_gia_tri'] == 2) { ?>
                                 <div class="form-row left chon_gt">
                                     <div class="form-col-50 no-border left mb_15 v-select2">
                                         <label>Chọn kiểu giá trị</label>
-                                        <select id="value-type" name="kieu_gia_tri" class="share_select">
-                                            <!-- <option value="">-- Chọn kiểu giá trị --</option> -->
-                                            <option value="1">Nhập tay</option>
+                                        <select id="value-type" name="kieu_gia_tri" class="share_select" disabled>
                                             <option value="2" selected>Danh sách</option>
                                         </select>
                                     </div>
@@ -93,7 +110,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <div class="value-control border-bottom pb-10 d-none">
                                     <p class="d-inline-block text-bold mr-20 mt-15">Danh sách giá trị</p>
                                     <p class="d-inline-block text-blue link-text text-500 mt-15" id="add-rules-value">&plus;
-                                        Thêm mới tài giá trị</p>
+                                        Thêm mới giá trị</p>
                                 </div>
                                 <div id="rules-value">
                                 </div>
@@ -101,11 +118,12 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <div class="value-control border-bottom pb-10">
                                     <p class="d-inline-block text-bold mr-20 mt-15">Danh sách giá trị</p>
                                     <p class="d-inline-block text-blue link-text text-500 mt-15" id="add-rules-value">&plus;
-                                        Thêm mới tài giá trị</p>
+                                        Thêm mới giá trị</p>
                                 </div>
                                 <div id="rules-value">
                                     <?
-                                    while ($gia_tri = mysql_fetch_assoc($list_gt->result)) {
+                                    $list_gt_ds = new db_query("SELECT * FROM `ds_gia_tri_dg` WHERE `id_tieu_chi` = $tieu_chi_id ");
+                                    while ($gia_tri = mysql_fetch_assoc($list_gt_ds->result)) {
                                     ?>
                                         <div class="value border-bottom left w-100 pb-20 mt-10 d-flex spc-btw">
                                             <div class="value-form">
@@ -113,7 +131,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                     <div class="form-col-50 left mb_15">
                                                         <input type="hiden" class="d-none" name="id_gia_tri_old" value="<?= $gia_tri['id'] ?>">
                                                         <label>Giá trị<span class="text-red">*</span></label>
-                                                        <input type="number" name="gia_tri_old" placeholder="Nhập giá trị" value="<?= $gia_tri['gia_tri'] ?>">
+                                                        <input type="number" name="gia_tri_old" placeholder="Nhập giá trị" value="<?= $gia_tri['gia_tri'] ?>" readonly>
                                                     </div>
                                                     <div class="form-col-50 right mb_15">
                                                         <label>Tên hiển thị</label>
@@ -121,8 +139,27 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="removeItem3">
+                                            <p class="modal-btn" data-target="item-<?= $gia_tri['id'] ?>">
                                                 <i class="ic-delete2"></i>
+                                            </p>
+                                        </div>
+                                        <div class="modal text-center" id="item-<?= $gia_tri['id'] ?>">
+                                            <div class="m-content">
+                                                <div class="m-head ">
+                                                    Thông báo <span class="dismiss cancel">&times;</span>
+                                                </div>
+                                                <div class="m-body">
+                                                    <p>Bạn có chắc chắn muốn xóa giá trị này?</p>
+                                                    <p>Thao tác này sẽ không thể hoàn tác.</p>
+                                                </div>
+                                                <div class="m-foot d-inline-block">
+                                                    <div class="left mb_10">
+                                                        <p class="v-btn btn-outline-blue left cancel">Hủy</p>
+                                                    </div>
+                                                    <div class="right mb_10">
+                                                        <button type="button" class="v-btn sh_bgr_six share_clr_tow right remove-item" data-id="<?= $gia_tri['id'] ?>">Đồng ý</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     <? } ?>
@@ -200,59 +237,65 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             }
         });
         if (form.valid() === true) {
-            var tieu_chi_danh_gia = $("input[name='tieu_chi_danh_gia'").val();
-            var he_so = $("input[name='he_so'").val();
-            var kieu_gia_tri = $("#value-type").val();
+            var tc_id = "<?= $tieu_chi_id ?>";
+            var tieu_chi_danh_gia = $("input[name='tieu_chi_danh_gia']").val();
 
-            var gia_tri_old = new Array();
+
+            var id_gia_tri_old = new Array();
+            $("input[name='id_gia_tri_old']").each(function() {
+                var id_gt_old = $(this).val();
+                if (id_gt_old != "") {
+                    id_gia_tri_old.push(id_gt_old);
+                }
+            });
+
             var ten_hien_thi_old = new Array();
-
-            $("input[name='gia_tri_old'").each(function() {
-                $gt = $(this).val();
-                if ($gt != "") {
-                    gia_tri_old.push($gt);
+            $("input[name='ten_hien_thi_old']").each(function() {
+                var tht_old = $(this).val();
+                if (tht_old != "") {
+                    ten_hien_thi_old.push(tht_old);
                 }
-            })
-            $("input[name='ten_hien_thi_old'").each(function() {
-                $tht = $(this).val();
-                if ($gt != "") {
-                    ten_hien_thi_old.push($tht);
-                }
-            })
+            });
 
             var gia_tri = new Array();
-            var ten_hien_thi = new Array();
+            $("input[name='gia_tri']").each(function() {
+                var gt = $(this).val();
+                if (gt != "") {
+                    gia_tri.push(gt);
+                }
+            });
 
-            $("input[name='gia_tri'").each(function() {
-                $gt = $(this).val();
-                if ($gt != "") {
-                    gia_tri_old.push($gt);
+            var ten_hien_thi = new Array();
+            $("input[name='ten_hien_thi']").each(function() {
+                var tht = $(this).val();
+                if (tht != "") {
+                    ten_hien_thi.push(tht);
                 }
-            })
-            $("input[name='ten_hien_thi'").each(function() {
-                $tht = $(this).val();
-                if ($gt != "") {
-                    ten_hien_thi_old.push($tht);
-                }
-            })
+            });
+
+            //get user id
+            var ep_id = "<?= $ep_id ?>";
 
             $.ajax({
                 url: '../ajax/tc_sua.php',
                 type: 'POST',
                 data: {
+                    tc_id: tc_id,
                     tieu_chi_danh_gia: tieu_chi_danh_gia,
-                    he_so: he_so,
-                    kieu_gia_tri: kieu_gia_tri,
 
-                    gia_tri_old: gia_tri_old,
+
+                    id_gia_tri_old: id_gia_tri_old,
                     ten_hien_thi_old: ten_hien_thi_old,
 
                     gia_tri: gia_tri,
                     ten_hien_thi: ten_hien_thi,
+
+                    //user id
+                    ep_id: ep_id
                 },
                 success: function(data) {
                     if (data == "") {
-                        alert("Thêm tiêu chí thành công!");
+                        alert("Sửa tiêu chí thành công!");
                         window.location.href = 'tieu-chi-danh-gia.html';
                     } else {
                         alert(data);
@@ -260,6 +303,24 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 }
             })
         }
+    });
+    $(".remove-item").click(function() {
+        var id = $(this).attr("data-id");
+
+        $.ajax({
+            url: '../ajax/gt_xoa.php',
+            type: 'POST',
+            data: {
+                id: id,
+            },
+            success: function(data) {
+                if (data == "") {
+                    window.location.reload();
+                } else {
+                    alert(data);
+                }
+            }
+        });
     });
 </script>
 

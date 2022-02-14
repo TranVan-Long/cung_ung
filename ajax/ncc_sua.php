@@ -41,8 +41,9 @@ $chuc_vu            = $_POST['chuc_vu'];
 $so_dien_thoai_lh   = $_POST['so_dien_thoai_lh'];
 $email_lh           = $_POST['email_lh'];
 
-$ngay_sua = strtotime(date('Y-m-d H:i:s', time()));
+$ep_id              = $_POST['ep_id'];
 
+$ngay_sua = strtotime(date('Y-m-d H:i:s', time()));
 
 // cap nhat nha cung cap 
 $sua_ncc = new db_query("UPDATE `nha_cc_kh` SET `ten_vt` = '$ten_vt', `ten_nha_cc_kh` = '$ten_nha_cc_kh' ,
@@ -78,6 +79,10 @@ if ($ten_nguoi_lh != "") {
     }
 }
 
+//save log
+$noi_dung = 'Bạn đã sửa nhà cung cấp: ' .$ten_nha_cc_kh. '. Mã: NCC-'.$id_ncc_kh;
+$log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_gio`, `noi_dung`)
+                    VALUES('', '$ep_id', '$ngay_sua', '$noi_dung')");
 
 if ((isset($sua_ncc) && (isset($nguoi_lh_old)||isset($nguoi_lh_new))) && (isset($tk_ncc_old) || isset($tk_ncc_new))) {
     echo "";

@@ -1,5 +1,14 @@
 <?php
 include("../includes/icon.php");
+include("config.php");
+// if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])){
+//     if($_COOKIE['role'] == 1){
+//         echo 1;
+//     }elseif($_COOKIE['role'] == 2){
+//         header('location: /quan-ly-yeu-cau-vat-tu.html');
+//     }
+// }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -134,6 +143,7 @@ include("../includes/icon.php");
                     </div>
                 </div>
                 <div class="right mt-30 xoa_csua">
+                    <? if(isset()) ?>
                     <button class="v-btn mb_10 btn-outline-red modal-btn mr-20" data-target="decide">Từ chối</button>
                     <button class="v-btn mb_10 btn-blue modal-btn" data-target="accept">Duyệt</button>
                 </div>

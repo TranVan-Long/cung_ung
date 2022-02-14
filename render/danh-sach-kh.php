@@ -80,7 +80,7 @@
 <div class="w-100 left mt-10 d-flex flex-wrap spc-btw">
     <div class="display mr-10">
         <label for="display">Hiển thị</label>
-        <select name="display" id="display">
+        <select name="display" id="display" >
             <option value="10" <?= ($currentP == 10) ? "selected":"" ?>>10</option>
             <option value="20" <?= ($currentP == 20) ? "selected":"" ?>>20</option>
         </select>

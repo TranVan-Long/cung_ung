@@ -1,4 +1,5 @@
 <?php
+
 include("config.php");
 include("../includes/icon.php");
 
@@ -8,11 +9,17 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             n.`ten_nha_cc_kh`, n.`ten_vt`, n.`dia_chi_lh`, n.`sp_cung_ung`
                             FROM `danh_gia` AS d
                             INNER JOIN `nha_cc_kh` AS n ON d.`id_nha_cc` = n.`id`
-                            WHERE d.`id` = '" . $ratting_id . "' ");
+                            WHERE d.`id` = $ratting_id ");
     $item = mysql_fetch_assoc($rat_get->result);
+
     $id_dg = $item['id'];
-    // $ctiet_dg = mysql_fetch_assoc((new db_query("SELECT DISTINCT `id_danh_gia`, `tong_diem_danh_gia` FROM `chi_tiet_danh_gia` WHERE `id_danh_gia` = '$id_dg' ")) -> result);
-    // $tong_diem = $ctiet_dg['tong_diem_danh_gia'];
+
+    $list_gtri = new db_query("SELECT s.`id`, s.`id_danh_gia`, s.`id_tieu_chi`, s.`diem_danh_gia`, s.`tong_diem_danh_gia`, s.`danh_gia_chi_tiet`, t.`id`, t.`he_so`,
+                                t.`tieu_chi`, g.`id`
+                                FROM `chi_tiet_danh_gia` AS s
+                                INNER JOIN `tieu_chi_danh_gia` AS t ON s.`id_tieu_chi` = t.`id`
+                                INNER JOIN `danh_gia` AS g ON s.`id_danh_gia` = g.`id`
+                                WHERE s.`id_danh_gia` = $ratting_id ");
 
     $user_id = $item['nguoi_danh_gia'];
 
@@ -85,7 +92,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <div class="form-row left border-top2">
                             <div class="form-col-50 left p-10">
                                 <p class="detail-title">Ngày đánh giá</p>
-                                <p class="detail-data text-500"><?= date("d-m-Y", strtotime($item['ngay_danh_gia'])) ?></p>
+                                <p class="detail-data text-500"><?= date("d-m-Y", $item['ngay_danh_gia']) ?></p>
                             </div>
                             <div class="form-col-50 right p-10 pt-10">
                                 <p class="detail-title">Người đánh giá</p>
@@ -153,30 +160,28 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             <div class="tbl-content table-2-row">
                                 <table>
                                     <tbody>
+                                        <?  $stt = 1;
+                                            while($row = mysql_fetch_assoc($list_gtri -> result)) {?>
                                         <tr>
-                                            <td class="w-5">1</td>
-                                            <td class="w-20">Chắt lượng sản phẩm</td>
-                                            <td class="w-10">2</td>
-                                            <td class="">10</td>
-                                            <td class="">20</td>
-                                            <td>Chất lượng sản phẩm rất tốt</td>
+                                            <td class="w-5"><?= $stt++ ?></td>
+                                            <td class="w-20"><?= $row['tieu_chi'] ?></td>
+                                            <td class="w-10"><?= $row['he_so'] ?></td>
+                                            <td class=""><?= $row['diem_danh_gia'] ?></td>
+                                            <td class=""><?= $row['tong_diem_danh_gia'] ?></td>
+                                            <td><?= $row['danh_gia_chi_tiet'] ?></td>
                                         </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Chắt lượng sản phẩm</td>
-                                            <td>2</td>
-                                            <td>10</td>
-                                            <td>20</td>
-                                            <td>Chất lượng sản phẩm rất tốt</td>
-                                        </tr>
+                                        <?}?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                     <div class="control-btn right">
-                        <p class="v-btn btn-outline-red modal-btn mr-20 mt-15" data-target="delete">Xóa</p>
-                        <a href="chinh-sua-danh-gia-nha-cung-cap-<?= $item['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
+                        <p class="v-btn btn-outline-red modal-btn show_btn_modal mr-20 mt-15" data-target="delete">Xóa</p>
+                        <? if($user_id == $_COOKIE['user']) {?>
+                            <a href="chinh-sua-danh-gia-nha-cung-cap-<?= $item['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
+                        <?}?>
+
                     </div>
                     <div class="control-btn left mr-10">
                         <button class="v-btn btn-green mr-20 mt-15">Xuất excel</button>
@@ -214,17 +219,26 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script>
-    $(".modal-btn").click(function() {
+    $(".show_btn_modal").click(function() {
         $(".modal").show();
     });
 
     $(".remove_dg").click(function(){
         var id = $(this).attr("data-id");
+        var user_id = "<?= $_COOKIE['user'] ?>";
         $.ajax({
             url: '../ajax/xoa_danh_gia.php',
             type: 'POST',
             data:{
-
+                id: id,
+                user_id: user_id,
+            },
+            success: function(data){
+                if(data == ""){
+                    window.location.href = '/danh-gia-nha-cung-cap.html';
+                }else{
+                    alert(data);
+                }
             }
         })
     })

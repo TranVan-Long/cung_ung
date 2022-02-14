@@ -57,7 +57,6 @@ isset($_GET['ht']) ? $ht = $_GET['ht'] : $ht = 10;
                             </div>
                             <div class="search-box v-select2 mt-20">
                                 <select name="search" class="share_select search_tt">
-                                    <option value="">Nhập thông tin cần tìm kiếm</option>
                                 </select>
                             </div>
                         </div>
@@ -107,6 +106,29 @@ isset($_GET['ht']) ? $ht = $_GET['ht'] : $ht = 10;
         }
     });
 
+    function hien_thi_doi(){
+        // $("#display").change(function(){
+            var ht = $("#display").val();
+            var page = "<?= $page ?>";
+            var tt = ht * page;
+            var total = $("#display").attr("data1");
+            if(tt > total){
+                page--;
+                if(page == "" && ht != ""){
+                    window.location.href = 'danh-gia-nha-cung-cap.html?ht='+ht;
+                }else if(page != "" && ht != ""){
+                    window.location.href = 'danh-gia-nha-cung-cap.html?ht='+ht+'&page='+page;
+                }
+            }else{
+                if(page == "" && ht != ""){
+                    window.location.href = 'danh-gia-nha-cung-cap.html?ht='+ht;
+                }else if(page != "" && ht != ""){
+                    window.location.href = 'danh-gia-nha-cung-cap.html?ht='+ht+'&page='+page;
+                }
+            }
+        // })
+    }
+
     $(".tim_kiem").change(function(){
         var timk = $(this).val();
         $.ajax({
@@ -121,8 +143,8 @@ isset($_GET['ht']) ? $ht = $_GET['ht'] : $ht = 10;
         });
     });
 
-    $(".search_tt").change(function(){
-        var gia_tri = $(this).val();
+    $(".tim_kiem, .search_tt").change(function(){
+        var gia_tri = $(".search_tt").val();
         var tt_cha = $(".tim_kiem").val();
         var page = $(".danh_sach_dg").attr("data");
         var hien_thi = $(".danh_sach_dg").attr("data1");
@@ -137,7 +159,6 @@ isset($_GET['ht']) ? $ht = $_GET['ht'] : $ht = 10;
             },
             success: function(data){
                 $(".danh_sach_dg").html(data);
-
             }
         })
     });

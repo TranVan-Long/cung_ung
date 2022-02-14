@@ -1,5 +1,58 @@
 <?php
 include("../includes/icon.php");
+include("config.php");
+
+$quyen = $_SESSION['quyen'];
+$com_id = $_SESSION['user_com_id'];
+
+isset($_GET['tk']) ? $tk = $_GET['tk'] : $tk = "";
+isset($_GET['ct']) ? $ct = $_GET['ct'] : $ct = "";
+isset($_GET['page']) ? $page = $_GET['page'] : $page = 1;
+isset($_GET['ht']) ? $ht = $_GET['ht'] : $ht = 10;
+
+
+if($tk != "" && $ct != ""){
+    $urll = '/quan-ly-yeu-cau-bao-gia.html?ht='.$ht.'&tk='.$tk.'&ct='.$ct;
+}elseif($tk != "" && $ct == ""){
+    $urll = '/quan-ly-yeu-cau-bao-gia.html?ht='.$ht.'&tk='.$tk;
+}elseif($tk == "" && $ct == ""){
+    $urll = '/quan-ly-yeu-cau-bao-gia.html?ht='.$ht;
+}
+
+
+$start = ($page - 1)*$ht;
+$start = abs($start);
+
+$list_yc = "SELECT y.`id`, y.`id_nguoi_lap`, y.`nha_cc_kh`, y.`phan_loai`, y.`ngay_tao`, y.`id_cong_ty`, n.`ten_nha_cc_kh`
+                    FROM `yeu_cau_bao_gia` AS y INNER JOIN `nha_cc_kh` AS n ON y.`nha_cc_kh` = n.`id`
+                    WHERE y.`phan_loai` = 1 AND y.`id_cong_ty` = $com_id ";
+if($ct != ""){
+    if($tk == 1){
+        $sql = "AND y.`id` = $ct ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_bao_gia` WHERE `id` = $ct ");
+    }else if($tk == 2){
+        $sql = "AND y.`id_nguoi_lap` = $ct ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1 AND `id_nguoi_lap` = $ct ");
+    }else if($tk == 3){
+        $sql = "AND y.`nha_cc_kh` = $ct ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1 AND `nha_cc_kh` = $ct ");
+    }
+}
+
+if($tk == "" || $ct == ""){
+    $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1");
+}
+
+$total = mysql_fetch_assoc($cou -> result)['total'];
+
+$limit = "LIMIT $start,$ht";
+
+$list_yc .= $sql;
+$list_yc .= $limit;
+
+$list_yc1 = new db_query($list_yc);
+$stt = 1;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,134 +95,85 @@ include("../includes/icon.php");
                     <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-yeu-cau-bao-gia.html">&plus; Thêm mới</a>
                     <div class="filter">
                         <div class="category v-select2 mt-20">
-                            <select name="category" class="share_select">
+                            <select name="category" class="share_select tim_kiem">
                                 <option value="">Tìm kiếm theo</option>
-                                <option value="1">Mã yêu cầu</option>
-                                <option value="2">Người lập</option>
-                                <option value="3">Ngày lập</option>
-                                <option value="4">Nhà cung cấp</option>
+                                <option value="1" <?= ($tk == '1') ? "selected" : "" ?>>Mã yêu cầu</option>
+                                <option value="2" <?= ($tk == '2') ? "selected" : "" ?>>Người lập</option>
+                                <option value="3" <?= ($tk == '3') ? "selected" : "" ?>>Nhà cung cấp</option>
                             </select>
                         </div>
                         <div class="search-box v-select2 mt-20">
-                            <select name="search" class="share_select">
+                            <select name="search" class="share_select tk_chi_tiet">
                                 <option value="">Nhập thông tin cần tìm kiếm</option>
+                                <?  if($tk == 1){
+                                    $list_tt = new db_query("SELECT `id`, `phan_loai` FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1 ");
+                                    while($row = mysql_fetch_assoc($list_tt -> result)){
+                                ?>
+                                <option value="<?= $row['id'] ?>" <?= ($row['id'] == $ct) ? "selected":"" ?>><?= $row['id'] ?></option>
+                                <? }} else if($tk == 2) {
+                                    $list_t = new db_query("SELECT DISTINCT `id_nguoi_lap`, `phan_loai` FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1");
+                                    while($row1 = mysql_fetch_assoc($list_t -> result)){
+                                ?>
+                                <option value="<?= $row1['id_nguoi_lap'] ?>" <?= ($row1['id_nguoi_lap'] == $ct) ? "selected":"" ?>><?= $row1['id_nguoi_lap'] ?></option>
+                                <?}} else if($tk == 3) {
+                                    $list_t = new db_query("SELECT DISTINCT y.`nha_cc_kh`, y.`phan_loai`, n.`ten_nha_cc_kh` FROM `yeu_cau_bao_gia` AS y
+                                                            INNER JOIN `nha_cc_kh` AS n ON y.`nha_cc_kh` = n.`id`
+                                                            WHERE y.`phan_loai` = 1");
+                                    while($row1 = mysql_fetch_assoc($list_t -> result)){
+                                ?>
+                                <option value="<?= $row1['nha_cc_kh'] ?>" <?= ($row1['nha_cc_kh'] == $ct) ? "selected":"" ?>><?= $row1['ten_nha_cc_kh'] ?></option>
+                                <?}}?>
                             </select>
                         </div>
                     </div>
                 </div>
-                <div class="table-wrapper mt-20">
-                    <div class="table-container table-988">
-                        <div class="tbl-header">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th class="w-10">STT</th>
-                                    <th class="w-15">Số phiếu yêu cầu</th>
-                                    <th class="w-30">Người lập</th>
-                                    <th class="w-15">Ngày lập</th>
-                                    <th class="w-30">Nhà cung cấp</th>
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                        <div class="tbl-content">
-                            <table>
-                                <tbody>
-                                <tr>
-                                    <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
-                                    <td class="w-30">Nguyễn Văn A</td>
-                                    <td class="w-15">18/10/2021</td>
-                                    <td class="w-30">Công ty X</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
-                                    <td class="w-30">Nguyễn Văn A</td>
-                                    <td class="w-15">18/10/2021</td>
-                                    <td class="w-30">Công ty X</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
-                                    <td class="w-30">Nguyễn Văn A</td>
-                                    <td class="w-15">18/10/2021</td>
-                                    <td class="w-30">Công ty X</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
-                                    <td class="w-30">Nguyễn Văn A</td>
-                                    <td class="w-15">18/10/2021</td>
-                                    <td class="w-30">Công ty X</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
-                                    <td class="w-30">Nguyễn Văn A</td>
-                                    <td class="w-15">18/10/2021</td>
-                                    <td class="w-30">Công ty X</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
-                                    <td class="w-30">Nguyễn Văn A</td>
-                                    <td class="w-15">18/10/2021</td>
-                                    <td class="w-30">Công ty X</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
-                                    <td class="w-30">Nguyễn Văn A</td>
-                                    <td class="w-15">18/10/2021</td>
-                                    <td class="w-30">Công ty X</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
-                                    <td class="w-30">Nguyễn Văn A</td>
-                                    <td class="w-15">18/10/2021</td>
-                                    <td class="w-30">Công ty X</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
-                                    <td class="w-30">Nguyễn Văn A</td>
-                                    <td class="w-15">18/10/2021</td>
-                                    <td class="w-30">Công ty X</td>
-                                </tr>
-                                <tr>
-                                    <td class="w-10">1</td>
-                                    <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia.html" class="text-500">BG-098-10293</a></td>
-                                    <td class="w-30">Nguyễn Văn A</td>
-                                    <td class="w-15">18/10/2021</td>
-                                    <td class="w-30">Công ty X</td>
-                                </tr>
-
-                                </tbody>
-                            </table>
+                <div class="detail_tab w_100 float_l" data="<?= $page ?>" data1="<?= $ht ?>">
+                    <div class="table-wrapper mt-20">
+                        <div class="table-container table-988">
+                            <div class="tbl-header">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th class="w-10">STT</th>
+                                        <th class="w-15">Số phiếu yêu cầu</th>
+                                        <th class="w-30">Người lập</th>
+                                        <th class="w-15">Ngày lập</th>
+                                        <th class="w-30">Nhà cung cấp</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="tbl-content">
+                                <table>
+                                    <tbody>
+                                        <? while($item = mysql_fetch_assoc($list_yc1 -> result)) {?>
+                                            <tr>
+                                                <td class="w-10"><?= $stt++ ?></td>
+                                                <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia-<?= $item['id'] ?>.html" class="text-500">BG-<?= $item['id'] ?></a></td>
+                                                <td class="w-30">Nguyễn Văn A</td>
+                                                <td class="w-15">18/10/2021</td>
+                                                <td class="w-30">Công ty X</td>
+                                            </tr>
+                                        <?}?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="w-100 left mt-10 d-flex flex-wrap spc-btw">
-                <div class="display mr-10">
-                    <label for="display">Hiển thị</label>
-                    <select name="display" id="display">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                    </select>
-                </div>
-                <div class="pagination mt-10">
-                    <ul>
-                        <li><a href="#"><?php echo $ic_lt ?></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#"><?php echo $ic_gt ?></a></li>
-                    </ul>
+                    <div class="w-100 left mt-10 d-flex flex-wrap spc-btw">
+                        <div class="display mr-10">
+                            <label for="display">Hiển thị</label>
+                            <select name="display" id="display">
+                                <option value="10" <?= ($ht == '10') ? "selected" : "" ?> >10</option>
+                                <option value="20" <?= ($ht == '20') ? "selected" : "" ?> >20</option>
+                            </select>
+                        </div>
+                        <div class="pagination mt-10">
+                            <ul>
+                                <?= generatePageBar3('',$page,$ht,$total,$urll,'&','','active','preview','<','next','>','','<<<','','>>>'); ?>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -182,4 +186,48 @@ include("../includes/icon.php");
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript">
+
+    $(".tim_kiem").change(function(){
+        var tk = $(".tim_kiem").val();
+        var ct = $(".tk_chi_tiet").val();
+        var page = $(".detail_tab").attr("data");
+        var ht = $(".detail_tab").attr("data1");
+
+        if(tk != ""){
+            window.location.href = "/quan-ly-yeu-cau-bao-gia.html?ht=" + ht + "&page=" + page + "&tk=" + tk ;
+        }else if(tk == ""){
+            window.location.href = "/quan-ly-yeu-cau-bao-gia.html?ht=" + ht + "&page=" + page;
+        }
+
+    });
+
+    $(".tk_chi_tiet").change(function(){
+        var tk = $(".tim_kiem").val();
+        var ct = $(".tk_chi_tiet").val();
+        var page = 1;
+        var ht = $(".detail_tab").attr("data1");
+
+        if(ct == ""){
+            window.location.href = "/quan-ly-yeu-cau-bao-gia.html?ht=" + ht + "&page=" + page + "&tk=" + tk;
+        }else{
+            window.location.href = "/quan-ly-yeu-cau-bao-gia.html?ht=" + ht + "&page=" + page + "&tk=" + tk + "&ct=" + ct;
+        }
+    });
+
+    $("#display").change(function(){
+        var ht = $(this).val();
+        var page = $(".detail_tab").attr("data");
+        var tk = $(".tim_kiem").val();
+        var ct = $(".tk_chi_tiet").val();
+
+        if(tk != "" && ct != ""){
+            window.location.href = "/quan-ly-yeu-cau-bao-gia.html?ht=" + ht + "&page=" + page + "&tk=" + tk + "&ct=" + ct;
+        }else if(tk != "" && ct == ""){
+            window.location.href = "/quan-ly-yeu-cau-bao-gia.html?ht=" + ht + "&page=" + page + "&tk=" + tk;
+        }else if(tk == "" && ct == ""){
+            window.location.href = "/quan-ly-yeu-cau-bao-gia.html?ht=" + ht + "&page=" + page;
+        }
+    })
+</script>
 </html>

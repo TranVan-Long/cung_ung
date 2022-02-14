@@ -1,33 +1,37 @@
-<?php
+<?
 include("config.php");
 include("../includes/icon.php");
 $date = date('Y-m-d', time());
 
-if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2){
+$list_nhacc = new db_query("SELECT `id`, `ten_nha_cc_kh`, `sp_cung_ung`, `phan_loai` FROM `nha_cc_kh` WHERE `phan_loai` = 1 ");
+
+$list_tchi = new db_query("SELECT `id`, `tieu_chi`, `he_so`, `kieu_gia_tri` FROM `tieu_chi_danh_gia` ");
+
+if(isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2){
     $ep_name = $_SESSION['ep_name'];
     $ep_id = $_SESSION['ep_id'];
     $curl = curl_init();
-        $token = $_COOKIE['acc_token'];
-        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
-        $response = curl_exec($curl);
-        curl_close($curl);
+    $token = $_SESSION['access_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $data_list = json_decode($response,true);
+    $data_list_nv = $data_list['data']['items'];
+    $count = count($data_list_nv);
 
-        $data_list = json_decode($response,true);
-        $data_list_nv =$data_list['data']['items'];
-        $count = count($data_list_nv);
-
-        $user = [];
-        for ($i = 0; $i < $count; $i++){
-            $item1 = $data_list_nv[$i];
-            $user[$item1["ep_id"]] = $item1;
-        }
+    $user = [];
+    for ($i = 0; $i < $count; $i++){
+        $item1 = $data_list_nv[$i];
+        $user[$item1["ep_id"]] = $item1;
+    }
 
     $phong_ban = $user[$ep_id]['dep_name'];
     $dep_id = $user[$ep_id]['dep_id'];
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -115,7 +119,8 @@ if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE
                          <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left">
                                 <p class="d-block w-100">Điểm đánh giá</p>
-                                <p class="d-block w-100 text-bold mt-10" id="ncc-diem-danh-gia">&nbsp;</p>
+                                <p class="d-block w-100 text-bold mt-10" id="ncc-diem-danh-gia"></p>
+                                <input type="text" name="tongd_dg" id="tongd_dg" class="hidden_bd" readonly>
                             </div>
                         </div>
                         <div class="form-row left">
@@ -152,34 +157,39 @@ if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE
                                 <div class="tbl-content table-2-row">
                                     <table>
                                         <tbody id="ratting-ruler">
-                                        <tr class="item">
-                                            <td class="w-5"><p class="removeItem"><i class="ic-delete remove-btn"></i>
-                                                </p>
-                                            </td>
-                                            <td class="w-10">
-                                                <p>1</p>
-                                            </td>
-                                            <td class="w-20">
-                                                <div class="v-select2">
-                                                    <select name="chi_nhanh_ngan_hang" class="share_select"></select>
-                                                </div>
-                                            </td>
-                                            <td class="w-10">
-                                                <p>x1</p>
-                                            </td>
-                                            <td class="w-10">
-                                                <p>10</p>
-                                            </td>
-                                            <td class="w-15">
-                                                <input type="text" name="diem_danh_gia">
-                                            </td>
-                                            <td class="w-15">
-                                                <p>1</p>
-                                            </td>
-                                            <td class="w-15">
-                                                <p>1</p>
-                                            </td>
-                                        </tr>
+                                            <!-- <tr class="item" data="">
+                                                <td class="w-5"><p class="removeItem"><i class="ic-delete remove-btn"></i>
+                                                    </p>
+                                                </td>
+                                                <td class="w-10">
+                                                    <p class="one_stt">1</p>
+                                                </td>
+                                                <td class="w-20">
+                                                    <div class="v-select2">
+                                                        <select name="ten_tchi_dg" class="share_select ten_tieuchi">
+                                                            <option value="">Chọn tiêu chí đánh giá</option>
+                                                            <? while($item_tc = mysql_fetch_assoc($list_tchi -> result)) {?>
+                                                            <option value="<?= $item_tc['id'] ?>"><?= $item_tc['tieu_chi'] ?></option>
+                                                            <? } ?>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td class="w-10">
+                                                    <p></p>
+                                                </td>
+                                                <td class="w-10">
+                                                    <p></p>
+                                                </td>
+                                                <td class="w-15">
+                                                    <input type="text" name="diem_danh_gia">
+                                                </td>
+                                                <td class="w-15">
+                                                    <input type="text" name="tdiem_dg" class="hidden_bd" readonly>
+                                                </td>
+                                                <td class="w-15">
+                                                    <input type="text" name="dg_ctiet">
+                                                </td>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -240,6 +250,45 @@ if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE
         })
     });
 
+    $("#add-ratting-ruler").click(function () {
+        var x= 1;
+        $('.one_stt').each( function() {
+            $(this).text(x);
+            x++;
+        });
+        $.ajax({
+            url: '../ajax/them_tc_dg_ncc.php',
+            type: 'POST',
+            data:{
+                x: x,
+            },
+            success: function(data){
+                $("#ratting-ruler").append(data);
+            }
+        });
+    });
+
+    function thay_doi(){
+        $('.ten_tieuchi').on('change', function(){
+            var id_tc = $(this).val();
+            var _this = $(this);
+            console.log(_this);
+
+            var x=  _this.parent().parent().parent().attr("data");
+            $.ajax({
+                url: '../render/dg_tieu_chi_ncc.php',
+                type: 'POST',
+                data:{
+                    id_tc: id_tc,
+                    x: x,
+                },
+                success: function(data){
+                    _this.parent().parent().parent().html(data);
+                }
+            });
+        });
+    };
+
     $('.submit-btn').click(function () {
         var form = $('.main-form');
         form.validate({
@@ -282,6 +331,46 @@ if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE
             var dep_id = $("#phong_ban").attr("data-id");
             var id_nhacc = $("select[name='nha_cung_cap']").val();
             var dg_khac = $("textarea[name='danh_gia_khac']").val();
+            var user_id = "<?= $_COOKIE['user'] ?>";
+
+
+            var id_tc = document.getElementsByName("ten_tchi_dg");
+            var idt = "";
+            for(var i = 0; i < id_tc.length; i++){
+                if(id_tc[i] != ""){
+                    idt += id_tc[i].value + '_';
+                }
+            }
+
+            var diem_danhg = document.getElementsByName("diem_danh_gia");
+            var dd = "";
+            for(var j = 0; j < diem_danhg.length; j++){
+                if(diem_danhg[j] !=""){
+                    dd += diem_danhg[j].value + '_';
+                }
+            }
+
+            var sum_dg = document.getElementsByName("tdiem_dg");
+            var sm = "";
+            for(var k = 0; k < sum_dg.length; k++){
+                if(sum_dg[k] != ""){
+                    sm += sum_dg[k].value + '_';
+                }
+            }
+
+            var dg_ctiet = document.getElementsByName("dg_ctiet");
+            var dg_ct = "";
+            for(var l = 0; l < dg_ctiet.length; l++){
+                dg_ct += dg_ctiet[l].value + '_';
+            }
+
+            var thang_diem = document.getElementsByName("thang_diem");
+            var tgd = "";
+            for(var p = 0; p < thang_diem.length; p++){
+                if(thang_diem[p] != ""){
+                    tgd += thang_diem[p].value + '_';
+                }
+            }
 
             $.ajax({
                 url: '../ajax/them_dg_nhacc.php',
@@ -292,16 +381,22 @@ if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE
                     dep_id: dep_id,
                     id_nhacc: id_nhacc,
                     dg_khac: dg_khac,
+                    user_id: user_id,
+                    id_tc: idt,
+                    diem_dg: dd,
+                    tong_diem: sm,
+                    dg_ctiet: dg_ct,
+                    thang_diem: tgd,
                 },
                 success: function(data){
                     if(data == ""){
-                        alert("Bạn đã đánh giá nhà cung cấp");
-                        window.location.href = '/them-danh-gia-nha-cung-cap.html';
+                        alert("Bạn đã đánh giá nhà cung cấp thành công");
+                        window.location.href = '/danh-gia-nha-cung-cap.html';
                     }else{
                         alert(data);
                     }
                 }
-            })
+            });
         }
     });
 

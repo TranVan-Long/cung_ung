@@ -230,7 +230,11 @@ img {
     padding-left: 0;
     background: #FFFFFF;
 }
-
+input.hidden_bd{
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF !important;
+    outline: 0;
+}
 .d_flex {
     display: flex;
 }

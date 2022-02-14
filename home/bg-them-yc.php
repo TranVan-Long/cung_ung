@@ -1,6 +1,17 @@
 <?php
 include("../includes/icon.php");
-$date = date('Y-m-d', time())
+include("config.php");
+$date = date('Y-m-d', time());
+$date1 = strtotime($date);
+
+if(isset($_SESSION['quyen']) && $_SESSION['quyen'] = '2'){
+    $user_id = $_SESSION['ep_id'];
+    $user_name = $_SESSION['ep_name'];
+    $com_id = $_SESSION['user_com_id'];
+}
+
+$list_nhacc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 1 ");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,11 +52,11 @@ $date = date('Y-m-d', time())
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
                                 <label>Người lập</label>
-                                <input type="text" name="nguoi_lap" value="Nguyễn Văn A" readonly>
+                                <input type="text" name="nguoi_lap" value="<?= $user_name ?>" data-id="<?= $user_id ?>" readonly>
                             </div>
                             <div class="form-col-50 no-border right mb_15">
                                 <label>Ngày lập</label>
-                                <input class="date-input" type="date" id="ngay-danh-gia" name="ngay_danh_gia" value="<?echo $date?>">
+                                <input class="date-input" type="date" id="ngay-danh-gia" name="ngay_danh_gia" value="<?echo $date?>" data="<?= $date1 ?>" readonly>
                             </div>
                         </div>
                         <div class="form-row left">
@@ -53,20 +64,15 @@ $date = date('Y-m-d', time())
                                 <label>Nhà cung cấp <span class="text-red">&ast;</span></label>
                                 <select name="nha_cung_cap" id="nha_cung_cap" class="share_select">
                                     <option value="">-- Chọn nhà cung cấp --</option>
-                                    <option value="1">Công ty A</option>
-                                    <option value="2">Công ty B</option>
-                                    <option value="3">Công ty C</option>
-                                    <option value="4">Công ty D</option>
+                                    <? while($row = mysql_fetch_assoc($list_nhacc -> result)) { ?>
+                                    <option value="<?= $row['id'] ?>"><?= $row['ten_nha_cc_kh'] ?></option>
+                                    <? } ?>
                                 </select>
                             </div>
                             <div class="form-col-50 no-border right mb_15 v-select2">
                                 <label>Người tiếp nhận báo giá <span class="text-red">&ast;</span></label>
                                 <select name="nguoi_tiep_nhan" id="nguoi-tiep-nhan" class="share_select">
                                     <option value="">-- Chọn người tiếp nhận báo giá --</option>
-                                    <option value="1">Nguyễn Văn A</option>
-                                    <option value="2">Nguyễn Văn B</option>
-                                    <option value="3">Nguyễn Thị C</option>
-                                    <option value="4">Nguyễn Thị D</option>
                                 </select>
                             </div>
                         </div>
@@ -76,17 +82,13 @@ $date = date('Y-m-d', time())
                                 <select name="cong_trinh" id="cong-trinh" class="share_select">
                                     <option value="">-- Chọn công trình --</option>
                                     <option value="1">Nâng cấp quốc lộ 999</option>
-                                    <option value="2">Xây dựng nhà dân dụng</option>
-                                    <option value="3">Nâng cấp trường học</option>
-                                    <option value="4">Xây dựng nhà sinh hoạt văn hóa</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="w-100 left mb_15">
                                 <label>Nội dung thư </label>
-                                <textarea name="noi_dung_thu"
-                                          placeholder="Nhập nội dung thư"></textarea>
+                                <textarea name="noi_dung_thu" placeholder="Nhập nội dung thư"></textarea>
                             </div>
                         </div>
                         <div class="form-row left spc-btw">
@@ -95,17 +97,16 @@ $date = date('Y-m-d', time())
                                 <input type="text" name="mail_nhan_bao_gia" placeholder="Nhập mail nhận báo giá">
                                 <div class="d_flex align-items-center checkbox-lbs mt-15">
                                     <label for="mail_ngay" class="mb-0 mr-30">Gửi mail ngay</label>
-                                    <input type="checkbox" name="mail_ngay" id="mail_ngay" checked>
+                                    <input type="checkbox" name="mail_ngay" id="mail_ngay" value="1">
                                 </div>
                             </div>
                             <div class="form-col-50 no-border right d-flex mb_15">
                                 <div class="d_flex align-items-center checkbox-lbs mt-30">
                                     <label for="gia_VAT" class="mb-0 mr-30">Giá đã bao gồm VAT</label>
-                                    <input type="checkbox" name="gia_VAT" id="gia_VAT">
+                                    <input type="checkbox" name="gia_VAT" id="gia_VAT" value="1">
                                 </div>
                             </div>
                         </div>
-                    
                     </div>
                     <div class="mt-30 left w-100">
                         <p class="text-blue link-text text-500" id="add-quote">&plus; Thêm mới vật tư</p>
@@ -127,56 +128,7 @@ $date = date('Y-m-d', time())
                                 <div class="tbl-content table-2-row">
                                     <table>
                                         <tbody id="quote-me">
-                                        <tr class="item">
-                                            <td class="w-5">
-                                                <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                                            </td>
-                                            <td class="w-15">
-                                                <div class="v-select2">
-                                                    <select name="ten_day_du">
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td class="w-15">
-                                                <div class="v-select2">
-                                                    <select name="hang_san_xuat">
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td class="w-10">
-                                                <input type="text" name="don_vi_tinh" readonly>
-                                            </td>
-                                            <td class="w-15">
-                                                <input type="text" name="so_luong">
-                                            </td>
-                                        </tr>
-                                        <tr class="item">
-                                            <td class="w-5">
-                                                <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                                            </td>
-                                            <td class="w-15">
-                                                <div class="v-select2">
-                                                    <select name="ten_day_du">
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td class="w-15">
-                                                <div class="v-select2">
-                                                    <select name="hang_san_xuat">
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td class="w-10">
-                                                <input type="text" name="don_vi_tinh" readonly>
-                                            </td>
-                                            <td class="w-15">
-                                                <input type="text" name="so_luong">
-                                            </td>
-                                        </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -187,7 +139,7 @@ $date = date('Y-m-d', time())
                 <div class="left w-100">
                     <div class="control-btn right">
                         <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
-                        <button type="button" class="v-btn btn-blue mt-20 submit-btn">Xong</button>
+                        <button type="button" class="v-btn btn-blue mt-20 submit_btx submit-btn" data="<?= $com_id ?>">Xong</button>
                     </div>
                 </div>
             </form>
@@ -223,6 +175,50 @@ $date = date('Y-m-d', time())
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script>
+
+    $("#nha_cung_cap").change(function(){
+        var id_ncc = $(this).val();
+
+        $.ajax({
+            url: '../render/nguoi_lien_he.php',
+            type: 'POST',
+            data:{
+                id_ncc: id_ncc,
+            },
+            success: function(data){
+                $("#nguoi-tiep-nhan").html(data);
+            }
+        })
+    });
+
+    $("#add-quote").click(function(){
+        $.ajax({
+            url: '../ajax/them_bgvt_yc.php',
+            type: 'POST',
+            success: function(data){
+                $("#quote-me").append(data);
+            }
+        });
+    });
+
+    function doi_vt() {
+        $(".ten_vat_tu").change(function(){
+            var id_vt = $(this).val();
+            var _this = $(this);
+            $.ajax({
+                url: '../render/vat_tu_yc_bg.php',
+                type: 'POST',
+                data:{
+                    id_vt: id_vt,
+                },
+                success: function(data){
+                    _this.parents(".item").html(data);
+                }
+            })
+        });
+        RefSelect2();
+    };
+
     $('.submit-btn').click(function () {
         var form = $('.main-form');
         form.validate({
@@ -248,8 +244,75 @@ $date = date('Y-m-d', time())
             }
         });
         if (form.valid() === true) {
-            alert("pass");
+            var user_id = $("input[name='nguoi_lap']").attr("data-id");
+            var ngay_lap = $("input[name='ngay_danh_gia']").attr("data");
+            var nhacc_id = $("select[name='nha_cung_cap']").val();
+            var id_nguoi_lh = $("select[name='nguoi_tiep_nhan']").val();
+            var id_ctrinh = $("select[name='cong_trinh']").val();
+            var noi_dung = $("textarea[name='noi_dung_thu']").val();
+            var mail_nhan_bg = $("input[name='mail_nhan_bao_gia']").val();
+            var com_id = $(this).attr("data");
+
+            var gui_mail = document.getElementsByName('mail_ngay');
+            var gm = "";
+            for(var j = 0; j < gui_mail.length; j++){
+                if(gui_mail[j].checked === true) {
+                    gm += gui_mail[j].value + '_';
+                }
+            }
+
+            var gia_baog_vat = document.getElementsByName('gia_VAT');
+            var mh = "";
+            for (var i = 0; i < gia_baog_vat.length; i++) {
+                if(gia_baog_vat[i].checked === true) {
+                    mh += gia_baog_vat[i].value + '_';
+                }
+            }
+
+            var ma_vt = new Array();
+            $("select[name='ten_day_du']").each(function(){
+                var ma_vatt = $(this).val();
+                if(ma_vatt != ""){
+                    ma_vt.push(ma_vatt);
+                }
+            });
+
+            var so_luong = new Array();
+            $("input[name='so_luong']").each(function(){
+                var sol = $(this).val();
+                if(sol != ""){
+                    so_luong.push(sol);
+                }
+            });
+
+            $.ajax({
+                url: '../ajax/them_yc_bao_gia.php',
+                type: 'POST',
+                data:{
+                    user_id: user_id,
+                    com_id: com_id,
+                    ngay_lap: ngay_lap,
+                    nhacc_id: nhacc_id,
+                    id_nguoi_lh: id_nguoi_lh,
+                    id_ctrinh: id_ctrinh,
+                    noi_dung: noi_dung,
+                    mail_nhan_bg: mail_nhan_bg,
+                    gui_mail: gm,
+                    gia_baog_vat: mh,
+                    ma_vt: ma_vt,
+                    so_luong: so_luong,
+                },
+                success: function(data){
+                    if(data == ""){
+                        alert("thanh cong");
+                        window.location.reload();
+                    }else{
+                        alert(data);
+                    }
+                }
+            })
         }
     });
+
 </script>
 </html>
