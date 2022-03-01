@@ -109,7 +109,7 @@ $list_nhacc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE 
                         </div>
                     </div>
                     <div class="mt-30 left w-100">
-                        <p class="text-blue link-text text-500" id="add-quote">&plus; Thêm mới vật tư</p>
+                        <p class="text-blue link-text text-500" id="add-quote" data="<?= $com_id ?>">&plus; Thêm mới vật tư</p>
                         <div class="table-wrapper mt-10">
                             <div class="table-container table-1252">
                                 <div class="tbl-header">
@@ -192,9 +192,13 @@ $list_nhacc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE 
     });
 
     $("#add-quote").click(function(){
+        var id_com = $(this).attr("data");
         $.ajax({
             url: '../ajax/them_bgvt_yc.php',
             type: 'POST',
+            data:{
+                id_com: id_com,
+            },
             success: function(data){
                 $("#quote-me").append(data);
             }
@@ -205,11 +209,13 @@ $list_nhacc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE 
         $(".ten_vat_tu").change(function(){
             var id_vt = $(this).val();
             var _this = $(this);
+            var id_com = "<?= $com_id ?>";
             $.ajax({
                 url: '../render/vat_tu_yc_bg.php',
                 type: 'POST',
                 data:{
                     id_vt: id_vt,
+                    id_com: id_com,
                 },
                 success: function(data){
                     _this.parents(".item").html(data);
@@ -304,8 +310,8 @@ $list_nhacc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE 
                 },
                 success: function(data){
                     if(data == ""){
-                        alert("thanh cong");
-                        window.location.reload();
+                        alert("Bạn đã thêm yêu cầu báo giá thành công");
+                        window.location.href = '/quan-ly-yeu-cau-bao-gia.html';
                     }else{
                         alert(data);
                     }

@@ -127,3 +127,26 @@ $(window).click(function (e) {
 $(".logout_all").click(function () {
     window.location.href = "/dang-xuat.html";
 });
+var formatter = new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+});
+
+jQuery.validator.addMethod("greaterThan",
+    function (value, element, params) {
+
+        if (!/Invalid|NaN/.test(new Date(value))) {
+            return new Date(value) > new Date($(params).val());
+        }
+
+        return isNaN(value) && isNaN($(params).val()) ||
+            (Number(value) > Number($(params).val()));
+    }, 'Không được lớn hơn {0}');
+
+// cách 2: so sánh ngày
+// $.validator.addMethod("dateRange",
+//     function () {
+//         var date1 = $("#startDate").val();
+//         var date2 = $("#endDate").val();
+//         return (date1 < date2);
+//     })

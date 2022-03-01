@@ -1,8 +1,87 @@
 <?php
 include("../includes/icon.php");
+include("config.php");
+
+if(isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1){
+    $com_id = $_SESSION['com_id'];
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response,true);
+    $list_nv =$data_list['data']['items'];
+
+}else if(isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2){
+    $com_id = $_SESSION['user_com_id'];
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response,true);
+    $list_nv = $data_list['data']['items'];
+};
+
+$user = [];
+for($i = 0; $i < count($list_nv); $i++){
+    $item1 = $list_nv[$i];
+    $user[$item1["ep_id"]] = $item1;
+}
+
+if(isset($_GET['id']) && $_GET['id'] != ""){
+    $id = $_GET['id'];
+    $qr_ctiet = new db_query("SELECT b.`id`, b.`id_yc_bg`,b.`id_nha_cc`, b.`id_nguoi_lap`, b.`ngay_gui`, b.`ngay_bd`, b.`ngay_kt`,
+                                b.`ngay_tao`,b.`id_cong_ty`, n.`ten_nha_cc_kh` FROM `bao_gia` AS b
+                                INNER JOIN `nha_cc_kh` AS n ON b.`id_nha_cc` = n.`id`
+                                WHERE b.`id` = $id AND b.`id_cong_ty` = $com_id ");
+    $list_ct = mysql_fetch_assoc($qr_ctiet -> result);
+    $id_yc_bg = $list_ct['id_yc_bg'];
+
+    $user_id = $list_ct['id_nguoi_lap'];
+    $id_nhacc = $list_ct['nha_cc_kh'];
+
+    $list_vt = new db_query("SELECT b.`id`, b.`id_yc_bg`, b.`id_cong_ty`, v.`id_vat_tu`, v.`so_luong_bg`, v.`don_gia`, v.`tong_tien_trvat`,
+                            v.`thue_vat`, v.`tong_tien_svat`, v.`cs_kem_theo`, v.`sl_da_dat_hang`, y.`id_yc_bg`, y.`so_luong_yc_bg`
+                            FROM `bao_gia` AS b
+                            INNER JOIN `vat_tu_da_bao_gia` AS v ON b.`id` = v.`id_bao_gia`
+                            INNER JOIN `vat_tu_bao_gia` AS y ON b.`id_yc_bg` = y.`id_yc_bg`
+                            WHERE b.`id_cong_ty` = $com_id AND v.`id_bao_gia` = $id ");
+
+    $curl = curl_init();
+    $data = array(
+        'id_com' => $com_id,
+    );
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php');
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    $response1 = curl_exec($curl);
+    curl_close($curl);
+
+    $vat_tu = json_decode($response1,true);
+    $vatt = $vat_tu['data']['items'];
+
+    $tenvt = [];
+    for($j = 0; $j < count($vatt); $j++){
+        $item2 = $vatt[$j];
+        $tenvt[$item2['dsvt_id']] = $item2;
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,33 +117,41 @@ include("../includes/icon.php");
                     <div class="form-row left">
                         <div class="form-col-50 left p-10 no-border">
                             <p class="detail-title">Số báo giá</p>
-                            <p class="detail-data text-500">BG-000-10176</p>
+                            <p class="detail-data text-500">BG-<?= $list_ct['id'] ?></p>
                         </div>
                         <div class="form-col-50 right p-10">
                             <p class="detail-title">Ngày gửi</p>
-                            <p class="detail-data text-500">18/10/2021</p>
+                            <p class="detail-data text-500"><?= date('d/m/Y', $list_ct['ngay_gui']) ?></p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
                         <div class="form-col-50 left p-10">
                             <p class="detail-title">Người lập</p>
-                            <p class="detail-data text-500">Nguyễn Văn A</p>
+                            <p class="detail-data text-500"> <?= $user[$user_id]['ep_name'] ?></p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
                         <div class="form-col-50 left p-10">
                             <p class="detail-title"> Nhà cung cấp</p>
-                            <p class="detail-data text-500">Công ty A</p>
+                            <p class="detail-data text-500"><?= $list_ct['ten_nha_cc_kh'] ?></p>
                         </div>
                     </div>
                     <div class="form-row left border-top2">
                         <div class="form-col-50 left p-10">
                             <p class="detail-title">Theo yêu cầu báo giá số</p>
-                            <p class="detail-data text-500">BG-083-47474</p>
+                            <p class="detail-data text-500">BG-<?= $list_ct['id_yc_bg'] ?></p>
                         </div>
                         <div class="form-col-50 right p-10">
                             <p class="detail-title">Thời gian áp dụng</p>
-                            <p class="detail-data text-500">18/10/2021 - 05/05/2022</p>
+                            <? if($list_ct['ngay_bd'] != 0 && $list_ct['ngay_kt'] != 0){ ?>
+                            <p class="detail-data text-500"> Từ: <?= date('d/m/Y', $list_ct['ngay_bd']) ?><br> Đến: <?= date('d/m/Y', $list_ct['ngay_kt']) ?></p>
+                            <? }else if($list_ct['ngay_bd'] != 0 && $list_ct['ngay_kt'] == 0) {?>
+                                <p class="detail-data text-500"> Từ: <?= date('d/m/Y', $list_ct['ngay_bd']) ?></p>
+                            <?}else if($list_ct['ngay_bd'] == 0 && $list_ct['ngay_kt'] != 0){?>
+                                <p class="detail-data text-500"> Đến: <?= date('d/m/Y', $list_ct['ngay_kt']) ?></p>
+                            <?}else{?>
+                                <p class="detail-data text-500"></p>
+                            <?}?>
                         </div>
                     </div>
                 </div>
@@ -96,21 +183,24 @@ include("../includes/icon.php");
                         <div class="tbl-content table-2-row">
                             <table>
                                 <tbody>
+                                <?  $stt = 1;
+                                    while($row = mysql_fetch_assoc($list_vt -> result)) {?>
                                 <tr>
-                                    <td class="w-10">1</td>
-                                    <td class="w-15">VT-000-00000</td>
-                                    <td class="w-30">Cát vàng</td>
-                                    <td class="w-15">m3</td>
-                                    <td class="w-25">m3</td>
-                                    <td class="w-25">100</td>
-                                    <td class="w-20">100</td>
-                                    <td class="w-25">65.000</td>
-                                    <td class="w-20">6.500.000</td>
-                                    <td class="w-25">10%</td>
-                                    <td class="w-20">7.150.000</td>
-                                    <td class="w-20">Không có</td>
-                                    <td class="w-20">50</td>
+                                    <td class="w-10"><?= $stt++ ?></td>
+                                    <td class="w-15">VT-<?= $row['id_vat_tu'] ?></td>
+                                    <td class="w-30"><?= $tenvt[$row['id_vat_tu']]['dsvt_name'] ?></td>
+                                    <td class="w-15"><?= $tenvt[$row['id_vat_tu']]['dvt_name'] ?></td>
+                                    <td class="w-25"><?= $tenvt[$row['id_vat_tu']]['hsx_name'] ?></td>
+                                    <td class="w-25"><?= $row['so_luong_yc_bg'] ?></td>
+                                    <td class="w-20"><?= $row['so_luong_bg'] ?></td>
+                                    <td class="w-25"><?= $row['don_gia'] ?></td>
+                                    <td class="w-20"><?= $row['tong_tien_trvat'] ?></td>
+                                    <td class="w-25"><?= ($row['thue_vat'] != 0) ? $row['thue_vat'].'%': "" ?></td>
+                                    <td class="w-20"><?= $row['tong_tien_svat'] ?></td>
+                                    <td class="w-20"><?= $row['cs_kem_theo'] ?></td>
+                                    <td class="w-20"><?= $row['sl_da_dat_hang'] ?></td>
                                 </tr>
+                                <?}?>
                                 </tbody>
                             </table>
                         </div>
@@ -118,7 +208,7 @@ include("../includes/icon.php");
                 </div>
                 <div class="control-btn right">
                     <p class="v-btn btn-outline-red modal-btn mr-20 mt-15" data-target="delete">Xóa</p>
-                    <a href="chinh-sua-bao-gia.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
+                    <a href="chinh-sua-bao-gia-<?= $list_ct['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
                 </div>
                 <div class="control-btn left mr-10">
                     <button class="v-btn btn-green mr-20 mt-15">Xuất excel</button>

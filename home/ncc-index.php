@@ -62,7 +62,7 @@ isset($_GET['ht']) ? $display = $_GET['ht'] : $display = 10;
                             </div>
                         </div>
                     </div>
-                    <div class="list_ncc w_100 left" data="<?= $page ?>"  data1="<?= $display ?>"></div>
+                    <div class="list_ncc w_100 left" data="<?= $page ?>" data1="<?= $display ?>"></div>
                 </div>
             </div>
         </div>
@@ -127,4 +127,5 @@ isset($_GET['ht']) ? $display = $_GET['ht'] : $display = 10;
         });
     });
 </script>
+
 </html>

@@ -143,7 +143,7 @@ include("config.php");
                     </div>
                 </div>
                 <div class="right mt-30 xoa_csua">
-                    <? if(isset()) ?>
+                    <!-- <? if(isset()) ?> -->
                     <button class="v-btn mb_10 btn-outline-red modal-btn mr-20" data-target="decide">Từ chối</button>
                     <button class="v-btn mb_10 btn-blue modal-btn" data-target="accept">Duyệt</button>
                 </div>

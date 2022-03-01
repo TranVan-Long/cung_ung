@@ -160,7 +160,7 @@ isset($_GET['ht']) ? $display = $_GET['ht'] : $display = 10;
             }
         });
     });
-    $("input[name='filter2'],input[name='filter3']").change(function() {
+    $("input[name='filter2']").change(function() {
         var category = $("#category").val();
         var search = $("#search").val();
         var page = $(".list_ycvt").attr("data");
@@ -183,6 +183,30 @@ isset($_GET['ht']) ? $display = $_GET['ht'] : $display = 10;
             }
         });
     });
+    $("input[name='filter3']").change(function() {
+        var category = $("#category").val();
+        var search = $("#search").val();
+        var page = $(".list_ycvt").attr("data");
+        var display = $(".list_ycvt").attr("data1");
+        var filter2 = $("input[name='filter2']:checked").val();
+        var filter3 = $("input[name='filter3']:checked").val();
+        $.ajax({
+            url: '../render/ycvt-search.php',
+            type: 'POST',
+            data: {
+                category: category,
+                search: search,
+                page: page,
+                display: display,
+                filter2:filter2,
+                filter3:filter3,
+            },
+            success: function(data) {
+                $(".list_ycvt").html(data);
+            }
+        });
+    });
+    
 
     
 </script>

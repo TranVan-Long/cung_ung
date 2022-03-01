@@ -1,5 +1,9 @@
 <?php
 include "../includes/icon.php";
+include "config.php";
+
+isset($_GET['page']) ? $page = $_GET['page'] : $page = 1;
+isset($_GET['ht']) ? $display = $_GET['ht'] : $display = 10;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +63,7 @@ include "../includes/icon.php";
                         </div>
                         <div class="form_tkiem d_flex">
                             <div class="share_form_select category">
-                                <select name="category" class="tim_kiem">
+                                <select name="category" class="tim_kiem share_select" id="category">
                                     <option value="">Tìm kiếm theo</option>
                                     <option value="1">Mã yêu cầu</option>
                                     <option value="2">Ngày gửi</option>
@@ -68,7 +72,7 @@ include "../includes/icon.php";
                                 </select>
                             </div>
                             <div class="share_form_select search-box">
-                                <select name="search" class="tim_kiem_o">
+                                <select name="search" class="tim_kiem_o share_select" id="search">
                                     <option value="">Nhập thông tin cần tìm kiếm</option>
                                 </select>
                             </div>
@@ -215,10 +219,10 @@ include "../includes/icon.php";
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
+
 <script>
-$(".tim_kiem, .tim_kiem_o").select2({
-    width: '100%',
-});
+
 
 
 $('.scroll_right').click(function (e) {

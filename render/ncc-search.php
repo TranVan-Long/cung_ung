@@ -31,8 +31,8 @@ $page_numb = ceil($num / $display);
 <div class="scr-wrapper mt-20">
 
     <? if ($num >= 5) { ?>
-        <div class="scr-btn scr-l-btn right" onclick="right()"><i class="ic-chevron-left"></i></div>
-        <div class="scr-btn scr-r-btn left" onclick="left()"><i class="ic-chevron-right"></i></div>
+        <div class="scr-btn scr-l-btn right" onclick="right()"><i class="ic-chevron-left" title="Cuộn sang phải"></i></div>
+        <div class="scr-btn scr-r-btn left" onclick="left()"><i class="ic-chevron-right" title="Cuộn sang trái"></i></div>
     <? } ?>
     <div class="table-wrapper">
         <div class="table-container table_1928">

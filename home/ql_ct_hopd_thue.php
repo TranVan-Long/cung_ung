@@ -1,5 +1,59 @@
 <?php
 include "../includes/icon.php";
+include("config.php");
+
+if (isset($_GET['id']) && $_GET['id'] != "") {
+    $hd_id = $_GET['id'];
+    $hd_get = new db_query("SELECT `ngay_ky_hd`, `id_nha_cc_kh`, `id_du_an_ctrinh`, `thue_noi_bo`, `hinh_thuc_hd`, `ten_ngan_hang`, `so_tk`, `noi_dung_hd`, `noi_dung_luu_y`, `dieu_khoan_tt` FROM `hop_dong` WHERE `id` = $hd_id");
+    $hd_detail = mysql_fetch_assoc($hd_get->result);
+
+    $ncc_id = $hd_detail['id_nha_cc_kh'];
+    $ncc = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh` FROM nha_cc_kh WHERE `id` = $ncc_id"))->result);
+
+    $ep_name = $_SESSION['ep_name'];
+    $ep_id = $_SESSION['ep_id'];
+}
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $data_list = json_decode($response, true);
+    $data_list_nv = $data_list['data']['items'];
+
+    foreach ($data_list_nv as $key => $items) {
+        $user_name = $items['ep_name'];
+        $dept_id    = $items['dep_id'];
+        $dept_name  = $items['dep_name'];
+        $comp_id = $items['com_id'];
+    }
+    $curl = curl_init();
+    $data = array(
+        'id_com' => $comp_id,
+    );
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php");
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $list_ct = json_decode($response, true);
+    $cong_trinh_data = $list_ct['data']['items'];
+
+    $cong_trinh_detail = [];
+    for ($i = 0; $i < count($cong_trinh_data); $i++) {
+        $items_ct = $cong_trinh_data[$i];
+        $cong_trinh_detail[$items_ct['ctr_id']] = $items_ct;
+    }
+}
+// echo "<pre>";
+// print_r($cong_trinh_detail);
+// echo "</pre>";
+// die();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,61 +85,61 @@ include "../includes/icon.php";
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Số hợp đồng</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">HĐ-198-24201</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one">HĐ - <?= $hd_id ?></p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Ngày hợp đồng</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">12/10/2021</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= date('d/m/Y', $hd_detail['ngay_ky_hd']) ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Nhà cung cấp</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">Công ty ABCXYZ</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $ncc['ten_nha_cc_kh'] ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Dự án / Công trình</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">Nâng cấp quốc lộ 999</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $cong_trinh_detail[$hd_detail['id_du_an_ctrinh']]['ctr_name'] ?></p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thuê nội bộ</p>
-                                    <p class="cr_weight share_fsize_tow cr_red">Không</p>
+                                    <p class="cr_weight share_fsize_tow <?= ($hd_detail['thue_noi_bo']) ? "text-green" : "text-red" ?>"><?= ($hd_detail['thue_noi_bo']) ? "Có" : "Không" ?></p>
                                 </div>
                             </div>
-                            <div class="chitiet_hd w_100 float_l">
+                            <!-- <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Hình thức hợp đồng</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">Hợp đồng trọn gói</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $hd_detail['hinh_thuc_hd'] ?></p>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Tên ngân hàng</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">VCB</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $hd_detail['ten_ngan_hang'] ?></p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Số tài khoản</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">0287666827456</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $hd_detail['so_tk'] ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Nội dung hợp đồng</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">Thuê thiết bị</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $hd_detail['noi_dung_hd'] ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Nội dung cần lưu ý</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">Không có</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $hd_detail['noi_dung_luu_y'] ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Điều khoản thanh toán</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">Không có</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $hd_detail['dieu_khoan_tt'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -110,51 +164,33 @@ include "../includes/icon.php";
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="share_tb_one">1</td>
-                                            <td class="share_tb_two">Cần trục tháp</td>
-                                            <td class="share_tb_two">Không có</td>
-                                            <td class="share_tb_one">2</td>
-                                            <td class="share_tb_two">13/11/2021 - 15/11/2021</td>
-                                            <td class="share_tb_one">Cái</td>
-                                            <td class="share_tb_one">2</td>
-                                            <td class="share_tb_one">2.000.000</td>
-                                            <td class="share_tb_one">2.000.000</td>
-                                            <td class="share_tb_two">0</td>
-                                            <td class="share_tb_two">10.000.000</td>
-                                            <td class="share_tb_two">Không có</td>
-                                            <td class="share_tb_two">Không có</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="share_tb_one">1</td>
-                                            <td class="share_tb_two">Cần trục tháp</td>
-                                            <td class="share_tb_two">Không có</td>
-                                            <td class="share_tb_one">2</td>
-                                            <td class="share_tb_two">13/11/2021 - 15/11/2021</td>
-                                            <td class="share_tb_one">Cái</td>
-                                            <td class="share_tb_one">2</td>
-                                            <td class="share_tb_one">2.000.000</td>
-                                            <td class="share_tb_one">2.000.000</td>
-                                            <td class="share_tb_two">0</td>
-                                            <td class="share_tb_two">10.000.000</td>
-                                            <td class="share_tb_two">Không có</td>
-                                            <td class="share_tb_two">Không có</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="share_tb_one">1</td>
-                                            <td class="share_tb_two">Cần trục tháp</td>
-                                            <td class="share_tb_two">Không có</td>
-                                            <td class="share_tb_one">2</td>
-                                            <td class="share_tb_two">13/11/2021 - 15/11/2021</td>
-                                            <td class="share_tb_one">Cái</td>
-                                            <td class="share_tb_one">2</td>
-                                            <td class="share_tb_one">2.000.000</td>
-                                            <td class="share_tb_one">2.000.000</td>
-                                            <td class="share_tb_two">0</td>
-                                            <td class="share_tb_two">10.000.000</td>
-                                            <td class="share_tb_two">Không có</td>
-                                            <td class="share_tb_two">Không có</td>
-                                        </tr>
+                                        <?
+                                        $stt = 1;
+                                        $get_tb_detail = new db_query("SELECT * FROM `vat_tu_hd_thue` WHERE `id_hd_thue` = $hd_id");
+                                        while ($thiet_bi = mysql_fetch_assoc($get_tb_detail->result)) {
+                                        ?>
+                                            <tr>
+                                                <td class="share_tb_one"><?= $stt++ ?></td>
+                                                <td class="share_tb_two"><?= $thiet_bi['loai_tai_san'] ?></td>
+                                                <td class="share_tb_two"><?= $thiet_bi['thong_so_kthuat'] ?></td>
+                                                <td class="share_tb_one"><?= $thiet_bi['so_luong'] ?></td>
+                                                <td class="share_tb_two">
+                                                    <? if ($thiet_bi['thue_tu_ngay'] == 0 && $thiet_bi['thue_den_ngay'] == 0) { ?>
+                                                        Không có dữ liệu.
+                                                    <? } else { ?>
+                                                        <?= date('d/m/Y', $thiet_bi['thue_tu_ngay']) ?> - <?= date('d/m/Y', $thiet_bi['thue_den_ngay']) ?>
+                                                    <? } ?>
+                                                </td>
+                                                <td class="share_tb_one"><?= $thiet_bi['don_vi_tinh'] ?></td>
+                                                <td class="share_tb_one"><?= $thiet_bi['khoi_luong_du_kien'] ?></td>
+                                                <td class="share_tb_one"><?= formatMoney($thiet_bi['han_muc_ca_may']) ?></td>
+                                                <td class="share_tb_one"><?= formatMoney($thiet_bi['don_gia_thue']) ?></td>
+                                                <td class="share_tb_two"><?= formatMoney($thiet_bi['dg_ca_may_phu_troi']) ?></td>
+                                                <td class="share_tb_two"><?= formatMoney($thiet_bi['thanh_tien_du_kien']) ?></td>
+                                                <td class="share_tb_two"><?= $thiet_bi['thoa_thuan_khac'] ?></td>
+                                                <td class="share_tb_two"><?= $thiet_bi['luu_y'] ?></td>
+                                            </tr>
+                                        <? } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -163,7 +199,7 @@ include "../includes/icon.php";
                             <div class="xuat_gmc_two share_xuat_gmc mb_10 d_flex right">
                                 <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">Xóa</p>
                                 <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                    <a href="chinh-sua-hop-dong-thue-thiet-bi.html" class="share_clr_tow">Chỉnh sửa</a>
+                                    <a href="chinh-sua-hop-dong-thue-thiet-bi-<?= $hd_id?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                 </p>
                             </div>
                             <div class="xuat_gmc_one share_xuat_gmc mb_10 d_flex left mr_10">
@@ -195,10 +231,8 @@ include "../includes/icon.php";
                             </div>
                             <div class="form_butt_ht mb_20">
                                 <div class="tow_butt_flex d_flex">
-                                    <button type="button"
-                                        class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
-                                    <button type="button"
-                                        class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                    <button type="button" class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
+                                    <button type="button" class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp xoa_hd_thue" data-id="<?= $hd_id ?>">Đồng
                                         ý</button>
                                 </div>
                             </div>
@@ -208,7 +242,7 @@ include "../includes/icon.php";
             </div>
         </div>
     </div>
-    <?php include "../modals/modal_logout.php"?>
+    <?php include "../modals/modal_logout.php" ?>
     <? include("../modals/modal_menu.php") ?>
 
 </body>
@@ -217,11 +251,34 @@ include "../includes/icon.php";
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript">
     var remove_hd = $(".remove_hd");
-
     remove_hd.click(function() {
         modal_share.show();
     });
 
+    $(".xoa_hd_thue").click(function() {
+        var id = $(this).attr("data-id");
+        //log record
+        var ep_id = '<?= $ep_id ?>';
+        var hd_id = '<?= $hd_id ?>';
+        var loai = "thuê thiết bị"
+        $.ajax({
+            url: '../ajax/hd_xoa.php',
+            type: 'POST',
+            data: {
+                id: id,
+                ep_id: ep_id,
+                hd_id: hd_id,
+                loai: loai,
+            },
+            success: function(data) {
+                if (data == "") {
+                    window.location.href = '/quan-ly-hop-dong.html';
+                } else {
+                    alert("Bị lỗi");
+                }
+            }
+        });
+    });
 </script>
 
 </html>

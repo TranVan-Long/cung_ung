@@ -38,6 +38,45 @@ foreach ($data_list_nv as $key => $items) {
     }
 }
 
+$curl = curl_init();
+$data = array(
+    'id_com' => $comp_id,
+);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_vt = json_decode($response, true);
+$vat_tu_data = $list_vt['data']['items'];
+
+
+$vat_tu = [];
+for ($i = 0; $i < count($vat_tu_data); $i++) {
+    $items_vt = $vat_tu_data[$i];
+    $vat_tu[$items_vt['dsvt_id']] = $items_vt;
+}
+
+$curl = curl_init();
+$data = array(
+    'id_com' => $comp_id,
+);
+curl_setopt($curl, CURLOPT_POST, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_cong_trinh = json_decode($response, true);
+$cong_trinh_data = $list_cong_trinh['data']['items'];
+
+// echo "<pre>";
+// print_r($vat_tu_data);
+// echo "</pre>";
+// die();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,17 +135,16 @@ foreach ($data_list_nv as $key => $items) {
                                         <label>Công trình <span class="text-red">*</span></label>
                                         <select name="cong_trinh" class="share_select" id="cong_trinh">
                                             <option value="">-- Chọn công trình --</option>
-                                            <option value="1123">Xây nhà văn hóa phường</option>
-                                            <option value="2234">Xây nhà tình nghĩa</option>
-                                            <option value="5678">Sửa đường liên xã</option>
-                                            <option value="9102">Xây các thứ các thứ</option>
+                                            <? foreach ($cong_trinh_data as $key => $items) { ?>
+                                                <option value="<?= $items['ctr_id'] ?>"><?= $items['ctr_name'] ?></option>
+                                            <? } ?>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-row left">
                                     <div class="form-col-50 left mb_15">
                                         <label>Ngày tạo yêu cầu</label>
-                                        <input type="date" value="<?php echo $date ?>" name="ngay_tao_yeu_cau" readonly>
+                                        <input type="date" id="ngay_tao_yeu_cau" value="<?php echo $date ?>" name="ngay_tao_yeu_cau" readonly>
                                     </div>
                                     <div class="form-col-50 right mb_15">
                                         <label>Ngày phải hoàn thành yêu cầu</label>
@@ -189,6 +227,17 @@ foreach ($data_list_nv as $key => $items) {
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript">
+    jQuery.validator.addMethod("greaterThan",
+        function(value, element, params) {
+
+            if (!/Invalid|NaN/.test(new Date(value))) {
+                return new Date(value) > new Date($(params).val());
+            }
+
+            return isNaN(value) && isNaN($(params).val()) ||
+                (Number(value) > Number($(params).val()));
+        }, 'Must be greater than {0}.');
+
     $("#add-material").click(function() {
         $.ajax({
             url: '../ajax/ycvt_them_vt.php',
@@ -198,23 +247,27 @@ foreach ($data_list_nv as $key => $items) {
             }
         });
     });
+
     function change_vt() {
-        $(".materials_name").change(function(){
+        $(".materials_name").change(function() {
             var id_vt = $(this).val();
             var _this = $(this);
+            var com_id = <?= $comp_id?>;
             $.ajax({
-                url: '../render/vat_tu_yc_bg.php',
+                url: '../render/ycvt_vat_tu.php',
                 type: 'POST',
-                data:{
+                data: {
                     id_vt: id_vt,
+                    com_id:com_id,
                 },
-                success: function(data){
+                success: function(data) {
                     _this.parents(".item").html(data);
                 }
             })
         });
         RefSelect2();
     };
+
 
     $(".submit-btn").click(function() {
         var create_ycvt = $(".form_save_add");
@@ -233,16 +286,22 @@ foreach ($data_list_nv as $key => $items) {
                 cong_trinh: {
                     required: true,
                 },
+                ngay_phai_hoan_thanh: {
+                    greaterThan: "#ngay_tao_yeu_cau"
+                },
             },
             messages: {
                 phong_ban: {
-                    required: "Không được để trống",
+                    required: "Không được để trống!",
                 },
                 nguoi_yeu_cau: {
-                    required: "Không được để trống",
+                    required: "Không được để trống!",
                 },
                 cong_trinh: {
-                    required: "Không được để trống",
+                    required: "Không được để trống!",
+                },
+                ngay_phai_hoan_thanh: {
+                    greaterThan: "Không được nhỏ hơn ngày tạo yêu cầu!"
                 },
             },
         });
@@ -253,18 +312,10 @@ foreach ($data_list_nv as $key => $items) {
             var dien_giai = $("#dien_giai").val();
 
             var vat_tu = new Array();
-            $("#materials_name").each(function() {
+            $("select[name='materials_name']").each(function() {
                 var ten_vat_tu = $(this).val();
                 if (ten_vat_tu != "") {
                     vat_tu.push(ten_vat_tu);
-                }
-            });
-
-            var dv_tinh = new Array();
-            $("input[name='dv_tinh']").each(function() {
-                var dvt = $(this).val();
-                if (dvt != "") {
-                    dv_tinh.push(dvt);
                 }
             });
             var so_luong = new Array();
@@ -289,7 +340,6 @@ foreach ($data_list_nv as $key => $items) {
                     dien_giai: dien_giai,
 
                     vat_tu: vat_tu,
-                    dv_tinh: dv_tinh,
                     so_luong: so_luong,
 
                     user_id: user_id,

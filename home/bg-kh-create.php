@@ -1,8 +1,24 @@
 <?php
 include("../includes/icon.php");
+include("config.php");
+
+if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])){
+    if($_COOKIE['role'] == 1){
+        $com_id = $_SESSION['com_id'];
+        $user_id = $_SESSION['com_id'];
+    }else if($_COOKIE['role'] == 2){
+        $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+    }
+};
+
+$list_kh = new db_query("SELECT `id`, `ten_nha_cc_kh`, `phan_loai`, `id_cong_ty` FROM `nha_cc_kh` WHERE `phan_loai` = 2 AND `id_cong_ty` = $com_id ");
+
+
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,8 +55,11 @@ include("../includes/icon.php");
                         <div class="form-row left">
                             <div class="form-col-50 no-border mb_15 left v-select2">
                                 <label>Khách hàng <span class="text-red">&ast;</span></label>
-                                <select id="khach-hang" name="khach_hang" class="share_select">
+                                <select id="khach-hang" name="khach_hang" class="share_select" data="<?= $com_id ?>" data1="<?= $user_id ?>">
                                     <option value="">-- Chọn khách hàng --</option>
+                                    <? while($row2 = mysql_fetch_assoc($list_kh -> result)) { ?>
+                                        <option value="<?= $row2['id'] ?>"><?= $row2['ten_nha_cc_kh'] ?></option>
+                                    <? } ?>
                                 </select>
                             </div>
                             <div class="form-col-50 no-border right mb_15">
@@ -67,7 +86,7 @@ include("../includes/icon.php");
                         </div>
                     </div>
                     <div class="mt-50 left w-100">
-                        <p class="text-blue link-text text-500" id="them_vt_bg_kh">&plus; Thêm mới vật tư</p>
+                        <p class="text-blue link-text text-500" id="them_vt_bg_kh" data="<?= $com_id ?>">&plus; Thêm mới vật tư</p>
                         <div class="table-wrapper mt-10">
                             <div class="table-container table-1532">
                                 <div class="tbl-header">
@@ -75,8 +94,7 @@ include("../includes/icon.php");
                                         <thead>
                                         <tr>
                                             <th class="w-5"></th>
-                                            <th class="w-15">Mã vật tư</th>
-                                            <th class="w-20">Tên đầy đủ vật tư thiết bị</th>
+                                            <th class="w-20">Tên vật tư thiết bị</th>
                                             <th class="w-20">Hãng sản xuất</th>
                                             <th class="w-15">Số lượng báo giá</th>
                                             <th class="w-15">Đơn vị tính</th>
@@ -89,82 +107,7 @@ include("../includes/icon.php");
                                 <div class="tbl-content table-2-row">
                                     <table>
                                         <tbody id="rererences_kh">
-                                        <tr class="item">
-                                            <td class="w-5">
-                                                <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                                            </td>
-                                            <td class="w-15">
-                                                <div class="v-select2">
-                                                    <select class="share_select" name="ma_vat_tu">
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td class="w-20">
-                                                <div class="v-select2">
-                                                    <select name="ten_day_du">
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td class="w-20">
-                                                <div class="v-select2">
-                                                    <select name="hang_san_suat">
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td class="w-15">
-                                                <input type="text" name="so_luong_bao_gia">
-                                            </td>
-                                            <td class="w-15">
-                                                <input type="text" name="don_vi_tinh" readonly>
-                                            </td>
-                                            <td class="w-20">
-                                                <input type="text" name="don_gia">
-                                            </td>
-                                            <td class="w-20">
-                                                <input type="text" name="thanh_tien" readonly>
-                                            </td>
-                                        </tr>
-                                        <tr class="item">
-                                            <td class="w-5">
-                                                <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-                                            </td>
-                                            <td class="w-15">
-                                                <div class="v-select2">
-                                                    <select class="share_select" name="ma_vat_tu">
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td class="w-20">
-                                                <div class="v-select2">
-                                                    <select name="ten_day_du">
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td class="w-20">
-                                                <div class="v-select2">
-                                                    <select name="hang_san_suat">
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td class="w-15">
-                                                <input type="text" name="so_luong_bao_gia">
-                                            </td>
-                                            <td class="w-15">
-                                                <input type="text" name="don_vi_tinh" readonly>
-                                            </td>
-                                            <td class="w-20">
-                                                <input type="text" name="don_gia">
-                                            </td>
-                                            <td class="w-20">
-                                                <input type="text" name="thanh_tien" readonly>
-                                            </td>
-                                        </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -210,19 +153,40 @@ include("../includes/icon.php");
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript" src="../js/giatri_doi.js"></script>
 <script>
 
-    // $('#startDate').on('change', function () {
-    //     var startDate = $('#startDate').val();
-    //     $('#endDate').on('change', function (){
-    //         var endDate = $('#endDate').val();
-    //         if (startDate >= endDate){
-    //             $('#endDate').css('border', '1px solid red')
-    //         }else {
-    //             $('#endDate').css('border', '1px solid #666666')
-    //         }
-    //     })
-    // })
+    $("#them_vt_bg_kh").click(function(){
+        var com_id = $(this).attr("data");
+        $.ajax({
+            url: '../render/them_html_vtbg_kh.php',
+            type: 'POST',
+            data:{
+                id_com: com_id,
+            },
+            success: function(data){
+                $("#rererences_kh").append(data);
+                RefSelect2();
+            }
+        });
+    });
+
+    function change_vt(id){
+        var id_vt = $(id).val();
+        var com_id = $(id).attr("data");
+        $.ajax({
+            url: '../render/sua_html_vtbg_kh.php',
+            type: 'POST',
+            data:{
+                id_vt: id_vt,
+                id_com: com_id,
+            },
+            success: function(data){
+                $(id).parents(".item").html(data);
+                RefSelect2();
+            }
+        })
+    };
 
     $('.submit-btn').click(function () {
         var form = $('.main-form');
@@ -270,7 +234,51 @@ include("../includes/icon.php");
             }
         });
         if (form.valid() === true) {
-            alert("pass");
+            var com_id = $("#khach-hang").attr("data");
+            var user_id = $("#khach-hang").attr("data1");
+            var id_kh = $("select[name='khach_hang']").val();
+            var ngay_bd = $("input[name='tu_ngay']").val();
+            var ngay_kt = $("input[name='den_ngay']").val();
+            var noi_dung_ph = $("textarea[name='noi_dung_phan_hoi']").val();
+            var id_vt = new Array();
+            $("select[name='ten_day_du']").each(function(){
+                var vt = $(this).val();
+                if(vt != ""){
+                    id_vt.push(vt);
+                }
+            });
+
+            var so_luong = new Array();
+            $("input[name='so_luong_bao_gia']").each(function(){
+                var vt1 = $(this).parents(".item").find(".ten_vat_tu").val();
+                var sl = $(this).val();
+                if(vt1 != "" && sl != ""){
+                    so_luong.push(sl);
+                }
+            });
+
+            $.ajax({
+                url: '../ajax/them_bg_kh.php',
+                type: 'POST',
+                data:{
+                    id_kh: id_kh,
+                    ngay_bd: ngay_bd,
+                    ngay_kt: ngay_kt,
+                    noi_dung_ph: noi_dung_ph,
+                    id_vt: id_vt,
+                    so_luong: so_luong,
+                    com_id: com_id,
+                    user_id: user_id,
+                },
+                success: function(data){
+                    if(data == ""){
+                        alert("Bạn đã thêm phiếu báo giá thành công");
+                        window.location.href = '/quan-ly-bao-gia-cho-khach-hang.html';
+                    }else if(data != ""){
+                        alert(data);
+                    }
+                }
+            })
         }
     });
 </script>

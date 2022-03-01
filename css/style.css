@@ -2838,8 +2838,8 @@ input.hidden_bd{
 
 .list_cate_nhacc .sroll_ds_gia {
     margin: 5px 0px 25px 0px;
-    padding: 0 5px 0 15px;
-    max-height: 421px;
+    padding: 0 12px 0 15px;
+    max-height: 266px;
     overflow-y: auto;
 
 }
@@ -3396,6 +3396,16 @@ label.error {
 
 .logout_ht .tow_butt_flex {
     justify-content: space-around;
+}
+
+/*vuong them css*/
+.tb-date-range{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.range{
+    width: 47% !important;
 }
 
 /*long modal end*/

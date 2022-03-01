@@ -15,6 +15,7 @@ allow from 14.248.82.205
 allow from 118.70.126.138
 allow from 14.232.208.241
 
+allow from 43.239.223.102
 allow from 123.24.142.145
 
 RewriteRule  ^$ home/index.php
@@ -38,21 +39,21 @@ RewriteRule ^quan-ly-trang-chu.html$ /home/ql_trangchu.php [NE,L]
 # quản lý hợp đồng
 RewriteRule ^quan-ly-hop-dong.html$ /home/ql_hop_dong.php [NE,L]
 
-RewriteRule ^quan-ly-chi-tiet-hop-dong-mua.html$ /home/ql_ct_hopd_mua.php [NE,L]
+RewriteRule ^quan-ly-chi-tiet-hop-dong-mua-([0-9]+).html$ /home/ql_ct_hopd_mua.php?id=$1 [NE,L]
 RewriteRule ^them-hop-dong-mua.html$ /home/ql_them_hd_mua.php [NE,L]
-RewriteRule ^chinh-sua-hop-dong-mua.html$ /home/ql_sua_hd_mua.php [NE,L]
+RewriteRule ^chinh-sua-hop-dong-mua-([0-9]+).html$ /home/ql_sua_hd_mua.php?id=$1 [NE,L]
 
-RewriteRule ^quan-ly-chi-tiet-hop-dong-ban.html$ /home/ql_ct_hopd_ban.php [NE,L]
+RewriteRule ^quan-ly-chi-tiet-hop-dong-ban-([0-9]+).html$ /home/ql_ct_hopd_ban.php?id=$1 [NE,L]
 RewriteRule ^them-hop-dong-ban.html$ /home/ql_them_hd_ban.php [NE,L]
-RewriteRule ^chinh-sua-hop-dong-ban.html$ /home/ql_sua_hd_ban.php [NE,L]
+RewriteRule ^chinh-sua-hop-dong-ban-([0-9]+).html$ /home/ql_sua_hd_ban.php?id=$1 [NE,L]
 
-RewriteRule ^quan-ly-chi-tiet-hop-dong-thue-thiet-bi.html$ /home/ql_ct_hopd_thue.php [NE,L]
+RewriteRule ^quan-ly-chi-tiet-hop-dong-thue-thiet-bi-([0-9]+).html$ /home/ql_ct_hopd_thue.php?id=$1 [NE,L]
 RewriteRule ^them-hop-dong-thue-thiet-bi.html$ /home/ql_them_hd_thue.php [NE,L]
-RewriteRule ^chinh-sua-hop-dong-thue-thiet-bi.html$ /home/ql_sua_hd_thue.php [NE,L]
+RewriteRule ^chinh-sua-hop-dong-thue-thiet-bi-([0-9]+).html$ /home/ql_sua_hd_thue.php?id=$1 [NE,L]
 
-RewriteRule ^quan-ly-chi-tiet-hop-dong-van-chuyen.html$ /home/ql_ct_hopd_vc.php [NE,L]
+RewriteRule ^quan-ly-chi-tiet-hop-dong-van-chuyen-([0-9]+).html$ /home/ql_ct_hopd_vc.php?id=$1 [NE,L]
 RewriteRule ^them-hop-dong-van-chuyen.html$ /home/ql_them_hd_vc.php [NE,L]
-RewriteRule ^chinh-sua-hop-dong-van-chuyen.html$ /home/ql_sua_hd_vc.php [NE,L]
+RewriteRule ^chinh-sua-hop-dong-van-chuyen-([0-9]+).html$ /home/ql_sua_hd_vc.php?id=$1 [NE,L]
 
 # quản lý đơn hàng
 RewriteRule ^quan-ly-don-hang.html$ /home/ql_don_hang.php [NE,L]
@@ -130,11 +131,11 @@ RewriteRule ^them-yeu-cau-bao-gia.html$ /home/bg-them-yc.php [NE,L]
 RewriteRule ^chinh-sua-yeu-cau-bao-gia-([0-9]+).html$ /home/bg-sua-yc.php?id=$1 [NE,L]
 
 RewriteRule ^quan-ly-bao-gia.html$ /home/bg-index.php [NE,L]
-RewriteRule ^chi-tiet-bao-gia.html$ /home/bg-details.php [NE,L]
+RewriteRule ^chi-tiet-bao-gia-([0-9]+).html$ /home/bg-details.php?id=$1 [NE,L]
 RewriteRule ^them-bao-gia.html$ /home/bg-create.php [NE,L]
-RewriteRule ^chinh-sua-bao-gia.html$ /home/bg-edit.php [NE,L]
+RewriteRule ^chinh-sua-bao-gia-([0-9]+).html$ /home/bg-edit.php?id=$1 [NE,L]
 
 RewriteRule ^quan-ly-bao-gia-cho-khach-hang.html$ /home/bg-kh-index.php [NE,L]
-RewriteRule ^chi-tiet-bao-gia-cho-khach-hang.html$ /home/bg-kh-details.php [NE,L]
+RewriteRule ^chi-tiet-bao-gia-cho-khach-hang-([0-9]+).html$ /home/bg-kh-details.php?id=$1 [NE,L]
 RewriteRule ^them-bao-gia-cho-khach-hang.html$ /home/bg-kh-create.php [NE,L]
-RewriteRule ^chinh-sua-bao-gia-cho-khach-hang.html$ /home/bg-kh-edit.php [NE,L]
+RewriteRule ^chinh-sua-bao-gia-cho-khach-hang-([0-9]+).html$ /home/bg-kh-edit.php?id=$1 [NE,L]

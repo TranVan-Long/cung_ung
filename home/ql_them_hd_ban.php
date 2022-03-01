@@ -1,5 +1,51 @@
 <?php
 include "../includes/icon.php";
+include("config.php");
+$date = date('m-d-Y', time());
+$ep_id = $_SESSION['ep_id'];
+
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $data_list = json_decode($response, true);
+    $data_list_nv = $data_list['data']['items'];
+
+    foreach ($data_list_nv as $key => $items) {
+        $user_name = $items['ep_name'];
+        $dept_id    = $items['dep_id'];
+        $dept_name  = $items['dep_name'];
+        $comp_id = $items['com_id'];
+    }
+    $curl = curl_init();
+    $data = array(
+        'id_com' => $comp_id,
+    );
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $list_vt = json_decode($response, true);
+    $vat_tu_data = $list_vt['data']['items'];
+
+    $vat_tu_detail = [];
+    for ($i = 0; $i < count($vat_tu_data); $i++) {
+        $items_vt = $vat_tu_data[$i];
+        $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
+    }
+
+    // echo "<pre>";
+    // print_r($vat_tu_detail);
+    // echo "</pre>";
+    // die();
+}
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -8,7 +54,7 @@ include "../includes/icon.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Thêm hợp đồng bán</title>
-    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
 
     <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -43,53 +89,59 @@ include "../includes/icon.php";
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Ngày ký hợp đồng <span class="cr_red">*</span></label>
-                                        <input type="date" name="ngay_ky" class="form-control">
+                                        <input type="date" name="ngay_ky_hd" id="ngay_ky_hd" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Khách hàng <span class="cr_red">*</span></label>
-                                        <select name="khach_hang" class="form-control all_nhacc">
+                                        <select name="id_khach_hang" class="form-control all_nhacc">
                                             <option value="">-- Chọn khách hàng --</option>
+                                            <?
+                                            $get_kh = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 2");
+                                            while ($list_kh = mysql_fetch_assoc($get_kh->result)) {
+                                            ?>
+                                                <option value="<?= $list_kh['id'] ?>"><?= $list_kh['ten_nha_cc_kh'] ?></option>
+                                            <? } ?>
                                         </select>
                                     </div>
                                     <div class="form-group d_flex fl_agi form_lb">
                                         <label>Hợp đồng nguyên tắc</label>
-                                        <input type="checkbox" name="hd_ntac">
+                                        <input type="checkbox" name="hd_nguyen_tac">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Giá trị trước VAT</label>
-                                        <input type="type" value="1000000" class="form-control h_border cr_weight" name="gtri_trvat" readonly>
+                                        <input type="text" class="form-control h_border cr_weight" name="truoc_vat" readonly>
                                     </div>
                                     <div class="form-group  d_flex fl_agi form_lb">
                                         <label>Đơn giá đã bao gồm VAT</label>
-                                        <input type="checkbox" name="dgia_vat" >
+                                        <input type="checkbox" name="don_gia_vat">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Thuế suất VAT</label>
-                                        <input type="text" name="thues_vat" class="form-control" placeholder="Nhập thuế suất VAT">
+                                        <input type="text" name="thue_vat" class="form-control" placeholder="Nhập thuế suất VAT">
                                     </div>
                                     <div class="form-group">
                                         <label>Giá trị sau VAT</label>
-                                        <input type="text" name="gtri_svat" class="form-control h_border cr_weight" value="10000000" readonly>
+                                        <input type="text" name="sau_vat" class="form-control h_border cr_weight" readonly>
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Thời gian thực hiện</label>
                                         <div class="bao_hanh w_100 float_l d_flex fl_agi">
-                                            <input type="date" name="bd_ngay" class="gia_tri">
+                                            <input type="date" name="ngay_bat_dau" class="gia_tri" id="ngay_bat_dau">
                                             <span>đến</span>
-                                            <input type="date" name="kt_ngay" class="gia_tri">
+                                            <input type="date" name="ngay_ket_thuc" class="gia_tri">
                                         </div>
                                     </div>
                                     <div class="form-group d_flex fl_agi form_lb">
                                         <label>Hợp đồng đã bao gồm vận chuyển</label>
-                                        <input type="checkbox" name="hd_vanc">
+                                        <input type="checkbox" name="bao_gom_van_chuyen">
                                     </div>
                                 </div>
                                 <div class="form-group w_100 float_l">
@@ -98,24 +150,22 @@ include "../includes/icon.php";
                                 </div>
                                 <div class="form-group w_100 float_l">
                                     <label>Nội dung hợp đồng</label>
-                                    <textarea name="noid_hd" rows="5" class="form-control" placeholder="Nhập nội dung hợp đồng"></textarea>
+                                    <textarea name="noi_dung_hd" rows="5" class="form-control" placeholder="Nhập nội dung hợp đồng"></textarea>
                                 </div>
                                 <div class="form-group w_100 float_l">
                                     <label>Nội dung cần lưu ý</label>
-                                    <textarea name="noid_luuy" rows="5" class="form-control" placeholder="Nhập nội dung cần lưu ý"></textarea>
+                                    <textarea name="noi_dung_luu_y" rows="5" class="form-control" placeholder="Nhập nội dung cần lưu ý"></textarea>
                                 </div>
                                 <div class="form-group w_100 float_l">
                                     <label>Điều khoản thanh toán</label>
-                                    <textarea name="dieuk_ttoan" rows="5" class="form-control" placeholder="Nhập điều khoản thanh toán"></textarea>
+                                    <textarea name="dieu_khoan_tt" rows="5" class="form-control" placeholder="Nhập điều khoản thanh toán"></textarea>
                                 </div>
                                 <div class="form-row w_100 float_l">
-                                    <div class="form-group share_form_select">
+                                    <div class="form-group autocomplete">
                                         <label>Tên ngân hàng</label>
-                                        <select name="ngan_hang" class="form-control ten_nganhang">
-                                            <option value="">-- Chọn tên ngân hàng --</option>
-                                        </select>
+                                        <input type="text" name="ten_nh" id="ten_nh" class="form-control" placeholder="Nhập tên ngân hàng">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group ">
                                         <label>Số tài khoản</label>
                                         <input type="text" name="so_taik" class="form-control" placeholder="Nhập số tài khoản">
                                     </div>
@@ -134,75 +184,20 @@ include "../includes/icon.php";
                                                     <th class="share_tb_two">Số lượng</th>
                                                     <th class="share_tb_two">Đơn giá</th>
                                                     <th class="share_tb_two">Tổng tiền trước VAT</th>
-                                                    <th class="share_tb_two">Thuế VAT</th>
+                                                    <th class="share_tb_two">Thuế VAT (%)</th>
                                                     <th class="share_tb_two">Tổng tiền sau VAT</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="share_tb_one">
-                                                        <p>
-                                                            <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
-                                                        </p>
-                                                    </td>
-                                                    <td class="share_tb_three">
-                                                        <div class="form-group share_form_select">
-                                                            <select name="ma_vatt" class="ma_vatt">
-                                                                <option value=""></option>
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="text" name="don_vi" class="form-control" disabled>
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="text" name="hang-san-xuat" class="form-control" disabled>
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="text" name="xuat-xu" class="form-control" disabled>
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="number" name="so-luong" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two" >
-                                                        <div class="form-group">
-                                                            <input type="number" name="don-gia" class="form-control" disabled>
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="number" name="tien_tvat" class="form-control" disabled>
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="number" name="thue_vat" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="number" name="tien_svat" class="form-control" disabled>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                            <tbody id="vat_tu_thiet_bi">
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div class="form-button w_100">
                                     <div class="form_button hd_button">
-                                        <button type="button"
-                                                class="cancel_add share_cursor mb-10 share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
-                                        <button type="button"
-                                                class="save_add share_cursor mb-10 share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
+                                        <button type="button" class="cancel_add share_cursor mb-10 share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
+                                        <button type="button" class="save_add share_cursor mb-10 share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
                                     </div>
                                 </div>
                             </form>
@@ -231,10 +226,8 @@ include "../includes/icon.php";
                             </div>
                             <div class="form_butt_ht mb_20">
                                 <div class="tow_butt_flex d_flex hd_dy_pop">
-                                    <button type="button"
-                                        class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
-                                    <button type="button"
-                                        class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                    <button type="button" class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
+                                    <button type="button" class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
                                         ý</button>
                                 </div>
                             </div>
@@ -244,7 +237,7 @@ include "../includes/icon.php";
             </div>
         </div>
     </div>
-    <?php include "../modals/modal_logout.php"?>
+    <?php include "../modals/modal_logout.php" ?>
     <? include("../modals/modal_menu.php") ?>
 
 </body>
@@ -252,102 +245,209 @@ include "../includes/icon.php";
 <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
+<script type="text/javascript" src="../js/bank-name.js"></script>
+
 <script>
     $(".all_nhacc, .ten_nganhang, .ma_vatt, .ten_vatt").select2({
         width: '100%',
     });
 
-    $(".add_vat_tu").click(function(){
-        var html = `<tr>
-                        <td class="share_tb_one">
-                            <p>
-                                <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
-                            </p>
-                        </td>
-                        <td class="share_tb_three">
-                            <div class="form-group share_form_select">
-                                <select name="ma_vatt" class="ma_vatt">
-                                    <option value=""></option>
-                                </select>
-                            </div>
-                        </td>
-                        <td class="share_tb_two">
-                            <div class="form-group">
-                                <input type="text" name="don_vi" class="form-control" disabled>
-                            </div>
-                        </td>
-                        <td class="share_tb_two">
-                            <div class="form-group">
-                                <input type="text" name="hang-san-xuat" class="form-control" disabled>
-                            </div>
-                        </td>
-                        <td class="share_tb_two">
-                            <div class="form-group">
-                                <input type="text" name="xuat-xu" class="form-control" disabled>
-                            </div>
-                        </td>
-                        <td class="share_tb_two">
-                            <div class="form-group">
-                                <input type="number" name="so-luong" class="form-control">
-                            </div>
-                        </td>
-                        <td class="share_tb_two" >
-                            <div class="form-group">
-                                <input type="number" name="don-gia" class="form-control" disabled>
-                            </div>
-                        </td>
-                        <td class="share_tb_two">
-                            <div class="form-group">
-                                <input type="number" name="tien_tvat" class="form-control" disabled>
-                            </div>
-                        </td>
-                        <td class="share_tb_two">
-                            <div class="form-group">
-                                <input type="number" name="thue_vat" class="form-control">
-                            </div>
-                        </td>
-                        <td class="share_tb_two">
-                            <div class="form-group">
-                                <input type="number" name="tien_svat" class="form-control" disabled>
-                            </div>
-                        </td>
-                    </tr>`;
-        $(".ctn_table .table tbody").append(html);
-        widthSelect();
+    autocomplete(document.getElementById("ten_nh"), bank);
+
+    $(".add_vat_tu").click(function() {
+        $.ajax({
+            url: '../ajax/hd_them_vt.php',
+            type: 'POST',
+            success: function(data) {
+                $("#vat_tu_thiet_bi").append(data);
+            }
+        });
     });
+
+    function hd_vt_change() {
+        $(".ma_vatt").change(function() {
+            var id_vt = $(this).val();
+            var _this = $(this);
+            var com_id = <?= $comp_id ?>;
+            $.ajax({
+                url: '../render/hd_vat_tu.php',
+                type: 'POST',
+                data: {
+                    id_vt: id_vt,
+                    com_id: com_id,
+                },
+                success: function(data) {
+                    _this.parents(".items").html(data);
+                }
+            })
+        });
+        widthSelect();
+    };
 
     var cancel_add = $(".cancel_add");
-    cancel_add.click(function(){
+    cancel_add.click(function() {
         modal_share.show();
     });
+    $(document).ready(function() {
+        $("input[name='sau_vat']").val($("input[name='truoc_vat']").val());
+        $("input[name='thue_vat']").keyup(function() {
+            var truoc_vat = Number($("input[name='truoc_vat']").val());
+            var vat = Number($(this).val());
+            $("input[name='sau_vat']").val(truoc_vat + (truoc_vat * vat) / 100);
+        });
+    });
 
-    $(".save_add").click(function(){
+    $(".save_add").click(function() {
         var form_add_mua = $(".form_add_hp_mua");
         form_add_mua.validate({
             errorPlacement: function(error, element) {
                 error.appendTo(element.parents(".form-group"));
                 error.wrap("<span class='error'>");
             },
-            rules:{
-                ngay_ky:{
+            rules: {
+                ngay_ky_hd: {
                     required: true,
                 },
-                khach_hang:{
+                id_khach_hang: {
                     required: true,
-                }
+                },
+                ngay_bat_dau: {
+                    greaterThan: "#ngay_ky_hd"
+                },
+                ngay_ket_thuc: {
+                    greaterThan: "#ngay_bat_dau"
+                },
             },
-            messages:{
-                 ngay_ky:{
-                    required: "Không được để trống",
+            messages: {
+                ngay_ky_hd: {
+                    required: "Không được để trống.",
                 },
-                khach_hang:{
-                    required: "Không được để trống",
-                }
+                id_khach_hang: {
+                    required: "Không được để trống.",
+                },
+                ngay_bat_dau: {
+                    greaterThan: "Không được nhỏ hơn ngày ký hợp đồng."
+                },
+                ngay_ket_thuc: {
+                    greaterThan: "Không được nhỏ hơn ngày bắt đầu."
+                },
             },
         });
 
-        if(form_add_mua.valid() === true){
-            alert("oke");
+        if (form_add_mua.valid() === true) {
+            var ep_id = '<?= $ep_id ?>';
+            var com_id = '<?= $comp_id ?>';
+
+            var ngay_ky_hd = $("input[name='ngay_ky_hd'").val();
+            var id_khach_hang = $("select[name='id_khach_hang']").val();
+            var hd_nguyen_tac = 0;
+            if ($("input[name='hd_nguyen_tac']").is(":checked")) {
+                hd_nguyen_tac = 1;
+            }
+            var truoc_vat = $("input[name='truoc_vat']").val();
+            var don_gia_vat = 0;
+            if ($("input[name='don_gia_vat']").is(":checked")) {
+                don_gia_vat = 1;
+            }
+            var thue_vat = $("input[name='thue_vat']").val();
+            var sau_vat = $("input[name='sau_vat']").val();
+            var ngay_bat_dau = $("input[name='ngay_bat_dau']").val();
+            var ngay_ket_thuc = $("input[name='ngay_ket_thuc']").val();
+            var bao_gom_van_chuyen = 0
+            if ($("input[name='bao_gom_van_chuyen']").is(":checked")) {
+                bao_gom_van_chuyen = 1;
+            }
+            var yc_tiendo = $("textarea[name='yc_tiendo']").val();
+            var noi_dung_hd = $("textarea[name='noi_dung_hd']").val();
+            var noi_dung_luu_y = $("textarea[name='noi_dung_luu_y']").val();
+            var dieu_khoan_tt = $("textarea[name='dieu_khoan_tt']").val();
+            var ten_nh = $("input[name='ten_nh']").val();
+            var so_taik = $("input[name='so_taik']").val();
+
+            var vt_vat_tu = new Array();
+            $("select[name='vt_ma_vatt']").each(function() {
+                var ten_vat_tu = $(this).val();
+                if (ten_vat_tu != "") {
+                    vt_vat_tu.push(ten_vat_tu);
+                }
+            });
+            var vt_so_luong = new Array();
+            $("input[name='vt_so-luong']").each(function() {
+                var sl_vt = $(this).val();
+                if (sl_vt != "") {
+                    vt_so_luong.push(sl_vt);
+                }
+            });
+            var vt_don_gia = new Array();
+            $("input[name='vt_don-gia']").each(function() {
+                var dg_vt = $(this).val();
+                if (dg_vt != "") {
+                    vt_don_gia.push(dg_vt);
+                }
+            });
+            var vt_truoc_vat = new Array();
+            $("input[name='vt_tien_tvat']").each(function() {
+                var tr_vat = $(this).val();
+                if (tr_vat != "") {
+                    vt_truoc_vat.push(tr_vat);
+                }
+            });
+            var vt_vat_tax = new Array();
+            $("input[name='vt_thue_vat']").each(function() {
+                var tax = $(this).val();
+                if (tax != "") {
+                    vt_vat_tax.push(tax);
+                }
+            });
+            var vt_sau_vat = new Array();
+            $("input[name='vt_tien_svat']").each(function() {
+                var s_vat = $(this).val();
+                if (s_vat != "") {
+                    vt_sau_vat.push(s_vat);
+                }
+            });
+
+
+            $.ajax({
+                url: '../ajax/hd_ban_them.php',
+                type: 'POST',
+                data: {
+                    ep_id: ep_id,
+                    com_id: com_id,
+
+                    ngay_ky_hd: ngay_ky_hd,
+                    id_khach_hang: id_khach_hang,
+                    hd_nguyen_tac: hd_nguyen_tac,
+                    truoc_vat: truoc_vat,
+                    don_gia_vat: don_gia_vat,
+                    thue_vat: thue_vat,
+                    sau_vat: sau_vat,
+                    ngay_bat_dau: ngay_bat_dau,
+                    ngay_ket_thuc: ngay_ket_thuc,
+                    bao_gom_van_chuyen: bao_gom_van_chuyen,
+                    yc_tiendo: yc_tiendo,
+                    noi_dung_hd: noi_dung_hd,
+                    noi_dung_luu_y: noi_dung_luu_y,
+                    dieu_khoan_tt: dieu_khoan_tt,
+                    ten_nh: ten_nh,
+                    so_taik: so_taik,
+
+                    vt_vat_tu: vt_vat_tu,
+                    vt_so_luong: vt_so_luong,
+                    vt_don_gia: vt_don_gia,
+                    vt_truoc_vat: vt_truoc_vat,
+                    vt_vat_tax: vt_vat_tax,
+                    vt_sau_vat: vt_sau_vat,
+                },
+                success: function(data) {
+                    if (data == "") {
+                        alert("Thêm hợp đồng bán vật tư thành công!");
+                        window.location.href = 'quan-ly-hop-dong.html';
+                    } else {
+                        alert(data);
+                    }
+                }
+            })
         }
     });
 </script>

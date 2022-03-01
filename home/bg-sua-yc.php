@@ -1,7 +1,16 @@
 <?php
 include("../includes/icon.php");
 include("config.php");
-$com_id = $_SESSION['user_com_id'];
+
+if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])){
+    if($_COOKIE['role'] == 1){
+        $com_id = $_SESSION['com_id'];
+        $user_id = $_SESSION['com_id'];
+    }else if($_COOKIE['role'] == 2){
+        $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+    }
+};
 
 if(isset($_GET['id']) && $_GET['id'] != ""){
     $id_bg = $_GET['id'];
@@ -52,6 +61,11 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
     $vt_bg = new db_query("SELECT `id`, `id_vat_tu`, `so_luong_yc_bg` FROM `vat_tu_bao_gia` WHERE `id_yc_bg` = $id_bg ");
 
     $curl = curl_init();
+    $data = array(
+        'id_com' => $com_id,
+    );
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
     curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php');
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
@@ -77,7 +91,7 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cỉnh sửa yêu cầu báo giá</title>
+    <title>Chỉnh sửa yêu cầu báo giá</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
 
     <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
@@ -175,7 +189,7 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
                         </div>
                     </div>
                     <div class="mt-30 left w-100">
-                        <p class="text-blue link-text text-500" id="add-quote">&plus; Thêm mới vật tư</p>
+                        <p class="text-blue link-text text-500" id="add-quote" data="<?= $com_id ?>">&plus; Thêm mới vật tư</p>
                         <div class="table-wrapper mt-5">
                             <div class="table-container table-1252">
                                 <div class="tbl-header">
@@ -193,7 +207,7 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
                                 </div>
                                 <div class="tbl-content table-2-row">
                                     <table>
-                                        <tbody id="quote-me">
+                                        <tbody id="quote-me" data="<?= $com_id ?>">
                                         <? while($row3 = mysql_fetch_assoc($vt_bg -> result)) {?>
                                             <tr class="item" data="<?= $row3['id'] ?>">
                                                 <td class="w-5">
@@ -235,7 +249,7 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
                 <div class="w-100 left">
                     <div class="control-btn right">
                         <p class="v-btn btn-outline-blue modal-btn mt-30 mr-20" data-target="cancel">Hủy</p>
-                        <button type="button" class="v-btn btn-blue mt-30 submit-btn" data-id="<?= $id_bg ?>">Xong</button>
+                        <button type="button" class="v-btn btn-blue mt-30 submit-btn" data-id="<?= $id_bg ?>" data1="<?= $user_id  ?>">Xong</button>
                     </div>
                 </div>
             </form>
@@ -292,216 +306,5 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
-<script>
-
-    $(".remove-item").click(function(){
-        var id = $(this).attr("data-id");
-        $("#delete-quote-me .confirm-delete").attr("data-id", id);
-        $("#delete-quote-me").show();
-    });
-
-    function xoa_v(){
-        $(".remove-item").click(function(){
-            var id = $(this).attr("data-id");
-            $("#delete-quote-me .confirm-delete").attr("data-id", id);
-            $("#delete-quote-me").show();
-        });
-    }
-
-    $("#nha_cung_cap").change(function(){
-        var id_ncc = $(this).val();
-        $.ajax({
-            url: '../render/nguoi_lien_he.php',
-            type: 'POST',
-            data:{
-                id_ncc: id_ncc,
-            },
-            success: function(data){
-                $("#nguoi-tiep-nhan").html(data);
-            }
-        })
-    });
-
-    $("#add-quote").click(function(){
-        $.ajax({
-            url: '../ajax/them_bgvt_yc.php',
-            type: 'POST',
-            success: function(data){
-                $("#quote-me").append(data);
-            },
-        });
-    });
-
-    $(".ten_vat_tu").change(function(){
-        var id_vt = $(this).val();
-        var _this = $(this);
-        var id_v = _this.parents(".item").attr("data");
-        $.ajax({
-            url: '../render/vat_tu_yc_bg.php',
-            type: 'POST',
-            data:{
-                id_vt: id_vt,
-                id_v: id_v,
-            },
-            success: function(data){
-                _this.parents(".item").html(data);
-            }
-        })
-    });
-
-    $(".confirm-delete").click(function(){
-        var id = $(this).attr("data-id");
-        $.ajax({
-            url: '../ajax/xoa_vt_ycbg.php',
-            type: 'POST',
-            data:{
-                id: id,
-            },
-            success: function(data){
-                window.location.reload();
-            }
-        })
-    });
-
-    function doi_vt() {
-        $(".ten_vat_tu").change(function(){
-            var id_vt = $(this).val();
-            var _this = $(this);
-            var id_v = _this.parents(".item").attr("data");
-
-            $.ajax({
-                url: '../render/vat_tu_yc_bg.php',
-                type: 'POST',
-                data:{
-                    id_vt: id_vt,
-                    id_v: id_v,
-                },
-                success: function(data){
-                    _this.parents(".item").html(data);
-                    // alert(id_v);
-                }
-            })
-        });
-        RefSelect2();
-    };
-
-    $('.submit-btn').click(function () {
-        var form = $('.main-form');
-        form.validate({
-            errorPlacement: function (error, element) {
-                error.appendTo(element.parent('.form-col-50'));
-                error.wrap('<span class="error">');
-            },
-            rules: {
-                nha_cung_cap: {
-                    required: true,
-                },
-                nguoi_tiep_nhan: {
-                    required: true,
-                }
-            },
-            messages: {
-                nha_cung_cap: {
-                    required: "Vui lòng chọn nhà cung cấp.",
-                },
-                nguoi_tiep_nhan: {
-                    required: "Vui lòng chọn người tiếp nhận.",
-                }
-            }
-        });
-        if (form.valid() === true) {
-            var id_bg = $(this).attr("data-id");
-            var id_nha_cc = $("select[name='nha_cung_cap']").val();
-            var id_nguoi_lh = $("select[name='nguoi_tiep_nhan']").val();
-            var id_ctrinh = $("select[name='cong_trinh']").val();
-            var noi_dung_thu = $("textarea[name='noi_dung_thu']").val();
-            var mail_nhan_bg = $("input[name='mail_nhan_bao_gia']").val();
-
-            var gui_mail = document.getElementsByName('mail_ngay');
-            var gm = "";
-            for(var j = 0; j < gui_mail.length; j++){
-                if(gui_mail[j].checked === true) {
-                    gm += gui_mail[j].value + '_';
-                }
-            };
-
-            var gia_baog_vat = document.getElementsByName('gia_VAT');
-            var mh = "";
-            for (var i = 0; i < gia_baog_vat.length; i++) {
-                if(gia_baog_vat[i].checked === true) {
-                    mh += gia_baog_vat[i].value + '_';
-                }
-            };
-
-            var id_vatt = new Array();
-            $("input[name='id_vat_tu']").each(function(){
-                var id_vat_tu = $(this).val();
-                if(id_vat_tu != ""){
-                    id_vatt.push(id_vat_tu);
-                }
-            });
-
-            var ma_vt = new Array();
-            $("select[name='ten_vat_tu']").each(function(){
-                var ma_vatt = $(this).val();
-                if(ma_vatt != ""){
-                    ma_vt.push(ma_vatt);
-                }
-            });
-
-            var so_luong = new Array();
-            $("input[name='so_luong_vt']").each(function(){
-                var sol = $(this).val();
-                if(sol != ""){
-                    so_luong.push(sol);
-                }
-            });
-
-            var new_ma_vt = new Array();
-            $("select[name='ten_day_du']").each(function(){
-                var new_ma_vatt = $(this).val();
-                if(new_ma_vatt != ""){
-                    new_ma_vt.push(new_ma_vatt);
-                }
-            });
-
-            var new_so_luong = new Array();
-            $("input[name='so_luong']").each(function(){
-                var new_sol = $(this).val();
-                if(new_sol != ""){
-                    new_so_luong.push(new_sol);
-                }
-            });
-
-            $.ajax({
-                url: '../ajax/sua_yc_bgvt.php',
-                type: 'POST',
-                data:{
-                    id_bg: id_bg,
-                    id_nha_cc: id_nha_cc,
-                    id_nguoi_lh: id_nguoi_lh,
-                    id_ctrinh: id_ctrinh,
-                    noi_dung_thu: noi_dung_thu,
-                    mail_nhan_bg: mail_nhan_bg,
-                    gui_mail: gm,
-                    gia_baog_vat: mh,
-                    ma_vt: ma_vt,
-                    id_vatt: id_vatt,
-                    so_luong: so_luong,
-                    new_ma_vt: new_ma_vt,
-                    new_sl: new_so_luong,
-                },
-                success: function(data){
-                    if(data == ""){
-                        alert("Bạn đã sửa thành công yêu cầu báo giá vật tư");
-                        window.location.href = "/quan-ly-yeu-cau-bao-gia.html";
-                    }else{
-                        alert(data);
-                    }
-                }
-            })
-        }
-    });
-
-</script>
+<script type="text/javascript" src="../js/bg-sua-yc.js"></script>
 </html>

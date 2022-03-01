@@ -23,6 +23,7 @@ $cou = count($ma_vt);
 $so_luong = $_POST['so_luong'];
 $co1 = count($so_luong);
 
+$thoi_gian = strtotime(date('Y-m-d H:i:s', time()));
 
 if(isset($user_id) && $user_id != "" && $id_nhacc != "" && $cou > 0 && $cou == $co1){
     $inser_ycbg = new db_query("INSERT INTO `yeu_cau_bao_gia`(`id`, `id_nguoi_lap`, `nha_cc_kh`, `id_cong_trinh`, `id_nguoi_tiep_nhan`,
@@ -33,11 +34,16 @@ if(isset($user_id) && $user_id != "" && $id_nhacc != "" && $cou > 0 && $cou == $
     $yc_id = mysql_fetch_assoc($id_ycbg -> result)['yc_id'];
 
     for($j = 0; $j < $cou; $j++){
-        $inser_yc = new db_query("INSERT INTO `vat_tu_bao_gia`(`id`, `id_yc_bg`, `id_vat_tu`, `so_luong_yc_bg`, `so_luong_bg`, `don_gia`, `tong_tien_trvat`,
-                                `thue_vat`, `tong_tien_svat`, `cs_kem_theo`, `sl_da_dat_hang`) VALUES ('','$yc_id','$ma_vt[$j]','$so_luong[$j]','','','','','','','')");
+        $inser_yc = new db_query("INSERT INTO `vat_tu_bao_gia`(`id`, `id_yc_bg`, `id_vat_tu`, `so_luong_yc_bg`) VALUES ('','$yc_id','$ma_vt[$j]','$so_luong[$j]')");
     }
 
-}else{
+    $noi_dung_thu = "Bạn đã thêm phiếu yêu cầu báo giá: BG - " .$yc_id;
+    $inser_nk = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_gio`, `noi_dung`) VALUES ('','$user_id','$thoi_gian','$noi_dung_thu')");
+
+
+
+}
+else{
     echo "Bạn yêu cầu báo giá không thành công, vui lòng thử lại!";
 }
 

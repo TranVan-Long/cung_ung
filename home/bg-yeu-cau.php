@@ -5,6 +5,40 @@ include("config.php");
 $quyen = $_SESSION['quyen'];
 $com_id = $_SESSION['user_com_id'];
 
+if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response,true);
+    $data_list_nv =$data_list['data']['items'];
+
+}elseif (isset($_SESSION['quyen']) && ($_SESSION['quyen'] == 2)) {
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response,true);
+    $data_list_nv =$data_list['data']['items'];
+
+};
+
+$list_nv = [];
+for($i = 0; $i < count($data_list_nv); $i++){
+    $item1 = $data_list_nv[$i];
+    $list_nv[$item1['ep_id']] = $item1;
+};
+
 isset($_GET['tk']) ? $tk = $_GET['tk'] : $tk = "";
 isset($_GET['ct']) ? $ct = $_GET['ct'] : $ct = "";
 isset($_GET['page']) ? $page = $_GET['page'] : $page = 1;
@@ -52,6 +86,8 @@ $list_yc .= $limit;
 
 $list_yc1 = new db_query($list_yc);
 $stt = 1;
+
+
 
 ?>
 <!DOCTYPE html>
@@ -150,9 +186,9 @@ $stt = 1;
                                             <tr>
                                                 <td class="w-10"><?= $stt++ ?></td>
                                                 <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia-<?= $item['id'] ?>.html" class="text-500">BG-<?= $item['id'] ?></a></td>
-                                                <td class="w-30">Nguyễn Văn A</td>
-                                                <td class="w-15">18/10/2021</td>
-                                                <td class="w-30">Công ty X</td>
+                                                <td class="w-30"><?= $list_nv[$item['id_nguoi_lap']]['ep_name'] ?></td>
+                                                <td class="w-15"><?= date('d/m/Y', $item['ngay_tao']) ?></td>
+                                                <td class="w-30"><?= $ten_cty = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `id` = '".$item['nha_cc_kh']."' ")) -> result)['ten_nha_cc_kh'] ?></td>
                                             </tr>
                                         <?}?>
                                     </tbody>
@@ -189,7 +225,7 @@ $stt = 1;
 <script type="text/javascript">
 
     $(".tim_kiem").change(function(){
-        var tk = $(".tim_kiem").val();
+        var tk = $(this).val();
         var ct = $(".tk_chi_tiet").val();
         var page = $(".detail_tab").attr("data");
         var ht = $(".detail_tab").attr("data1");
@@ -204,7 +240,7 @@ $stt = 1;
 
     $(".tk_chi_tiet").change(function(){
         var tk = $(".tim_kiem").val();
-        var ct = $(".tk_chi_tiet").val();
+        var ct = $(this).val();
         var page = 1;
         var ht = $(".detail_tab").attr("data1");
 
@@ -217,7 +253,7 @@ $stt = 1;
 
     $("#display").change(function(){
         var ht = $(this).val();
-        var page = $(".detail_tab").attr("data");
+        var page = 1;
         var tk = $(".tim_kiem").val();
         var ct = $(".tk_chi_tiet").val();
 

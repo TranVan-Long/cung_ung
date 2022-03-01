@@ -2,19 +2,18 @@
 include("../includes/icon.php");
 include("config.php");
 
-$com_id = $_SESSION['user_com_id'];
+if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])){
+    if($_COOKIE['role'] == 1){
+        $com_id = $_SESSION['com_id'];
+        $user_id = $_SESSION['com_id'];
+    }else if($_COOKIE['role'] == 2){
+        $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+    }
+};
 
 if(isset($_GET['id']) && $_GET['id'] != ""){
     $id_bg = $_GET['id'];
-    $list_ct = new db_query("SELECT y.`id`, y.`id_nguoi_lap`, y.`nha_cc_kh`, y.`id_cong_trinh`, y.`id_nguoi_tiep_nhan`, y.`noi_dung_thu`,
-                            y.`mail_nhan_bg`, y.`gui_mail`, y.`gia_bg_vat`, y.`phan_loai`, y.`ngay_tao`, y.`id_cong_ty`, n.`ten_nha_cc_kh`, l.`ten_nguoi_lh`
-                            FROM `yeu_cau_bao_gia` AS y
-                            INNER JOIN `nha_cc_kh` AS n ON y.`nha_cc_kh` = n.`id`
-                            INNER JOIN `nguoi_lien_he` AS l ON n.`id` = l.`id_nha_cc`
-                            WHERE y.`id_cong_ty` = $com_id AND y.`id` = $id_bg ");
-    $item_ct = mysql_fetch_assoc($list_ct -> result);
-    $id_nguoi_lap = $item_ct['id_nguoi_lap'];
-
     if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
         $curl = curl_init();
         $token = $_COOKIE['acc_token'];
@@ -40,18 +39,34 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
 
         $data_list = json_decode($response,true);
         $data_list_nv =$data_list['data']['items'];
-    }
+
+    };
 
     $list_nv = [];
     for($i = 0; $i < count($data_list_nv); $i++){
         $item1 = $data_list_nv[$i];
         $list_nv[$item1['ep_id']] = $item1;
-    }
+    };
+
+    $list_ct = new db_query("SELECT y.`id`, y.`id_nguoi_lap`, y.`nha_cc_kh`, y.`id_cong_trinh`, y.`id_nguoi_tiep_nhan`, y.`noi_dung_thu`,
+                            y.`mail_nhan_bg`, y.`gui_mail`, y.`gia_bg_vat`, y.`phan_loai`, y.`ngay_tao`, y.`id_cong_ty`, n.`ten_nha_cc_kh`, l.`ten_nguoi_lh`
+                            FROM `yeu_cau_bao_gia` AS y
+                            INNER JOIN `nha_cc_kh` AS n ON y.`nha_cc_kh` = n.`id`
+                            INNER JOIN `nguoi_lien_he` AS l ON n.`id` = l.`id_nha_cc`
+                            WHERE y.`id_cong_ty` = $com_id AND y.`id` = $id_bg ");
+    $item_ct = mysql_fetch_assoc($list_ct -> result);
+    $id_nguoi_lap = $item_ct['id_nguoi_lap'];
+
     $ep_name = $list_nv[$id_nguoi_lap]['ep_name'];
 
     $vt_bg = new db_query("SELECT `id`, `id_vat_tu`, `so_luong_yc_bg` FROM `vat_tu_bao_gia` WHERE `id_yc_bg` = $id_bg ");
 
     $curl = curl_init();
+    $data = array(
+        'id_com' => $com_id,
+    );
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
     curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php');
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
@@ -200,7 +215,7 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
                     </div>
                 </div>
                 <div class="control-btn right">
-                    <button class="v-btn btn-outline-red modal-btn mr-20 mt-30" data-target="delete-vt">Xóa</button>
+                    <button class="v-btn btn-outline-red modal-btn mr-20 mt-30" data-id="<?= $id_bg ?>">Xóa</button>
                     <a href="chinh-sua-yeu-cau-bao-gia-<?= $id_bg ?>.html" class="v-btn btn-blue mt-30">Chỉnh sửa</a>
                 </div>
                 <div class="control-btn left mr-10">
@@ -224,7 +239,7 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
                     <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                 </div>
                 <div class="right mb-10">
-                    <button class="v-btn sh_bgr_six share_clr_tow right">Đồng ý</button>
+                    <button class="v-btn sh_bgr_six share_clr_tow right dongy_xoa" data="">Đồng ý</button>
                 </div>
             </div>
         </div>
@@ -237,4 +252,27 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript">
+    $(".modal-btn").click(function(){
+        var id = $(this).attr("data-id");
+        $("#delete-vt .dongy_xoa").attr("data", id);
+        $("#delete-vt").show();
+    });
+
+    $("#delete-vt .dongy_xoa").click(function(){
+        var id = $(this).attr("data");
+        var user_id = "<?= $user_id ?>";
+        $.ajax({
+            url: '../ajax/xoa_ycbg_vt.php',
+            type: 'POST',
+            data: {
+                id: id,
+                user_id: user_id,
+            },
+            success: function(data){
+                window.location.href = '/quan-ly-yeu-cau-bao-gia.html';
+            }
+        })
+    })
+</script>
 </html>

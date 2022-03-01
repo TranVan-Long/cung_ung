@@ -1,6 +1,61 @@
 <?php
 include("../includes/icon.php");
+include("config.php");
+
+$com_id = $_SESSION['user_com_id'];
+
+
+isset($_GET['page']) ? $page = $_GET['page'] : $page = 1;
+isset($_GET['ht']) ? $ht = $_GET['ht'] : $ht = 10;
+isset($_GET['tk']) ? $tk = $_GET['tk'] : $tk = "";
+isset($_GET['tk_ct']) ? $tk_ct = $_GET['tk_ct'] : $tk_ct = "";
+
+if($tk != "" && $tk_ct != ""){
+    $urll = '/quan-ly-bao-gia.html?ht='.$ht.'&tk='.$tk.'&tk_ct='.$tk_ct;
+}else if($tk != "" && $tk_ct == ""){
+    $urll = '/quan-ly-bao-gia.html?ht='.$ht.'&tk='.$tk;
+}else if($tk == "" && $tk_ct == ""){
+    $urll = '/quan-ly-bao-gia.html?ht='.$ht;
+};
+
+$start = ($page - 1)*$ht;
+$start = abs($start);
+
+$list_bg = "SELECT b.`id`, b.`id_yc_bg`, b.`id_nha_cc`, b.`id_nguoi_lap`, b.`ngay_gui`, b.`ngay_bd`, b.`ngay_kt`, n.`ten_nha_cc_kh`
+                        FROM `bao_gia` AS b
+                        INNER JOIN `nha_cc_kh` AS n ON b.`id_nha_cc` = n.`id`
+                        WHERE b.`id_cong_ty` = $com_id ";
+
+if($tk_ct != ""){
+    if($tk == 1){
+        $sql = "AND b.`id_nha_cc` = $tk_ct ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `bao_gia` WHERE `id_nha_cc` = $tk_ct AND `id_cong_ty` = $com_id ");
+    }else if($tk == 2){
+        $sql = "AND b.`id` = $tk_ct ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `bao_gia` WHERE `id` = $tk_ct AND `id_cong_ty` = $com_id ");
+    }else if($tk == 3){
+        $sql = "AND b.`id_yc_bg` = $tk_ct ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `bao_gia` WHERE `id_yc_bg` = $tk_ct AND `id_cong_ty` = $com_id ");
+    }
+};
+
+if($tk == "" || $tk_ct == ""){
+    $cou = new db_query("SELECT COUNT(`id`) AS total FROM `bao_gia` WHERE `id_cong_ty` = $com_id ");
+};
+
+$total = mysql_fetch_assoc($cou -> result)['total'];
+
+$limit = "LIMIT $start,$ht";
+
+$list_bg .= $sql;
+$list_bg .= $limit;
+
+$bao_gia1 = new db_query($list_bg);
+
+$stt = 1;
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,18 +96,34 @@ include("../includes/icon.php");
                     <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-bao-gia.html">&plus; Thêm mới</a>
                     <div class="filter">
                         <div class="category v-select2 mt-20">
-                            <select name="category" class="share_select">
+                            <select name="category" class="share_select" id="tim_kiem" data="<?= $com_id ?>">
                                 <option value="">Tìm kiếm theo</option>
-                                <option value="1">Nhà cung cấp</option>
-                                <option value="2">Số báo giá</option>
-                                <option value="3">Số yêu cầu báo giá</option>
-                                <option value="4">Ngày gửi</option>
-                                <option value="5">Ngày áp dụng</option>
+                                <option value="1" <?= ($tk == 1) ? "selected" : "" ?>>Nhà cung cấp</option>
+                                <option value="2" <?= ($tk == 2) ? "selected" : "" ?>>Số báo giá</option>
+                                <option value="3" <?= ($tk == 3) ? "selected" : "" ?>>Số yêu cầu báo giá</option>
+                                <!-- <option value="4">Ngày gửi</option>
+                                <option value="5">Ngày áp dụng</option> -->
                             </select>
                         </div>
                         <div class="search-box v-select2 mt-20">
-                            <select name="search" class="share_select">
+                            <select name="search" class="share_select" id="tim_kiem_ctiet">
                                 <option value="">Nhập thông tin cần tìm kiếm</option>
+                                <? if($tk == 1) {
+                                    $list_nhacc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ");
+                                    while($row = mysql_fetch_assoc($list_nhacc -> result)){
+                                ?>
+                                    <option value="<?= $row['id'] ?>" <?= ($row['id'] == $tk_ct) ? "selected" : "" ?>><?= $row['ten_nha_cc_kh'] ?></option>
+                                <? }}else if($tk == 2) {
+                                    $list_sobg = new db_query("SELECT `id` FROM `bao_gia` WHERE `id_cong_ty` = $com_id ");
+                                    while($row1 = mysql_fetch_assoc($list_sobg -> result)){
+                                ?>
+                                    <option value="<?= $row1['id'] ?>" <?= ($row1['id'] == $tk_ct) ? "selected" : "" ?>>BG - <?= $row1['id'] ?></option>
+                                <? }}else if($tk == 3) {
+                                    $list_ycbg = new db_query("SELECT DISTINCT `id_yc_bg` FROM `bao_gia` WHERE `id_cong_ty` = $com_id ");
+                                    while($row2 = mysql_fetch_assoc($list_ycbg -> result)){
+                                ?>
+                                    <option value="<?= $row2['id_yc_bg'] ?>" <?= ($row2['id_yc_bg'] == $tk_ct) ? "selected" : "" ?>>YC - <?= $row2['id_yc_bg'] ?></option>
+                                <? }} ?>
                             </select>
                         </div>
                     </div>
@@ -60,7 +131,7 @@ include("../includes/icon.php");
                 <div class="scr-wrapper mt-20">
                     <div class="scr-btn scr-l-btn right"><i class="ic-chevron-left"></i></div>
                     <div class="scr-btn scr-r-btn left"><i class="ic-chevron-right"></i></div>
-                    <div class="table-wrapper">
+                    <div class="table-wrapper" data="<?= $page ?>" data1="<?= $ht ?>">
                         <div class="table-container table-1428">
                             <div class="tbl-header">
                                 <table>
@@ -79,87 +150,24 @@ include("../includes/icon.php");
                             <div class="tbl-content">
                                 <table>
                                     <tbody>
-                                    <tr>
-                                        <td class="w-15">1</td>
-                                        <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
-                                        <td class="w-30">YC-999-19456</td>
-                                        <td class="w-20">18/10/2021</td>
-                                        <td class="w-40">18/10/2021 - 05/05/2022</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-15">1</td>
-                                        <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
-                                        <td class="w-30">YC-999-19456</td>
-                                        <td class="w-20">18/10/2021</td>
-                                        <td class="w-40">18/10/2021 - 05/05/2022</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-15">1</td>
-                                        <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
-                                        <td class="w-30">YC-999-19456</td>
-                                        <td class="w-20">18/10/2021</td>
-                                        <td class="w-40">18/10/2021 - 05/05/2022</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-15">1</td>
-                                        <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
-                                        <td class="w-30">YC-999-19456</td>
-                                        <td class="w-20">18/10/2021</td>
-                                        <td class="w-40">18/10/2021 - 05/05/2022</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-15">1</td>
-                                        <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
-                                        <td class="w-30">YC-999-19456</td>
-                                        <td class="w-20">18/10/2021</td>
-                                        <td class="w-40">18/10/2021 - 05/05/2022</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-15">1</td>
-                                        <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
-                                        <td class="w-30">YC-999-19456</td>
-                                        <td class="w-20">18/10/2021</td>
-                                        <td class="w-40">18/10/2021 - 05/05/2022</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-15">1</td>
-                                        <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
-                                        <td class="w-30">YC-999-19456</td>
-                                        <td class="w-20">18/10/2021</td>
-                                        <td class="w-40">18/10/2021 - 05/05/2022</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-15">1</td>
-                                        <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
-                                        <td class="w-30">YC-999-19456</td>
-                                        <td class="w-20">18/10/2021</td>
-                                        <td class="w-40">18/10/2021 - 05/05/2022</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-15">1</td>
-                                        <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
-                                        <td class="w-30">YC-999-19456</td>
-                                        <td class="w-20">18/10/2021</td>
-                                        <td class="w-40">18/10/2021 - 05/05/2022</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w-15">1</td>
-                                        <td class="w-30">Công ty A</td>
-                                        <td class="w-20"><a href="chi-tiet-bao-gia.html" class="text-500">BG-000-45875</a></td>
-                                        <td class="w-30">YC-999-19456</td>
-                                        <td class="w-20">18/10/2021</td>
-                                        <td class="w-40">18/10/2021 - 05/05/2022</td>
-                                    </tr>
-
+                                        <? while($item = mysql_fetch_assoc($bao_gia1 -> result)) {?>
+                                            <tr>
+                                                <td class="w-15"><?= $stt++ ?></td>
+                                                <td class="w-30"><?= $item['ten_nha_cc_kh'] ?></td>
+                                                <td class="w-20"><a href="chi-tiet-bao-gia-<?= $item['id'] ?>.html" class="text-500">BG-<?= $item['id'] ?></a></td>
+                                                <td class="w-30">YC-<?= $item['id_yc_bg'] ?></td>
+                                                <td class="w-20"><?= date('d/m/Y', $item['ngay_gui']) ?></td>
+                                                <? if($item['ngay_bd'] != 0 && $item['ngay_kt'] != 0) { ?>
+                                                    <td class="w-40"><?= date('d/m/Y', $item['ngay_bd']) ?> - <?= date('d/m/Y', $item['ngay_kt']) ?></td>
+                                                <?}else if($item['ngay_bd'] != 0 && $item['ngay_kt'] == 0) {?>
+                                                    <td class="w-40">Từ: <?= date('d/m/Y', $item['ngay_bd']) ?></td>
+                                                <?}else if($item['ngay_bd'] == 0 && $item['ngay_kt'] != 0){?>
+                                                    <td class="w-40">Đến: <?= date('d/m/Y', $item['ngay_kt']) ?></td>
+                                                <?}else if($item['ngay_bd'] == 0 && $item['ngay_kt'] == 0){?>
+                                                    <td class="w-40"></td>
+                                                <?}?>
+                                            </tr>
+                                        <?}?>
                                     </tbody>
                                 </table>
                             </div>
@@ -171,19 +179,13 @@ include("../includes/icon.php");
                 <div class="display mr-10">
                     <label for="display">Hiển thị</label>
                     <select name="display" id="display">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
+                        <option value="10" <?= ($ht == 10) ? "selected" : "" ?>>10</option>
+                        <option value="20" <?= ($ht == 20) ? "selected" : "" ?>>20</option>
                     </select>
                 </div>
                 <div class="pagination mt-10">
                     <ul>
-                        <li><a href="#"><?php echo $ic_lt ?></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#"><?php echo $ic_gt ?></a></li>
+                        <?= generatePageBar3('',$page,$ht,$total,$urll,'&','','active','preview','<','next','>','','<<<','','>>>'); ?>
                     </ul>
                 </div>
             </div>
@@ -197,5 +199,46 @@ include("../includes/icon.php");
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script>
+
+    $("#tim_kiem").change(function(){
+        var tk = $(this).val();
+        var tk_ct = $("#tim_kiem_ctiet").val();
+        var page = $(".table-wrapper").attr("data");
+        var ht = $(".table-wrapper").attr("data1");
+        if(tk != ""){
+            window.location.href = '/quan-ly-bao-gia.html?ht=' + ht + '&page=' + page + '&tk=' + tk;
+        }else if(tk == ""){
+            window.location.href = '/quan-ly-bao-gia.html?ht=' + ht + '&page=' + page;
+        }
+    });
+
+    $("#tim_kiem_ctiet").change(function(){
+        var tk_ct = $(this).val();
+        var tk = $("#tim_kiem").val();
+        var page = $(".table-wrapper").attr("data");
+        var ht = $(".table-wrapper").attr("data1");
+        if(tk_ct != ""){
+            window.location.href = '/quan-ly-bao-gia.html?ht=' + ht + '&page=' + page + '&tk=' + tk + '&tk_ct=' + tk_ct;
+        }else if(tk_ct == ""){
+            window.location.href = '/quan-ly-bao-gia.html?ht=' + ht + '&page=' + page + '&tk=' + tk;
+        }
+    });
+
+    $("#display").change(function(){
+        var ht = $(this).val();
+        var tk = $("#tim_kiem").val();
+        var tk_ct = $("#tim_kiem_ctiet").val();
+        var page = $(".table-wrapper").attr("data");
+        if(tk != "" && tk_ct != ""){
+            window.location.href = '/quan-ly-bao-gia.html?ht=' + ht + '&page=' + page + '&tk=' + tk + '&tk_ct=' + tk_ct;
+        }else if(tk != "" && tk_ct == ""){
+            window.location.href = '/quan-ly-bao-gia.html?ht=' + ht + '&page=' + page + '&tk=' + tk;
+        }else if(tk == "" && tk_ct == ""){
+            window.location.href = '/quan-ly-bao-gia.html?ht=' + ht + '&page=' + page;
+        }
+    });
+
+</script>
 
 </html>

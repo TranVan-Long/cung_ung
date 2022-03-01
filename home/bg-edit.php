@@ -1,5 +1,82 @@
-<?php
+<?
 include("../includes/icon.php");
+include("config.php");
+
+if(isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1){
+    $com_id = $_SESSION['com_id'];
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response,true);
+    $list_nv =$data_list['data']['items'];
+
+}else if(isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2){
+    $com_id = $_SESSION['user_com_id'];
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response,true);
+    $list_nv = $data_list['data']['items'];
+};
+
+
+$user = [];
+for($i = 0; $i < count($list_nv); $i++){
+    $item1 = $list_nv[$i];
+    $user[$item1["ep_id"]] = $item1;
+}
+
+if(isset($_GET['id']) && $_GET['id'] != ""){
+    $id = $_GET['id'];
+    $qr_ctiet = new db_query("SELECT b.`id`, b.`id_yc_bg`,b.`id_nha_cc`, b.`id_nguoi_lap`, b.`ngay_gui`, b.`ngay_bd`, b.`ngay_kt`,
+                                b.`ngay_tao`,b.`id_cong_ty`, n.`ten_nha_cc_kh` FROM `bao_gia` AS b
+                                INNER JOIN `nha_cc_kh` AS n ON b.`id_nha_cc` = n.`id`
+                                WHERE b.`id` = $id AND b.`id_cong_ty` = $com_id ");
+    $list_ct = mysql_fetch_assoc($qr_ctiet -> result);
+    $id_yc_bg = $list_ct['id_yc_bg'];
+
+    $user_id = $list_ct['id_nguoi_lap'];
+    $id_nhacc = $list_ct['id_nha_cc'];
+
+    $list_vt = new db_query("SELECT b.`id`, b.`id_yc_bg`, b.`id_cong_ty`, v.`id_vat_tu`, v.`so_luong_bg`, v.`don_gia`, v.`tong_tien_trvat`,
+                            v.`thue_vat`, v.`tong_tien_svat`, v.`cs_kem_theo`, v.`sl_da_dat_hang`, v.`id_bao_gia`
+                            FROM `vat_tu_da_bao_gia` AS v
+                            INNER JOIN `bao_gia` AS b ON b.`id` = v.`id_bao_gia`
+                            WHERE b.`id_cong_ty` = $com_id AND v.`id_bao_gia` = $id ");
+
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php');
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    $response1 = curl_exec($curl);
+    curl_close($curl);
+
+    $vat_tu = json_decode($response1,true);
+    $vatt = $vat_tu['data']['items'];
+
+    $tenvt = [];
+    for($j = 0; $j < count($vatt); $j++){
+        $item2 = $vatt[$j];
+        $tenvt[$item2['dsvt_id']] = $item2;
+    }
+
+    $list_nha_cc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1 ");
+}
+
+$date_now = date('Y-m-d',time());
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,47 +116,36 @@ include("../includes/icon.php");
                     <div class="form-control edit-form">
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15">
-                                <label for="so-bao-gia">Số báo giá<span class="text-red">&ast;</span></label>
-                                <input type="text" id="so-bao-gia" name="so_bao_gia" value="BG-000-11111" readonly>
+                                <label for="">Số báo giá<span class="text-red">&ast;</span></label>
+                                <input type="text" id="so-bao-gia" name="so_bao_gia" value="BG-<?= $list_ct['id'] ?>" data="<?= $list_ct['id'] ?>" readonly>
                             </div>
                             <div class="form-col-50 no-border right mb_15">
-                                <label for="ngay-gui">Ngày gửi<span class="text-red">&ast;</span></label>
-                                <input type="date" id="ngay-gui" name="ngay_gui" value="2021-10-18">
+                                <label for="">Ngày gửi<span class="text-red">&ast;</span></label>
+                                <input type="date" id="ngay-gui" name="ngay_gui" value="<?= date('Y-m-d', $list_ct['ngay_gui']) ?>">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15 v-select2">
-                                <label for="nguoi-lap">Người lập</label>
-                                <select id="nguoi-lap" name="nguoi_lap" class="share_select">
-                                    <option value="">-- Chọn người lập --</option>
-                                    <option value="1" selected>Nguyễn Văn A</option>
-                                    <option value="2">Nguyễn Văn B</option>
-                                    <option value="3">Nguyễn Thị A</option>
-                                    <option value="4">Nguyễn Thị B</option>
-                                </select>
+                                <label for="">Người lập</label>
+                                <input type="text" name="nguoi_lap" value="<?= $user[$user_id]['ep_name'] ?>" readonly>
                             </div>
                             <div class="form-col-50 no-border right mb_15 v-select2">
-                                <label for="nha-cung-cap">Nhà cung cấp<span
+                                <label for="">Nhà cung cấp<span
                                             class="text-red">&ast;</span></label>
                                 <select id="nha-cung-cap" name="nha_cung_cap" class="share_select">
                                     <option value="">-- Chọn nhà cung cấp --</option>
-                                    <option value="1" selected>Công ty A</option>
-                                    <option value="2">Công ty B</option>
-                                    <option value="3">Công ty C</option>
-                                    <option value="4">Công ty D</option>
+                                    <? while($row1 = mysql_fetch_assoc($list_nha_cc -> result)){ ?>
+                                        <option value="<?= $row1['id'] ?>" <?= ($row1['id'] == $id_nhacc) ? "selected" : "" ?>><?= $row1['ten_nha_cc_kh'] ?></option>
+                                    <?}?>
                                 </select>
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 no-border left mb_15 v-select2">
-                                    <label for="so-yeu-cau">Theo yêu cầu báo giá số<span
+                                    <label for="">Theo yêu cầu báo giá số<span
                                                 class="text-red">&ast;</span></label>
-                                    <select id="so-yeu-cau" name="so_yeu_cau" class="share_select">
-                                        <option value="">-- Chọn yêu cầu báo giá --</option>
-                                        <option value="1" selected>YC-001-02938</option>
-                                        <option value="2">YC-020-45648</option>
-                                        <option value="3">YC-999-73648</option>
-                                        <option value="4">YC-888-39475</option>
+                                    <select id="so-yeu-cau" name="so_yeu_cau" class="share_select" data="<?= $id_yc_bg ?>" data1="<?= $com_id ?>">
+                                        <!-- <option value="">-- Chọn yêu cầu báo giá --</option> -->
                                     </select>
                             </div>
                         </div>
@@ -88,13 +154,13 @@ include("../includes/icon.php");
                                 <label>Thời gian áp dụng</label>
                                 <div class="range-date-picker">
                                     <div class="date-input-sm">
-                                        <input type="date" name="tu_ngay" id="startDate">
+                                        <input type="date" name="tu_ngay" id="startDate" value="<?= ($list_ct['ngay_bd'] != 0) ? date('Y-m-d', $list_ct['ngay_bd']) : "" ?>">
                                     </div>
                                     <div class="range-date-text">
                                         <p id="hahaha">đến</p>
                                     </div>
                                     <div class="date-input-sm">
-                                        <input type="date" name="den_ngay" id="endDate">
+                                        <input type="date" name="den_ngay" id="endDate" value="<?= ($list_ct['ngay_kt'] != 0) ? date('Y-m-d', $list_ct['ngay_kt']) : "" ?>">
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +181,7 @@ include("../includes/icon.php");
                                             <th class="w-25">Số lượng báo giá</th>
                                             <th class="w-25">Đơn giá</th>
                                             <th class="w-30">Tổng tiền trước VAT</th>
-                                            <th class="w-25">Thuế VAT</th>
+                                            <th class="w-25">Thuế VAT (%)</th>
                                             <th class="w-30">Tổng sau VAT</th>
                                             <th class="w-35">Chính sách khác kèm theo</th>
                                             <th class="w-35">Số lượng đã đặt hàng</th>
@@ -125,83 +191,51 @@ include("../includes/icon.php");
                                 </div>
                                 <div class="tbl-content table-2-row">
                                     <table>
-                                        <tbody id="rererences">
-                                        <tr class="item">
-                                            <td class="w-20">
-                                                <input type="text" name="ma_vat_tu" readonly>
-                                            </td>
-                                            <td class="w-35">
-                                                <input type="text" name="ten_day_du" readonly>
-                                            </td>
-                                            <td class="w-15">
-                                                <input type="text" name="don_vi_tinh">
-                                            </td>
-                                            <td class="w-40">
-                                                <input type="text" name="hang_san_suat" readonly>
-                                            </td>
-                                            <td class="w-30">
-                                                <input type="text" name="so_luong_yeu_cau">
-                                            </td>
-                                            <td class="w-25">
-                                                <input type="text" name="so_luong_bao_gia">
-                                            </td>
-                                            <td class="w-25">
-                                                <input type="text" name="don_gia">
-                                            </td>
-                                            <td class="w-30">
-                                                <input type="text" name="tong_truoc_vat" readonly>
-                                            </td>
-                                            <td class="w-25">
-                                                <input type="text" name="thue_vat">
-                                            </td>
-                                            <td class="w-30">
-                                                <input type="text" name="tong_sau_vat" readonly>
-                                            </td>
-                                            <td class="w-35">
-                                                <input type="text" name="chinh_sach_khac">
-                                            </td>
-                                            <td class="w-35">
-                                                <input type="text" name="so_luong_da_dat">
-                                            </td>
-                                        </tr>
-                                        <tr class="item">
-                                            <td class="w-20">
-                                                <input type="text" name="ma_vat_tu" readonly>
-                                            </td>
-                                            <td class="w-35">
-                                                <input type="text" name="ten_day_du" readonly>
-                                            </td>
-                                            <td class="w-15">
-                                                <input type="text" name="don_vi_tinh">
-                                            </td>
-                                            <td class="w-40">
-                                                <input type="text" name="hang_san_suat" readonly>
-                                            </td>
-                                            <td class="w-30">
-                                                <input type="text" name="so_luong_yeu_cau">
-                                            </td>
-                                            <td class="w-25">
-                                                <input type="text" name="so_luong_bao_gia">
-                                            </td>
-                                            <td class="w-25">
-                                                <input type="text" name="don_gia">
-                                            </td>
-                                            <td class="w-30">
-                                                <input type="text" name="tong_truoc_vat" readonly>
-                                            </td>
-                                            <td class="w-25">
-                                                <input type="text" name="thue_vat">
-                                            </td>
-                                            <td class="w-30">
-                                                <input type="text" name="tong_sau_vat" readonly>
-                                            </td>
-                                            <td class="w-35">
-                                                <input type="text" name="chinh_sach_khac">
-                                            </td>
-                                            <td class="w-35">
-                                                <input type="text" name="so_luong_da_dat">
-                                            </td>
-                                        </tr>
+                                        <tbody id="rererences" data="<?= $com_id ?>" data1="<?= $date_now ?>">
+                                            <? while($row = mysql_fetch_assoc($list_vt -> result)){ ?>
+                                                <tr class="item">
+                                                    <td class="w-20">
+                                                        <input type="text" name="ma_vat_tu" value="VT-<?= $row['id_vat_tu'] ?>" data="<?= $row['id_vat_tu'] ?>" class="tex_center" readonly>
+                                                    </td>
+                                                    <td class="w-35">
+                                                        <input type="text" name="ten_day_du" value="<?= $tenvt[$row['id_vat_tu']]['dsvt_name'] ?>" class="tex_center" readonly>
+                                                    </td>
+                                                    <td class="w-15">
+                                                        <input type="text" name="don_vi_tinh" value="<?= $tenvt[$row['id_vat_tu']]['dvt_name'] ?>" class="tex_center" readonly>
+                                                    </td>
+                                                    <td class="w-40">
+                                                        <input type="text" name="hang_san_suat" value="<?= $tenvt[$row['id_vat_tu']]['dvt_name'] ?>" class="tex_center" readonly>
+                                                    </td>
+                                                    <td class="w-30">
+                                                        <? $phieu_ycbg = $row['id_yc_bg'];
+                                                            $id_vt = $row['id_vat_tu'];
+                                                            $list_sl = mysql_fetch_assoc((new db_query("SELECT `id_yc_bg`, `id_vat_tu`, `so_luong_yc_bg` FROM `vat_tu_bao_gia` WHERE `id_yc_bg` = $phieu_ycbg AND `id_vat_tu` = $id_vt ")) -> result)['so_luong_yc_bg']
+                                                        ?>
+                                                        <input type="number" name="so_luong_yeu_cau" value="<?= $list_sl ?>" class="tex_center" readonly>
+                                                    </td>
+                                                    <td class="w-25">
+                                                        <input type="number" name="so_luong_bao_gia" value="<?= $row['so_luong_bg'] ?>" class="tex_center so_luong" onchange="sl_doi(this)">
+                                                    </td>
+                                                    <td class="w-25">
+                                                        <input type="number" name="don_gia" value="<?= $row['don_gia'] ?>" class="tex_center don_gia" onchange="dg_doi(this)">
+                                                    </td>
+                                                    <td class="w-30">
+                                                        <input type="number" name="tong_truoc_vat" value="<?= $row['tong_tien_trvat'] ?>" class="tex_center tong_trvat" readonly>
+                                                    </td>
+                                                    <td class="w-25">
+                                                        <input type="number" name="thue_vat" value="<?= ($row['thue_vat'] != 0) ? $row['thue_vat'] : "" ?>" class="tex_center thue_vat" onchange="thue_doi(this)">
+                                                    </td>
+                                                    <td class="w-30">
+                                                        <input type="number" name="tong_sau_vat" value="<?= $row['tong_tien_svat'] ?>" class="tex_center tong_svat" readonly>
+                                                    </td>
+                                                    <td class="w-35">
+                                                        <input type="text" name="chinh_sach_khac" value="<?= $row['cs_kem_theo'] ?>" class="tex_center">
+                                                    </td>
+                                                    <td class="w-35">
+                                                        <input type="number" name="so_luong_da_dat" value="<?= $row['sl_da_dat_hang'] ?>" class="tex_center">
+                                                    </td>
+                                                </tr>
+                                            <?}?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -212,7 +246,7 @@ include("../includes/icon.php");
                 <div class="w-100 left">
                     <div class="control-btn right">
                         <p class="v-btn btn-outline-blue modal-btn mr-20 mt-20" data-target="cancel">Hủy</p>
-                        <button type="button" class="v-btn btn-blue mt-20 submit-btn">Xong</button>
+                        <button type="button" class="v-btn btn-blue mt-20 submit-btn" data="<?= $id ?>">Xong</button>
                     </div>
                 </div>
             </form>
@@ -246,15 +280,77 @@ include("../includes/icon.php");
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
+<script tyoe="text/javascript" src="../js/giatri_doi.js"></script>
 <script>
+
+    var id_nhacc = $("#nha-cung-cap").val();
+    var id_phieu = $("#so-yeu-cau").attr("data");
+    var com_id = $("#so-yeu-cau").attr("data1");
+
+    $.ajax({
+        url: '../render/ds_phieu_yc.php',
+        type: 'POST',
+        data:{
+            id_nhacc: id_nhacc,
+            id_phieu: id_phieu,
+            com_id: com_id,
+        },
+        success: function(data){
+            $("#so-yeu-cau").append(data);
+        }
+    });
+
+    $("#nha-cung-cap").change(function(){
+        var id_ncc = $(this).val();
+        var com_id = $("#so-yeu-cau").attr("data1");
+        $.ajax({
+            url: '../render/ds_phieu_yc.php',
+            type: 'POST',
+            data:{
+                id_nhacc: id_ncc,
+                com_id: com_id,
+            },
+            success: function(data){
+                $("#so-yeu-cau").html(data);
+            }
+        });
+
+        $.ajax({
+            url: '../render/vat_tu_bg.php',
+            type: 'POST',
+            data:{
+                id_ncc: id_ncc,
+            },
+            success: function(data){
+                $("#rererences").html(data);
+            }
+        });
+    });
+
+    $("#so-yeu-cau").change(function(){
+        var id_phieu = $(this).val();
+        var id_ncc = $("#nha-cung-cap").val();
+        $.ajax({
+            url: '../render/vat_tu_bg.php',
+            type: 'POST',
+            data:{
+                id_p: id_phieu,
+                id_ncc: id_ncc,
+            },
+            success: function(data){
+                $("#rererences").html(data);
+            }
+        });
+    })
+
     $('.submit-btn').click(function () {
         var form = $('.main-form');
-        $.validator.addMethod("dateRange",
-            function () {
-                var date1 = $("#startDate").val();
-                var date2 = $("#endDate").val();
-                return (date1 < date2);
-            })
+        // $.validator.addMethod("dateRange",
+        //     function () {
+        //         var date1 = $("#startDate").val();
+        //         var date2 = $("#endDate").val();
+        //         return (date1 < date2);
+        //     })
         form.validate({
             errorPlacement: function (error, element) {
                 error.appendTo(element.parent('.form-col-50'));
@@ -274,9 +370,9 @@ include("../includes/icon.php");
                 so_yeu_cau: {
                     required: true,
                 },
-                den_ngay:{
-                    dateRange: true,
-                }
+                // den_ngay:{
+                //     dateRange: true,
+                // }
             },
             messages: {
                 so_bao_gia: {
@@ -291,14 +387,189 @@ include("../includes/icon.php");
                 so_yeu_cau: {
                     required: "Vui lòng chọn số yêu cầu."
                 },
-                den_ngay: {
-                    dateRange: "Không được nhỏ hơn ngày bắt đầu."
-                }
+                // den_ngay: {
+                //     dateRange: "Không được nhỏ hơn ngày bắt đầu."
+                // }
             }
         });
         if (form.valid() === true) {
-            alert("pass");
+            var so_bao_gia = $("input[name='so_bao_gia']").attr("data");
+            var id_ncc = $("select[name='nha_cung_cap']").val();
+            var id_phieu_yc = $("select[name='so_yeu_cau']").val();
+            var ngay_bd = $("input[name='tu_ngay']").val();
+            var ngay_kt = $("input[name='den_ngay']").val();
+            var com_id = $("#rererences").attr("data");
+            var date_now = $("#rererences").attr("data1");
+
+            var new_ma_vt = new Array();
+            $("input[name='ma_vat_tu']").each(function(){
+                var ma_vt = $(this).attr("data");
+                var sl_t = $(this).parents(".item").find(".so_luong").val();
+                var dg_t = $(this).parents(".item").find(".don_gia").val();
+                if(ma_vt != "" && sl_t != "" && dg_t != ""){
+                    new_ma_vt.push(ma_vt);
+                }
+            });
+
+            var new_sl_bg = new Array();
+            $("input[name='so_luong_bao_gia']").each(function(){
+                var sl_bg = $(this).val();
+                if(sl_bg != ""){
+                    new_sl_bg.push(sl_bg);
+                }
+            });
+
+            var new_dgia = new Array();
+            $("input[name='don_gia']").each(function(){
+                var dgia = $(this).val();
+                if(dgia != ""){
+                    new_dgia.push(dgia);
+                }
+            });
+
+            var new_tongtr = new Array();
+            $("input[name='tong_truoc_vat']").each(function(){
+                var tongtr = $(this).val();
+                if(tongtr != ""){
+                    new_tongtr.push(tongtr);
+                }
+            });
+
+            var new_thue = new Array();
+            $("input[name='thue_vat']").each(function(){
+                var thue = $(this).val();
+                if(thue != "" && thue != 0){
+                    new_thue.push(thue);
+                }
+            });
+
+            var new_tongs = new Array();
+            $("input[name='tong_sau_vat']").each(function(){
+                var tongs = $(this).val();
+                if(tongs != ""){
+                    new_tongs.push(tongs);
+                }
+            });
+
+            var new_cs_kt = new Array();
+            $("input[name='chinh_sach_khac']").each(function(){
+                var cs_kt = $(this).val();
+                if(cs_kt != ""){
+                    new_cs_kt.push(cs_kt);
+                }
+            });
+
+            var new_ddh = new Array();
+            $("input[name='so_luong_da_dat']").each(function(){
+                var ddh = $(this).val();
+                if(ddh != ""){
+                    new_ddh.push(ddh);
+                }
+            });
+
+            if(ngay_bd != "" && ngay_kt != ""){
+                if((ngay_bd <= ngay_kt) && (ngay_kt >= date_now)){
+                    $.ajax({
+                        url: '../ajax/sua_bao_gia.php',
+                        type: 'POST',
+                        data:{
+                            com_id: com_id,
+                            id_bao_gia: so_bao_gia,
+                            id_ncc: id_ncc,
+                            id_phieu_yc: id_phieu_yc,
+                            ngay_bd: ngay_bd,
+                            ngay_kt: ngay_kt,
+                            new_ma_vt: new_ma_vt,
+                            new_sl_bg: new_sl_bg,
+                            new_dgia: new_dgia,
+                            new_tongtr: new_tongtr,
+                            new_thue: new_thue,
+                            new_tongs: new_tongs,
+                            new_cs_kt: new_cs_kt,
+                            new_ddh: new_ddh
+
+                        },
+                        success: function(data){
+                            if(data == ""){
+                                alert("Bạn đã thêm phiếu báo giá thành công");
+                                window.location.href = '/quan-ly-bao-gia.html';
+                            }else{
+                                alert(data);
+                            }
+                        }
+                    });
+                }else if((ngay_bd > ngay_kt) || (ngay_kt < date_now)){
+                    alert("ngay bat dau khong lơn hơn ngay ket thuc");
+                }
+
+            }else if(ngay_bd != "" && ngay_kt == ""){
+                $.ajax({
+                    url: '../ajax/sua_bao_gia.php',
+                    type: 'POST',
+                    data:{
+                        com_id: com_id,
+                        id_bao_gia: so_bao_gia,
+                        id_ncc: id_ncc,
+                        id_phieu_yc: id_phieu_yc,
+                        ngay_bd: ngay_bd,
+                        ngay_kt: ngay_kt,
+                        new_ma_vt: new_ma_vt,
+                        new_sl_bg: new_sl_bg,
+                        new_dgia: new_dgia,
+                        new_tongtr: new_tongtr,
+                        new_thue: new_thue,
+                        new_tongs: new_tongs,
+                        new_cs_kt: new_cs_kt,
+                        new_ddh: new_ddh
+
+                    },
+                    success: function(data){
+                        if(data == ""){
+                            alert("Bạn đã thêm phiếu báo giá thành công");
+                            window.location.href = '/quan-ly-bao-gia.html';
+                        }else{
+                            alert(data);
+                        }
+                    }
+                });
+            }else if(ngay_bd == "" && ngay_kt != ""){
+                if(ngay_kt >= date_now){
+                    $.ajax({
+                        url: '../ajax/sua_bao_gia.php',
+                        type: 'POST',
+                        data:{
+                            com_id: com_id,
+                            id_bao_gia: so_bao_gia,
+                            id_ncc: id_ncc,
+                            id_phieu_yc: id_phieu_yc,
+                            ngay_bd: ngay_bd,
+                            ngay_kt: ngay_kt,
+                            new_ma_vt: new_ma_vt,
+                            new_sl_bg: new_sl_bg,
+                            new_dgia: new_dgia,
+                            new_tongtr: new_tongtr,
+                            new_thue: new_thue,
+                            new_tongs: new_tongs,
+                            new_cs_kt: new_cs_kt,
+                            new_ddh: new_ddh
+
+                        },
+                        success: function(data){
+                            if(data == ""){
+                                alert("Bạn đã thêm phiếu báo giá thành công");
+                                window.location.href = '/quan-ly-bao-gia.html';
+                            }else{
+                                alert(data);
+                            }
+                        }
+                    });
+                }else{
+                    alert("ngay ket thuc phai lon hon ngay hien tai");
+                }
+            }
+
         }
     });
+
 </script>
 </html>
