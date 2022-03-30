@@ -4,66 +4,80 @@ include("config.php");
 $date = date('m-d-Y', time());
 $ep_id = $_SESSION['ep_id'];
 
-if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
-    $curl = curl_init();
-    $token = $_COOKIE['acc_token'];
-    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $data_list = json_decode($response, true);
-    $data_list_nv = $data_list['data']['items'];
-
-    foreach ($data_list_nv as $key => $items) {
-        $user_name = $items['ep_name'];
-        $dept_id    = $items['dep_id'];
-        $dept_name  = $items['dep_name'];
-        $comp_id = $items['com_id'];
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 1) {
+        $com_id = $_SESSION['com_id'];
+        $user_id = $_SESSION['com_id'];
+    } else if ($_COOKIE['role'] == 2) {
+        $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $hop_dong = explode(',', $item_nv['hop_dong']);
+            if (in_array(2, $hop_dong) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
     }
-    $curl = curl_init();
-    $data = array(
-        'id_com' => $comp_id,
-    );
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $list_vt = json_decode($response, true);
-    $vat_tu_data = $list_vt['data']['items'];
-
-    $vat_tu_detail = [];
-    for ($i = 0; $i < count($vat_tu_data); $i++) {
-        $items_vt = $vat_tu_data[$i];
-        $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
-    }
-
-    $curl = curl_init();
-    $data = array(
-        'id_com' => $comp_id,
-    );
-    curl_setopt($curl, CURLOPT_POST, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $list_cong_trinh = json_decode($response, true);
-    $cong_trinh_data = $list_cong_trinh['data']['items'];
-
-
-    // echo "<pre>";
-    // print_r($vat_tu_detail);
-    // echo "</pre>";
-    // die();
 }
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_POST, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_cong_trinh = json_decode($response, true);
+$cong_trinh_data = $list_cong_trinh['data']['items'];
+
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_vt = json_decode($response, true);
+$vat_tu_data = $list_vt['data']['items'];
+
+$vat_tu = [];
+for ($i = 0; $i < count($vat_tu_data); $i++) {
+    $items_vt = $vat_tu_data[$i];
+    $vat_tu[$items_vt['dsvt_id']] = $items_vt;
+}
+
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_kho.php");
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_kho = json_decode($response, true);
+$kho_data = $list_kho['data']['items'];
+
+$kho = [];
+for ($i = 0; $i < count($kho_data); $i++) {
+    $items_kho = $kho_data[$i];
+    $kho[$items_kho['kho_id']] = $items_kho;
+}
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -154,102 +168,116 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                     </div>
                                     <div class="form-group">
                                         <label>Số tài khoản</label>
-                                        <input type="text" name="so_taik" class="form-control" placeholder="Nhập số tài khoản">
+                                        <input type="number" name="so_taik" class="form-control" placeholder="Nhập số tài khoản">
+                                        <input type="hidden" name="tong_tien" class="d-none tong_tien">
                                     </div>
                                 </div>
                                 <div class="them_moi_vt w_100 float_l">
                                     <p class="add_vat_tu cr_weight share_fsize_tow share_clr_four share_cursor">+ Thêm mới vật tư</p>
-                                    <div class="ctn_table w_100 float_l">
-                                        <table class="table w_100 float_l">
-                                            <thead>
-                                                <tr>
-                                                    <th class="share_tb_seven"></th>
-                                                    <th class="share_tb_two">Loại tài sản thiết bị</th>
-                                                    <th class="share_tb_eight">Thông số kỹ thuật</th>
-                                                    <th class="share_tb_seven">Số lượng</th>
-                                                    <th class="share_tb_two">Thời gian thuê</th>
-                                                    <th class="share_tb_eight">Đơn vị tính</th>
-                                                    <th class="share_tb_one">Khối lượng dự kiến</th>
-                                                    <th class="share_tb_two">Hạn mức ca máy</th>
-                                                    <th class="share_tb_one">Đơn giá thuê</th>
-                                                    <th class="share_tb_two">Đơn giá ca máy phụ trội</th>
-                                                    <th class="share_tb_two">Thành tiền dự kiến</th>
-                                                    <th class="share_tb_two">Thỏa thuận khác</th>
-                                                    <th class="share_tb_two">Lưu ý</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="share_tb_seven">
-                                                        <p>
-                                                            <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
-                                                        </p>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="text" name="loai_tb" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_eight">
-                                                        <div class="form-group">
-                                                            <input type="text" name="thong_so" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_seven">
-                                                        <div class="form-group">
-                                                            <input type="text" name="so_luong" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group tb-date-range">
-                                                            <input type="date" name="ngay_bat_dau" class="form-control range">
-                                                            <span> - </span>
-                                                            <input type="date" name="ngay_ket_thuc" class="form-control range">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_eight">
-                                                        <div class="form-group">
-                                                            <input type="text" name="don_vi_tinh" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_one">
-                                                        <div class="form-group">
-                                                            <input type="text" name="khoi_luong" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="number" name="han_muc" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_one">
-                                                        <div class="form-group">
-                                                            <input type="number" name="don_gia" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="number" name="don_gia_ca_may" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="number" name="thanh_tien" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="text" name="thoa_thuan_khac" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="text" name="luu_y" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="table-wrapper mt-5">
+                                        <div class="table-container table-3192">
+                                            <div class="tbl-header">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="w-5"></th>
+                                                            <th class="w-10">Kho</th>
+                                                            <th class="w-20">Vật tư/thiết bị</th>
+                                                            <th class="w-15">Thông số kỹ thuật</th>
+                                                            <th class="w-10">Số lượng</th>
+                                                            <th class="w-10">Hình thức thuê</th>
+                                                            <th class="w-10">Đơn vị tính</th>
+                                                            <th class="w-25">Thời gian thuê</th>
+                                                            <th class="w-10">Khối lượng dự kiến</th>
+                                                            <th class="w-10">Hạn mức ca máy</th>
+                                                            <th class="w-10">Đơn giá thuê</th>
+                                                            <th class="w-10">Đơn giá ca máy phụ trội</th>
+                                                            <th class="w-10">Thành tiền dự kiến</th>
+                                                            <th class="w-10">Thỏa thuận khác</th>
+                                                            <th class="w-10">Lưu ý</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                            <div class="tbl-content table-2-row">
+                                                <table>
+                                                    <tbody id="vt-tb">
+                                                        <tr class="item">
+                                                            <td class="w-5">
+                                                                <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                                                            </td>
+                                                            <td class="w-10">
+                                                                <div class="v-select2">
+                                                                    <select name="tb_kho_vt" class="form-control share_select tb_kho_vt" onchange="changeKho(this)">
+                                                                        <option value="">-- Chọn kho vật tư --</option>
+                                                                        <? foreach ($kho_data as $key => $items) { ?>
+                                                                            <option value="<?= $items['kho_id'] ?>"><?= $items['kho_name'] ?></option>
+                                                                        <? } ?>
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                            <td class="w-20">
+                                                                <div class="v-select2">
+                                                                    <select name="tb_vat_tu_thiet_bi" class="form-control share_select tb_vat_tu_thiet_bi">
+                                                                        <option value="">-- Chọn vật tư/thiết bị --</option>
+
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                            <td class="w-15">
+                                                                <input type="text" name="tb_thong_so" class="form-control tb_thong_so">
+                                                            </td>
+                                                            <td class="w-10">
+                                                                <input type="number" name="tb_so_luong" class="form-control tb_so_luong" onkeyup="khoiLuong(this), thanhTien()">
+                                                            </td>
+                                                            <td class="w-10">
+                                                                <div class="v-select2">
+                                                                    <select name="tb_hinh_thuc_thue" class="form-control tb_hinh_thuc_thue" onchange="hinhThucChange(this), thanhTien()">
+                                                                        <option value="">-- Chọn hình thức --</option>
+                                                                        <option value="1">Theo giờ</option>
+                                                                        <option value="2">Theo ngày</option>
+                                                                        <option value="3">Theo tháng</option>
+                                                                        <option value="4">Theo ca máy</option>
+                                                                        <option value="5">Theo công việc</option>
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                            <td class="w-10">
+                                                                <input type="text" name="tb_don_vi_tinh" class="tb_don_vi_tinh" readonly>
+                                                            </td>
+                                                            <td class="w-25">
+                                                                <div class="tb-date-range">
+                                                                    <input type="date" name="tb_ngay_bat_dau" class="form-control range date1" onchange="khoiLuong(this), thanhTien()">
+                                                                    <span> - </span>
+                                                                    <input type="date" name="tb_ngay_ket_thuc" class="form-control range date2" onchange="khoiLuong(this), thanhTien()">
+                                                                </div>
+                                                            </td>
+                                                            <td class="w-10">
+                                                                <input type="number" name="tb_khoi_luong" class="form-control tb_khoi_luong" onkeyup="khoiLuong(this), thanhTien()" readonly>
+                                                            </td>
+                                                            <td class="w-10">
+                                                                <input type="number" name="tb_han_muc" class="form-control tb_han_muc" onkeyup="khoiLuong(this), thanhTien()">
+                                                            </td>
+                                                            <td class="w-10">
+                                                                <input type="number" name="tb_don_gia" class="form-control tb_don_gia" onkeyup="khoiLuong(this), thanhTien()">
+                                                            </td>
+                                                            <td class="w-10">
+                                                                <input type="number" name="tb_don_gia_ca_may" class="form-control tb_don_gia_ca_may" onkeyup="khoiLuong(this), thanhTien()">
+                                                            </td>
+                                                            <td class="w-10">
+                                                                <input type="number" name="tb_thanh_tien" class="form-control tb_thanh_tien" readonly>
+                                                            </td>
+                                                            <td class="w-10">
+                                                                <input type="text" name="tb_thoa_thuan_khac" class="form-control tb_thoa_thuan_khac">
+                                                            </td>
+                                                            <td class="w-10">
+                                                                <input type="text" name="tb_luu_y" class="form-control tb_luu_y">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-button w_100">
@@ -303,7 +331,9 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript" src="../js/bank-name.js"></script>
+<script type="text/javascript" src="../js/giatri_doi.js"></script>
 <script>
     $(".all_nhacc, .all_duan, .ten_nganhang").select2({
         width: '100%',
@@ -311,89 +341,100 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     autocomplete(document.getElementById("ten_nh"), bank);
 
     $(".add_vat_tu").click(function() {
-        var html = `<tr>
-                                                    <td class="share_tb_seven">
-                                                        <p>
-                                                            <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
-                                                        </p>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="text" name="loai_tb" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_eight">
-                                                        <div class="form-group">
-                                                            <input type="text" name="thong_so" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_seven">
-                                                        <div class="form-group">
-                                                            <input type="text" name="so_luong" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group tb-date-range">
-                                                            <input type="date" name="ngay_bat_dau" class="form-control range">
-                                                            <span> - </span>
-                                                            <input type="date" name="ngay_ket_thuc" class="form-control range">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_eight">
-                                                        <div class="form-group">
-                                                            <input type="text" name="don_vi_tinh" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_one">
-                                                        <div class="form-group">
-                                                            <input type="text" name="khoi_luong" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="number" name="han_muc" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_one">
-                                                        <div class="form-group">
-                                                            <input type="number" name="don_gia" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="number" name="don_gia_ca_may" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="number" name="thanh_tien" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="text" name="thoa_thuan_khac" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_two">
-                                                        <div class="form-group">
-                                                            <input type="text" name="luu_y" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                </tr>`;
-        $(".ctn_table .table tbody").append(html);
-        widthSelect();
-
-        if ($(".ctn_table .table tbody").height() > 105.5) {
-            $(".ctn_table .table thead tr").css('width', 'calc(100% - 10px)');
-        } else {
-            $(".ctn_table .table thead tr").css('width', '100%');
-        }
+        var html = `<tr class="item">
+                        <td class="w-5">
+                            <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
+                        </td>
+                        <td class="w-10">
+                            <div class="v-select2">
+                                <select name="tb_kho_vt" class="form-control share_select tb_kho_vt" onchange="changeKho(this)">
+                                    <option value="">-- Chọn kho vật tư --</option>
+                                    <? foreach ($kho_data as $key => $items) { ?>
+                                        <option value="<?= $items['kho_id'] ?>"><?= $items['kho_name'] ?></option>
+                                    <? } ?>
+                                </select>
+                            </div>
+                        </td>
+                        <td class="w-20">
+                            <div class="v-select2">
+                                <select name="tb_vat_tu_thiet_bi" class="form-control share_select tb_vat_tu_thiet_bi">
+                                    <option value="">-- Chọn vật tư/thiết bị --</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td class="w-15">
+                            <input type="text" name="tb_thong_so" class="form-control tb_thong_so">
+                        </td>
+                        <td class="w-10">
+                            <input type="number" name="tb_so_luong" class="form-control tb_so_luong" onkeyup="khoiLuong(this), thanhTien()">
+                        </td>
+                        <td class="w-10">
+                            <div class="v-select2">
+                                <select name="tb_hinh_thuc_thue" class="form-control tb_hinh_thuc_thue" onchange="hinhThucChange(this), thanhTien()">
+                                    <option value="">-- Chọn hình thức --</option>
+                                    <option value="1">Theo giờ</option>
+                                    <option value="2">Theo ngày</option>
+                                    <option value="3">Theo tháng</option>
+                                    <option value="4">Theo ca máy</option>
+                                    <option value="5">Theo công việc</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td class="w-10">
+                            <input type="text" name="tb_don_vi_tinh" class="tb_don_vi_tinh" readonly>
+                        </td>
+                        <td class="w-25">
+                            <div class="tb-date-range">
+                                <input type="date" name="tb_ngay_bat_dau" class="form-control range date1" onchange="khoiLuong(this), thanhTien()">
+                                <span> - </span>
+                                <input type="date" name="tb_ngay_ket_thuc" class="form-control range date2" onchange="khoiLuong(this), thanhTien()">
+                            </div>
+                        </td>
+                        <td class="w-10">
+                            <input type="number" name="tb_khoi_luong" class="form-control tb_khoi_luong" onkeyup="khoiLuong(this), thanhTien()" readonly>
+                        </td>
+                        <td class="w-10">
+                            <input type="number" name="tb_han_muc" class="form-control tb_han_muc" onkeyup="khoiLuong(this), thanhTien()">
+                        </td>
+                        <td class="w-10">
+                            <input type="number" name="tb_don_gia" class="form-control tb_don_gia" onkeyup="khoiLuong(this), thanhTien()">
+                        </td>
+                        <td class="w-10">
+                            <input type="number" name="tb_don_gia_ca_may" class="form-control tb_don_gia_ca_may" onkeyup="khoiLuong(this), thanhTien()">
+                        </td>
+                        <td class="w-10">
+                            <input type="number" name="tb_thanh_tien" class="form-control tb_thanh_tien" readonly>
+                        </td>
+                        <td class="w-10">
+                            <input type="text" name="tb_thoa_thuan_khac" class="form-control tb_thoa_thuan_khac">
+                        </td>
+                        <td class="w-10">
+                            <input type="text" name="tb_luu_y" class="form-control tb_luu_y">
+                        </td>
+                    </tr>`;
+        $("#vt-tb").append(html);
+        RefSelect2();
     });
 
     var cancel_add = $(".cancel_add");
     cancel_add.click(function() {
-        modal_share.show();
+        modal_share.fadeIn();
     });
+    function changeKho(id) {
+        var com_id = <?= $com_id ?>;
+        var id_kho = $(id).val();
+        $.ajax({
+            url: '../render/hd_thue_ds_vt.php',
+            type: 'POST',
+            data: {
+                com_id: com_id,
+                id_kho: id_kho,
+            },
+            success: function(data) {
+                $(id).parents('.item').find(".tb_vat_tu_thiet_bi").html(data);
+            }
+        });
+    };
 
     $(".save_add").click(function() {
         var form_add_thue = $(".form_add_hp_mua");
@@ -422,7 +463,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 
         if (form_add_thue.valid() === true) {
             var ep_id = '<?= $ep_id ?>';
-            var com_id = '<?= $comp_id ?>';
+            var com_id = '<?= $com_id ?>';
 
             var ngay_ky_hd = $("input[name='ngay_ky_hd'").val();
             var id_nha_cung_cap = $("select[name='id_nha_cung_cap']").val();
@@ -436,100 +477,112 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
             var dieu_khoan_tt = $("textarea[name='dieu_khoan_tt']").val();
             var ten_nh = $("input[name='ten_nh']").val();
             var so_taik = $("input[name='so_taik']").val();
+            var tong_tien = $("input[name='tong_tien']").val();
 
+            var tb_kho = new Array();
+            $("select[name='tb_kho_vt']").each(function() {
+                var id_kho = $(this).val();
+                if (id_kho != "") {
+                    tb_kho.push(id_kho);
+                }
+            });
 
             var tb_thiet_bi = new Array();
-            $("input[name='loai_tb']").each(function() {
-                var ten_tb = $(this).val();
-                if (ten_tb != "") {
-                    tb_thiet_bi.push(ten_tb);
+            $("select[name='tb_vat_tu_thiet_bi']").each(function() {
+                var id_vt_tb = $(this).val();
+                if (id_vt_tb != "") {
+                    tb_thiet_bi.push(id_vt_tb);
                 }
             });
             var tb_thong_so = new Array();
-            $("input[name='thong_so']").each(function() {
+            $("input[name='tb_thong_so']").each(function() {
                 var ts_tb = $(this).val();
                 if (ts_tb != "") {
                     tb_thong_so.push(ts_tb);
                 }
             });
             var tb_so_luong = new Array();
-            $("input[name='so_luong']").each(function() {
+            $("input[name='tb_so_luong']").each(function() {
                 var sl_tb = $(this).val();
                 if (sl_tb != "") {
                     tb_so_luong.push(sl_tb);
                 }
             });
+            var tb_hinh_thuc = new Array();
+            $("select[name='tb_hinh_thuc_thue']").each(function() {
+                var tb_ht = $(this).val();
+                if (tb_ht != "") {
+                    tb_hinh_thuc.push(tb_ht);
+                }
+            });
             var tb_ngay_bat_dau = new Array();
-            $("input[name='ngay_bat_dau']").each(function() {
+            $("input[name='tb_ngay_bat_dau']").each(function() {
                 var tgbd_tb = $(this).val();
                 if (tgbd_tb != "") {
-                    tb_ngay_bat_dau.push(tgbd_tb);
+                        tb_ngay_bat_dau.push(tgbd_tb);
                 }
             });
             var tb_ngay_ket_thuc = new Array();
-            $("input[name='ngay_ket_thuc']").each(function() {
+            $("input[name='tb_ngay_ket_thuc']").each(function() {
                 var tgkt_tb = $(this).val();
+                var tgbd_tb = $(this).parents().find("input[name='ngay_bat_dau']").val();
                 if (tgkt_tb != "") {
-                    tb_ngay_ket_thuc.push(tgkt_tb);
-                }
-            });
-            var tb_don_vi_tinh = new Array();
-            $("input[name='don_vi_tinh']").each(function() {
-                var dvt_tb = $(this).val();
-                if (dvt_tb != "") {
-                    tb_don_vi_tinh.push(dvt_tb);
+                    if (tgkt_tb < tgbd_tb) {
+                        alert("Ngày kết thúc thuê không được nhỏ hơn ngày bắt đầu.")
+                    } else {
+                        tb_ngay_ket_thuc.push(tgkt_tb);
+                    }
                 }
             });
             var tb_khoi_luong = new Array();
-            $("input[name='khoi_luong']").each(function() {
+            $("input[name='tb_khoi_luong']").each(function() {
                 var kl_tb = $(this).val();
                 if (kl_tb != "") {
                     tb_khoi_luong.push(kl_tb);
                 }
             });
             var tb_han_muc = new Array();
-            $("input[name='han_muc']").each(function() {
+            $("input[name='tb_han_muc']").each(function() {
                 var hm_tb = $(this).val();
                 if (hm_tb != "") {
                     tb_han_muc.push(hm_tb);
                 }
             });
             var tb_don_gia = new Array();
-            $("input[name='don_gia']").each(function() {
+            $("input[name='tb_don_gia']").each(function() {
                 var dg_tb = $(this).val();
                 if (dg_tb != "") {
                     tb_don_gia.push(dg_tb);
                 }
             });
             var tb_don_gia_ca_may = new Array();
-            $("input[name='don_gia_ca_may']").each(function() {
+            $("input[name='tb_don_gia_ca_may']").each(function() {
                 var dgcm_tb = $(this).val();
                 if (dgcm_tb != "") {
                     tb_don_gia_ca_may.push(dgcm_tb);
                 }
             });
             var tb_thanh_tien = new Array();
-            $("input[name='thanh_tien']").each(function() {
+            $("input[name='tb_thanh_tien']").each(function() {
                 var total_tb = $(this).val();
                 if (total_tb != "") {
                     tb_thanh_tien.push(total_tb);
                 }
             });
             var tb_thoa_thuan_khac = new Array();
-            $("input[name='thoa_thuan_khac']").each(function() {
+            $("input[name='tb_thoa_thuan_khac']").each(function() {
                 var ttk_tb = $(this).val();
                 if (ttk_tb != "") {
                     tb_thoa_thuan_khac.push(ttk_tb);
                 }
             });
             var tb_luu_y = new Array();
-            $("input[name='luu_y']").each(function() {
+            $("input[name='tb_luu_y']").each(function() {
                 var ly_tb = $(this).val();
                 if (ly_tb != "") {
                     tb_luu_y.push(ly_tb);
                 }
             });
-
 
             $.ajax({
                 url: '../ajax/hd_thue_them.php',
@@ -547,13 +600,15 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                     dieu_khoan_tt: dieu_khoan_tt,
                     ten_nh: ten_nh,
                     so_taik: so_taik,
+                    tong_tien:tong_tien,
 
+                    tb_kho:tb_kho,
                     tb_thiet_bi: tb_thiet_bi,
                     tb_thong_so: tb_thong_so,
                     tb_so_luong: tb_so_luong,
+                    tb_hinh_thuc:tb_hinh_thuc,
                     tb_ngay_bat_dau: tb_ngay_bat_dau,
                     tb_ngay_ket_thuc: tb_ngay_ket_thuc,
-                    tb_don_vi_tinh: tb_don_vi_tinh,
                     tb_khoi_luong: tb_khoi_luong,
                     tb_han_muc: tb_han_muc,
                     tb_don_gia: tb_don_gia,
@@ -561,7 +616,6 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                     tb_thanh_tien: tb_thanh_tien,
                     tb_thoa_thuan_khac: tb_thoa_thuan_khac,
                     tb_luu_y: tb_luu_y,
-
                 },
                 success: function(data) {
                     if (data == "") {

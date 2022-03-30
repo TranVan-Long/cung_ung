@@ -114,8 +114,9 @@ input[disabled], input[readonly] {
     background-color: #EDEDED;
     cursor: not-allowed;
 }
-input.error{
-    border-color:red;
+
+input.error {
+    border-color: red;
 }
 
 textarea {
@@ -190,7 +191,8 @@ textarea[placeholder] {
 .d-flex {
     display: flex;
 }
-.flex-wrap{
+
+.flex-wrap {
     flex-wrap: wrap;
 }
 
@@ -201,7 +203,8 @@ textarea[placeholder] {
 .spc-btw {
     justify-content: space-between;
 }
-.spc-around{
+
+.spc-around {
     justify-content: space-around;
 }
 
@@ -333,7 +336,7 @@ textarea[placeholder] {
     margin-left: 30px;
 }
 
-.p-5{
+.p-5 {
     padding: 5px;
 }
 
@@ -501,7 +504,7 @@ textarea[placeholder] {
     color: #219653;
 }
 
-.text-yellow{
+.text-yellow {
     color: gold;
 }
 
@@ -597,7 +600,7 @@ textarea[placeholder] {
     cursor: pointer;
 }
 
-.nav-item a svg{
+.nav-item a svg {
     cursor: pointer;
 }
 
@@ -815,10 +818,16 @@ textarea[placeholder] {
 .scr-wrapper::-webkit-scrollbar {
     display: none;
 }
+.bg-ed{
+    background-color: #EDEDED;
+}
 
 .table-container {
     width: 100%;
     float: left;
+}
+.table-3900{
+    min-width: 3900px;
 }
 
 .table-3192 {
@@ -849,7 +858,7 @@ textarea[placeholder] {
     min-width: 1428px;
 }
 
-.table-1310{
+.table-1310 {
     min-width: 1310px;
 }
 
@@ -908,7 +917,8 @@ textarea[placeholder] {
 .table-container tr {
     border-bottom: solid 1px #474747;
 }
-.table-container .tbl-content tr:first-child{
+
+.table-container .tbl-content tr:first-child {
     border-top: solid 1px #474747;
 }
 
@@ -1111,6 +1121,7 @@ td .v-select2 .select2-container--default .select2-selection--single {
     justify-content: center;
     align-items: center;
 }
+
 .v-btn:active {
     transform: translateY(2px);
 }
@@ -1176,6 +1187,7 @@ select#display {
     display: inline-block;
     float: right;
 }
+
 .pagination li {
     width: 19px;
     height: 19px;
@@ -1189,9 +1201,11 @@ select#display {
     border-radius: 4px;
     cursor: pointer;
 }
+
 .pagination li:last-child {
     margin-left: 10px;
 }
+
 .pagination li:first-child {
     margin-right: 10px;
 }
@@ -1278,12 +1292,14 @@ select#display {
     width: 720px;
 }
 
-.text-upper{
+.text-upper {
     text-transform: uppercase;
 }
-.flex-start{
+
+.flex-start {
     justify-content: start !important;
 }
+
 .m-head {
     position: relative;
     display: flex;
@@ -1486,52 +1502,85 @@ select#display {
     justify-content: space-around;
 }
 
-.main-form{
+.main-form {
     width: 100%;
     float: left;
 }
-.range-date-picker{
+
+.range-date-picker {
     display: flex;
     justify-content: space-between;
     width: 100%;
     float: left;
 }
-.date-input-sm{
+
+.date-input-sm {
     width: max(40%, 148px);
 }
-.form-col-50 .range-date-text p{
+
+.form-col-50 .range-date-text p {
     display: inline-block;
     text-align: center;
     padding: 10px 5px;
 }
+
 .autocomplete {
     position: relative;
     display: inline-block;
-  }
-  .autocomplete-items {
+}
+
+.autocomplete-items {
     position: absolute;
-    border: 1px solid #d4d4d4;
-    border-bottom: none;
+    border: 1px solid #666666;
+    /* border-bottom: none; */
+    border-radius: 8px;
     border-top: none;
     z-index: 99;
     top: 100%;
     left: 0;
     right: 0;
-  }
-  
-  .autocomplete-items div {
+    max-height: 185px;
+    overflow-y: auto;
+}
+
+.autocomplete-items::-webkit-scrollbar {
+    display: none;
+    width: 10px;
+    position: relative;
+}
+
+.autocomplete-items::-webkit-scrollbar-thumb {
+    background: #C4C4C4;
+    border-radius: 22px;
+}
+
+.autocomplete-items::-webkit-scrollbar-track {
+    background: #FAFAFA;
+}
+
+.autocomplete-items div {
     padding: 10px;
     cursor: pointer;
-    background-color: #fff; 
-    border-bottom: 1px solid #d4d4d4; 
-  }
-  
-  .autocomplete-items div:hover {
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-items div:hover {
     background-color: #5897fb;
     color: #fff;
-  }
-  
-  .autocomplete-active {
-    background-color: #5897fb !important; 
-    color: #ffffff; 
-  }
+}
+
+.autocomplete-active {
+    background-color: #5897fb !important;
+    color: #ffffff;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}

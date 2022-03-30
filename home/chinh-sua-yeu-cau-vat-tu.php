@@ -2,14 +2,65 @@
 include("../includes/icon.php");
 include("config.php");
 
+if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
+    $com_id = $_SESSION['com_id'];
+    $user_id = $_SESSION['com_id'];
+
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response, true);
+    $data_list_nv = $data_list['data']['items'];
+    $cou = count($data_list_nv);
+} elseif (isset($_SESSION['quyen']) && ($_SESSION['quyen'] == 2)) {
+    $com_id = $_SESSION['user_com_id'];
+    $user_id = $_SESSION['ep_id'];
+
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response, true);
+    $data_list_nv = $data_list['data']['items'];
+    $cou = count($data_list_nv);
+
+    $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+    if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+        $item_nv = mysql_fetch_assoc((new db_query("SELECT `yeu_cau_vat_tu` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+        $ycvt = explode(',', $item_nv['yeu_cau_vat_tu']);
+        if (in_array(3, $ycvt) == FALSE) {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+    } else {
+        header('Location: /quan-ly-trang-chu.html');
+    }
+};
+
+$all_user = [];
+for ($i = 0; $i < $cou; $i++) {
+    $user_o = $data_list_nv[$i];
+    $all_user[$user_o['ep_id']] = $user_o;
+}
+
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $ycvt_id = $_GET['id'];
     $get_ycvt = new db_query("SELECT * FROM `yeu_cau_vat_tu` WHERE `id` = $ycvt_id ");
 
     $item = mysql_fetch_assoc($get_ycvt->result);
     $id_nyc = $item['id_nguoi_yc'];
-    $ngay_tao = date('Y-m-d', $item['ngay_tao']);
-    $ngay_ht = date('Y-m-d', $item['ngay_ht_yc']);
+    $ngay_tao = date('d/m/Y', $item['ngay_tao']);
+    $ngay_ht = date('d/m/Y', $item['ngay_ht_yc']);
     $cong_trinh = $item['id_cong_trinh'];
     $dien_giai = $item['dien_giai'];
     $trang_thai = $item['trang_thai'];
@@ -17,85 +68,76 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $nguoi_duyet = $item['id_nguoi_duyet'];
     $ly_do_tu_choi = $item['ly_do_tu_choi'];
 
-    $ep_name = $_SESSION['ep_name'];
-    $ep_id = $_SESSION['ep_id'];
 
+    $get_vtyc = new db_query("SELECT * FROM `chi_tiet_yc_vt` WHERE `id_yc_vt` = $ycvt_id");
 
-    if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
-        $curl = curl_init();
-        $token = $_COOKIE['acc_token'];
-        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $data_list = json_decode($response, true);
-        $data_list_nv = $data_list['data']['items'];
+    $curl = curl_init();
+    $data = array(
+        'id_com' => $com_id,
+    );
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $list_vt = json_decode($response, true);
+    $vat_tu_data = $list_vt['data']['items'];
 
-        foreach ($data_list_nv as $key => $items) {
-            if ($id_nyc == $items['ep_id']) {
-                $user_name = $items['ep_name'];
-                $dept_id    = $items['dep_id'];
-                $dept_name  = $items['dep_name'];
-                $comp_id = $items['com_id'];
-            }
-            if ($nguoi_duyet == $items['ep_id']) {
-                $ten_nguoi_duyet = $items['ep_name'];
-            }
-        }
-
-        $get_vtyc = new db_query("SELECT * FROM `chi_tiet_yc_vt` WHERE `id_yc_vt` = $ycvt_id");
-
-        
-        $curl = curl_init();
-        $data = array(
-            'id_com' => $comp_id,
-        );
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $list_vt = json_decode($response, true);
-        $vat_tu_data = $list_vt['data']['items'];
-
-        $vat_tu = [];
-        for ($i = 0; $i < count($vat_tu_data); $i++) {
-            $items_vt = $vat_tu_data[$i];
-            $vat_tu[$items_vt['dsvt_id']] = $items_vt;
-        }
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_kho.php");
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $list_kho = json_decode($response, true);
-        $kho_data = $list_kho['data']['items'];
-
-
-        $curl = curl_init();
-        $data = array(
-            'id_com' => $comp_id,
-        );
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $list_cong_trinh = json_decode($response, true);
-        $cong_trinh_data = $list_cong_trinh['data']['items'];
-        // echo "<pre>";
-        // print_r($cong_trinh_data);
-        // echo "</pre>";
-        // die();
-
+    $vat_tu = [];
+    for ($i = 0; $i < count($vat_tu_data); $i++) {
+        $items_vt = $vat_tu_data[$i];
+        $vat_tu[$items_vt['dsvt_id']] = $items_vt;
     }
+
+    $curl = curl_init();
+    $data = array(
+        'id_com' => $com_id,
+    );
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_kho.php");
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    $response1 = curl_exec($curl);
+    curl_close($curl);
+    $list_kho = json_decode($response1, true);
+    $kho_data = $list_kho['data']['items'];
+
+    $curl = curl_init();
+    $data = array(
+        'id_com' => $com_id,
+    );
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $list_cong_trinh = json_decode($response, true);
+    $cong_trinh_data = $list_cong_trinh['data']['items'];
+}
+
+if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
+    $cp_id = $_SESSION['com_id'];
+    if ($id_nyc == $cp_id) {
+        $user_name = $_SESSION['com_name'];
+        $dept_name  = "";
+    } else {
+        $user_name = $all_user[$id_nyc]['ep_name'];
+        $dept_name  = $all_user[$id_nyc]['dep_name'];
+    };
+
+    if ($cp_id == $nguoi_duyet) {
+        $ten_nguoi_duyet = $_SESSION['com_name'];
+    } else {
+        $ten_nguoi_duyet = $all_user[$nguoi_duyet]['ep_name'];
+    };
+} else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+    $user_name = $all_user[$id_nyc]['ep_name'];
+    $dept_name  = $all_user[$id_nyc]['dep_name'];
+    $ten_nguoi_duyet = $all_user[$nguoi_duyet]['ep_name'];
 }
 
 ?>
@@ -201,7 +243,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                     </div>
                                     <div class="tbl-content table-2-row">
                                         <table>
-                                            <tbody id="materials">
+                                            <tbody id="materials" data="<?= $com_id ?>">
                                                 <?
                                                 $get_vtyc2 = new db_query("SELECT * FROM `chi_tiet_yc_vt` WHERE `id_yc_vt` = $ycvt_id");
                                                 while ($row1 = mysql_fetch_assoc($get_vtyc2->result)) {
@@ -298,17 +340,6 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript">
-    jQuery.validator.addMethod("greaterThan",
-        function(value, element, params) {
-
-            if (!/Invalid|NaN/.test(new Date(value))) {
-                return new Date(value) > new Date($(params).val());
-            }
-
-            return isNaN(value) && isNaN($(params).val()) ||
-                (Number(value) > Number($(params).val()));
-        }, 'Must be greater than {0}.');
-
     $("#add-material").click(function() {
         $.ajax({
             url: '../ajax/ycvt_them_vt.php',
@@ -319,34 +350,17 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
         });
     });
 
-    // $(".materials_name").change(function() {
-    //     var id_vt = $(this).val();
-    //     var _this = $(this);
-    //     var id_v = $("input[name='id_vat_tu_old']").val();
-    //     $.ajax({
-    //         url: '../render/ycvt_vat_tu.php',
-    //         type: 'POST',
-    //         data: {
-    //             id_vt: id_vt,
-    //             id_v: id_v,
-    //         },
-    //         success: function(data) {
-    //             _this.parents(".item").html(data);
-    //         }
-    //     })
-    // });
-
     function change_vt() {
         $(".materials_name").change(function() {
             var id_vt = $(this).val();
             var _this = $(this);
-            var com_id = <?= $comp_id?>;
+            var com_id = <?= $com_id ?>;
             $.ajax({
                 url: '../render/ycvt_vat_tu.php',
                 type: 'POST',
                 data: {
                     id_vt: id_vt,
-                    com_id:com_id,
+                    com_id: com_id,
                 },
                 success: function(data) {
                     _this.parents(".item").html(data);
@@ -355,6 +369,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
         });
         RefSelect2();
     };
+
     $(".remove_vat_tu").click(function() {
         var id = $(this).attr("data-id");
 
@@ -391,9 +406,6 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 cong_trinh: {
                     required: true,
                 },
-                ngay_phai_hoan_thanh: {
-                    greaterThan: "#ngay_tao_yeu_cau"
-                },
             },
             messages: {
                 phong_ban: {
@@ -405,13 +417,9 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 cong_trinh: {
                     required: "Không được để trống",
                 },
-                ngay_phai_hoan_thanh: {
-                    greaterThan: "Không được nhỏ hơn ngày tạo yêu cầu!"
-                }
             },
         });
         if (create_ycvt.valid() === true) {
-            //thong tin phieu yeu cau
             var id_ycvt = "<?= $ycvt_id ?>";
             var ngay_ht = $("input[name='ngay_phai_hoan_thanh']").val();
             var dien_giai = $("textarea[name='dien_giai']").val();
@@ -433,7 +441,8 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             var so_luong_old = new Array();
             $("input[name='so_luong_old']").each(function() {
                 var sl_old = $(this).val();
-                if (sl_old != "") {
+                var vt_old = $(this).parents(".item").find("select[name='vat_tu_old']").val();
+                if (sl_old != "" && vt_old != "") {
                     so_luong_old.push(sl_old);
                 }
             });
@@ -448,40 +457,44 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             var so_luong = new Array();
             $("input[name='so_luong']").each(function() {
                 var sl = $(this).val();
-                if (sl != "") {
+                var vatt = $(this).parents(".item").find("select[name='materials_name']").val();
+                if (sl != "" && vatt != "") {
                     so_luong.push(sl);
                 }
             });
-            //get user id
+
+            var com_id = $("#materials").attr("data");
             var ep_id = '<?= $ep_id ?>';
+            var ngay_tao = $("input[name='ngay_tao_yeu_cau']").val();
 
-            $.ajax({
-                url: '../ajax/ycvt_sua.php',
-                type: 'POST',
-                data: {
-                    id_ycvt: id_ycvt,
-                    ngay_ht: ngay_ht,
-                    dien_giai: dien_giai,
-
-                    id_vat_tu_old: id_vat_tu_old,
-                    vat_tu_old: vat_tu_old,
-                    so_luong_old: so_luong_old,
-
-                    vat_tu: vat_tu,
-                    so_luong: so_luong,
-
-                    //user id
-                    ep_id: ep_id
-                },
-                success: function(data) {
-                    if (data == "") {
-                        alert('"Cập nhật phiếu yêu cầu vật tư thành công!"');
-                        window.location.href = 'quan-ly-chi-tiet-yeu-cau-vat-tu-<?= "$ycvt_id" ?>.html';
-                    } else {
-                        alert(data);
+            if (ngay_ht < ngay_tao || ngay_ht == "") {
+                alert("Ngày phải hoàn thành không được nhỏ hơn ngày tạo yêu cầu.");
+            } else {
+                $.ajax({
+                    url: '../ajax/ycvt_sua.php',
+                    type: 'POST',
+                    data: {
+                        id_ycvt: id_ycvt,
+                        ngay_ht: ngay_ht,
+                        dien_giai: dien_giai,
+                        com_id: com_id,
+                        id_vat_tu_old: id_vat_tu_old,
+                        vat_tu_old: vat_tu_old,
+                        so_luong_old: so_luong_old,
+                        vat_tu: vat_tu,
+                        so_luong: so_luong,
+                        ep_id: ep_id
+                    },
+                    success: function(data) {
+                        if (data == "") {
+                            alert('"Cập nhật phiếu yêu cầu vật tư thành công!"');
+                            window.location.href = 'quan-ly-chi-tiet-yeu-cau-vat-tu-' + id_ycvt + '.html';
+                        } else {
+                            alert(data);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     });
 </script>

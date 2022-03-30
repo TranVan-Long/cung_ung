@@ -1,14 +1,97 @@
 <?php
-include "../includes/icon.php";
+include("../includes/icon.php");
+include("config.php");
+
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 1) {
+        $com_id = $_SESSION['com_id'];
+        $com_name = $_SESSION['com_name'];
+        $user_name = $_SESSION['com_name'];
+        $user_id = $_SESSION['com_id'];
+
+        $curl = curl_init();
+        $token = $_COOKIE['acc_token'];
+        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data_list = json_decode($response, true);
+        $list_nv = $data_list['data']['items'];
+    } else if ($_COOKIE['role'] == 2) {
+        $com_id = $_SESSION['user_com_id'];
+        $com_name = $_SESSION['com_name'];
+        $user_name = $_SESSION['ep_name'];
+        $user_id = $_SESSION['ep_id'];
+
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `phieu_tt` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $phieu_tt = explode(',', $item_nv['phieu_tt']);
+            if (in_array(1, $phieu_tt) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+
+        $curl = curl_init();
+        $token = $_COOKIE['acc_token'];
+        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data_list = json_decode($response, true);
+        $list_nv = $data_list['data']['items'];
+    }
+};
+
+$user = [];
+for ($i = 0; $i < count($list_nv); $i++) {
+    $item1 = $list_nv[$i];
+    $user[$item1["ep_id"]] = $item1;
+};
+
+$id  = getValue('id', 'int', 'GET', '');
+if ($id != "") {
+    $list_ptt = new db_query("SELECT p.`id`, p.`id_hd_dh`, p.`id_ncc_kh`, p.`loai_phieu_tt`, p.`ngay_thanh_toan`, p.`hinh_thuc_tt`, p.`loai_thanh_toan`, p.`phan_loai`,
+                            p.`nguoi_nhan_tien`, p.`so_tien_tam_ung`, p.`ty_gia`, p.`phi_giao_dich`, p.`gia_tri_quy_doi`, p.`trang_thai`, p.`id_nguoi_lap`, n.`ten_nha_cc_kh`
+                            FROM `phieu_thanh_toan` AS p
+                            INNER JOIN `nha_cc_kh` AS n ON p.`id_ncc_kh` = n.`id`
+                            WHERE p.`id` = $id AND p.`id_cong_ty` = $com_id ");
+    $item = mysql_fetch_assoc($list_ptt->result);
+
+    if ($item['hinh_thuc_tt'] == 1) {
+        $hinh_thuc_tt = "Tiền mặt";
+    } else if ($item['hinh_thuc_tt'] == 2) {
+        $hinh_thuc_tt = "Bằng thẻ";
+    } else if ($item['hinh_thuc_tt'] == 3) {
+        $hinh_thuc_tt = "Chuyển khoản";
+    };
+
+    if ($item['phan_loai'] == 1 || $item['phan_loai'] == 3 || $item['phan_loai'] == 4 || $item['phan_loai'] ==  5) {
+        $dv_chitra = $com_name;
+        $dv_thuhuong = $item['ten_nha_cc_kh'];
+    } else if ($item['phan_loai'] == 2 || $item['phan_loai'] == 6) {
+        $dv_chitra = $item['ten_nha_cc_kh'];
+        $dv_thuhuong = $com_name;
+    }
+}
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chi tiết phiếu thanh toán</title>
-    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
 
     <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -40,27 +123,33 @@ include "../includes/icon.php";
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Hợp đồng / Đơn hàng</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">HĐ-991-10014</p>
+                                    <? if ($item['loai_phieu_tt'] == 1) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one">HĐ - <?= $item['id_hd_dh'] ?></p>
+                                    <? } else if ($item['loai_phieu_tt'] == 2) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one">ĐH - <?= $item['id_hd_dh'] ?></p>
+                                    <? } ?>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Số phiếu</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">PH-000-98157</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one">PH - <?= $item['id'] ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Nhà cung cấp</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">Công ty ABCXYZ</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $item['ten_nha_cc_kh'] ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Ngày thanh toán</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">14/10/2021</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one">
+                                        <?= ($item['ngay_thanh_toan'] != 0) ? date('d/m/Y', $item['ngay_thanh_toan']) : "" ?>
+                                    </p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Hình thức thanh toán</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">Tiền mặt</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $hinh_thuc_tt ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
@@ -72,37 +161,45 @@ include "../includes/icon.php";
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Đơn vị chi trả</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">Công ty X</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $dv_chitra  ?></p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Đơn vị thụ hưởng</p>
-                                    <p class="cr_weight share_fsize_tow">Công ty A</p>
+                                    <p class="cr_weight share_fsize_tow"><?= $dv_thuhuong ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Số tiền</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">25.000.000</p>
+                                    <? if ($item['loai_thanh_toan'] == 1) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one">
+                                            <?= ($item['so_tien_tam_ung'] != 0) ? number_format($item['so_tien_tam_ung']) : "" ?>
+                                        </p>
+                                    <? } ?>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Tỷ giá</p>
-                                    <p class="cr_weight share_fsize_tow">1</p>
+                                    <p class="cr_weight share_fsize_tow"><?= $item['ty_gia'] ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Giá trị quy đổi</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">25.000.000</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one">
+                                        <?= ($item['gia_tri_quy_doi'] != 0) ? number_format($item['gia_tri_quy_doi']) : "" ?>
+                                    </p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Phí giao dịch</p>
-                                    <p class="cr_weight share_fsize_tow">0</p>
+                                    <p class="cr_weight share_fsize_tow">
+                                        <?= ($item['phi_giao_dich'] != 0) ? number_format($item['phi_giao_dich']) : "" ?>
+                                    </p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Người nhận tiền</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">Nguyễn Văn A</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $item['nguoi_nhan_tien'] ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
@@ -114,19 +211,32 @@ include "../includes/icon.php";
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Người lập</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">Nguyễn Thị C</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one">
+                                        <?= ($item['id_nguoi_lap'] == $user_id) ? $user_name : $user[$item['id_nguoi_lap']]['ep_name'] ?>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         <div class="xuat_gmc w_100 float_l">
                             <div class="xuat_gmc_two share_xuat_gmc right mb-10 d_flex">
-                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_phieu_tt">Xóa</p>
-                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                    <a href="chinh-sua-phieu-thanh-toan.html" class="share_clr_tow">Chỉnh sửa</a>
-                                </p>
+                                <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+                                    <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_phieu_tt">Xóa</p>
+                                    <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
+                                        <a href="chinh-sua-phieu-thanh-toan-<?= $id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
+                                    </p>
+                                    <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                                    if (in_array(4, $phieu_tt)) { ?>
+                                        <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_phieu_tt">Xóa</p>
+                                    <? }
+                                    if (in_array(3, $phieu_tt)) { ?>
+                                        <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
+                                            <a href="chinh-sua-phieu-thanh-toan-<?= $id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
+                                        </p>
+                                <? }
+                                } ?>
                             </div>
                             <div class="xuat_gmc_one share_xuat_gmc left mb-10 mr-10 d_flex">
-                                <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight">Xuất Excel</p>
+                                <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight xuat_excel" data=<?= $id ?>>Xuất Excel</p>
                                 <p class="share_w_148 ml_20"></p>
                             </div>
                         </div>
@@ -154,10 +264,8 @@ include "../includes/icon.php";
                             </div>
                             <div class="form_butt_ht mb_20">
                                 <div class="tow_butt_flex d_flex">
-                                    <button type="button"
-                                        class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
-                                    <button type="button"
-                                        class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                    <button type="button" class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
+                                    <button type="button" class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
                                         ý</button>
                                 </div>
                             </div>
@@ -167,7 +275,7 @@ include "../includes/icon.php";
             </div>
         </div>
     </div>
-    <?php include "../modals/modal_logout.php"?>
+    <?php include "../modals/modal_logout.php" ?>
     <? include("../modals/modal_menu.php") ?>
 
 </body>
@@ -180,7 +288,10 @@ include "../includes/icon.php";
     remove_phieu_tt.click(function() {
         modal_share.show();
     });
-
+    $(".xuat_excel").click(function() {
+        var id = $(this).attr("data");
+        window.location.href = '../excel/ptt_tu_excel.php?id=' + id;
+    });
 </script>
 
 </html>

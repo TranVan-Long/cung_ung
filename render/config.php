@@ -8,6 +8,7 @@ if(!isset($_SESSION))
 require_once("../classes/database.php");
 require_once("../functions/functions.php");
 require_once '../functions/pagebreak.php' ;
-date_default_timezone_set('Asia/Ho_Chi_Minh');
+$oninput = "this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');";
 
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 ?>

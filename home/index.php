@@ -1,6 +1,12 @@
 <?
-    include("config_2.php");
-    $list_ch = new db_query("SELECT * FROM cau_hoi WHERE active = 1 LIMIT 10");
+include("config_2.php");
+// $list_ch = new db_query("SELECT * FROM cau_hoi WHERE active = 1 LIMIT 10");
+
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    header('Location: /quan-ly-trang-chu.html');
+    exit;
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -9,8 +15,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cung ứng vật tư</title>
-    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+    <title>Phần mềm Quản lý cung ứng xây dựng miễn phí, tốt nhất</title>
+
+    <meta name="description" content="Phần mềm quản lý cung ứng xây dựng miễn phí tốt nhất. Phần mềm quản lý theo dõi tiến độ công trình xây dựng. Tham khảo ngay">
+    <meta name="keywords" content="Phần mềm quản lý cung ứng xây dựng">
+
+    <meta property="og:title" content="Phần mềm Quản lý cung ứng xây dựng miễn phí, tốt nhất">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:description" content="Phần mềm quản lý cung ứng xây dựng miễn phí tốt nhất. Phần mềm quản lý theo dõi tiến độ công trình xây dựng. Tham khảo ngay">
+    <meta property="og:image" content="https://phanmemquanlycungung.timviec365.vn/img/bgr_banner.png">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="Phần mềm quản lý cung ứng xây dựng miễn phí tốt nhất. Phần mềm quản lý theo dõi tiến độ công trình xây dựng. Tham khảo ngay">
+    <meta name="twitter:title" content="Phần mềm Quản lý cung ứng xây dựng miễn phí, tốt nhất">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="canonical" href="https://phanmemquanlycungung.timviec365.vn/" />
+
+
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
 
     <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -38,7 +62,7 @@
                                     <source media="(max-width: 768px)" srcset="../img/bgr_banner_rtwo.png">
                                     <source media="(max-width: 1024px)" srcset="../img/bgr_banner_res.png">
                                     <source media="(max-width: 1366px)" srcset="../img/bgr_banner_rone.png">
-                                    <img src="../img/bgr_banner.png" alt="">
+                                    <img src="../img/bgr_banner.png" alt="Phần mềm quản lý cung ứng xây dựng">
                                 </picture>
                             </div>
                             <div class="bgr_froh">
@@ -49,8 +73,7 @@
                                         nghìn doanh nghiệp lớn nhỏ!</p>
                                 </div>
                                 <div class="fonh_tow">
-                                    <a href="https://quanlychung.timviec365.vn/lua-chon-dang-ky.html"
-                                        class="share_bgr_three share_clr_tow tex_center cr_weight">
+                                    <a href="https://quanlychung.timviec365.vn/lua-chon-dang-ky.html" rel="nofollow" class="share_bgr_three share_clr_tow tex_center cr_weight">
                                         Đăng ký sử dụng ngay</a>
                                 </div>
                             </div>
@@ -115,13 +138,14 @@
                     </div>
                     <div class="content_ct_two w_100">
                         <div class="container">
-                            <h2 class="tieu_de share_clr_one w_100 tex_center">Các tính năng chính</h2>
+                            <h2 class="tieu_de share_clr_one w_100 tex_center">Các tính năng chính của Phần mềm quản lý cung ứng
+                            </h2>
                             <div class="tatca_tinhn w_100">
                                 <div class="ctn_tatca w_100 d_flex fl_nwrap">
                                     <div class="tinhn_one">
                                         <div class="ctn_ctiet_tnang">
                                             <div class="avt_tnang">
-                                                <img src="../img/tinhnang4.png" alt=" tính năng">
+                                                <img src="../img/tinhnang4.png" alt="Quản lý cung ứng, xuất nhập vật tư">
                                             </div>
                                             <p class="share_fsize_tow share_clr_one">Quản lý cung ứng, xuất nhập vật tư
                                             </p>
@@ -130,7 +154,7 @@
                                     <div class="tinhn_one tinhn_one_o">
                                         <div class="ctn_ctiet_tnang">
                                             <div class="avt_tnang">
-                                                <img src="../img/tinhnang3.png" alt=" tính năng">
+                                                <img src="../img/tinhnang3.png" alt="Quản lý hợp đồng, thanh quyết toán">
                                             </div>
                                             <p class="share_fsize_tow share_clr_one">Quản lý hợp đồng, thanh quyết toán
                                             </p>
@@ -139,7 +163,7 @@
                                     <div class="tinhn_one tinhn_one_t">
                                         <div class="ctn_ctiet_tnang">
                                             <div class="avt_tnang">
-                                                <img src="../img/tinhnang2.png" alt=" tính năng">
+                                                <img src="../img/tinhnang2.png" alt="Quản lý nhà cung cấp, thầu phụ">
                                             </div>
                                             <p class="share_fsize_tow share_clr_one">Quản lý nhà cung cấp, thầu phụ</p>
                                         </div>
@@ -147,7 +171,7 @@
                                     <div class="tinhn_one">
                                         <div class="ctn_ctiet_tnang">
                                             <div class="avt_tnang">
-                                                <img src="../img/tinhnang1.png" alt=" tính năng">
+                                                <img src="../img/tinhnang1.png" alt="Báo cáo theo dõi vật tư">
                                             </div>
                                             <p class="share_fsize_tow share_clr_one">Báo cáo theo dõi vật tư</p>
                                         </div>
@@ -164,7 +188,7 @@
                                     <div class="loii_one w_100 float_l">
                                         <div class="ctn_loii_ctiet w_100 float_l">
                                             <div class="avt_loii_dd float_l">
-                                                <img src="../img/loiich1.png" alt="lợi ích khi sử dụng">
+                                                <img src="../img/loiich1.png" alt="Kiểm soát chặt chẽ cung ứng & sử dụng vật tư">
                                             </div>
                                             <div class="ttin_loii ttin_loii_o float_r">
                                                 <h4 class="tde_ttin w_100 float_l share_fsize_four share_clr_one cr_weight">
@@ -183,7 +207,7 @@
                                     <div class="loii_one w_100 float_l">
                                         <div class="ctn_loii_ctiet w_100 float_l">
                                             <div class="avt_loii_dd float_r">
-                                                <img src="../img/loiich2.png" alt="lợi ích khi sử dụng">
+                                                <img src="../img/loiich2.png" alt="Quản lý chi phí công trình hiệu quả, giảm thiểu rủi ro tài chính">
                                             </div>
                                             <div class="ttin_loii ttin_loii_t float_l">
                                                 <h4 class="tde_ttin w_100 float_l share_fsize_four share_clr_one cr_weight">
@@ -200,11 +224,10 @@
                                     <div class="loii_one w_100 float_l">
                                         <div class="ctn_loii_ctiet w_100 float_l">
                                             <div class="avt_loii_dd float_l">
-                                                <img src="../img/loiich3.png" alt="lợi ích khi sử dụng">
+                                                <img src="../img/loiich3.png" alt="Đề xuất & xét duyệt các yêu cầu cung cấp vất tư, báo giá nhanh chóng">
                                             </div>
                                             <div class="ttin_loii ttin_loii_o float_r">
-                                                <h4
-                                                    class="tde_ttin w_100 float_l share_fsize_four share_clr_one cr_weight">
+                                                <h4 class="tde_ttin w_100 float_l share_fsize_four share_clr_one cr_weight">
                                                     Đề xuất & xét duyệt các yêu cầu cung cấp vất tư, báo giá nhanh chóng
                                                 </h4>
                                                 <p class="share_fsize_tow share_clr_one w_100 float_l">Nhân viên dễ dàng
@@ -220,11 +243,10 @@
                                     <div class="loii_one w_100 float_l">
                                         <div class="ctn_loii_ctiet w_100 float_l">
                                             <div class="avt_loii_dd float_r">
-                                                <img src="../img/loiich4.png" alt="lợi ích khi sử dụng">
+                                                <img src="../img/loiich4.png" alt="Quản lý thông tin khách hàng & nhà cung cấp dễ dàng">
                                             </div>
                                             <div class="ttin_loii ttin_loii_t float_l">
-                                                <h4
-                                                    class="tde_ttin w_100 float_l share_fsize_four share_clr_one cr_weight">
+                                                <h4 class="tde_ttin w_100 float_l share_fsize_four share_clr_one cr_weight">
                                                     Quản lý thông tin khách hàng & nhà cung cấp dễ dàng</h4>
                                                 <p class="share_fsize_tow share_clr_one w_100 float_l">Số hóa thông tin,
                                                     các lần giao dịch của nhà cung cấp & khách hàng
@@ -237,11 +259,10 @@
                                     <div class="loii_one w_100 float_l">
                                         <div class="ctn_loii_ctiet w_100 float_l">
                                             <div class="avt_loii_dd float_l">
-                                                <img src="../img/loiich5.png" alt="lợi ích khi sử dụng">
+                                                <img src="../img/loiich5.png" alt="Theo dõi tiến độ các lần nghiệm thu và thanh toán">
                                             </div>
                                             <div class="ttin_loii ttin_loii_o float_r">
-                                                <h4
-                                                    class="tde_ttin w_100 float_l share_fsize_four share_clr_one cr_weight">
+                                                <h4 class="tde_ttin w_100 float_l share_fsize_four share_clr_one cr_weight">
                                                     Theo dõi tiến độ các lần nghiệm thu và thanh toán</h4>
                                                 <p class="share_fsize_tow share_clr_one w_100 float_l">Thực hiện lập các
                                                     phiếu đề nghị thanh toán cho nhà thầu dễ dàng & nhanh chóng</p>
@@ -272,7 +293,7 @@
                                         </div>
                                         <div class="nguoi_dgia w_100 float_l d_flex fl_nwrap">
                                             <div class="avt_dgia">
-                                                <img src="../img/avt3.png" alt="ảnh đại diện">
+                                                <img src="../img/avt1.jpg" alt="Trần Khánh Linh">
                                             </div>
                                             <div class="ttin_ndgia">
                                                 <p class="ten_ndgia w_100 float_l share_fsize_five cr_weight">Trần Khánh Linh</p>
@@ -291,7 +312,7 @@
                                         </div>
                                         <div class="nguoi_dgia w_100 float_l d_flex fl_nwrap">
                                             <div class="avt_dgia">
-                                                <img src="../img/avt3.png" alt="ảnh đại diện">
+                                                <img src="../img/avt2.jpg" alt="Nguyễn Hoàng Hải">
                                             </div>
                                             <div class="ttin_ndgia">
                                                 <p class="ten_ndgia w_100 float_l share_fsize_five cr_weight">Nguyễn Hoàng Hải</p>
@@ -310,7 +331,7 @@
                                         </div>
                                         <div class="nguoi_dgia w_100 float_l d_flex fl_nwrap">
                                             <div class="avt_dgia">
-                                                <img src="../img/avt3.png" alt="ảnh đại diện">
+                                                <img src="../img/avt3.jpg" alt="Nguyễn Văn Lâm">
                                             </div>
                                             <div class="ttin_ndgia">
                                                 <p class="ten_ndgia w_100 float_l share_fsize_five cr_weight">Nguyễn Văn
@@ -332,8 +353,7 @@
                                     <div class="dat_cauh">
                                         <form action="" method="" class="form_search w_100 float_l">
                                             <div class="form_choi_nd d_flex">
-                                                <input type="text" name="search_ch" class="form_control"
-                                                    placeholder="Nhập nội dung tìm kiếm">
+                                                <input type="text" name="search_ch" class="form_control" placeholder="Nhập nội dung tìm kiếm">
                                                 <p class="cl_search share_bgr_one share_clr_tow share_fsize_three share_cursor">
                                                     Tìm kiếm</p>
                                             </div>
@@ -344,95 +364,38 @@
                                             <form class="form_dat_cauh share_distance w_100 float_l">
                                                 <div class="form-group">
                                                     <label>Họ tên</label>
-                                                    <input type="text" name="name_nd" class="form-control"
-                                                        placeholder="Nhập họ và tên">
+                                                    <input type="text" name="name_nd" class="form-control" placeholder="Nhập họ và tên">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Số điện thoại</label>
-                                                    <input type="text" name="so_dient" class="form-control"
-                                                        placeholder="Nhập số điện thoại">
+                                                    <input type="text" name="so_dient" class="form-control" placeholder="Nhập số điện thoại">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Câu hỏi <span class="cr_weight cr_red">*</span></label>
-                                                    <textarea type="text" name="cau_hoi" class="form-control" rows="5"
-                                                        placeholder="Nhập nội dung"></textarea>
+                                                    <textarea type="text" name="cau_hoi" class="form-control" rows="5" placeholder="Nhập nội dung"></textarea>
                                                 </div>
                                                 <div class="form-group group_o d_flex fl_nwrap fl_agi">
                                                     <div class="nhap_ma float_l">
                                                         <label>Nhập mã Captcha <span class="cr_red">*</span></label>
-                                                        <input type="text" name="ma_capcha" class="form-control"
-                                                            placeholder="Nhập mã">
+                                                        <input type="text" name="ma_capcha" class="form-control" placeholder="Nhập mã">
                                                     </div>
                                                     <div class="ma_captcha float_l d_flex">
-                                                        <div class="hien-ma-nhap share_bgr_tow share_clr_one cr_weight ramdum"
-                                                            id="ma-cap">
-                                                            <p class="ramdum" id="code" oncopy="return false"
-                                                                oncut="return false" onpaste="return false">456h89</p>
+                                                        <div class="hien-ma-nhap share_bgr_tow share_clr_one cr_weight ramdum" id="ma-cap">
+                                                            <p class="ramdum" id="code" oncopy="return false" oncut="return false" onpaste="return false">456h89</p>
                                                         </div>
                                                         <input type="hidden" class="code_input" id="code_input">
-                                                        <img class="img-xoay img-rest share_cursor"
-                                                            src="../img/icon_load.png" alt="capcha">
+                                                        <img class="img-xoay img-rest share_cursor" src="../img/icon_load.png" alt="capcha">
                                                     </div>
                                                 </div>
                                                 <div class="form_submit">
-                                                    <button type="button"
-                                                        class="w_100 float_l share_cursor share_clr_tow share_bgr_one share_fsize_four luu_cau_hoi">Gửi</button>
+                                                    <button type="button" class="w_100 float_l share_cursor share_clr_tow share_bgr_one share_fsize_four luu_cau_hoi">Gửi</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                     <div class="list_cauh float_l">
                                         <div class="ctiet_cauh w_100 float_l">
-                                            <? while($item = mysql_fetch_assoc($list_ch->result)) { ?>
-                                                <div class="choi_chit w_100 float_l share_bgr_tow">
-                                                    <div class="nguoid_hoi w_100 float_l">
-                                                        <div class="ttin_ctiet_nguoid  w_100 float_l d_flex fl_agi">
-                                                            <p class="anh_dd"><img src="../img/avt4.png" alt="ảnh đại diện">
-                                                            </p>
-                                                            <div class="ten_ndung">
-                                                                <? if($item['name'] == "") {?>
-                                                                    <p class="share_fsize_tow cr_weight share_clr_one">Người dùng ẩn danh</p>
-                                                                <?}else{?>
-                                                                    <p class="share_fsize_tow cr_weight share_clr_one"><?= $item['name'] ?></p>
-                                                                <?}?>
-                                                                <? $date = $item['time'] ?>
-                                                                <p class="share_fsize_tow share_clr_one">
-                                                                    <?= date('H:i', $item['time']); ?>,
-                                                                   <?= date('d/m/Y', $item['time']); ?>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="cauh_ndung w_100 float_l">
-                                                            <p class="share_fsize_tow cr_weight share_clr_four"><?= $item['question'] ?></p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="cty_tloi float_l">
-                                                        <div class="cty_tloi_ct">
-                                                            <div class="ttin_ctiet_nguoid d_flex fl_agi w_100 float_l">
-                                                                <p class="anh_dd"><img src="../img/avt4.png"
-                                                                        alt="ảnh đại diện"></p>
-                                                                <div class="ten_ndung">
-                                                                    <p class="share_fsize_tow cr_weight share_clr_one">
-                                                                        Chuyển đổi số 365</p>
-                                                                    <p class="share_fsize_tow share_clr_one">8:00 AM,
-                                                                        10//10/2021</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="cauh_ndung w_100 float_l">
-                                                                <p class="tro_loi_r share_clr_one">Thứ nhất, Có thể khi đó
-                                                                    điện thoại của bạn đang bật chế độ tiết kiệm pin.
-                                                                    Trên app chấm công 365 cùng nhiều ứng dụng hoạt động
-                                                                    trên điện thoại,
-                                                                    để kéo dài thời lượng pin, điện thoại của bạn sẽ chặn
-                                                                    không cho
-                                                                    các ứng dụng của bạn sử dụng vị trí hoặc dữ liệu.</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="xem_them share_fsize_one share_clr_four tex_right share_cursor">Xem thêm</div>
-                                                    <div class="an_bot share_dnone share_fsize_one share_clr_four tex_right share_cursor">Ẩn bớt</div>
-                                                </div>
-                                            <?}?>
+
                                         </div>
                                     </div>
                                 </div>
@@ -458,13 +421,13 @@
                                                     <p>
                                                         <picture>
                                                             <source media="(max-width: 768px)" srcset="../img/gg_play_res.png">
-                                                            <img src="../img/gg_play.png" alt="trải nghiệm ngay trên app">
+                                                            <img src="../img/gg_play.png" alt="Download phần mềm quản lý cung ứng trên CHplay">
                                                         </picture>
                                                     </p>
                                                     <p>
                                                         <picture>
                                                             <source media="(max-width: 768px)" srcset="../img/gg_app_res.png">
-                                                            <img src="../img/gg_app.png" alt="trải nghiệm ngay trên app">
+                                                            <img src="../img/gg_app.png" alt="Download phần mềm quản lý cung ứng trên Appstore">
                                                         </picture>
                                                     </p>
                                                 </div>
@@ -491,8 +454,7 @@
                                 <h2 class="tieu_de share_clr_tow w_100 float_l tex_center">Video hướng dẫn sử dụng</h2>
                                 <div class="ctn_hd_video">
                                     <div class="img-hd">
-                                        <iframe controls width="100%" height="100%"
-                                            src="https://www.youtube.com/embed/Tm0T2CmvNj4">
+                                        <iframe controls width="100%" height="100%" src="https://www.youtube.com/embed/Tm0T2CmvNj4">
                                         </iframe>
                                     </div>
                                 </div>
@@ -532,24 +494,23 @@
 <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/slick.min.js"></script>
 <script type="text/javascript">
-
     var dang_xuat = $(".dang_xuat");
     var logout_ht = $(".logout_ht");
     var huy_button = $(".huy_button");
-    $(".logout_all").click(function(){
+    $(".logout_all").click(function() {
         window.location.href = "/dang-xuat.html";
     });
 
-    dang_xuat.click(function () {
+    dang_xuat.click(function() {
         logout_ht.show();
     });
 
-    huy_button.click(function () {
+    huy_button.click(function() {
         logout_ht.hide();
     });
 
-    $(window).click(function(e){
-        if($(e.target).is(".logout_ht")){
+    $(window).click(function(e) {
+        if ($(e.target).is(".logout_ht")) {
             logout_ht.hide();
         }
     })
@@ -591,17 +552,17 @@
     var btx_modal_ind = $(".btx_modal_ind");
     var menu_tt = $(".menu_tt");
 
-    btx_modal_ind.click(function(){
+    btx_modal_ind.click(function() {
         menu_tt.show();
     });
 
-    $(window).click(function(e){
-        if($(e.target).is(".menu_tt")){
+    $(window).click(function(e) {
+        if ($(e.target).is(".menu_tt")) {
             menu_tt.hide();
         }
     });
 
-     $('.ctiet_cauh').slick({
+    $('.ctiet_cauh').slick({
         dots: true,
         infinite: false,
         speed: 800,
@@ -610,13 +571,13 @@
         vertical: true,
     });
 
-    $(".xem_them").click(function(){
+    $(".xem_them").click(function() {
         $(this).parents(".choi_chit").find(".cty_tloi .cauh_ndung .tro_loi_r").addClass("active");
         $(this).addClass("share_dnone");
         $(this).parents(".choi_chit").find(".an_bot").removeClass("share_dnone");
     });
 
-    $(".an_bot").click(function(){
+    $(".an_bot").click(function() {
         $(this).parents(".choi_chit").find(".cty_tloi .cauh_ndung .tro_loi_r").removeClass("active");
         $(this).addClass("share_dnone");
         $(this).parents(".choi_chit").find(".xem_them").removeClass("share_dnone");
@@ -626,76 +587,75 @@
     var ten_nv_dn = $(".ten_nv_dn");
     var bg_logout = $(".bg_logout");
 
-    $(".avt_nv_dn, .ten_nv_dn").click(function () {
+    $(".avt_nv_dn, .ten_nv_dn").click(function() {
         $(this).parents(".bg_log_aff").find(".bg_logout").toggleClass('active');
     });
 
-    $(window).click(function(e){
-        if(!avt_nv_dn.is(e.target) && !ten_nv_dn.is(e.target)  && !bg_logout.is(e.target) && bg_logout.has(e.target).length === 0){
+    $(window).click(function(e) {
+        if (!avt_nv_dn.is(e.target) && !ten_nv_dn.is(e.target) && !bg_logout.is(e.target) && bg_logout.has(e.target).length === 0) {
             bg_logout.removeClass("active");
         }
     });
 
-    $(".luu_cau_hoi").click(function(){
+    $(".luu_cau_hoi").click(function() {
         var form_add = $(".form_dat_cauh");
         form_add.validate({
-            errorPlacement: function (error, element) {
+            errorPlacement: function(error, element) {
                 error.appendTo(element.parents(".form-group"));
                 error.appendTo(element.parents(".nhap_ma"));
                 error.wrap("<span class='error'>");
             },
-            rules:{
-                cau_hoi:{
+            rules: {
+                cau_hoi: {
                     required: true,
                 },
-                so_dient:{
+                so_dient: {
                     number: true,
                 },
-                ma_capcha:{
+                ma_capcha: {
                     required: true,
                     equalTo: '#code_input',
                 }
             },
-            messages:{
-                cau_hoi:{
+            messages: {
+                cau_hoi: {
                     required: "Câu hỏi không được để trống",
                 },
-                so_dient:{
+                so_dient: {
                     number: "Nhập số điện thoại",
                 },
-                ma_capcha:{
+                ma_capcha: {
                     required: "Mã capcha không được để trống",
                     equalTo: "Mã capcha nhập không đúng",
                 }
             }
         });
-        if(form_add.valid() === true){
-            var ho_ten = $("input[name='name_nd']").val();
-            var so_dt = $("input[name='so_dient']").val();
-            var cau_hoi = $("textarea[name='cau_hoi']").val();
+        if (form_add.valid() === true) {
+            // var ho_ten = $("input[name='name_nd']").val();
+            // var so_dt = $("input[name='so_dient']").val();
+            // var cau_hoi = $("textarea[name='cau_hoi']").val();
 
-            $.ajax({
-                url: '../ajax/cau_hoi.php',
-                type: 'POST',
-                data:{
-                    ho_ten: ho_ten,
-                    so_dt: so_dt,
-                    cau_hoi: cau_hoi,
-                },
-                success: function(data){
-                    if(data == ""){
-                        alert("Bạn đã tạo câu hỏi thành công");
-                        window.location.reload();
-                    }else{
-                        alert(data);
-                        window.location.reload();
-                    }
+            // $.ajax({
+            //     url: '../ajax/cau_hoi.php',
+            //     type: 'POST',
+            //     data: {
+            //         ho_ten: ho_ten,
+            //         so_dt: so_dt,
+            //         cau_hoi: cau_hoi,
+            //     },
+            //     success: function(data) {
+            // if(data == ""){
+            //     alert("Bạn đã tạo câu hỏi thành công");
+            //     window.location.reload();
+            // }else{
+            //     alert(data);
+            window.location.reload();
+            // }
 
-                }
-            })
+            //         }
+            //     })
         }
     })
-
 </script>
 
 </html>

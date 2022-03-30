@@ -2,65 +2,60 @@
 include "../includes/icon.php";
 include("config.php");
 $date = date('m-d-Y', time());
-$ep_id = $_SESSION['ep_id'];
 
-if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
-    $curl = curl_init();
-    $token = $_COOKIE['acc_token'];
-    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $data_list = json_decode($response, true);
-    $data_list_nv = $data_list['data']['items'];
-
-    foreach ($data_list_nv as $key => $items) {
-        $user_name = $items['ep_name'];
-        $dept_id    = $items['dep_id'];
-        $dept_name  = $items['dep_name'];
-        $comp_id = $items['com_id'];
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 1) {
+        $com_id = $_SESSION['com_id'];
+        $user_id = $_SESSION['com_id'];
+    } else if ($_COOKIE['role'] == 2) {
+        $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $hop_dong = explode(',', $item_nv['hop_dong']);
+            if (in_array(2, $hop_dong) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
     }
-    $curl = curl_init();
-    $data = array(
-        'id_com' => $comp_id,
-    );
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $list_vt = json_decode($response, true);
-    $vat_tu_data = $list_vt['data']['items'];
-
-    $vat_tu_detail = [];
-    for ($i = 0; $i < count($vat_tu_data); $i++) {
-        $items_vt = $vat_tu_data[$i];
-        $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
-    }
-
-    $curl = curl_init();
-    $data = array(
-        'id_com' => $comp_id,
-    );
-    curl_setopt($curl, CURLOPT_POST, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $list_cong_trinh = json_decode($response, true);
-    $cong_trinh_data = $list_cong_trinh['data']['items'];
-
-
-    // echo "<pre>";
-    // print_r($vat_tu_detail);
-    // echo "</pre>";
-    // die();
 }
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_POST, 1);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_vt = json_decode($response, true);
+$vat_tu_data = $list_vt['data']['items'];
+
+$vat_tu_detail = [];
+for ($i = 0; $i < count($vat_tu_data); $i++) {
+    $items_vt = $vat_tu_data[$i];
+    $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
+}
+
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_POST, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_cong_trinh = json_decode($response, true);
+$cong_trinh_data = $list_cong_trinh['data']['items'];
+
 ?>
 
 <!DOCTYPE html>
@@ -102,7 +97,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                         <h4 class="tieu_de_ct w_100 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Thêm hợp đồng mua</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form action="" class="form_add_hp_mua share_distance w_100 float_l">
+                            <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Ngày ký hợp đồng <span class="cr_red">*</span></label>
@@ -112,7 +107,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Nhà cung cấp <span class="cr_red">*</span></label>
-                                        <select name="id_nha_cung_cap" class="form-control all_nhacc">
+                                        <select id="id_nha_cung_cap" name="id_nha_cung_cap" class="form-control all_nhacc" data="<?= $com_id ?>">
                                             <option value="">-- Chọn nhà cung cấp --</option>
                                             <?
                                             $get_ncc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 1");
@@ -234,7 +229,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group autocomplete">
                                         <label>Tên ngân hàng</label>
-                                        <input type="text" name="ten_nh" id="ten_nh" class="form-control" placeholder="Nhập tên ngân hàng">
+                                        <input type="text" name="ten_nh" id="ten_nh" class="form-control" placeholder="Nhập tên ngân hàng" autocomplete="off">
                                     </div>
                                     <div class="form-group">
                                         <label>Số tài khoản</label>
@@ -243,15 +238,9 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
-                                        <label>Báo giá</label>
-                                        <select name="bao_gia" class="form-control bao_gia">
+                                        <label>Báo giá <span class="cr_red">*</span></label>
+                                        <select id="bao_gia" name="bao_gia" class="form-control bao_gia" data="<?= $com_id ?>">
                                             <option value="">-- Chọn phiếu báo giá --</option>
-                                            <?
-                                            $get_bg = new db_query("SELECT `id` FROM `bao_gia`");
-                                            while ($list_bg = mysql_fetch_assoc($get_bg->result)) {
-                                            ?>
-                                                <option value="<?= $list_bg['id'] ?>">BG - <?= $list_bg['id'] ?></option>
-                                            <? } ?>
                                         </select>
                                     </div>
                                 </div>
@@ -259,7 +248,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                     <label>Thỏa thuận hóa đơn</label>
                                     <textarea name="tthuan_hdon" rows="5" class="form-control" placeholder="Nhập thỏa thuận hóa đơn"></textarea>
                                 </div>
-                                <div class="them_moi_vt w_100 float_l">
+                                <div class="them_moi_vt w_100 float_l d-none">
                                     <p class="add_vat_tu cr_weight share_fsize_tow share_clr_four share_cursor">+ Thêm
                                         mới vật tư</p>
                                     <div class="ctn_table w_100 float_l">
@@ -340,11 +329,16 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 <script type="text/javascript" src="../js/giatri_doi.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script>
-     $(window).on("load", function() {
+    $(window).on("load", function() {
         tong_vt();
         baoLanh();
         baoHanh();
     });
+    $(document).on('click', '.remo_cot_ngang', function() {
+        tong_vt();
+        baoLanh();
+        baoHanh();
+    })
     $(".all_nhacc, .all_da_ct, .bao_gia").select2({
         width: '100%',
     });
@@ -355,13 +349,62 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     })
     autocomplete(document.getElementById("ten_nh"), bank);
 
+    function hd_vt_change(id) {
+        var id_p = $("#bao_gia").val();
+        var id_vt = $(id).val();
+        var id_v = $(id).parents(".item").attr("data");
+        var com_id = $(".form_add_hp_mua").attr("data");
+        $.ajax({
+            url: '../render/hd_mua_vat_tu.php',
+            type: 'POST',
+            data: {
+                id_vt: id_vt,
+                id_v: id_v,
+                id_com: com_id,
+                id_p: id_p,
+            },
+            success: function(data) {
+                $(id).parents(".item").html(data);
+                RefSelect2();
+            }
+        });
+    };
+
+    $("#id_nha_cung_cap").change(function() {
+        var com_id = $(this).attr("data");
+        var id_ncc = $(this).val();
+        $.ajax({
+            url: '../render/hd_mua_ds_bg.php',
+            type: 'POST',
+            data: {
+                com_id: com_id,
+                id_ncc: id_ncc,
+            },
+            success: function(data) {
+                $("#bao_gia").html(data);
+            }
+        });
+    });
+    $('#bao_gia').change(function(){
+        var bao_gia = $(this).val();
+        if(bao_gia != ""){
+            $('.them_moi_vt').slideDown();
+        }else{
+            $('.them_moi_vt').slideUp();
+        }
+    })
+
     $('.add_vat_tu').click(function() {
+        var id_p = $("#bao_gia").val();
+        var id_ncc = $("#id_nha_cung_cap").val();
         var com_id = <?= $com_id ?>;
         $.ajax({
-            url: '../ajax/hd_them_vt.php',
+            url: '../ajax/hd_mua_them_vt.php',
             type: 'POST',
             data: {
                 id_com: com_id,
+                id_p: id_p,
+                id_ncc: id_ncc
             },
             success: function(data) {
                 $("#vat_tu_thiet_bi").append(data);
@@ -369,26 +412,6 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
             }
         });
     });
-
-    function hd_vt_change(id) {
-        var id_vt = $(id).val();
-        var _this = $(id);
-        var id_v = _this.parents(".item").attr("data");
-        var com_id = <?= $com_id ?>;
-        $.ajax({
-            url: '../render/hd_vat_tu.php',
-            type: 'POST',
-            data: {
-                id_vt: id_vt,
-                id_v: id_v,
-                id_com: com_id,
-            },
-            success: function(data) {
-                _this.parents(".item").html(data);
-                RefSelect2();
-            }
-        });
-    };
 
     var cancel_add = $(".cancel_add");
     cancel_add.click(function() {
@@ -401,18 +424,6 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         var vat_tax_mua = tr_vat_mua * vat_mua / 100;
         $("input[name='sau_vat']").val(tr_vat_mua + vat_tax_mua);
     });
-
-    jQuery.validator.addMethod("greaterThan",
-        function(value, element, params) {
-
-            if (!/Invalid|NaN/.test(new Date(value))) {
-                return new Date(value) > new Date($(params).val());
-            }
-
-            return isNaN(value) && isNaN($(params).val()) ||
-                (Number(value) > Number($(params).val()));
-        }, 'Must be greater than {0}.'
-    );
 
     $(".save_add").click(function() {
         var form_add_mua = $(".form_add_hp_mua");
@@ -428,15 +439,18 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                 id_nha_cung_cap: {
                     required: true,
                 },
-                dan_ctrinh: {
-                    required: true,
+                bao_gia:{
+                    required: true
                 },
-                ngay_bat_dau: {
-                    greaterThan: "#ngay_ky_hd"
-                },
-                ngay_ket_thuc: {
-                    greaterThan: "#ngay_bat_dau"
-                },
+                // dan_ctrinh: {
+                //     required: true,
+                // },
+                // ngay_bat_dau: {
+                //     greaterThan: "#ngay_ky_hd"
+                // },
+                // ngay_ket_thuc: {
+                //     greaterThan: "#ngay_bat_dau"
+                // },
             },
             messages: {
                 ngay_ky_hd: {
@@ -445,21 +459,24 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                 id_nha_cung_cap: {
                     required: "Không được để trống",
                 },
-                dan_ctrinh: {
+                bao_gia:{
                     required: "Không được để trống",
                 },
-                ngay_bat_dau: {
-                    greaterThan: "Không được nhỏ hơn ngày ký hợp đồng."
-                },
-                ngay_ket_thuc: {
-                    greaterThan: "Không được nhỏ hơn ngày bắt đầu."
-                },
+                // dan_ctrinh: {
+                //     required: "Không được để trống",
+                // },
+                // ngay_bat_dau: {
+                //     greaterThan: "Không được nhỏ hơn ngày ký hợp đồng."
+                // },
+                // ngay_ket_thuc: {
+                //     greaterThan: "Không được nhỏ hơn ngày bắt đầu."
+                // },
             },
         });
 
         if (form_add_mua.valid() === true) {
-            var ep_id = '<?= $ep_id ?>';
-            var com_id = '<?= $comp_id ?>';
+            var ep_id = '<?= $user_id ?>';
+            var com_id = '<?= $com_id ?>';
 
             var ngay_ky_hd = $("input[name='ngay_ky_hd'").val();
             var id_nha_cung_cap = $("select[name='id_nha_cung_cap']").val();
@@ -498,42 +515,42 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
             var tthuan_hdon = $("textarea[name='tthuan_hdon']").val();
 
             var vt_vat_tu = new Array();
-            $("select[name='ma_vatt']").each(function() {
+            $("select[name='ma_vt_ban']").each(function() {
                 var ten_vat_tu = $(this).val();
                 if (ten_vat_tu != "") {
                     vt_vat_tu.push(ten_vat_tu);
                 }
             });
             var vt_so_luong = new Array();
-            $("input[name='so-luong']").each(function() {
+            $("input[name='so_luong']").each(function() {
                 var sl_vt = $(this).val();
                 if (sl_vt != "") {
                     vt_so_luong.push(sl_vt);
                 }
             });
             var vt_don_gia = new Array();
-            $("input[name='don-gia']").each(function() {
+            $("input[name='don_gia']").each(function() {
                 var dg_vt = $(this).val();
                 if (dg_vt != "") {
                     vt_don_gia.push(dg_vt);
                 }
             });
             var vt_truoc_vat = new Array();
-            $("input[name='tien_tvat']").each(function() {
+            $("input[name='vt_tien_tvat']").each(function() {
                 var tr_vat = $(this).val();
                 if (tr_vat != "") {
                     vt_truoc_vat.push(tr_vat);
                 }
             });
             var vt_vat_tax = new Array();
-            $("input[name='thue_vat']").each(function() {
+            $("input[name='vt_thue_vat']").each(function() {
                 var tax = $(this).val();
                 if (tax != "") {
                     vt_vat_tax.push(tax);
                 }
             });
             var vt_sau_vat = new Array();
-            $("input[name='tien_svat']").each(function() {
+            $("input[name='vt_tien_svat']").each(function() {
                 var s_vat = $(this).val();
                 if (s_vat != "") {
                     vt_sau_vat.push(s_vat);
@@ -572,6 +589,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                     dieu_khoan_tt: dieu_khoan_tt,
                     ten_nh: ten_nh,
                     so_taik: so_taik,
+                    bao_gia: bao_gia,
                     tthuan_hdon: tthuan_hdon,
 
                     vt_vat_tu: vt_vat_tu,

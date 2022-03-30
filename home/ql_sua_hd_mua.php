@@ -5,8 +5,20 @@ $date = date('m-d-Y', time());
 $com_id = "";
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
+    $user_id = $_SESSION['com_id'];
 } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
     $com_id = $_SESSION['user_com_id'];
+    $user_id = $_SESSION['ep_id'];
+    $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+    if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+        $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+        $hop_dong = explode(',', $item_nv['hop_dong']);
+        if (in_array(3, $hop_dong) == FALSE) {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+    } else {
+        header('Location: /quan-ly-trang-chu.html');
+    }
 }
 
 if (isset($_GET['id']) && $_GET['id'] != "") {
@@ -14,61 +26,56 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $hd_get = new db_query("SELECT * FROM `hop_dong` WHERE `id` = '" . $hd_id . "' ");
     $get_vt_ban = new db_query("SELECT * FROM `vat_tu_hd_dh` WHERE `id_hd_mua_ban` = $hd_id");
     $hd_detail = mysql_fetch_assoc($hd_get->result);
-    $ep_id = $_SESSION['ep_id'];
+
+    $ngay_hop_dong = date('Y-m-d', $hd_detail['ngay_ky_hd']);
+    $id_ncc = $hd_detail['id_nha_cc_kh'];
+    $du_an_ctr = $hd_detail['id_du_an_ctrinh'];
+    $ngay_bat_dau = date('Y-m-d', $hd_detail['tg_bd_thuc_hien']);
+    $ngay_ket_thuc = date('Y-m-d', $hd_detail['tg_kt_thuc_hien']);
+    $hinh_thuc_hd = $hd_detail['hinh_thuc_hd'];
+    $thoi_han_bl = date('Y-m-d', $hd_detail['thoi_han_blanh']);
+    $id_bao_gia = $hd_detail['id_bao_gia'];
+}else{
+    header('Location: /quan-ly-trang-chu.html');
 }
-$ngay_hop_dong = date('Y-m-d', $hd_detail['ngay_ky_hd']);
-$id_ncc = $hd_detail['id_nha_cc_kh'];
-$du_an_ctr = $hd_detail['id_du_an_ctrinh'];
-$ngay_bat_dau = date('Y-m-d', $hd_detail['tg_bd_thuc_hien']);
-$ngay_ket_thuc = date('Y-m-d', $hd_detail['tg_kt_thuc_hien']);
-$hinh_thuc_hd = $hd_detail['hinh_thuc_hd'];
-$thoi_han_bl = date('Y-m-d', $hd_detail['thoi_han_blanh']);
 
 
 
-if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
-    $curl = curl_init();
-    $data = array(
-        'id_com' => $com_id,
-    );
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $list_vt = json_decode($response, true);
-    $vat_tu_data = $list_vt['data']['items'];
-    $count_vt = count($vat_tu_data);
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_vt = json_decode($response, true);
+$vat_tu_data = $list_vt['data']['items'];
 
-    $vat_tu_detail = [];
-    for ($i = 0; $i < count($vat_tu_data); $i++) {
-        $items_vt = $vat_tu_data[$i];
-        $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
-    }
-
-    $curl = curl_init();
-    $data = array(
-        'id_com' => $com_id,
-    );
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php");
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $list_ct = json_decode($response, true);
-    $cong_trinh_data = $list_ct['data']['items'];
-
-
-    // echo "<pre>";
-    // print_r($cong_trinh_data);
-    // echo "</pre>";
-    // die();
+$vat_tu_detail = [];
+for ($i = 0; $i < count($vat_tu_data); $i++) {
+    $items_vt = $vat_tu_data[$i];
+    $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
 }
+
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php");
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_ct = json_decode($response, true);
+$cong_trinh_data = $list_ct['data']['items'];
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -104,7 +111,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                         <h4 class="tieu_de_ct w_100 float_l share_fsize_tow share_clr_one cr_weight_bold mb_20">Chỉnh sửa hợp
                             đồng mua</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form action="" class="form_add_hp_mua share_distance w_100 float_l">
+                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số hợp đồng</label>
@@ -118,7 +125,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Nhà cung cấp <span class="cr_red">*</span></label>
-                                        <select name="id_ncc" class="form-control all_nhacc">
+                                        <select id="id_nha_cung_cap" name="id_nha_cung_cap" class="form-control all_nhacc" data="<?= $com_id ?>">
                                             <option value="">-- Chọn nhà cung cấp --</option>
                                             <?
                                             $get_ncc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 1");
@@ -143,23 +150,13 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                         <label for="hd_nguyen_tac">Hợp đồng nguyên tắc</label>
                                         <input type="checkbox" name="hd_nguyen_tac" id="hd_nguyen_tac" <?= ($hd_detail['hd_nguyen_tac'] == 1) ? "checked" : "" ?>>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group share_form_select">
                                         <label>Hình thức hợp đồng</label>
                                         <select name="hinh_thuc" class="form-control all_hthuc_hd">
                                             <option value="">-- Chọn hình thức hợp đồng --</option>
-                                            <? if ($hinh_thuc_hd == 1) { ?>
-                                                <option value="1" selected>Hợp đồng trọn gói</option>
-                                                <option value="2">Hợp đồng theo đơn giá cố định</option>
-                                                <option value="3">Hợp đồng theo đơn giá điều chỉnh</option>
-                                            <? } elseif ($hinh_thuc_hd == 2) { ?>
-                                                <option value="1">Hợp đồng trọn gói</option>
-                                                <option value="2">Hợp đồng theo đơn giá cố định</option>
-                                                <option value="3">Hợp đồng theo đơn giá điều chỉnh</option>
-                                            <? } elseif ($hinh_thuc_hd == 3) { ?>
-                                                <option value="1">Hợp đồng trọn gói</option>
-                                                <option value="2">Hợp đồng theo đơn giá cố định</option>
-                                                <option value="3" selected>Hợp đồng theo đơn giá điều chỉnh</option>
-                                            <? } ?>
+                                            <option value="1" <?= ($hinh_thuc_hd == 1) ? "selected" : "" ?>>Hợp đồng trọn gói</option>
+                                            <option value="2" <?= ($hinh_thuc_hd == 2) ? "selected" : "" ?>>Hợp đồng theo đơn giá cố định</option>
+                                            <option value="3" <?= ($hinh_thuc_hd == 3) ? "selected" : "" ?>>Hợp đồng theo đơn giá điều chỉnh</option>
                                         </select>
                                     </div>
                                 </div>
@@ -169,7 +166,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                         <input type="text" name="truoc_vat" id="tong_truoc_vat" value="<?= $hd_detail['gia_tri_trvat'] ?>" class="form-control cr_weight h_border" readonly>
                                     </div>
                                     <div class="form-group  d_flex fl_agi form_lb">
-                                        <label for="baog_vat">Đơn giá đã bao gồm VAT</label>
+                                        <label for="don_gia_vat">Đơn giá đã bao gồm VAT</label>
                                         <input type="checkbox" id="don_gia_vat" name="don_gia_vat" <?= ($hd_detail['bao_gom_vat'] == 1) ? "checked" : "" ?>>
                                     </div>
                                 </div>
@@ -227,7 +224,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                         </div>
                                     </div>
                                     <div class="form-group d_flex fl_agi form_lb">
-                                        <label for="baog_vanc">Hợp đồng đã bao gồm vận chuyển</label>
+                                        <label for="bao_gom_van_chuyen">Hợp đồng đã bao gồm vận chuyển</label>
                                         <input type="checkbox" id="bao_gom_van_chuyen" name="bao_gom_van_chuyen" <?= ($hd_detail['bgom_vchuyen'] == 1) ? "checked" : "" ?>>
                                     </div>
                                 </div>
@@ -260,7 +257,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Báo giá</label>
-                                        <select name="bao_gia" class="form-control bao_gia">
+                                        <select id="bao_gia" name="bao_gia" class="form-control bao_gia" data="<?= $com_id ?>">
                                             <option value="">-- Chọn phiếu báo giá --</option>
                                             <?
                                             $get_bg = new db_query("SELECT * FROM `bao_gia`  WHERE `id_nha_cc` = $id_ncc");
@@ -308,8 +305,11 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                                             <div class="form-group share_form_select">
                                                                 <select name="ma_vt_ban_old" class="ma_vt_ban share_select" onchange="hd_vt_change(this)">
                                                                     <option value="">-- Chọn Vật tư --</option>
-                                                                    <? foreach ($vat_tu_detail as $key => $items) { ?>
-                                                                        <option value="<?= $items['dsvt_id'] ?>" <?= ($items['dsvt_id'] == $vt_mua_fetch['id_vat_tu']) ? "selected" : "" ?>><?= $items['dsvt_name'] ?></option>
+                                                                    <?
+                                                                    $list_vt_data = new db_query("SELECT `id_vat_tu` FROM `vat_tu_da_bao_gia` WHERE `id_bao_gia` = $id_bao_gia AND `id_cong_ty` = $com_id");
+                                                                    while ($list_vt_fetch = mysql_fetch_assoc($list_vt_data->result)) {
+                                                                    ?>
+                                                                        <option value="<?= $list_vt_fetch['id_vat_tu'] ?>" <?= ($list_vt_fetch['id_vat_tu'] == $vt_mua_fetch['id_vat_tu']) ? "selected" : "" ?>><?= $vat_tu_detail[$list_vt_fetch['id_vat_tu']]['dsvt_name'] ?></option>
                                                                     <? } ?>
                                                                 </select>
                                                             </div>
@@ -439,19 +439,68 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         baoLanh();
         baoHanh();
     });
-
-    autocomplete(document.getElementById("ten_nh"), bank);
-
+    $(document).on('click', '.remo_cot_ngang, .remove-btn', function() {
+        tong_vt();
+        baoLanh();
+        baoHanh();
+    })
     $(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia").select2({
         width: '100%',
     });
+
+    $(".all_hthuc_hd").select2({
+        width: '100%',
+        minimumResultsForSearch: Infinity,
+    })
+    autocomplete(document.getElementById("ten_nh"), bank);
+
+    function hd_vt_change(id) {
+        var id_p = $("#bao_gia").val();
+        var id_vt = $(id).val();
+        var id_v = $(id).parents(".item").attr("data");
+        var com_id = $(".form_add_hp_mua").attr("data");
+        $.ajax({
+            url: '../render/hd_mua_vat_tu.php',
+            type: 'POST',
+            data: {
+                id_vt: id_vt,
+                id_v: id_v,
+                id_com: com_id,
+                id_p: id_p,
+            },
+            success: function(data) {
+                $(id).parents(".item").html(data);
+                RefSelect2();
+            }
+        });
+    };
+    $("#id_nha_cung_cap").change(function() {
+        var com_id = $(this).attr("data");
+        var id_ncc = $(this).val();
+        $.ajax({
+            url: '../render/hd_mua_ds_bg.php',
+            type: 'POST',
+            data: {
+                com_id: com_id,
+                id_ncc: id_ncc,
+            },
+            success: function(data) {
+                $("#bao_gia").html(data);
+            }
+        });
+    });
+
     $('.add_vat_tu').click(function() {
+        var id_p = $("#bao_gia").val();
+        var id_ncc = $("#id_nha_cung_cap").val();
         var com_id = <?= $com_id ?>;
         $.ajax({
-            url: '../ajax/hd_them_vt.php',
+            url: '../ajax/hd_mua_them_vt.php',
             type: 'POST',
             data: {
                 id_com: com_id,
+                id_p: id_p,
+                id_ncc: id_ncc
             },
             success: function(data) {
                 $("#vat_tu_thiet_bi").append(data);
@@ -460,25 +509,51 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         });
     });
 
-    function hd_vt_change(id) {
-        var id_vt = $(id).val();
-        var _this = $(id);
-        var id_v = _this.parents(".item").attr("data");
+    $('#bao_gia').change(function() {
+        var id_p = $("#bao_gia").val();
+        var id_ncc = $("#id_nha_cung_cap").val();
         var com_id = <?= $com_id ?>;
-        $.ajax({
-            url: '../render/hd_vat_tu.php',
-            type: 'POST',
-            data: {
-                id_vt: id_vt,
-                id_v: id_v,
-                id_com: com_id,
-            },
-            success: function(data) {
-                _this.parents(".item").html(data);
-                RefSelect2();
+        var id_vt = new Array();
+        $("input[name='id_vt_ban_old'").each(function() {
+            var id_vt_cu = $(this).val();
+            if (id_vt_cu != "") {
+                id_vt.push(id_vt_cu);
             }
         });
-    };
+        $.ajax({
+            url: '../ajax/hd_mua_sua_xoa_vt.php',
+            type: 'POST',
+            data: {
+                id: id_vt,
+            },
+            success: function(data) {
+                if (data == "") {
+                    window.location.reload();
+                } else {
+                    alert(data);
+                }
+            }
+        });
+
+    });
+
+    $('.xoa_vt_tb').click(function() {
+        var id_v = $(this).attr('data-id');
+        $.ajax({
+            url: '../ajax/hd_ban_xoa_vt.php',
+            type: 'POST',
+            data: {
+                id: id_v,
+            },
+            success: function(data) {
+                if (data == "") {
+                    window.location.reload();
+                } else {
+                    alert(data);
+                }
+            }
+        });
+    });
 
     var cancel_add = $(".cancel_add");
     cancel_add.click(function() {
@@ -517,12 +592,12 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         });
 
         if (form_add_mua.valid() === true) {
-            var ep_id = '<?= $ep_id ?>';
+            var ep_id = '<?=$user_id ?>';
             var com_id = '<?= $comp_id ?>';
 
             var hd_id = <?= $hd_id ?>;
             var ngay_ky_hd = $("input[name='ngay_ky_hd'").val();
-            var id_nha_cung_cap = $("select[name='id_ncc']").val();
+            var id_nha_cung_cap = $("select[name='id_nha_cung_cap']").val();
             var dan_ctrinh = $("select[name='id_cong_trinh']").val();
             var hd_nguyen_tac = 0;
             if ($("input[name='hd_nguyen_tac']").is(":checked")) {

@@ -2,6 +2,56 @@
 include("../includes/icon.php");
 include("config.php");
 
+if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
+    $com_id = $_SESSION['com_id'];
+    $user_id = $_SESSION['com_id'];
+
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response, true);
+    $data_list_nv = $data_list['data']['items'];
+    $cou = count($data_list_nv);
+} elseif (isset($_SESSION['quyen']) && ($_SESSION['quyen'] == 2)) {
+    $com_id = $_SESSION['user_com_id'];
+    $user_id = $_SESSION['ep_id'];
+
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response, true);
+    $data_list_nv = $data_list['data']['items'];
+    $cou = count($data_list_nv);
+
+    $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+    if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+        $item_nv = mysql_fetch_assoc((new db_query("SELECT `yeu_cau_vat_tu` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+        $ycvt = explode(',', $item_nv['yeu_cau_vat_tu']);
+        if (in_array(1, $ycvt) == FALSE) {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+    } else {
+        header('Location: /quan-ly-trang-chu.html');
+    }
+};
+
+$all_user = [];
+for ($i = 0; $i < $cou; $i++) {
+    $user_o = $data_list_nv[$i];
+    $all_user[$user_o['ep_id']] = $user_o;
+}
 
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $ycvt_id = $_GET['id'];
@@ -18,76 +68,76 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $nguoi_duyet = $item['id_nguoi_duyet'];
     $ly_do_tu_choi = $item['ly_do_tu_choi'];
 
-    if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
-        $curl = curl_init();
-        $token = $_COOKIE['acc_token'];
-        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $data_list = json_decode($response, true);
-        $data_list_nv = $data_list['data']['items'];
 
-        foreach ($data_list_nv as $key => $items) {
-            if ($id_nyc == $items['ep_id']) {
-                $user_name = $items['ep_name'];
-                $dept_id    = $items['dep_id'];
-                $dept_name  = $items['dep_name'];
-                $comp_id = $items['com_id'];
-            }
-            if ($nguoi_duyet == $items['ep_id']) {
-                $ten_nguoi_duyet = $items['ep_name'];
-            }
-        }
+    $get_vtyc = new db_query("SELECT * FROM `chi_tiet_yc_vt` WHERE `id_yc_vt` = $ycvt_id");
 
-        $get_vtyc = new db_query("SELECT * FROM `chi_tiet_yc_vt` WHERE `id_yc_vt` = $ycvt_id");
+    $curl = curl_init();
+    $data = array(
+        'id_com' => $com_id,
+    );
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $list_vt = json_decode($response, true);
+    $vat_tu_data = $list_vt['data']['items'];
 
-        $curl = curl_init();
-        $data = array(
-            'id_com' => $comp_id,
-        );
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $list_vt = json_decode($response, true);
-        $vat_tu_data = $list_vt['data']['items'];
-
-        $vat_tu = [];
-        for ($i = 0; $i < count($vat_tu_data); $i++) {
-            $items_vt = $vat_tu_data[$i];
-            $vat_tu[$items_vt['dsvt_id']] = $items_vt;
-        }
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_kho.php");
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $list_kho = json_decode($response, true);
-        $kho_data = $list_kho['data']['items'];
-
-        $curl = curl_init();
-        $data = array(
-            'id_com' => $comp_id,
-        );
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $list_cong_trinh = json_decode($response, true);
-        $cong_trinh_data = $list_cong_trinh['data']['items'];
+    $vat_tu = [];
+    for ($i = 0; $i < count($vat_tu_data); $i++) {
+        $items_vt = $vat_tu_data[$i];
+        $vat_tu[$items_vt['dsvt_id']] = $items_vt;
     }
-    $ep_name = $_SESSION['ep_name'];
-    $ep_id = $_SESSION['ep_id'];
+
+    $curl = curl_init();
+    $data = array(
+        'id_com' => $com_id,
+    );
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_kho.php");
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    $response1 = curl_exec($curl);
+    curl_close($curl);
+    $list_kho = json_decode($response1, true);
+    $kho_data = $list_kho['data']['items'];
+
+    $curl = curl_init();
+    $data = array(
+        'id_com' => $com_id,
+    );
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $list_cong_trinh = json_decode($response, true);
+    $cong_trinh_data = $list_cong_trinh['data']['items'];
+}
+
+if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
+    $cp_id = $_SESSION['com_id'];
+    if ($id_nyc == $cp_id) {
+        $user_name = $_SESSION['com_name'];
+        $dept_name  = "";
+    } else {
+        $user_name = $all_user[$id_nyc]['ep_name'];
+        $dept_name  = $all_user[$id_nyc]['dep_name'];
+    };
+
+    if ($cp_id == $nguoi_duyet) {
+        $ten_nguoi_duyet = $_SESSION['com_name'];
+    } else {
+        $ten_nguoi_duyet = $all_user[$nguoi_duyet]['ep_name'];
+    };
+} else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+    $user_name = $all_user[$id_nyc]['ep_name'];
+    $dept_name  = $all_user[$id_nyc]['dep_name'];
+    $ten_nguoi_duyet = $all_user[$nguoi_duyet]['ep_name'];
 }
 
 ?>
@@ -242,20 +292,41 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             </div>
                         </div>
                     </div>
-                    <div class="right mt-20 xoa_csua">
-                        <button class="v-btn btn-outline-red modal-btn ml-20" data-target="delete">Xóa</button>
-                        <? if ($trang_thai == 1) { ?>
-                            <a href="chinh-sua-yeu-cau-vat-tu-<?= $ycvt_id ?>.html" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
-                        <? } ?>
-                    </div>
-                    <? if ($trang_thai == 1) { ?>
+                    <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                         <div class="right mt-20 xoa_csua">
-                            <button class="v-btn mb_10 btn-outline-red modal-btn ml-20" data-target="rejection">Từ chối</button>
-                            <button class="v-btn mb_10 btn-blue modal-btn ml-20" data-target="acceptance">Duyệt</button>
+                            <button class="v-btn btn-outline-red modal-btn ml-20" data-target="delete">Xóa</button>
+                            <? if ($trang_thai == 1) { ?>
+                                <a href="chinh-sua-yeu-cau-vat-tu-<?= $ycvt_id ?>.html" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
+                            <? } ?>
                         </div>
-                    <? } ?>
+                        <? if ($trang_thai == 1) { ?>
+                            <div class="right mt-20 xoa_csua">
+                                <button class="v-btn mb_10 btn-outline-red modal-btn ml-20" data-target="rejection">Từ chối</button>
+                                <button class="v-btn mb_10 btn-blue modal-btn ml-20" data-target="acceptance">Duyệt</button>
+                            </div>
+                        <? } ?>
+                    <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) { ?>
+                        <div class="right mt-20 xoa_csua">
+                            <? if (in_array(4, $ycvt)) { ?>
+                                <button class="v-btn btn-outline-red modal-btn ml-20" data-target="delete">Xóa</button>
+                                <? }
+                            if (in_array(3, $ycvt)) {
+                                if ($trang_thai == 1) { ?>
+                                    <a href="chinh-sua-yeu-cau-vat-tu-<?= $ycvt_id ?>.html" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
+                            <? }
+                            } ?>
+                        </div>
+                        <? if (in_array(5, $ycvt)) {
+                            if ($trang_thai == 1) { ?>
+                                <div class="right mt-20 xoa_csua">
+                                    <button class="v-btn mb_10 btn-outline-red modal-btn ml-20" data-target="rejection">Từ chối</button>
+                                    <button class="v-btn mb_10 btn-blue modal-btn ml-20" data-target="acceptance">Duyệt</button>
+                                </div>
+                            <? }
+                            }
+                        } ?>
                     <div class="left mt-20 xuatc_gm">
-                        <p class="v-btn btn-green">Xuất excel</p>
+                        <p class="v-btn btn-green xuat_excel" data=<?= $ycvt_id ?>>Xuất excel</p>
                         <!-- <p class="share_w_148"></p> -->
                     </div>
                 </div>
@@ -284,7 +355,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     </div>
     <!-- modal ly do tu choi -->
     <form class="form_tu_choi">
-        <div class="modal" id="rejection">
+        <div class="modal" id="rejection" data="<?= $ycvt_id ?>" data1="<?= $user_id ?>">
             <div class="m-content rejection-modal">
                 <div class="m-head text-center">Từ chối yêu cầu vật tư
                     <span class="dismiss cancel">&times;</span>
@@ -298,7 +369,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                     </div>
                     <div class="right mb_10">
-                        <button type="button" class="v-btn share_clr_tow sh_bgr_six right tc_submit">Đồng ý</button>
+                        <button type="button" class="v-btn share_clr_tow sh_bgr_six right tc_submit" data="<?= $com_id ?>">Đồng ý</button>
                     </div>
                 </div>
             </div>
@@ -320,6 +391,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <option value="<?= $items['kho_id'] ?>"><?= $items['kho_name'] ?></option>
                             <? } ?>
                         </select>
+                        <span class="error_kho cr_red share_dnone">Chọn kho vật tư</span>
                     </div>
                     <p class="text-500 mt-40">Số lượng duyệt</p>
                     <div class="w-100">
@@ -351,7 +423,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                     <td class="w-15"><?= $vat_tu[$row1['id_vat_tu']]['dvt_name'] ?></td>
                                                     <td class="w-20"><?= $row1['so_luong_yc_duyet'] ?></td>
                                                     <td class="w-20">
-                                                        <input type="hiden" name="id_vat_tu" type="text" class="d-none" value="<?= $row1['id'] ?>">
+                                                        <input type="hidden" name="id_vat_tu" type="text" class="d-none" value="<?= $row1['id'] ?>">
                                                         <input name="so_luong_duyet" class="text-center" type="text" required>
                                                     </td>
                                                 </tr>
@@ -366,7 +438,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 <div class="m-foot">
                     <div class="right huy_xong">
                         <p class="v-btn btn-outline-blue right cancel mr-20">Hủy</p>
-                        <button type="button" class="v-btn share_clr_tow sh_bgr_six right duyet_submit">Đồng ý</button>
+                        <button type="button" class="v-btn share_clr_tow sh_bgr_six right duyet_submit" data="<?= $com_id ?>">Đồng ý</button>
                     </div>
                 </div>
             </div>
@@ -383,15 +455,14 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $(".delete-ycvt").click(function() {
         var id = $(this).attr("data-id");
         //log record
-        var ep_id = '<?= $ep_id ?>';
-        var ycvt_id = '<?= $ycvt_id ?>';
+        var ep_id = '<?= $user_id ?>';
+
         $.ajax({
             url: '../ajax/ycvt_xoa.php',
             type: 'POST',
             data: {
                 id: id,
                 ep_id: ep_id,
-                ycvt_id: ycvt_id,
             },
             success: function(data) {
                 if (data == "") {
@@ -403,10 +474,15 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
         });
     });
 
+    $("#kho-vat-tu").change(function() {
+        $(".error_kho").hide();
+    });
+
     $(".duyet_submit").click(function() {
         var ycvt_id = '<?= $ycvt_id ?>';
         var id_kho = $("select[name='kho_vat_tu']").val();
-        var ep_id = '<?= $ep_id ?>';
+        var ep_id = '<?= $user_id ?>';
+        var com_id = $(this).attr("data");
 
         var id_vat_tu = new Array();
         $("input[name='id_vat_tu']").each(function() {
@@ -415,27 +491,63 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 id_vat_tu.push(id_vt);
             }
         });
+
         var so_luong_duyet = new Array();
         $("input[name='so_luong_duyet']").each(function() {
             var sl_duyet = $(this).val();
             if (sl_duyet != "") {
                 so_luong_duyet.push(sl_duyet);
+            } else {
+                sl_duyet = 0;
+                so_luong_duyet.push(sl_duyet);
             }
         });
+
+        if (id_kho == "") {
+            $(".error_kho").show();
+        } else if (id_kho != "") {
+            $.ajax({
+                url: '../ajax/ycvt_duyet.php',
+                type: 'POST',
+                data: {
+                    ycvt_id: ycvt_id,
+                    id_kho: id_kho,
+                    so_luong_duyet: so_luong_duyet,
+                    ep_id: ep_id,
+                    id_vat_tu: id_vat_tu,
+                    so_luong_duyet: so_luong_duyet,
+                    com_id: com_id,
+                },
+                success: function(data) {
+                    if (data == "") {
+                        alert("Duyệt yêu cầu thành công!");
+                        window.location.href = 'quan-ly-yeu-cau-vat-tu.html';
+                    } else {
+                        alert(data);
+                    }
+                }
+            });
+        }
+    });
+
+    $(".tc_submit").click(function() {
+        var ycvt_id = $("#rejection").attr("data");
+        var ly_do_tu_choi = $("textarea[name='ly_do']").val();
+        var com_id = $(this).attr("data");
+        //log record
+        var ep_id = $("#rejection").attr("data1");
         $.ajax({
-            url: '../ajax/ycvt_duyet.php',
+            url: '../ajax/ycvt_tu_choi.php',
             type: 'POST',
             data: {
                 ycvt_id: ycvt_id,
-                id_kho: id_kho,
-                so_luong_duyet: so_luong_duyet,
+                ly_do_tu_choi: ly_do_tu_choi,
                 ep_id: ep_id,
-                id_vat_tu: id_vat_tu,
-                so_luong_duyet: so_luong_duyet,
+                com_id: com_id,
             },
             success: function(data) {
                 if (data == "") {
-                    alert("Duyệt yêu cầu thành công!");
+                    alert("Từ chối yêu cầu thành công!");
                     window.location.href = 'quan-ly-yeu-cau-vat-tu.html';
                 } else {
                     alert(data);
@@ -443,29 +555,10 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             }
         })
     });
-    $(".tc_submit").click(function() {
-        var ycvt_id = '<?= $ycvt_id ?>';
-        var ly_do_tu_choi = $("textarea[name='ly_do']").val();
-        //log record
-        var ep_id = '<?= $ep_id ?>';
-        $.ajax({
-            url: '../ajax/ycvt_tu_choi.php',
-            type: 'POST',
-            data: {
-                ycvt_id: ycvt_id,
-                ly_do_tu_choi: ly_do_tu_choi,
 
-                ep_id: ep_id,
-            },
-            success: function(data) {
-                if (data == "") {
-                    alert("Duyệt yêu cầu thành công!");
-                    window.location.href = 'quan-ly-yeu-cau-vat-tu.html';
-                } else {
-                    alert(data);
-                }
-            }
-        })
+    $(".xuat_excel").click(function() {
+        var id = $(this).attr("data");
+        window.location.href = '../excel/ycvt_excel.php?id=' + id;
     });
 </script>
 

@@ -1,5 +1,3 @@
-
-
 // select2
 $(".share_select").select2({
     width: '100%',
@@ -14,7 +12,7 @@ function RefSelect2() {
 // select2 end
 
 // modal
-$('.modal-btn').click(function () {
+$('.modal-btn').click(function() {
     $('.modal').fadeOut();
     var id = $(this).attr("data-target");
     $('#' + id).fadeIn();
@@ -25,11 +23,11 @@ $('.modal-btn').click(function () {
 //     $('#' + id).fadeIn();
 // });
 
-$('.cancel').click(function () {
+$('.cancel').click(function() {
     $('.modal').fadeOut();
 });
 
-$(window).click(function (e) {
+$(window).click(function(e) {
     if ($(e.target).is('.modal')) {
         $('.modal').fadeOut();
     }
@@ -37,30 +35,8 @@ $(window).click(function (e) {
 // modal end
 
 
-// them vat tu
-// $("#add-material").click(function () {
-//     var html = `<tr class="item">
-//                     <td class="w-10">
-//                         <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-//                     </td>
-//                     <td class="w-25">
-//                         <div class="v-select2">
-//                             <select name="materials_name" class="share_select"></select>
-//                         </div>
-//                     </td>
-//                     <td class="w-20">
-//                         <input type="text" readonly disabled>
-//                     </td>
-//                     <td class="w-25">
-//                         <input type="text">
-//                     </td>
-//                 </tr>`;
-//     $("#materials").append(html);
-//     RefSelect2();
-// });
-
 // them tai khoan ngan hang
-$('#add-bank-acc').click(function () {
+$('#add-bank-acc').click(function() {
     var html = `<div class="bank border-bottom left w-100 pb-10 d-flex spc-btw">
                     <div class="bank-form">
                         <div class="form-row left">
@@ -77,7 +53,7 @@ $('#add-bank-acc').click(function () {
                         <div class="form-row left">
                             <div class="form-col-50 left mb_15">
                                 <label>Số tài khoản<span class="text-red">*</span></label>
-                                <input type="text" name="so_tk"
+                                <input type="number" name="so_tk"
                                         placeholder="Nhập số tài khoản">
                             </div>
                             <div class="form-col-50 right mb_15">
@@ -91,11 +67,10 @@ $('#add-bank-acc').click(function () {
                     </div>
                 </div>`;
     $('#bank-list').append(html);
-    RefSelect2();
 });
 
 // them nguoi lien he
-$("#add-references").click(function () {
+$("#add-references").click(function() {
     var html = `<tr id="item">
                     <td class="w-5">
                         <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
@@ -107,10 +82,10 @@ $("#add-references").click(function () {
                         <input type="text" name="chuc_vu">
                     </td>
                     <td class="w-20">
-                        <input type="text" name="so_dien_thoai_lh">
+                        <input type="tel" name="so_dien_thoai_lh">
                     </td>
                     <td class="w-30">
-                        <input type="text" name="email_lh">
+                        <input type="email" name="email_lh">
                     </td>
                 </tr>`;
     $("#rererences").append(html);
@@ -118,7 +93,7 @@ $("#add-references").click(function () {
 });
 
 // them gia tri tieu chi danh gia
-$('#add-rules-value').click(function () {
+$('#add-rules-value').click(function() {
     var html = `<div class="value border-bottom left w-100 pb-20 mt-10 d-flex spc-btw">
                     <div class="value-form">
                         <div class="form-row left">
@@ -144,50 +119,21 @@ $('#add-rules-value').click(function () {
     RefSelect2();
 });
 
-// them yeu cau thanh toan
-// $('#add-quote').click(function () {
-//     var html = `<tr class="item">
-//                     <td class="w-5">
-//                         <p class="removeItem"><i class="ic-delete remove-btn"></i></p>
-//                     </td>
-//                     <td class="w-15">
-//                         <div class="v-select2">
-//                             <select name="ten_day_du"></select>
-//                         </div>
-//                     </td>
-//                     <td class="w-15">
-//                         <div class="v-select2">
-//                             <select name="hang_san_xuat"></select>
-//                         </div>
-//                     </td>
-//                     <td class="w-10">
-//                         <input type="text" name="don_vi_tinh" disabled>
-//                     </td>
-//                     <td class="w-15">
-//                         <input type="text" name="so_luong">
-//                     </td>
-//                 </tr>`;
-
-//     $('#quote-me').append(html);
-//     RefSelect2();
-// });
-
-
 // xoa item
-$(document).on('click', '.removeItem', function () {
+$(document).on('click', '.removeItem', function() {
     $(this).parents('tr').remove();
     var x = 1;
-    $('.one_stt').each(function () {
+    $('.one_stt').each(function() {
         $(this).text(x);
         x++;
     });
     return false;
 });
-$(document).on('click', '.removeItem2', function () {
+$(document).on('click', '.removeItem2', function() {
     $(this).parents('div.bank').remove();
     return false;
 });
-$(document).on('click', '.removeItem3', function () {
+$(document).on('click', '.removeItem3', function() {
     $(this).parents('div.value').remove();
     return false;
 });
@@ -198,7 +144,7 @@ $(document).on('click', '.removeItem3', function () {
 // });
 
 // resize table on windows resize
-$(window).on("load resize ", function () {
+$(window).on("load resize ", function() {
     var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
     $('.tbl-header').css({ 'padding-right': scrollWidth });
 }).resize();
@@ -218,32 +164,61 @@ $(window).on("load resize ", function () {
 //     }, "slow");
 // });
 
-function right() {
-    $('.table-wrapper').animate({
-        scrollLeft: "+=300px"
-    }, "slow");
-};
+// function right() {
+//     $('.table-wrapper').animate({
+//         scrollLeft: "+=300px"
+//     }, "slow");
+// };
 
-function left() {
-    $('.table-wrapper').animate({
-        scrollLeft: "-=300px"
-    }, "slow");
-};
+// function left() {
+//     $('.table-wrapper').animate({
+//         scrollLeft: "-=300px"
+//     }, "slow");
+// };
 
-$(document).ready(function () {
-    var tbl_width = $('.table-container').width()
-    if ($(".table-wrapper").width() < tbl_width) {
-        $(".scr-r-btn").css("display", "block");
-        $(".scr-l-btn").css("display", "block");
+function next_q(_this) {
+    scrollLeft = $(_this).parent().find('.table-wrapper').scrollLeft().toFixed(0);
+    var maxScrollLeft = $(_this).parent().find('.table-wrapper').get(0).scrollWidth - $(_this).parent().find('.table-wrapper').get(0).clientWidth;
+    if (parseInt(scrollLeft) < maxScrollLeft) {
+        $(_this).parent().find('.table-wrapper').animate({ scrollLeft: '+=300' }, 400);
+        $(_this).parent().find(".left").css('display', 'block');
     } else {
-        $(".scr-r-btn").css("display", "none");
-        $(".scr-l-btn").css("display", "none");
+        $(_this).parent().find('.table-wrapper').animate({ scrollLeft: '+=0' }, 0);
     }
-})
+}
 
+function pre_q(_this) {
+    scrollLeft = $(_this).parent().find('.table-wrapper').scrollLeft().toFixed(0);
+    if (parseInt(scrollLeft) <= 0) {
+        $(_this).parent().find('.table-wrapper').animate({ scrollLeft: '-=0' }, 0);
+    } else {
+        $(_this).parent().find('.table-wrapper').animate({ scrollLeft: '-=300' }, 400);
+        $(_this).parent().find(".right").css('display', 'block');
+    }
+}
 
+function table_scroll(_this) {
+    var tableScrollLeft = $(_this).parent().find('.table-wrapper').scrollLeft().toFixed(0);
+    var maxtableScrollLeft = $(_this).parent().find('.table-wrapper').get(0).scrollWidth - $(_this).parent().find('.table-wrapper').get(0).clientWidth;
+    var tableScrollLeftNow = parseInt(tableScrollLeft);
+    if (tableScrollLeftNow != maxtableScrollLeft) {
+        $(_this).parent().find('.left,.right').css('display', 'block');
+    }
+    if (tableScrollLeftNow === maxtableScrollLeft || tableScrollLeftNow === maxtableScrollLeft - 1 || tableScrollLeftNow === maxtableScrollLeft + 1) {
+        $(_this).parent().find('.right').hide();
+    }
+    if (tableScrollLeftNow === 0) {
+        $(_this).parent().find('.left').hide();
+    }
+    if (maxtableScrollLeft - parseInt(tableScrollLeft) <= 300) {
+        $(_this).find('.right').hide();
+    }
+    if (parseInt(tableScrollLeft) > 0 && parseInt(tableScrollLeft) <= 300) {
+        $(_this).find('.left').hide();
+    }
+}
 
-$('#value-type').on('change', function () {
+$('#value-type').on('change', function() {
     var selectedValue = this.value;
     if (selectedValue == 2) {
         $('.value-control').show();
@@ -272,12 +247,10 @@ $('#value-type').on('change', function () {
         $('.value').remove();
         var html = `<div class="form-col-50 no-border right mb_15 gia_tri1">
                         <label>Thang điểm<span class="text-red">*</span></label>
-                        <input type="text" name="gia_tri" placeholder="Nhập giá trị lớn nhất">
+                        <input type="number" name="gia_tri" placeholder="Nhập giá trị lớn nhất">
                     </div>`;
         $('.chon_gt').append(html);
-    }
-
-    else {
+    } else {
         $('.value-control').hide();
         $('.value').remove();
         $('.gia_tri1').remove();

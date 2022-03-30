@@ -1,19 +1,21 @@
 <?php
 include "../includes/icon.php";
 include("config.php");
+$date_now = strtotime(date('Y-m-d'));
 
-if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])){
-    if($_COOKIE['role'] = 1){
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] = 1) {
         $user_id = $_SESSION['ep_id'];
-    }else if($_COOKIE['role'] = 2){
+    } else if ($_COOKIE['role'] = 2) {
         $user_id = $_SESSION['com_id'];
     }
 }
 
-
+$list_hnay = new db_query("SELECT `id`, `id_nguoi_dung`, `ngay_tao`, `gio_tao`, `noi_dung` FROM `nhat_ky_hd` WHERE `id_nguoi_dung` = $user_id AND `ngay_tao` = $date_now ORDER BY `gio_tao` DESC");
+$list_cu = new db_query("SELECT `id`, `id_nguoi_dung`, `ngay_tao`, `gio_tao`, `noi_dung` FROM `nhat_ky_hd` WHERE `id_nguoi_dung` = $user_id AND `ngay_tao` < $date_now ORDER BY `ngay_tao` DESC");
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -64,67 +66,40 @@ if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE
                                     </div>
                                 </div>
                                 <div class="ctiet_nhatk share_bgr_tow w_100 float_l">
+
                                     <div class="ctn_ctiet_nky">
                                         <p class="dropd_ctiet w_100 float_l share_cursor"><span class="mr_10">Hôm
                                                 nay</span>
                                             <img src="../img/exp.png" alt="" class="avt_dropd share_cursor">
                                         </p>
-                                        <div class="ctiet_nd_nhatk w_100 float_l">
-                                            <div class="ctiet_noid_nk w_100 float_l d_flex">
-                                                <p class="share_tb_four"></p>
-                                                <p class="share_tb_nine share_fsize_tow"><span class="cr_weight">Yêu cầu
-                                                        mua
-                                                        vật tư mới</span><br><span>Bạn đã đề xuất mua thêm vật tư</span>
-                                                </p>
-                                                <p class="share_tb_four cr_weight share_fsize_tow">15:00</p>
-                                                <p class="share_tb_four d_flex share_cursor"><img
-                                                        src="../img/remove.png" alt="xóa nhật ký"> <span
-                                                        class="ml_5 padd_t cr_red">Xóa</span></p>
+                                        <?
+                                        while ($item = mysql_fetch_assoc($list_hnay->result)) {
+                                        ?>
+                                            <div class="ctiet_nd_nhatk w_100 float_l">
+                                                <div class="ctiet_noid_nk w_100 float_l d_flex">
+                                                    <p class="share_tb_four"></p>
+                                                    <p class="share_tb_nine share_fsize_tow"><?= $item['noi_dung'] ?></p>
+                                                    <p class="share_tb_four cr_weight share_fsize_tow"><?= date("H:i", $item['gio_tao']); ?></p>
+                                                    <p class="share_tb_four d_flex share_cursor xoa_popup" data="<?= $item['id'] ?>"><img src="../img/remove.png" alt="xóa nhật ký" class="xoa_nhat_ky"><span class="xoa_nhat_ky ml_5 padd_t cr_red">Xóa</span></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="ctiet_nd_nhatk w_100 float_l">
-                                            <div class="ctiet_noid_nk w_100 float_l d_flex">
-                                                <p class="share_tb_four"></p>
-                                                <p class="share_tb_nine share_fsize_tow"><span class="cr_weight">Yêu cầu
-                                                        mua
-                                                        vật tư mới</span><br><span>Bạn đã đề xuất mua thêm vật tư</span>
-                                                </p>
-                                                <p class="share_tb_four cr_weight share_fsize_tow">15:00</p>
-                                                <p class="share_tb_four d_flex share_cursor"><img
-                                                        src="../img/remove.png" alt="xóa nhật ký"> <span
-                                                        class="ml_5 padd_t cr_red">Xóa</span></p>
-                                            </div>
-                                        </div>
+                                        <? } ?>
                                     </div>
+
                                     <div class="ctn_ctiet_nky">
-                                        <p class="dropd_ctiet share_cursor"><span class="mr_10">15/11/2021</span> <img
-                                                src="../img/exp.png" alt="" class="avt_dropd share_cursor"></p>
-                                        <div class="ctiet_nd_nhatk w_100 float_l">
-                                            <div class="ctiet_noid_nk w_100 float_l d_flex">
-                                                <p class="share_tb_four"></p>
-                                                <p class="share_tb_nine share_fsize_tow"><span class="cr_weight">Yêu cầu
-                                                        mua
-                                                        vật tư mới</span><br><span>Bạn đã đề xuất mua thêm vật tư</span>
-                                                </p>
-                                                <p class="share_tb_four cr_weight share_fsize_tow">15:00</p>
-                                                <p class="share_tb_four d_flex share_cursor"><img
-                                                        src="../img/remove.png" alt="xóa nhật ký"> <span
-                                                        class="ml_5 padd_t cr_red">Xóa</span></p>
+                                        <p class="dropd_ctiet share_cursor"><span class="mr_10">Cũ hơn</span> <img src="../img/exp.png" alt="" class="avt_dropd share_cursor"></p>
+                                        <?
+                                        while ($item = mysql_fetch_assoc($list_cu->result)) {
+                                        ?>
+                                            <div class="ctiet_nd_nhatk w_100 float_l">
+                                                <div class="ctiet_noid_nk w_100 float_l d_flex">
+                                                    <p class="share_tb_four"></p>
+                                                    <p class="share_tb_nine share_fsize_tow"><span class="cr_weight"><?= $item['noi_dung'] ?></p>
+                                                    <p class="share_tb_four cr_weight share_fsize_tow"><?= date("H:i", $item['gio_tao']); ?> - <?= date("d/m/Y", $item['ngay_tao']) ?></p>
+                                                    <p class="share_tb_four d_flex share_cursor xoa_popup" data="<?= $item['id'] ?>"><img src="../img/remove.png" alt="xóa nhật ký" class="xoa_nhat_ky"> <span class="xoa_nhat_ky ml_5 padd_t cr_red">Xóa</span></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="ctiet_nd_nhatk w_100 float_l">
-                                            <div class="ctiet_noid_nk w_100 float_l d_flex">
-                                                <p class="share_tb_four"></p>
-                                                <p class="share_tb_nine share_fsize_tow"><span class="cr_weight">Yêu cầu
-                                                        mua
-                                                        vật tư mới</span><br><span>Bạn đã đề xuất mua thêm vật tư</span>
-                                                </p>
-                                                <p class="share_tb_four cr_weight share_fsize_tow">15:00</p>
-                                                <p class="share_tb_four d_flex share_cursor"><img
-                                                        src="../img/remove.png" alt="xóa nhật ký"> <span
-                                                        class="ml_5 padd_t cr_red">Xóa</span></p>
-                                            </div>
-                                        </div>
+                                        <? } ?>
                                     </div>
                                 </div>
                             </div>
@@ -134,18 +109,63 @@ if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE
             </div>
         </div>
     </div>
-    <?php include "../modals/modal_logout.php"?>
+    <?php include "../modals/modal_logout.php" ?>
     <? include("../modals/modal_menu.php") ?>
+
+    <div class="modal text-center" id="xoa_log">
+        <div class="m-content">
+            <div class="m-head">
+                Thông báo <span class="dismiss cancel">&times;</span>
+            </div>
+            <div class="m-body">
+                <p>Bạn có chắc chắn muốn xóa hoạt động này?</p>
+                <p>Thao tác này sẽ không thể hoàn tác.</p>
+            </div>
+            <div class="m-foot d-inline-block">
+                <div class="left mb_10">
+                    <p class="v-btn btn-outline-blue left cancel">Hủy</p>
+                </div>
+                <div class="right mb_10">
+                    <button class="v-btn btn-green right confirm-delete" data-id="">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
 
 <script type="text/javascript">
-$(".dropd_ctiet").click(function() {
-    $(this).parents(".ctn_ctiet_nky").toggleClass("active");
-})
+    $(".dropd_ctiet").click(function() {
+        $(this).parents(".ctn_ctiet_nky").toggleClass("active");
+    })
+
+    $(".xoa_nhat_ky").click(function() {
+        var idnk = $(this).parents(".xoa_popup").attr("data");
+        $("#xoa_log .confirm-delete").attr("data-id", idnk);
+        $("#xoa_log").fadeIn();
+    });
+
+    $("#xoa_log .confirm-delete").click(function() {
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: '../ajax/nhat_ky_xoa.php',
+            type: 'POST',
+            data: {
+                id: id,
+            },
+            success: function(data) {
+                if (data == "") {
+                    window.location.reload();
+                } else {
+                    alert(data);
+                }
+            }
+        })
+    });
 </script>
 
 </html>

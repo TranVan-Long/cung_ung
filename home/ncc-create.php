@@ -2,10 +2,14 @@
 include("config.php");
 include("../includes/icon.php");
 $date = date('m-d-Y', time());
-$ep_id = $_SESSION['ep_id'];
+
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
+    $ep_id = $_SESSION['ep_id'];
+    $com_id = $_SESSION['user_com_id'];
+}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -53,7 +57,7 @@ $ep_id = $_SESSION['ep_id'];
                             <div class="form-row left">
                                 <div class="form-col-50 no-border mb_15 right">
                                     <label>Mã số thuế</label>
-                                    <input type="text" name="ma_so_thue" placeholder="Nhập mã số thuế">
+                                    <input type="number" name="ma_so_thue" placeholder="Nhập mã số thuế">
                                 </div>
                                 <div class="form-col-50 no-border mb_15 left">
                                     <label>Tên giao dịch<span class="text-red">&ast;</span></label>
@@ -67,7 +71,7 @@ $ep_id = $_SESSION['ep_id'];
                                 </div>
                                 <div class="form-col-50 no-border mb_15 right">
                                     <label>Số ĐKKD</label>
-                                    <input type="text" name="so_dkkd" placeholder="Nhập số ĐKKD">
+                                    <input type="number" name="so_dkkd" placeholder="Nhập số ĐKKD">
                                 </div>
                             </div>
                             <div class="form-row left">
@@ -77,23 +81,23 @@ $ep_id = $_SESSION['ep_id'];
                                 </div>
                                 <div class="form-col-50 no-border mb_15 right">
                                     <label>Fax</label>
-                                    <input type="text" name="fax" placeholder="Nhập Fax">
+                                    <input type="number" name="fax" placeholder="Nhập Fax">
                                 </div>
                             </div>
                             <div class="form-row left">
                                 <div class="form-col-50 no-border mb_15 left">
                                     <label>Điện thoại</label>
-                                    <input type="text" name="so_dien_thoai" placeholder="Nhập điện thoại">
+                                    <input type="tel" name="so_dien_thoai" placeholder="Nhập điện thoại">
                                 </div>
                                 <div class="form-col-50 no-border mb_15 right">
                                     <label>Website</label>
-                                    <input type="text" name="website" placeholder="Nhập Website">
+                                    <input type="url" name="website" placeholder="Nhập Website">
                                 </div>
                             </div>
                             <div class="form-row left">
                                 <div class="form-col-50 no-border mb_15 left">
                                     <label>E-mail</label>
-                                    <input type="text" name="email" placeholder="Nhập E-mail">
+                                    <input type="email" name="email" placeholder="Nhập E-mail">
                                 </div>
                             </div>
                             <div class="form-row left">
@@ -118,9 +122,9 @@ $ep_id = $_SESSION['ep_id'];
                                 <div class="bank border-bottom left w-100 pb-10 d-flex spc-btw">
                                     <div class="bank-form">
                                         <div class="form-row left">
-                                            <div class="form-col-50 left mb_15">
+                                            <div class="form-col-50 left mb_15 autocomplete">
                                                 <label">Tên ngân hàng<span class="text-red">&ast;</span></label>
-                                                    <input type="text" name="ten_ngan_hang" placeholder="Nhập tên ngân hàng">
+                                                    <input type="text" id="ten_nh" name="ten_ngan_hang" placeholder="Nhập tên ngân hàng" autocomplete="off">
                                             </div>
                                             <div class="form-col-50 right mb_15">
                                                 <label">Chi nhánh<span class="text-red">&ast;</span></label>
@@ -130,7 +134,7 @@ $ep_id = $_SESSION['ep_id'];
                                         <div class="form-row left">
                                             <div class="form-col-50 left mb_15">
                                                 <label>Số tài khoản<span class="text-red">&ast;</span></label>
-                                                <input type="text" name="so_tk" placeholder="Nhập số tài khoản">
+                                                <input type="number" name="so_tk" placeholder="Nhập số tài khoản">
                                             </div>
                                             <div class="form-col-50 right mb_15">
                                                 <label>Chủ tài khoản</label>
@@ -177,10 +181,10 @@ $ep_id = $_SESSION['ep_id'];
                                                         <input type="text" name="chuc_vu">
                                                     </td>
                                                     <td class="w-20">
-                                                        <input type="text" name="so_dien_thoai_lh">
+                                                        <input type="tel" name="so_dien_thoai_lh">
                                                     </td>
                                                     <td class="w-30">
-                                                        <input type="text" name="email_lh">
+                                                        <input type="email" name="email_lh">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -226,8 +230,11 @@ $ep_id = $_SESSION['ep_id'];
 <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
+<script type="text/javascript" src="../js/bank-name.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script>
+    autocomplete(document.getElementById("ten_nh"), bank);
+
     $('.submit-btn').click(function() {
         var form = $('.main-form');
         form.validate({
@@ -360,7 +367,7 @@ $ep_id = $_SESSION['ep_id'];
 
             //get user id
             var ep_id = '<?= $ep_id ?>';
-
+            var com_id = '<?= $com_id ?>';
 
             $.ajax({
                 url: '../ajax/ncc_them.php',
@@ -390,7 +397,8 @@ $ep_id = $_SESSION['ep_id'];
                     so_dien_thoai_lh: so_dien_thoai_lh,
                     email_lh: email_lh,
 
-                    ep_id:ep_id
+                    ep_id: ep_id,
+                    com_id: com_id
                 },
                 success: function(data) {
                     if (data == "") {

@@ -1,38 +1,39 @@
 <?php
 include("config.php");
 include("../includes/icon.php");
-$date = date('d-m-Y', time());
+if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
+    $com_id = $_SESSION['com_id'];
+    $com_name = $_SESSION['com_name'];
+    $user_id = $_SESSION['com_id'];
+} else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+    $com_id = $_SESSION['user_com_id'];
+    $com_name = $_SESSION['com_name'];
+    $user_id = $_SESSION['ep_id'];
+    $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+    if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+        $item_nv = mysql_fetch_assoc((new db_query("SELECT `tieu_chi_danh_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+        $tieu_chi_dg = explode(',', $item_nv['tieu_chi_danh_gia']);
+        if (in_array(3, $tieu_chi_dg) == FALSE) {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+    } else {
+        header('Location: /quan-ly-trang-chu.html');
+    }
+}
+
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $tieu_chi_id = $_GET['id'];
     $list_tc = new db_query("SELECT * FROM `tieu_chi_danh_gia` WHERE `id` = '" . $tieu_chi_id . "' ");
     $list_gt = new db_query("SELECT * FROM `ds_gia_tri_dg` WHERE `id_tieu_chi` = '" . $tieu_chi_id . "' ");
     $tc_detail = mysql_fetch_assoc($list_tc->result);
     $gt = mysql_fetch_assoc($list_gt->result);
-    $ep_id = $_SESSION['ep_id'];
 }
-
-// $curl = curl_init();
-//     $token = $_SESSION['access_token'];
-//     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-//     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-//     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-//     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
-//     $response = curl_exec($curl);
-//     curl_close($curl);
-
-//     $data_list = json_decode($response,true);
-//     $data_list_nv = $data_list['data']['items'];
-
-//     echo "<pre>";
-//     print_r($response);
-//     echo "</pre>";
-//     die();
 
 
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -274,7 +275,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             });
 
             //get user id
-            var ep_id = "<?= $ep_id ?>";
+            var ep_id = "<?= $user_id ?>";
 
             $.ajax({
                 url: '../ajax/tc_sua.php',

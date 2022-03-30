@@ -1,11 +1,29 @@
 <?php
 include("config.php");
 include("../includes/icon.php");
-$date = date('m-d-Y', time());
-$ep_id = $_SESSION['ep_id'];
+
+if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
+    $com_id = $_SESSION['com_id'];
+    $com_name = $_SESSION['com_name'];
+    $user_id = $_SESSION['com_id'];
+} else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+    $com_id = $_SESSION['user_com_id'];
+    $com_name = $_SESSION['com_name'];
+    $user_id = $_SESSION['ep_id'];
+    $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+    if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+        $item_nv = mysql_fetch_assoc((new db_query("SELECT `tieu_chi_danh_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+        $tieu_chi_dg = explode(',', $item_nv['tieu_chi_danh_gia']);
+        if (in_array(2, $tieu_chi_dg) == FALSE) {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+    } else {
+        header('Location: /quan-ly-trang-chu.html');
+    }
+}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -162,8 +180,9 @@ $ep_id = $_SESSION['ep_id'];
                     ten_hien_thi.push($tht);
                 }
             })
-             //get user id
-             var ep_id = '<?= $ep_id ?>';
+            //get user id
+            var ep_id = '<?= $user_id ?>';
+            var com_id = '<?= $com_id ?>';
             $.ajax({
                 url: '../ajax/tc_them.php',
                 type: 'POST',
@@ -176,7 +195,9 @@ $ep_id = $_SESSION['ep_id'];
                     ten_hien_thi: ten_hien_thi,
 
                     //user id
-                    ep_id:ep_id
+                    ep_id: ep_id,
+                    com_id: com_id
+
                 },
                 success: function(data) {
                     if (data == "") {
@@ -190,4 +211,5 @@ $ep_id = $_SESSION['ep_id'];
         }
     });
 </script>
+
 </html>

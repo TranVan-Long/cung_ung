@@ -2,11 +2,170 @@
 include "../includes/icon.php";
 include "config.php";
 
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 1) {
+        $com_id = $_SESSION['com_id'];
+    } else if ($_COOKIE['role'] == 2) {
+        $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `yeu_cau_vat_tu` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $ycvt = explode(',', $item_nv['yeu_cau_vat_tu']);
+            if (in_array(1, $ycvt) == false) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+    }
+};
 isset($_GET['page']) ? $page = $_GET['page'] : $page = 1;
-isset($_GET['ht']) ? $display = $_GET['ht'] : $display = 10;
+isset($_GET['currP']) ? $currP = $_GET['currP'] : $currP = 10;
+isset($_GET['tk']) ? $tk = $_GET['tk'] : $tk = "";
+isset($_GET['tk_ct']) ? $tk_ct = $_GET['tk_ct'] : $tk_ct = "";
+isset($_GET['filter2']) ? $filter_2 = $_GET['filter2'] : $filter_2 = 4;
+// isset($_GET['filter3']) ? $filter_3 = $_GET['filter3'] : $filter_3 = 1;
+
+if ($tk != "" && $tk_ct != "") {
+    $url = '/quan-ly-yeu-cau-vat-tu.html?currP=' . $currP . '&tk=' . $tk . '&tk_ct=' . $tk_ct . '&filter2=' . $filter_2;
+} else if ($tk == "" && $tk_ct == "") {
+    if ($filter_2 == 4) {
+        $url = '/quan-ly-yeu-cau-vat-tu.html?currP=' . $currP . '&filter2=' . $filter_2;
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id");
+    } elseif ($filter_2 != 4) {
+        $url = '/quan-ly-yeu-cau-vat-tu.html?currP=' . $currP . '&filter2=' . $filter_2;
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `trang_thai` = $filter_2 ");
+    }
+} else if ($tk != "" && $tk_ct == "") {
+    if ($filter_2 == 4) {
+        $url = '/quan-ly-yeu-cau-vat-tu.html?currP=' . $currP . '&tk=' . $tk . '&filter2=' . $filter_2;
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id");
+    } elseif ($filter_2 != 4) {
+        $url = '/quan-ly-yeu-cau-vat-tu.html?currP=' . $currP . '&tk=' . $tk . '&filter2=' . $filter_2;
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `trang_thai` = $filter_2 ");
+    }
+};
+
+$start = ($page - 1) * $currP;
+$start = abs($start);
+
+$list_ycvt = "SELECT * FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id ";
+
+if ($filter_2 == 4) {
+    $trang_thai = "";
+} elseif ($filter_2 != 4) {
+    $trang_thai = "AND `trang_thai` = $filter_2 ";
+}
+// if ($filter_3 == 1) {
+//     $da_ht = "AND `ngay_ht_yc` >= $date ";
+// } elseif ($filter_3 == 2) {
+//     $da_ht = "AND `ngay_ht_yc` < $date ";
+// }
+
+// if ($tk_ct == "") {
+//     if ($tk != "") {
+//         // $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id");
+//     }
+if ($tk_ct != "") {
+    if ($tk == 1) {
+        $sql = "AND `id` = $tk_ct ";
+        if ($filter_2 == 4) {
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `id` = $tk_ct ");
+        } else if ($filter_2 != 4) {
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `id` = $tk_ct AND `trang_thai` = $filter_2  ");
+        }
+    } elseif ($tk == 2) {
+        $tk_ct = strtotime($tk_ct);
+        $sql = "AND `ngay_tao` = $tk_ct ";
+        if ($filter_2 == 4) {
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `ngay_tao` = $tk_ct ");
+        } else if ($filter_2 != 4) {
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `ngay_tao` = $tk_ct AND `trang_thai` = $filter_2 ");
+        }
+    } elseif ($tk == 3) {
+        $sql = "AND `id_cong_trinh` = $tk_ct ";
+        if ($filter_2 == 4) {
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `id_cong_trinh` = $tk_ct  ");
+        } else if ($filter_2 != 4) {
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `id_cong_trinh` = $tk_ct AND `trang_thai` = $filter_2  ");
+        }
+    } elseif ($tk == 4) {
+        $tk_ct = strtotime($tk_ct);
+        $sql = "AND `ngay_ht_yc` = $tk_ct ";
+        if ($filter_2 == 4) {
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `ngay_ht_yc` = $tk_ct  ");
+        } else if ($filter_2 != 4) {
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `ngay_ht_yc` = $tk_ct AND `trang_thai` = $filter_2 ");
+        }
+    }
+};
+
+
+
+$total = mysql_fetch_assoc($cou->result)['total'];
+$limit = " LIMIT $start,$currP";
+$list_ycvt .= $sql;
+$list_ycvt .= $trang_thai;
+// $list_ycvt .= $da_ht;
+$list_ycvt .= " ORDER BY `id` ASC";
+$list_ycvt .= $limit;
+$ycvt_data = new db_query($list_ycvt);
+
+$stt = 1;
+
+if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response, true);
+    $data_list_nv = $data_list['data']['items'];
+} elseif (isset($_SESSION['quyen']) && ($_SESSION['quyen'] == 2)) {
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response, true);
+    $data_list_nv = $data_list['data']['items'];
+    $user_id = $_SESSION['ep_id'];
+    $user_name = $_SESSION['ep_name'];
+}
+foreach ($data_list_nv as $key => $items) {
+    if ($user_id == $items['ep_id']) {
+        $dept_id    = $items['dep_id'];
+        $dept_name  = $items['dep_name'];
+        $comp_id = $items['com_id'];
+    }
+}
+$curl = curl_init();
+$data = array(
+    'id_com' => $comp_id,
+);
+curl_setopt($curl, CURLOPT_POST, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_cong_trinh = json_decode($response, true);
+$cong_trinh_data = $list_cong_trinh['data']['items'];
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -44,54 +203,149 @@ isset($_GET['ht']) ? $display = $_GET['ht'] : $display = 10;
                 </div>
                 <div class="c-body">
                     <div class="w-100 left">
-                        <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-yeu-cau-vat-tu.html">&plus; Thêm mới</a>
+                        <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+                            <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-yeu-cau-vat-tu.html">&plus; Thêm mới</a>
+                        <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                                if (in_array(2, $ycvt)) { ?>
+                                    <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-yeu-cau-vat-tu.html">&plus; Thêm mới</a>
+                            <? }
+                        } ?>
                         <div class="filter">
                             <div class="category v-select2 mt-20">
                                 <select name="category" class="share_select" id="category">
                                     <option value="">Tìm kiếm theo</option>
-                                    <option value="1">Số phiếu yêu cầu</option>
-                                    <option value="2">Ngày gửi</option>
-                                    <option value="3">Công trình</option>
-                                    <option value="4">Ngày phải hoàn thành</option>
+                                    <option value="1" <?= ($tk == 1) ? "selected" : "" ?>>Số phiếu yêu cầu</option>
+                                    <option value="2" <?= ($tk == 2) ? "selected" : "" ?>>Ngày gửi</option>
+                                    <option value="3" <?= ($tk == 3) ? "selected" : "" ?>>Công trình</option>
+                                    <option value="4" <?= ($tk == 4) ? "selected" : "" ?>>Ngày phải hoàn thành</option>
                                 </select>
                             </div>
                             <div class="search-box v-select2 mt-20">
                                 <select name="search" class="share_select" id="search">
                                     <option value="">Nhập thông tin cần tìm kiếm</option>
+                                    <? if ($tk == 1) {
+                                        $danh_sach = new db_query("SELECT `id` FROM `yeu_cau_vat_tu` ORDER BY `id` DESC");
+                                        while ($item = mysql_fetch_assoc($danh_sach->result)) {
+                                    ?>
+                                            <option value="<?= $item['id'] ?>" <?= ($item['id'] == $tk_ct) ? "selected" : "" ?>>YC - <?= $item['id'] ?></option>
+                                        <? }
+                                    } else if ($tk == 2) {
+                                        $danh_sach = new db_query("SELECT DISTINCT `ngay_tao` FROM `yeu_cau_vat_tu` ORDER BY `ngay_tao` DESC");
+                                        while ($item = mysql_fetch_assoc($danh_sach->result)) {
+                                        ?>
+                                            <option value="<?= date("Y-m-d", $item['ngay_tao']) ?>" <?= ($item['ngay_tao'] == $tk_ct) ? "selected" : "" ?>><?= date("d/m/Y", $item['ngay_tao']); ?></option>
+                                        <? }
+                                    } else if ($tk == 3) {
+                                        $danh_sach = new db_query("SELECT DISTINCT `id_cong_trinh` FROM `yeu_cau_vat_tu` ORDER BY `id_cong_trinh` DESC");
+                                        while ($item = mysql_fetch_assoc($danh_sach->result)) {
+                                        ?>
+                                            <option value="<?= $item['id_cong_trinh'] ?>" <?= ($item['id_cong_trinh'] == $tk_ct) ? "selected" : "" ?>><?= $cong_trinh_data[$item['id_cong_trinh']]['ctr_name'] ?></option>
+                                        <? }
+                                    } else if ($tk == 4) {
+                                        $danh_sach = new db_query("SELECT DISTINCT `ngay_ht_yc` FROM `yeu_cau_vat_tu` ORDER BY `ngay_ht_yc` DESC");
+                                        while ($item = mysql_fetch_assoc($danh_sach->result)) {
+                                        ?>
+                                            <option value="<?= date("Y-m-d", $item['ngay_ht_yc']) ?>" <?= ($item['ngay_ht_yc'] == $tk_ct) ? "selected" : "" ?>><?= date("d/m/Y", $item['ngay_ht_yc']); ?></option>
+
+                                    <? }
+                                    } ?>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="filter2">
                         <label class="filter-container" for="all">Tất cả
-                            <input type="radio" id="all" name="filter2" value="" checked>
+                            <input type="radio" id="all" name="filter2" value="4" <?= ($filter_2 == 4) ? "checked" : "" ?>>
                             <span class="checkmark"></span>
                         </label>
                         <label class="filter-container" for="not-approved">Chưa duyệt
-                            <input type="radio" id="not-approved" name="filter2" value="1">
+                            <input type="radio" id="not-approved" name="filter2" value="1" <?= ($filter_2 == 1) ? "checked" : "" ?>>
                             <span class="checkmark"></span>
                         </label>
                         <label class="filter-container" for="approved">Đã duyệt
-                            <input type="radio" id="approved" name="filter2" value="2" >
+                            <input type="radio" id="approved" name="filter2" value="2" <?= ($filter_2 == 2) ? "checked" : "" ?>>
                             <span class="checkmark"></span>
                         </label>
-                        <label class="filter-container" for="denied">Từ chối
-                            <input type="radio" id="denied" name="filter2" value="3">
+                        <label class="filter-container" for="denied">Đã từ chối
+                            <input type="radio" id="denied" name="filter2" value="3" <?= ($filter_2 == 3) ? "checked" : "" ?>>
                             <span class="checkmark"></span>
                         </label>
-                        
+
                     </div>
-                    <div class="filter3">
+                    <!-- <div class="filter3">
                         <label class="filter-container" for="not-completed">Thuộc công trình chưa hoàn thành
-                            <input type="radio" id="not-completed" name="filter3" value="1" checked>
+                            <input type="radio" id="not-completed" name="filter3" value="1" <?= ($filter_3 == 1) ? "checked" : "" ?>>
                             <span class="checkmark"></span>
                         </label>
                         <label class="filter-container" for="completed">Thuộc công trình đã hoàn thành
-                            <input type="radio" id="completed" name="filter3" value="2">
+                            <input type="radio" id="completed" name="filter3" value="2" <?= ($filter_3 == 2) ? "checked" : "" ?>>
                             <span class="checkmark"></span>
                         </label>
+                    </div> -->
+                    <div class="table-wrapper">
+                        <div class="table-container">
+                            <div class="tbl-header">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="w-5">STT</th>
+                                            <th class="w-15">Số phiếu yêu cầu</th>
+                                            <th class="w-10">Ngày gửi</th>
+                                            <th class="w-20">Công trình</th>
+                                            <th class="w-15">Ngày phải hoàn thành</th>
+                                            <th class="w-15">Trạng thái duyệt</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="tbl-content">
+                                <table>
+                                    <tbody>
+                                        <?
+                                        $stt = 1;
+                                        while ($item = mysql_fetch_assoc($ycvt_data->result)) {
+                                        ?>
+                                            <tr>
+                                                <td class="w-5"><?= $stt++ ?></td>
+                                                <td class="w-15">
+                                                    <a href="quan-ly-chi-tiet-yeu-cau-vat-tu-<?= $item['id'] ?>.html" class="text-bold">YC-<?= $item['id'] ?></a>
+                                                </td>
+                                                <td class="w-10"><?= date("d/m/Y", $item['ngay_tao']); ?></td>
+                                                <td class="w-20"><?= $cong_trinh_data[$item['id_cong_trinh']]['ctr_name'] ?></td>
+                                                <td class="w-15">
+                                                    <? if (!empty($item['ngay_ht_yc'])) { ?>
+                                                        <?= date("d/m/Y", $item['ngay_ht_yc']); ?>
+                                                    <? } ?>
+                                                </td>
+                                                <? if ($item['trang_thai'] == 1) { ?>
+                                                    <td class="w-15 text-yellow">Chưa duyệt</td>
+                                                <? } elseif ($item['trang_thai'] == 2) { ?>
+                                                    <td class="w-15 text-green">Đã duyệt</td>
+                                                <? } elseif ($item['trang_thai'] == 3) { ?>
+                                                    <td class="w-15 text-red">Từ chối</td>
+                                                <? } ?>
+
+                                            </tr>
+                                        <? } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <div class="list_ycvt w_100 left" data="<?= $page ?>" data1="<?= $display ?>"></div>
+                </div>
+                <div class="w-100 left mt-10 d-flex flex-wrap spc-btw">
+                    <div class="display mr-10">
+                        <label for="display">Hiển thị</label>
+                        <select name="display" id="display">
+                            <option value="10" <?= ($currP == 10) ? "selected" : "" ?>>10</option>
+                            <option value="20" <?= ($currP == 20) ? "selected" : "" ?>>20</option>
+                        </select>
+                    </div>
+                    <div class="pagination mt-10">
+                        <ul>
+                            <?= generatePageBar3('', $page, $currP, $total, $url, '&', '', 'active', 'preview', '<', 'next', '>', '', '<<<', '', '>>>'); ?>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,110 +359,68 @@ isset($_GET['ht']) ? $display = $_GET['ht'] : $display = 10;
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript">
-    var category = $("#category").val();
-    var search = $("#search").val();
-    var filter2 = $("input[name='filter2']:checked").val();
-    var filter3 = $("input[name='filter3']:checked").val();
-    var page = $(".list_ycvt").attr("data");
-    var display = $(".list_ycvt").attr("data1");
+    $("select[name='category']").on('change', function() {
+        var tk = $(this).val();
+        var currP = $("#display").val();
+        var filter_2 = $("input[name='filter2']:checked").val();
+        // var filter_3 = $("input[name='filter3']:checked").val();
+        var page = 1;
 
-    $.ajax({
-        url: '../render/ycvt-search.php',
-        type: 'POST',
-        data: {
-            category: category,
-            search: search,
-            filter2: filter2,
-            filter3: filter3,
-            page: page,
-            display: display
-        },
-        success: function(data) {
-            $(".list_ycvt").append(data);
+        if (tk != "") {
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&page=' + page + '&filter2=' + filter_2;
+        } else if (tk == "") {
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&page=' + page + '&filter2=' + filter_2;
         }
     });
 
-    $("#category").change(function() {
-        var list_id = $(this).val();
-        $.ajax({
-            url: '../render/ycvt-search-detail.php',
-            type: 'POST',
-            data: {
-                list_id: list_id
-            },
-            success: function(data) {
-                $("#search").html(data);
-            }
-        });
-    });
-    $("#search").change(function() {
-        var category = $("#category").val();
-        var search = $("#search").val();
-        var page = $(".list_ycvt").attr("data");
-        var display = $(".list_ycvt").attr("data1");
-        $.ajax({
-            url: '../render/ycvt-search.php',
-            type: 'POST',
-            data: {
-                category: category,
-                search: search,
-                page: page,
-                display: display
-            },
-            success: function(data) {
-                $(".list_ycvt").html(data);
-            }
-        });
-    });
-    $("input[name='filter2']").change(function() {
-        var category = $("#category").val();
-        var search = $("#search").val();
-        var page = $(".list_ycvt").attr("data");
-        var display = $(".list_ycvt").attr("data1");
-        var filter2 = $("input[name='filter2']:checked").val();
-        var filter3 = $("input[name='filter3']:checked").val();
-        $.ajax({
-            url: '../render/ycvt-search.php',
-            type: 'POST',
-            data: {
-                category: category,
-                search: search,
-                page: page,
-                display: display,
-                filter2:filter2,
-                filter3:filter3,
-            },
-            success: function(data) {
-                $(".list_ycvt").html(data);
-            }
-        });
-    });
-    $("input[name='filter3']").change(function() {
-        var category = $("#category").val();
-        var search = $("#search").val();
-        var page = $(".list_ycvt").attr("data");
-        var display = $(".list_ycvt").attr("data1");
-        var filter2 = $("input[name='filter2']:checked").val();
-        var filter3 = $("input[name='filter3']:checked").val();
-        $.ajax({
-            url: '../render/ycvt-search.php',
-            type: 'POST',
-            data: {
-                category: category,
-                search: search,
-                page: page,
-                display: display,
-                filter2:filter2,
-                filter3:filter3,
-            },
-            success: function(data) {
-                $(".list_ycvt").html(data);
-            }
-        });
-    });
-    
+    $("select[name='search']").on('change', function() {
+        var tk = $("select[name='category']").val();
+        var tk_ct = $(this).val();
+        var filter_2 = $("input[name='filter2']:checked").val();
+        // var filter_3 = $("input[name='filter3']:checked").val();
+        var currP = $("#display").val();
+        var page = 1;
 
-    
+        if (tk_ct != "") {
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&tk_ct=' + tk_ct + '&page=' + page + '&filter2=' + 4;
+        } else if (tk_ct == "") {
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&page=' + page + '&filter2=' + filter_2;
+        }
+    });
+
+    $("#display").on('change', function() {
+        var tk = $("select[name='category']").val();
+        var tk_ct = $("select[name='search']").val();
+        var filter_2 = $("input[name='filter2']:checked").val();
+        // var filter_3 = $("input[name='filter3']:checked").val();
+        var currP = $(this).val();
+        var page = 1;
+
+        if (tk != "" && tk_ct != "") {
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&tk_ct=' + tk_ct + '&page=' + page + '&filter2=' + filter_2;
+        } else if (tk != "" && tk_ct == "") {
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&page=' + page + '&filter2=' + filter_2;
+        } else if (tk == "" && tk_ct == "") {
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&page=' + page + '&filter2=' + filter_2;
+        }
+    });
+
+    $("input[name='filter2']").on('change', function() {
+        var tk = $("select[name='category']").val();
+        var tk_ct = $("select[name='search']").val();
+        var filter_2 = $(this).val();
+        // var filter_3 = $("input[name='filter3']:checked").val();
+        var currP = $("#display").val();
+        var page = 1;
+
+        if (tk != "" && tk_ct != "") {
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&tk_ct=' + tk_ct + '&page=' + page + '&filter2=' + filter_2;
+        } else if (tk != "" && tk_ct == "") {
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&page=' + page + '&filter2=' + filter_2;
+        } else if (tk == "" && tk_ct == "") {
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&page=' + page + '&filter2=' + filter_2;
+        }
+    });
 </script>
 
 </html>

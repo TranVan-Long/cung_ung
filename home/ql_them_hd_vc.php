@@ -1,46 +1,45 @@
 <?php
 include "../includes/icon.php";
 include("config.php");
-$date = date('m-d-Y', time());
-$ep_id = $_SESSION['ep_id'];
 
-if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
-    $curl = curl_init();
-    $token = $_COOKIE['acc_token'];
-    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $data_list = json_decode($response, true);
-    $data_list_nv = $data_list['data']['items'];
-
-    foreach ($data_list_nv as $key => $items) {
-        $user_name = $items['ep_name'];
-        $dept_id    = $items['dep_id'];
-        $dept_name  = $items['dep_name'];
-        $comp_id = $items['com_id'];
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 1) {
+        $com_id = $_SESSION['com_id'];
+        $user_id = $_SESSION['com_id'];
+    } else if ($_COOKIE['role'] == 2) {
+        $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $hop_dong = explode(',', $item_nv['hop_dong']);
+            if (in_array(2, $hop_dong) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
     }
-
-    $curl = curl_init();
-    $data = array(
-        'id_com' => $comp_id,
-    );
-    curl_setopt($curl, CURLOPT_POST, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $list_cong_trinh = json_decode($response, true);
-    $cong_trinh_data = $list_cong_trinh['data']['items'];
-
 }
+
+
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_POST, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_cong_trinh = json_decode($response, true);
+$cong_trinh_data = $list_cong_trinh['data']['items'];
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -77,7 +76,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Thêm hợp đồng thuê vận chuyển</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" method="">
+                            <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_id ?>" data1="<?= $user_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Ngày ký hợp đồng <span class="cr_red">*</span></label>
@@ -110,7 +109,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Giá trị trước VAT</label>
-                                        <input type="text" name="truoc_vat" id="tong_truoc_vat" class="form-control cr_weight h_border" readonly>
+                                        <input type="number" name="truoc_vat" id="tong_truoc_vat" class="form-control cr_weight h_border" readonly>
                                     </div>
                                     <div class="form-group  d_flex fl_agi form_lb">
                                         <label for="don_gia_vat">Đơn giá đã bao gồm VAT</label>
@@ -119,24 +118,24 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
-                                        <label>Thuế suất VAT</label>    
-                                        <input type="text" name="thue_vat" class="form-control thue_vat" onkeyup="tong_vt()" placeholder="Nhập thuế suất VAT">
+                                        <label>Thuế suất VAT</label>
+                                        <input type="number" name="thue_vat" class="form-control thue_vat_tong" onkeyup="tong_hd_vc()" placeholder="Nhập thuế suất VAT">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Giá trị sau VAT</label>
-                                        <input type="text" name="sau_vat" id="tong_sau_vat" class="form-control cr_weight h_border" readonly>
+                                        <input type="number" name="sau_vat" id="tong_sau_vat" class="form-control cr_weight h_border " readonly>
                                     </div>
                                     <div class="form-group">
                                         <label>Giữ lại bảo hành</label>
                                         <div class="bao_hanh w_100 float_l d_flex fl_agi">
                                             <div class="bef_ptram">
                                                 <span class="phan_tram">%</span>
-                                                <input type="text" name="bao_hanh" onkeyup="baoHanh()" class="baoh_pt gr_padd share_fsize_tow pt_bao_hanh">
+                                                <input type="number" name="bao_hanh" onkeyup="baoHanh()" class="baoh_pt gr_padd share_fsize_tow pt_bao_hanh">
                                             </div>
                                             <span>tương đương</span>
-                                            <input type="number" name="gt_bao_hanh" class="gia_tri gr_padd share_fsize_tow gia_tri_bh">
+                                            <input type="number" name="gt_bao_hanh" class="gia_tri gr_padd share_fsize_tow gia_tri_bh" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -146,10 +145,10 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                         <div class="bao_hanh w_100 float_l d_flex fl_agi">
                                             <div class="bef_ptram">
                                                 <span class="phan_tram">%</span>
-                                                <input type="text" name="bao_lanh" onkeyup="baoLanh()" class="baoh_pt gr_padd share_fsize_tow pt_bao_lanh">
+                                                <input type="number" name="bao_lanh" onkeyup="baoLanh()" class="baoh_pt gr_padd share_fsize_tow pt_bao_lanh">
                                             </div>
                                             <span>tương đương</span>
-                                            <input type="number" name="gt_bao_lanh" class="gia_tri gr_padd share_fsize_tow gia_tri_bl">
+                                            <input type="number" name="gt_bao_lanh" class="gia_tri gr_padd share_fsize_tow gia_tri_bl" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -163,7 +162,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                         <div class="bao_hanh w_100 float_l d_flex fl_agi">
                                             <input type="date" name="ngay_bat_dau" id="ngay_bat_dau" class="gia_tri gr_padd share_fsize_tow">
                                             <span>đến</span>
-                                            <input type="date" name="ngay_ket_thuc" class="gia_tri gr_padd share_fsize_tow">
+                                            <input type="date" name="ngay_ket_thuc" class="gia_tri gr_padd share_fsize_tow ">
                                         </div>
                                     </div>
                                     <div class="form-group d_flex fl_agi form_lb">
@@ -174,7 +173,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Hạn mức tín dụng</label>
-                                        <input type="text" name="hmuc_tind" class="form-control" placeholder="Nhập hạn mức tín dụng">
+                                        <input type="number" name="hmuc_tind" class="form-control" placeholder="Nhập hạn mức tín dụng">
                                     </div>
                                 </div>
                                 <div class="form-group w_100 float_l">
@@ -200,7 +199,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                     </div>
                                     <div class="form-group">
                                         <label>Số tài khoản</label>
-                                        <input type="text" name="so_taik" class="form-control" placeholder="Nhập số tài khoản">
+                                        <input type="number" name="so_taik" class="form-control" placeholder="Nhập số tài khoản">
                                     </div>
                                 </div>
                                 <div class="them_moi_vt w_100 float_l">
@@ -225,38 +224,6 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="item">
-                                                    <td class="share_tb_one">
-                                                        <p>
-                                                            <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
-                                                        </p>
-                                                    </td>
-                                                    <td class="share_tb_five">
-                                                        <div class="form-group">
-                                                            <input type="text" name="thietb_vt" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_three">
-                                                        <div class="form-group">
-                                                            <input type="text" name="don_vi_tinh" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_three">
-                                                        <div class="form-group">
-                                                            <input type="text" name="khoi_luong" class="form-control so_luong" onkeyup="sl_doi(this),tong_vt(), baoLanh(),baoHanh()">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_four">
-                                                        <div class="form-group">
-                                                            <input type="text" name="don_gia" class="form-control don_gia" onkeyup="dg_doi(this),tong_vt(), baoLanh(),baoHanh()">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_four">
-                                                        <div class="form-group">
-                                                            <input type="text" name="thanh_tien" class="form-control h_border tong_trvat" readonly>
-                                                        </div>
-                                                    </td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -312,6 +279,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript" src="../js/bank-name.js"></script>
 <script type="text/javascript" src="../js/giatri_doi.js"></script>
 
@@ -325,61 +293,63 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     $('.add_vat_tu').click(function() {
         count_vt++;
         var html = `<tr class="item">
-                                                    <td class="share_tb_one">
-                                                        <p>
-                                                            <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
-                                                        </p>
-                                                    </td>
-                                                    <td class="share_tb_five">
-                                                        <div class="form-group">
-                                                            <input type="text" name="thietb_vt" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_three">
-                                                        <div class="form-group">
-                                                            <input type="text" name="don_vi_tinh" class="form-control">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_three">
-                                                        <div class="form-group">
-                                                            <input type="text" name="khoi_luong" class="form-control so_luong" onkeyup="sl_doi(this),tong_vt()">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_four">
-                                                        <div class="form-group">
-                                                            <input type="text" name="don_gia" class="form-control don_gia" onkeyup="dg_doi(this),tong_vt()">
-                                                        </div>
-                                                    </td>
-                                                    <td class="share_tb_four">
-                                                        <div class="form-group">
-                                                            <input type="text" name="thanh_tien" class="form-control h_border tong_trvat" readonly>
-                                                        </div>
-                                                    </td>
-                                                </tr>`;
+                        <td class="share_tb_one">
+                            <p>
+                                <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
+                            </p>
+                        </td>
+                        <td class="share_tb_five">
+                            <div class="form-group">
+                                <input type="text" name="thietb_vt" class="form-control">
+                            </div>
+                        </td>
+                        <td class="share_tb_three">
+                            <div class="form-group">
+                                <input type="text" name="don_vi_tinh" class="form-control">
+                            </div>
+                        </td>
+                        <td class="share_tb_three">
+                            <div class="form-group">
+                                <input type="number" name="khoi_luong" class="form-control so_luong" onkeyup="sl_doi(this), tong_hd_vc()">
+                            </div>
+                        </td>
+                        <td class="share_tb_four">
+                            <div class="form-group">
+                                <input type="number" name="don_gia" class="form-control don_gia" onkeyup="dg_doi(this), tong_hd_vc() ">
+                            </div>
+                        </td>
+                        <td class="share_tb_four">
+                            <div class="form-group">
+                                <input type="number" name="thanh_tien" class="form-control h_border tong_trvat tong_trvat_hd" readonly>
+                            </div>
+                        </td>
+                    </tr>`;
         $(".ctn_table .table tbody").append(html);
-        widthSelect();
 
         if ($(".ctn_table .table tbody").height() > 105.5) {
             $(".ctn_table .table thead tr").css('width', 'calc(100% - 10px)');
         }
     });
 
+    function tong_hd_vc() {
+        var truoc_vat = $('.tong_trvat_hd')
+        var tong_tien = 0
+        for (var i = 0; i < truoc_vat.length; i++) {
+            if (parseInt(truoc_vat[i].value))
+                tong_tien += parseInt(truoc_vat[i].value)
+        };
+        $('#tong_truoc_vat').val(tong_tien)
+        var thue_vat = Number($('.thue_vat_tong').val())
+        var tien_thue = (tong_tien * thue_vat) / 100
+        thue_sau_vat = tong_tien + tien_thue
+        $('#tong_sau_vat').val(thue_sau_vat);
+        baoHanh();
+    }
+
     var cancel_add = $(".cancel_add");
     cancel_add.click(function() {
         modal_share.show();
     });
-
-    jQuery.validator.addMethod("greaterThan",
-        function(value, element, params) {
-
-            if (!/Invalid|NaN/.test(new Date(value))) {
-                return new Date(value) > new Date($(params).val());
-            }
-
-            return isNaN(value) && isNaN($(params).val()) ||
-                (Number(value) > Number($(params).val()));
-        }, 'Must be greater than {0}.'
-    );
 
     $(".save_add").click(function() {
         var form_add_vc = $(".form_add_hp_mua");
@@ -395,12 +365,6 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                 id_nha_cung_cap: {
                     required: true,
                 },
-                ngay_bat_dau: {
-                    greaterThan: "#ngay_ky_hd"
-                },
-                ngay_ket_thuc: {
-                    greaterThan: "#ngay_bat_dau"
-                },
             },
             messages: {
                 ngay_ky_hd: {
@@ -409,18 +373,12 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                 id_nha_cung_cap: {
                     required: "Không được để trống",
                 },
-                ngay_bat_dau: {
-                    greaterThan: "Không được nhỏ hơn ngày ký hợp đồng."
-                },
-                ngay_ket_thuc: {
-                    greaterThan: "Không được nhỏ hơn ngày bắt đầu."
-                },
             },
         });
 
         if (form_add_vc.valid() === true) {
-            var ep_id = '<?= $ep_id ?>';
-            var com_id = '<?= $comp_id ?>';
+            var user_id = $(".form_add_hp_mua").attr("data1");
+            var com_id = $(".form_add_hp_mua").attr("data");
 
             var ngay_ky_hd = $("input[name='ngay_ky_hd'").val();
             var id_nha_cung_cap = $("select[name='id_nha_cung_cap']").val();
@@ -452,35 +410,35 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
             var ten_nh = $("input[name='ten_nh']").val();
             var so_taik = $("input[name='so_taik']").val();
 
-            var vt_vat_tu = new Array();
+            var vt_vat_tu = [];
             $("input[name='thietb_vt']").each(function() {
                 var ten_vat_tu = $(this).val();
                 if (ten_vat_tu != "") {
                     vt_vat_tu.push(ten_vat_tu);
                 }
             });
-            var vt_don_vi_tinh = new Array();
+            var vt_don_vi_tinh = [];
             $("input[name='don_vi_tinh']").each(function() {
                 var sl_vt = $(this).val();
                 if (sl_vt != "") {
                     vt_don_vi_tinh.push(sl_vt);
                 }
             });
-            var vt_khoi_luong = new Array();
+            var vt_khoi_luong = [];
             $("input[name='khoi_luong']").each(function() {
                 var kl_vt = $(this).val();
                 if (kl_vt != "") {
                     vt_khoi_luong.push(kl_vt);
                 }
             });
-            var vt_don_gia = new Array();
+            var vt_don_gia = [];
             $("input[name='don_gia']").each(function() {
                 var dg_vat = $(this).val();
                 if (dg_vat != "") {
                     vt_don_gia.push(dg_vat);
                 }
             });
-            var vt_thanh_tien = new Array();
+            var vt_thanh_tien = [];
             $("input[name='thanh_tien']").each(function() {
                 var tt_vt = $(this).val();
                 if (tt_vt != "") {
@@ -488,51 +446,205 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                 }
             });
 
-            $.ajax({
-                url: '../ajax/hd_vc_them.php',
-                type: 'POST',
-                data: {
-                    ep_id: ep_id,
-                    com_id: com_id,
+            if (ngay_bat_dau != "" && ngay_ket_thuc != "") {
+                if ((ngay_bat_dau < ngay_ky_hd) || (ngay_ket_thuc < ngay_ky_hd) || (ngay_bat_dau > ngay_ket_thuc)) {
+                    alert("Ngày bắt đàu phải lớn hơn hoặc bằng ngày ký và ngày kết thúc phải lớn hơn ngày ký");
+                } else if (ngay_bat_dau >= ngay_ky_hd && ngay_ket_thuc >= ngay_ky_hd && ngay_bat_dau <= ngay_ket_thuc) {
+                    $.ajax({
+                        url: '../ajax/hd_vc_them.php',
+                        type: 'POST',
+                        data: {
+                            user_id: user_id,
+                            com_id: com_id,
 
-                    ngay_ky_hd: ngay_ky_hd,
-                    id_nha_cung_cap: id_nha_cung_cap,
-                    dan_ctrinh: dan_ctrinh,
-                    truoc_vat: truoc_vat,
-                    don_gia_vat: don_gia_vat,
-                    thue_vat: thue_vat,
-                    sau_vat: sau_vat,
-                    bao_hanh: bao_hanh,
-                    gt_bao_hanh: gt_bao_hanh,
-                    bao_lanh: bao_lanh,
-                    gt_bao_lanh: gt_bao_lanh,
-                    han_bao_lanh: han_bao_lanh,
-                    ngay_bat_dau: ngay_bat_dau,
-                    ngay_ket_thuc: ngay_ket_thuc,
-                    bao_gom_van_chuyen: bao_gom_van_chuyen,
-                    hmuc_tind: hmuc_tind,
-                    yc_tiendo: yc_tiendo,
-                    noi_dung_hd: noi_dung_hd,
-                    noi_dung_luu_y: noi_dung_luu_y,
-                    dieu_khoan_tt: dieu_khoan_tt,
-                    ten_nh: ten_nh,
-                    so_taik: so_taik,
+                            ngay_ky_hd: ngay_ky_hd,
+                            id_nha_cung_cap: id_nha_cung_cap,
+                            dan_ctrinh: dan_ctrinh,
+                            truoc_vat: truoc_vat,
+                            don_gia_vat: don_gia_vat,
+                            thue_vat: thue_vat,
+                            sau_vat: sau_vat,
+                            bao_hanh: bao_hanh,
+                            gt_bao_hanh: gt_bao_hanh,
+                            bao_lanh: bao_lanh,
+                            gt_bao_lanh: gt_bao_lanh,
+                            han_bao_lanh: han_bao_lanh,
+                            ngay_bat_dau: ngay_bat_dau,
+                            ngay_ket_thuc: ngay_ket_thuc,
+                            bao_gom_van_chuyen: bao_gom_van_chuyen,
+                            hmuc_tind: hmuc_tind,
+                            yc_tiendo: yc_tiendo,
+                            noi_dung_hd: noi_dung_hd,
+                            noi_dung_luu_y: noi_dung_luu_y,
+                            dieu_khoan_tt: dieu_khoan_tt,
+                            ten_nh: ten_nh,
+                            so_taik: so_taik,
 
-                    vt_vat_tu: vt_vat_tu,
-                    vt_don_vi_tinh: vt_don_vi_tinh,
-                    vt_khoi_luong: vt_khoi_luong,
-                    vt_don_gia: vt_don_gia,
-                    vt_thanh_tien: vt_thanh_tien
-                },
-                success: function(data) {
-                    if (data == "") {
-                        alert("Thêm hợp đồng thuê vận chuyển thành công!");
-                        window.location.href = 'quan-ly-hop-dong.html';
-                    } else {
-                        alert(data);
-                    }
+                            vt_vat_tu: vt_vat_tu,
+                            vt_don_vi_tinh: vt_don_vi_tinh,
+                            vt_khoi_luong: vt_khoi_luong,
+                            vt_don_gia: vt_don_gia,
+                            vt_thanh_tien: vt_thanh_tien
+                        },
+                        success: function(data) {
+                            if (data == "") {
+                                alert("Thêm hợp đồng thuê vận chuyển thành công!");
+                                window.location.href = 'quan-ly-hop-dong.html';
+                            } else {
+                                alert(data);
+                            }
+                        }
+                    })
                 }
-            })
+            } else if (ngay_bat_dau != "" && ngay_ket_thuc == "") {
+                if (ngay_bat_dau < ngay_ky_hd) {
+                    alert("Ngày bắt đầu phải lớn hơn hoặc bằng ngày ký");
+                } else if (ngay_bat_dau > ngay_ky_hd) {
+                    $.ajax({
+                        url: '../ajax/hd_vc_them.php',
+                        type: 'POST',
+                        data: {
+                            user_id: user_id,
+                            com_id: com_id,
+
+                            ngay_ky_hd: ngay_ky_hd,
+                            id_nha_cung_cap: id_nha_cung_cap,
+                            dan_ctrinh: dan_ctrinh,
+                            truoc_vat: truoc_vat,
+                            don_gia_vat: don_gia_vat,
+                            thue_vat: thue_vat,
+                            sau_vat: sau_vat,
+                            bao_hanh: bao_hanh,
+                            gt_bao_hanh: gt_bao_hanh,
+                            bao_lanh: bao_lanh,
+                            gt_bao_lanh: gt_bao_lanh,
+                            han_bao_lanh: han_bao_lanh,
+                            ngay_bat_dau: ngay_bat_dau,
+                            ngay_ket_thuc: ngay_ket_thuc,
+                            bao_gom_van_chuyen: bao_gom_van_chuyen,
+                            hmuc_tind: hmuc_tind,
+                            yc_tiendo: yc_tiendo,
+                            noi_dung_hd: noi_dung_hd,
+                            noi_dung_luu_y: noi_dung_luu_y,
+                            dieu_khoan_tt: dieu_khoan_tt,
+                            ten_nh: ten_nh,
+                            so_taik: so_taik,
+
+                            vt_vat_tu: vt_vat_tu,
+                            vt_don_vi_tinh: vt_don_vi_tinh,
+                            vt_khoi_luong: vt_khoi_luong,
+                            vt_don_gia: vt_don_gia,
+                            vt_thanh_tien: vt_thanh_tien
+                        },
+                        success: function(data) {
+                            if (data == "") {
+                                alert("Thêm hợp đồng thuê vận chuyển thành công!");
+                                window.location.href = 'quan-ly-hop-dong.html';
+                            } else {
+                                alert(data);
+                            }
+                        }
+                    })
+                }
+            } else if (ngay_bat_dau == "" && ngay_ket_thuc != "") {
+                if (ngay_ket_thuc < ngay_ky_hd) {
+                    alert("Ngày kết thúc phải lớn ngày ký hợp đồng")
+                } else if (ngay_ket_thuc > ngay_ky_hd) {
+                    $.ajax({
+                        url: '../ajax/hd_vc_them.php',
+                        type: 'POST',
+                        data: {
+                            user_id: user_id,
+                            com_id: com_id,
+
+                            ngay_ky_hd: ngay_ky_hd,
+                            id_nha_cung_cap: id_nha_cung_cap,
+                            dan_ctrinh: dan_ctrinh,
+                            truoc_vat: truoc_vat,
+                            don_gia_vat: don_gia_vat,
+                            thue_vat: thue_vat,
+                            sau_vat: sau_vat,
+                            bao_hanh: bao_hanh,
+                            gt_bao_hanh: gt_bao_hanh,
+                            bao_lanh: bao_lanh,
+                            gt_bao_lanh: gt_bao_lanh,
+                            han_bao_lanh: han_bao_lanh,
+                            ngay_bat_dau: ngay_bat_dau,
+                            ngay_ket_thuc: ngay_ket_thuc,
+                            bao_gom_van_chuyen: bao_gom_van_chuyen,
+                            hmuc_tind: hmuc_tind,
+                            yc_tiendo: yc_tiendo,
+                            noi_dung_hd: noi_dung_hd,
+                            noi_dung_luu_y: noi_dung_luu_y,
+                            dieu_khoan_tt: dieu_khoan_tt,
+                            ten_nh: ten_nh,
+                            so_taik: so_taik,
+
+                            vt_vat_tu: vt_vat_tu,
+                            vt_don_vi_tinh: vt_don_vi_tinh,
+                            vt_khoi_luong: vt_khoi_luong,
+                            vt_don_gia: vt_don_gia,
+                            vt_thanh_tien: vt_thanh_tien
+                        },
+                        success: function(data) {
+                            if (data == "") {
+                                alert("Thêm hợp đồng thuê vận chuyển thành công!");
+                                window.location.href = 'quan-ly-hop-dong.html';
+                            } else {
+                                alert(data);
+                            }
+                        }
+                    })
+                }
+            } else if (ngay_bat_dau == "" && ngay_ket_thuc == "") {
+                $.ajax({
+                    url: '../ajax/hd_vc_them.php',
+                    type: 'POST',
+                    data: {
+                        user_id: user_id,
+                        com_id: com_id,
+
+                        ngay_ky_hd: ngay_ky_hd,
+                        id_nha_cung_cap: id_nha_cung_cap,
+                        dan_ctrinh: dan_ctrinh,
+                        truoc_vat: truoc_vat,
+                        don_gia_vat: don_gia_vat,
+                        thue_vat: thue_vat,
+                        sau_vat: sau_vat,
+                        bao_hanh: bao_hanh,
+                        gt_bao_hanh: gt_bao_hanh,
+                        bao_lanh: bao_lanh,
+                        gt_bao_lanh: gt_bao_lanh,
+                        han_bao_lanh: han_bao_lanh,
+                        ngay_bat_dau: ngay_bat_dau,
+                        ngay_ket_thuc: ngay_ket_thuc,
+                        bao_gom_van_chuyen: bao_gom_van_chuyen,
+                        hmuc_tind: hmuc_tind,
+                        yc_tiendo: yc_tiendo,
+                        noi_dung_hd: noi_dung_hd,
+                        noi_dung_luu_y: noi_dung_luu_y,
+                        dieu_khoan_tt: dieu_khoan_tt,
+                        ten_nh: ten_nh,
+                        so_taik: so_taik,
+
+                        vt_vat_tu: vt_vat_tu,
+                        vt_don_vi_tinh: vt_don_vi_tinh,
+                        vt_khoi_luong: vt_khoi_luong,
+                        vt_don_gia: vt_don_gia,
+                        vt_thanh_tien: vt_thanh_tien
+                    },
+                    success: function(data) {
+                        if (data == "") {
+                            alert("Thêm hợp đồng thuê vận chuyển thành công!");
+                            window.location.href = 'quan-ly-hop-dong.html';
+                        } else {
+                            alert(data);
+                        }
+                    }
+                })
+            }
+
+
         }
     });
 </script>

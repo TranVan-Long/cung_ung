@@ -3,7 +3,20 @@ include("../includes/icon.php");
 include('config.php');
 $date = date('Y-m-d', time());
 
+// if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+//     if ($_COOKIE['role'] == 1) {
+//         $com_id = $_SESSION['com_id'];
+//     } else if ($_COOKIE['role'] == 2) {
+//         $com_id = $_SESSION['user_com_id'];
+//         $user_id = $_SESSION['ep_id'];
+
+
+//     }
+// }
+
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
+    $com_id = $_SESSION['com_id'];
+
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
@@ -16,6 +29,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $data_list = json_decode($response, true);
     $data_list_nv = $data_list['data']['items'];
 } elseif (isset($_SESSION['quyen']) && ($_SESSION['quyen'] == 2)) {
+    $com_id = $_SESSION['user_com_id'];
+    echo 1;
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
@@ -29,22 +44,32 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $data_list_nv = $data_list['data']['items'];
     $user_id = $_SESSION['ep_id'];
     $user_name = $_SESSION['ep_name'];
+
+    $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+    if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+        $item_nv = mysql_fetch_assoc((new db_query("SELECT `yeu_cau_vat_tu` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+        $ycvt = explode(',', $item_nv['yeu_cau_vat_tu']);
+        if (in_array(2, $ycvt) == FALSE) {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+    } else {
+        header('Location: /quan-ly-trang-chu.html');
+    }
 }
 foreach ($data_list_nv as $key => $items) {
     if ($user_id == $items['ep_id']) {
         $dept_id    = $items['dep_id'];
         $dept_name  = $items['dep_name'];
-        $comp_id = $items['com_id'];
     }
 }
 
 $curl = curl_init();
 $data = array(
-    'id_com' => $comp_id,
+    'id_com' => $com_id,
 );
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 $response = curl_exec($curl);
 curl_close($curl);
@@ -60,7 +85,7 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
 
 $curl = curl_init();
 $data = array(
-    'id_com' => $comp_id,
+    'id_com' => $com_id,
 );
 curl_setopt($curl, CURLOPT_POST, 1);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
@@ -72,14 +97,9 @@ curl_close($curl);
 $list_cong_trinh = json_decode($response, true);
 $cong_trinh_data = $list_cong_trinh['data']['items'];
 
-// echo "<pre>";
-// print_r($vat_tu_data);
-// echo "</pre>";
-// die();
-
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -177,7 +197,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                                         <div class="tbl-content table-2-row">
                                             <table>
                                                 <tbody id="materials">
-                                                    
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -227,17 +247,6 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript">
-    jQuery.validator.addMethod("greaterThan",
-        function(value, element, params) {
-
-            if (!/Invalid|NaN/.test(new Date(value))) {
-                return new Date(value) > new Date($(params).val());
-            }
-
-            return isNaN(value) && isNaN($(params).val()) ||
-                (Number(value) > Number($(params).val()));
-        }, 'Must be greater than {0}.');
-
     $("#add-material").click(function() {
         $.ajax({
             url: '../ajax/ycvt_them_vt.php',
@@ -252,13 +261,13 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
         $(".materials_name").change(function() {
             var id_vt = $(this).val();
             var _this = $(this);
-            var com_id = <?= $comp_id?>;
+            var com_id = <?= $com_id ?>;
             $.ajax({
                 url: '../render/ycvt_vat_tu.php',
                 type: 'POST',
                 data: {
                     id_vt: id_vt,
-                    com_id:com_id,
+                    com_id: com_id,
                 },
                 success: function(data) {
                     _this.parents(".item").html(data);
@@ -286,9 +295,6 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                 cong_trinh: {
                     required: true,
                 },
-                ngay_phai_hoan_thanh: {
-                    greaterThan: "#ngay_tao_yeu_cau"
-                },
             },
             messages: {
                 phong_ban: {
@@ -299,9 +305,6 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                 },
                 cong_trinh: {
                     required: "Không được để trống!",
-                },
-                ngay_phai_hoan_thanh: {
-                    greaterThan: "Không được nhỏ hơn ngày tạo yêu cầu!"
                 },
             },
         });
@@ -328,34 +331,36 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
 
             //get user id
             var user_id = "<?= $user_id ?>";
-            var comp_id = "<?= $comp_id ?>";
+            var com_id = "<?= $com_id ?>";
 
-            $.ajax({
-                url: '../ajax/ycvt_them.php',
-                type: 'POST',
-                data: {
-                    cong_trinh: cong_trinh,
-                    ngay_tao_yeu_cau: ngay_tao_yeu_cau,
-                    ngay_phai_hoan_thanh: ngay_phai_hoan_thanh,
-                    dien_giai: dien_giai,
+            if (ngay_phai_hoan_thanh >= ngay_tao_yeu_cau || ngay_phai_hoan_thanh == "") {
+                $.ajax({
+                    url: '../ajax/ycvt_them.php',
+                    type: 'POST',
+                    data: {
+                        cong_trinh: cong_trinh,
+                        ngay_tao_yeu_cau: ngay_tao_yeu_cau,
+                        ngay_phai_hoan_thanh: ngay_phai_hoan_thanh,
+                        dien_giai: dien_giai,
 
-                    vat_tu: vat_tu,
-                    so_luong: so_luong,
+                        vat_tu: vat_tu,
+                        so_luong: so_luong,
 
-                    user_id: user_id,
-                    comp_id: comp_id,
-
-
-                },
-                success: function(data) {
-                    if (data == "") {
-                        alert("Thêm yêu cầu thành công!");
-                        window.location.href = 'quan-ly-yeu-cau-vat-tu.html';
-                    } else {
-                        alert(data);
+                        user_id: user_id,
+                        com_id: com_id
+                    },
+                    success: function(data) {
+                        if (data == "") {
+                            alert("Thêm yêu cầu thành công!");
+                            window.location.href = 'quan-ly-yeu-cau-vat-tu.html';
+                        } else {
+                            alert(data);
+                        }
                     }
-                }
-            })
+                });
+            } else {
+                alert("Ngày phải hoàn thành không được nhỏ hơn ngày tạo yêu cầu.")
+            }
         }
     });
 </script>

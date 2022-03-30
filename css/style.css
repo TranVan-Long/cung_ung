@@ -1795,7 +1795,7 @@ input.hidden_bd{
     justify-content: center;
 }
 
-.ctiet_ungd_hd p {
+.ctiet_ungd_hd h2 {
     margin-bottom: 28px;
 }
 
@@ -1953,7 +1953,7 @@ input.hidden_bd{
 }
 
 .scroll_left img {
-    transform: rotate(180deg);
+    transform: scaleX(-1);
 }
 
 .ql_ctiet_hd .content {
@@ -2139,7 +2139,7 @@ input.hidden_bd{
 }
 
 .ql_ct_hs_tt .table {
-    min-width: 3275px;
+    min-width: 3375px;
 }
 
 .ql_phieu_tt .table {
@@ -2319,7 +2319,7 @@ input.hidden_bd{
     display: none !important;
 }
 
-.chart, .tt_charts, .tt_charts_one {
+.tt_charts, .tt_charts_one, .tt_charts_two{
     float: left;
     width: 100%;
     display: flex;
@@ -3406,6 +3406,11 @@ label.error {
 }
 .range{
     width: 47% !important;
+}
+.avt_dgia img{
+    width: 56px;
+    height: 56px;
+    border-radius: 900em;
 }
 
 /*long modal end*/

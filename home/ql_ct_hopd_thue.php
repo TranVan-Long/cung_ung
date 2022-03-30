@@ -9,54 +9,90 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 
     $ncc_id = $hd_detail['id_nha_cc_kh'];
     $ncc = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh` FROM nha_cc_kh WHERE `id` = $ncc_id"))->result);
-
-    $ep_name = $_SESSION['ep_name'];
-    $ep_id = $_SESSION['ep_id'];
 }
-if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
-    $curl = curl_init();
-    $token = $_COOKIE['acc_token'];
-    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $data_list = json_decode($response, true);
-    $data_list_nv = $data_list['data']['items'];
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 1) {
+        $user_id = $_SESSION['com_id'];
+        $com_id = $_SESSION['com_id'];
+        $com_name = $_SESSION['com_name'];
+    } else if ($_COOKIE['role'] == 2) {
+        $user_id = $_SESSION['ep_id'];
+        $com_id = $_SESSION['user_com_id'];
+        $com_name = $_SESSION['com_name'];
 
-    foreach ($data_list_nv as $key => $items) {
-        $user_name = $items['ep_name'];
-        $dept_id    = $items['dep_id'];
-        $dept_name  = $items['dep_name'];
-        $comp_id = $items['com_id'];
-    }
-    $curl = curl_init();
-    $data = array(
-        'id_com' => $comp_id,
-    );
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php");
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $list_ct = json_decode($response, true);
-    $cong_trinh_data = $list_ct['data']['items'];
-
-    $cong_trinh_detail = [];
-    for ($i = 0; $i < count($cong_trinh_data); $i++) {
-        $items_ct = $cong_trinh_data[$i];
-        $cong_trinh_detail[$items_ct['ctr_id']] = $items_ct;
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $hop_dong = explode(',', $item_nv['hop_dong']);
+            if (in_array(1, $hop_dong) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
     }
 }
-// echo "<pre>";
-// print_r($cong_trinh_detail);
-// echo "</pre>";
-// die();
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php");
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_ct = json_decode($response, true);
+$cong_trinh_data = $list_ct['data']['items'];
+
+$cong_trinh_detail = [];
+for ($i = 0; $i < count($cong_trinh_data); $i++) {
+    $items_ct = $cong_trinh_data[$i];
+    $cong_trinh_detail[$items_ct['ctr_id']] = $items_ct;
+}
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_vt = json_decode($response, true);
+$vat_tu_data = $list_vt['data']['items'];
+
+
+$vat_tu = [];
+for ($i = 0; $i < count($vat_tu_data); $i++) {
+    $items_vt = $vat_tu_data[$i];
+    $vat_tu[$items_vt['dsvt_id']] = $items_vt;
+}
+
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_kho.php");
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_kho = json_decode($response, true);
+$kho_data = $list_kho['data']['items'];
+
+
+$kho = [];
+for ($i = 0; $i < count($kho_data); $i++) {
+    $items_kho = $kho_data[$i];
+    $kho[$items_kho['kho_id']] = $items_kho;
+}
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -88,7 +124,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                     <p class="cr_weight share_fsize_tow share_clr_one">HĐ - <?= $hd_id ?></p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
-                                    <p class="ten_ctiet share_fsize_tow share_clr_one">Ngày hợp đồng</p>
+                                    <p class="ten_ctiet share_fsize_tow share_clr_one">Ngày ký hợp đồng</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one"><?= date('d/m/Y', $hd_detail['ngay_ky_hd']) ?></p>
                                 </div>
                             </div>
@@ -143,68 +179,124 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                 </div>
                             </div>
                         </div>
-                        <div class="ctiet_hopd_vt w_100 float_l">
-                            <div class="ctn_table_ct w_100 float_l">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th class="share_tb_one">STT</th>
-                                            <th class="share_tb_two">Loại tài sản thiết bị</th>
-                                            <th class="share_tb_two">Thông số kỹ thuật</th>
-                                            <th class="share_tb_one">Số lượng</th>
-                                            <th class="share_tb_two">Thời gian thuê</th>
-                                            <th class="share_tb_one">Đợn vị tính</th>
-                                            <th class="share_tb_one">Khối lượng dự kiến</th>
-                                            <th class="share_tb_one">Hạn mức ca máy</th>
-                                            <th class="share_tb_one">Đơn giá thuế</th>
-                                            <th class="share_tb_two">Đơn giá ca máy phụ hồi</th>
-                                            <th class="share_tb_two">Thành tiền dự kiến</th>
-                                            <th class="share_tb_two">Thỏa thuận khác</th>
-                                            <th class="share_tb_two">Lưu ý</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?
-                                        $stt = 1;
-                                        $get_tb_detail = new db_query("SELECT * FROM `vat_tu_hd_thue` WHERE `id_hd_thue` = $hd_id");
-                                        while ($thiet_bi = mysql_fetch_assoc($get_tb_detail->result)) {
-                                        ?>
+                        <div class="table-wrapper mt-5">
+                            <div class="table-container table-3192">
+                                <div class="tbl-header">
+                                    <table>
+                                        <thead>
                                             <tr>
-                                                <td class="share_tb_one"><?= $stt++ ?></td>
-                                                <td class="share_tb_two"><?= $thiet_bi['loai_tai_san'] ?></td>
-                                                <td class="share_tb_two"><?= $thiet_bi['thong_so_kthuat'] ?></td>
-                                                <td class="share_tb_one"><?= $thiet_bi['so_luong'] ?></td>
-                                                <td class="share_tb_two">
-                                                    <? if ($thiet_bi['thue_tu_ngay'] == 0 && $thiet_bi['thue_den_ngay'] == 0) { ?>
-                                                        Không có dữ liệu.
-                                                    <? } else { ?>
-                                                        <?= date('d/m/Y', $thiet_bi['thue_tu_ngay']) ?> - <?= date('d/m/Y', $thiet_bi['thue_den_ngay']) ?>
-                                                    <? } ?>
-                                                </td>
-                                                <td class="share_tb_one"><?= $thiet_bi['don_vi_tinh'] ?></td>
-                                                <td class="share_tb_one"><?= $thiet_bi['khoi_luong_du_kien'] ?></td>
-                                                <td class="share_tb_one"><?= formatMoney($thiet_bi['han_muc_ca_may']) ?></td>
-                                                <td class="share_tb_one"><?= formatMoney($thiet_bi['don_gia_thue']) ?></td>
-                                                <td class="share_tb_two"><?= formatMoney($thiet_bi['dg_ca_may_phu_troi']) ?></td>
-                                                <td class="share_tb_two"><?= formatMoney($thiet_bi['thanh_tien_du_kien']) ?></td>
-                                                <td class="share_tb_two"><?= $thiet_bi['thoa_thuan_khac'] ?></td>
-                                                <td class="share_tb_two"><?= $thiet_bi['luu_y'] ?></td>
+                                                <th class="w-5"></th>
+                                                <th class="w-10">Kho</th>
+                                                <th class="w-20">Vật tư/thiết bị</th>
+                                                <th class="w-15">Thông số kỹ thuật</th>
+                                                <th class="w-10">Số lượng</th>
+                                                <th class="w-10">Hình thức thuê</th>
+                                                <th class="w-10">Đơn vị tính</th>
+                                                <th class="w-25">Thời gian thuê</th>
+                                                <th class="w-10">Khối lượng dự kiến</th>
+                                                <th class="w-10">Hạn mức ca máy</th>
+                                                <th class="w-10">Đơn giá thuê</th>
+                                                <th class="w-10">Đơn giá ca máy phụ trội</th>
+                                                <th class="w-10">Thành tiền dự kiến</th>
+                                                <th class="w-10">Thỏa thuận khác</th>
+                                                <th class="w-10">Lưu ý</th>
                                             </tr>
-                                        <? } ?>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="tbl-content table-2-row">
+                                    <table>
+                                        <tbody id="vt-tb">
+                                            <?
+                                            $stt = 1;
+                                            $get_tb_detail = new db_query("SELECT * FROM `vat_tu_hd_thue` WHERE `id_hd_thue` = $hd_id");
+                                            while ($thiet_bi = mysql_fetch_assoc($get_tb_detail->result)) {
+                                            ?>
+                                                <tr>
+                                                    <td class="w-5"><?= $stt++ ?></td>
+                                                    <td class="w-10"><?= $kho[$thiet_bi['id_kho']]['kho_name'] ?></td>
+                                                    <td class="w-20"><?= $vat_tu[$thiet_bi['id_vat_tu_thiet_bi']]['dsvt_name'] ?></td>
+                                                    <td class="w-15"><?= $thiet_bi['thong_so_kthuat'] ?></td>
+                                                    <td class="w-10"><?= $thiet_bi['so_luong'] ?></td>
+                                                    <td class="w-10">
+                                                        <? if ($thiet_bi['hinh_thuc_thue'] == 1) { ?>
+                                                            Theo giờ
+                                                        <? } else if ($thiet_bi['hinh_thuc_thue'] == 2) { ?>
+                                                            Theo ngày
+                                                        <? } else if ($thiet_bi['hinh_thuc_thue'] == 3) { ?>
+                                                            Theo tháng
+                                                        <? } else if ($thiet_bi['hinh_thuc_thue'] == 4) { ?>
+                                                            Theo ca máy
+                                                        <? } else if ($thiet_bi['hinh_thuc_thue'] == 5) { ?>
+                                                            Theo công việc
+                                                        <? } ?>
+                                                    </td>
+                                                    <td class="w-10">
+                                                        <? if ($thiet_bi['hinh_thuc_thue'] == 1) { ?>
+                                                            Giờ
+                                                        <? } else if ($thiet_bi['hinh_thuc_thue'] == 2) { ?>
+                                                            Ngày
+                                                        <? } else if ($thiet_bi['hinh_thuc_thue'] == 3) { ?>
+                                                            Tháng
+                                                        <? } else if ($thiet_bi['hinh_thuc_thue'] == 4) { ?>
+                                                            Ca máy
+                                                        <? } else if ($thiet_bi['hinh_thuc_thue'] == 5) { ?>
+                                                            Công việc
+                                                        <? } ?>
+                                                    </td>
+                                                    <td class="w-25">
+                                                        <? if ($thiet_bi['thue_tu_ngay'] == 0 && $thiet_bi['thue_den_ngay'] == 0) { ?>
+                                                            Không có dữ liệu.
+                                                            <? } else {
+                                                            if ($thiet_bi['hinh_thuc_thue'] == 1) { ?>
+                                                                <?= date('h:i', $thiet_bi['thue_tu_ngay']) ?> - <?= date('h:i', $thiet_bi['thue_den_ngay']) ?>
+                                                            <? } else if ($thiet_bi['hinh_thuc_thue'] == 2) { ?>
+                                                                <?= date('d/m/Y', $thiet_bi['thue_tu_ngay']) ?> - <?= date('d/m/Y', $thiet_bi['thue_den_ngay']) ?>
+                                                            <? } else if ($thiet_bi['hinh_thuc_thue'] == 3) { ?>
+                                                                <?= date('m/Y', $thiet_bi['thue_tu_ngay']) ?> - <?= date('m/Y', $thiet_bi['thue_den_ngay']) ?>
+                                                            <? } else if ($thiet_bi['hinh_thuc_thue'] == 4) { ?>
+                                                                Không có dữ liệu.
+                                                            <? } else if ($thiet_bi['hinh_thuc_thue'] == 5) { ?>
+                                                                Không có dữ liệu.
+                                                            <? } ?>
+                                                        <? } ?>
+                                                    </td>
+                                                    <td class="w-10"><?= $thiet_bi['khoi_luong_du_kien'] ?></td>
+                                                    <td class="w-10"><?= $thiet_bi['han_muc_ca_may'] ?></td>
+                                                    <td class="w-10"><?= formatMoney($thiet_bi['don_gia_thue']) ?></td>
+                                                    <td class="w-10"><?= formatMoney($thiet_bi['dg_ca_may_phu_troi']) ?></td>
+                                                    <td class="w-10"><?= formatMoney($thiet_bi['thanh_tien_du_kien']) ?></td>
+                                                    <td class="w-10"><?= $thiet_bi['thoa_thuan_khac'] ?></td>
+                                                    <td class="w-10"><?= $thiet_bi['luu_y'] ?></td>
+                                                </tr>
+                                            <? } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="xuat_gmc w_100 float_l">
                             <div class="xuat_gmc_two share_xuat_gmc mb_10 d_flex right">
-                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">Xóa</p>
-                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                    <a href="chinh-sua-hop-dong-thue-thiet-bi-<?= $hd_id?>.html" class="share_clr_tow">Chỉnh sửa</a>
-                                </p>
+                                <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+                                    <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">Xóa</p>
+                                    <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
+                                        <a href="chinh-sua-hop-dong-thue-thiet-bi-<?= $hd_id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
+                                    </p>
+                                    <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                                    if (in_array(4, $hop_dong)) {
+                                    ?>
+                                        <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">Xóa</p>
+                                    <? }
+                                    if (in_array(3, $hop_dong)) { ?>
+                                        <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
+                                            <a href="chinh-sua-hop-dong-thue-thiet-bi-<?= $hd_id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
+                                        </p>
+                                <? }
+                                } ?>
                             </div>
                             <div class="xuat_gmc_one share_xuat_gmc mb_10 d_flex left mr_10">
-                                <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight">Xuất Excel</p>
-                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_clr_four ml_20">Gửi mail</p>
+                                <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight xuat_excel" data=<?= $hd_id ?>>Xuất Excel</p>
+                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_clr_four ml_20 gui_mail" data1="<?= $hd_id ?>" data2="<?= $com_id ?>" data3="<?= $com_name ?>">Gửi mail</p>
                             </div>
                         </div>
                     </div>
@@ -258,7 +350,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     $(".xoa_hd_thue").click(function() {
         var id = $(this).attr("data-id");
         //log record
-        var ep_id = '<?= $ep_id ?>';
+        var ep_id = '<?= $user_id ?>';
         var hd_id = '<?= $hd_id ?>';
         var loai = "thuê thiết bị"
         $.ajax({
@@ -278,6 +370,34 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                 }
             }
         });
+    });
+    $(".gui_mail").click(function() {
+        var id = $(this).attr("data1");
+        var com_id = $(this).attr("data2");
+        var com_name = $(this).attr("data3");
+
+        $.ajax({
+            url: '../ajax/gui_mail_hdt.php',
+            type: 'POST',
+            data: {
+                id: id,
+                com_id: com_id,
+                com_name: com_name,
+            },
+            success: function(data) {
+                if (data == "") {
+                    alert("Gửi email thành công.");
+                    window.location.reload();
+                } else {
+                    alert(data);
+                }
+            }
+
+        })
+    });
+    $(".xuat_excel").click(function() {
+        var id = $(this).attr("data");
+        window.location.href = '../excel/hd_thue_excel.php?id=' + id;
     });
 </script>
 

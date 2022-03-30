@@ -47,14 +47,14 @@
                 <div class="col">
                     <p>
                         <picture class="fa">
-                            <img src="/img/mui_ten.png" alt="" />
+                            <img src="/img/mui_ten.png" alt="Về chúng tôi" />
                         </picture>
                         <span>
                             <a rel="nofollow" href="https://timviec365.vn/gioi-thieu-cong-ty.html" >Về chúng tôi</a></span>
                     </p>
                     <p>
                         <picture class="fa">
-                            <img src="/img/mui_ten.png" alt="" />
+                            <img src="/img/mui_ten.png" alt="Giới thiệu chung" />
                         </picture>
                         <span>
                             <a rel="nofollow" href="https://timviec365.vn/gioi-thieu-chung.html">Giới thiệu chung</a>
@@ -62,7 +62,7 @@
                     </p>
                     <p>
                         <picture class="fa">
-                            <img src="/img/mui_ten.png" alt="" />
+                            <img src="/img/mui_ten.png" alt="Thông tin cần biết" />
                         </picture>
                         <span>
                             <a rel="nofollow" href="https://timviec365.vn/thong-tin-can-biet.html">Thông tin cần biết</a>
@@ -70,7 +70,7 @@
                     </p>
                     <p>
                         <picture class="fa">
-                            <img src="/img/mui_ten.png" alt="" />
+                            <img src="/img/mui_ten.png" alt="Thỏa thuận sử dụng" />
                         </picture>
                         <span>
                             <a rel="nofollow" href="https://timviec365.vn/thoa-thuan-su-dung.html">Thỏa thuận sử dụng</a>
@@ -87,13 +87,14 @@
                     </p> -->
                     <p>
                         <picture class="fa">
-                            <img src="/img/mui_ten.png" alt="" />
+                            <img src="/img/mui_ten.png" alt="Quy định bảo mật" />
                         </picture>
                         <span><a rel="nofollow" href="https://timviec365.vn/quy-dinh-bao-mat.html" >Quy định bảo mật</a></span>
                     </p>
                     <p>
                         <picture class="fa">
-                            <img src="/img/mui_ten.png" alt="" />
+                            <img src="/img/mui_ten.png" alt="Quy trình giải quyết tranh
+                                chấp" />
                         </picture>
                         <span><a rel="nofollow" href="https://timviec365.vn/giai-quyet-tranh-chap.html">Quy trình giải quyết tranh
                                 chấp</a>

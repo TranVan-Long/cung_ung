@@ -7,6 +7,7 @@ $com_id = $_POST['id_com'];
 // echo $id_v;
 // die();
 
+
 $curl = curl_init();
 $data = array(
     'id_com' => $com_id,
@@ -14,7 +15,7 @@ $data = array(
 curl_setopt($curl, CURLOPT_POST, 1);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 $response = curl_exec($curl);
 curl_close($curl);

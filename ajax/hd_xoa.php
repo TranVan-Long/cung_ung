@@ -1,15 +1,15 @@
 <?
 include("config.php");
-$id        = $_POST['id'];
-$ep_id     = $_POST['ep_id'];
-$hd_id   = $_POST['hd_id'];
+$id        = getValue('id', 'int', 'POST', '');
+$ep_id     = getValue('ep_id', 'int', 'POST', '');
+$hd_id   = getValue('hd_id', 'int', 'POST', '');
 $loai = $_POST['loai'];
 
 //save log
-$noi_dung = 'Bạn đã xóa hợp đồng '.$loai.': HĐ-' . $id;
-$date = strtotime(date('Y-m-d H:i:s', time()));
-$log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_gio`, `noi_dung`)
-                         VALUES('', '$ep_id', '$date', '$noi_dung')");
+$noi_dung = 'Bạn đã xóa hợp đồng ' . $loai . ': HĐ-' . $id;
+$ngay_tao = strtotime(date('Y-m-d', time()));
+$gio_tao = strtotime(date('H:i:s', time()));
+$log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$ep_id', '$ngay_tao','$gio_tao', '$noi_dung')");
 $delete_ycvt = new db_query("DELETE FROM `hop_dong` WHERE `id` = '$id' ");
 
 

@@ -1,7 +1,15 @@
 <?php
 
-include("config.php");
 include("../includes/icon.php");
+include("config.php");
+
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 1) {
+        $com_id = $_SESSION['com_id'];
+    } else if ($_COOKIE['role'] == 2) {
+        $com_id = $_SESSION['user_com_id'];
+    }
+};
 
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $ratting_id = $_GET['id'];
@@ -9,7 +17,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             n.`ten_nha_cc_kh`, n.`ten_vt`, n.`dia_chi_lh`, n.`sp_cung_ung`
                             FROM `danh_gia` AS d
                             INNER JOIN `nha_cc_kh` AS n ON d.`id_nha_cc` = n.`id`
-                            WHERE d.`id` = $ratting_id ");
+                            WHERE d.`id` = $ratting_id AND d.`id_cong_ty` = $com_id ");
     $item = mysql_fetch_assoc($rat_get->result);
 
     $id_dg = $item['id'];
@@ -19,26 +27,26 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 FROM `chi_tiet_danh_gia` AS s
                                 INNER JOIN `tieu_chi_danh_gia` AS t ON s.`id_tieu_chi` = t.`id`
                                 INNER JOIN `danh_gia` AS g ON s.`id_danh_gia` = g.`id`
-                                WHERE s.`id_danh_gia` = $ratting_id ");
+                                WHERE s.`id_danh_gia` = $ratting_id AND g.`id_cong_ty` = $com_id ");
 
     $user_id = $item['nguoi_danh_gia'];
 
-    if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2){
+    if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
         $curl = curl_init();
         $token = $_COOKIE['acc_token'];
         curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
         $response = curl_exec($curl);
         curl_close($curl);
 
-        $data_list = json_decode($response,true);
-        $data_list_nv =$data_list['data']['items'];
+        $data_list = json_decode($response, true);
+        $data_list_nv = $data_list['data']['items'];
         $count = count($data_list_nv);
 
         $user = [];
-        for ($i = 0; $i < $count; $i++){
+        for ($i = 0; $i < $count; $i++) {
             $item1 = $data_list_nv[$i];
             $user[$item1["ep_id"]] = $item1;
         }
@@ -46,6 +54,8 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
         $ep_name = $user[$user_id]['ep_name'];
         $phong_ban = $user[$user_id]['dep_name'];
     }
+} else {
+    header('Location: /');
 }
 ?>
 <!DOCTYPE html>
@@ -108,7 +118,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <div class="form-row left border-top2">
                             <div class="form-col-50 left p-10">
                                 <p class="detail-title">Nhà cung cấp</p>
-                                <p class="detail-data text-500"><?= $item['ten_vt'] ?></p>
+                                <p class="detail-data text-500">NCC - <?= $item['id_nha_cc'] ?></p>
                             </div>
                             <div class="form-col-50 right p-10 pt-10">
                                 <p class="detail-title">Tên nhà cung cấp</p>
@@ -130,7 +140,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <p class="detail-title">Điểm đánh giá</p>
                                 <p class="detail-data text-500"><?= $tong_diem ?></p>
                             </div>
-                             <div class="form-col-50 right p-10 pt-10">
+                            <div class="form-col-50 right p-10 pt-10">
                                 <p class="detail-title">Đánh giá khác</p>
                                 <p class="detail-data text-500"><?= $item['danh_gia_khac'] ?></p>
                             </div>
@@ -160,17 +170,17 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             <div class="tbl-content table-2-row">
                                 <table>
                                     <tbody>
-                                        <?  $stt = 1;
-                                            while($row = mysql_fetch_assoc($list_gtri -> result)) {?>
-                                        <tr>
-                                            <td class="w-5"><?= $stt++ ?></td>
-                                            <td class="w-20"><?= $row['tieu_chi'] ?></td>
-                                            <td class="w-10"><?= $row['he_so'] ?></td>
-                                            <td class=""><?= $row['diem_danh_gia'] ?></td>
-                                            <td class=""><?= $row['tong_diem_danh_gia'] ?></td>
-                                            <td><?= $row['danh_gia_chi_tiet'] ?></td>
-                                        </tr>
-                                        <?}?>
+                                        <? $stt = 1;
+                                        while ($row = mysql_fetch_assoc($list_gtri->result)) { ?>
+                                            <tr>
+                                                <td class="w-5"><?= $stt++ ?></td>
+                                                <td class="w-20"><?= $row['tieu_chi'] ?></td>
+                                                <td class="w-10"><?= $row['he_so'] ?></td>
+                                                <td class=""><?= $row['diem_danh_gia'] ?></td>
+                                                <td class=""><?= $row['tong_diem_danh_gia'] ?></td>
+                                                <td><?= $row['danh_gia_chi_tiet'] ?></td>
+                                            </tr>
+                                        <? } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -178,13 +188,10 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     </div>
                     <div class="control-btn right">
                         <p class="v-btn btn-outline-red modal-btn show_btn_modal mr-20 mt-15" data-target="delete">Xóa</p>
-                        <? if($user_id == $_COOKIE['user']) {?>
-                            <a href="chinh-sua-danh-gia-nha-cung-cap-<?= $item['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
-                        <?}?>
-
+                        <a href="chinh-sua-danh-gia-nha-cung-cap-<?= $item['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
                     </div>
                     <div class="control-btn left mr-10">
-                        <button class="v-btn btn-green mr-20 mt-15">Xuất excel</button>
+                        <button class="v-btn btn-green mr-20 mt-15 xuat_excel" data=<?= $ratting_id ?>>Xuất excel</button>
                         <p class="v-btn"></p>
                     </div>
                 </div>
@@ -223,26 +230,29 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
         $(".modal").show();
     });
 
-    $(".remove_dg").click(function(){
+    $(".remove_dg").click(function() {
         var id = $(this).attr("data-id");
         var user_id = "<?= $_COOKIE['user'] ?>";
         $.ajax({
             url: '../ajax/xoa_danh_gia.php',
             type: 'POST',
-            data:{
+            data: {
                 id: id,
                 user_id: user_id,
             },
-            success: function(data){
-                if(data == ""){
+            success: function(data) {
+                if (data == "") {
                     window.location.href = '/danh-gia-nha-cung-cap.html';
-                }else{
+                } else {
                     alert(data);
                 }
             }
         })
-    })
-
+    });
+    $(".xuat_excel").click(function() {
+        var id = $(this).attr("data");
+        window.location.href = '../excel/dg_ncc_excel.php?id=' + id;
+    });
 </script>
 
 </html>

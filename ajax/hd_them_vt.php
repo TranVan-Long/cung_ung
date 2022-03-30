@@ -1,7 +1,7 @@
 <?
 include('config.php');
 
-$com_id = $_POST['id_com'];
+$com_id = getValue('id_com', 'int', 'POST', '');
 
 
 $curl = curl_init();
@@ -12,7 +12,7 @@ $data = array(
 curl_setopt($curl, CURLOPT_POST, 1);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 $response = curl_exec($curl);
 curl_close($curl);
@@ -26,7 +26,7 @@ $vat_tu_data = $list_vt['data']['items'];
     </td>
     <td class="share_tb_three">
         <div class="form-group share_form_select">
-            <select name="ma_vt_ban" class="ma_vt_ban share_select" onchange="hd_vt_change(this)">
+            <select name="ma_vt_ban" class="ma_vt_ban share_select" onchange="hd_vt_change(this)" data="<?= $com_id ?>">
                 <option value="">-- Chọn Vật tư --</option>
                 <? foreach ($vat_tu_data as $key => $items) { ?>
                     <option value="<?= $items['dsvt_id'] ?>"><?= $items['dsvt_name'] ?></option>
@@ -41,22 +41,22 @@ $vat_tu_data = $list_vt['data']['items'];
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="text" name="hang-san-xuat" class="form-control" disabled>
+            <input type="text" name="hang_san_xuat" class="form-control" disabled>
         </div>
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="text" name="xuat-xu" class="form-control" disabled>
+            <input type="text" name="xuat_xu" class="form-control" disabled>
         </div>
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="number" name="so-luong" class="form-control so_luong" disabled>
+            <input type="number" name="so_luong" class="form-control so_luong" disabled>
         </div>
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="number" name="don-gia" class="form-control don_gia" disabled>
+            <input type="number" name="don_gia" class="form-control don_gia" disabled>
         </div>
     </td>
     <td class="share_tb_two">

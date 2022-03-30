@@ -1,12 +1,47 @@
 <?php
 include "../includes/icon.php";
 include("config.php");
-$date = date('m-d-Y', time());
-$com_id = "";
+
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
+    $user_id = $_SESSION['com_id'];
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $list_vt = json_decode($response, true);
+    $vat_tu_data = $list_vt['data']['items'];
+
 } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
     $com_id = $_SESSION['user_com_id'];
+    $user_id = $_SESSION['com_id'];
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $list_vt = json_decode($response, true);
+    $vat_tu_data = $list_vt['data']['items'];
+
+    $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+    if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+        $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+        $hop_dong = explode(',', $item_nv['hop_dong']);
+        if (in_array(3, $hop_dong) == FALSE) {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+    } else {
+        header('Location: /quan-ly-trang-chu.html');
+    }
+
 }
 
 if (isset($_GET['id']) && $_GET['id'] != "") {
@@ -14,38 +49,16 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $hd_get = new db_query("SELECT * FROM `hop_dong` WHERE `id` = '" . $hd_id . "' ");
     $get_vt_ban = new db_query("SELECT * FROM `vat_tu_hd_dh` WHERE `id_hd_mua_ban` = $hd_id");
     $hd_detail = mysql_fetch_assoc($hd_get->result);
-    $ep_id = $_SESSION['ep_id'];
 }
-$ngay_hop_dong = date('Y-m-d', $hd_detail['ngay_ky_hd']);
+
 $id_kh = $hd_detail['id_nha_cc_kh'];
-$ngay_bat_dau = date('Y-m-d', $hd_detail['tg_bd_thuc_hien']);
-$ngay_ket_thuc = date('Y-m-d', $hd_detail['tg_kt_thuc_hien']);
 
-if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
-    $curl = curl_init();
-    $data = array(
-        'id_com' => $com_id,
-    );
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $list_vt = json_decode($response, true);
-    $vat_tu_data = $list_vt['data']['items'];
-
-    $vat_tu_detail = [];
-    for ($i = 0; $i < count($vat_tu_data); $i++) {
-        $items_vt = $vat_tu_data[$i];
-        $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
-    }
-
-    // echo "<pre>";
-    // print_r($vat_tu_detail);
-    // echo "</pre>";
-    // die();
+$vat_tu_detail = [];
+for ($i = 0; $i < count($vat_tu_data); $i++) {
+    $items_vt = $vat_tu_data[$i];
+    $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -92,7 +105,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                     </div>
                                     <div class="form-group">
                                         <label>Ngày ký hợp đồng <span class="cr_red">*</span></label>
-                                        <input type="date" name="ngay_ky_hd" id="ngay_ky_hd" value="<?= $ngay_hop_dong ?>" class="form-control">
+                                        <input type="date" name="ngay_ky_hd" id="ngay_ky_hd" value="<?= (!empty($hd_detail['ngay_ky_hd'])) ? date('Y-m-d', $hd_detail['ngay_ky_hd']) : "" ?>" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -116,7 +129,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Giá trị trước VAT</label>
-                                        <input type="text" name="truoc_vat" id="tong_truoc_vat" value="<?= $hd_detail['gia_tri_trvat'] ?>" class="form-control h_border cr_weight" readonly>
+                                        <input type="number" name="truoc_vat" id="tong_truoc_vat" value="<?= $hd_detail['gia_tri_trvat'] ?>" class="form-control h_border cr_weight" readonly>
                                     </div>
                                     <div class="form-group  d_flex fl_agi form_lb">
                                         <label for="don_gia_vat">Đơn giá đã bao gồm VAT</label>
@@ -126,20 +139,20 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Thuế suất VAT</label>
-                                        <input type="text" name="thue_vat" value="<?= $hd_detail['thue_vat'] ?>" class="form-control thue_vat_tong" onkeyup="tong_vt()" placeholder="Nhập thuế suất VAT">
+                                        <input type="number" name="thue_vat" value="<?= $hd_detail['thue_vat'] ?>" class="form-control thue_vat_tong" onkeyup="tong_vt()" placeholder="Nhập thuế suất VAT">
                                     </div>
                                     <div class="form-group">
                                         <label>Giá trị sau VAT</label>
-                                        <input type="text" name="sau_vat" value="<?= $hd_detail['gia_tri_svat'] ?>" id="tong_sau_vat" class="form-control cr_weight h_border" readonly>
+                                        <input type="number" name="sau_vat" value="<?= $hd_detail['gia_tri_svat'] ?>" id="tong_sau_vat" class="form-control cr_weight h_border" readonly>
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Thời gian thực hiện</label>
                                         <div class="bao_hanh w_100 float_l d_flex fl_agi">
-                                            <input type="date" name="ngay_bat_dau" id="ngay_bat_dau" value="<?= $ngay_bat_dau ?>" class="gia_tri">
+                                            <input type="date" name="ngay_bat_dau" id="ngay_bat_dau" value="<?= (!empty($hd_detail['tg_bd_thuc_hien'])) ? date('Y-m-d', $hd_detail['tg_bd_thuc_hien']) : "" ?>" class="gia_tri">
                                             <span>đến</span>
-                                            <input type="date" name="ngay_ket_thuc" value="<?= $ngay_ket_thuc ?>" class="gia_tri">
+                                            <input type="date" name="ngay_ket_thuc" value="<?= (!empty($hd_detail['tg_kt_thuc_hien'])) ? date('Y-m-d', $hd_detail['tg_kt_thuc_hien']) : "" ?>" class="gia_tri">
                                         </div>
                                     </div>
                                     <div class="form-group d_flex fl_agi form_lb">
@@ -170,7 +183,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                     </div>
                                     <div class="form-group">
                                         <label>Số tài khoản</label>
-                                        <input type="text" name="so_taik" value="<?= $hd_detail['so_tk'] ?>" class="form-control" placeholder="Nhập số tài khoản">
+                                        <input type="number" name="so_taik" value="<?= $hd_detail['so_tk'] ?>" class="form-control" placeholder="Nhập số tài khoản">
                                     </div>
                                 </div>
                                 <div class="them_moi_vt w_100 float_l">
@@ -336,6 +349,11 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         baoLanh();
         baoHanh();
     });
+    $(document).on('click', '.remo_cot_ngang, .remove-btn', function() {
+        tong_vt();
+        baoLanh();
+        baoHanh();
+    })
 
     autocomplete(document.getElementById("ten_nh"), bank);
 
@@ -429,7 +447,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         });
 
         if (form_add_mua.valid() === true) {
-            var ep_id = '<?= $ep_id ?>';
+            var ep_id = '<?= $user_id ?>';
             var com_id = '<?= $comp_id ?>';
 
             var hd_id = <?= $hd_id ?>;

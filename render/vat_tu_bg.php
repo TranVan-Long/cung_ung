@@ -14,7 +14,7 @@ if(isset($id_p) && $id_p != "" && $id_ncc != ""){
     curl_setopt($curl, CURLOPT_POST, 1);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
+    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     $response = curl_exec($curl);
     curl_close($curl);
@@ -49,16 +49,16 @@ if(isset($id_p) && $id_p != "" && $id_ncc != ""){
         <input type="text" name="so_luong_yeu_cau" value="<?= $row['so_luong_yc_bg'] ?>" class="tex_center" readonly>
     </td>
     <td class="w-25">
-        <input type="text" name="so_luong_bao_gia" class="tex_center so_luong" onchange="sl_doi(this)">
+        <input type="text" name="so_luong_bao_gia" class="tex_center so_luong" onkeyup="sl_doi(this)">
     </td>
     <td class="w-25">
-        <input type="text" name="don_gia" class="tex_center don_gia" onchange="dg_doi(this)">
+        <input type="text" name="don_gia" class="tex_center don_gia" onkeyup="dg_doi(this)">
     </td>
     <td class="w-30">
         <input type="text" name="tong_truoc_vat" class="tex_center tong_trvat" readonly>
     </td>
     <td class="w-25">
-        <input type="text" name="thue_vat" class="tex_center thue_vat" onchange="thue_doi(this)">
+        <input type="text" name="thue_vat" class="tex_center thue_vat" onkeyup="thue_doi(this)" readonly>
     </td>
     <td class="w-30">
         <input type="text" name="tong_sau_vat" class="tex_center tong_svat" readonly>

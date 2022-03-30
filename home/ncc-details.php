@@ -188,7 +188,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <a href="chinh-sua-nha-cung-cap-<?= $ncc_detail['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
                     </div>
                     <div class="control-btn left mr-10">
-                        <button class="v-btn btn-green mr-20 mt-15">Xuất excel</button>
+                        <button class="v-btn btn-green mr-20 mt-15 xuat_excel" data="<?= $ncc_id ?>">Xuất excel</button>
                         <p class="v-btn"></p>
                     </div>
                 </div>
@@ -223,6 +223,12 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript">
+
+    $(".xuat_excel").click(function(){
+        var id_ncc = $(this).attr("data");
+        window.location.href = '../excel/ncc_excel.php?id_ncc=' + id_ncc;
+    });
+
     $(".delete-ncc").click(function() {
         var id = $(this).attr("data-id");
         //log record

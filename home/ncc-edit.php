@@ -65,7 +65,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 </div>
                                 <div class="form-col-50 no-border right mb_15">
                                     <label>Mã số thuế</label>
-                                    <input type="text" name="ma_so_thue" placeholder="Nhập mã số thuế" value="<?= $ncc_detail['ma_so_thue'] ?>">
+                                    <input type="number" name="ma_so_thue" placeholder="Nhập mã số thuế" value="<?= $ncc_detail['ma_so_thue'] ?>">
                                 </div>
                             </div>
                             <div class="form-row left">
@@ -91,23 +91,23 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 </div>
                                 <div class="form-col-50 no-border right mb_15">
                                     <label>Fax</label>
-                                    <input type="text" name="fax" placeholder="Nhập Fax" value="<?= $ncc_detail['fax'] ?>">
+                                    <input type="number" name="fax" placeholder="Nhập Fax" value="<?= $ncc_detail['fax'] ?>">
                                 </div>
                             </div>
                             <div class="form-row left">
                                 <div class="form-col-50 no-border left mb_15">
                                     <label>Điện thoại</label>
-                                    <input type="text" name="so_dien_thoai" placeholder="Nhập điện thoại" value="<?= $ncc_detail['so_dien_thoai'] ?>">
+                                    <input type="tel" name="so_dien_thoai" placeholder="Nhập điện thoại" value="<?= $ncc_detail['so_dien_thoai'] ?>">
                                 </div>
                                 <div class="form-col-50 no-border right mb_15">
                                     <label>Website</label>
-                                    <input type="text" name="website" placeholder="Nhập Website" value="<?= $ncc_detail['website'] ?>">
+                                    <input type="url" name="website" placeholder="Nhập Website" value="<?= $ncc_detail['website'] ?>">
                                 </div>
                             </div>
                             <div class="form-row left">
                                 <div class="form-col-50 no-border left mb_15">
                                     <label>E-mail</label>
-                                    <input type="text" name="email" placeholder="Nhập E-mail" value="<?= $ncc_detail['email'] ?>">
+                                    <input type="email" name="email" placeholder="Nhập E-mail" value="<?= $ncc_detail['email'] ?>">
                                 </div>
                             </div>
                             <div class="form-row left">
@@ -146,7 +146,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                             <div class="form-row left">
                                                 <div class="form-col-50 left mb_15">
                                                     <label>Số tài khoản<span class="text-red">&ast;</span></label>
-                                                    <input type="text" name="so_tk_old" placeholder="Nhập số tài khoản" value="<?= $ncc_detail_bank['so_tk'] ?>">
+                                                    <input type="number" name="so_tk_old" placeholder="Nhập số tài khoản" value="<?= $ncc_detail_bank['so_tk'] ?>">
                                                 </div>
                                                 <div class="form-col-50 right mb_15">
                                                     <label>Chủ tài khoản</label>
@@ -215,10 +215,10 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                             <input type="text" name="chuc_vu_old" value="<?= $ncc_detail_contact['chuc_vu'] ?>">
                                                         </td>
                                                         <td class="w-20">
-                                                            <input type="text" name="so_dien_thoai_lh_old" value="<?= $ncc_detail_contact['so_dien_thoai'] ?>">
+                                                            <input type="number" name="so_dien_thoai_lh_old" value="<?= $ncc_detail_contact['so_dien_thoai'] ?>">
                                                         </td>
                                                         <td class="w-30">
-                                                            <input type="text" name="email_lh_old" value="<?= $ncc_detail_contact['email'] ?>">
+                                                            <input type="email" name="email_lh_old" value="<?= $ncc_detail_contact['email'] ?>">
                                                         </td>
                                                     </tr>
                                                     <div class="modal text-center" id="remove-contact-<?= $ncc_detail_contact['id'] ?>">
@@ -361,16 +361,29 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             var so_tk_old = new Array();
             var chu_tk_old = new Array();
             $("input[name='id_ngan_hang_old']").each(function() {
-                id_ngan_hang_old.push($(this).val());
+                var id_nh_o = $(this).val();
+                if (id_nh_o != "") {
+                    id_ngan_hang_old.push(id_nh_o);
+                }
             })
             $("input[name='ten_ngan_hang_old']").each(function() {
-                ten_ngan_hang_old.push($(this).val());
+                var ten_nh_o = $(this).val();
+                if (ten_nh_o != "") {
+                    ten_ngan_hang_old.push(ten_nh_o);
+                }
             });
             $("input[name='ten_chi_nhanh_old']").each(function() {
-                ten_chi_nhanh_old.push($(this).val());
+                var ten_cn_o = $(this).val();
+                if (ten_cn_o != "") {
+                    ten_chi_nhanh_old.push(ten_cn_o);
+                }
+
             });
             $("input[name='so_tk_old']").each(function() {
-                so_tk_old.push($(this).val());
+                var stk_o = $(this).val();
+                if (stk_o != "") {
+                    so_tk_old.push(stk_o);
+                }
             });
             $("input[name='chu_tk_old']").each(function() {
                 chu_tk_old.push($(this).val());
@@ -383,13 +396,22 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             var chu_tk = new Array();
 
             $("input[name='ten_ngan_hang']").each(function() {
-                ten_ngan_hang.push($(this).val());
+                var ten_nh = $(this).val();
+                if (ten_nh != "") {
+                    ten_ngan_hang.push(ten_nh);
+                }
             });
             $("input[name='ten_chi_nhanh']").each(function() {
-                ten_chi_nhanh.push($(this).val());
+                var ten_cn = $(this).val();
+                if (ten_cn != "") {
+                    ten_chi_nhanh.push(ten_cn);
+                }
             });
             $("input[name='so_tk']").each(function() {
-                so_tk.push($(this).val());
+                var stk_n = $(this).val();
+                if (stk_n != "") {
+                    so_tk.push(stk_n);
+                }
             });
             $("input[name='chu_tk']").each(function() {
                 chu_tk.push($(this).val());
@@ -402,19 +424,35 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             var so_dien_thoai_lh_old = new Array();
             var email_lh_old = new Array();
             $("input[name='id_nguoi_lh_old']").each(function() {
-                id_nguoi_lh_old.push($(this).val());
+                var nlh_o = $(this).val();
+                if (nlh_o != "") {
+                    id_nguoi_lh_old.push(nlh_o);
+                }
             })
             $("input[name='ten_nguoi_lh_old']").each(function() {
-                ten_nguoi_lh_old.push($(this).val());
+                var ten_nlh_o = $(this).val();
+                if (ten_nlh_o != "") {
+                    ten_nguoi_lh_old.push(ten_nlh_o);
+                }
+
             });
             $("input[name='chuc_vu_old']").each(function() {
-                chuc_vu_old.push($(this).val());
+                var chuc_vu_nlh_o = $(this).val();
+                if (chuc_vu_nlh_o != "") {
+                    chuc_vu_old.push(chuc_vu_nlh_o);
+                }
             });
             $("input[name='so_dien_thoai_lh_old']").each(function() {
-                so_dien_thoai_lh_old.push($(this).val());
+                var sdt_lh_o = $(this).val();
+                if (sdt_lh_o != "") {
+                    so_dien_thoai_lh_old.push(sdt_lh_o);
+                }
             });
             $("input[name='email_lh_old']").each(function() {
-                email_lh_old.push($(this).val());
+                var mail_lh_o = $(this).val();
+                if (mail_lh_o != "") {
+                    email_lh_old.push(mail_lh_o);
+                }
             });
 
             // nguoi lien he moi
@@ -424,16 +462,28 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             var email_lh = new Array();
 
             $("input[name='ten_nguoi_lh']").each(function() {
-                ten_nguoi_lh.push($(this).val());
+                var ten_nlh = $(this).val();
+                if (ten_nlh != "") {
+                    ten_nguoi_lh.push(ten_nlh);
+                }
             });
             $("input[name='chuc_vu']").each(function() {
-                chuc_vu.push($(this).val());
+                var chuc_vu_nlh = $(this).val();
+                if (chuc_vu_nlh != "") {
+                    chuc_vu.push(chuc_vu_nlh);
+                }
             });
             $("input[name='so_dien_thoai_lh']").each(function() {
-                so_dien_thoai_lh.push($(this).val());
+                var sdt_lh = $(this).val();
+                if (sdt_lh != "") {
+                    so_dien_thoai_lh.push(sdt_lh);
+                }
             });
             $("input[name='email_lh']").each(function() {
-                email_lh.push($(this).val());
+                var mail_lh = $(this).val();
+                if (mail_lh != "") {
+                    email_lh.push(mail_lh);
+                }
             });
 
             //get user id

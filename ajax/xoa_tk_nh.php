@@ -1,7 +1,7 @@
 <?
 
 include("config.php");
-$id = $_POST['id'];
+$id = getValue('id', 'int', 'POST', '');
 
 $xoa_tk = new db_query("DELETE FROM `tai_khoan` WHERE  `id` = '$id' ");
 if(isset($xoa_tk)){

@@ -1,14 +1,96 @@
 <?php
-include "../includes/icon.php";
+include("../includes/icon.php");
+include("config.php");
+
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 1) {
+        $com_id = $_SESSION['com_id'];
+    } else if ($_COOKIE['role'] == 2) {
+        $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `phieu_tt` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $phieu_tt = explode(',', $item_nv['phieu_tt']);
+            if (in_array(1, $phieu_tt) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+    }
+};
+
+isset($_GET['page']) ? $page = $_GET['page'] : $page = 1;
+isset($_GET['ht']) ? $ht = $_GET['ht'] : $ht = 10;
+isset($_GET['tk']) ? $tk = $_GET['tk'] : $tk = "";
+isset($_GET['tk_ct']) ? $tk_ct = $_GET['tk_ct'] : $tk_ct = "";
+
+if ($tk != "" && $tk_ct != "") {
+    $urll = '/quan-ly-phieu-thanh-toan.html?ht=' . $ht . '&tk=' . $tk . '&tk_ct=' . $tk_ct;
+} else if ($tk != "" && $tk_ct == "") {
+    $urll = '/quan-ly-phieu-thanh-toan.html?ht=' . $ht . '&tk=' . $tk;
+    $cou = new db_query("SELECT COUNT(`id`) AS total FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id ");
+} else if ($tk == "" && $tk_ct == "") {
+    $urll = '/quan-ly-phieu-thanh-toan.html?ht=' . $ht;
+    $cou = new db_query("SELECT COUNT(`id`) AS total FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id ");
+};
+
+$start = ($page - 1) * $ht;
+$start = abs($start);
+
+$list_phieu = "SELECT p.`id`, p.`id_hd_dh`, p.`id_ncc_kh`, p.`loai_phieu_tt`, p.`ngay_thanh_toan`, p.`loai_thanh_toan`, p.`so_tien_tam_ung`, p.`phan_loai`, n.`ten_nha_cc_kh`
+                FROM `phieu_thanh_toan` AS p INNER JOIN `nha_cc_kh` AS n ON p.`id_ncc_kh` = n.`id`
+                WHERE p.`id_cong_ty` = $com_id  ";
+
+if ($tk_ct != "") {
+    if ($tk == 1) {
+        $sql = "AND p.`id` = $tk_ct ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `id` = $tk_ct ");
+    } else if ($tk == 2) {
+        $sql = "AND p.`loai_thanh_toan` = $tk_ct ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_thanh_toan` = $tk_ct ");
+    } else if ($tk == 3) {
+        $sql = "AND p.`id_ncc_kh` = $tk_ct ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `id_ncc_kh` = $tk_ct ");
+    } else if ($tk == 4) {
+        $sql = "AND p.`id_hd_dh` = $tk_ct AND p.`loai_phieu_tt` = 1 ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `id_hd_dh` = $tk_ct AND `loai_phieu_tt` = 1 ");
+    } else if ($tk == 5) {
+        $sql = "AND p.`id_hd_dh` = $tk_ct AND p.`loai_phieu_tt` = 2 ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `id_hd_dh` = $tk_ct AND `loai_phieu_tt` = 2 ");
+    }
+};
+
+$total = mysql_fetch_assoc($cou->result)['total'];
+
+$limit = "LIMIT $start, $ht ";
+
+$list_phieu .= $sql;
+$list_phieu .= $limit;
+
+$all_phieu = new db_query($list_phieu);
+
+$all_ploai = array(
+    1 => 'Hợp đồng mua vật tư',
+    2 => 'Hợp đồng bán vật tư',
+    3 => 'Hợp đồng thuê thiết bị',
+    4 => 'Hợp đồng thuê vận chuyển',
+    5 => 'Đơn hàng mua vật tư',
+    6 => 'Đơn hàng bán vật tư',
+);
+
+$stt = 1;
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Phiếu thanh toán</title>
-    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
 
     <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -42,21 +124,58 @@ include "../includes/icon.php";
                 <div class="c-body mt_20">
                     <div class="filter1">
                         <div class="add_hopd ml_20">
-                            <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">&plus; Thêm mới</p>
+                            <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+                                <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">&plus; Thêm mới</p>
+                                <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                                if (in_array(2, $phieu_tt)) { ?>
+                                    <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">&plus; Thêm mới</p>
+                            <? }
+                            } ?>
                         </div>
                         <div class="form_tkiem d_flex">
                             <div class="share_form_select category">
                                 <select name="category" class="tim_kiem">
                                     <option value="">Tìm kiếm theo</option>
-                                    <option value="1">Hợp đồng mua vật tư</option>
-                                    <option value="2">Hợp đồng bán vật tư</option>
-                                    <option value="3">Hợp đồng thuê thiết bị</option>
-                                    <option value="4">Hợp đồng thuê vận chuyển</option>
+                                    <option value="1" <?= ($tk == 1) ? "selected" : "" ?>>Số phiếu thanh toán</option>
+                                    <option value="2" <?= ($tk == 2) ? "selected" : "" ?>>Loại thanh toán</option>
+                                    <option value="3" <?= ($tk == 3) ? "selected" : "" ?>>Nhà cung cấp / Khách hàng</option>
+                                    <option value="4" <?= ($tk == 4) ? "selected" : "" ?>>Hợp đồng</option>
+                                    <option value="5" <?= ($tk == 5) ? "selected" : "" ?>>Đơn hàng</option>
                                 </select>
                             </div>
                             <div class="share_form_select search-box">
-                                <select name="search" class="tim_kiem_o">
+                                <select name="search" class="tim_kiem_ct">
                                     <option value="">Nhập thông tin cần tìm kiếm</option>
+                                    <? if ($tk == 1) {
+                                        $list_ph = new db_query("SELECT `id` FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id ");
+                                        while ($row = mysql_fetch_assoc($list_ph->result)) {
+                                    ?>
+                                            <option value="<?= $row['id'] ?>" <?= ($tk_ct == $row['id']) ? "selected" : "" ?>>PH - <?= $row['id'] ?></option>
+                                        <? }
+                                    } else if ($tk == 2) { ?>
+                                        <option value="1" <?= ($tk_ct == 1) ? "selected" : "" ?>>Tạm ứng</option>
+                                        <option value="2" <?= ($tk_ct == 2) ? "selected" : "" ?>>Theo hợp đồng</option>
+                                        <? } else if ($tk == 3) {
+                                        $list_ncc_kh = new db_query("SELECT DISTINCT p.`id_ncc_kh`, n.`ten_nha_cc_kh` FROM `phieu_thanh_toan` AS p
+                                                                    INNER JOIN `nha_cc_kh` AS n ON p.`id_ncc_kh` = n.`id`
+                                                                    WHERE p.`id_cong_ty` = $com_id ");
+                                        while ($row1 = mysql_fetch_assoc($list_ncc_kh->result)) {
+                                        ?>
+                                            <option value="<?= $row1['id_ncc_kh'] ?>" <?= ($tk_ct == $row1['id_ncc_kh']) ? "selected" : "" ?>><?= $row1['ten_nha_cc_kh'] ?></option>
+                                        <? }
+                                    } else if ($tk == 4) {
+                                        $list_hd = new db_query("SELECT `id_hd_dh` FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_phieu_tt` = 1 ");
+                                        while ($row2 = mysql_fetch_assoc($list_hd->result)) {
+                                        ?>
+                                            <option value="<?= $row2['id_hd_dh'] ?>" <?= ($tk_ct == $row2['id_hd_dh']) ? "selected" : "" ?>>HĐ - <?= $row2['id_hd_dh'] ?></option>
+                                        <? }
+                                    } else if ($tk == 5) {
+                                        $list_dh = new db_query("SELECT `id_hd_dh` FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_phieu_tt` = 2 ");
+                                        while ($row3 = mysql_fetch_assoc($list_dh->result)) {
+                                        ?>
+                                            <option value="<?= $row3['id_hd_dh'] ?>" <?= ($tk_ct == $row3['id_hd_dh']) ? "selected" : "" ?>>ĐH - <?= $row3['id_hd_dh'] ?></option>
+                                    <? }
+                                    } ?>
                                 </select>
                             </div>
                         </div>
@@ -64,8 +183,8 @@ include "../includes/icon.php";
 
                     <div class="c-content">
                         <div class="ctn_table_share w_100 float_l">
-                            <span class="scroll_left share_cursor"><img src="../img/right_scroll.png" alt="scroll về bên trái"></span>
-                            <div class="share_tb_hd w_100 float_l">
+                            <span class="scroll_left share_cursor share_dnone" onclick="pre_sc(this)"><img src="../img/right_scroll.png" alt="scroll về bên trái"></span>
+                            <div class="share_tb_hd w_100 float_l" onscroll="table_scroll_sc(this)">
                                 <table class="table w_100 float_l">
                                     <thead>
                                         <tr>
@@ -76,7 +195,7 @@ include "../includes/icon.php";
                                             <th class="share_tb_two" rowspan="2">Hợp đồng / Đơn hàng</th>
                                             <th class="share_tb_three" rowspan="2">Nhà cung cấp / Khách hàng</th>
                                             <th class="share_tb_two" rowspan="2">Loại hợp đồng</th>
-                                            <th class="share_tb_six sh_bor_b" colspan="3">Số tiền</th>
+                                            <th class="share_tb_six sh_bor_b" colspan="3">Số tiền (VNĐ)</th>
                                         </tr>
                                         <tr>
                                             <th class="share_tb_two">Tạm ứng</th>
@@ -85,82 +204,46 @@ include "../includes/icon.php";
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><a href="chi-tiet-phieu-thanh-toan-tam-ung.html" class="share_clr_four">PH - 0001</a></td>
-                                            <td>Tạm ứng</td>
-                                            <td>10/11/2021</td>
-                                            <td>ĐH - 0001</td>
-                                            <td>Công ty A</td>
-                                            <td>Hợp đồng mua vật tư</td>
-                                            <td>200.000</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><a href="chi-tiet-phieu-thanh-toan.html" class="share_clr_four">PH - 0001</a></td>
-                                            <td>Theo hợp đồng</td>
-                                            <td>10/11/2021</td>
-                                            <td>HĐ - 0001</td>
-                                            <td>Công ty A</td>
-                                            <td>Hợp đồng mua vật tư</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>3.000.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><a href="#">PH - 0001</a></td>
-                                            <td>Tạm ứng</td>
-                                            <td>10/11/2021</td>
-                                            <td>ĐH - 0001</td>
-                                            <td>Công ty A</td>
-                                            <td>Hợp đồng mua vật tư</td>
-                                            <td>200.000</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><a href="#">PH - 0001</a></td>
-                                            <td>Theo hợp đồng</td>
-                                            <td>10/11/2021</td>
-                                            <td>HĐ - 0001</td>
-                                            <td>Công ty A</td>
-                                            <td>Hợp đồng mua vật tư</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>3.000.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><a href="#">PH - 0001</a></td>
-                                            <td>Tạm ứng</td>
-                                            <td>10/11/2021</td>
-                                            <td>ĐH - 0001</td>
-                                            <td>Công ty A</td>
-                                            <td>Hợp đồng mua vật tư</td>
-                                            <td>200.000</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><a href="#">PH - 0001</a></td>
-                                            <td>Theo hợp đồng</td>
-                                            <td>10/11/2021</td>
-                                            <td>HĐ - 0001</td>
-                                            <td>Công ty A</td>
-                                            <td>Hợp đồng mua vật tư</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>3.000.000</td>
-                                        </tr>
+                                        <? while ($item1 = mysql_fetch_assoc($all_phieu->result)) { ?>
+                                            <tr>
+                                                <td><?= $stt++ ?></td>
+                                                <? if ($item1['loai_thanh_toan'] == 1) { ?>
+                                                    <td><a href="chi-tiet-phieu-thanh-toan-tam-ung-<?= $item1['id'] ?>.html" class="share_clr_four cr_weight">PH - <?= $item1['id'] ?></a></td>
+                                                    <td>Tạm ứng</td>
+                                                <? } else if ($item1['loai_thanh_toan'] == 2) { ?>
+                                                    <td><a href="chi-tiet-phieu-thanh-toan-<?= $item1['id'] ?>.html" class="share_clr_four cr_weight">PH - <?= $item1['id'] ?></a></td>
+                                                    <td>Theo hợp đồng</td>
+                                                <? } ?>
+                                                <td><?= ($item1['ngay_thanh_toan'] != 0) ? date('d/m/Y', $item1['ngay_thanh_toan']) : "" ?></td>
+                                                <? if ($item1['loai_phieu_tt'] == 1) { ?>
+                                                    <td>HĐ - <?= $item1['id_hd_dh'] ?></td>
+                                                <? } else if ($item1['loai_phieu_tt'] == 2) { ?>
+                                                    <td>ĐH - <?= $item1['id_hd_dh'] ?></td>
+                                                <? } ?>
+                                                <td><?= $item1['ten_nha_cc_kh'] ?></td>
+                                                <td><?= $all_ploai[$item1['phan_loai']] ?></td>
+                                                <? if ($item1['loai_thanh_toan'] == 1) { ?>
+                                                    <td><?= ($item1['so_tien_tam_ung'] != 0) ? number_format($item1['so_tien_tam_ung']) : "" ?></td>
+                                                <? } else if ($item1['loai_thanh_toan'] == 2) { ?>
+                                                    <td></td>
+                                                <? } ?>
+
+                                                <td></td>
+
+                                                <? if ($item1['loai_thanh_toan'] == 2) {
+                                                    $id_ph = $item1['id'];
+                                                    $da_thanh_toan = mysql_fetch_assoc((new db_query("SELECT `id_phieu_tt`, `da_thanh_toan` FROM `chi_tiet_phieu_tt_vt` WHERE `id_cong_ty` = $com_id AND `id_phieu_tt` = $id_ph "))->result)['da_thanh_toan'];
+                                                ?>
+                                                    <td><?= $da_thanh_toan ?></td>
+                                                <? } else if ($item1['loai_thanh_toan'] == 1) { ?>
+                                                    <td></td>
+                                                <? } ?>
+                                            </tr>
+                                        <? } ?>
                                     </tbody>
                                 </table>
                             </div>
-                            <span class="scroll_right share_cursor"><img src="../img/right_scroll.png" alt="scroll về bên phải"></span>
+                            <span class="scroll_right share_cursor" onclick="next_sc(this)"><img src="../img/right_scroll.png" alt="scroll về bên phải"></span>
                         </div>
                     </div>
                 </div>
@@ -168,26 +251,20 @@ include "../includes/icon.php";
                     <div class="display d_flex fl_agi">
                         <label for="display" class="mr_10">Hiển thị</label>
                         <select name="display" id="display">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
+                            <option value="10" <?= ($ht == 10) ? 'selected' : '' ?>>10</option>
+                            <option value="20" <?= ($ht == 20) ? 'selected' : '' ?>>20</option>
                         </select>
                     </div>
                     <div class="pagination mt_10">
                         <ul>
-                            <li><a href="#">&lt;</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">&gt;</a></li>
+                            <?= generatePageBar3('', $page, $ht, $total, $urll, '&', '', 'active', 'preview', '<', 'next', '>', '', '<<<', '', '>>>'); ?>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <?php include "../modals/modal_logout.php"?>
+    <?php include "../modals/modal_logout.php" ?>
     <? include("../modals/modal_menu.php") ?>
 
 </body>
@@ -195,40 +272,65 @@ include "../includes/icon.php";
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
-$(".tim_kiem, .tim_kiem_o").select2({
-    width: '100%',
-});
+    $(".tim_kiem, .tim_kiem_ct").select2({
+        width: '100%',
+    });
 
-$(".add_creart_hd").click(function(){
-    window.location.href = "them-phieu-thanh-toan.html";
-});
+    $(".add_creart_hd").click(function() {
+        window.location.href = "them-phieu-thanh-toan.html";
+    });
 
-$('.scroll_right').click(function (e) {
-    e.preventDefault();
-    $('.share_tb_hd').animate({
-        scrollLeft: "+=300px"
-    }, "slow");
-});
+    // $('.scroll_right').click(function(e) {
+    //     e.preventDefault();
+    //     $('.share_tb_hd').animate({
+    //         scrollLeft: "+=300px"
+    //     }, "slow");
+    // });
 
-$('.scroll_left').click(function (e) {
-    e.preventDefault();
-    $('.share_tb_hd').animate({
-        scrollLeft: "-=300px"
-    }, "slow");
-});
+    // $('.scroll_left').click(function(e) {
+    //     e.preventDefault();
+    //     $('.share_tb_hd').animate({
+    //         scrollLeft: "-=300px"
+    //     }, "slow");
+    // });
 
-var add_creart_hd = $(".add_creart_hd");
-var all_hopd = $(".all_hopd");
+    $(".tim_kiem").change(function() {
+        var tk = $(this).val();
+        var page = 1;
+        var ht = $("#display").val();
+        if (tk != "") {
+            window.location.href = '/quan-ly-phieu-thanh-toan.html?ht=' + ht + '&page=' + page + '&tk=' + tk;
+        } else if (tk == "") {
+            window.location.href = '/quan-ly-phieu-thanh-toan.html?ht=' + ht + '&page=' + page;
+        }
+    });
 
-$(".add_creart_hd").click(function(){
-    $(".all_hopd").toggleClass("active");
-})
+    $(".tim_kiem_ct").change(function() {
+        var tk_ct = $(this).val();
+        var tk = $(".tim_kiem").val();
+        var page = 1;
+        var ht = $("#display").val();
+        if (tk_ct != "") {
+            window.location.href = '/quan-ly-phieu-thanh-toan.html?ht=' + ht + '&page=' + page + '&tk=' + tk + '&tk_ct=' + tk_ct;
+        } else if (tk_ct == "") {
+            window.location.href = '/quan-ly-phieu-thanh-toan.html?ht=' + ht + '&page=' + page + '&tk=' + tk;
+        }
+    });
 
-$(window).click(function(e){
-    if(!add_creart_hd.is(e.target) && !all_hopd.is(e.target) && add_creart_hd.has(e.target).length == 0){
-        all_hopd.removeClass("active");
-    }
-})
+    $("#display").change(function() {
+        var ht = $(this).val();
+        var tk = (".tim_kiem").val();
+        var tk_ct = $(".tim_kiem_ct").val();
+        var page = 1;
+
+        if (tk != "" && tk_ct != "") {
+            window.location.href = '/quan-ly-phieu-thanh-toan.html?ht=' + ht + '&page=' + page + '&tk=' + tk + '&tk_ct=' + tk_ct;
+        } else if (tk != "" && tk_ct == "") {
+            window.location.href = '/quan-ly-phieu-thanh-toan.html?ht=' + ht + '&page=' + page + '&tk=' + tk;
+        } else if (tk == "" && tk_ct == "") {
+            window.location.href = '/quan-ly-phieu-thanh-toan.html?ht=' + ht + '&page=' + page;
+        }
+    });
 </script>
 
 </html>

@@ -1,7 +1,7 @@
 <?
 include("config.php");
 
-$com_id = $_POST['id_com'];
+$com_id = getValue('id_com', 'int', 'POST', '');
 
 $curl = curl_init();
 $data = array(
@@ -10,7 +10,7 @@ $data = array(
 curl_setopt($curl, CURLOPT_POST, 1);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 $response = curl_exec($curl);
 curl_close($curl);

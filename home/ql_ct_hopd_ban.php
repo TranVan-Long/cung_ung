@@ -9,54 +9,68 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 
     $ncc_id = $hd_detail['id_nha_cc_kh'];
     $ncc = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh` FROM nha_cc_kh WHERE `id` = $ncc_id"))->result);
-
-    $ep_name = $_SESSION['ep_name'];
-    $ep_id = $_SESSION['ep_id'];
 }
-if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
-    $curl = curl_init();
-    $token = $_COOKIE['acc_token'];
-    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $data_list = json_decode($response, true);
-    $data_list_nv = $data_list['data']['items'];
 
-    foreach ($data_list_nv as $key => $items) {
-        $user_name = $items['ep_name'];
-        $dept_id    = $items['dep_id'];
-        $dept_name  = $items['dep_name'];
-        $comp_id = $items['com_id'];
-    }
-    $curl = curl_init();
-    $data = array(
-        'id_com' => $comp_id,
-    );
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $list_vt = json_decode($response, true);
-    $vat_tu_data = $list_vt['data']['items'];
 
-    $vat_tu_detail = [];
-    for ($i = 0; $i < count($vat_tu_data); $i++) {
-        $items_vt = $vat_tu_data[$i];
-        $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 1) {
+        $com_id = $_SESSION['com_id'];
+        $user_id = $_SESSION['com_id'];
+        $com_name = $_SESSION['com_name'];
+    } else if ($_COOKIE['role'] == 2) {
+        $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+        $com_name = $_SESSION['com_name'];
+
+        $curl = curl_init();
+        $token = $_COOKIE['acc_token'];
+        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data_list = json_decode($response, true);
+        $data_list_nv = $data_list['data']['items'];
+        $count = count($data_list_nv);
+
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $hop_dong = explode(',', $item_nv['hop_dong']);
+            if (in_array(1, $hop_dong) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
     }
 }
-// echo "<pre>";
-// print_r($vat_tu_detail);
-// echo "</pre>";
-// die();
+
+
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_vt = json_decode($response, true);
+$vat_tu_data = $list_vt['data']['items'];
+
+$vat_tu_detail = [];
+for ($i = 0; $i < count($vat_tu_data); $i++) {
+    $items_vt = $vat_tu_data[$i];
+    $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
+}
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -94,8 +108,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                     <p class="cr_weight share_fsize_tow share_clr_one">HĐ - <?= $hd_id ?></p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
-                                    <p class="ten_ctiet share_fsize_tow share_clr_one">Ngày hợp đồng</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= date('d/m/Y', $hd_detail['ngay_ky_hd']) ?></p>
+                                    <p class="ten_ctiet share_fsize_tow share_clr_one">Ngày ký hợp đồng</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= (!empty($hd_detail['ngay_ky_hd'])) ? date('d/m/Y', $hd_detail['ngay_ky_hd']) : "" ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
@@ -129,7 +143,12 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thời gian thực hiện</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= date('d/m/Y', $hd_detail['tg_bd_thuc_hien']) ?> - <?= date('d/m/Y', $hd_detail['tg_kt_thuc_hien']) ?></p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one">
+                                        <?
+                                        if (($hd_detail['tg_bd_thuc_hien'] != 0 || !empty($hd_detail['tg_bd_thuc_hien'])) && ($hd_detail['tg_kt_thuc_hien'] != 0 || !empty($hd_detail['tg_kt_thuc_hien']))) { ?>
+                                            <?= date('d/m/Y', $hd_detail['tg_bd_thuc_hien']) ?> - <?= date('d/m/Y', $hd_detail['tg_kt_thuc_hien']) ?>
+                                        <? } ?>
+                                    </p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Giá trị sau VAT</p>
@@ -214,15 +233,29 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                             </div>
                         </div>
                         <div class="xuat_gmc w_100 float_l">
-                            <div class="xuat_gmc_two share_xuat_gmc d_flex mb_10 right">
-                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">Xóa</p>
-                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                    <a href="chinh-sua-hop-dong-ban-<?= $hd_id?>.html" class="share_clr_tow">Chỉnh sửa</a>
-                                </p>
-                            </div>
+                            <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+                                <div class="xuat_gmc_two share_xuat_gmc d_flex mb_10 right">
+                                    <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">Xóa</p>
+                                    <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
+                                        <a href="chinh-sua-hop-dong-ban-<?= $hd_id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
+                                    </p>
+                                </div>
+                            <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                            ?>
+                                <div class="xuat_gmc_two share_xuat_gmc d_flex mb_10 right">
+                                    <? if (in_array(4, $hop_dong)) { ?>
+                                        <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">Xóa</p>
+                                    <? }
+                                    if (in_array(3, $hop_dong)) { ?>
+                                        <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
+                                            <a href="chinh-sua-hop-dong-ban-<?= $hd_id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
+                                        </p>
+                                    <? } ?>
+                                </div>
+                            <? } ?>
                             <div class="xuat_gmc_one share_xuat_gmc d_flex left mb_10 mr_10">
-                                <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight">Xuất Excel</p>
-                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_clr_four ml_20">Gửi mail</p>
+                                <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight xuat_excel" data=<?= $hd_id ?>>Xuất Excel</p>
+                                <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_clr_four ml_20 gui_mail" data1="<?= $hd_id ?>" data2="<?= $com_id ?>" data3="<?= $com_name ?>">Gửi mail</p>
                             </div>
                         </div>
                     </div>
@@ -279,7 +312,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     $(".xoa_hd_ban").click(function() {
         var id = $(this).attr("data-id");
         //log record
-        var ep_id = '<?= $ep_id ?>';
+        var ep_id = '<?= $user_id ?>';
         var hd_id = '<?= $hd_id ?>';
         var loai = "bán vật tư"
         $.ajax({
@@ -299,6 +332,34 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                 }
             }
         });
+    });
+    $(".gui_mail").click(function() {
+        var id = $(this).attr("data1");
+        var com_id = $(this).attr("data2");
+        var com_name = $(this).attr("data3");
+
+        $.ajax({
+            url: '../ajax/gui_mail_hdbvt.php',
+            type: 'POST',
+            data: {
+                id: id,
+                com_id: com_id,
+                com_name: com_name,
+            },
+            success: function(data) {
+                if (data == "") {
+                    alert("Gửi email thành công.");
+                    window.location.reload();
+                } else {
+                    alert(data);
+                }
+            }
+
+        })
+    });
+    $(".xuat_excel").click(function() {
+        var id = $(this).attr("data");
+        window.location.href = '../excel/hd_ban_excel.php?id=' + id;
     });
 </script>
 

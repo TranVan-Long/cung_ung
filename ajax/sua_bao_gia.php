@@ -1,10 +1,10 @@
 <?
 
 include("config.php");
-$com_id = $_POST['com_id'];
-$id_bao_gia = $_POST['id_bao_gia'];
-$id_ncc = $_POST['id_ncc'];
-$id_phieu_yc = $_POST['id_phieu_yc'];
+$com_id = getValue('com_id', 'int', 'POST', '');
+$id_bao_gia = getValue('id_bao_gia', 'int', 'POST', '');
+$id_ncc = getValue('id_ncc', 'int', 'POST', '');
+$id_phieu_yc = getValue('id_phieu_yc', 'int', 'POST', '');
 
 if($_POST['ngay_bd'] != ""){
     $ngay_bd = strtotime($_POST['ngay_bd']);

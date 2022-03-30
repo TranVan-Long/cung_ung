@@ -1,14 +1,82 @@
 <?php
-include "../includes/icon.php";
+include("../includes/icon.php");
+include("config.php");
+
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 1) {
+        $com_id = $_SESSION['com_id'];
+        $com_name = $_SESSION['com_name'];
+    } else if ($_COOKIE['role'] == 2) {
+        $com_id = $_SESSION['user_com_id'];
+        $com_name = $_SESSION['com_name'];
+        $user_id = $_SESSION['ep_id'];
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `ho_so_tt` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $hs_tt = explode(',', $item_nv['ho_so_tt']);
+            if (in_array(1, $hs_tt) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+    }
+};
+
+isset($_GET['page']) ? $page = $_GET['page'] : $page = 1;
+isset($_GET['ht']) ? $ht = $_GET['ht'] : $ht = 10;
+isset($_GET['tk']) ? $tk = $_GET['tk'] : $tk = "";
+isset($_GET['tk_ct']) ? $tk_ct = $_GET['tk_ct'] : $tk_ct = "";
+
+if ($tk != "" && $tk_ct != "") {
+    $urll = '/quan-ly-ho-so-thanh-toan.html?ht=' . $ht . '&tk=' . $tk . '&tk_ct=' . $tk_ct;
+} else if ($tk != "" && $tk_ct == "") {
+    $urll = '/quan-ly-ho-so-thanh-toan.html?ht=' . $ht . '&tk=' . $tk;
+    $cou = new db_query("SELECT COUNT(`id`) AS total FROM `ho_so_thanh_toan` WHERE `id_cong_ty` = $com_id ");
+} else if ($tk == "" && $tk_ct == "") {
+    $urll = '/quan-ly-ho-so-thanh-toan.html?ht=' . $ht;
+    $cou = new db_query("SELECT COUNT(`id`) AS total FROM `ho_so_thanh_toan` WHERE `id_cong_ty` = $com_id ");
+}
+
+$start = ($page - 1) * $ht;
+$start = abs($start);
+
+$list_hs = "SELECT `id`, `loai_hs`, `id_hd_dh`, `dot_nghiem_thu`, `tg_nghiem_thu`, `thoi_han_thanh_toan`, `trang_thai` FROM `ho_so_thanh_toan` WHERE `id_cong_ty` = $com_id ";
+
+if ($tk_ct != "") {
+    if ($tk == 1) {
+        $sql = "AND `id` = $tk_ct ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `ho_so_thanh_toan` WHERE `id_cong_ty` = $com_id AND `id` = $tk_ct ");
+    } else if ($tk == 2) {
+        $sql = "AND `id_hd_dh` = $tk_ct AND `loai_hs` = 1 ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `ho_so_thanh_toan` WHERE `id_cong_ty` = $com_id AND `id_hd_dh` = $tk_ct AND `loai_hs` = 1 ");
+    } else if ($tk == 3) {
+        $sql = "AND `id_hd_dh` = $tk_ct AND `loai_hs` = 2 ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `ho_so_thanh_toan` WHERE `id_cong_ty` = $com_id AND `id_hd_dh` = $tk_ct AND `loai_hs` = 2 ");
+    } else if ($tk == 4) {
+        $sql = "AND `loai_hs` = $tk_ct ";
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `ho_so_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_hs` = $tk_ct ");
+    }
+};
+
+$total = mysql_fetch_assoc($cou->result)['total'];
+
+$limit = "LIMIT $start, $ht";
+
+$list_hs .= $sql;
+$list_hs .= $limit;
+
+$all_hs = new db_query($list_hs);
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quản lý hồ sơ thanh toán</title>
-    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon"/>
+    <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
 
     <link rel="preload" href="../fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href="../fonts/Roboto-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -42,21 +110,50 @@ include "../includes/icon.php";
                 <div class="c-body mt_20">
                     <div class="filter1">
                         <div class="add_hopd ml_20">
-                            <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">&plus; Thêm mới</p>
+                            <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+                                <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">&plus; Thêm mới</p>
+                                <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                                if (in_array(1, $hs_tt)) { ?>
+                                    <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">&plus; Thêm mới</p>
+                            <? }
+                            } ?>
                         </div>
 
                         <div class="form_tkiem d_flex">
                             <div class="share_form_select category">
                                 <select name="category" class="tim_kiem">
                                     <option value="">Tìm kiếm theo</option>
-                                    <option value="1">Đợt nghiệm thu</option>
-                                    <option value="2">Hợp đồng/ đơn hàng</option>
-                                    <option value="3">Trạng thái</option>
+                                    <option value="1" <?= ($tk == 1) ? "selected" : "" ?>>Đợt nghiệm thu</option>
+                                    <option value="2" <?= ($tk == 2) ? "selected" : "" ?>>Hợp đồng</option>
+                                    <option value="3" <?= ($tk == 3) ? "selected" : "" ?>>Đơn hàng</option>
+                                    <option value="4" <?= ($tk == 4) ? "selected" : "" ?>>Trạng thái</option>
                                 </select>
                             </div>
                             <div class="share_form_select search-box">
-                                <select name="search" class="tim_kiem_o">
+                                <select name="search" class="tim_kiem_tk">
                                     <option value="">Nhập thông tin cần tìm kiếm</option>
+                                    <? if ($tk == 1) {
+                                        $gia_tri = new db_query("SELECT `id`, `dot_nghiem_thu` FROM `ho_so_thanh_toan` WHERE `id_cong_ty` = $com_id ");
+                                        while ($row = mysql_fetch_assoc($gia_tri->result)) {
+                                    ?>
+                                            <option value="<?= $row['id'] ?>"><?= $row['dot_nghiem_thu'] ?></option>
+                                        <? }
+                                    } else if ($tk == 2) {
+                                        $gia_tri = new db_query("SELECT DISTINCT `id_hd_dh` FROM `ho_so_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_hs` = 1 ");
+                                        while ($row = mysql_fetch_assoc($gia_tri->result)) {
+                                        ?>
+                                            <option value="<?= $row['id_hd_dh'] ?>">HĐ - <?= $row['id_hd_dh'] ?></option>
+                                        <? }
+                                    } else if ($tk == 3) {
+                                        $gia_tri = new db_query("SELECT DISTINCT `id_hd_dh` FROM `ho_so_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_hs` = 2");
+                                        while ($row = mysql_fetch_assoc($gia_tri->result)) {
+                                        ?>
+                                            <option value="<?= $row['id_hd_dh'] ?>">ĐH - <?= $row['id_hd_dh'] ?></option>
+                                        <? }
+                                    } else if ($tk == 4) { ?>
+                                        <option value="1">Hồ sơ thanh toán hợp đồng</option>
+                                        <option value="2">Hồ sơ thanh toán đơn hàng</option>
+                                    <? } ?>
                                 </select>
                             </div>
                         </div>
@@ -84,62 +181,77 @@ include "../includes/icon.php";
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><a href="chi-tiet-ho-so-thanh-toan.html" class="share_clr_four text-500">NT-001-19835</a></td>
-                                            <td>14/10/2021</td>
-                                            <td>Công ty X</td>
-                                            <td>ĐH-001-28736</td>
-                                            <td>30/11/2021</td>
-                                            <td>11.500.000</td>
-                                            <td>450.000</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>11.500.000</td>
-                                            <td class="text-red">Chưa hoàn thành</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><a href="#" class="share_clr_four">NT-001-19835</a></td>
-                                            <td>14/10/2021</td>
-                                            <td>Công ty X</td>
-                                            <td>HĐ-001-28736</td>
-                                            <td>30/11/2021</td>
-                                            <td>11.500.000</td>
-                                            <td>450.000</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>11.500.000</td>
-                                            <td class="text-green">Hoàn thành</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><a href="#">NT-001-19835</a></td>
-                                            <td>14/10/2021</td>
-                                            <td>Công ty X</td>
-                                            <td>ĐH-001-28736</td>
-                                            <td>30/11/2021</td>
-                                            <td>11.500.000</td>
-                                            <td>450.000</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>11.500.000</td>
-                                            <td>Chưa hoàn thành</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><a href="#">NT-001-19835</a></td>
-                                            <td>14/10/2021</td>
-                                            <td>Công ty X</td>
-                                            <td>HĐ-001-28736</td>
-                                            <td>30/11/2021</td>
-                                            <td>11.500.000</td>
-                                            <td>450.000</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>11.500.000</td>
-                                            <td>Hoàn thành</td>
-                                        </tr>
+                                        <? $stt = 1;
+                                        while ($row2 = mysql_fetch_assoc($all_hs->result)) {
+                                            $id_hd_dh = $row2['id_hd_dh'];
+                                            if ($row2['loai_hs'] == 1) {
+                                                $phan_loai_hd = new db_query("SELECT h.`phan_loai`, n.`ten_nha_cc_kh` FROM `hop_dong` AS h
+                                                                                        INNER JOIN `nha_cc_kh` AS n ON h.`id_nha_cc_kh` = n.`id`
+                                                                                        WHERE h.`id` = $id_hd_dh AND h.`id_cong_ty` = $com_id ");
+                                                $ploai_hd = mysql_fetch_assoc($phan_loai_hd->result);
+                                                $loai_hd = $ploai_hd['phan_loai'];
+                                                if ($loai_hd == 1 || $loai_hd == 3 || $loai_hd == 4) {
+                                                    $dv_thuc_hien = $ploai_hd['ten_nha_cc_kh'];
+                                                } else if ($loai_hd == 2) {
+                                                    $dv_thuc_hien = $com_name;
+                                                };
+
+                                                if ($loai_hd == 1 || $loai_hd == 4) {
+                                                    $tong_tien = mysql_fetch_assoc((new db_query("SELECT  `gia_tri_bhanh`, `gia_tri_svat`
+                                                        FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `id` = $id_hd_dh "))->result);
+                                                    $gia_tri_svat = $tong_tien['gia_tri_svat'];
+                                                    $gia_tri_bhanh = $tong_tien['gia_tri_bhanh'];
+                                                } else if ($loai_hd == 2 || $loai_hd == 3) {
+                                                    $gia_tri_svat = "";
+                                                    $gia_tri_bhanh = "";
+                                                }
+                                            } else if ($row2['loai_hs'] == 2) {
+                                                $phan_loai_dh = new db_query("SELECT d.`phan_loai`, n.`ten_nha_cc_kh` FROM `don_hang` AS d
+                                                                                        INNER JOIN `nha_cc_kh` AS n ON d.`id_nha_cc_kh` = n.`id`
+                                                                                        WHERE d.`id` = $id_hd_dh AND d.`id_cong_ty` = $com_id ");
+
+                                                $ploai_dh = mysql_fetch_assoc($phan_loai_dh->result);
+
+                                                $loai_dh = $ploai_dh['phan_loai'];
+                                                if ($loai_dh == 1) {
+                                                    $dv_thuc_hien = $ploai_dh['ten_nha_cc_kh'];
+                                                } else if ($loai_dh == 2) {
+                                                    $dv_thuc_hien = $com_name;
+                                                };
+
+                                                $tong_tien = mysql_fetch_assoc((new db_query("SELECT  `giu_lai_bao_hanh`, `gia_tri_svat`
+                                                        FROM `don_hang` WHERE `id_cong_ty` = $com_id AND `id` = $id_hd_dh "))->result);
+                                                $gia_tri_svat = $tong_tien['gia_tri_svat'];
+                                                $gia_tri_bhanh = $tong_tien['giu_lai_bao_hanh'];
+                                            }
+                                        ?>
+                                            <tr>
+                                                <td><?= $stt++ ?></td>
+                                                <td>
+                                                    <a href="chi-tiet-ho-so-thanh-toan-<?= $row2['id'] ?>.html" class="share_clr_four text-500">
+                                                        <?= $row2['dot_nghiem_thu'] ?>
+                                                    </a>
+                                                </td>
+                                                <td><?= ($row2['tg_nghiem_thu'] != 0) ? date('d/m/Y', $row2['tg_nghiem_thu']) : "" ?></td>
+                                                <td><?= $dv_thuc_hien ?></td>
+                                                <? if ($row2['loai_hs'] == 1) { ?>
+                                                    <td>HĐ - <?= $row2['id_hd_dh'] ?></td>
+                                                <? } else if ($row2['loai_hs'] == 2) { ?>
+                                                    <td>ĐH - <?= $row2['id_hd_dh'] ?></td>
+                                                <? } ?>
+                                                <td><?= ($row2['thoi_han_thanh_toan'] != 0) ? date('d/m/Y', $row2['thoi_han_thanh_toan']) : "" ?></td>
+                                                <td><?= number_format($gia_tri_svat) ?></td>
+                                                <td><?= number_format($gia_tri_bhanh) ?></td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>11.500.000</td>
+                                                <? if ($row2['trang_thai'] == 1) { ?>
+                                                    <td class="text-red">Chưa hoàn thành</td>
+                                                <? } else if ($row2['trang_thai'] == 2) { ?>
+                                                    <td class="text-green">Hoàn thành</td>
+                                                <? } ?>
+                                            </tr>
+                                        <? } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -151,26 +263,20 @@ include "../includes/icon.php";
                     <div class="display d_flex fl_agi">
                         <label for="display" class="mr_10">Hiển thị</label>
                         <select name="display" id="display">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
+                            <option value="10" <?= ($ht == 10) ? "selected" : "" ?>>10</option>
+                            <option value="20" <?= ($ht == 20) ? "selected" : "" ?>>20</option>
                         </select>
                     </div>
                     <div class="pagination mt-10">
                         <ul>
-                            <li><a href="#">&lt;</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">&gt;</a></li>
+                            <?= generatePageBar3('', $page, $ht, $total, $urll, '&', '', 'active', 'preview', '<', 'next', '>', '', '<<<', '', '>>>'); ?>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <?php include "../modals/modal_logout.php"?>
+    <?php include "../modals/modal_logout.php" ?>
     <? include("../modals/modal_menu.php") ?>
 
 </body>
@@ -178,27 +284,69 @@ include "../includes/icon.php";
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
-$(".tim_kiem, .tim_kiem_o").select2({
-    width: '100%',
-});
+    $(".tim_kiem, .tim_kiem_tk").select2({
+        width: '100%',
+    });
 
-$(".add_creart_hd").click(function(){
-    window.location.href = "them-ho-so-thanh-toan.html";
-});
+    $(".add_creart_hd").click(function() {
+        window.location.href = "them-ho-so-thanh-toan.html";
+    });
 
-$('.scroll_right').click(function (e) {
-    e.preventDefault();
-    $('.share_tb_hd').animate({
-        scrollLeft: "+=300px"
-    }, "slow");
-});
+    $('.scroll_right').click(function(e) {
+        e.preventDefault();
+        $('.share_tb_hd').animate({
+            scrollLeft: "+=300px"
+        }, "slow");
+    });
 
-$('.scroll_left').click(function (e) {
-    e.preventDefault();
-    $('.share_tb_hd').animate({
-        scrollLeft: "-=300px"
-    }, "slow");
-});
+    $('.scroll_left').click(function(e) {
+        e.preventDefault();
+        $('.share_tb_hd').animate({
+            scrollLeft: "-=300px"
+        }, "slow");
+    });
+
+    $(".tim_kiem").change(function() {
+        var tk = $(this).val();
+        var tk_ct = $(".tim_kiem_tk").val();
+        var ht = $("#display").val();
+        var page = 1;
+
+        if (tk != "") {
+            window.location.href = "/quan-ly-ho-so-thanh-toan.html?page=" + page + "&ht=" + ht + "&tk=" + tk;
+        } else if (tk == "") {
+            window.location.href = "/quan-ly-ho-so-thanh-toan.html?page=" + page + "&ht=" + ht;
+        }
+    });
+
+    $(".tim_kiem_tk").change(function() {
+        var tk = $(".tim_kiem").val();
+        var tk_ct = $(this).val();
+        var ht = $("#display").val();
+        var page = 1;
+
+        if (tk_ct != "") {
+            window.location.href = "/quan-ly-ho-so-thanh-toan.html?page=" + page + "&ht=" + ht + "&tk=" + tk + "&tk_ct=" + tk_ct;
+        } else if (tk_ct == "") {
+            window.location.href = "/quan-ly-ho-so-thanh-toan.html?page=" + page + "&ht=" + ht + "&tk=" + tk;
+        }
+    });
+
+    $("#display").change(function() {
+        var tk = $(".tim_kiem").val();
+        var tk_ct = $(".tim_kiem_ct").val();
+        var ht = $(this).val();
+        var page = 1;
+
+        if (tk != "" && tk_ct != "") {
+            window.location.href = "/quan-ly-ho-so-thanh-toan.html?page=" + page + "&ht=" + ht + "&tk=" + tk + "&tk_ct=" + tk_ct;
+        } else if (tk != "" && tk_ct == "") {
+            window.location.href = "/quan-ly-ho-so-thanh-toan.html?page=" + page + "&ht=" + ht + "&tk=" + tk;
+        } else if (tk == "" && tk_ct == "") {
+            window.location.href = "/quan-ly-ho-so-thanh-toan.html?page=" + page + "&ht=" + ht;
+        }
+
+    });
 </script>
 
 </html>

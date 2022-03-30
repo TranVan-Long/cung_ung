@@ -1,51 +1,46 @@
 <?php
 include "../includes/icon.php";
 include("config.php");
-$date = date('m-d-Y', time());
-$ep_id = $_SESSION['ep_id'];
 
-if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
-    $curl = curl_init();
-    $token = $_COOKIE['acc_token'];
-    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $data_list = json_decode($response, true);
-    $data_list_nv = $data_list['data']['items'];
-
-    foreach ($data_list_nv as $key => $items) {
-        $user_name = $items['ep_name'];
-        $dept_id    = $items['dep_id'];
-        $dept_name  = $items['dep_name'];
-        $comp_id = $items['com_id'];
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 1) {
+        $com_id = $_SESSION['com_id'];
+        $user_id = $_SESSION['user_id'];
+    } else if ($_COOKIE['role'] == 2) {
+        $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['user_id'];
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $hop_dong = explode(',', $item_nv['hop_dong']);
+            if (in_array(2, $hop_dong) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
     }
-    $curl = curl_init();
-    $data = array(
-        'id_com' => $comp_id,
-    );
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php");
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $list_vt = json_decode($response, true);
-    $vat_tu_data = $list_vt['data']['items'];
-
-    $vat_tu_detail = [];
-    for ($i = 0; $i < count($vat_tu_data); $i++) {
-        $items_vt = $vat_tu_data[$i];
-        $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
-    }
-
-    // echo "<pre>";
-    // print_r($vat_tu_detail);
-    // echo "</pre>";
-    // die();
 }
+
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response1 = curl_exec($curl);
+curl_close($curl);
+$list_vt = json_decode($response1, true);
+$vat_tu_data = $list_vt['data']['items'];
+
+$vat_tu_detail = [];
+for ($i = 0; $i < count($vat_tu_data); $i++) {
+    $items_vt = $vat_tu_data[$i];
+    $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -85,7 +80,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Thêm hợp đồng bán</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form class="form_add_hp_mua share_distance w_100 float_l">
+                            <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $user_id ?>" data1="<?= $com_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Ngày ký hợp đồng <span class="cr_red">*</span></label>
@@ -101,33 +96,33 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                             $get_kh = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 2");
                                             while ($list_kh = mysql_fetch_assoc($get_kh->result)) {
                                             ?>
-                                                <option value="<?= $list_kh['id'] ?>"><?= $list_kh['ten_nha_cc_kh'] ?></option>
+                                                <option value="<?= $list_kh['id'] ?>">(<?= $list_kh['id'] ?>) <?= $list_kh['ten_nha_cc_kh'] ?></option>
                                             <? } ?>
                                         </select>
                                     </div>
                                     <div class="form-group d_flex fl_agi form_lb">
-                                        <label>Hợp đồng nguyên tắc</label>
-                                        <input type="checkbox" name="hd_nguyen_tac">
+                                        <label for="hd_nguyen_tac">Hợp đồng nguyên tắc</label>
+                                        <input type="checkbox" name="hd_nguyen_tac" id="hd_nguyen_tac">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Giá trị trước VAT</label>
-                                        <input type="text" class="form-control h_border cr_weight" name="truoc_vat" readonly>
+                                        <input type="number" class="form-control h_border cr_weight" id="tong_truoc_vat" name="truoc_vat" readonly>
                                     </div>
                                     <div class="form-group  d_flex fl_agi form_lb">
-                                        <label>Đơn giá đã bao gồm VAT</label>
-                                        <input type="checkbox" name="don_gia_vat">
+                                        <label for="don_gia_vat">Đơn giá đã bao gồm VAT</label>
+                                        <input type="checkbox" name="don_gia_vat" id="don_gia_vat">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Thuế suất VAT</label>
-                                        <input type="text" name="thue_vat" class="form-control" placeholder="Nhập thuế suất VAT">
+                                        <input type="number" name="thue_vat" class="form-control thue_vat_tong" onkeyup="tong_vt()" placeholder="Nhập thuế suất VAT">
                                     </div>
                                     <div class="form-group">
                                         <label>Giá trị sau VAT</label>
-                                        <input type="text" name="sau_vat" class="form-control h_border cr_weight" readonly>
+                                        <input type="number" name="sau_vat" id="tong_sau_vat" class="form-control h_border cr_weight" readonly>
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -140,8 +135,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                         </div>
                                     </div>
                                     <div class="form-group d_flex fl_agi form_lb">
-                                        <label>Hợp đồng đã bao gồm vận chuyển</label>
-                                        <input type="checkbox" name="bao_gom_van_chuyen">
+                                        <label for="bao_gom_van_chuyen">Hợp đồng đã bao gồm vận chuyển</label>
+                                        <input type="checkbox" name="bao_gom_van_chuyen" id="bao_gom_van_chuyen">
                                     </div>
                                 </div>
                                 <div class="form-group w_100 float_l">
@@ -163,15 +158,15 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group autocomplete">
                                         <label>Tên ngân hàng</label>
-                                        <input type="text" name="ten_nh" id="ten_nh" class="form-control" placeholder="Nhập tên ngân hàng">
+                                        <input type="text" name="ten_nh" id="ten_nh" class="form-control" placeholder="Nhập tên ngân hàng" autocomplete="off">
                                     </div>
                                     <div class="form-group ">
                                         <label>Số tài khoản</label>
-                                        <input type="text" name="so_taik" class="form-control" placeholder="Nhập số tài khoản">
+                                        <input type="number" name="so_taik" class="form-control" placeholder="Nhập số tài khoản">
                                     </div>
                                 </div>
                                 <div class="them_moi_vt w_100 float_l">
-                                    <p class="add_vat_tu cr_weight share_fsize_tow share_clr_four share_cursor">+ Thêm mới vật tư</p>
+                                    <p class="add_vat_tu cr_weight share_fsize_tow share_clr_four share_cursor" data="<?= $com_id ?>">+ Thêm mới vật tư</p>
                                     <div class="ctn_table w_100 float_l">
                                         <table class="table cate_ql_b w_100 float_l">
                                             <thead>
@@ -237,7 +232,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
             </div>
         </div>
     </div>
-    <?php include "../modals/modal_logout.php" ?>
+    <? include "../modals/modal_logout.php" ?>
     <? include("../modals/modal_menu.php") ?>
 
 </body>
@@ -246,8 +241,14 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/bank-name.js"></script>
+<script type="text/javascript" src="../js/giatri_doi.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
 
 <script>
+    $(window).on("load", function() {
+        tong_vt();
+    });
+
     $(".all_nhacc, .ten_nganhang, .ma_vatt, .ten_vatt").select2({
         width: '100%',
     });
@@ -255,51 +256,54 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     autocomplete(document.getElementById("ten_nh"), bank);
 
     $(".add_vat_tu").click(function() {
+        var id_com = $(this).attr("data");
         $.ajax({
             url: '../ajax/hd_them_vt.php',
             type: 'POST',
+            data: {
+                id_com: id_com,
+            },
             success: function(data) {
                 $("#vat_tu_thiet_bi").append(data);
+                RefSelect2();
             }
         });
     });
 
-    function hd_vt_change() {
-        $(".ma_vatt").change(function() {
-            var id_vt = $(this).val();
-            var _this = $(this);
-            var com_id = <?= $comp_id ?>;
-            $.ajax({
-                url: '../render/hd_vat_tu.php',
-                type: 'POST',
-                data: {
-                    id_vt: id_vt,
-                    com_id: com_id,
-                },
-                success: function(data) {
-                    _this.parents(".items").html(data);
-                }
-            })
+    function hd_vt_change(id) {
+        var id_vt = $(id).val();
+        var com_id = $(id).attr("data");
+        $.ajax({
+            url: '../render/hd_vat_tu.php',
+            type: 'POST',
+            data: {
+                id_vt: id_vt,
+                id_com: com_id,
+            },
+            success: function(data) {
+                $(id).parents(".item").html(data);
+                RefSelect2();
+            }
         });
-        widthSelect();
     };
 
     var cancel_add = $(".cancel_add");
     cancel_add.click(function() {
         modal_share.show();
     });
-    $(document).ready(function() {
-        $("input[name='sau_vat']").val($("input[name='truoc_vat']").val());
-        $("input[name='thue_vat']").keyup(function() {
-            var truoc_vat = Number($("input[name='truoc_vat']").val());
-            var vat = Number($(this).val());
-            $("input[name='sau_vat']").val(truoc_vat + (truoc_vat * vat) / 100);
-        });
-    });
+
+    // $(document).ready(function() {
+    //     $("input[name='sau_vat']").val($("input[name='truoc_vat']").val());
+    //     $("input[name='thue_vat']").keyup(function() {
+    //         var truoc_vat = Number($("input[name='truoc_vat']").val());
+    //         var vat = Number($(this).val());
+    //         $("input[name='sau_vat']").val(truoc_vat + (truoc_vat * vat) / 100);
+    //     });
+    // });
 
     $(".save_add").click(function() {
-        var form_add_mua = $(".form_add_hp_mua");
-        form_add_mua.validate({
+        var form_add_ban = $(".form_add_hp_mua");
+        form_add_ban.validate({
             errorPlacement: function(error, element) {
                 error.appendTo(element.parents(".form-group"));
                 error.wrap("<span class='error'>");
@@ -311,12 +315,12 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                 id_khach_hang: {
                     required: true,
                 },
-                ngay_bat_dau: {
-                    greaterThan: "#ngay_ky_hd"
-                },
-                ngay_ket_thuc: {
-                    greaterThan: "#ngay_bat_dau"
-                },
+                // ngay_bat_dau: {
+                //     greaterThan: "#ngay_ky_hd"
+                // },
+                // ngay_ket_thuc: {
+                //     greaterThan: "#ngay_bat_dau"
+                // },
             },
             messages: {
                 ngay_ky_hd: {
@@ -325,18 +329,18 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                 id_khach_hang: {
                     required: "Không được để trống.",
                 },
-                ngay_bat_dau: {
-                    greaterThan: "Không được nhỏ hơn ngày ký hợp đồng."
-                },
-                ngay_ket_thuc: {
-                    greaterThan: "Không được nhỏ hơn ngày bắt đầu."
-                },
+                // ngay_bat_dau: {
+                //     greaterThan: "Không được nhỏ hơn ngày ký hợp đồng."
+                // },
+                // ngay_ket_thuc: {
+                //     greaterThan: "Không được nhỏ hơn ngày bắt đầu."
+                // },
             },
         });
 
-        if (form_add_mua.valid() === true) {
-            var ep_id = '<?= $ep_id ?>';
-            var com_id = '<?= $comp_id ?>';
+        if (form_add_ban.valid() === true) {
+            var ep_id = $(".form_add_hp_mua").attr("data");
+            var com_id = $(".form_add_hp_mua").attr("data1");
 
             var ngay_ky_hd = $("input[name='ngay_ky_hd'").val();
             var id_khach_hang = $("select[name='id_khach_hang']").val();
@@ -365,21 +369,21 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
             var so_taik = $("input[name='so_taik']").val();
 
             var vt_vat_tu = new Array();
-            $("select[name='vt_ma_vatt']").each(function() {
+            $("select[name='ma_vt_ban']").each(function() {
                 var ten_vat_tu = $(this).val();
                 if (ten_vat_tu != "") {
                     vt_vat_tu.push(ten_vat_tu);
                 }
             });
             var vt_so_luong = new Array();
-            $("input[name='vt_so-luong']").each(function() {
+            $("input[name='so_luong']").each(function() {
                 var sl_vt = $(this).val();
                 if (sl_vt != "") {
                     vt_so_luong.push(sl_vt);
                 }
             });
             var vt_don_gia = new Array();
-            $("input[name='vt_don-gia']").each(function() {
+            $("input[name='don_gia']").each(function() {
                 var dg_vt = $(this).val();
                 if (dg_vt != "") {
                     vt_don_gia.push(dg_vt);
@@ -407,14 +411,12 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                 }
             });
 
-
             $.ajax({
                 url: '../ajax/hd_ban_them.php',
                 type: 'POST',
                 data: {
                     ep_id: ep_id,
                     com_id: com_id,
-
                     ngay_ky_hd: ngay_ky_hd,
                     id_khach_hang: id_khach_hang,
                     hd_nguyen_tac: hd_nguyen_tac,
@@ -447,7 +449,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                         alert(data);
                     }
                 }
-            })
+            });
         }
     });
 </script>

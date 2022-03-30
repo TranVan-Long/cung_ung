@@ -9,6 +9,16 @@ if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE
     }else if($_COOKIE['role'] == 2){
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `yeu_cau_bao_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $yc_baogia = explode(',', $item_nv['yeu_cau_bao_gia']);
+            if (in_array(3, $yc_baogia) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
     }
 };
 
@@ -66,7 +76,7 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
     );
     curl_setopt($curl, CURLOPT_POST, 1);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlykho.timviec365.vn/api/api_get_dsvt.php');
+    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php');
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     $response1 = curl_exec($curl);
@@ -83,6 +93,22 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
 
     $list_ncc = new db_query("SELECT `id`, `ten_nha_cc_kh`, `phan_loai`, `id_cong_ty` FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ");
     $nguoi_lh = new db_query("SELECT `id`, `id_nha_cc`, `ten_nguoi_lh` FROM `nguoi_lien_he` WHERE `id_nha_cc` = $id_nhacc ");
+
+    $curl = curl_init();
+    $data = array(
+        'id_com' => $com_id,
+    );
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    $response = curl_exec($curl);
+    curl_close($curl);
+    $data_list = json_decode($response,true);
+    $cong_trinh = $data_list['data']['items'];
+    $cou1 = count($cong_trinh);
+
 }
 
 ?>
@@ -115,10 +141,10 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
         </div>
         <div class="content">
             <div class="left mt-25">
-                <a class="prew_href share_fsize_one share_clr_one mb_26" href="quan-ly-yeu-cau-bao-gia.html">Quay lại</a>
+                <a class="prew_href share_fsize_one share_clr_one mb_26" href="chi-tiet-yeu-cau-bao-gia-<?= $id_bg ?>.html">Quay lại</a>
                 <p class="share_fsize_tow cr_weight_bold mb_10 w_100 float_l">Chỉnh sửa yêu cầu báo giá</p>
             </div>
-            <form action="" class="main-form">
+            <form class="main-form" data="<?= $com_id ?>">
                 <div class="w-100 left mt-10">
                     <div class="form-control edit-form">
                         <div class="form-row left">
@@ -162,6 +188,9 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
                                 <label>Chọn công trình</label>
                                 <select name="cong_trinh" id="cong-trinh" class="share_select">
                                     <option value="">-- Chọn công trình --</option>
+                                    <? for($j = 0; $j < $cou1; $j++) {?>
+                                        <option value="<?= $cong_trinh[$j]['ctr_id'] ?>" <?= ($cong_trinh[$j]['ctr_id'] == $item_ct['id_cong_trinh']) ? "selected" : "" ?>>(<?= $cong_trinh[$j]['ctr_id'] ?>) <?= $cong_trinh[$j]['ctr_name'] ?></option>
+                                    <?}?>
                                 </select>
                             </div>
                         </div>
@@ -183,7 +212,7 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
                             <div class="form-col-50 no-border right d-flex mb_15">
                                 <div class="d_flex align-items-center checkbox-lbs mt-30">
                                     <label for="gia-VAT" class="mb-0 mr-30">Giá đã bao gồm VAT</label>
-                                    <input type="checkbox" name="gia_VAT" id="gia-VAT" value="1" <?= ($item_ct['gia_bg_vat'] == 1) ? "checked" : "" ?>>
+                                    <input type="checkbox" name="gia_vat" id="gia-VAT" value="1" <?= ($item_ct['gia_bg_vat'] == 1) ? "checked" : "" ?>>
                                 </div>
                             </div>
                         </div>
@@ -269,7 +298,7 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
                     <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                 </div>
                 <div class="right mb_10">
-                    <a href="chi-tiet-yeu-cau-bao-gia.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng
+                    <a href="chi-tiet-yeu-cau-bao-gia-<?= $id_bg ?>.html" class="v-btn sh_bgr_six share_clr_tow right">Đồng
                         ý</a>
                 </div>
             </div>

@@ -127,21 +127,20 @@ $('.submit-btn').click(function () {
         var id_ctrinh = $("select[name='cong_trinh']").val();
         var noi_dung_thu = $("textarea[name='noi_dung_thu']").val();
         var mail_nhan_bg = $("input[name='mail_nhan_bao_gia']").val();
+        var com_id = $(".main-form").attr("data");
 
-        var gui_mail = document.getElementsByName('mail_ngay');
-        var gm = "";
-        for (var j = 0; j < gui_mail.length; j++) {
-            if (gui_mail[j].checked === true) {
-                gm += gui_mail[j].value + '_';
-            }
+        var gui_mail = "";
+        if ($("input[name='mail_ngay']").is(":checked")) {
+            gui_mail = 1;
+        } else {
+            gui_mail = 0;
         };
 
-        var gia_baog_vat = document.getElementsByName('gia_VAT');
-        var mh = "";
-        for (var i = 0; i < gia_baog_vat.length; i++) {
-            if (gia_baog_vat[i].checked === true) {
-                mh += gia_baog_vat[i].value + '_';
-            }
+        var gia_baog_vat = "";
+        if ($("input[name='gia_vat']").is(":checked")) {
+            gia_baog_vat = 1;
+        } else {
+            gia_baog_vat = 0;
         };
 
         var id_vatt = new Array();
@@ -188,6 +187,7 @@ $('.submit-btn').click(function () {
             url: '../ajax/sua_yc_bgvt.php',
             type: 'POST',
             data: {
+                com_id: com_id,
                 user_id: user_id,
                 id_bg: id_bg,
                 id_nha_cc: id_nha_cc,
@@ -195,8 +195,8 @@ $('.submit-btn').click(function () {
                 id_ctrinh: id_ctrinh,
                 noi_dung_thu: noi_dung_thu,
                 mail_nhan_bg: mail_nhan_bg,
-                gui_mail: gm,
-                gia_baog_vat: mh,
+                gui_mail: gui_mail,
+                gia_baog_vat: gia_baog_vat,
                 ma_vt: ma_vt,
                 id_vatt: id_vatt,
                 so_luong: so_luong,

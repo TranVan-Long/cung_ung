@@ -1,6 +1,6 @@
 <?
 include("config.php");
-$tc_id              = $_POST['tc_id'];
+$tc_id              = getValue('tc_id', 'int', 'POST', '');
 $tieu_chi_danh_gia  = $_POST['tieu_chi_danh_gia'];
 
 $id_gia_tri_old         = $_POST['id_gia_tri_old'];
@@ -10,16 +10,13 @@ $ten_hien_thi_old       = $_POST['ten_hien_thi_old'];
 $gia_tri            = $_POST['gia_tri'];
 $ten_hien_thi       = $_POST['ten_hien_thi'];
 
-$ep_id              = $_POST['ep_id'];
-
-$ngay_sua = strtotime(date('Y-m-d H:i:s', time()));
+$ep_id              = getValue('ep_id', 'int', 'POST', '');
 
 $cap_nhat_tc = new db_query("UPDATE `tieu_chi_danh_gia` SET `tieu_chi` = '$tieu_chi_danh_gia' WHERE `id`= $tc_id");
 
 //cap nhat gia tri da ton tai
-for ($i = 0; $i < count($gia_tri_old); $i++) {
+for ($i = 0; $i < count($id_gia_tri_old); $i++) {
     $ds_gt = new db_query("UPDATE `ds_gia_tri_dg` SET `ten_gia_tri` = '$ten_hien_thi_old[$i]' WHERE `id` = $id_gia_tri_old[$i]");
-    
 }
 
 //them gia tri moi
@@ -29,10 +26,11 @@ if ($gia_tri != "") {
     }
 }
 
-//save log
-    // $noi_dung = 'Bạn đã sửa tiêu chí đánh giá: ' . $tieu_chi_danh_gia;
-    // $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_gio`, `noi_dung`)
-    //                          VALUES('', '$ep_id', '$ngay_sua', '$noi_dung')");
+// save log
+$noi_dung = 'Bạn đã sửa tiêu chí đánh giá: ' . $tieu_chi_danh_gia;
+$ngay_tao = strtotime(date('Y-m-d', time()));
+$gio_tao = strtotime(date('H:i:s', time()));
+$log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$ep_id', '$ngay_tao','$gio_tao', '$noi_dung')");
 
 
 
