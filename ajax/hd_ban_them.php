@@ -1,8 +1,9 @@
 <?
 include("config.php");
 
-$ep_id = getValue('ep_id', 'int', 'POST', '');
+$user_id =  getValue('user_id', 'int', 'POST', '');
 $com_id = getValue('com_id', 'int', 'POST', '');
+$role = getValue('role', 'int', 'POST', '');
 $ngay_ky_hd = strtotime($_POST['ngay_ky_hd']);
 $id_khach_hang = getValue('id_khach_hang', 'int', 'POST', '');
 $hd_nguyen_tac = $_POST['hd_nguyen_tac'];
@@ -56,8 +57,8 @@ if ($ngay_ky_hd != "" && $id_khach_hang != "") {
         $noi_dung = 'Bạn đã thêm hợp đồng bán vật tư: HĐ - ' . $id_hd;
         $ngay_tao = strtotime(date('Y-m-d', time()));
         $gio_tao = strtotime(date('H:i:s', time()));
-        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_tao`,`gio_tao`, `noi_dung`)
-                          VALUES('', '$ep_id', '$ngay_tao','$gio_tao', '$noi_dung')");
+        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`,`role`, `ngay_tao`,`gio_tao`, `noi_dung`)
+                          VALUES('', '$user_id','$role',  '$ngay_tao','$gio_tao', '$noi_dung')");
     } else {
         echo "Điền đầy đủ thông tin vật tư.";
     }

@@ -2,7 +2,6 @@
 include("config.php");
 
 $id_ycvt =  getValue('id_ycvt', 'int', 'POST', '');
-$com_id = getValue('com_id', 'int', 'POST', '');
 $ngay_ht = strtotime($_POST['ngay_ht']);
 $dien_giai = $_POST['dien_giai'];
 
@@ -22,7 +21,9 @@ $so_luong = $_POST['so_luong'];
 $cou4 = count($so_luong);
 
 //user id
-$user_id = getValue('ep_id', 'int', 'POST', '');
+$user_id = getValue('user_id', 'int', 'POST', '');
+$com_id = getValue('com_id', 'int', 'POST', '');
+$role = getValue('role', 'int', 'POST', '');
 $date = strtotime(date('Y-m-d H:i:s', time()));
 
 if ($id_ycvt != "" && $com_id != "" && ($cou > 0 || $cou3 > 0) && $cou == $cou1 && $cou1 == $cou2 && $cou3 == $cou4) {
@@ -43,7 +44,7 @@ if ($id_ycvt != "" && $com_id != "" && ($cou > 0 || $cou3 > 0) && $cou == $cou1 
     $noi_dung = 'Bạn đã chỉnh sửa phiếu yêu cầu vật tư: YC-' . $id_ycvt;
     $ngay_tao = strtotime(date('Y-m-d', time()));
     $gio_tao = strtotime(date('H:i:s', time()));
-    $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id', '$ngay_tao','$gio_tao', '$noi_dung')");
+    $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`,`role`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id','$role', '$ngay_tao','$gio_tao', '$noi_dung')");
 } else {
     echo "Bạn cập nhật phiếu yêu cầu vật tư thất bại, vui lòng thử lại!";
 }

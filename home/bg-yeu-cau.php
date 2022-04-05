@@ -34,8 +34,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `yeu_cau_bao_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-        $yc_baogia = explode(',', $item_nv['yeu_cau_bao_gia']);
-        if (in_array(1, $yc_baogia) == FALSE) {
+        $yc_baogia3 = explode(',', $item_nv['yeu_cau_bao_gia']);
+        if (in_array(1, $yc_baogia3) == FALSE) {
             header('Location: /quan-ly-trang-chu.html');
         }
     } else {
@@ -143,7 +143,7 @@ $stt = 1;
                         <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                             <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-yeu-cau-bao-gia.html">&plus; Thêm mới</a>
                             <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                            if (in_array(2, $yc_baogia)) { ?>
+                            if (in_array(2, $yc_baogia3)) { ?>
                                 <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-yeu-cau-bao-gia.html">&plus; Thêm mới</a>
                         <? }
                         } ?>

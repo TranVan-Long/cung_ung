@@ -11,8 +11,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `bao_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-        $bao_gia = explode(',', $item_nv['bao_gia']);
-        if (in_array(1, $bao_gia) == FALSE) {
+        $bao_gia3 = explode(',', $item_nv['bao_gia']);
+        if (in_array(1, $bao_gia3) == FALSE) {
             header('Location: /quan-ly-trang-chu.html');
         }
     } else {
@@ -66,7 +66,7 @@ $limit = "LIMIT $start,$ht";
 $list_bg .= $sql;
 $list_bg .= $limit;
 
-$bao_gia1 = new db_query($list_bg);
+$bao_gia31 = new db_query($list_bg);
 
 $stt = 1;
 
@@ -113,7 +113,7 @@ $stt = 1;
                         <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                             <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-bao-gia.html">&plus; Thêm mới</a>
                             <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                            if (in_array(2, $bao_gia)) { ?>
+                            if (in_array(2, $bao_gia3)) { ?>
                                 <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-bao-gia.html">&plus; Thêm mới</a>
                         <? }
                         } ?>
@@ -177,7 +177,7 @@ $stt = 1;
                                 <div class="tbl-content">
                                     <table>
                                         <tbody>
-                                            <? while ($item = mysql_fetch_assoc($bao_gia1->result)) { ?>
+                                            <? while ($item = mysql_fetch_assoc($bao_gia31->result)) { ?>
                                                 <tr>
                                                     <td class="w-15"><?= $stt++ ?></td>
                                                     <td class="w-30"><?= $item['ten_nha_cc_kh'] ?></td>

@@ -5,6 +5,7 @@ include "config.php";
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
+
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
@@ -12,39 +13,79 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `yeu_cau_vat_tu` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $ycvt = explode(',', $item_nv['yeu_cau_vat_tu']);
-            if (in_array(1, $ycvt) == false) {
+            $ycvt3 = explode(',', $item_nv['yeu_cau_vat_tu']);
+            if (in_array(1, $ycvt3) == false) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
             header('Location: /quan-ly-trang-chu.html');
         }
     }
+}
+if (!isset($_COOKIE['acc_token']) || !isset($_COOKIE['rf_token']) || !isset($_COOKIE['role'])) {
+    header('Location: /quan-ly-trang-chu.html');
 };
 isset($_GET['page']) ? $page = $_GET['page'] : $page = 1;
 isset($_GET['currP']) ? $currP = $_GET['currP'] : $currP = 10;
 isset($_GET['tk']) ? $tk = $_GET['tk'] : $tk = "";
 isset($_GET['tk_ct']) ? $tk_ct = $_GET['tk_ct'] : $tk_ct = "";
 isset($_GET['filter2']) ? $filter_2 = $_GET['filter2'] : $filter_2 = 4;
-// isset($_GET['filter3']) ? $filter_3 = $_GET['filter3'] : $filter_3 = 1;
+
+isset($_GET['tt_ctr']) ? $tt_ctr = $_GET['tt_ctr'] : $tt_ctr = 1;
+
+
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_POST, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_cong_trinh = json_decode($response, true);
+$cong_trinh_data = $list_cong_trinh['data']['items'];
+$coun1 = count($cong_trinh_data);
+
+$newArr = [];
+if ($tt_ctr == 1) {
+    for ($i = 0; $i < $coun1; $i++) {
+        if ($cong_trinh_data[$i]['ctr_trangthai'] == 1 || $cong_trinh_data[$i]['ctr_trangthai'] == 0) {
+            $value = $cong_trinh_data[$i];
+            $newArr[$value["ctr_id"]] = $value['ctr_id'];
+        }
+    }
+} else if ($tt_ctr == 2) {
+    for ($i = 0; $i < $coun1; $i++) {
+        if ($cong_trinh_data[$i]['ctr_trangthai'] == 3 || $cong_trinh_data[$i]['ctr_trangthai'] == 4) {
+            $value = $cong_trinh_data[$i];
+            $newArr[$value["ctr_id"]] = $value['ctr_id'];
+        }
+    }
+}
+
+$chuoi_id = implode(',', $newArr);
+
 
 if ($tk != "" && $tk_ct != "") {
     $url = '/quan-ly-yeu-cau-vat-tu.html?currP=' . $currP . '&tk=' . $tk . '&tk_ct=' . $tk_ct . '&filter2=' . $filter_2;
 } else if ($tk == "" && $tk_ct == "") {
     if ($filter_2 == 4) {
         $url = '/quan-ly-yeu-cau-vat-tu.html?currP=' . $currP . '&filter2=' . $filter_2;
-        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id");
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND FIND_IN_SET(`id_cong_trinh`, '" . $chuoi_id . "') ");
     } elseif ($filter_2 != 4) {
         $url = '/quan-ly-yeu-cau-vat-tu.html?currP=' . $currP . '&filter2=' . $filter_2;
-        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `trang_thai` = $filter_2 ");
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `trang_thai` = $filter_2 AND FIND_IN_SET(`id_cong_trinh`, '" . $chuoi_id . "') ");
     }
 } else if ($tk != "" && $tk_ct == "") {
     if ($filter_2 == 4) {
         $url = '/quan-ly-yeu-cau-vat-tu.html?currP=' . $currP . '&tk=' . $tk . '&filter2=' . $filter_2;
-        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id");
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND FIND_IN_SET(`id_cong_trinh`, '" . $chuoi_id . "') ");
     } elseif ($filter_2 != 4) {
         $url = '/quan-ly-yeu-cau-vat-tu.html?currP=' . $currP . '&tk=' . $tk . '&filter2=' . $filter_2;
-        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `trang_thai` = $filter_2 ");
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `trang_thai` = $filter_2 AND FIND_IN_SET(`id_cong_trinh`, '" . $chuoi_id . "') ");
     }
 };
 
@@ -56,48 +97,39 @@ $list_ycvt = "SELECT * FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id ";
 if ($filter_2 == 4) {
     $trang_thai = "";
 } elseif ($filter_2 != 4) {
-    $trang_thai = "AND `trang_thai` = $filter_2 ";
+    $trang_thai = " AND `trang_thai` = $filter_2  ";
 }
-// if ($filter_3 == 1) {
-//     $da_ht = "AND `ngay_ht_yc` >= $date ";
-// } elseif ($filter_3 == 2) {
-//     $da_ht = "AND `ngay_ht_yc` < $date ";
-// }
 
-// if ($tk_ct == "") {
-//     if ($tk != "") {
-//         // $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id");
-//     }
 if ($tk_ct != "") {
     if ($tk == 1) {
         $sql = "AND `id` = $tk_ct ";
         if ($filter_2 == 4) {
-            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `id` = $tk_ct ");
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `id` = $tk_ct AND FIND_IN_SET(`id_cong_trinh`, '" . $chuoi_id . "') ");
         } else if ($filter_2 != 4) {
-            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `id` = $tk_ct AND `trang_thai` = $filter_2  ");
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `id` = $tk_ct AND `trang_thai` = $filter_2 AND FIND_IN_SET(`id_cong_trinh`, '" . $chuoi_id . "') ");
         }
     } elseif ($tk == 2) {
         $tk_ct = strtotime($tk_ct);
         $sql = "AND `ngay_tao` = $tk_ct ";
         if ($filter_2 == 4) {
-            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `ngay_tao` = $tk_ct ");
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `ngay_tao` = $tk_ct AND FIND_IN_SET(`id_cong_trinh`, '" . $chuoi_id . "') ");
         } else if ($filter_2 != 4) {
-            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `ngay_tao` = $tk_ct AND `trang_thai` = $filter_2 ");
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `ngay_tao` = $tk_ct AND `trang_thai` = $filter_2 AND FIND_IN_SET(`id_cong_trinh`, '" . $chuoi_id . "') ");
         }
     } elseif ($tk == 3) {
         $sql = "AND `id_cong_trinh` = $tk_ct ";
         if ($filter_2 == 4) {
-            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `id_cong_trinh` = $tk_ct  ");
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `id_cong_trinh` = $tk_ct AND FIND_IN_SET(`id_cong_trinh`, '" . $chuoi_id . "') ");
         } else if ($filter_2 != 4) {
-            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `id_cong_trinh` = $tk_ct AND `trang_thai` = $filter_2  ");
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `id_cong_trinh` = $tk_ct AND `trang_thai` = $filter_2 AND FIND_IN_SET(`id_cong_trinh`, '" . $chuoi_id . "') ");
         }
     } elseif ($tk == 4) {
         $tk_ct = strtotime($tk_ct);
         $sql = "AND `ngay_ht_yc` = $tk_ct ";
         if ($filter_2 == 4) {
-            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `ngay_ht_yc` = $tk_ct  ");
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `ngay_ht_yc` = $tk_ct AND FIND_IN_SET(`id_cong_trinh`, '" . $chuoi_id . "') ");
         } else if ($filter_2 != 4) {
-            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `ngay_ht_yc` = $tk_ct AND `trang_thai` = $filter_2 ");
+            $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id AND `ngay_ht_yc` = $tk_ct AND `trang_thai` = $filter_2 AND FIND_IN_SET(`id_cong_trinh`, '" . $chuoi_id . "') ");
         }
     }
 };
@@ -105,53 +137,20 @@ if ($tk_ct != "") {
 
 
 $total = mysql_fetch_assoc($cou->result)['total'];
+
 $limit = " LIMIT $start,$currP";
 $list_ycvt .= $sql;
+$list_ycvt .= " AND FIND_IN_SET(`id_cong_trinh`, '" . $chuoi_id . "')";
 $list_ycvt .= $trang_thai;
-// $list_ycvt .= $da_ht;
 $list_ycvt .= " ORDER BY `id` ASC";
 $list_ycvt .= $limit;
 $ycvt_data = new db_query($list_ycvt);
 
 $stt = 1;
 
-if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
-    $curl = curl_init();
-    $token = $_COOKIE['acc_token'];
-    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
-    $response = curl_exec($curl);
-    curl_close($curl);
-
-    $data_list = json_decode($response, true);
-    $data_list_nv = $data_list['data']['items'];
-} elseif (isset($_SESSION['quyen']) && ($_SESSION['quyen'] == 2)) {
-    $curl = curl_init();
-    $token = $_COOKIE['acc_token'];
-    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
-    $response = curl_exec($curl);
-    curl_close($curl);
-
-    $data_list = json_decode($response, true);
-    $data_list_nv = $data_list['data']['items'];
-    $user_id = $_SESSION['ep_id'];
-    $user_name = $_SESSION['ep_name'];
-}
-foreach ($data_list_nv as $key => $items) {
-    if ($user_id == $items['ep_id']) {
-        $dept_id    = $items['dep_id'];
-        $dept_name  = $items['dep_name'];
-        $comp_id = $items['com_id'];
-    }
-}
 $curl = curl_init();
 $data = array(
-    'id_com' => $comp_id,
+    'id_com' => $com_id,
 );
 curl_setopt($curl, CURLOPT_POST, 1);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
@@ -205,10 +204,10 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                     <div class="w-100 left">
                         <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                             <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-yeu-cau-vat-tu.html">&plus; Thêm mới</a>
-                        <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                                if (in_array(2, $ycvt)) { ?>
-                                    <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-yeu-cau-vat-tu.html">&plus; Thêm mới</a>
-                            <? }
+                            <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                            if (in_array(2, $ycvt3)) { ?>
+                                <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-yeu-cau-vat-tu.html">&plus; Thêm mới</a>
+                        <? }
                         } ?>
                         <div class="filter">
                             <div class="category v-select2 mt-20">
@@ -272,16 +271,16 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                         </label>
 
                     </div>
-                    <!-- <div class="filter3">
+                    <div class="filter3">
                         <label class="filter-container" for="not-completed">Thuộc công trình chưa hoàn thành
-                            <input type="radio" id="not-completed" name="filter3" value="1" <?= ($filter_3 == 1) ? "checked" : "" ?>>
+                            <input type="radio" id="not-completed" name="filter3" value="1" <?= ($tt_ctr == 1) ? "checked" : "" ?>>
                             <span class="checkmark"></span>
                         </label>
                         <label class="filter-container" for="completed">Thuộc công trình đã hoàn thành
-                            <input type="radio" id="completed" name="filter3" value="2" <?= ($filter_3 == 2) ? "checked" : "" ?>>
+                            <input type="radio" id="completed" name="filter3" value="2" <?= ($tt_ctr == 2) ? "checked" : "" ?>>
                             <span class="checkmark"></span>
                         </label>
-                    </div> -->
+                    </div>
                     <div class="table-wrapper">
                         <div class="table-container">
                             <div class="tbl-header">
@@ -363,13 +362,13 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
         var tk = $(this).val();
         var currP = $("#display").val();
         var filter_2 = $("input[name='filter2']:checked").val();
-        // var filter_3 = $("input[name='filter3']:checked").val();
+        var filter_3 = $("input[name='filter3']:checked").val();
         var page = 1;
 
         if (tk != "") {
-            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&page=' + page + '&filter2=' + filter_2;
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&page=' + page + '&filter2=' + filter_2 + '&tt_ctr=' + filter_3;
         } else if (tk == "") {
-            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&page=' + page + '&filter2=' + filter_2;
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&page=' + page + '&filter2=' + filter_2 + '&tt_ctr=' + filter_3;
         }
     });
 
@@ -377,14 +376,14 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
         var tk = $("select[name='category']").val();
         var tk_ct = $(this).val();
         var filter_2 = $("input[name='filter2']:checked").val();
-        // var filter_3 = $("input[name='filter3']:checked").val();
+        var filter_3 = $("input[name='filter3']:checked").val();
         var currP = $("#display").val();
         var page = 1;
 
         if (tk_ct != "") {
-            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&tk_ct=' + tk_ct + '&page=' + page + '&filter2=' + 4;
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&tk_ct=' + tk_ct + '&page=' + page + '&filter2=' + filter_2 + '&tt_ctr=' + filter_3;
         } else if (tk_ct == "") {
-            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&page=' + page + '&filter2=' + filter_2;
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&page=' + page + '&filter2=' + filter_2 + '&tt_ctr=' + filter_3;
         }
     });
 
@@ -392,16 +391,16 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
         var tk = $("select[name='category']").val();
         var tk_ct = $("select[name='search']").val();
         var filter_2 = $("input[name='filter2']:checked").val();
-        // var filter_3 = $("input[name='filter3']:checked").val();
+        var filter_3 = $("input[name='filter3']:checked").val();
         var currP = $(this).val();
         var page = 1;
 
         if (tk != "" && tk_ct != "") {
-            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&tk_ct=' + tk_ct + '&page=' + page + '&filter2=' + filter_2;
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&tk_ct=' + tk_ct + '&page=' + page + '&filter2=' + filter_2 + '&tt_ctr=' + filter_3;
         } else if (tk != "" && tk_ct == "") {
-            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&page=' + page + '&filter2=' + filter_2;
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&page=' + page + '&filter2=' + filter_2 + '&tt_ctr=' + filter_3;
         } else if (tk == "" && tk_ct == "") {
-            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&page=' + page + '&filter2=' + filter_2;
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&page=' + page + '&filter2=' + filter_2 + '&tt_ctr=' + filter_3;
         }
     });
 
@@ -409,16 +408,33 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
         var tk = $("select[name='category']").val();
         var tk_ct = $("select[name='search']").val();
         var filter_2 = $(this).val();
-        // var filter_3 = $("input[name='filter3']:checked").val();
+        var filter_3 = $("input[name='filter3']:checked").val();
         var currP = $("#display").val();
         var page = 1;
 
         if (tk != "" && tk_ct != "") {
-            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&tk_ct=' + tk_ct + '&page=' + page + '&filter2=' + filter_2;
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&tk_ct=' + tk_ct + '&page=' + page + '&filter2=' + filter_2 + '&tt_ctr=' + filter_3;
         } else if (tk != "" && tk_ct == "") {
-            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&page=' + page + '&filter2=' + filter_2;
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&page=' + page + '&filter2=' + filter_2 + '&tt_ctr=' + filter_3;
         } else if (tk == "" && tk_ct == "") {
-            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&page=' + page + '&filter2=' + filter_2;
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&page=' + page + '&filter2=' + filter_2 + '&tt_ctr=' + filter_3;
+        }
+    });
+
+    $("input[name='filter3']").on('change', function() {
+        var tk = $("select[name='category']").val();
+        var tk_ct = $("select[name='search']").val();
+        var filter_3 = $(this).val();
+        var filter_2 = $("input[name='filter2']:checked").val();
+        var currP = $("#display").val();
+        var page = 1;
+
+        if (tk != "" && tk_ct != "") {
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&tk_ct=' + tk_ct + '&page=' + page + '&filter2=' + filter_2 + '&tt_ctr=' + filter_3;
+        } else if (tk != "" && tk_ct == "") {
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&tk=' + tk + '&page=' + page + '&filter2=' + filter_2 + '&tt_ctr=' + filter_3;
+        } else if (tk == "" && tk_ct == "") {
+            window.location.href = '/quan-ly-yeu-cau-vat-tu.html?currP=' + currP + '&page=' + page + '&filter2=' + filter_2 + '&tt_ctr=' + filter_3;
         }
     });
 </script>

@@ -5,15 +5,17 @@ include("config.php");
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
-        $user_id = $_SESSION['user_id'];
+        $user_id = $_SESSION['com_id'];
+        $role = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
-        $user_id = $_SESSION['user_id'];
+        $user_id = $_SESSION['ep_id'];
+        $role = 2;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $hop_dong = explode(',', $item_nv['hop_dong']);
-            if (in_array(2, $hop_dong) == FALSE) {
+            $hop_dong2 = explode(',', $item_nv['hop_dong']);
+            if (in_array(2, $hop_dong2) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -80,7 +82,7 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Thêm hợp đồng bán</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $user_id ?>" data1="<?= $com_id ?>">
+                            <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $role ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Ngày ký hợp đồng <span class="cr_red">*</span></label>
@@ -339,8 +341,9 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
         });
 
         if (form_add_ban.valid() === true) {
-            var ep_id = $(".form_add_hp_mua").attr("data");
+            var user_id = $(".form_add_hp_mua").attr("data2");
             var com_id = $(".form_add_hp_mua").attr("data1");
+            var role = $(".form_add_hp_mua").attr("data");
 
             var ngay_ky_hd = $("input[name='ngay_ky_hd'").val();
             var id_khach_hang = $("select[name='id_khach_hang']").val();
@@ -415,8 +418,9 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
                 url: '../ajax/hd_ban_them.php',
                 type: 'POST',
                 data: {
-                    ep_id: ep_id,
+                    user_id: user_id,
                     com_id: com_id,
+                    role: role,
                     ngay_ky_hd: ngay_ky_hd,
                     id_khach_hang: id_khach_hang,
                     hd_nguyen_tac: hd_nguyen_tac,

@@ -6,21 +6,53 @@ if(isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE
     if($_COOKIE['role'] == 1){
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['com_id'];
+
+        $curl = curl_init();
+        $token = $_COOKIE['acc_token'];
+        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data_list = json_decode($response, true);
+        $data_list_nv = $data_list['data']['items'];
     }else if($_COOKIE['role'] == 2){
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `yeu_cau_bao_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $yc_baogia = explode(',', $item_nv['yeu_cau_bao_gia']);
-            if (in_array(3, $yc_baogia) == FALSE) {
+            $yc_baogia3 = explode(',', $item_nv['yeu_cau_bao_gia']);
+            if (in_array(3, $yc_baogia3) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
             header('Location: /quan-ly-trang-chu.html');
         }
+
+        $curl = curl_init();
+        $token = $_COOKIE['acc_token'];
+        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data_list = json_decode($response, true);
+        $data_list_nv = $data_list['data']['items'];
     }
+}else if(!isset($_COOKIE['acc_token']) || !isset($_COOKIE['rf_token']) || !isset($_COOKIE['role'])){
+    header('Location: /');
 };
+
+$list_nv = [];
+for ($i = 0; $i < count($data_list_nv); $i++) {
+    $item1 = $data_list_nv[$i];
+    $list_nv[$item1['ep_id']] = $item1;
+}
 
 if(isset($_GET['id']) && $_GET['id'] != ""){
     $id_bg = $_GET['id'];
@@ -34,38 +66,7 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
     $id_nguoi_lap = $item_ct['id_nguoi_lap'];
     $id_nhacc = $item_ct['nha_cc_kh'];
 
-    if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
-        $curl = curl_init();
-        $token = $_COOKIE['acc_token'];
-        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
-        $response = curl_exec($curl);
-        curl_close($curl);
 
-        $data_list = json_decode($response,true);
-        $data_list_nv =$data_list['data']['items'];
-
-    }elseif (isset($_SESSION['quyen']) && ($_SESSION['quyen'] == 2)) {
-        $curl = curl_init();
-        $token = $_COOKIE['acc_token'];
-        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
-        $response = curl_exec($curl);
-        curl_close($curl);
-
-        $data_list = json_decode($response,true);
-        $data_list_nv =$data_list['data']['items'];
-    }
-
-    $list_nv = [];
-    for($i = 0; $i < count($data_list_nv); $i++){
-        $item1 = $data_list_nv[$i];
-        $list_nv[$item1['ep_id']] = $item1;
-    }
     $ep_name = $list_nv[$id_nguoi_lap]['ep_name'];
 
     $vt_bg = new db_query("SELECT `id`, `id_vat_tu`, `so_luong_yc_bg` FROM `vat_tu_bao_gia` WHERE `id_yc_bg` = $id_bg ");
@@ -113,7 +114,7 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

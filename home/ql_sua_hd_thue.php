@@ -7,14 +7,16 @@ $id_ct = "";
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
     $user_id = $_SESSION['com_id'];
+    $role = 1;
 } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
     $com_id = $_SESSION['user_com_id'];
     $user_id = $_SESSION['ep_id'];
+    $role = 2;
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-        $hop_dong = explode(',', $item_nv['hop_dong']);
-        if (in_array(3, $hop_dong) == FALSE) {
+        $hop_dong2 = explode(',', $item_nv['hop_dong']);
+        if (in_array(3, $hop_dong2) == FALSE) {
             header('Location: /quan-ly-trang-chu.html');
         }
     } else {
@@ -120,7 +122,7 @@ $kho_data = $list_kho['data']['items'];
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Sửa hợp đồng thuê</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" method="">
+                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" data="<?= $role ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>" data3="<?= $hd_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số hợp đồng</label>
@@ -319,7 +321,7 @@ $kho_data = $list_kho['data']['items'];
                                                                             <input type="month" name="tb_ngay_bat_dau_old" value="<?= $thue_tu_ngay ?>" class="form-control range date1" onchange="khoiLuong(this), thanhTien()">
                                                                             <span> - </span>
                                                                             <input type="month" name="tb_ngay_ket_thuc_old" value="<?= $thue_den_ngay ?>" class="form-control range date2" onchange="khoiLuong(this), thanhTien()">
-                                                                        <? } else if($vt_thue_fetch['hinh_thuc_thue'] == 4 || $vt_thue_fetch['hinh_thuc_thue'] == 5) { ?>
+                                                                        <? } else if ($vt_thue_fetch['hinh_thuc_thue'] == 4 || $vt_thue_fetch['hinh_thuc_thue'] == 5) { ?>
                                                                             <input type="month" name="tb_ngay_bat_dau_old" value="<?= $thue_tu_ngay ?>" class="form-control range date1" onchange="khoiLuong(this), thanhTien()" readonly>
                                                                             <span> - </span>
                                                                             <input type="month" name="tb_ngay_ket_thuc_old" value="<?= $thue_den_ngay ?>" class="form-control range date2" onchange="khoiLuong(this), thanhTien()" readonly>
@@ -542,10 +544,11 @@ $kho_data = $list_kho['data']['items'];
         });
 
         if (form_add_thue.valid() === true) {
-            var ep_id = '<?= $user_id ?>';
-            var com_id = '<?= $com_id ?>';
+            var hd_id = $(".form_add_hp_mua").attr("data3");
+            var user_id = $(".form_add_hp_mua").attr("data2");
+            var com_id = $(".form_add_hp_mua").attr("data1");
+            var role = $(".form_add_hp_mua").attr("data");
 
-            var hd_id = <?= $hd_id ?>;
             var ngay_ky_hd = $("input[name='ngay_ky_hd'").val();
             var id_nha_cung_cap = $("select[name='id_nha_cung_cap']").val();
             var id_cong_trinh = $("select[name='id_cong_trinh']").val();
@@ -782,10 +785,11 @@ $kho_data = $list_kho['data']['items'];
                 url: '../ajax/hd_thue_sua.php',
                 type: 'POST',
                 data: {
-                    ep_id: ep_id,
+                    user_id: user_id,
                     com_id: com_id,
-
+                    role: role,
                     hd_id: hd_id,
+
                     ngay_ky_hd: ngay_ky_hd,
                     id_nha_cung_cap: id_nha_cung_cap,
                     id_cong_trinh: id_cong_trinh,

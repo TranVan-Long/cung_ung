@@ -6,21 +6,48 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['user_id'];
+        $phan_loai = 1;
+
+        $curl = curl_init();
+        $token = $_COOKIE['acc_token'];
+        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data_list = json_decode($response, true);
+        $list_nv = $data_list['data']['items'];
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
+        $phan_loai = 2;
+
+        $curl = curl_init();
+        $token = $_COOKIE['acc_token'];
+        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data_list = json_decode($response, true);
+        $list_nv = $data_list['data']['items'];
+
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `don_hang` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $don_hang = explode(',', $item_nv['don_hang']);
-            if (in_array(3, $don_hang) == FALSE) {
+            $don_hang2 = explode(',', $item_nv['don_hang']);
+            if (in_array(3, $don_hang2) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
             header('Location: /quan-ly-trang-chu.html');
         }
     }
-} else if(!isset($_COOKIE['acc_token']) || !isset($_COOKIE['rf_token']) || !isset($_COOKIE['role'])) {
+} else if (!isset($_COOKIE['acc_token']) || !isset($_COOKIE['rf_token']) || !isset($_COOKIE['role'])) {
     header('Loaction: /');
 }
 
@@ -87,6 +114,16 @@ if (isset($id_dh) && $id_dh != "") {
         $all_vattu[$item2['dsvt_id']] = $item2;
     };
 
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, "https://chamcong.24hpay.vn/service/detail_company.php?id_com=" . $com_id);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    $response4 = curl_exec($curl);
+    curl_close($curl);
+    $com0 = json_decode($response4, true);
+    $com = $com0['data']['list_department'];
+    $coun1 = count($com);
+
     $stt = 1;
 
     $list_ncc = new db_query("SELECT DISTINCT d.`id_nha_cc_kh`, n.`ten_nha_cc_kh` FROM `don_hang` AS d
@@ -140,7 +177,7 @@ if (isset($id_dh) && $id_dh != "") {
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Chỉnh sửa đơn hàng mua vật tư</h4>
-                        <div class="ctiet_dk_hp w_100 float_l">
+                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $phan_loai ?>">
                             <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_id ?>" data1="<?= $item['id_nha_cc_kh'] ?>" data2="<?= $item['id_nguoi_lh'] ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
@@ -211,13 +248,23 @@ if (isset($id_dh) && $id_dh != "") {
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
-                                    <div class="form-group">
+                                    <div class="form-group share_form_select">
                                         <label>Phòng ban</label>
-                                        <input type="text" name="phong_ban" value="<?= $item['phong_ban'] ?>" class="form-control" placeholder="Nhập phòng ban người nhận">
+                                        <select name="phong_ban" class="form-control all_dep">
+                                            <option value="">Chọn phòng bạn người nhận hàng</option>
+                                            <? for ($a = 0; $a < $coun1; $a++) { ?>
+                                                <option value="<?= $com[$a]['dep_id'] ?>" <?= ($com[$a]['dep_id'] == $item['phong_ban']) ? "selected" : "" ?>><?= $com[$a]['dep_name'] ?></option>
+                                            <? } ?>
+                                        </select>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group share_form_select">
                                         <label>Người nhận hàng <span class="cr_red">*</span></label>
-                                        <input type="text" name="nguoi_nh" class="form-control" value="<?= $item['nguoi_nhan_hang'] ?>" placeholder="Nhập người nhận hàng">
+                                        <select name="nguoi_nh" class="form-control all_nv">
+                                            <option value="">Chọn người nhận hàng</option>
+                                            <? for ($b = 0; $b < count($list_nv); $b++) { ?>
+                                                <option value="<?= $list_nv[$b]['ep_id'] ?>" <?= ($list_nv[$b]['ep_id'] == $item['nguoi_nhan_hang']) ? "selected" : "" ?>><?= $list_nv[$b]['ep_name'] ?></option>
+                                            <? } ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -254,7 +301,7 @@ if (isset($id_dh) && $id_dh != "") {
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Thuế suất VAT</label>
-                                        <input type="text" name="thue_vat_tong" value="<?= $item['thue_vat'] ?>" class="form-control thue_vat_tong" onkeyup="tong_vt()" oninput="<?= $oninput ?>" placeholder="Nhập thuế suất VAT">
+                                        <input type="text" name="thue_vat_tong" value="<?= $item['thue_vat'] ?>" class="form-control thue_vat_tong" placeholder="Nhập thuế suất VAT" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label>Tiền chiết khấu</label>
@@ -302,87 +349,88 @@ if (isset($id_dh) && $id_dh != "") {
                                             </thead>
                                             <tbody class="danh_sach_vt">
                                                 <?
-                                                    while ($row2 = mysql_fetch_assoc($list_vt_dhm->result)) {
-                                                        $id_vttu = $row2['id_vat_tu'];
-                                                        $so_luong_kn = $row2['so_luong_ky_nay'];
-                                                        $sum_vt = mysql_fetch_assoc((new db_query("SELECT SUM(`so_luong_ky_nay`) AS sum_vt FROM `vat_tu_dh_mua_ban`
+                                                while ($row2 = mysql_fetch_assoc($list_vt_dhm->result)) {
+                                                    $id_vttu = $row2['id_vat_tu'];
+                                                    $so_luong_kn = $row2['so_luong_ky_nay'];
+                                                    $sum_vt = mysql_fetch_assoc((new db_query("SELECT SUM(`so_luong_ky_nay`) AS sum_vt FROM `vat_tu_dh_mua_ban`
                                                             WHERE `id_cong_ty` = $com_id AND `id_hd` = $id_hdong AND `id_vat_tu` = $id_vttu "))->result)['sum_vt'];
-                                                    ?>
-                                                        <tr class="item">
-                                                            <td class="share_tb_seven">
-                                                                <p>
-                                                                    <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
-                                                                </p>
-                                                            </td>
-                                                            <td class="share_tb_seven">
-                                                                <p><?= $stt++ ?></p>
-                                                            </td>
-                                                            <td class="share_tb_one">
-                                                                <div class="form-group share_form_select">
-                                                                    <input type="text" name="ma_vattu" value="VT - <?= $row2['id_vat_tu'] ?>" data="<?= $row2['id_vat_tu'] ?>" class="form-control" readonly>
-                                                                </div>
-                                                            </td>
-                                                            <td class="share_tb_two">
-                                                                <div class="form-group share_form_select">
-                                                                    <input type="text" name="ten_vt" value="<?= $all_vattu[$row2['id_vat_tu']]['dsvt_name'] ?>" class="form-control" readonly>
-                                                                </div>
-                                                            </td>
-                                                            <td class="share_tb_seven">
-                                                                <div class="form-group">
-                                                                    <input type="text" name="dvi_tinh" value="<?= $all_vattu[$row2['id_vat_tu']]['dvt_name'] ?>" class="form-control" readonly>
-                                                                </div>
-                                                            </td>
-                                                            <td class="share_tb_two">
-                                                                <div class="form-group">
-                                                                    <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control">
-                                                                </div>
-                                                            </td>
-                                                            <td class="share_tb_eight">
-                                                                <div class="form-group">
-                                                                    <input type="number" name="so_luong_hd" value="<?= $row2['so_luong_theo_hd'] ?>" class="form-control" readonly>
-                                                                </div>
-                                                            </td>
-                                                            <td class="share_tb_eight">
-                                                                <div class="form-group">
-                                                                    <input type="number" name="so_luong_kt" value="<?= $sum_vt - $so_luong_kn ?>" class="form-control" readonly>
-                                                                </div>
-                                                            </td>
-                                                            <td class="share_tb_one">
-                                                                <div class="form-group">
-                                                                    <input type="type" name="sl_knay" value="<?= $row2['so_luong_ky_nay'] ?>" class="form-control so_luong" onkeyup="sl_doi(this)" oninput="<?= $oninput ?>">
-                                                                </div>
-                                                            </td>
-                                                            <td class="share_tb_eight">
-                                                                <div class="form-group">
-                                                                    <input type="date" name="thoig_ghang" value="<?= ($row2['thoi_gian_giao_hang'] != 0) ? date('Y-m-d', $row2['thoi_gian_giao_hang']) : "" ?>" class="form-control">
-                                                                </div>
-                                                            </td>
-                                                            <td class="share_tb_two">
-                                                                <div class="form-group">
-                                                                    <input type="number" name="don_gia" value="<?= $row2['don_gia'] ?>" class="form-control don_gia" readonly>
-                                                                </div>
-                                                            </td>
-                                                            <td class="share_tb_two">
-                                                                <div class="form-group">
-                                                                    <input type="number" name="ttr_vat" value="<?= $row2['tong_tien_trvat'] ?>" class="form-control tong_trvat" readonly>
-                                                                </div>
-                                                            </td>
-                                                            <td class="share_tb_seven">
-                                                                <div class="form-group">
-                                                                    <input type="type" name="thue_vat" value="<?= ($row2['thue_vat'] != 0) ? $row2['thue_vat'] : "" ?>" class="form-control thue_vat" onkeyup="thue_doi(this)" oninput="<?= $oninput ?>">
-                                                                </div>
-                                                            </td>
-                                                            <td class="share_tb_eight">
-                                                                <div class="form-group">
-                                                                    <input type="number" name="tts_vat" value="<?= $row2['tong_tien_svat'] ?>" class="form-control tong_svat" readonly>
-                                                                </div>
-                                                            </td>
-                                                            <td class="share_tb_two">
-                                                                <div class="form-group">
-                                                                    <input type="text" name="dia_chi_g" value="<?= $row2['dia_diem_giao_hang'] ?>" class="form-control">
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                ?>
+                                                    <tr class="item">
+                                                        <td class="share_tb_seven">
+                                                            <p>
+                                                                <img src="../img/remove.png" alt="xóa" class="dele_cot_ngang share_cursor">
+                                                            </p>
+                                                        </td>
+                                                        <td class="share_tb_seven">
+                                                            <p><?= $stt++ ?></p>
+                                                            <input type="hidden" name="vat_tu" value="<?= $row2['id'] ?>">
+                                                        </td>
+                                                        <td class="share_tb_one">
+                                                            <div class="form-group share_form_select">
+                                                                <input type="text" name="ma_vattu" value="VT - <?= $row2['id_vat_tu'] ?>" data="<?= $row2['id_vat_tu'] ?>" class="form-control" readonly>
+                                                            </div>
+                                                        </td>
+                                                        <td class="share_tb_two">
+                                                            <div class="form-group share_form_select">
+                                                                <input type="text" name="ten_vt" value="<?= $all_vattu[$row2['id_vat_tu']]['dsvt_name'] ?>" class="form-control" readonly>
+                                                            </div>
+                                                        </td>
+                                                        <td class="share_tb_seven">
+                                                            <div class="form-group">
+                                                                <input type="text" name="dvi_tinh" value="<?= $all_vattu[$row2['id_vat_tu']]['dvt_name'] ?>" class="form-control" readonly>
+                                                            </div>
+                                                        </td>
+                                                        <td class="share_tb_two">
+                                                            <div class="form-group">
+                                                                <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control">
+                                                            </div>
+                                                        </td>
+                                                        <td class="share_tb_eight">
+                                                            <div class="form-group">
+                                                                <input type="number" name="so_luong_hd" value="<?= $row2['so_luong_theo_hd'] ?>" class="form-control" readonly>
+                                                            </div>
+                                                        </td>
+                                                        <td class="share_tb_eight">
+                                                            <div class="form-group">
+                                                                <input type="number" name="so_luong_kt" value="<?= $sum_vt - $so_luong_kn ?>" class="form-control" readonly>
+                                                            </div>
+                                                        </td>
+                                                        <td class="share_tb_one">
+                                                            <div class="form-group">
+                                                                <input type="type" name="sl_knay" value="<?= $row2['so_luong_ky_nay'] ?>" class="form-control so_luong" onkeyup="sl_doi(this)" oninput="<?= $oninput ?>">
+                                                            </div>
+                                                        </td>
+                                                        <td class="share_tb_eight">
+                                                            <div class="form-group">
+                                                                <input type="date" name="thoig_ghang" value="<?= ($row2['thoi_gian_giao_hang'] != 0) ? date('Y-m-d', $row2['thoi_gian_giao_hang']) : "" ?>" class="form-control">
+                                                            </div>
+                                                        </td>
+                                                        <td class="share_tb_two">
+                                                            <div class="form-group">
+                                                                <input type="number" name="don_gia" value="<?= $row2['don_gia'] ?>" class="form-control don_gia" readonly>
+                                                            </div>
+                                                        </td>
+                                                        <td class="share_tb_two">
+                                                            <div class="form-group">
+                                                                <input type="number" name="ttr_vat" value="<?= $row2['tong_tien_trvat'] ?>" class="form-control tong_trvat" readonly>
+                                                            </div>
+                                                        </td>
+                                                        <td class="share_tb_seven">
+                                                            <div class="form-group">
+                                                                <input type="type" name="thue_vat" data="<?= $row2['don_gia'] * $row2['so_luong_ky_nay'] * ($row2['thue_vat'] / 100) ?>" value="<?= $row2['thue_vat'] ?>" class="form-control thue_vat" readonly>
+                                                            </div>
+                                                        </td>
+                                                        <td class="share_tb_eight">
+                                                            <div class="form-group">
+                                                                <input type="number" name="tts_vat" value="<?= $row2['tong_tien_svat'] ?>" class="form-control tong_svat" readonly>
+                                                            </div>
+                                                        </td>
+                                                        <td class="share_tb_two">
+                                                            <div class="form-group">
+                                                                <input type="text" name="dia_chi_g" value="<?= $row2['dia_diem_giao_hang'] ?>" class="form-control">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 <? } ?>
                                             </tbody>
                                         </table>
@@ -442,7 +490,7 @@ if (isset($id_dh) && $id_dh != "") {
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript" src="../js/giatri_doi.js"></script>
 <script>
-    $(".all_nhacc, .all_nguoilh, .all_hopd").select2({
+    $(".all_nhacc, .all_nguoilh, .all_hopd, .all_dep, .all_nv").select2({
         width: '100%',
     });
 
@@ -505,6 +553,7 @@ if (isset($id_dh) && $id_dh != "") {
         var id_hd = $(this).val();
         var com_id = $(".form_add_hp_mua").attr("data");
         var id_ncc = $(".all_nhacc").val();
+        var id_dh = $("input[name='so_dh']").attr("data");
 
         $.ajax({
             url: '../render/ctrinh_hd.php',
@@ -524,7 +573,8 @@ if (isset($id_dh) && $id_dh != "") {
             data: {
                 id_hd: id_hd,
                 com_id: com_id,
-                id_ncc: id_ncc
+                id_ncc: id_ncc,
+                id_dh: id_dh,
             },
             success: function(data) {
                 $(".danh_sach_vt").html(data);
@@ -583,8 +633,8 @@ if (isset($id_dh) && $id_dh != "") {
             var ngay_ky = $("input[name='ngay_ky']").val();
             var thoi_han = $("input[name='thoi_han']").val();
             var donv_nh = $("input[name='donv_nh']").val();
-            var phong_ban = $("input[name='phong_ban']").val();
-            var nguoi_nh = $("input[name='nguoi_nh']").val();
+            var phong_ban = $("select[name='phong_ban']").val();
+            var nguoi_nh = $("select[name='nguoi_nh']").val();
             var dient_nnhan = $("input[name='dient_nnhan']").val();
             var baoh_hd = $("input[name='baoh_hd']").val();
             var gia_tri = $("input[name='gia_tri']").val();
@@ -600,13 +650,21 @@ if (isset($id_dh) && $id_dh != "") {
             var chi_phi_vc = $("input[name='chi_phi_vc']").val();
             var ghic_vc = $("textarea[name='ghic_vc']").val();
 
-            var ma_vt = new Array();
+            var id_vt_dc = [];
+            $("input[name='vat_tu']").each(function() {
+                var idvt = $(this).val();
+                if (idvt != "") {
+                    id_vt_dc.push(idvt);
+                }
+            });
+
+            var ma_vt = [];
             $("input[name='ma_vattu']").each(function() {
                 var mavt = $(this).attr("data");
                 ma_vt.push(mavt);
             });
 
-            var so_luong_hd = new Array();
+            var so_luong_hd = [];
             $("input[name='so_luong_hd']").each(function() {
                 var sl_hd = $(this).val();
                 if (sl_hd != "") {
@@ -614,7 +672,7 @@ if (isset($id_dh) && $id_dh != "") {
                 }
             });
 
-            var so_luong_kn = new Array();
+            var so_luong_kn = [];
             $("input[name='sl_knay']").each(function() {
                 var sl = $(this).val();
                 if (sl == "") {
@@ -625,7 +683,7 @@ if (isset($id_dh) && $id_dh != "") {
                 }
             });
 
-            var thoi_gian_gh = new Array();
+            var thoi_gian_gh = [];
             $("input[name='thoig_ghang']").each(function() {
                 var tg_gh = $(this).val();
                 if (tg_gh == "") {
@@ -636,7 +694,7 @@ if (isset($id_dh) && $id_dh != "") {
                 }
             });
 
-            var don_gia = new Array();
+            var don_gia = [];
             $("input[name='don_gia']").each(function() {
                 var dg_vt = $(this).val();
                 if (dg_vt != "") {
@@ -644,7 +702,7 @@ if (isset($id_dh) && $id_dh != "") {
                 }
             });
 
-            var ttr_vat = new Array();
+            var ttr_vat = [];
             $("input[name='ttr_vat']").each(function() {
                 var tien_tr = $(this).val();
                 if (tien_tr == "") {
@@ -655,7 +713,7 @@ if (isset($id_dh) && $id_dh != "") {
                 }
             });
 
-            var thue_vat_vt = new Array();
+            var thue_vat_vt = [];
             $("input[name='thue_vat']").each(function() {
                 var thue_vt = $(this).val();
                 if (thue_vt == "") {
@@ -666,7 +724,7 @@ if (isset($id_dh) && $id_dh != "") {
                 }
             });
 
-            var tts_vat = new Array();
+            var tts_vat = [];
             $("input[name='tts_vat']").each(function() {
                 var tien_s = $(this).val();
                 if (tien_s == "") {
@@ -677,11 +735,13 @@ if (isset($id_dh) && $id_dh != "") {
                 }
             });
 
-            var dia_chi_g = new Array();
+            var dia_chi_g = [];
             $("input[name='dia_chi_g']").each(function() {
                 var dia_chi = $(this).val()
                 dia_chi_g.push(dia_chi);
             });
+
+            var phan_loai = $(".ctiet_dk_hp").attr("data");
 
             $.ajax({
                 url: '../ajax/sua_dh_mua.php',
@@ -709,7 +769,8 @@ if (isset($id_dh) && $id_dh != "") {
                     gias_vat: gias_vat,
                     chi_phi_vc: chi_phi_vc,
                     ghic_vc: ghic_vc,
-
+                    phan_loai: phan_loai,
+                    id_vt_dc: id_vt_dc,
                     ma_vt: ma_vt,
                     so_luong_hd: so_luong_hd,
                     so_luong_kn: so_luong_kn,

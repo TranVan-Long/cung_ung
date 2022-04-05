@@ -77,7 +77,7 @@ if ($id != "") {
         $dv_thuhuong = $com_name;
     }
 
-    $list_tt = mysql_fetch_assoc((new db_query("SELECT `id_hs`, `da_thanh_toan` FROM `chi_tiet_phieu_tt_vt` WHERE `id_phieu_tt` = $id AND `id_cong_ty` = $com_id AND `id_hd_dh` = $id_hd_dh "))->result);
+    $list_tt = new db_query("SELECT `id_hs`, `da_thanh_toan` FROM `chi_tiet_phieu_tt_vt` WHERE `id_phieu_tt` = $id AND `id_cong_ty` = $com_id AND `id_hd_dh` = $id_hd_dh ");
 }
 
 ?>
@@ -111,7 +111,7 @@ if ($id != "") {
                 <? include('../includes/ql_header_nv.php') ?>
             </div>
 
-            <div class="content">
+            <div class="content" data="<?= $id ?>" data1="<?= $user_id ?>">
                 <div class="ctn_ctiet_hd w_100 float_l">
                     <div class="chi_tiet_hd mt_25 w_100 float_l">
                         <a class="prew_href share_fsize_one mb_25 share_clr_one" href="quan-ly-phieu-thanh-toan.html">Quay lại</a>
@@ -212,28 +212,36 @@ if ($id != "") {
                                     <tbody>
                                         <tr class="sh_bgr_four">
                                             <td class="tex_left share_clr_four cr_weight share_tb_five">Tổng</td>
-                                            <td class="share_clr_four cr_weight share_tb_five">25.000.000</td>
+                                            <td class="share_clr_four cr_weight share_tb_five tong_tien_all">434534534</td>
                                             <td class="share_tb_five"></td>
-                                            <td class="share_clr_four cr_weight share_tb_five">25.000.000</td>
+                                            <td class="share_clr_four cr_weight share_tb_five da_thanh_toan_all">345345345</td>
                                         </tr>
-                                        <tr>
-                                            <td class="tex_left share_tb_five">HS - <?= $list_tt['id_hs'] ?></td>
-                                            <td class="share_tb_five">25.000.000</td>
-                                            <td class="share_tb_five">30/10/2021</td>
-                                            <td class="share_tb_five"><?= number_format($list_tt['da_thanh_toan']) ?></td>
-                                        </tr>
-                                        <!-- <tr class="sh_bgr_five">
+                                        <?
+                                        while ($item = mysql_fetch_assoc($list_tt->result)) {
+                                            $id_hs = $item['id_hs'];
+                                            $hs_tt = mysql_fetch_assoc((new db_query("SELECT `thoi_han_thanh_toan`, `tong_tien_tatca` FROM `ho_so_thanh_toan` WHERE `id` = $id_hs AND `id_cong_ty` = $com_id"))->result);
+                                            $thoi_han_thanh_toan = date('d/m/Y', $hs_tt['thoi_han_thanh_toan']);
+                                        ?>
+                                            <tr>
+                                                <td class="tex_left share_tb_five">HS - <?= $id_hs   ?></td>
+                                                <td class="share_tb_five tong_tien_hs"><?= number_format($hs_tt['tong_tien_tatca'])?></td>
+                                                <td class="share_tb_five"><?= $thoi_han_thanh_toan?></td>
+                                                <td class="share_tb_five da_thanh_toan_hs"><?= number_format($item['da_thanh_toan']) ?></td>
+                                            </tr>
+                                            
+                                            <!-- <tr class="sh_bgr_five">
                                             <td class="tex_left share_tb_five">Công trình xây dựng cầu XYZ</td>
                                             <td class="share_tb_five">25.000.000</td>
                                             <td class="share_tb_five"></td>
                                             <td class="share_tb_five">25.000.000</td>
                                         </tr> -->
-                                        <!-- <tr>
+                                            <!-- <tr>
                                             <td class="tex_left share_tb_five">TT-08954</td>
                                             <td class="share_tb_five">25.000.000</td>
                                             <td class="share_tb_five"></td>
                                             <td class="share_tb_five">25.000.000</td>
                                         </tr> -->
+                                        <? } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -286,7 +294,7 @@ if ($id != "") {
                             <div class="form_butt_ht mb_20">
                                 <div class="tow_butt_flex d_flex">
                                     <button type="button" class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
-                                    <button type="button" class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                    <button type="button" class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp xoa_ptt">Đồng
                                         ý</button>
                                 </div>
                             </div>
@@ -313,6 +321,22 @@ if ($id != "") {
         var id = $(this).attr("data");
         window.location.href = '../excel/ptt_hd_excel.php?id=' + id;
     });
+
+    $(".xoa_ptt").click(function() {
+        const id = $(".content").attr('data');
+        const user_id = $(".content").attr('data1');
+        $.ajax({
+            url: '../ajax/ptt_xoa.php',
+            type: 'POST',
+            data: {
+                user_id: user_id,
+                id: id,
+            },
+            success: function(data) {
+                window.location.href = '/quan-ly-phieu-thanh-toan.html';
+            }
+        })
+    })
 </script>
 
 </html>

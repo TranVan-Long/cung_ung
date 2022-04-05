@@ -1,45 +1,10 @@
 <?
 include("config.php");
-
-if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
-    $curl = curl_init();
-    $token = $_COOKIE['acc_token'];
-    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
-    $response = curl_exec($curl);
-    curl_close($curl);
-
-    $data_list = json_decode($response, true);
-    $data_list_nv = $data_list['data']['items'];
-} elseif (isset($_SESSION['quyen']) && ($_SESSION['quyen'] == 2)) {
-    $curl = curl_init();
-    $token = $_COOKIE['acc_token'];
-    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
-    $response = curl_exec($curl);
-    curl_close($curl);
-
-    $data_list = json_decode($response, true);
-    $data_list_nv = $data_list['data']['items'];
-    $user_id = $_SESSION['ep_id'];
-    $user_name = $_SESSION['ep_name'];
-}
-foreach ($data_list_nv as $key => $items) {
-    if ($user_id == $items['ep_id']) {
-        $dept_id    = $items['dep_id'];
-        $dept_name  = $items['dep_name'];
-        $comp_id = $items['com_id'];
-    }
-}
-
+$com_id = getValue('com_id', 'int', 'POST', '');
 
 $curl = curl_init();
 $data = array(
-    'id_com' => $comp_id,
+    'id_com' => $com_id,
 );
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);

@@ -12,8 +12,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `tieu_chi_danh_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $tieu_chi_dg = explode(',', $item_nv['tieu_chi_danh_gia']);
-            if (in_array(1, $tieu_chi_dg) == FALSE) {
+            $tieu_chi_dg3 = explode(',', $item_nv['tieu_chi_danh_gia']);
+            if (in_array(1, $tieu_chi_dg3) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -105,7 +105,7 @@ $stt = 1;
                         <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                             <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-tieu-chi-danh-gia.html">&plus; Thêm mới</a>
                             <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                            if (in_array(2, $tieu_chi_dg)) {  ?>
+                            if (in_array(2, $tieu_chi_dg3)) {  ?>
                                 <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-tieu-chi-danh-gia.html">&plus; Thêm mới</a>
                         <? }
                         } ?>
@@ -188,14 +188,14 @@ $stt = 1;
                                                             </li>
                                                         </ul>
                                                         <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                                                        if (in_array(3, $tieu_chi_dg) || in_array(4, $tieu_chi_dg)) { ?>
+                                                        if (in_array(3, $tieu_chi_dg3) || in_array(4, $tieu_chi_dg3)) { ?>
                                                             <span class="tbl-menu" data-tab="<?= $tieu_chi_id ?>"></span>
                                                         <? } ?>
                                                         <ul class="tbl-menu-content" id="<?= $tieu_chi_id ?>">
-                                                            <? if (in_array(3, $tieu_chi_dg)) { ?>
+                                                            <? if (in_array(3, $tieu_chi_dg3)) { ?>
                                                                 <li class="mb-10"><a href="chinh-sua-tieu-chi-danh-gia-<?= $tieu_chi_id ?>.html" class="tbl-menu-text">Chỉnh sửa</a></li>
                                                             <? }
-                                                            if (in_array(4, $tieu_chi_dg)) { ?>
+                                                            if (in_array(4, $tieu_chi_dg3)) { ?>
                                                                 <li class="border-top2">
                                                                     <p class="tbl-menu-text modal-btn mt-10" data-target="modal-<?= $tieu_chi_id ?>">Xóa</p>
                                                                 </li>

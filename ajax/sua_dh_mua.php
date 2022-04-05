@@ -33,7 +33,10 @@ $tien_ckhau = $_POST['tien_ckhau'];
 $gias_vat = $_POST['gias_vat'];
 $chi_phi_vc = $_POST['chi_phi_vc'];
 $ghic_vc = $_POST['ghic_vc'];
+$phan_loai = getValue('phan_loai', 'int', 'POST', '');
 
+$id_vt_dc = $_POST['id_vt_dc'];
+$co1 = count($id_vt_dc);
 $ma_vt = $_POST['ma_vt'];
 $cou = count($ma_vt);
 $so_luong_hd = $_POST['so_luong_hd'];
@@ -45,6 +48,7 @@ $thue_vat_vt = $_POST['thue_vat_vt'];
 $tts_vat = $_POST['tts_vat'];
 $dia_chi_g = $_POST['dia_chi_g'];
 
+
 if ($com_id != "" && $id_dh != "" && $hop_dong != "") {
 
     $up_dh = new db_query("UPDATE `don_hang` SET `id_nha_cc_kh`='$id_ncc',`id_nguoi_lh`='$nguoi_lh',`id_hop_dong`='$hop_dong',
@@ -54,20 +58,32 @@ if ($com_id != "" && $id_dh != "" && $hop_dong != "") {
                         `chiet_khau`='$tien_ckhau',`chi_phi_vchuyen`='$chi_phi_vc',`ghi_chu_vchuyen`='$ghic_vc' WHERE `phan_loai` = 1
                         AND `id_cong_ty` = $com_id AND `id` = $id_dh ");
 
-    $dele_dhc = new db_query("DELETE FROM `vat_tu_dh_mua_ban` WHERE `id_cong_ty` = $com_id AND `id_don_hang` = $id_dh ");
+    $check_tt = new db_query("SELECT `id` FROM `don_hang` WHERE `id` = $id_dh AND `id_cong_ty` = $com_id AND `id_hop_dong` = $hop_dong ");
+    if(mysql_num_rows($check_tt -> result) > 0){
+        for($a = 0; $a < $co1; $a++){
+            $tgian_giao_hang = strtotime($thoi_gian_gh[$a]);
+            $upda_vtdh = new db_query("UPDATE `vat_tu_dh_mua_ban` SET `id_hd`='$hop_dong',`id_vat_tu`='$ma_vt[$a]',
+                                    `so_luong_theo_hd`='$so_luong_hd[$a]',`so_luong_ky_nay`='$so_luong_kn[$a]',`thoi_gian_giao_hang`='$tgian_giao_hang',
+                                    `don_gia`='$don_gia[$a]',`tong_tien_trvat`='$ttr_vat[$a]',`thue_vat`='$thue_vat_vt[$a]',`tong_tien_svat`='$tts_vat[$a]',
+                                    `dia_diem_giao_hang`='$dia_chi_g[$a]' WHERE `id`='$id_vt_dc[$a]' AND `id_don_hang`='$id_dh' AND `id_cong_ty`='$com_id' ");
+        }
+    }else{
+        $dele_dhc = new db_query("DELETE FROM `vat_tu_dh_mua_ban` WHERE `id_cong_ty` = $com_id AND `id_don_hang` = $id_dh ");
 
-    for($j = 0; $j < $cou; $j++){
-        $tgian_giao_hang = strtotime($thoi_gian_gh[$j]);
-        $inser_vtdh = new db_query("INSERT INTO `vat_tu_dh_mua_ban`(`id`, `id_don_hang`, `id_hd`, `id_vat_tu`, `so_luong_theo_hd`, `sl_luy_ke_ktruoc`,
+        for ($j = 0; $j < $cou; $j++) {
+            $tgian_giao_hang = strtotime($thoi_gian_gh[$j]);
+            $inser_vtdh = new db_query("INSERT INTO `vat_tu_dh_mua_ban`(`id`, `id_don_hang`, `id_hd`, `id_vat_tu`, `so_luong_theo_hd`,
                                     `so_luong_ky_nay`, `thoi_gian_giao_hang`, `don_gia`, `tong_tien_trvat`, `thue_vat`, `tong_tien_svat`, `dia_diem_giao_hang`,
-                                    `id_cong_ty`) VALUES ('','$id_dh','$hop_dong','$ma_vt[$j]','$so_luong_hd[$j]','','$so_luong_kn[$j]','$tgian_giao_hang',
-                                    '$don_gia[$j]','$ttr_vat[$j]','$thue_vat_vt[$j]','$tts_vat[$j]','$dia_chi_g','$com_id')");
+                                    `id_cong_ty`) VALUES ('','$id_dh','$hop_dong','$ma_vt[$j]','$so_luong_hd[$j]','$so_luong_kn[$j]','$tgian_giao_hang',
+                                    '$don_gia[$j]','$ttr_vat[$j]','$thue_vat_vt[$j]','$tts_vat[$j]','$dia_chi_g[$j]','$com_id')");
+        }
     }
 
     $noi_dung = 'Bạn đã cập nhật đơn hàng mua vật tư: ĐH-' . $id_dh;
     $ngay_tao = strtotime(date('Y-m-d', time()));
     $gio_tao = strtotime(date('H:i:s', time()));
-    $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id', '$ngay_tao','$gio_tao', '$noi_dung')");
+    $inser_nk = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`, `gio_tao`, `noi_dung`)
+                            VALUES('','$user_id','$phan_loai','$ngay_tao','$gio_tao', '$noi_dung')");
 
 } else {
     echo  "Bạn cập nhật đơn hàng không thành công, vui lòng thử lại!";

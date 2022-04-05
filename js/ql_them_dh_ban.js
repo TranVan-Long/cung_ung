@@ -123,19 +123,20 @@ $('.save_add').click(function () {
         if ($("input[name='dgia_vat']").is(":checked")) {
             dgia_vat = 1;
         };
-        var thue_vat = $("input[name='thue_vat']").val();
+        var thue_vat = $("input[name='tong_thue_vat']").val();
         var tien_chkhau = $("input[name='tien_ckhau']").val();
         var gias_vat = $("input[name='gias_vat']").val();
         var chi_phi_vc = $("input[name='chi_phi_vc']").val();
         var ghic_vc = $("input[name='ghic_vc']").val();
+        var phan_loai_nk = $(".form_add_hp_mua").attr("data1");
 
-        var id_vt = new Array();
-        $("input[name='ma_vatt']").each(function () {
-            var vt = $(this).attr("data-id");
+        var id_vt = [];
+        $("input[name='ma_vattu']").each(function () {
+            var vt = $(this).attr("data");
             id_vt.push(vt);
         });
 
-        var so_luong = new Array();
+        var so_luong = [];
         $("input[name='sl_knay']").each(function () {
             var sl = $(this).val();
             if (sl == "") {
@@ -146,13 +147,13 @@ $('.save_add').click(function () {
             }
         });
 
-        var so_luong_hd = new Array();
+        var so_luong_hd = [];
         $("input[name='so_luong_hd']").each(function () {
             var sl1 = $(this).val();
             so_luong_hd.push(sl1);
         });
 
-        var thoi_han_gh = new Array();
+        var thoi_han_gh = [];
         $("input[name='thoig_ghang']").each(function () {
             var tgian = $(this).val();
             if (tgian == "") {
@@ -163,13 +164,13 @@ $('.save_add').click(function () {
             }
         });
 
-        var don_gia = new Array();
+        var don_gia = [];
         $("input[name='don_gia']").each(function () {
             var dgia = $(this).val();
             don_gia.push(dgia);
         });
 
-        var ttien_tr = new Array();
+        var ttien_tr = [];
         $("input[name='ttr_vat']").each(function () {
             var ttr = $(this).val();
             if (ttr == "") {
@@ -180,8 +181,8 @@ $('.save_add').click(function () {
             }
         });
 
-        var thuevat = new Array();
-        $("input[name='thue_vat_vt']").each(function () {
+        var thuevat = [];
+        $("input[name='thue_vat']").each(function () {
             var thue = $(this).val();
             if (thue == "") {
                 thue = 0;
@@ -191,7 +192,7 @@ $('.save_add').click(function () {
             }
         });
 
-        var ttien_s = new Array();
+        var ttien_s = [];
         $("input[name='tts_vat']").each(function () {
             var tts = $(this).val();
             if (tts == "") {
@@ -202,7 +203,7 @@ $('.save_add').click(function () {
             }
         });
 
-        var dia_chi_g = new Array();
+        var dia_chi_g = [];
         $("input[name='dia_chi_g']").each(function () {
             var dchi = $(this).val();
             if (dchi == "") {
@@ -247,6 +248,7 @@ $('.save_add').click(function () {
                 ttien_s: ttien_s,
                 dia_chi_g: dia_chi_g,
                 so_luong_hd: so_luong_hd,
+                phan_loai_nk: phan_loai_nk,
             },
             success: function (data) {
                 if (data == "") {

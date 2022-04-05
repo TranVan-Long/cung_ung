@@ -12,6 +12,7 @@ $so_luong               = $_POST['so_luong'];
 
 $user_id                = getValue('user_id', 'int', 'POST', '');
 $com_id                =  getValue('com_id', 'int', 'POST', '');
+$role                =  getValue('role', 'int', 'POST', '');
 
 $count = count($vat_tu);
 $count1 = count($so_luong);
@@ -25,7 +26,7 @@ if ($user_id != "") {
         if ($count != $count1) {
             echo "Vui lòng điền đầy đủ thông tin vật tư.";
         } else {
-            $them_ycvt = new db_query("INSERT INTO `yeu_cau_vat_tu` (`id`,`id_nguoi_yc`, `id_cong_trinh`, `ngay_ht_yc`, `dien_giai`, `trang_thai`, `ngay_tao`, `id_cong_ty`) VALUES (NULL, '$user_id', '$cong_trinh', '$ngay_phai_hoan_thanh', '$dien_giai', '$trang_thai', '$ngay_tao_yeu_cau', '$com_id')");
+            $them_ycvt = new db_query("INSERT INTO `yeu_cau_vat_tu` (`id`,`id_nguoi_yc`,`role`, `id_cong_trinh`, `ngay_ht_yc`, `dien_giai`, `trang_thai`, `ngay_tao`, `id_cong_ty`) VALUES (NULL, '$user_id','$role', '$cong_trinh', '$ngay_phai_hoan_thanh', '$dien_giai', '$trang_thai', '$ngay_tao_yeu_cau', '$com_id')");
 
             $row = mysql_fetch_assoc((new db_query("SELECT LAST_INSERT_ID() AS yc_id"))->result);
             $id_yc = $row['yc_id'];
@@ -38,8 +39,8 @@ if ($user_id != "") {
             $noi_dung = 'Bạn đã thêm phiếu yêu cầu vật tư: YC-' . $id_yc;
             $ngay_tao = strtotime(date('Y-m-d', time()));
             $gio_tao  = strtotime(date('H:i:s', time()));
-            $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_tao`, `gio_tao`, `noi_dung`)
-                          VALUES('', '$user_id', '$ngay_tao', '$gio_tao', '$noi_dung')");
+            $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`,`role`, `ngay_tao`, `gio_tao`, `noi_dung`)
+                          VALUES('', '$user_id','$role', '$ngay_tao', '$gio_tao', '$noi_dung')");
         }
     }
 } else {

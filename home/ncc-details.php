@@ -2,15 +2,34 @@
 include("config.php");
 include("../includes/icon.php");
 
-if (isset($_GET['id']) && $_GET['id'] != "") {
-    $ncc_id = $_GET['id'];
-    $ncc_get = new db_query("SELECT * FROM `nha_cc_kh` WHERE `id` = '" . $ncc_id . "' ");
-    $ncc_bank = new db_query("SELECT * FROM `tai_khoan` WHERE `id_nha_cc_kh` = '" . $ncc_id . "' ");
-    $ncc_contact = new db_query("SELECT * FROM `nguoi_lien_he` WHERE `id_nha_cc` = '" . $ncc_id . "' ");
-    $ncc_detail = mysql_fetch_assoc($ncc_get->result);
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 1) {
+        $com_id = $_SESSION['com_id'];
+        $user_id = $_SESSION['com_id'];
+        $role = 1;
+    } else if ($_COOKIE['role'] == 2) {
+        $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+        $role = 2;
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `nha_cung_cap` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $ncc3 = explode(',', $item_nv['nha_cung_cap']);
+            if (in_array(2, $ncc3) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+    }
+}
 
-    $ep_name = $_SESSION['ep_name'];
-    $ep_id = $_SESSION['ep_id'];
+if (isset($_GET['id']) && $_GET['id'] != "") {
+    $id = $_GET['id'];
+    $ncc_get = new db_query("SELECT * FROM `nha_cc_kh` WHERE `id` = '" . $id . "' ");
+    $ncc_bank = new db_query("SELECT * FROM `tai_khoan` WHERE `id_nha_cc_kh` = '" . $id . "' ");
+    $ncc_contact = new db_query("SELECT * FROM `nguoi_lien_he` WHERE `id_nha_cc` = '" . $id . "' ");
+    $ncc_detail = mysql_fetch_assoc($ncc_get->result);
 }
 ?>
 <!DOCTYPE html>
@@ -184,11 +203,20 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         </div>
                     </div>
                     <div class="control-btn right">
-                        <p class="v-btn btn-outline-red modal-btn mr-20 mt-15" data-target="delete">Xóa</p>
-                        <a href="chinh-sua-nha-cung-cap-<?= $ncc_detail['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
+                        <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+                            <p class="v-btn btn-outline-red modal-btn mr-20 mt-15" data-target="delete">Xóa</p>
+                            <a href="chinh-sua-nha-cung-cap-<?= $ncc_detail['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
+                        <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                            if (in_array(4, $ncc3)) { ?>
+                                <p class="v-btn btn-outline-red modal-btn mr-20 mt-15" data-target="delete">Xóa</p>
+                            <? }
+                            if (in_array(3, $ncc3)) { ?>
+                                <a href="chinh-sua-nha-cung-cap-<?= $ncc_detail['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
+                        <? }
+                        } ?>
                     </div>
                     <div class="control-btn left mr-10">
-                        <button class="v-btn btn-green mr-20 mt-15 xuat_excel" data="<?= $ncc_id ?>">Xuất excel</button>
+                        <button class="v-btn btn-green mr-20 mt-15 xuat_excel" data="<?= $id ?>">Xuất excel</button>
                         <p class="v-btn"></p>
                     </div>
                 </div>
@@ -206,7 +234,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                             </div>
                             <div class="right">
-                                <button class="v-btn sh_bgr_six share_clr_tow right delete-ncc" data-id="<?= $ncc_detail['id'] ?>">Đồng ý</button>
+                                <button class="v-btn sh_bgr_six share_clr_tow right delete-ncc" data="<?= $role ?>" data1="<?= $id ?>" data2="<?= $user_id ?>" data3="<?= $ncc_detail['ten_nha_cc_kh'] ?>">Đồng ý</button>
                             </div>
                         </div>
                     </div>
@@ -223,24 +251,24 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript">
-
-    $(".xuat_excel").click(function(){
+    $(".xuat_excel").click(function() {
         var id_ncc = $(this).attr("data");
         window.location.href = '../excel/ncc_excel.php?id_ncc=' + id_ncc;
     });
 
     $(".delete-ncc").click(function() {
-        var id = $(this).attr("data-id");
-        //log record
-        var ep_id = '<?= $ep_id ?>';
-        var ncc_name = '<?= $ncc_detail['ten_nha_cc_kh'] ?>';
+        var role = $(this).attr("data");
+        var id = $(this).attr("data1");
+        var user_id = $(this).attr("data2");
+        var ncc_name = $(this).attr("data3");
         $.ajax({
             url: '../ajax/ncc_xoa.php',
             type: 'POST',
             data: {
                 id: id,
-                ep_id: ep_id,
-                ncc_name: ncc_name
+                user_id: user_id,
+                ncc_name: ncc_name,
+                role: role,
             },
             success: function(data) {
                 if (data == "") {

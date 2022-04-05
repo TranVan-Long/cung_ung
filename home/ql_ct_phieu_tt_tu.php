@@ -29,8 +29,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `phieu_tt` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $phieu_tt = explode(',', $item_nv['phieu_tt']);
-            if (in_array(1, $phieu_tt) == FALSE) {
+            $phieu_tt2 = explode(',', $item_nv['phieu_tt']);
+            if (in_array(1, $phieu_tt2) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -60,7 +60,7 @@ for ($i = 0; $i < count($list_nv); $i++) {
 $id  = getValue('id', 'int', 'GET', '');
 if ($id != "") {
     $list_ptt = new db_query("SELECT p.`id`, p.`id_hd_dh`, p.`id_ncc_kh`, p.`loai_phieu_tt`, p.`ngay_thanh_toan`, p.`hinh_thuc_tt`, p.`loai_thanh_toan`, p.`phan_loai`,
-                            p.`nguoi_nhan_tien`, p.`so_tien_tam_ung`, p.`ty_gia`, p.`phi_giao_dich`, p.`gia_tri_quy_doi`, p.`trang_thai`, p.`id_nguoi_lap`, n.`ten_nha_cc_kh`
+                            p.`nguoi_nhan_tien`, p.`so_tien`, p.`ty_gia`, p.`phi_giao_dich`, p.`gia_tri_quy_doi`, p.`trang_thai`, p.`id_nguoi_lap`, n.`ten_nha_cc_kh`
                             FROM `phieu_thanh_toan` AS p
                             INNER JOIN `nha_cc_kh` AS n ON p.`id_ncc_kh` = n.`id`
                             WHERE p.`id` = $id AND p.`id_cong_ty` = $com_id ");
@@ -173,7 +173,7 @@ if ($id != "") {
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Số tiền</p>
                                     <? if ($item['loai_thanh_toan'] == 1) { ?>
                                         <p class="cr_weight share_fsize_tow share_clr_one">
-                                            <?= ($item['so_tien_tam_ung'] != 0) ? number_format($item['so_tien_tam_ung']) : "" ?>
+                                            <?= ($item['so_tien'] != 0) ? number_format($item['so_tien']) : "" ?>
                                         </p>
                                     <? } ?>
                                 </div>
@@ -225,10 +225,10 @@ if ($id != "") {
                                         <a href="chinh-sua-phieu-thanh-toan-<?= $id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                     </p>
                                     <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                                    if (in_array(4, $phieu_tt)) { ?>
+                                    if (in_array(4, $phieu_tt2)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_phieu_tt">Xóa</p>
                                     <? }
-                                    if (in_array(3, $phieu_tt)) { ?>
+                                    if (in_array(3, $phieu_tt2)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
                                             <a href="chinh-sua-phieu-thanh-toan-<?= $id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                         </p>

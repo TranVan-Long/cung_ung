@@ -1,19 +1,39 @@
 <?php
 include("config.php");
 include("../includes/icon.php");
-$date = date('m-d-Y', time());
+
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 1) {
+        $com_id = $_SESSION['com_id'];
+        $user_id = $_SESSION['com_id'];
+        $role = 1;
+    } else if ($_COOKIE['role'] == 2) {
+        $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+        $role = 2;
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `nha_cung_cap` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $ncc3 = explode(',', $item_nv['nha_cung_cap']);
+            if (in_array(2, $ncc3) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+    }
+}
 
 if (isset($_GET['id']) && $_GET['id'] != "") {
-    $ncc_id = $_GET['id'];
-    $ncc_get = new db_query("SELECT * FROM `nha_cc_kh` WHERE `id` = '" . $ncc_id . "' ");
-    $ncc_bank = new db_query("SELECT * FROM `tai_khoan` WHERE `id_nha_cc_kh` = '" . $ncc_id . "' ");
-    $ncc_contact = new db_query("SELECT * FROM `nguoi_lien_he` WHERE `id_nha_cc` = '" . $ncc_id . "' ");
+    $id = $_GET['id'];
+    $ncc_get = new db_query("SELECT * FROM `nha_cc_kh` WHERE `id` = '" . $id . "' ");
+    $ncc_bank = new db_query("SELECT * FROM `tai_khoan` WHERE `id_nha_cc_kh` = '" . $id . "' ");
+    $ncc_contact = new db_query("SELECT * FROM `nguoi_lien_he` WHERE `id_nha_cc` = '" . $id . "' ");
     $ncc_detail = mysql_fetch_assoc($ncc_get->result);
-    $ep_id = $_SESSION['ep_id'];
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -42,10 +62,10 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             </div>
             <div class="content">
                 <div class="left mt-25">
-                    <a class="text-black" href="quan-ly-chi-tiet-nha-cung-cap-<?= "$ncc_id" ?>.html"><?php echo $ic_lt ?> Quay lại</a>
+                    <a class="text-black" href="quan-ly-chi-tiet-nha-cung-cap-<?= "$id" ?>.html"><?php echo $ic_lt ?> Quay lại</a>
                     <p class="page-title mt_25 mb_10">Chỉnh sửa nhà cung cấp</p>
                 </div>
-                <form action="" class="main-form">
+                <form action="" class="main-form" data="<?= $role ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>">
                     <div class="w-100 left mt-10">
                         <div class="form-control edit-form">
                             <div class="form-row left">
@@ -339,7 +359,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
         });
         if (form.valid() === true) {
             //thong tin nha cung cap
-            var id_ncc_kh = "<?= $ncc_id ?>";
+            var id_ncc_kh = "<?= $id ?>";
             var ten_nha_cc_kh = $("input[name='ten_nha_cc_kh'").val();
             var ten_vt = $("input[name='ten_vt']").val();
             var ten_giao_dich = $("input[name='ten_giao_dich']").val();
@@ -487,7 +507,9 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             });
 
             //get user id
-            var ep_id = '<?= $ep_id ?>';
+            var user_id = $(".main-form").attr("data2");
+            var com_id = $(".main-form").attr("data1");
+            var role = $(".main-form").attr("data");
 
 
             $.ajax({
@@ -536,12 +558,14 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     email_lh: email_lh,
 
                     //user id
-                    ep_id: ep_id
+                    user_id: user_id,
+                    com_id: com_id,
+                    role: role,
                 },
                 success: function(data) {
                     if (data == "") {
                         alert('"Cập nhật nhà cung cấp thành công!"');
-                        window.location.href = 'quan-ly-chi-tiet-nha-cung-cap-<?= "$ncc_id" ?>.html';
+                        window.location.href = 'quan-ly-chi-tiet-nha-cung-cap-<?= "$id" ?>.html';
                     } else {
                         alert(data);
                     }

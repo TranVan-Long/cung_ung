@@ -7,14 +7,16 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['com_id'];
+        $role = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
+        $role = 2;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $hop_dong = explode(',', $item_nv['hop_dong']);
-            if (in_array(2, $hop_dong) == FALSE) {
+            $hop_dong3 = explode(',', $item_nv['hop_dong']);
+            if (in_array(2, $hop_dong3) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -97,7 +99,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                         <h4 class="tieu_de_ct w_100 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Thêm hợp đồng mua</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_id ?>">
+                            <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $role ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Ngày ký hợp đồng <span class="cr_red">*</span></label>
@@ -155,7 +157,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Thuế suất VAT</label>
-                                        <input type="text" name="thue_vat" class="form-control thue_vat_tong" onkeyup="tong_vt()" placeholder="Nhập thuế suất VAT">
+                                        <input type="text" name="thue_vat" class="form-control thue_vat_tong" readonly placeholder="Nhập thuế suất VAT">
                                     </div>
                                     <div class="form-group">
                                         <label>Tiền chiết khấu</label>
@@ -329,16 +331,16 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
 <script type="text/javascript" src="../js/giatri_doi.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script>
-    $(window).on("load", function() {
-        tong_vt();
-        baoLanh();
-        baoHanh();
-    });
-    $(document).on('click', '.remo_cot_ngang', function() {
-        tong_vt();
-        baoLanh();
-        baoHanh();
-    })
+    // $(window).on("load", function() {
+    //     tong_vt();
+    //     baoLanh();
+    //     baoHanh();
+    // });
+    // $(document).on('click', '.remo_cot_ngang', function() {
+    //     tong_vt();
+    //     baoLanh();
+    //     baoHanh();
+    // })
     $(".all_nhacc, .all_da_ct, .bao_gia").select2({
         width: '100%',
     });
@@ -353,7 +355,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
         var id_p = $("#bao_gia").val();
         var id_vt = $(id).val();
         var id_v = $(id).parents(".item").attr("data");
-        var com_id = $(".form_add_hp_mua").attr("data");
+        var com_id = $(".form_add_hp_mua").attr("data1");
         $.ajax({
             url: '../render/hd_mua_vat_tu.php',
             type: 'POST',
@@ -373,6 +375,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
     $("#id_nha_cung_cap").change(function() {
         var com_id = $(this).attr("data");
         var id_ncc = $(this).val();
+        var bao_gia = $("#bao_gia").val();
         $.ajax({
             url: '../render/hd_mua_ds_bg.php',
             type: 'POST',
@@ -384,13 +387,20 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                 $("#bao_gia").html(data);
             }
         });
+
+        if (bao_gia != "") {
+            $(".them_moi_vt").show();
+        } else {
+            $(".them_moi_vt").hide();
+        }
     });
-    $('#bao_gia').change(function(){
+
+    $("#bao_gia").change(function() {
         var bao_gia = $(this).val();
-        if(bao_gia != ""){
-            $('.them_moi_vt').slideDown();
-        }else{
-            $('.them_moi_vt').slideUp();
+        if (bao_gia != "") {
+            $(".them_moi_vt").slideDown();
+        } else {
+            $(".them_moi_vt").slideUp();
         }
     })
 
@@ -439,7 +449,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                 id_nha_cung_cap: {
                     required: true,
                 },
-                bao_gia:{
+                bao_gia: {
                     required: true
                 },
                 // dan_ctrinh: {
@@ -459,7 +469,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                 id_nha_cung_cap: {
                     required: "Không được để trống",
                 },
-                bao_gia:{
+                bao_gia: {
                     required: "Không được để trống",
                 },
                 // dan_ctrinh: {
@@ -475,8 +485,9 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
         });
 
         if (form_add_mua.valid() === true) {
-            var ep_id = '<?= $user_id ?>';
-            var com_id = '<?= $com_id ?>';
+            var user_id = $(".form_add_hp_mua").attr("data2");
+            var com_id = $(".form_add_hp_mua").attr("data1");
+            var role = $(".form_add_hp_mua").attr("data");
 
             var ngay_ky_hd = $("input[name='ngay_ky_hd'").val();
             var id_nha_cung_cap = $("select[name='id_nha_cung_cap']").val();
@@ -514,42 +525,42 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
             var bao_gia = $("select[name='bao_gia']").val();
             var tthuan_hdon = $("textarea[name='tthuan_hdon']").val();
 
-            var vt_vat_tu = new Array();
+            var vt_vat_tu = [];
             $("select[name='ma_vt_ban']").each(function() {
                 var ten_vat_tu = $(this).val();
                 if (ten_vat_tu != "") {
                     vt_vat_tu.push(ten_vat_tu);
                 }
             });
-            var vt_so_luong = new Array();
+            var vt_so_luong = [];
             $("input[name='so_luong']").each(function() {
                 var sl_vt = $(this).val();
                 if (sl_vt != "") {
                     vt_so_luong.push(sl_vt);
                 }
             });
-            var vt_don_gia = new Array();
+            var vt_don_gia = [];
             $("input[name='don_gia']").each(function() {
                 var dg_vt = $(this).val();
                 if (dg_vt != "") {
                     vt_don_gia.push(dg_vt);
                 }
             });
-            var vt_truoc_vat = new Array();
+            var vt_truoc_vat = [];
             $("input[name='vt_tien_tvat']").each(function() {
                 var tr_vat = $(this).val();
                 if (tr_vat != "") {
                     vt_truoc_vat.push(tr_vat);
                 }
             });
-            var vt_vat_tax = new Array();
+            var vt_vat_tax = [];
             $("input[name='vt_thue_vat']").each(function() {
                 var tax = $(this).val();
                 if (tax != "") {
                     vt_vat_tax.push(tax);
                 }
             });
-            var vt_sau_vat = new Array();
+            var vt_sau_vat = [];
             $("input[name='vt_tien_svat']").each(function() {
                 var s_vat = $(this).val();
                 if (s_vat != "") {
@@ -562,8 +573,9 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                 url: '../ajax/hd_mua_them.php',
                 type: 'POST',
                 data: {
-                    ep_id: ep_id,
+                    user_id: user_id,
                     com_id: com_id,
+                    role: role,
 
                     ngay_ky_hd: ngay_ky_hd,
                     id_nha_cung_cap: id_nha_cung_cap,

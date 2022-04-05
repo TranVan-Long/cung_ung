@@ -13,8 +13,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `tieu_chi_danh_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-        $tieu_chi_dg = explode(',', $item_nv['tieu_chi_danh_gia']);
-        if (in_array(2, $tieu_chi_dg) == FALSE) {
+        $tieu_chi_dg3 = explode(',', $item_nv['tieu_chi_danh_gia']);
+        if (in_array(2, $tieu_chi_dg3) == FALSE) {
             header('Location: /quan-ly-trang-chu.html');
         }
     } else {

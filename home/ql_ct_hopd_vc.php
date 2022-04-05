@@ -37,8 +37,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $hop_dong = explode(',', $item_nv['hop_dong']);
-            if (in_array(1, $hop_dong) == FALSE) {
+            $hop_dong2 = explode(',', $item_nv['hop_dong']);
+            if (in_array(1, $hop_dong2) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -237,7 +237,7 @@ for ($i = 0; $i < count($cong_trinh_data); $i++) {
                                         ?>
                                             <tr>
                                                 <td class="share_tb_one"><?= $stt++ ?></td>
-                                                <td class="share_tb_five"><?= $vat_tu['vat_tu'] ?></td>
+                                                <td class="share_tb_five"><?= $vat_tu_detail[$vat_tu['vat_tu']]['dsvt_name'] ?></td>
                                                 <td class="share_tb_three"><?= $vat_tu['don_vi_tinh'] ?></td>
                                                 <td class="share_tb_three"><?= $vat_tu['khoi_luong'] ?></td>
                                                 <td class="share_tb_four"><?= formatMoney($vat_tu['don_gia']) ?></td>
@@ -256,10 +256,10 @@ for ($i = 0; $i < count($cong_trinh_data); $i++) {
                                         <a href="chinh-sua-hop-dong-van-chuyen-<?= $hd_id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                     </p>
                                 <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                                    if (in_array(4, $hop_dong)) { ?>
+                                    if (in_array(4, $hop_dong2)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">Xóa</p>
                                     <? }
-                                    if (in_array(3, $hop_dong)) { ?>
+                                    if (in_array(3, $hop_dong2)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
                                             <a href="chinh-sua-hop-dong-van-chuyen-<?= $hd_id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                         </p>

@@ -3,19 +3,11 @@ include("../includes/icon.php");
 include('config.php');
 $date = date('Y-m-d', time());
 
-// if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
-//     if ($_COOKIE['role'] == 1) {
-//         $com_id = $_SESSION['com_id'];
-//     } else if ($_COOKIE['role'] == 2) {
-//         $com_id = $_SESSION['user_com_id'];
-//         $user_id = $_SESSION['ep_id'];
-
-
-//     }
-// }
-
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
+    $user_id = $_SESSION['com_id'];
     $com_id = $_SESSION['com_id'];
+    $user_name = $_SESSION['com_name'];
+    $role = 1;
 
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
@@ -29,8 +21,10 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $data_list = json_decode($response, true);
     $data_list_nv = $data_list['data']['items'];
 } elseif (isset($_SESSION['quyen']) && ($_SESSION['quyen'] == 2)) {
+    $user_id = $_SESSION['ep_id'];
     $com_id = $_SESSION['user_com_id'];
-    echo 1;
+    $user_name = $_SESSION['ep_name'];
+    $role = 2;
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
@@ -42,14 +36,13 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
 
     $data_list = json_decode($response, true);
     $data_list_nv = $data_list['data']['items'];
-    $user_id = $_SESSION['ep_id'];
-    $user_name = $_SESSION['ep_name'];
+
 
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `yeu_cau_vat_tu` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-        $ycvt = explode(',', $item_nv['yeu_cau_vat_tu']);
-        if (in_array(2, $ycvt) == FALSE) {
+        $ycvt3 = explode(',', $item_nv['yeu_cau_vat_tu']);
+        if (in_array(2, $ycvt3) == FALSE) {
             header('Location: /quan-ly-trang-chu.html');
         }
     } else {
@@ -146,7 +139,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                                     </div>
                                     <div class="form-col-50 right v-select2 mb_15">
                                         <label>Người yêu cầu <span class="text-red">*</span></label>
-                                        <input type="text" name="nguoi_yeu_cau" id="nguoi_yeu_cau" value="<?= $user_name ?>" readonly>
+                                        <input type="text" name="nguoi_yeu_cau" data="<?= $role ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>" id="nguoi_yeu_cau" value="<?= $user_name ?>" readonly>
 
                                     </div>
                                 </div>
@@ -248,9 +241,13 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript">
     $("#add-material").click(function() {
+        var com_id = $("#nguoi_yeu_cau").attr('data1');
         $.ajax({
             url: '../ajax/ycvt_them_vt.php',
             type: 'POST',
+            data: {
+                com_id: com_id,
+            },
             success: function(data) {
                 $("#materials").append(data);
             }
@@ -261,7 +258,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
         $(".materials_name").change(function() {
             var id_vt = $(this).val();
             var _this = $(this);
-            var com_id = <?= $com_id ?>;
+            var com_id = $("#nguoi_yeu_cau").attr('data1');
             $.ajax({
                 url: '../render/ycvt_vat_tu.php',
                 type: 'POST',
@@ -286,9 +283,9 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                 error.wrap("<span class='error'>");
             },
             rules: {
-                phong_ban: {
-                    required: true,
-                },
+                // phong_ban: {
+                //     required: true,
+                // },
                 nguoi_yeu_cau: {
                     required: true,
                 },
@@ -297,9 +294,9 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                 },
             },
             messages: {
-                phong_ban: {
-                    required: "Không được để trống!",
-                },
+                // phong_ban: {
+                //     required: "Không được để trống!",
+                // },
                 nguoi_yeu_cau: {
                     required: "Không được để trống!",
                 },
@@ -330,8 +327,9 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
             });
 
             //get user id
-            var user_id = "<?= $user_id ?>";
-            var com_id = "<?= $com_id ?>";
+            var user_id = $("#nguoi_yeu_cau").attr('data2');
+            var com_id = $("#nguoi_yeu_cau").attr('data1');
+            var role = $("#nguoi_yeu_cau").attr('data');
 
             if (ngay_phai_hoan_thanh >= ngay_tao_yeu_cau || ngay_phai_hoan_thanh == "") {
                 $.ajax({
@@ -347,7 +345,8 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                         so_luong: so_luong,
 
                         user_id: user_id,
-                        com_id: com_id
+                        com_id: com_id,
+                        role: role,
                     },
                     success: function(data) {
                         if (data == "") {

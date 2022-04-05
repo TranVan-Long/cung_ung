@@ -5,27 +5,58 @@ include("config.php");
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
-        $user_id = $_SESSION['user_id'];
+        $user_id = $_SESSION['com_id'];
         $com_name = $_SESSION['com_name'];
+
+        $curl = curl_init();
+        $token = $_COOKIE['acc_token'];
+        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data_list = json_decode($response, true);
+        $list_nv = $data_list['data']['items'];
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
         $com_name = $_SESSION['com_name'];
 
+        $curl = curl_init();
+        $token = $_COOKIE['acc_token'];
+        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data_list = json_decode($response, true);
+        $list_nv = $data_list['data']['items'];
+
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `don_hang` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $don_hang = explode(',', $item_nv['don_hang']);
-            if (in_array(1, $don_hang) == FALSE) {
+            $don_hang2 = explode(',', $item_nv['don_hang']);
+            if (in_array(1, $don_hang2) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
             header('Location: /quan-ly-trang-chu.html');
         }
     }
+
+    $all_nv = [];
+    for ($i = 0; $i < count($list_nv); $i++) {
+        $item_one = $list_nv[$i];
+        $all_nv[$item_one["ep_id"]] = $item_one;
+    };
 } else if (!isset($_COOKIE['acc_token']) || !isset($_COOKIE['rf_token']) || !isset($_COOKIE['role'])) {
     header('Loaction: /');
 }
+
 
 $id_dh = getValue('id', 'int', 'GET', '');
 if ($id_dh != "") {
@@ -39,6 +70,7 @@ if ($id_dh != "") {
                                 INNER JOIN `nha_cc_kh` AS n ON d.`id_nha_cc_kh` = n.`id`
                                 INNER JOIN `nguoi_lien_he` AS l ON d.`id_nguoi_lh` = l.`id`
                                 WHERE  d.`id` = $id_dh AND d.`phan_loai` = 1 AND d.`id_cong_ty` = $com_id ");
+
     $item = mysql_fetch_assoc($list_dhm->result);
     $id_ctrinh = $item['id_du_an_ctrinh'];
 
@@ -87,6 +119,22 @@ if ($id_dh != "") {
         $item2 = $list_vattu[$j];
         $all_vattu[$item2['dsvt_id']] = $item2;
     };
+
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, "https://chamcong.24hpay.vn/service/detail_company.php?id_com=" . $com_id);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    $response4 = curl_exec($curl);
+    curl_close($curl);
+    $com0 = json_decode($response4, true);
+    $com = $com0['data']['list_department'];
+    $coun1 = count($com);
+
+    $all_dep = [];
+    for($a = 0; $a < $coun1; $a++){
+        $item_dep = $com[$a];
+        $all_dep[$item_dep['dep_id']] = $item_dep;
+    }
 
     $stt = 1;
 } else if ($id_dh == "") {
@@ -184,11 +232,15 @@ if ($id_dh != "") {
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Người nhận hàng</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $item['nguoi_nhan_hang'] ?></p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $all_nv[$item['nguoi_nhan_hang']]['ep_name'] ?></p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Phòng ban</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $item['phong_ban'] ?></p>
+                                    <? if ($item['phong_ban'] == 0) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one"></p>
+                                    <? } else if ($item['phong_ban'] != 0) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one"><?= $all_dep[$item['phong_ban']]['dep_name'] ?></p>
+                                    <? } ?>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
@@ -201,7 +253,7 @@ if ($id_dh != "") {
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Giữ lại bảo hành</p>
                                     <? if ($item['giu_lai_bao_hanh']  != 0) { ?>
-                                        <p class="cr_weight share_fsize_tow share_clr_one"><?= $item['giu_lai_bao_hanh'] ?>% tương đương <?= $item['gia_tri_tuong_duong'] ?></p>
+                                        <p class="cr_weight share_fsize_tow share_clr_one"><?= $item['giu_lai_bao_hanh'] ?>% tương đương <?= formatMoney($item['gia_tri_tuong_duong']) ?></p>
                                     <? } else { ?>
                                         <p class="cr_weight share_fsize_tow share_clr_one"></p>
                                     <? } ?>
@@ -217,7 +269,7 @@ if ($id_dh != "") {
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Giá trị trước VAT</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">
-                                        <?= ($item['gia_tri_don_hang'] != 0) ? number_format($item['gia_tri_don_hang']) : "" ?>
+                                        <?= ($item['gia_tri_don_hang'] != 0) ? formatMoney($item['gia_tri_don_hang']) : "" ?>
                                     </p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
@@ -228,18 +280,18 @@ if ($id_dh != "") {
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thuế suất VAT</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= ($item['thue_vat'] != 0) ? $item['thue_vat'] . "%" : "" ?></p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= formatMoney($item['thue_vat']) ?></p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Tiền chiết khấu</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= number_format($item['chiet_khau']) ?></p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= formatMoney($item['chiet_khau']) ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Giá trị sau VAT</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">
-                                        <?= ($item['gia_tri_svat'] != 0) ? number_format($item['gia_tri_svat']) : "" ?>
+                                        <?= ($item['gia_tri_svat'] != 0) ? formatMoney($item['gia_tri_svat']) : "" ?>
                                     </p>
                                 </div>
                             </div>
@@ -247,7 +299,7 @@ if ($id_dh != "") {
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Chi phí vận chuyển</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">
-                                        <?= ($item['chi_phi_vchuyen'] != 0) ? number_format($item['chi_phi_vchuyen']) : "" ?>
+                                        <?= ($item['chi_phi_vchuyen'] != 0) ? formatMoney($item['chi_phi_vchuyen']) : "" ?>
                                     </p>
                                 </div>
                             </div>
@@ -289,10 +341,10 @@ if ($id_dh != "") {
                                                 <td class="share_tb_two"><?= $all_vattu[$row1['id_vat_tu']]['hsx_name'] ?></td>
                                                 <td class="share_tb_one"><?= $row1['so_luong_ky_nay'] ?></td>
                                                 <td class="share_tb_two"><?= date('d/m/Y', $row1['thoi_gian_giao_hang']) ?></td>
-                                                <td class="share_tb_two"><?= number_format($row1['don_gia']) ?></td>
-                                                <td class="share_tb_two"><?= number_format($row1['tong_tien_trvat']) ?></td>
-                                                <td class="share_tb_one"><?= $row1['thue_vat'] ?></td>
-                                                <td class="share_tb_two"><?= number_format($row1['tong_tien_svat']) ?></td>
+                                                <td class="share_tb_two"><?= formatMoney($row1['don_gia']) ?></td>
+                                                <td class="share_tb_two"><?= formatMoney($row1['tong_tien_trvat']) ?></td>
+                                                <td class="share_tb_one"><?= formatMoney($row1['thue_vat']) ?></td>
+                                                <td class="share_tb_two"><?= formatMoney($row1['tong_tien_svat']) ?></td>
                                                 <td class="share_tb_two"><?= $row1['dia_diem_giao_hang'] ?></td>
                                             </tr>
                                         <? } ?>
@@ -309,11 +361,11 @@ if ($id_dh != "") {
                                         <a href="chinh-sua-don-hang-mua-<?= $id_dh ?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                     </p>
                                     <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                                    if (in_array(4, $don_hang)) { ?>
+                                    if (in_array(4, $don_hang2)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_dh">
                                             Xóa</p>
                                     <? }
-                                    if (in_array(3, $don_hang)) { ?>
+                                    if (in_array(3, $don_hang2)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
                                             <a href="chinh-sua-don-hang-mua-<?= $id_dh ?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                         </p>

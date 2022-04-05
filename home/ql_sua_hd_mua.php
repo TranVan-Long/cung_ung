@@ -6,14 +6,16 @@ $com_id = "";
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
     $user_id = $_SESSION['com_id'];
+    $role = 1;
 } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
     $com_id = $_SESSION['user_com_id'];
     $user_id = $_SESSION['ep_id'];
+    $role = 2;
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-        $hop_dong = explode(',', $item_nv['hop_dong']);
-        if (in_array(3, $hop_dong) == FALSE) {
+        $hop_dong2 = explode(',', $item_nv['hop_dong']);
+        if (in_array(3, $hop_dong2) == FALSE) {
             header('Location: /quan-ly-trang-chu.html');
         }
     } else {
@@ -35,7 +37,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $hinh_thuc_hd = $hd_detail['hinh_thuc_hd'];
     $thoi_han_bl = date('Y-m-d', $hd_detail['thoi_han_blanh']);
     $id_bao_gia = $hd_detail['id_bao_gia'];
-}else{
+} else {
     header('Location: /quan-ly-trang-chu.html');
 }
 
@@ -111,7 +113,7 @@ $cong_trinh_data = $list_ct['data']['items'];
                         <h4 class="tieu_de_ct w_100 float_l share_fsize_tow share_clr_one cr_weight_bold mb_20">Chỉnh sửa hợp
                             đồng mua</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_id ?>">
+                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" data="<?= $role ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số hợp đồng</label>
@@ -136,7 +138,7 @@ $cong_trinh_data = $list_ct['data']['items'];
                                         </select>
                                     </div>
                                     <div class="form-group share_form_select">
-                                        <label>Dự án / Công trình <span class="cr_red">*</span></label>
+                                        <label>Dự án / Công trình</label>
                                         <select name="id_cong_trinh" class="form-control all_da_ct">
                                             <option value="">-- Chọn Dự án / Công trình --</option>
                                             <? foreach ($cong_trinh_data as $key => $items) { ?>
@@ -592,8 +594,9 @@ $cong_trinh_data = $list_ct['data']['items'];
         });
 
         if (form_add_mua.valid() === true) {
-            var ep_id = '<?=$user_id ?>';
-            var com_id = '<?= $comp_id ?>';
+            var user_id = $(".form_add_hp_mua").attr("data2");
+            var com_id = $(".form_add_hp_mua").attr("data1");
+            var role = $(".form_add_hp_mua").attr("data");
 
             var hd_id = <?= $hd_id ?>;
             var ngay_ky_hd = $("input[name='ngay_ky_hd'").val();
@@ -733,8 +736,9 @@ $cong_trinh_data = $list_ct['data']['items'];
                 url: '../ajax/hd_mua_sua.php',
                 type: 'POST',
                 data: {
-                    ep_id: ep_id,
+                    user_id: user_id,
                     com_id: com_id,
+                    role: role,
 
                     hd_id: hd_id,
                     ngay_ky_hd: ngay_ky_hd,

@@ -3,9 +3,26 @@ include("config.php");
 include("../includes/icon.php");
 $date = date('m-d-Y', time());
 
-if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role']) && $_COOKIE['role'] == 2) {
-    $ep_id = $_SESSION['ep_id'];
-    $com_id = $_SESSION['user_com_id'];
+if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
+    if ($_COOKIE['role'] == 1) {
+        $com_id = $_SESSION['com_id'];
+        $user_id = $_SESSION['com_id'];
+        $role = 1;
+    } else if ($_COOKIE['role'] == 2) {
+        $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+        $role = 2;
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `nha_cung_cap` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $ncc3 = explode(',', $item_nv['nha_cung_cap']);
+            if (in_array(2, $ncc3) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -41,7 +58,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                     <a class="text-black" href="quan-ly-nha-cung-cap.html"><?php echo $ic_lt ?> Quay lại</a>
                     <p class="page-title mt-20">Thêm nhà cung cấp</p>
                 </div>
-                <form action="" class="main-form">
+                <form action="" class="main-form" data="<?= $role ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>">
                     <div class="w-100 left mt-10">
                         <div class="form-control edit-form">
                             <div class="form-row left">
@@ -366,8 +383,9 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
             });
 
             //get user id
-            var ep_id = '<?= $ep_id ?>';
-            var com_id = '<?= $com_id ?>';
+            var user_id = $(".main-form").attr("data2");
+            var com_id = $(".main-form").attr("data1");
+            var role = $(".main-form").attr("data");
 
             $.ajax({
                 url: '../ajax/ncc_them.php',
@@ -397,8 +415,9 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                     so_dien_thoai_lh: so_dien_thoai_lh,
                     email_lh: email_lh,
 
-                    ep_id: ep_id,
-                    com_id: com_id
+                    user_id: user_id,
+                    com_id: com_id,
+                    role: role,
                 },
                 success: function(data) {
                     if (data == "") {

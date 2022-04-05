@@ -6,9 +6,11 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['com_id'];
+        $role = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
+        $role = 2;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
@@ -21,7 +23,6 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         }
     }
 }
-
 
 $curl = curl_init();
 $data = array(
@@ -36,6 +37,19 @@ $response = curl_exec($curl);
 curl_close($curl);
 $list_cong_trinh = json_decode($response, true);
 $cong_trinh_data = $list_cong_trinh['data']['items'];
+
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response = curl_exec($curl);
+curl_close($curl);
+$list_vt = json_decode($response, true);
+$vat_tu_data = $list_vt['data']['items'];
 
 ?>
 <!DOCTYPE html>
@@ -76,7 +90,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Thêm hợp đồng thuê vận chuyển</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_id ?>" data1="<?= $user_id ?>">
+                            <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $role ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Ngày ký hợp đồng <span class="cr_red">*</span></label>
@@ -224,6 +238,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                                                 </tr>
                                             </thead>
                                             <tbody>
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -299,8 +314,13 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                             </p>
                         </td>
                         <td class="share_tb_five">
-                            <div class="form-group">
-                                <input type="text" name="thietb_vt" class="form-control">
+                            <div class="form-group v-select2">
+                                <select name="thietb_vt" class="share_select form-control">
+                                    <option value="">-- Chọn vật tư/thiết bị --</option>
+                                    <? foreach ($vat_tu_data as $key => $items) { ?>
+                                        <option value="<?= $items['dsvt_id'] ?>"><?= $items['dsvt_name'] ?></option>
+                                    <? } ?>
+                                </select>
                             </div>
                         </td>
                         <td class="share_tb_three">
@@ -325,6 +345,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                         </td>
                     </tr>`;
         $(".ctn_table .table tbody").append(html);
+        RefSelect2();
 
         if ($(".ctn_table .table tbody").height() > 105.5) {
             $(".ctn_table .table thead tr").css('width', 'calc(100% - 10px)');
@@ -348,7 +369,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
 
     var cancel_add = $(".cancel_add");
     cancel_add.click(function() {
-        modal_share.show();
+        modal_share.fadeIn();
     });
 
     $(".save_add").click(function() {
@@ -377,8 +398,9 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
         });
 
         if (form_add_vc.valid() === true) {
-            var user_id = $(".form_add_hp_mua").attr("data1");
-            var com_id = $(".form_add_hp_mua").attr("data");
+            var user_id = $(".form_add_hp_mua").attr("data2");
+            var com_id = $(".form_add_hp_mua").attr("data1");
+            var role = $(".form_add_hp_mua").attr("data");
 
             var ngay_ky_hd = $("input[name='ngay_ky_hd'").val();
             var id_nha_cung_cap = $("select[name='id_nha_cung_cap']").val();
@@ -411,7 +433,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
             var so_taik = $("input[name='so_taik']").val();
 
             var vt_vat_tu = [];
-            $("input[name='thietb_vt']").each(function() {
+            $("select[name='thietb_vt']").each(function() {
                 var ten_vat_tu = $(this).val();
                 if (ten_vat_tu != "") {
                     vt_vat_tu.push(ten_vat_tu);
@@ -456,6 +478,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                         data: {
                             user_id: user_id,
                             com_id: com_id,
+                            role:role,
 
                             ngay_ky_hd: ngay_ky_hd,
                             id_nha_cung_cap: id_nha_cung_cap,
@@ -506,6 +529,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                         data: {
                             user_id: user_id,
                             com_id: com_id,
+                            role:role,
 
                             ngay_ky_hd: ngay_ky_hd,
                             id_nha_cung_cap: id_nha_cung_cap,
@@ -556,6 +580,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                         data: {
                             user_id: user_id,
                             com_id: com_id,
+                            role:role,
 
                             ngay_ky_hd: ngay_ky_hd,
                             id_nha_cung_cap: id_nha_cung_cap,
@@ -603,6 +628,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                     data: {
                         user_id: user_id,
                         com_id: com_id,
+                        role:role,
 
                         ngay_ky_hd: ngay_ky_hd,
                         id_nha_cung_cap: id_nha_cung_cap,

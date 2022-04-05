@@ -5,14 +5,16 @@ include("../includes/icon.php");
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
     $user_id = $_SESSION['com_id'];
+    $role = 1;
 } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
     $com_id = $_SESSION['user_com_id'];
     $user_id = $_SESSION['ep_id'];
+    $role = 2;
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `khach_hang` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-        $khach_hang = explode(',', $item_nv['khach_hang']);
-        if (in_array(1, $khach_hang) == FALSE) {
+        $khach_hang3 = explode(',', $item_nv['khach_hang']);
+        if (in_array(1, $khach_hang3) == FALSE) {
             header('Location: /quan-ly-trang-chu.html');
         }
     } else {
@@ -168,10 +170,10 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             <p class="v-btn btn-outline-red modal-btn mr-20 mt-15" data-target="delete">Xóa</p>
                             <a href="chinh-sua-khach-hang-<?= $row['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
                             <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                            if (in_array(4, $khach_hang)) { ?>
+                            if (in_array(4, $khach_hang3)) { ?>
                                 <p class="v-btn btn-outline-red modal-btn mr-20 mt-15" data-target="delete">Xóa</p>
                             <? }
-                            if (in_array(3, $khach_hang)) { ?>
+                            if (in_array(3, $khach_hang3)) { ?>
                                 <a href="chinh-sua-khach-hang-<?= $row['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
                         <? }
                         } ?>
@@ -196,7 +198,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
                         <div class="right">
-                            <p class="v-btn sh_bgr_six share_clr_tow right xoa_kh" data-id="<?= $row['id'] ?>">Đồng ý</p>
+                            <p class="v-btn sh_bgr_six share_clr_tow right xoa_kh" data="<?= $role ?>" data2="<?= $user_id ?>" data3="<?= $id ?>" data4="<?= $row['ten_nha_cc_kh'] ?>">Đồng ý</p>
                         </div>
                     </div>
                 </div>
@@ -217,12 +219,18 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     });
 
     $("#delete .xoa_kh").click(function() {
-        var id = $(this).attr("data-id");
+        var ten_kh = $(this).attr("data4");
+        var id = $(this).attr("data3");
+        var user_id = $(this).attr("data2");
+        var role = $(this).attr("data");
         $.ajax({
             url: '../ajax/xoa_kh.php',
             type: 'POST',
             data: {
                 id: id,
+                user_id: user_id,
+                role: role,
+                ten_kh:ten_kh,
             },
             success: function(data) {
                 if (data == "") {

@@ -199,7 +199,7 @@ $bao_gia_kh = ['/quan-ly-bao-gia-cho-khach-hang.html', $ct_bgkh, '/them-bao-gia-
                     <a href="quan-ly-cai-dat.html"><span><?php echo $ic_setting ?></span>Cài đặt chung</a>
                 <? } ?>
             </li>
-            <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+        <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
             $user_id = $_SESSION['ep_id'];
             $com_id = $_SESSION['user_com_id'];
             $kt_nhanvien = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
@@ -208,21 +208,21 @@ $bao_gia_kh = ['/quan-ly-bao-gia-cho-khach-hang.html', $ct_bgkh, '/them-bao-gia-
                                     `yeu_cau_bao_gia`, `bao_gia`, `bao_gia_kh`, `nha_cung_cap`, `danh_gia_ncc`, `tieu_chi_danh_gia`, `khach_hang`, `bc_doanh_so`,
                                     `cog_no_thu`, `cong_no_tra` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
                 $ycvt = explode(',', $item_nv['yeu_cau_vat_tu']);
-                $hop_dong = explode(',', $item_nv['hop_dong']);
-                $don_hang = explode(',', $item_nv['don_hang']);
-                $hs_tt = explode(',', $item_nv['ho_so_tt']);
-                $phieu_tt = explode(',', $item_nv['phieu_tt']);
-                $bang_gia = explode(',', $item_nv['bang_gia']);
-                $ycbg = explode(',', $item_nv['yeu_cau_bao_gia']);
-                $bao_gia = explode(',', $item_nv['bao_gia']);
-                $bao_gia_kh = explode(',', $item_nv['bao_gia_kh']);
-                $nha_cc = explode(',', $item_nv['nha_cung_cap']);
-                $dgia_ncc = explode(',', $item_nv['danh_gia_ncc']);
-                $tieu_chi_dg = explode(',', $item_nv['tieu_chi_danh_gia']);
-                $khach_hang = explode(',', $item_nv['khach_hang']);
-                $bc_doanh_so = explode(',', $item_nv['bc_doanh_so']);
-                $cong_no_thu = explode(',', $item_nv['cog_no_thu']);
-                $cong_no_tra = explode(',', $item_nv['cong_no_tra']);
+                $hop_dong1 = explode(',', $item_nv['hop_dong']);
+                $don_hang1 = explode(',', $item_nv['don_hang']);
+                $hs_tt1 = explode(',', $item_nv['ho_so_tt']);
+                $phieu_tt1 = explode(',', $item_nv['phieu_tt']);
+                $bang_gia1 = explode(',', $item_nv['bang_gia']);
+                $ycbg1 = explode(',', $item_nv['yeu_cau_bao_gia']);
+                $bao_gia1 = explode(',', $item_nv['bao_gia']);
+                $bao_gia_kh1 = explode(',', $item_nv['bao_gia_kh']);
+                $nha_cc1 = explode(',', $item_nv['nha_cung_cap']);
+                $dgia_ncc1 = explode(',', $item_nv['danh_gia_ncc']);
+                $tieu_chi_dg1 = explode(',', $item_nv['tieu_chi_danh_gia']);
+                $khach_hang1 = explode(',', $item_nv['khach_hang']);
+                $bc_doanh_so1 = explode(',', $item_nv['bc_doanh_so']);
+                $cong_no_thu1 = explode(',', $item_nv['cog_no_thu']);
+                $cong_no_tra1 = explode(',', $item_nv['cong_no_tra']);
             ?>
                 <? if (in_array(1, $ycvt)) { ?>
                     <li class="<?= (in_array($_SERVER['REDIRECT_URL'], $yc_vattu)) ? "active" : "" ?>">
@@ -231,29 +231,29 @@ $bao_gia_kh = ['/quan-ly-bao-gia-cho-khach-hang.html', $ct_bgkh, '/them-bao-gia-
                         </a>
                     </li>
                 <? } ?>
-                <? if (in_array(1, $hop_dong) || in_array(1, $don_hang) || in_array(1, $hs_tt) || in_array(1, $phieu_tt)) { ?>
+                <? if (in_array(1, $hop_dong1) || in_array(1, $don_hang1) || in_array(1, $hs_tt1) || in_array(1, $phieu_tt1)) { ?>
                     <li class="collapse share_cursor <?= (in_array($_SERVER['REDIRECT_URL'], $all_hopd)) ? "active" : "" ?>" data-tab="sub-menu1">
                         <a>
                             <span><?php echo $ic_hop_dong ?></span>
                             Hợp đồng
                         </a>
                         <ul id="sub-menu1" class="<?= (in_array($_SERVER['REDIRECT_URL'], $all_hopd)) ? "active" : "" ?>">
-                            <? if(in_array(1, $hop_dong)){ ?>
+                            <? if(in_array(1, $hop_dong1)){ ?>
                                 <li>
                                     <a href="quan-ly-hop-dong.html" class="<?= (in_array($_SERVER['REDIRECT_URL'], $hop_dong)) ? "active" : "" ?>"><span><?php echo $ic_circle ?></span> Hợp đồng</a>
                                 </li>
                             <?} ?>
-                            <? if(in_array(1, $don_hang)){ ?>
+                            <? if(in_array(1, $don_hang1)){ ?>
                                 <li>
                                     <a href="quan-ly-don-hang.html" class="<?= (in_array($_SERVER['REDIRECT_URL'], $don_hang)) ? "active" : ""  ?>"><span><?php echo $ic_circle ?></span>Đơn hàng</a>
                                 </li>
                             <?}?>
-                            <? if(in_array(1, $hs_tt)) {?>
+                            <? if(in_array(1, $hs_tt1)) {?>
                                 <li>
                                     <a href="quan-ly-ho-so-thanh-toan.html" class="<?= (in_array($_SERVER['REDIRECT_URL'], $ho_so_tt)) ? "active" : "" ?>"><span><?php echo $ic_circle ?></span>Hồ sơ thanh toán</a>
                                 </li>
                             <?}?>
-                            <? if(in_array(1, $phieu_tt)) {?>
+                            <? if(in_array(1, $phieu_tt1)) {?>
                                 <li>
                                     <a href="quan-ly-phieu-thanh-toan.html" class="<?= (in_array($_SERVER['REDIRECT_URL'], $phieu_tt)) ? "active" : "" ?>"><span><?php echo $ic_circle ?></span>Phiếu thanh toán</a>
                                 </li>
@@ -261,29 +261,29 @@ $bao_gia_kh = ['/quan-ly-bao-gia-cho-khach-hang.html', $ct_bgkh, '/them-bao-gia-
                         </ul>
                     </li>
                 <? } ?>
-                <? if (in_array(1, $bang_gia) || in_array(1, $ycbg) || in_array(1, $bao_gia) || in_array(1, $bao_gia_kh)) { ?>
+                <? if (in_array(1, $bang_gia1) || in_array(1, $ycbg1) || in_array(1, $bao_gia1) || in_array(1, $bao_gia_kh1)) { ?>
                     <li class="collapse share_cursor <?= (in_array($_SERVER['REDIRECT_URL'], $bang_gia)) ? "active" : "" ?>" data-tab="sub-menu2">
                         <a><span><?php echo $ic_bang_gia ?></span>Bảng giá</a>
                         <ul id="sub-menu2" class="<?= (in_array($_SERVER['REDIRECT_URL'], $bang_gia)) ? "active" : "" ?>">
-                            <? if(in_array(1, $bang_gia)){ ?>
+                            <? if(in_array(1, $bang_gia1)){ ?>
                                 <li>
                                     <a href="quan-ly-bang-gia.html" class="<?= ($_SERVER['REDIRECT_URL'] == '/quan-ly-bang-gia.html') ? "active" : "" ?>">
                                         <span><?php echo $ic_circle ?></span>Bảng giá</a>
                                 </li>
 
-                            <?} if(in_array(1, $ycbg)){ ?>
+                            <?} if(in_array(1, $ycbg1)){ ?>
                                 <li>
                                     <a href="quan-ly-yeu-cau-bao-gia.html" class="<?= (in_array($_SERVER['REDIRECT_URL'], $yc_baogia)) ? "active" : "" ?>">
                                         <span><?php echo $ic_circle ?> </span>Yêu cầu báo giá
                                     </a>
                                 </li>
-                            <?} if(in_array(1, $bao_gia)){ ?>
+                            <?} if(in_array(1, $bao_gia1)){ ?>
                                 <li>
                                     <a href="quan-ly-bao-gia.html" class="<?= (in_array($_SERVER['REDIRECT_URL'], $bao_gia)) ? "active" : "" ?>">
                                         <span><?php echo $ic_circle ?></span>Báo giá
                                     </a>
                                 </li>
-                            <? }if(in_array(1, $bao_gia_kh)){ ?>
+                            <? }if(in_array(1, $bao_gia_kh1)){ ?>
                                 <li>
                                     <a href="quan-ly-bao-gia-cho-khach-hang.html" class="<?= (in_array($_SERVER['REDIRECT_URL'], $bao_gia_kh)) ? "active" : "" ?>">
                                         <span><?php echo $ic_circle ?></span>Báo giá cho khách hàng
@@ -293,19 +293,19 @@ $bao_gia_kh = ['/quan-ly-bao-gia-cho-khach-hang.html', $ct_bgkh, '/them-bao-gia-
                         </ul>
                     </li>
                 <? } ?>
-                <? if (in_array(1, $nha_cc) || in_array(1, $dgia_ncc) || in_array(1, $tieu_chi_dg)) { ?>
+                <? if (in_array(1, $nha_cc1) || in_array(1, $dgia_ncc1) || in_array(1, $tieu_chi_dg1)) { ?>
                     <li class="collapse share_cursor <?= (in_array($_SERVER['REDIRECT_URL'], $all_ncc)) ? "active" : "" ?>" data-tab="sub-menu3">
                         <a><span><?php echo $ic_producer ?></span>Nhà cung cấp</a>
                         <ul id="sub-menu3" class="<?= (in_array($_SERVER['REDIRECT_URL'], $all_ncc)) ? "active" : "" ?>">
-                            <? if(in_array(1, $nha_cc)) {?>
+                            <? if(in_array(1, $nha_cc1)) {?>
                                 <li>
                                     <a href="quan-ly-nha-cung-cap.html" class="<?= (in_array($_SERVER['REDIRECT_URL'], $nha_cc)) ? "active" : "" ?>"><span><?php echo $ic_circle ?></span>Nhà cung cấp</a>
                                 </li>
-                            <?} if(in_array(1, $dgia_ncc)) {?>
+                            <?} if(in_array(1, $dgia_ncc1)) {?>
                                 <li>
                                     <a href="danh-gia-nha-cung-cap.html" class="<?= (in_array($_SERVER['REDIRECT_URL'], $danhg_ncc)) ? "active" : "" ?>"><span><?php echo $ic_circle ?></span>Đánh giá nhà cung cấp</a>
                                 </li>
-                            <? }if(in_array(1, $tieu_chi_dg)) {?>
+                            <? }if(in_array(1, $tieu_chi_dg1)) {?>
                                 <li>
                                     <a href="tieu-chi-danh-gia.html" class="<?= (in_array($_SERVER['REDIRECT_URL'], $tieuc_dg)) ? "active" : "" ?>"><span><?php echo $ic_circle ?></span>Tiêu chí đánh giá</a>
                                 </li>
@@ -313,26 +313,26 @@ $bao_gia_kh = ['/quan-ly-bao-gia-cho-khach-hang.html', $ct_bgkh, '/them-bao-gia-
                         </ul>
                     </li>
                 <? } ?>
-                <? if (in_array(1, $khach_hang)) { ?>
+                <? if (in_array(1, $khach_hang1)) { ?>
                     <li class="<?= (in_array($_SERVER['REDIRECT_URL'], $khach_hang)) ? "active" : "" ?>">
                         <a href="quan-ly-khach-hang.html"><span><?php echo $ic_customer ?></span>Khách hàng</a>
                     </li>
                 <? } ?>
-                <? if (in_array(1, $bc_doanh_so) || in_array(1, $cong_no_thu) || in_array(1, $cong_no_thu)) { ?>
+                <? if (in_array(1, $bc_doanh_so1) || in_array(1, $cong_no_thu1) || in_array(1, $cong_no_thu1)) { ?>
                     <li class="collapse share_cursor <?= (in_array($_SERVER['REDIRECT_URL'], $bao_cao)) ? "active" : "" ?>" data-tab="sub-menu4">
                         <a><span><?php echo $ic_report ?></span>Báo cáo</a>
                         <ul id="sub-menu4" class="<?= (in_array($_SERVER['REDIRECT_URL'], $bao_cao)) ? "active" : "" ?>">
-                            <? if(in_array(1, $bc_doanh_so)){ ?>
+                            <? if(in_array(1, $bc_doanh_so1)){ ?>
                                 <li>
                                     <a href="bao-cao-doanh-so-ban-hang.html" class="<?= ($_SERVER['REDIRECT_URL'] == '/bao-cao-doanh-so-ban-hang.html') ? "active" : "" ?>">
                                         <span><?php echo $ic_circle ?></span>Doanh số bán hàng</a>
                                 </li>
-                            <?} if(in_array(1, $cong_no_thu)){ ?>
+                            <?} if(in_array(1, $cong_no_thu1)){ ?>
                                 <li>
                                     <a href="bao-cao-cong-no-phai-thu.html" class="<?= ($_SERVER['REDIRECT_URL'] == '/bao-cao-cong-no-phai-thu.html') ? "active" : "" ?>">
                                         <span><?php echo $ic_circle ?></span>Công nợ phải thu</a>
                                 </li>
-                            <?} if(in_array(1, $cong_no_thu)){ ?>
+                            <?} if(in_array(1, $cong_no_tra1)){ ?>
                                 <li>
                                     <a href="bao-cao-cong-no-phai-tra.html" class="<?= ($_SERVER['REDIRECT_URL'] == '/bao-cao-cong-no-phai-tra.html') ? "active" : "" ?>">
                                         <span><?php echo $ic_circle ?></span>Công nợ phải trả</a>

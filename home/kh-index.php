@@ -12,8 +12,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `khach_hang` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $khach_hang = explode(',', $item_nv['khach_hang']);
-            if (in_array(1, $khach_hang) == FALSE) {
+            $khach_hang3 = explode(',', $item_nv['khach_hang']);
+            if (in_array(1, $khach_hang3) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -108,7 +108,7 @@ $stt = 1;
                         <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                             <a class="v-btn btn-blue add-btn ml-20  mt-20" href="them-khach-hang.html">&plus; Thêm mới</a>
                             <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                            if (in_array(2, $khach_hang)) { ?>
+                            if (in_array(2, $khach_hang3)) { ?>
                                 <a class="v-btn btn-blue add-btn ml-20  mt-20" href="them-khach-hang.html">&plus; Thêm mới</a>
                         <? }
                         } ?>

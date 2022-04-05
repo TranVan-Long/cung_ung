@@ -16,8 +16,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `don_hang` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $don_hang = explode(',', $item_nv['don_hang']);
-            if (in_array(1, $don_hang) == FALSE) {
+            $don_hang2 = explode(',', $item_nv['don_hang']);
+            if (in_array(1, $don_hang2) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -40,7 +40,7 @@ if ($tk != "" && $tk_ct != "") {
 $start = ($page - 1) * $ht;
 $start = abs($start);
 
-$list_dh = "SELECT d.`id`, d.`id_nha_cc_kh`, d.`id_hop_dong`, d.`id_du_an_ctrinh`, d.`ngay_ky`, d.`thoi_han`, d.`phan_loai`, d.`trang_thai`, n.`ten_nha_cc_kh`
+$list_dh = "SELECT d.`id`, d.`id_nha_cc_kh`, d.`id_hop_dong`, d.`id_du_an_ctrinh`,d.`gia_tri_svat`, d.`ngay_ky`, d.`thoi_han`, d.`phan_loai`, n.`ten_nha_cc_kh`
             FROM `don_hang` AS d
             INNER JOIN `nha_cc_kh` AS n ON d.`id_nha_cc_kh` = n.`id`
             WHERE d.`id_cong_ty` = $com_id ";
@@ -69,7 +69,6 @@ $limit = "LIMIT $start,$ht";
 
 $list_dh .= $sql;
 $list_dh .= $limit;
-
 $item_dh = new db_query($list_dh);
 
 $stt = 1;
@@ -141,7 +140,7 @@ for ($i = 0; $i < $cou1; $i++) {
                                 <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">
                                     &plus; Thêm mới</p>
                                 <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                                if (in_array(2, $don_hang)) { ?>
+                                if (in_array(2, $don_hang2)) { ?>
                                     <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">
                                         &plus; Thêm mới</p>
                             <? }
@@ -245,37 +244,43 @@ for ($i = 0; $i < $cou1; $i++) {
                                                 <? } else if ($item2['phan_loai'] == 2) { ?>
                                                     <td>Hợp đông bán vật tư</td>
                                                 <? } ?>
-                                                <? if ($item2['trang_thai'] == 1) { ?>
-                                                    <td class="text-red">Chưa hoàn thành</td>
-                                                <? } else if ($item2['trang_thai'] == 2) { ?>
+                                                <?
+                                                $id_dh = $item2['id'];
+                                                $check_tt = new db_query("SELECT DISTINCT `id_hd_dh` FROM `ho_so_thanh_toan` WHERE `loai_hs` = 2
+                                                                            AND `trang_thai` = 2 AND `id_cong_ty` = $com_id AND `id_hd_dh` = $id_dh ");
+                                                if (mysql_fetch_assoc($check_tt->result) > 0) {
+                                                    $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`tong_tien_tatca`) AS tong1,
+                                                                        SUM(`chi_phi_khac`) AS tong2 FROM `ho_so_thanh_toan`WHERE `loai_hs` = 2
+                                                                        AND `trang_thai` = 2 AND `id_cong_ty` = $com_id AND `id_hd_dh` = $id_dh "))->result);
+                                                    $tong1 = $tong_tien['tong1'];
+                                                    $tong2 = $tong_tien['tong2'];
+                                                    $tong12 = $tong1 - $tong2;
+                                                } else {
+                                                    $tong12 = 0;
+                                                }
+
+                                                $tong_svat_dh = $item2['gia_tri_svat'];
+                                                if ($tong_svat_dh == $tong12) {
+
+                                                ?>
                                                     <td class="text-green">Hoàn thành</td>
+                                                <? } else if ($tong_svat_dh != $tong12) { ?>
+                                                    <td class="text-red">Chưa hoàn thành</td>
                                                 <? } ?>
 
                                                 <? $id_dh = $item2['id'];
                                                 $list_donhang = new db_query("SELECT DISTINCT `id` FROM `phieu_thanh_toan` WHERE `id_hd_dh` = $id_dh
                                                                         AND `loai_phieu_tt` = 2 AND `id_cong_ty` = $com_id AND `loai_thanh_toan` = 1 ");
                                                 if (mysql_num_rows($list_donhang->result) > 0) {
-                                                    $list_donhang1 = new db_query("SELECT SUM(`so_tien_tam_ung`) AS tt_tamung FROM `phieu_thanh_toan` WHERE `id_hd_dh` = $id_dh AND `loai_phieu_tt` = 2
+                                                    $list_donhang1 = new db_query("SELECT SUM(`so_tien`) AS tt_tamung FROM `phieu_thanh_toan` WHERE `id_hd_dh` = $id_dh AND `loai_phieu_tt` = 2
                                                                         AND `id_cong_ty` = $com_id AND `loai_thanh_toan` = 1 ");
                                                     $tt_tamung = mysql_fetch_assoc($list_donhang1->result)['tt_tamung'];
                                                 } else {
                                                     $tt_tamung = 0;
                                                 };
-
-                                                $donhang_tt = new db_query("SELECT DISTINCT `id` FROM `phieu_thanh_toan` WHERE `id_hd_dh` = $id_dh
-                                                                        AND `loai_phieu_tt` = 2 AND `id_cong_ty` = $com_id AND `loai_thanh_toan` = 2 ");
-                                                if (mysql_num_rows($donhang_tt->result) > 0) {
-                                                    $donhang_tt1 = new db_query("SELECT SUM(`da_thanh_toan`) AS tt_thanhtoan FROM `phieu_thanh_toan` AS p
-                                                                        INNER JOIN `chi_tiet_phieu_tt_vt` AS c ON c.`id_hd_dh` = p.`id_hd_dh`
-                                                                        WHERE p.`id_hd_dh` = $id_dh AND p.`loai_phieu_tt` = 2
-                                                                        AND p.`id_cong_ty` = $com_id AND p.`loai_thanh_toan` = 1 ");
-                                                    $tt_thanhtoan = mysql_fetch_assoc($donhang_tt1->result)['tt_thanhtoan'];
-                                                } else {
-                                                    $tt_thanhtoan = 0;
-                                                };
                                                 ?>
                                                 <td><?= number_format($tt_tamung) ?></td>
-                                                <td><?= number_format($tt_thanhtoan) ?></td>
+                                                <td><?= number_format($item2['gia_tri_svat']) ?></td>
                                             </tr>
                                         <? } ?>
                                     </tbody>

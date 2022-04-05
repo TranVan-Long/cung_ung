@@ -6,8 +6,21 @@ include("config.php");
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
+        $user_id = $_SESSION['com_id'];
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `danh_gia_ncc` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $ncc_rat3 = explode(',', $item_nv['danh_gia_ncc']);
+            if (in_array(1, $ncc_rat3) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
     }
 };
 
@@ -187,8 +200,17 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         </div>
                     </div>
                     <div class="control-btn right">
-                        <p class="v-btn btn-outline-red modal-btn show_btn_modal mr-20 mt-15" data-target="delete">Xóa</p>
-                        <a href="chinh-sua-danh-gia-nha-cung-cap-<?= $item['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
+                        <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+                            <p class="v-btn btn-outline-red modal-btn show_btn_modal mr-20 mt-15" data-target="delete">Xóa</p>
+                            <a href="chinh-sua-danh-gia-nha-cung-cap-<?= $item['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
+                        <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                            if (in_array(4, $ncc_rat3)) { ?>
+                                <p class="v-btn btn-outline-red modal-btn show_btn_modal mr-20 mt-15" data-target="delete">Xóa</p>
+                            <? }
+                            if (in_array(3, $ncc_rat3)) { ?>
+                                <a href="chinh-sua-danh-gia-nha-cung-cap-<?= $item['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
+                        <? }
+                        } ?>
                     </div>
                     <div class="control-btn left mr-10">
                         <button class="v-btn btn-green mr-20 mt-15 xuat_excel" data=<?= $ratting_id ?>>Xuất excel</button>

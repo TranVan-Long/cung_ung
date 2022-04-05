@@ -6,8 +6,20 @@ $date = date('Y-m-d', time());
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
+        $user_id = $_SESSION['com_id'];
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `danh_gia_ncc` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $ncc_rat3 = explode(',', $item_nv['danh_gia_ncc']);
+            if (in_array(2, $ncc_rat3) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
     }
 };
 

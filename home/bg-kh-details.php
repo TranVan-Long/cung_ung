@@ -42,8 +42,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `bao_gia_kh` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $bao_gia_kh = explode(',', $item_nv['bao_gia']);
-            if (in_array(1, $bao_gia_kh) == FALSE) {
+            $bao_gia_kh3 = explode(',', $item_nv['bao_gia']);
+            if (in_array(1, $bao_gia_kh3) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -206,10 +206,10 @@ if (isset($_GET['id']) && $_GET['id'] != "" && $_GET['id'] != 0) {
                             <p class="v-btn btn-outline-red modal-btn mr-20 mt-20" data-target="delete">Xóa</p>
                             <a href="chinh-sua-bao-gia-cho-khach-hang-<?= $id_bg ?>.html" class="v-btn btn-blue mt-20">Chỉnh sửa</a>
                             <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                            if (in_array(4, $bao_gia_kh)) { ?>
+                            if (in_array(4, $bao_gia_kh3)) { ?>
                                 <p class="v-btn btn-outline-red modal-btn mr-20 mt-20" data-target="delete">Xóa</p>
                             <? }
-                            if (in_array(3, $bao_gia_kh)) { ?>
+                            if (in_array(3, $bao_gia_kh3)) { ?>
                                 <a href="chinh-sua-bao-gia-cho-khach-hang-<?= $id_bg ?>.html" class="v-btn btn-blue mt-20">Chỉnh sửa</a>
                         <? }
                         } ?>

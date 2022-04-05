@@ -28,8 +28,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `don_hang` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $don_hang = explode(',', $item_nv['don_hang']);
-            if (in_array(3, $don_hang) == FALSE) {
+            $don_hang2 = explode(',', $item_nv['don_hang']);
+            if (in_array(2, $don_hang2) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -126,7 +126,7 @@ $cou1 = count($dep);
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Thêm đơn hàng mua vật tư</h4>
-                        <div class="ctiet_dk_hp w_100 float_l">
+                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $quyen ?>">
                             <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_id ?>" data1="<?= $user_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
@@ -239,7 +239,7 @@ $cou1 = count($dep);
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Thuế suất VAT</label>
-                                        <input type="text" name="thue_vat_tong" class="form-control thue_vat_tong" oninput="<?= $oninput ?>" onkeyup="tong_vt()" placeholder="Nhập thuế suất VAT">
+                                        <input type="text" name="thue_vat_tong" class="form-control thue_vat_tong" placeholder="Nhập thuế suất VAT" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label>Tiền chiết khấu</label>
@@ -270,17 +270,18 @@ $cou1 = count($dep);
                                                 <tr>
                                                     <th class="share_tb_seven"></th>
                                                     <th class="share_tb_seven">STT</th>
-                                                    <th class="share_tb_two">Vật tư thiết bị</th>
-                                                    <th class="share_tb_one">Đơn vị tính</th>
+                                                    <th class="share_tb_one">Mã vật tư</th>
+                                                    <th class="share_tb_two">Tên đầy đủ vật tư thiết bị</th>
+                                                    <th class="share_tb_seven">Đơn vị tính</th>
                                                     <th class="share_tb_two">Hãng sản xuất</th>
                                                     <th class="share_tb_eight">Số lượng theo hợp đồng</th>
-                                                    <th class="share_tb_two">Số lượng lũy kế kỳ trước</th>
+                                                    <th class="share_tb_eight">Số lượng lũy kế kỳ trước</th>
                                                     <th class="share_tb_one">Số lượng kỳ này</th>
-                                                    <th class="share_tb_one">Thời gian giao hàng</th>
-                                                    <th class="share_tb_two">Đơn giá (VNĐ)</th>
-                                                    <th class="share_tb_two">Tổng tiền trước VAT (VNĐ)</th>
-                                                    <th class="share_tb_one">Thuế VAT (%)</th>
-                                                    <th class="share_tb_eight">Tổng tiền sau VAT (VNĐ)</th>
+                                                    <th class="share_tb_eight">Thời gian giao hàng</th>
+                                                    <th class="share_tb_two">Đơn giá</th>
+                                                    <th class="share_tb_two">Tổng tiền trước VAT</th>
+                                                    <th class="share_tb_seven">Thuế VAT</th>
+                                                    <th class="share_tb_eight">Tổng tiền sau VAT</th>
                                                     <th class="share_tb_two">Địa điểm giao hàng</th>
                                                 </tr>
                                             </thead>
@@ -522,7 +523,7 @@ $cou1 = count($dep);
             var chi_phi_vc = $("input[name='chi_phi_vc']").val();
             var ghic_vc = $("textarea[name='ghic_vc']").val();
 
-            var ma_vt = new Array();
+            var ma_vt = [];
             $("input[name='ma_vattu']").each(function() {
                 var id_vt = $(this).attr("data");
                 if (id_vt != "") {
@@ -530,7 +531,7 @@ $cou1 = count($dep);
                 }
             });
 
-            var so_luong_hd = new Array();
+            var so_luong_hd = [];
             $("input[name='so_luong_hd']").each(function() {
                 var sl_hd = $(this).val();
                 if (sl_hd != "") {
@@ -538,7 +539,7 @@ $cou1 = count($dep);
                 }
             });
 
-            var don_gia = new Array();
+            var don_gia = [];
             $("input[name='don_gia']").each(function() {
                 var dg_vt = $(this).val();
                 if (dg_vt != "") {
@@ -546,7 +547,7 @@ $cou1 = count($dep);
                 }
             });
 
-            var sl_knay = new Array();
+            var sl_knay = [];
             $("input[name='sl_knay']").each(function() {
                 var sl_kn = $(this).val();
                 if (sl_kn == "") {
@@ -557,7 +558,7 @@ $cou1 = count($dep);
                 }
             });
 
-            var thoig_ghang = new Array();
+            var thoig_ghang = [];
             $("input[name='thoig_ghang']").each(function() {
                 var tg_gh = $(this).val();
                 if (tg_gh == "") {
@@ -568,7 +569,7 @@ $cou1 = count($dep);
                 }
             });
 
-            var ttr_vat = new Array();
+            var ttr_vat = [];
             $("input[name='ttr_vat']").each(function() {
                 var tien_tr = $(this).val();
                 if (tien_tr == "") {
@@ -579,7 +580,7 @@ $cou1 = count($dep);
                 }
             });
 
-            var thue_vat_vt = new Array();
+            var thue_vat_vt = [];
             $("input[name='thue_vat']").each(function() {
                 var thue_vt = $(this).val();
                 if (thue_vt == "") {
@@ -590,7 +591,7 @@ $cou1 = count($dep);
                 }
             });
 
-            var tts_vat = new Array();
+            var tts_vat = [];
             $("input[name='tts_vat']").each(function() {
                 var tien_s = $(this).val();
                 if (tien_s == "") {
@@ -601,11 +602,19 @@ $cou1 = count($dep);
                 }
             });
 
-            var dia_chi_g = new Array();
+            var dia_chi_g = [];
             $("input[name='dia_chi_g']").each(function() {
-                var dia_chi = $(this).val()
-                dia_chi_g.push(dia_chi);
+                var dia_chi = $(this).val();
+                if (dia_chi == "") {
+                    dia_chi = 0;
+                    dia_chi_g.push(dia_chi);
+                } else {
+                    dia_chi_g.push(dia_chi);
+                }
+
             });
+
+            var phan_loai_nk = $(".ctiet_dk_hp").attr("data");
 
             $.ajax({
                 url: '../ajax/them_dh_mua.php',
@@ -633,6 +642,7 @@ $cou1 = count($dep);
                     gias_vat: gias_vat,
                     chi_phi_vc: chi_phi_vc,
                     ghic_vc: ghic_vc,
+                    phan_loai_nk: phan_loai_nk,
 
                     ma_vt: ma_vt,
                     don_gia: don_gia,

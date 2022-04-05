@@ -49,6 +49,7 @@ $ttr_vat = $_POST['ttr_vat'];
 $thue_vat_vt = $_POST['thue_vat_vt'];
 $tts_vat = $_POST['tts_vat'];
 $dia_chi_g = $_POST['dia_chi_g'];
+$phan_loai_nk = getValue('phan_loai_nk', 'int', 'POST', '');
 
 if ($com_id != "" && $hop_dong != "" && $cou > 0) {
     $inser_dhm = new db_query("INSERT INTO `don_hang`(`id`, `id_nha_cc_kh`, `id_nguoi_lh`, `id_hop_dong`, `id_du_an_ctrinh`, `ngay_ky`,
@@ -72,7 +73,8 @@ if ($com_id != "" && $hop_dong != "" && $cou > 0) {
 
     $noi_dung = 'Bạn đã thêm đơn hàng mua vật tư: ĐH-' . $id_dhm;
     $gio_tao = strtotime(date('H:i:s', time()));
-    $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id', '$ngay_tao','$gio_tao', '$noi_dung')");
+    $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`, `gio_tao`, `noi_dung`)
+                            VALUES('', '$user_id','$phan_loai_nk','$ngay_tao','$gio_tao', '$noi_dung')");
 } else {
     echo "Bạn thêm đơn hàng mua thất bại, vui lòng thử lại!";
 }

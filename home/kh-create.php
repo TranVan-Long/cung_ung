@@ -5,15 +5,17 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     if ($_COOKIE['role'] == 1) {
         $user_id = $_SESSION['com_id'];
         $com_id = $_SESSION['com_id'];
+        $role = 1;
     } else if ($_COOKIE['role'] == 2) {
         $user_id = $_SESSION['ep_id'];
         $com_id = $_SESSION['user_com_id'];
+        $role = 2;
 
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `khach_hang` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $khach_hang = explode(',', $item_nv['khach_hang']);
-            if (in_array(2, $khach_hang) == FALSE) {
+            $khach_hang3 = explode(',', $item_nv['khach_hang']);
+            if (in_array(2, $khach_hang3) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -55,7 +57,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                     <a class="text-black" href="quan-ly-khach-hang.html"><?php echo $ic_lt ?> Quay lại</a>
                     <p class="page-title mt-20">Thêm khách hàng</p>
                 </div>
-                <form class="main-form" data="<?= $com_id ?>" data1="<?= $user_id ?>">
+                <form class="main-form" data="<?= $role ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>">
                     <div class="w-100 left mt-10">
                         <div class="form-control edit-form">
                             <div class="form-row left">
@@ -237,6 +239,10 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
             }
         });
         if (form.valid() === true) {
+            var user_id = $(".main-form").attr("data2");
+            var com_id = $(".main-form").attr("data1");
+            var role = $(".main-form").attr("data");
+
             var ten_kh = $("input[name='ten_khach_hang']").val();
             var ten_goi_tat = $("input[name='ten_goi_tat']").val();
             var ten_giao_dich = $("input[name='ten_giao_dich']").val();
@@ -249,8 +255,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
             var website = $("input[name='website']").val();
             var email = $("input[name='email']").val();
 
-            var com_id = $(".main-form").attr("data");
-            var user_id = $(".main-form").attr("data1");
+
 
             var nh = [];
             $("input[name='ten_ngan_hang']").each(function() {
@@ -308,6 +313,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                     chu_tk: ctk,
                     com_id: com_id,
                     user_id: user_id,
+                    role: role,
                 },
                 success: function(data) {
                     if (data == "") {

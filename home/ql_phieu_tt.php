@@ -11,8 +11,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `phieu_tt` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $phieu_tt = explode(',', $item_nv['phieu_tt']);
-            if (in_array(1, $phieu_tt) == FALSE) {
+            $phieu_tt2 = explode(',', $item_nv['phieu_tt']);
+            if (in_array(1, $phieu_tt2) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -39,7 +39,7 @@ if ($tk != "" && $tk_ct != "") {
 $start = ($page - 1) * $ht;
 $start = abs($start);
 
-$list_phieu = "SELECT p.`id`, p.`id_hd_dh`, p.`id_ncc_kh`, p.`loai_phieu_tt`, p.`ngay_thanh_toan`, p.`loai_thanh_toan`, p.`so_tien_tam_ung`, p.`phan_loai`, n.`ten_nha_cc_kh`
+$list_phieu = "SELECT p.`id`, p.`id_hd_dh`, p.`id_ncc_kh`, p.`loai_phieu_tt`, p.`ngay_thanh_toan`, p.`loai_thanh_toan`, p.`so_tien`, p.`phan_loai`, n.`ten_nha_cc_kh`
                 FROM `phieu_thanh_toan` AS p INNER JOIN `nha_cc_kh` AS n ON p.`id_ncc_kh` = n.`id`
                 WHERE p.`id_cong_ty` = $com_id  ";
 
@@ -127,7 +127,7 @@ $stt = 1;
                             <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                                 <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">&plus; Thêm mới</p>
                                 <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                                if (in_array(2, $phieu_tt)) { ?>
+                                if (in_array(2, $phieu_tt2)) { ?>
                                     <p class="add_creart_hd share_bgr_one s_radius_two cr_weight tex_center share_clr_tow share_cursor share_w_148 share_h_36">&plus; Thêm mới</p>
                             <? }
                             } ?>
@@ -223,7 +223,7 @@ $stt = 1;
                                                 <td><?= $item1['ten_nha_cc_kh'] ?></td>
                                                 <td><?= $all_ploai[$item1['phan_loai']] ?></td>
                                                 <? if ($item1['loai_thanh_toan'] == 1) { ?>
-                                                    <td><?= ($item1['so_tien_tam_ung'] != 0) ? number_format($item1['so_tien_tam_ung']) : "" ?></td>
+                                                    <td><?= ($item1['so_tien'] != 0) ? number_format($item1['so_tien']) : "" ?></td>
                                                 <? } else if ($item1['loai_thanh_toan'] == 2) { ?>
                                                     <td></td>
                                                 <? } ?>

@@ -38,8 +38,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `yeu_cau_vat_tu` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-        $ycvt = explode(',', $item_nv['yeu_cau_vat_tu']);
-        if (in_array(1, $ycvt) == FALSE) {
+        $ycvt3 = explode(',', $item_nv['yeu_cau_vat_tu']);
+        if (in_array(1, $ycvt3) == FALSE) {
             header('Location: /quan-ly-trang-chu.html');
         }
     } else {
@@ -307,16 +307,16 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                         <? } ?>
                     <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) { ?>
                         <div class="right mt-20 xoa_csua">
-                            <? if (in_array(4, $ycvt)) { ?>
+                            <? if (in_array(4, $ycvt3)) { ?>
                                 <button class="v-btn btn-outline-red modal-btn ml-20" data-target="delete">Xóa</button>
                                 <? }
-                            if (in_array(3, $ycvt)) {
+                            if (in_array(3, $ycvt3)) {
                                 if ($trang_thai == 1) { ?>
                                     <a href="chinh-sua-yeu-cau-vat-tu-<?= $ycvt_id ?>.html" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
                             <? }
                             } ?>
                         </div>
-                        <? if (in_array(5, $ycvt)) {
+                        <? if (in_array(5, $ycvt3)) {
                             if ($trang_thai == 1) { ?>
                                 <div class="right mt-20 xoa_csua">
                                     <button class="v-btn mb_10 btn-outline-red modal-btn ml-20" data-target="rejection">Từ chối</button>

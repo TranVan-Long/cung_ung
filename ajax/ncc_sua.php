@@ -56,7 +56,9 @@ $count_nlh_n_1 = count($ten_nguoi_lh);
 $count_nlh_n_2 = count($so_dien_thoai_lh);
 $count_nlh_n_3 = count($email_lh);
 
-$ep_id              = getValue('ep_id', 'int', 'POST', '');
+$user_id              = $_POST['user_id'];
+$com_id              = $_POST['com_id'];
+$role               = getValue('role','int', 'POST', '');
 
 $ngay_sua = strtotime(date('Y-m-d H:i:s', time()));
 
@@ -99,7 +101,7 @@ if ($ten_nha_cc_kh != "" && $ten_giao_dich != "" && ($count_nh_o_2 > 0 || $count
         $noi_dung = 'Bạn đã sửa nhà cung cấp: ' . $ten_nha_cc_kh . '. Mã: NCC-' . $id_ncc_kh;
         $ngay_tao = strtotime(date('Y-m-d', time()));
         $gio_tao = strtotime(date('H:i:s', time()));
-        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$ep_id', '$ngay_tao','$gio_tao', '$noi_dung')");
+        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung')");
     }
 } else {
     echo "Thao tác thất bại vui lòng thử lại!";

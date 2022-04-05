@@ -3,6 +3,8 @@ include("config.php");
 
 $com_id = getValue('com_id', 'int', 'POST', '');
 $user_id = getValue('user_id', 'int', 'POST', '');
+$role = getValue('role', 'int', 'POST', '');
+
 $ten_kh = $_POST['ten_kh'];
 $ten_goi_tat = $_POST['ten_goi_tat'];
 $ten_giao_dich = $_POST['ten_giao_dich'];
@@ -16,27 +18,19 @@ $website = $_POST['website'];
 $email = $_POST['email'];
 
 $ten_nh = $_POST['ten_nh'];
-$ten_nh = str_replace('_', ',', $ten_nh);
-$ten_nh = rtrim($ten_nh, ',');
-$ten_nh = explode(',', $ten_nh);
+
 $cou1 = count($ten_nh);
 
 $ten_ch_nh = $_POST['ten_ch_nh'];
-$ten_ch_nh = str_replace('_', ',', $ten_ch_nh);
-$ten_ch_nh = rtrim($ten_ch_nh, ',');
-$ten_ch_nh = explode(',', $ten_ch_nh);
+
 $cou2 = count($ten_ch_nh);
 
 $so_tai_khoan = $_POST['so_tai_khoan'];
-$so_tai_khoan = str_replace('_', ',', $so_tai_khoan);
-$so_tai_khoan = rtrim($so_tai_khoan, ',');
-$so_tai_khoan = explode(',', $so_tai_khoan);
+
 $cou3 = count($so_tai_khoan);
 
 $chu_tk = $_POST['chu_tk'];
-$chu_tk = str_replace('_', ',', $chu_tk);
-$chu_tk = rtrim($chu_tk, ',');
-$chu_tk = explode(',', $chu_tk);
+
 
 $ngay_tao = strtotime(date('Y-m-d', time()));
 $gio_tao = strtotime(date('H:i:s', time()));
@@ -44,7 +38,7 @@ $gio_tao = strtotime(date('H:i:s', time()));
 if($ten_kh != "" && $com_id != "" && $user_id != "" && $cou1 > 0){
     if($cou1 != $cou2 || $cou2 != $cou3){
         echo "Điền đầy đủ thông tin tài khoản";
-    }else if( $cou1 == $cou2 && $cou2 == $cou3){
+    }else{
         $them_kh = new db_query("INSERT INTO `nha_cc_kh`(`id`, `ten_vt`, `ten_nha_cc_kh`, `ma_so_thue`, `ten_giao_dich`, `dia_chi_dkkd`,
                         `so_dkkd`, `dia_chi_lh`, `fax`, `so_dien_thoai`, `website`, `email`, `sp_cung_ung`, `thong_tin_khac`, `phan_loai`, `ngay_tao`, `ngay_sua`, `id_cong_ty`)
                     VALUES ('','" . $ten_goi_tat . "','" . $ten_kh . "','" . $ma_so_thue . "','" . $ten_giao_dich . "',
@@ -60,7 +54,7 @@ if($ten_kh != "" && $com_id != "" && $user_id != "" && $cou1 > 0){
         };
 
         $noi_dung_nk = "Bạn đã thêm khách hàng: ".$id_kh." - ".$ten_kh;
-        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id', '$ngay_tao','$gio_tao', '$noi_dung_nk')");
+        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung_nk')");
     }
 
 }else{

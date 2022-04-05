@@ -143,7 +143,7 @@ $('.submit-btn').click(function () {
             gia_baog_vat = 0;
         };
 
-        var id_vatt = new Array();
+        var id_vatt = [];
         $("input[name='id_vat_tu']").each(function () {
             var id_vat_tu = $(this).val();
             if (id_vat_tu != "") {
@@ -151,7 +151,7 @@ $('.submit-btn').click(function () {
             }
         });
 
-        var ma_vt = new Array();
+        var ma_vt = [];
         $("select[name='ten_vat_tu']").each(function () {
             var ma_vatt = $(this).val();
             if (ma_vatt != "") {
@@ -159,7 +159,7 @@ $('.submit-btn').click(function () {
             }
         });
 
-        var so_luong = new Array();
+        var so_luong = [];
         $("input[name='so_luong_vt']").each(function () {
             var sol = $(this).val();
             if (sol != "") {
@@ -167,7 +167,7 @@ $('.submit-btn').click(function () {
             }
         });
 
-        var new_ma_vt = new Array();
+        var new_ma_vt = [];
         $("select[name='ten_day_du']").each(function () {
             var new_ma_vatt = $(this).val();
             if (new_ma_vatt != "") {
@@ -175,7 +175,7 @@ $('.submit-btn').click(function () {
             }
         });
 
-        var new_so_luong = new Array();
+        var new_so_luong = [];
         $("input[name='so_luong']").each(function () {
             var new_sol = $(this).val();
             if (new_sol != "") {

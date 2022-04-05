@@ -5,6 +5,7 @@ include("config.php");
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
     $user_id = $_SESSION['com_id'];
+    $role = 1;
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
@@ -16,10 +17,10 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
 
     $list_vt = json_decode($response, true);
     $vat_tu_data = $list_vt['data']['items'];
-
 } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
     $com_id = $_SESSION['user_com_id'];
-    $user_id = $_SESSION['com_id'];
+    $user_id = $_SESSION['ep_id'];
+    $role = 2;
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
@@ -34,14 +35,13 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `hop_dong` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-        $hop_dong = explode(',', $item_nv['hop_dong']);
-        if (in_array(3, $hop_dong) == FALSE) {
+        $hop_dong2 = explode(',', $item_nv['hop_dong']);
+        if (in_array(3, $hop_dong2) == FALSE) {
             header('Location: /quan-ly-trang-chu.html');
         }
     } else {
         header('Location: /quan-ly-trang-chu.html');
     }
-
 }
 
 if (isset($_GET['id']) && $_GET['id'] != "") {
@@ -52,6 +52,19 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 }
 
 $id_kh = $hd_detail['id_nha_cc_kh'];
+
+$curl = curl_init();
+$data = array(
+    'id_com' => $com_id,
+);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$response1 = curl_exec($curl);
+curl_close($curl);
+$list_vt = json_decode($response1, true);
+$vat_tu_data = $list_vt['data']['items'];
 
 $vat_tu_detail = [];
 for ($i = 0; $i < count($vat_tu_data); $i++) {
@@ -97,7 +110,7 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Sửa hợp đồng bán</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form action="" class="form_add_hp_mua share_distance w_100 float_l">
+                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" data="<?= $role ?>" data1="<?= $com_id?>" data2="<?= $user_id?>" data3="<?= $hd_id?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số hợp đồng</label>
@@ -447,10 +460,11 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
         });
 
         if (form_add_mua.valid() === true) {
-            var ep_id = '<?= $user_id ?>';
-            var com_id = '<?= $comp_id ?>';
+            var hd_id = $(".form_add_hp_mua").attr("data3");
+            var user_id = $(".form_add_hp_mua").attr("data2");
+            var com_id = $(".form_add_hp_mua").attr("data1");
+            var role = $(".form_add_hp_mua").attr("data");
 
-            var hd_id = <?= $hd_id ?>;
             var ngay_ky_hd = $("input[name='ngay_ky_hd'").val();
             var id_khach_hang = $("select[name='id_khach_hang']").val();
             var hd_nguyen_tac = 0;
@@ -577,10 +591,10 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
                 url: '../ajax/hd_ban_sua.php',
                 type: 'POST',
                 data: {
-                    ep_id: ep_id,
+                    user_id: user_id,
                     com_id: com_id,
-
                     hd_id: hd_id,
+                    role: role,
                     ngay_ky_hd: ngay_ky_hd,
                     id_khach_hang: id_khach_hang,
                     hd_nguyen_tac: hd_nguyen_tac,

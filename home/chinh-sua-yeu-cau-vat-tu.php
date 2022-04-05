@@ -5,6 +5,7 @@ include("config.php");
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
     $user_id = $_SESSION['com_id'];
+    $role = 1;
 
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
@@ -21,6 +22,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
 } elseif (isset($_SESSION['quyen']) && ($_SESSION['quyen'] == 2)) {
     $com_id = $_SESSION['user_com_id'];
     $user_id = $_SESSION['ep_id'];
+    $role = 2;
 
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
@@ -38,8 +40,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `yeu_cau_vat_tu` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-        $ycvt = explode(',', $item_nv['yeu_cau_vat_tu']);
-        if (in_array(3, $ycvt) == FALSE) {
+        $ycvt3 = explode(',', $item_nv['yeu_cau_vat_tu']);
+        if (in_array(3, $ycvt3) == FALSE) {
             header('Location: /quan-ly-trang-chu.html');
         }
     } else {
@@ -59,12 +61,12 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 
     $item = mysql_fetch_assoc($get_ycvt->result);
     $id_nyc = $item['id_nguoi_yc'];
-    $ngay_tao = date('d/m/Y', $item['ngay_tao']);
-    $ngay_ht = date('d/m/Y', $item['ngay_ht_yc']);
+    $ngay_tao = date('Y-m-d', $item['ngay_tao']);
+    $ngay_ht = date('Y-m-d', $item['ngay_ht_yc']);
     $cong_trinh = $item['id_cong_trinh'];
     $dien_giai = $item['dien_giai'];
     $trang_thai = $item['trang_thai'];
-    $ngay_duyet = date('d/m/Y', $item['ngay_duyet']);
+    $ngay_duyet = date('Y-m-d', $item['ngay_duyet']);
     $nguoi_duyet = $item['id_nguoi_duyet'];
     $ly_do_tu_choi = $item['ly_do_tu_choi'];
 
@@ -194,7 +196,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                                 </div>
                                 <div class="form-col-50 right v-select2 mb_15">
                                     <label>Người yêu cầu <span class="text-red">*</span></label>
-                                    <input type="text" name="nguoi_yeu_cau" value="<?= $user_name ?>" readonly>
+                                    <input type="text" name="nguoi_yeu_cau" id="nguoi_yeu_cau" data="<?= $role ?>" data1="<?= $com_id?>" data2="<?= $user_id?>" value="<?= $user_name ?>" readonly>
                                 </div>
                             </div>
                             <div class="form-row left">
@@ -243,7 +245,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                                     </div>
                                     <div class="tbl-content table-2-row">
                                         <table>
-                                            <tbody id="materials" data="<?= $com_id ?>">
+                                            <tbody id="materials">
                                                 <?
                                                 $get_vtyc2 = new db_query("SELECT * FROM `chi_tiet_yc_vt` WHERE `id_yc_vt` = $ycvt_id");
                                                 while ($row1 = mysql_fetch_assoc($get_vtyc2->result)) {
@@ -463,8 +465,9 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                 }
             });
 
-            var com_id = $("#materials").attr("data");
-            var ep_id = '<?= $ep_id ?>';
+            var user_id = $("#nguoi_yeu_cau").attr('data2');
+            var com_id = $("#nguoi_yeu_cau").attr('data1');
+            var role = $("#nguoi_yeu_cau").attr('data');
             var ngay_tao = $("input[name='ngay_tao_yeu_cau']").val();
 
             if (ngay_ht < ngay_tao || ngay_ht == "") {
@@ -483,7 +486,10 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                         so_luong_old: so_luong_old,
                         vat_tu: vat_tu,
                         so_luong: so_luong,
-                        ep_id: ep_id
+
+                        user_id: user_id,
+                        com_id:role,
+                        role:role,
                     },
                     success: function(data) {
                         if (data == "") {

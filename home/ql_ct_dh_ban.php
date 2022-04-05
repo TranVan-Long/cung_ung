@@ -27,8 +27,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `don_hang` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $don_hang = explode(',', $item_nv['don_hang']);
-            if (in_array(1, $don_hang) == FALSE) {
+            $don_hang3 = explode(',', $item_nv['don_hang']);
+            if (in_array(1, $don_hang3) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -46,17 +46,18 @@ for ($i = 0; $i < $count; $i++) {
 
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $id_dh = $_GET['id'];
-    $ctiet_dh = mysql_fetch_assoc((new db_query("SELECT d.`id`, d.`id_nha_cc_kh`, d.`id_nguoi_lh`, d.`id_hop_dong`, d.`id_du_an_ctrinh`, d.`ngay_ky`,
+    $ctiet_dh = mysql_fetch_assoc((new db_query("SELECT d.`id`, d.`id_nguoi_lh`, d.`id_hop_dong`, d.`id_du_an_ctrinh`, d.`ngay_ky`,
                                 d.`thoi_han`, d.`don_vi_nhan_hang`, d.`phong_ban`, d.`nguoi_nhan_hang`, d.`dien_thoai_nn`, d.`giu_lai_bao_hanh`, d.`gia_tri_tuong_duong`,
                                 d.`ghi_chu`, d.`gia_tri_don_hang`, d.`thue_vat`, d.`gia_tri_svat`, d.`bao_gom_vat`, d.`chiet_khau`, d.`chi_phi_vchuyen`,
                                 d.`ghi_chu_vchuyen`, d.`phan_loai`, d.`hieu_luc`, d.`trang_thai`, n.`ten_nha_cc_kh`, n.`dia_chi_lh`, n.`so_dien_thoai`
                                 FROM `don_hang` AS d
                                 INNER JOIN `nha_cc_kh` AS n ON d.`id_nha_cc_kh` = n.`id`
-                                WHERE d.`id` = $id_dh AND d.`id_cong_ty` = $com_id "))->result);
+                                WHERE d.`id` = $id_dh AND d.`id_cong_ty` = $com_id AND d.`phan_loai` = 2 "))->result);
+    $thue_dh = $ctiet_dh['thue_vat'];
 
-    $list_vt = new db_query("SELECT `id`, `id_don_hang`, `id_hd`, `id_vat_tu`, `so_luong_theo_hd`, `so_luong_ky_nay`,
-                                `thoi_gian_giao_hang`, `don_gia`, `tong_tien_trvat`, `thue_vat`, `tong_tien_svat`, `dia_diem_giao_hang`
-                                FROM `vat_tu_dh_mua_ban` WHERE `id_don_hang` = $id_dh AND `id_cong_ty` = $com_id ");
+    $list_vt_dhb = new db_query("SELECT `id`, `id_don_hang`, `id_hd`, `id_vat_tu`, `so_luong_ky_nay`, `thoi_gian_giao_hang`,
+                                    `don_gia`, `tong_tien_trvat`, `thue_vat`, `tong_tien_svat`, `dia_diem_giao_hang`
+                                    FROM `vat_tu_dh_mua_ban` WHERE `id_don_hang` = $id_dh AND `id_cong_ty` = $com_id ");
 
     $curl = curl_init();
     $data = array(
@@ -277,11 +278,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thuế suất VAT</p>
-                                    <? if ($ctiet_dh['thue_vat'] == 0) { ?>
-                                        <p class="cr_weight share_fsize_tow share_clr_one"></p>
-                                    <? } else if ($ctiet_dh['thue_vat'] != 0) { ?>
-                                        <p class="cr_weight share_fsize_tow share_clr_one"><?= $ctiet_dh['thue_vat'] ?>%</p>
-                                    <? } ?>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= formatMoney($thue_dh) ?></p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Tiền chiết khấu</p>
@@ -332,24 +329,20 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <? while ($row1 = mysql_fetch_assoc($list_vt->result)) { ?>
+                                        <? while ($row1 = mysql_fetch_assoc($list_vt_dhb->result)) { ?>
                                             <tr>
                                                 <td class="share_tb_one"><?= $stt++ ?></td>
-                                                <td class="share_tb_two">VT-<?= $row1['id_vat_tu'] ?></td>
+                                                <td class="share_tb_two">VT - <?= $row1['id_vat_tu'] ?></td>
                                                 <td class="share_tb_two"><?= $all_vattu[$row1['id_vat_tu']]['dsvt_name'] ?></td>
                                                 <td class="share_tb_one"><?= $all_vattu[$row1['id_vat_tu']]['dvt_name'] ?></td>
                                                 <td class="share_tb_two"><?= $all_vattu[$row1['id_vat_tu']]['hsx_name'] ?></td>
                                                 <td class="share_tb_one"><?= $row1['so_luong_ky_nay'] ?></td>
-                                                <td class="share_tb_two">
-                                                    <?= ($row1['thoi_gian_giao_hang'] != 0) ? date('d/m/Y', $row1['thoi_gian_giao_hang']) : "" ?>
-                                                </td>
-                                                <td class="share_tb_two">
-                                                    <?= number_format($all_vattu[$row1['id_vat_tu']]['dsvt_donGia']) ?></td>
-                                                <td class="share_tb_two"><?= number_format($row1['tong_tien_trvat']) ?></td>
-                                                <td class="share_tb_one"><?= ($row1['thue_vat'] != 0) ? $row1['thue_vat'] : "" ?></td>
-                                                <td class="share_tb_two"><?= number_format($row1['tong_tien_svat']) ?></td>
-                                                <td class="share_tb_two"><?= number_format($row1['dia_diem_giao_hang']) ?>
-                                                </td>
+                                                <td class="share_tb_two"><?= ($row1['thoi_gian_giao_hang'] != 0) ? date('d/m/Y', $row1['thoi_gian_giao_hang']) : "" ?></td>
+                                                <td class="share_tb_two"><?= formatMoney($row1['don_gia']) ?></td>
+                                                <td class="share_tb_two"><?= formatMoney($row1['tong_tien_trvat']) ?></td>
+                                                <td class="share_tb_one"><?= formatMoney($row1['thue_vat']) ?></td>
+                                                <td class="share_tb_two"><?= formatMoney($row1['tong_tien_svat']) ?></td>
+                                                <td class="share_tb_two"><?= ($row1['dia_diem_giao_hang'] != '0') ? $row1['dia_diem_giao_hang'] : "" ?></td>
                                             </tr>
                                         <? } ?>
                                     </tbody>
@@ -366,11 +359,11 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                             sửa</a>
                                     </p>
                                     <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                                    if (in_array(4, $don_hang)) { ?>
+                                    if (in_array(4, $don_hang3)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_dh">
                                             Xóa</p>
                                     <? }
-                                    if (in_array(3, $don_hang)) { ?>
+                                    if (in_array(3, $don_hang3)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
                                             <a href="chinh-sua-don-hang-ban-<?= $id_dh ?>.html" class="share_clr_tow">Chỉnh
                                                 sửa</a>

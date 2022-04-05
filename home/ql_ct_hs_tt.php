@@ -37,8 +37,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `ho_so_tt` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-        $hs_tt = explode(',', $item_nv['ho_so_tt']);
-        if (in_array(1, $hs_tt) == FALSE) {
+        $hs_tt3 = explode(',', $item_nv['ho_so_tt']);
+        if (in_array(1, $hs_tt3) == FALSE) {
             header('Location: /quan-ly-trang-chu.html');
         }
     } else {
@@ -55,64 +55,28 @@ for ($i = 0; $i < count($list_nv); $i++) {
 $id = getValue('id', 'int', 'GET', '');
 
 if ($id != "") {
-    $list_hs = new db_query("SELECT `id`, `id_hd_dh`, `loai_hs`, `dot_nghiem_thu`, `tg_nghiem_thu`, `thoi_han_thanh_toan`, `tong_tien_tatca`,`tong_tien_tt`, `tong_tien_thue`, `chi_phi_khac` FROM `ho_so_thanh_toan` WHERE `id_cong_ty` = $com_id AND `id` = $id");
+    $list_hs = new db_query("SELECT `id`, `id_hd_dh`, `loai_hs`, `dot_nghiem_thu`, `tg_nghiem_thu`, `thoi_han_thanh_toan`, `tong_tien_tt`,
+                            `tong_tien_thue`, `tong_tien_tatca`, `chi_phi_khac`, `trang_thai`, `ngay_tao`, `id_nguoi_lap`
+                            FROM `ho_so_thanh_toan` WHERE `id_cong_ty` = $com_id AND `id` = $id ");
 
     $ho_so = mysql_fetch_assoc($list_hs->result);
     $loai_hs = $ho_so['loai_hs'];
     $id_hd_dh = $ho_so['id_hd_dh'];
 
-    $ds_vattu_hs = new db_query("SELECT `id`, `id_vat_tu`, `kl_ky_nay`, `gia_tri_ky_nay`, `ngay_tao`, `id_cong_ty`
-                                FROM `chi_tiet_hs` WHERE `id_hs` = $id AND `id_hd_dh` = $id_hd_dh ");
-
-
-
-    if ($loai_hs == 1) {
+    if($loai_hs == 1){
         $phan_loai_hd = new db_query("SELECT h.`phan_loai`, n.`ten_nha_cc_kh` FROM `hop_dong` AS h
                                     INNER JOIN `nha_cc_kh` AS n ON h.`id_nha_cc_kh` = n.`id`
                                     WHERE h.`id` = $id_hd_dh AND h.`id_cong_ty` = $com_id ");
-
         $ploai_hd = mysql_fetch_assoc($phan_loai_hd->result);
 
         $loai_hd = $ploai_hd['phan_loai'];
-
-        if ($loai_hd == 1) {
+        if($loai_hd == 1 || $loai_hd == 3 || $loai_hd == 4){
             $dv_thuc_hien = $ploai_hd['ten_nha_cc_kh'];
-
-            $vattu_hd_dh = new db_query("SELECT v.`id_vat_tu`, v.`id_hd_mua_ban`, v.`so_luong`, v.`don_gia`, v.`tien_trvat`, v.`thue_vat`, v.`tien_svat`
-                                    FROM `vat_tu_hd_dh` AS v INNER JOIN `hop_dong` AS h ON v.`id_hd_mua_ban` = h.`id`
-                                    WHERE v.`id_hd_mua_ban` = $id_hd_dh AND h.`id_cong_ty` = $com_id ");
-
-            $tong_tien = mysql_fetch_assoc((new db_query("SELECT `id_du_an_ctrinh`, `gia_tri_trvat`, `thue_vat`, `gia_tri_svat`
-                                                        FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `id` = $id_hd_dh "))->result);
-        } else if ($loai_hd == 2) {
+        }else if($loai_hd == 2){
             $dv_thuc_hien = $com_name;
-
-            $vattu_hd_dh = new db_query("SELECT v.`id_vat_tu`, v.`id_hd_mua_ban`, v.`so_luong`, v.`don_gia`, v.`tien_trvat`, v.`thue_vat`, v.`tien_svat`
-                                    FROM `vat_tu_hd_dh` AS v INNER JOIN `hop_dong` AS h ON v.`id_hd_mua_ban` = h.`id`
-                                    WHERE v.`id_hd_mua_ban` = $id_hd_dh AND h.`id_cong_ty` = $com_id ");
-
-            $tong_tien = mysql_fetch_assoc((new db_query("SELECT `id_du_an_ctrinh`, `gia_tri_trvat`, `thue_vat`, `gia_tri_svat`
-                                                        FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `id` = $id_hd_dh "))->result);
-        } else if ($loai_hd == 3) {
-            $dv_thuc_hien = $ploai_hd['ten_nha_cc_kh'];
-
-            $vattu_hd_dh = new db_query("SELECT v.`id`, v.`id_hd_thue`, v.`loai_tai_san`, v.`thong_so_kthuat`, v.`so_luong`, v.`thue_tu_ngay`, v.`thue_den_ngay`,
-                                        v.`don_vi_tinh`, v.`khoi_luong_du_kien`, v.`han_muc_ca_may`, v.`don_gia_thue`, v.`dg_ca_may_phu_troi`, v.`thanh_tien_du_kien`,
-                                        v.`thoa_thuan_khac`
-                                        FROM `vat_tu_hd_thue` AS v INNER JOIN `hop_dong` AS h ON v.`id_hd_thue` = h.`id`
-                                        WHERE v.`id_hd_thue` = $id_hd_dh AND h.`id_cong_ty` = $com_id ");
-        } else if ($list_hd == 4) {
-            $dv_thuc_hien = $ploai_hd['ten_nha_cc_kh'];
-
-            $vattu_hd_dh = new db_query("SELECT v.`id`, v.`vat_tu`, v.`id_hd_vc`, v.`don_vi_tinh`, v.`khoi_luong`, v.`don_gia`, v.`thanh_tien`
-                                        FROM `vat_tu_hd_vc` AS v INNER JOIN `hop_dong` AS h ON v.`id_hd_vc` = h.`id`
-                                        WHERE v.`id_hd_vc` = $id_hd_dh AND h.`id_cong_ty` = $com_id ");
-
-            $tong_tien = mysql_fetch_assoc((new db_query("SELECT `id_du_an_ctrinh`, `gia_tri_trvat`, `thue_vat`, `gia_tri_svat`
-                                                        FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `id` = $id_hd_dh "))->result);
         }
-    } else if ($loai_hs == 2) {
-        $phan_loai_dh = new db_query("SELECT  d.`phan_loai`, n.`ten_nha_cc_kh`, d.`gia_tri_don_hang`, d.`thue_vat`, d.`gia_tri_svat` 
+    }else if($list_hs == 2){
+        $phan_loai_dh = new db_query("SELECT  d.`phan_loai`, n.`ten_nha_cc_kh`, d.`gia_tri_don_hang`, d.`thue_vat`, d.`gia_tri_svat`
                                         FROM `don_hang` AS d
                                         INNER JOIN `nha_cc_kh` AS n ON d.`id_nha_cc_kh` = n.`id`
                                         WHERE d.`id` = $id_hd_dh AND d.`id_cong_ty` = $com_id ");
@@ -125,10 +89,7 @@ if ($id != "") {
         } else if ($loai_dh == 2) {
             $dv_thuc_hien = $com_name;
         };
-
-        $vattu_hd_dh = new db_query("SELECT `id`, `id_don_hang`, `id_vat_tu`, `so_luong_ky_nay`, `don_gia`, `tong_tien_trvat`,
-                                `thue_vat`, `tong_tien_svat` FROM `vat_tu_dh_mua_ban` WHERE `id_don_hang` = $id_hd_dh AND `id_cong_ty` = $com_id ");
-    };
+    }
 
     $curl = curl_init();
     $data = array(
@@ -150,13 +111,9 @@ if ($id != "") {
         $item2 = $list_vattu[$j];
         $all_vattu[$item2['dsvt_id']] = $item2;
     };
+
 }
 
-// echo "<pre>";
-// print_r($list_vattu);
-// echo "</pre>";
-// die();
-$stt = 1;
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -185,7 +142,7 @@ $stt = 1;
             <div class="header-container">
                 <? include('../includes/ql_header_nv.php') ?>
             </div>
-            <div class="content">
+            <div class="content" data="<?= $com_id ?>" data1="<?= $id ?>" data2="<?= $id_hd_dh ?>" data3="<?= $loai_hs ?>" data4="<?= $user_id?>">
                 <div class="ctn_ctiet_hd w_100 float_l">
                     <div class="chi_tiet_hd mt_27 w_100 float_l">
                         <a class="prew_href share_fsize_one share_clr_one mb_26" href="quan-ly-ho-so-thanh-toan.html">Quay lại</a>
@@ -250,7 +207,7 @@ $stt = 1;
                         </div>
                         <div class="table-wrapper mt-10 them_moi_vt">
                             <div class="table-container table-3900 ds_vat_tu" data="<?= $user_id ?>">
-                                <div class="tbl-header">
+                                <!-- <div class="tbl-header">
                                     <table>
                                         <thead>
                                             <tr>
@@ -284,17 +241,13 @@ $stt = 1;
                                     </table>
                                 </div>
                                 <div class="tbl-content table-2-row">
-                                    <table>
+                                    <table id="hstt_tb">
                                         <tbody>
                                             <? while ($row1 = mysql_fetch_assoc($vattu_hd_dh->result)) {
                                                 $id_vt = $row1['id_vat_tu'];
-                                                $all_vt = mysql_fetch_assoc((new db_query("SELECT `id`, `kl_ky_nay`, `gia_tri_ky_nay` FROM `chi_tiet_hs`
-                                                                                WHERE `id_hs` = $id AND `id_cong_ty` = $com_id AND `id_hd_dh` = $id_hd_dh AND `id_vat_tu` = $id_vt "))->result);
+                                                $all_vt = mysql_fetch_assoc((new db_query("SELECT `id`, `kl_ky_nay`, `gia_tri_ky_nay` FROM `chi_tiet_hs` WHERE `id_hs` = $id AND `id_cong_ty` = $com_id AND `id_hd_dh` = $id_hd_dh AND `id_vat_tu` = $id_vt "))->result);
 
-                                                $sum_kl_kt = new db_query("SELECT SUM(c.`kl_ky_nay`) AS sum_one, SUM(c.`gia_tri_ky_nay`) AS sum_two FROM `chi_tiet_hs` AS c
-                                                                            INNER JOIN `ho_so_thanh_toan` AS h ON h.`id` = c.`id_hs`
-                                                                            WHERE h.`id_hd_dh` = $id_hd_dh AND h.`id_cong_ty` = $com_id
-                                                                            AND h.`loai_hs` = 2 AND c.`id_vat_tu` = $id_vt AND h.`id` != $id ");
+                                                $sum_kl_kt = new db_query("SELECT SUM(c.`kl_ky_nay`) AS sum_one, SUM(c.`gia_tri_ky_nay`) AS sum_two FROM `chi_tiet_hs` AS c INNER JOIN `ho_so_thanh_toan` AS h ON h.`id` = c.`id_hs` WHERE h.`id_hd_dh` = $id_hd_dh AND h.`id_cong_ty` = $com_id AND h.`loai_hs` = 2 AND c.`id_vat_tu` = $id_vt AND h.`id` != $id ");
                                                 $list_sum = mysql_fetch_assoc($sum_kl_kt->result);
                                                 $sum_one = $list_sum['sum_one'];
                                                 $sum_two = $list_sum['sum_two'];
@@ -328,12 +281,12 @@ $stt = 1;
                                                 <td class="w-10"></td>
                                                 <td class="w-10"></td>
                                                 <td class="w-10"></td>
-                                                <td class="w-10">100.000</td>
+                                                <td class="w-10"><?= $ploai_dh['gia_tri_don_hang'] ?></td>
                                                 <td class="w-10"></td>
                                                 <td class="w-10"></td>
                                                 <td class="w-10"></td>
-                                                <td class="w-10">100.000(1)</td>
-                                                <td class="w-10">90.000</td>
+                                                <td class="w-10"></td>
+                                                <td class="w-10"><?= $ho_so['tong_tien_tt'] ?></td>
                                                 <td class="w-10"></td>
                                                 <td class="w-5"></td>
                                                 <td class="w-10"></td>
@@ -347,12 +300,12 @@ $stt = 1;
                                                 <td class="w-10"></td>
                                                 <td class="w-10"></td>
                                                 <td class="w-10"></td>
-                                                <td class="w-10">10.000</td>
+                                                <td class="w-10"><?= $ploai_dh['gia_tri_svat'] - $ploai_dh['gia_tri_don_hang'] ?> (<?= $ploai_dh['thue_vat'] ?>%)</td>
                                                 <td class="w-10"></td>
                                                 <td class="w-10"></td>
                                                 <td class="w-10"></td>
-                                                <td class="w-10">100.000(2)</td>
                                                 <td class="w-10"></td>
+                                                <td class="w-10"><?= $ho_so['tong_tien_thue'] ?> (<?= $ploai_dh['thue_vat'] ?>%)</td>
                                                 <td class="w-10"></td>
                                                 <td class="w-5"></td>
                                                 <td class="w-10"></td>
@@ -370,8 +323,8 @@ $stt = 1;
                                                 <td class="w-10"></td>
                                                 <td class="w-10"></td>
                                                 <td class="w-10"></td>
-                                                <td class="w-10">Nhập chi phí khác(3)</td>
                                                 <td class="w-10"></td>
+                                                <td class="w-10"><?= $ho_so['chi_phi_khac'] ?></td>
                                                 <td class="w-10"></td>
                                                 <td class="w-5"></td>
                                                 <td class="w-10"></td>
@@ -389,8 +342,8 @@ $stt = 1;
                                                 <td class="w-10"></td>
                                                 <td class="w-10"></td>
                                                 <td class="w-10"></td>
-                                                <td class="w-10">Tổng tiền = 1+2+3</td>
                                                 <td class="w-10"></td>
+                                                <td class="w-10"><?= $ho_so['tong_tien_tatca'] ?></td>
                                                 <td class="w-10"></td>
                                                 <td class="w-5"></td>
                                                 <td class="w-10"></td>
@@ -398,127 +351,27 @@ $stt = 1;
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
-
-
-
-                        <!-- <div class="ctiet_hopd_vt w_100 float_l">
-                            <div class="ctn_table_ct w_100 float_l">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th class="share_tb_one">STT</th>
-                                            <th class="share_tb_two">Mã vật tư</th>
-                                            <th class="share_tb_four">Tên vật tư</th>
-                                            <th class="share_tb_two">Đơn vị tính</th>
-                                            <th class="share_tb_two">Hãng sản xuất</th>
-                                            <th class="share_tb_two">Xuất xứ</th>
-                                            <th class="share_tb_one">Số lượng</th>
-                                            <th class="share_tb_two">Đơn giá</th>
-                                            <th class="share_tb_four mr-10">Tổng tiền</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="sh_bgr_four">
-                                            <td class="share_tb_one share_clr_four cr_weight">I</td>
-                                            <td class="share_tb_two share_clr_four cr_weight">Nâng cấp nhà thi đấu</td>
-                                            <td class="share_tb_four"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_one"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_four share_clr_four cr_weight">1.000.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="share_tb_one">1</td>
-                                            <td class="share_tb_two">VT-0001</td>
-                                            <td class="share_tb_four">Xi măng</td>
-                                            <td class="share_tb_two">m3</td>
-                                            <td class="share_tb_two">Công ty A</td>
-                                            <td class="share_tb_two">Việt Nam</td>
-                                            <td class="share_tb_one">100</td>
-                                            <td class="share_tb_two">100.000</td>
-                                            <td class="share_tb_four">1.000.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="share_tb_one">1</td>
-                                            <td class="share_tb_two">VT-0001</td>
-                                            <td class="share_tb_four">Xi măng</td>
-                                            <td class="share_tb_two">m3</td>
-                                            <td class="share_tb_two">Công ty A</td>
-                                            <td class="share_tb_two">Việt Nam</td>
-                                            <td class="share_tb_one">100</td>
-                                            <td class="share_tb_two">100.000</td>
-                                            <td class="share_tb_four">1.000.000</td>
-                                        </tr>
-                                        <tr class="sh_bgr_four">
-                                            <td class="share_tb_one share_clr_four cr_weight">II</td>
-                                            <td class="share_tb_two share_clr_four cr_weight">Phải thanh toán</td>
-                                            <td class="share_tb_four"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_one"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_four share_clr_four cr_weight">1.000.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="share_tb_one"></td>
-                                            <td class="share_tb_two">Tổng cộng trước VAT</td>
-                                            <td class="share_tb_four"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_one"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_four">1.000.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="share_tb_one"></td>
-                                            <td class="share_tb_two">Thuế VAT</td>
-                                            <td class="share_tb_four"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_one"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_four">10%</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="share_tb_one"></td>
-                                            <td class="share_tb_two">Tổng cộng sau VAT</td>
-                                            <td class="share_tb_four"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_one"></td>
-                                            <td class="share_tb_two"></td>
-                                            <td class="share_tb_four">1.000.000</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div> -->
                         <div class="xuat_gmc w_100 float_l">
                             <div class="xuat_gmc_two share_xuat_gmc right d_flex mb-10">
-                                <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+                                <? if($ho_so['trang_thai'] == 1){
+                                if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                                     <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hs">Xóa</p>
                                     <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
                                         <a href="chinh-sua-ho-so-thanh-toan-<?= $id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                     </p>
                                     <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                                    if (in_array(4, $hs_tt)) { ?>
+                                    if (in_array(4, $hs_tt3)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hs">Xóa</p>
                                     <? }
-                                    if (in_array(3, $hs_tt)) { ?>
+                                    if (in_array(3, $hs_tt3)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
                                             <a href="chinh-sua-ho-so-thanh-toan-<?= $id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                         </p>
                                 <? }
-                                } ?>
+                                }}else{ echo ""; } ?>
                             </div>
                             <div class="xuat_gmc_one share_xuat_gmc left d_flex mb-10 mr_10">
                                 <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight xuat_excel" data=<?= $id ?>>Xuất Excel</p>
@@ -550,7 +403,7 @@ $stt = 1;
                             <div class="form_butt_ht mb_20">
                                 <div class="tow_butt_flex d_flex">
                                     <button type="button" class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
-                                    <button type="button" class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                    <button type="button" class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp xoa_hs_tt">Đồng
                                         ý</button>
                                 </div>
                             </div>
@@ -568,15 +421,48 @@ $stt = 1;
 <script src="../js/select2.min.js"></script>
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript">
-    var remove_hs = $(".remove_hs");
+    var com_id = $('.content').attr("data");
+    var id_hs = $('.content').attr("data1");
+    var id_hd_dh = $('.content').attr("data2");
+    var loai_hs = $('.content').attr("data3");
+    var user_id = $('.content').attr("data4");
 
+    $.ajax({
+        url: '../render/hstt_table.php',
+        type: 'POST',
+        data: {
+            com_id: com_id,
+            id_hs: id_hs,
+            id_hd_dh: id_hd_dh,
+            loai_hs: loai_hs,
+        },
+        success: function(data) {
+            $(".ds_vat_tu").append(data);
+        }
+    })
+
+    var remove_hs = $(".remove_hs");
     remove_hs.click(function() {
-        modal_share.show();
+        modal_share.fadeIn();
     });
     $(".xuat_excel").click(function() {
         var id = $(this).attr("data");
         window.location.href = '../excel/hstt_excel.php?id=' + id;
     });
+
+    $(".xoa_hs_tt").click(function(){
+        $.ajax({
+            url: '../ajax/hstt_xoa.php',
+        type: 'POST',
+        data: {
+            user_id: user_id,
+            id_hs: id_hs,
+        },
+        success: function(data) {
+            window.location.href= '/quan-ly-ho-so-thanh-toan.html';
+        }
+        })
+    })
 </script>
 
 </html>

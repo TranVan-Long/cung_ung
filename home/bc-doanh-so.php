@@ -7,6 +7,18 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['com_id'];
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `bc_doanh_so` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $bc_doanh_so2 = explode(',', $item_nv['bc_doanh_so']);
+            if (in_array(1, $bc_doanh_so2) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
     }
 };
 
@@ -191,26 +203,77 @@ for ($i = 0; $i < count($phieu_vt); $i++) {
                                                     </td>
                                                     <td class="w-30">
                                                         <?
-                                                        $ds_hd = new db_query("SELECT n.`gia_tri_svat` FROM `vat_tu_hd_dh` AS y JOIN `hop_dong` AS n ON y.`id_hd_mua_ban` = n.`id` WHERE y.`id_vat_tu` = $id_vt AND n.phan_loai = 2");
-                                                        while ($hd_item = mysql_fetch_assoc($ds_hd->result)) { ?>
-                                                            <p class="table-text gia_tri" data=<?= $hd_item['gia_tri_svat'] ?>><?= formatMoney($hd_item['gia_tri_svat']); ?></p>
+                                                        $ds_hd = new db_query("SELECT y.`tien_svat`  FROM `vat_tu_hd_dh` AS y JOIN `hop_dong` AS n ON y.`id_hd_mua_ban` = n.`id` WHERE y.`id_vat_tu` = $id_vt AND n.phan_loai = 2");
+                                                        while ($hd_item = mysql_fetch_assoc($ds_hd->result)) {
+                                                        ?>
+                                                            <p class="table-text gia_tri_th"><?= formatMoney($hd_item['tien_svat']); ?></p>
                                                         <? } ?>
                                                     </td>
                                                     <td class="w-30">
                                                         <?
-                                                        $ds_hd = new db_query("SELECT s.da_thanh_toan FROM chi_tiet_phieu_tt_vt s JOIN vat_tu_hd_dh b ON s.id_hd_dh = b.id_hd_mua_ban JOIN hop_dong c ON b.id_hd_mua_ban  = c.id 
-                                                        WHERE b.id_vat_tu = $id_vt AND c.phan_loai = 2");
-                                                        while ($hd_item = mysql_fetch_assoc($ds_hd->result)) { ?>
-                                                            <p class="table-text gia_tri_th" data=<?= $hd_item['da_thanh_toan'] ?>><?= formatMoney($hd_item['da_thanh_toan']); ?></p>
-                                                        <? } ?>
+                                                        $tong1 = 0;
+                                                        $tong2 = 0;
+                                                        $ds_hd = new db_query("SELECT n.`id`, y.`tien_svat`, n.`gia_tri_svat` FROM `vat_tu_hd_dh` AS y JOIN `hop_dong`
+                                                        AS n ON y.`id_hd_mua_ban` = n.`id` WHERE y.`id_vat_tu` = $id_vt AND n.phan_loai = 2 AND n.`id_cong_ty` = $com_id ");
+                                                        while ($hd_item = mysql_fetch_assoc($ds_hd->result)) {
+                                                            $hd_id = $hd_item['id'];
+                                                            $check_tt = new db_query("SELECT DISTINCT `id` FROM `don_hang`
+                                                                                    WHERE `id_cong_ty` = $com_id AND `id_hop_dong` = $hd_id ");
+
+                                                            if(mysql_num_rows($check_tt -> result) > 0){
+                                                                $id_dh = new db_query("SELECT `id` FROM `don_hang` WHERE `id_cong_ty` = $com_id
+                                                                                        AND `phan_loai` = 2 AND `id_hop_dong` = $hd_id ");
+                                                                while($row1 = mysql_fetch_assoc($id_dh -> result)){
+                                                                    $id_dh_hs = $row1['id'];
+                                                                    $check_ttt = new db_query("SELECT `id` FROM `ho_so_thanh_toan`
+                                                                                                WHERE `id_hd_dh` = $id_dh_hs AND `loai_hs` = 2
+                                                                                                AND `id_cong_ty` = $com_id ");
+                                                                    if(mysql_num_rows($check_ttt -> result) > 0){
+                                                                        $tong_ca = new db_query("SELECT `tong_tien_tt`, `chi_phi_khac` FROM `ho_so_thanh_toan`
+                                                                                                WHERE `id_cong_ty` = $com_id AND `id_hd_dh` = $id_dh_hs
+                                                                                                AND `trang_thai` = 2 AND `loai_hs` = 2 ");
+                                                                        while($row2 = mysql_fetch_assoc($tong_ca -> result)){
+                                                                            $tong1 += $row2['tong_tien_tt'];
+                                                                            $tong2 += $row2['chi_phi_khac'];
+                                                                        }
+                                                                    }
+
+                                                                }
+                                                            }
+                                                            else{
+                                                                $check_tt = new db_query("SELECT `id` FROM `ho_so_thanh_toan`
+                                                                                        WHERE `id_hd_dh` = $hd_id AND `loai_hs` = 1
+                                                                                        AND `id_cong_ty` = $com_id ");
+                                                                if(mysql_num_rows($check_tt -> result) > 0){
+                                                                    $tong_ca = new db_query("SELECT `tong_tien_tt`, `chi_phi_khac` FROM `ho_so_thanh_toan`
+                                                                                                WHERE `id_cong_ty` = $com_id AND `id_hd_dh` = $hd_id
+                                                                                                AND `trang_thai` = 2 AND `loai_hs` = 1 ");
+                                                                    while ($row2 = mysql_fetch_assoc($tong_ca->result)) {
+                                                                        $tong1 += $row2['tong_tien_tt'];
+                                                                        $tong2 += $row2['chi_phi_khac'];
+                                                                    }
+                                                                }
+                                                            }
+
+                                                            $tong3 = $tong1 - $tong2;
+                                                        ?>
+                                                            <p class="table-text gia_tri_th"><?= ($hd_item['gia_tri_svat'] == $tong3) ? $hd_item['tien_svat'] : '0'  ?></p>
+                                                        <?}?>
+
                                                     </td>
                                                     <td class="w-25">
-                                                        <?
-                                                        $ds_hd = new db_query("SELECT n.`gia_tri_svat`, n.`gia_tri_svat` FROM `vat_tu_hd_dh` AS y JOIN `hop_dong` AS n ON y.`id_hd_mua_ban` = n.`id` WHERE y.`id_vat_tu` = $id_vt AND n.phan_loai = 2");
+                                                    <?
+                                                        $ds_hd = new db_query("SELECT n.`id`, y.`tien_svat` FROM `vat_tu_hd_dh` AS y JOIN `hop_dong` AS n ON y.`id_hd_mua_ban` = n.`id` WHERE y.`id_vat_tu` = $id_vt AND n.phan_loai = 2");
                                                         while ($hd_item = mysql_fetch_assoc($ds_hd->result)) {
+                                                            $hd_id = $hd_item['id'];
+                                                            $trang_thai = mysql_fetch_assoc((new db_query("SELECT `trang_thai` FROM `ho_so_thanh_toan` WHERE `id_hd_dh` = $hd_id AND `loai_hs` = 1 AND `trang_thai`= 2 AND `id_cong_ty` = $com_id"))->result);
+                                                            if ($trang_thai['trang_thai'] == 2) {
                                                         ?>
-                                                            <p class="table-text tien-do"><?= ($hd_item['gia_tri_svat']) / ($hd_item['gia_tri_svat']) * 100 ?>%</p>
-                                                        <? } ?>
+                                                                <p class="table-text gia_tri_th">100%</p>
+                                                            <? } else { ?>
+                                                                <p class="table-text gia_tri_th">0%</p>
+                                                        <? }
+                                                        } ?>
                                                     </td>
                                                 </tr>
                                             <? } ?>

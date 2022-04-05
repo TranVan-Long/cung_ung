@@ -12,8 +12,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `bao_gia_kh` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $bao_gia_kh = explode(',', $item_nv['bao_gia']);
-            if (in_array(2, $bao_gia_kh) == FALSE) {
+            $bao_gia_kh3 = explode(',', $item_nv['bao_gia']);
+            if (in_array(2, $bao_gia_kh3) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {

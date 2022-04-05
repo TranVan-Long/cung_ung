@@ -73,7 +73,7 @@ $stt = 1;
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -152,10 +152,11 @@ $stt = 1;
                                                 <th class="w-25">Ngày hợp đồng</th>
                                                 <!-- <th class="w-35">Công trình</th> -->
                                                 <th class="w-30">Giá trị thực hiện</th>
+                                                <th class="w-20">Hạn mức tín dụng</th>
                                                 <th class="w-30">Thanh toán</th>
                                                 <th class="w-25">% thanh toán</th>
                                                 <th class="w-25">Còn phải thu</th>
-                                                <th class="w-25">Tỉ lệ hạn mức</th>
+                                                <th class="w-20">Tỉ lệ hạn mức</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -197,19 +198,82 @@ $stt = 1;
                                                         <p class="table-text">Xây dựng nhà dân dụng</p>
                                                     </td> -->
                                                     <td class="w-30">
-                                                        <p class="table-text">15.000.000.000</p>
+                                                        <?
+                                                        $ds_hd = new db_query("SELECT h.`gia_tri_svat` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai` = 2");
+                                                        while ($hd_item = mysql_fetch_assoc($ds_hd->result)) { ?>
+                                                            <p class="table-text"><?= formatMoney($hd_item['gia_tri_svat']) ?></p>
+                                                        <? } ?>
+                                                    </td>
+                                                    <td class="w-20">
+                                                        <?
+                                                        $ds_hd = new db_query("SELECT h.`han_muc_tin_dung` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai` = 2");
+                                                        while ($hd_item = mysql_fetch_assoc($ds_hd->result)) {
+                                                            if ($hd_item['han_muc_tin_dung']) {
+                                                        ?>
+                                                                <p class="table-text"><?= formatMoney($hd_item['han_muc_tin_dung']) ?></p>
+                                                            <? } else { ?>
+                                                                <p class="table-text">0</p>
+                                                        <? }
+                                                        } ?>
                                                     </td>
                                                     <td class="w-30">
-                                                        <p class="table-text">10.000.000.000</p>
+                                                        <?
+                                                        $ds_hd = new db_query("SELECT h.`id`, h.`id_nha_cc_kh` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai` = 2");
+                                                        while ($hd_item = mysql_fetch_assoc($ds_hd->result)) {
+                                                            $id_hd = $hd_item['id'];
+                                                            $id_ncc = $hd_item['id_nha_cc_kh'];
+                                                            $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS summ FROM `phieu_thanh_toan` 
+                                                            WHERE `loai_phieu_tt` = 1 AND `id_hd_dh` = $id_hd  AND `id_ncc_kh` = $id_ncc AND `loai_thanh_toan` = 2 AND `id_cong_ty` = $com_id "))->result);
+                                                        ?>
+                                                            <p class="table-text"><?= number_format($tong_tien['summ']) ?></p>
+                                                        <? } ?>
                                                     </td>
                                                     <td class="w-25">
-                                                        <p class="table-text">66,6666667</p>
+                                                        <?
+                                                        $ds_hd = new db_query("SELECT h.`id`, h.`id_nha_cc_kh`, h.`gia_tri_svat` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai`= 2");
+                                                        while ($hd_item = mysql_fetch_assoc($ds_hd->result)) {
+                                                            $id_hd = $hd_item['id'];
+                                                            $id_ncc = $hd_item['id_nha_cc_kh'];
+                                                            $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS summ FROM `phieu_thanh_toan` 
+                                                            WHERE `loai_phieu_tt` = 1 AND `id_hd_dh` = $id_hd  AND `id_ncc_kh` = $id_ncc AND `loai_thanh_toan` = 2 AND `id_cong_ty` = $com_id "))->result);
+                                                            $gia_tri_hd = $hd_item['gia_tri_svat'];
+                                                            $gia_tri_th = $tong_tien['summ'];
+                                                            $ty_le = ($gia_tri_th / $gia_tri_hd) * 100;
+                                                        ?>
+                                                            <p class="table-text"><?= round($ty_le, 2) ?> %</p>
+                                                        <? } ?>
                                                     </td>
                                                     <td class="w-25">
-                                                        <p class="table-text">5.000.000.000</p>
+                                                        <?
+                                                        $ds_hd = new db_query("SELECT h.`id`, h.`id_nha_cc_kh`, h.`gia_tri_svat` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai` = 2");
+                                                        while ($hd_item = mysql_fetch_assoc($ds_hd->result)) {
+                                                            $id_hd = $hd_item['id'];
+                                                            $id_ncc = $hd_item['id_nha_cc_kh'];
+                                                            $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS summ FROM `phieu_thanh_toan` 
+                                                            WHERE `loai_phieu_tt` = 1 AND `id_hd_dh` = $id_hd  AND `id_ncc_kh` = $id_ncc AND `loai_thanh_toan` = 2 AND `id_cong_ty` = $com_id "))->result);
+                                                            $gia_tri_hd = $hd_item['gia_tri_svat'];
+                                                            $gia_tri_th = $tong_tien['summ'];
+                                                            $phai_thu = $gia_tri_hd - $gia_tri_th;
+                                                        ?>
+                                                            <p class="table-text"><?= number_format($phai_thu) ?></p>
+                                                        <? } ?>
                                                     </td>
-                                                    <td class="w-25">
-                                                        <p class="table-text">2,566</p>
+                                                    <td class="w-20">
+                                                    <?
+                                                        $ds_hd = new db_query("SELECT h.`id`, h.`id_nha_cc_kh`, h.`gia_tri_svat`, h.`han_muc_tin_dung` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai` = 2");
+                                                        while ($hd_item = mysql_fetch_assoc($ds_hd->result)) {
+                                                            $id_hd = $hd_item['id'];
+                                                            $id_ncc = $hd_item['id_nha_cc_kh'];
+                                                            $hm_td = $hd_item['han_muc_tin_dung'];
+                                                            $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS summ FROM `phieu_thanh_toan` 
+                                                            WHERE `loai_phieu_tt` = 1 AND `id_hd_dh` = $id_hd  AND `id_ncc_kh` = $id_ncc AND `loai_thanh_toan` = 2 AND `id_cong_ty` = $com_id "))->result);
+                                                            $gia_tri_hd = $hd_item['gia_tri_svat'];
+                                                            $gia_tri_th = $tong_tien['summ'];
+                                                            $phai_thu = $gia_tri_hd - $gia_tri_th;
+                                                            $ty_le_hm = ($phai_thu/$hm_td)*100
+                                                        ?>
+                                                            <p class="table-text"><?= number_format($ty_le_hm) ?> %</p>
+                                                        <? } ?>
                                                     </td>
                                                 </tr>
                                             <? } ?>

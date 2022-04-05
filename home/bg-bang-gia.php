@@ -12,8 +12,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `bang_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $bang_gia = explode(',', $item_nv['bang_gia']);
-            if (in_array(1, $bang_gia) == FALSE) {
+            $bang_gia3 = explode(',', $item_nv['bang_gia']);
+            if (in_array(1, $bang_gia3) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -139,16 +139,11 @@ $ds_nha_cc = new db_query("SELECT y.`id_nha_cc`, n.`ten_nha_cc_kh` FROM `bao_gia
 
 <body>
     <div class="main-container">
-        <!--    a-side menu-->
         <?php include("../includes/sidebar.php") ?>
-        <!--    a-side menu end-->
-
         <div class="container">
-            <!--        header-->
             <div class="header-container">
                 <?php include('../includes/ql_header_nv.php') ?>
             </div>
-            <!--        header end-->
             <div class="content">
                 <div class="w-100 left border-bottom mt-25 pb-20 d-flex align-items-center spc-btw">
                     <p class="page-title">Bảng giá</p>
@@ -260,7 +255,6 @@ $ds_nha_cc = new db_query("SELECT y.`id_nha_cc`, n.`ten_nha_cc_kh` FROM `bao_gia
                 </div>
             </div>
         </div>
-        <!-- modal -->
 
         <div class="modal_share modal_share_tow list_cate_nhacc" data="" data1="">
             <div class="modal-content">

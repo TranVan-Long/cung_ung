@@ -5,10 +5,24 @@ include("config.php");
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
+        $user_id = $_SESSION['com_id'];
+        $role = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
+        $user_id = $_SESSION['ep_id'];
+        $role = 2;
+        $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+        if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+            $item_nv = mysql_fetch_assoc((new db_query("SELECT `nha_cung_cap` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+            $ncc3 = explode(',', $item_nv['nha_cung_cap']);
+            if (in_array(2, $ncc3) == FALSE) {
+                header('Location: /quan-ly-trang-chu.html');
+            }
+        } else {
+            header('Location: /quan-ly-trang-chu.html');
+        }
     }
-};
+}
 
 isset($_GET['page']) ? $page = $_GET['page'] : $page = 1;
 isset($_GET['currP']) ? $currP = $_GET['currP'] : $currP = 10;
@@ -34,7 +48,7 @@ if ($tk_ct != "") {
     if ($tk != "") {
         $sql = "AND `id` = $tk_ct";
         $cou = new db_query("SELECT COUNT(`id`) AS total FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id AND `id` = $tk_ct");
-    } 
+    }
 };
 
 $total = mysql_fetch_assoc($cou->result)['total'];
@@ -86,7 +100,13 @@ $stt = 1;
                 </div>
                 <div class="w-100 left">
                     <div class="w-100 left">
-                        <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-nha-cung-cap.html">&plus; Thêm mới</a>
+                        <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+                            <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-nha-cung-cap.html">&plus; Thêm mới</a>
+                         <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                                if (in_array(2, $ncc3)) { ?>
+                                    <a class="v-btn btn-blue add-btn ml-20 mt-20" href="them-nha-cung-cap.html">&plus; Thêm mới</a>
+                        <? }
+                        } ?>
                         <div class="filter">
                             <div class="category v-select2 mt-20">
                                 <select name="category" class="share_select" id="category">

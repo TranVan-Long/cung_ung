@@ -398,13 +398,14 @@ $vat_tu_data = $list_vt['data']['items'];
     $(".loai_hs").change(function() {
         var loai_hs = $(this).val();
         var com_id = $(".form_add_hp_mua").attr("data");
-
+        var hs_phieu = 1;
         $.ajax({
             url: '../render/ds_hd_dh.php',
             type: 'POST',
             data: {
                 loai_hs: loai_hs,
                 com_id: com_id,
+                hs_phieu: hs_phieu,
             },
             success: function(data) {
                 $(".all_hd_dh").html(data);
@@ -557,7 +558,9 @@ $vat_tu_data = $list_vt['data']['items'];
             });
 
             var tong_tien_ky_nay = $(".tong_tien_ky_nay").text();
+            var tien_thue = $(".thue_ky_nay").text();
             var chi_phi_khac = $("input[name='chi_phi_khac']").val();
+            var tien_svat = $(".tong_tatca").text();
 
             $.ajax({
                 url: '../ajax/them_hs_tt.php',
@@ -575,6 +578,8 @@ $vat_tu_data = $list_vt['data']['items'];
                     giatri_kn: giatri_kn,
                     tong_tien_ky_nay: tong_tien_ky_nay,
                     chi_phi_khac: chi_phi_khac,
+                    tien_thue: tien_thue,
+                    tien_svat: tien_svat,
                 },
                 success: function(data) {
                     if (data == "") {

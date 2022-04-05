@@ -1,20 +1,21 @@
 <?php
 include("config.php");
 include("../includes/icon.php");
-$date = strtotime(date('Y-m-d H:i', time()));
 
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] == 1) {
         $user_id = $_SESSION['com_id'];
         $com_id = $_SESSION['com_id'];
+        $role = 1;
     } else if ($_COOKIE['role'] == 2) {
         $user_id = $_SESSION['ep_id'];
         $com_id = $_SESSION['user_com_id'];
+        $role = 2;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `khach_hang` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $khach_hang = explode(',', $item_nv['khach_hang']);
-            if (in_array(3, $khach_hang) == FALSE) {
+            $khach_hang3 = explode(',', $item_nv['khach_hang']);
+            if (in_array(3, $khach_hang3) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -66,7 +67,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     <a class="text-black" href="quan-ly-khach-hang.html"><?php echo $ic_lt ?> Quay lại</a>
                     <p class="page-title mt_20 mb_10">Chỉnh sửa khách hàng</p>
                 </div>
-                <form class="main-form" data="<?= $com_id ?>" data1="<?= $user_id ?>">
+                <form class="main-form" data="<?= $role ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>">
                     <div class="w-100 left mt-10">
                         <div class="form-control edit-form">
                             <div class="form-row left">
@@ -264,6 +265,9 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             }
         });
         if (form.valid() === true) {
+            var user_id = $(".main-form").attr("data2");
+            var com_id = $(".main-form").attr("data1");
+            var role = $(".main-form").attr("data");
             var id = $(this).attr("data-id");
             var ten_kh = $("input[name='ten_khach_hang']").val();
             var ma_so_thue = $("input[name='ma_so_thue']").val();
@@ -276,15 +280,12 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             var so_dien_thoai = $("input[name='dien_thoai']").val();
             var website = $("input[name='website']").val();
             var email = $("input[name='email']").val();
-            var date = "<?= $date ?>";
-            var com_id = $(".main-form").attr("data");
-            var user_id = $(".main-form").attr("data1");
 
-            var itk = [];
+            var id_tk = [];
             $("input[name='id_tk']").each(function() {
-                var id_tk = $(this).val();
-                if (id_tk != "") {
-                    itk.push(id_tk);
+                var idtk = $(this).val();
+                if (idtk != "") {
+                    id_tk.push(idtk);
                 }
             });
 
@@ -376,11 +377,11 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     so_dien_thoai: so_dien_thoai,
                     website: website,
                     email: email,
-                    date: date,
                     com_id: com_id,
                     user_id: user_id,
+                    role: role,
 
-                    id_tk: itk,
+                    id_tk: id_tk,
                     ten_nh: nh,
                     chi_nhanh: ch,
                     so_tk: stk,

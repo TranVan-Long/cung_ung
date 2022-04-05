@@ -1,4 +1,4 @@
-<?php
+<?
 include("../includes/icon.php");
 include("config.php");
 
@@ -13,8 +13,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `phieu_tt` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-        $phieu_tt = explode(',', $item_nv['phieu_tt']);
-        if (in_array(2, $phieu_tt) == FALSE) {
+        $phieu_tt2 = explode(',', $item_nv['phieu_tt']);
+        if (in_array(2, $phieu_tt2) == FALSE) {
             header('Location: /quan-ly-trang-chu.html');
         }
     } else {
@@ -100,7 +100,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                                     </div>
                                     <div class="form-group share_form_select loai_thanht">
                                         <label>Loại thanh toán <span class="cr_red">*</span></label>
-                                        <select name="lthanh_toan" class="form-control all_ltt share_select" data="<?= $com_id ?>">
+                                        <select name="lthanh_toan" class="form-control all_ltt share_select" data="<?= $com_id ?>" data="<?php echo $com_id ?>">
                                             <option value="">-- Chọn loại thanh toán --</option>
                                             <option value="1">Tạm ứng</option>
                                             <option value="2">Theo hợp đồng</option>
@@ -203,12 +203,14 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $(".loai_phieu").change(function() {
         var loai_phieu = $(this).val();
         var com_id = $(this).attr("data");
+        var hs_phieu = 2;
         $.ajax({
             url: '../render/ds_hd_dh.php',
             type: 'POST',
             data: {
                 loai_hs: loai_phieu,
                 com_id: com_id,
+                hs_phieu: hs_phieu,
             },
             success: function(data) {
                 $(".all_hd_dh").html(data);
@@ -396,6 +398,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                 },
             }
         });
+
         if (form_validate.valid() === true) {
             var loai_ptt = $("select[name='loai_ptt']").val();
             var hdong_dhang = $("select[name='hdong_dhang']").val();
@@ -407,7 +410,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
             var com_id = $(".loai_phieu").attr("data");
             var user_id = $(".form_add_hp_mua").attr("data1");
             var ploai = $("input[name='khachh_nhacc']").attr("data1");
-            if(ploai == 2 || ploai == 6){
+            if (ploai == 2 || ploai == 6) {
                 lthanh_toan = 2;
             }
 
@@ -416,6 +419,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
             var so_tien = $("input[name='so_tien']").val();
             var ty_gia = $("input[name='ty_gia']").val();
             var gia_quydoi = $("input[name='so_tien_qdoi']").val();
+            var tongt_thanhtoan = $(".sum_tatca").text();
 
             var ten_nganhang = new Array();
             $("input[name='ten_nhanhang']").each(function() {
@@ -451,8 +455,32 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                 }
             });
 
-            var id_hs = $(".ho_so").attr("data");
-            var tien_ttoan = $("input[name='so_tien_ctra']").val();
+            var id_hs = [];
+            $(".ho_so").each(function() {
+                var hoso = $(this).attr("data");
+                if (hoso != "") {
+                    id_hs.push(hoso);
+                }
+            });
+
+            var tien_ttoan = [];
+            $("input[name='so_tien_ctra']").each(function() {
+                var tienttoan = $(this).attr("data");
+                if (tienttoan != "") {
+                    tien_ttoan.push(tienttoan);
+                } else if (tienttoan == "") {
+                    tienttoan = 0;
+                    tien_ttoan.push(tienttoan);
+                }
+            });
+
+            var tong_tien = [];
+            $(".tongtien").each(function() {
+                var tongtien = $(this).attr("data");
+                if (tongtien != "") {
+                    tong_tien.push(tongtien);
+                }
+            });
 
             $.ajax({
                 url: '../ajax/them_phieu_tt.php',
@@ -478,11 +506,13 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                     id_ncc_kh: id_ncc_kh,
                     id_hs: id_hs,
                     tien_ttoan: tien_ttoan,
+                    tong_tien: tong_tien,
+                    tongt_thanhtoan: tongt_thanhtoan,
                 },
                 success: function(data) {
                     if (data == "") {
                         alert("Bạn đã thêm phiếu thanh toán thành công");
-                        window.location.reload();
+                        window.location.href = '/quan-ly-phieu-thanh-toan.html';
                     } else if (data != "") {
                         alert(data);
                     }

@@ -6,15 +6,17 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     if ($_COOKIE['role'] == 1) {
         $user_id = $_SESSION['com_id'];
         $com_id = $_SESSION['com_id'];
+        $phan_loai = 1;
     } else if ($_COOKIE['role'] == 2) {
         $user_id = $_SESSION['ep_id'];
         $com_id = $_SESSION['user_com_id'];
         $user_name = $_SESSION['ep_name'];
+        $phan_loai = 2;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `don_hang` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $don_hang = explode(',', $item_nv['don_hang']);
-            if (in_array(3, $don_hang) == FALSE) {
+            $don_hang3 = explode(',', $item_nv['don_hang']);
+            if (in_array(3, $don_hang3) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -82,7 +84,7 @@ $cou = count($all_ctrinh);
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Thêm đơn hàng bán vật tư</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_id ?>">
+                            <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_id ?>" data1="<?= $phan_loai ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Tên khách hàng <span class="cr_red">*</span></label>
@@ -185,7 +187,7 @@ $cou = count($all_ctrinh);
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Thuế suất VAT</label>
-                                        <input type="text" name="thue_vat" class="form-control thue_vat_tong" oninput="<?= $oninput ?>" onkeyup="tong_vt()" placeholder="Nhập thuế suất VAT">
+                                        <input type="text" name="tong_thue_vat" class="form-control thue_vat_tong" placeholder="Nhập thuế suất VAT" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label>Tiền chiết khấu</label>
@@ -216,17 +218,18 @@ $cou = count($all_ctrinh);
                                                 <tr>
                                                     <th class="share_tb_seven"></th>
                                                     <th class="share_tb_seven">STT</th>
-                                                    <th class="share_tb_two">Vật tư thiết bị</th>
-                                                    <th class="share_tb_one">Đơn vị tính</th>
+                                                    <th class="share_tb_one">Mã vật tư</th>
+                                                    <th class="share_tb_two">Tên đầy đủ vật tư thiết bị</th>
+                                                    <th class="share_tb_seven">Đơn vị tính</th>
                                                     <th class="share_tb_two">Hãng sản xuất</th>
                                                     <th class="share_tb_eight">Số lượng theo hợp đồng</th>
-                                                    <th class="share_tb_two">Số lượng lũy kế kỳ trước</th>
+                                                    <th class="share_tb_eight">Số lượng lũy kế kỳ trước</th>
                                                     <th class="share_tb_one">Số lượng kỳ này</th>
-                                                    <th class="share_tb_one">Thời gian giao hàng</th>
-                                                    <th class="share_tb_two">Đơn giá (VNĐ)</th>
-                                                    <th class="share_tb_two">Tổng tiền trước VAT (VNĐ)</th>
-                                                    <th class="share_tb_one">Thuế VAT (%)</th>
-                                                    <th class="share_tb_eight">Tổng tiền sau VAT (VNĐ)</th>
+                                                    <th class="share_tb_eight">Thời gian giao hàng</th>
+                                                    <th class="share_tb_two">Đơn giá</th>
+                                                    <th class="share_tb_two">Tổng tiền trước VAT</th>
+                                                    <th class="share_tb_seven">Thuế VAT</th>
+                                                    <th class="share_tb_eight">Tổng tiền sau VAT</th>
                                                     <th class="share_tb_two">Địa điểm giao hàng</th>
                                                 </tr>
                                             </thead>

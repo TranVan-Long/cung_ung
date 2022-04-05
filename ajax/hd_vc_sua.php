@@ -1,10 +1,12 @@
 <?
 include("config.php");
 
-$ep_id                  = getValue('ep_id', 'int', 'POST', '');
+$user_id                  = getValue('user_id', 'int', 'POST', '');
 $com_id                 = getValue('com_id', 'int', 'POST', '');
-
 $hd_id                  = getValue('hd_id', 'int', 'POST', '');
+$role                  = getValue('role', 'int', 'POST', '');
+
+
 $ngay_ky_hd             = strtotime($_POST['ngay_ky_hd']);
 $id_nha_cung_cap        = getValue('id_nha_cung_cap', 'int', 'POST', '');
 $dan_ctrinh             = $_POST['dan_ctrinh'];
@@ -68,10 +70,10 @@ if ($ngay_ky_hd != "" && $hd_id != "") {
                 $them_vt_hd_vc = new db_query("INSERT INTO `vat_tu_hd_vc` (`id`, `vat_tu`, `id_hd_vc`, `don_vi_tinh`, `khoi_luong`, `don_gia`, `thanh_tien`) VALUES (NULL, '$vt_vat_tu[$i]', '$hd_id', '$vt_don_vi_tinh[$i]', '$vt_khoi_luong[$i]', '$vt_don_gia[$i]', '$vt_thanh_tien[$i]');");
             }
 
-            $noi_dung = 'Bạn đã chỉnh sửa hợp đồng thuê vận chuyển: HĐ - ' . $id_hd;
+            $noi_dung = 'Bạn đã chỉnh sửa hợp đồng thuê vận chuyển: HĐ - ' . $hd_id;
             $ngay_tao = strtotime(date('Y-m-d', time()));
             $gio_tao = strtotime(date('H:i:s', time()));
-            $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$ep_id', '$ngay_tao','$gio_tao', '$noi_dung')");
+            $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung')");
         }
     }
 } else {
