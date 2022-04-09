@@ -7,10 +7,12 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $user_id = $_SESSION['com_id'];
         $user_name = $_SESSION['com_name'];
         $com_id = $_SESSION['com_id'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $user_id = $_SESSION['ep_id'];
         $user_name = $_SESSION['ep_name'];
         $com_id = $_SESSION['user_com_id'];
+        $phan_quyen_nk = 2;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `bao_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
@@ -64,7 +66,7 @@ $list_nhacc = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `phan_loai`,
                     <p class="share_fsize_four cr_weight_bold mb_10 w_100 float_l mt_20">Thêm báo giá</p>
                 </div>
                 <div class="w-100 left mt-10">
-                    <form class="main-form" data="<?= $date_now ?>">
+                    <form class="main-form" data="<?= $date_now ?>" data1="<?= $phan_quyen_nk ?>">
                         <div class="form-control edit-form">
                             <div class="form-row left">
                                 <div class="form-col-50 no-border mb_15 left">
@@ -230,8 +232,6 @@ $list_nhacc = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `phan_loai`,
         });
     });
 
-
-
     $('.submit-btn').click(function() {
         var form = $('.main-form');
         $.validator.addMethod("dateRange",
@@ -287,6 +287,7 @@ $list_nhacc = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `phan_loai`,
             var tg_apdung = $("input[name='tu_ngay']").val();
             var tg_ketthuc = $("input[name='den_ngay']").val();
             var tg_hientai = $("#danh_sach_vt").attr("data");
+            var phan_quyen_nk = $(".main-form").attr("data1");
 
             var id_vt = new Array();
             $("input[name='ma_vat_tu']").each(function() {
@@ -394,6 +395,7 @@ $list_nhacc = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `phan_loai`,
                             tongs_vat: tongs_vat,
                             chinh_sach_khac: chinh_sach_khac,
                             so_luong_da_dat: so_luong_da_dat,
+                            phan_quyen_nk: phan_quyen_nk,
                         },
                         success: function(data) {
                             if (data == "") {

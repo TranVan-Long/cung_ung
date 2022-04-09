@@ -228,7 +228,7 @@ if (isset($id_dh) && $id_dh != "") {
                                     </div>
                                     <div class="form-group">
                                         <label>Ngày ký đơn hàng</label>
-                                        <input type="date" name="ngay_ky" value="<?= date('Y-m-d', $item['ngay_ky']) ?>" class="form-control">
+                                        <input type="date" name="ngay_ky" value="<?= ($item['ngay_ky'] != 0) ? date('Y-m-d', $item['ngay_ky']) : "" ?>" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -238,7 +238,7 @@ if (isset($id_dh) && $id_dh != "") {
                                     </div>
                                     <div class="form-group">
                                         <label>Thời hạn đơn hàng</label>
-                                        <input type="date" name="thoi_han" value="<?= date('Y-m-d', $item['thoi_han']) ?>" class="form-control">
+                                        <input type="date" name="thoi_han" value="<?= ($item['thoi_han'] != 0) ? date('Y-m-d', $item['thoi_han']) : "" ?>" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -382,7 +382,7 @@ if (isset($id_dh) && $id_dh != "") {
                                                         </td>
                                                         <td class="share_tb_two">
                                                             <div class="form-group">
-                                                                <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control">
+                                                                <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control"  readonly>
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_eight">

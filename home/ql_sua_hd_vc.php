@@ -28,16 +28,31 @@ $date = date('m-d-Y', time());
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $hd_id = $_GET['id'];
     $hd_get = new db_query("SELECT * FROM `hop_dong` WHERE `id` = '" . $hd_id . "' ");
-    $hd_vat_tu = new db_query("SELECT * FROM `vat_tu_hd_vc` WHERE `id_hd_vc` = '" . $hd_id . "' ");
     $hd_detail = mysql_fetch_assoc($hd_get->result);
-
+    $giatri_tr = $hd_detail['gia_tri_svat'];
     $ngay_hop_dong = date('Y-m-d', $hd_detail['ngay_ky_hd']);
     $cong_trinh = $hd_detail['id_du_an_ctrinh'];
     $id_ncc = $hd_detail['id_nha_cc_kh'];
-    $thoi_han_bl = date('Y-m-d', $hd_detail['thoi_han_blanh']);
-    $ngay_bat_dau = date('Y-m-d', $hd_detail['tg_bd_thuc_hien']);
-    $ngay_ket_thuc = date('Y-m-d', $hd_detail['tg_kt_thuc_hien']);
+    if ($hd_detail['thoi_han_blanh'] != 0) {
+        $thoi_han_bl = date('Y-m-d', $hd_detail['thoi_han_blanh']);
+    } else {
+        $thoi_han_bl = "";
+    }
 
+    if ($hd_detail['tg_bd_thuc_hien'] != 0) {
+        $ngay_bat_dau = date('Y-m-d', $hd_detail['tg_bd_thuc_hien']);
+    } else {
+        $ngay_bat_dau = "";
+    }
+
+    if ($hd_detail['tg_kt_thuc_hien'] != 0) {
+        $ngay_ket_thuc = date('Y-m-d', $hd_detail['tg_kt_thuc_hien']);
+    } else {
+        $ngay_ket_thuc = 0;
+    }
+
+
+    $hd_vat_tu = new db_query("SELECT * FROM `vat_tu_hd_vc` WHERE `id_hd_vc` = '" . $hd_id . "' ");
     $curl = curl_init();
     $data = array(
         'id_com' => $com_id,
@@ -151,7 +166,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Giá trị trước VAT</label>
-                                        <input type="number" name="truoc_vat" id="tong_truoc_vat" value="<?= $hd_detail['gia_tri_trvat'] ?>" class="form-control cr_weight h_border" readonly>
+                                        <input type="number" name="truoc_vat" id="tong_truoc_vat" value="<?= $giatri_tr ?>" class="form-control cr_weight h_border" readonly>
                                     </div>
                                     <div class="form-group  d_flex fl_agi form_lb">
                                         <label for="don_gia_vat">Đơn giá đã bao gồm VAT</label>
@@ -161,7 +176,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Thuế suất VAT</label>
-                                        <input type="number" name="thue_vat" value="<?= $hd_detail['thue_vat'] ?>" class="form-control thue_vat_tong" onkeyup="tong_vt()" placeholder="Nhập thuế suất VAT">
+                                        <input type="number" name="thue_vat" value="<?= $hd_detail['thue_vat'] ?>" class="form-control thue_vat_tong" onkeyup="thue_vc_doi(this)" placeholder="Nhập thuế suất VAT">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -292,18 +307,18 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                         </td>
                                                         <td class="share_tb_three">
                                                             <div class="form-group">
-                                                                <input type="number" name="khoi_luong_old" value="<?= $vt_vc_fetch['khoi_luong'] ?>" class="form-control so_luong" onkeyup="sl_doi(this),tong_vt(), baoLanh(),baoHanh()">
+                                                                <input type="number" name="khoi_luong_old" value="<?= $vt_vc_fetch['khoi_luong'] ?>" class="form-control so_luong" onkeyup="sl_vc_doi(this)">
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_four">
                                                             <div class="form-group">
-                                                                <input type="number" name="don_gia_old" value="<?= $vt_vc_fetch['don_gia'] ?>" class="form-control don_gia" onkeyup="dg_doi(this),tong_vt(), baoLanh(),baoHanh()">
+                                                                <input type="number" name="don_gia_old" value="<?= $vt_vc_fetch['don_gia'] ?>" class="form-control don_gia" onkeyup="dg_vc_doi(this)">
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_four">
                                                             <div class="form-group">
                                                                 <input type="hiden" name="vat_ao" value="0" class="share_dnone thue_vat">
-                                                                <input type="number" name="thanh_tien_old" value="<?= $vt_vc_fetch['thanh_tien'] ?>" class="form-control h_border tong_svat" readonly>
+                                                                <input type="number" name="thanh_tien_old" value="<?= $vt_vc_fetch['thanh_tien'] ?>" class="form-control h_border tong_trvat " readonly>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -387,11 +402,6 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 <script type="text/javascript" src="../js/app.js"></script>
 
 <script>
-    $(window).on("load", function() {
-        tong_vt();
-        baoLanh();
-        baoHanh();
-    });
     $(document).on('click', '.remo_cot_ngang, .remove-btn', function() {
         tong_vt();
         baoLanh();
@@ -627,7 +637,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             hd_id: hd_id,
                             user_id: user_id,
                             com_id: com_id,
-                            role:role,
+                            role: role,
 
                             ngay_ky_hd: ngay_ky_hd,
                             id_nha_cung_cap: id_nha_cung_cap,

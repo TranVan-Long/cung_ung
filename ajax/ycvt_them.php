@@ -26,7 +26,9 @@ if ($user_id != "") {
         if ($count != $count1) {
             echo "Vui lòng điền đầy đủ thông tin vật tư.";
         } else {
-            $them_ycvt = new db_query("INSERT INTO `yeu_cau_vat_tu` (`id`,`id_nguoi_yc`,`role`, `id_cong_trinh`, `ngay_ht_yc`, `dien_giai`, `trang_thai`, `ngay_tao`, `id_cong_ty`) VALUES (NULL, '$user_id','$role', '$cong_trinh', '$ngay_phai_hoan_thanh', '$dien_giai', '$trang_thai', '$ngay_tao_yeu_cau', '$com_id')");
+            $them_ycvt = new db_query("INSERT INTO `yeu_cau_vat_tu` (`id`,`id_nguoi_yc`,`role`, `id_cong_trinh`, `ngay_ht_yc`, `dien_giai`,
+                                    `trang_thai`, `ngay_tao`, `id_cong_ty`) VALUES (NULL, '$user_id','$role', '$cong_trinh', '$ngay_phai_hoan_thanh',
+                                    '$dien_giai', '$trang_thai', '$ngay_tao_yeu_cau', '$com_id')");
 
             $row = mysql_fetch_assoc((new db_query("SELECT LAST_INSERT_ID() AS yc_id"))->result);
             $id_yc = $row['yc_id'];

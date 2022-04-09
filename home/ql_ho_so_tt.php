@@ -197,15 +197,6 @@ $all_hs = new db_query($list_hs);
                                                     $dv_thuc_hien = $com_name;
                                                 };
 
-                                                // if ($loai_hd == 1 || $loai_hd == 4) {
-                                                //     $tong_tien = mysql_fetch_assoc((new db_query("SELECT  `gia_tri_bhanh`, `gia_tri_svat`
-                                                //         FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `id` = $id_hd_dh "))->result);
-                                                //     $gia_tri_svat = $tong_tien['gia_tri_svat'];
-                                                //     $gia_tri_bhanh = $tong_tien['gia_tri_bhanh'];
-                                                // } else if ($loai_hd == 2 || $loai_hd == 3) {
-                                                //     $gia_tri_svat = "";
-                                                //     $gia_tri_bhanh = "";
-                                                // }
                                             } else if ($row2['loai_hs'] == 2) {
                                                 $phan_loai_dh = new db_query("SELECT d.`phan_loai`, n.`ten_nha_cc_kh` FROM `don_hang` AS d
                                                                                         INNER JOIN `nha_cc_kh` AS n ON d.`id_nha_cc_kh` = n.`id`
@@ -219,11 +210,6 @@ $all_hs = new db_query($list_hs);
                                                 } else if ($loai_dh == 2) {
                                                     $dv_thuc_hien = $com_name;
                                                 };
-
-                                                // $tong_tien = mysql_fetch_assoc((new db_query("SELECT  `giu_lai_bao_hanh`, `gia_tri_svat`
-                                                //         FROM `don_hang` WHERE `id_cong_ty` = $com_id AND `id` = $id_hd_dh "))->result);
-                                                // $gia_tri_svat = $tong_tien['gia_tri_svat'];
-                                                // $gia_tri_bhanh = $tong_tien['giu_lai_bao_hanh'];
                                             }
 
                                             $id_hs = $row2['id'];
@@ -233,6 +219,9 @@ $all_hs = new db_query($list_hs);
                                                 $tong_tien_tt = mysql_fetch_assoc((new db_query("SELECT SUM(`da_thanh_toan`) AS tong_tien
                                                                     FROM `chi_tiet_phieu_tt_vt` WHERE `id_hs` = $id_hs AND `id_cong_ty` = $com_id "))->result);
                                                 $tong_tien_tt = $tong_tien_tt['tong_tien'];
+                                                $tien_con_lai = $row2['tong_tien_tatca'] - $tong_tien_tt;
+                                            }else{
+                                                $tong_tien_tt = 0;
                                                 $tien_con_lai = $row2['tong_tien_tatca'] - $tong_tien_tt;
                                             }
 

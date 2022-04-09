@@ -24,25 +24,24 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         }
     }
 }
-$curl = curl_init();
-$data = array(
-    'id_com' => $com_id,
-);
-curl_setopt($curl, CURLOPT_POST, 1);
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
-curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-$response = curl_exec($curl);
-curl_close($curl);
-$list_vt = json_decode($response, true);
-$vat_tu_data = $list_vt['data']['items'];
-
-$vat_tu_detail = [];
-for ($i = 0; $i < count($vat_tu_data); $i++) {
-    $items_vt = $vat_tu_data[$i];
-    $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
-}
+// $curl = curl_init();
+// $data = array(
+//     'id_com' => $com_id,
+// );
+// curl_setopt($curl, CURLOPT_POST, 1);
+// curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+// curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+// curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
+// curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+// $response = curl_exec($curl);
+// curl_close($curl);
+// $list_vt = json_decode($response, true);
+// $vat_tu_data = $list_vt['data']['items'];
+// $vat_tu_detail = [];
+// for ($i = 0; $i < count($vat_tu_data); $i++) {
+//     $items_vt = $vat_tu_data[$i];
+//     $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
+// }
 
 $curl = curl_init();
 $data = array(
@@ -240,7 +239,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
-                                        <label>Báo giá <span class="cr_red">*</span></label>
+                                        <label>Báo giá </label>
                                         <select id="bao_gia" name="bao_gia" class="form-control bao_gia" data="<?= $com_id ?>">
                                             <option value="">-- Chọn phiếu báo giá --</option>
                                         </select>
@@ -250,7 +249,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                                     <label>Thỏa thuận hóa đơn</label>
                                     <textarea name="tthuan_hdon" rows="5" class="form-control" placeholder="Nhập thỏa thuận hóa đơn"></textarea>
                                 </div>
-                                <div class="them_moi_vt w_100 float_l d-none">
+                                <div class="them_moi_vt w_100 float_l ">
                                     <p class="add_vat_tu cr_weight share_fsize_tow share_clr_four share_cursor">+ Thêm
                                         mới vật tư</p>
                                     <div class="ctn_table w_100 float_l">
@@ -331,16 +330,12 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
 <script type="text/javascript" src="../js/giatri_doi.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script>
-    // $(window).on("load", function() {
-    //     tong_vt();
-    //     baoLanh();
-    //     baoHanh();
-    // });
-    // $(document).on('click', '.remo_cot_ngang', function() {
-    //     tong_vt();
-    //     baoLanh();
-    //     baoHanh();
-    // })
+
+    $(document).on('click', '.remo_cot_ngang', function() {
+        tong_vt();
+        baoLanh();
+        baoHanh();
+    })
     $(".all_nhacc, .all_da_ct, .bao_gia").select2({
         width: '100%',
     });
@@ -354,16 +349,14 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
     function hd_vt_change(id) {
         var id_p = $("#bao_gia").val();
         var id_vt = $(id).val();
-        var id_v = $(id).parents(".item").attr("data");
+        // var id_v = $(id).parents(".item").attr("data");
         var com_id = $(".form_add_hp_mua").attr("data1");
         $.ajax({
             url: '../render/hd_mua_vat_tu.php',
             type: 'POST',
             data: {
                 id_vt: id_vt,
-                id_v: id_v,
                 id_com: com_id,
-                id_p: id_p,
             },
             success: function(data) {
                 $(id).parents(".item").html(data);
@@ -375,7 +368,6 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
     $("#id_nha_cung_cap").change(function() {
         var com_id = $(this).attr("data");
         var id_ncc = $(this).val();
-        var bao_gia = $("#bao_gia").val();
         $.ajax({
             url: '../render/hd_mua_ds_bg.php',
             type: 'POST',
@@ -387,25 +379,9 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                 $("#bao_gia").html(data);
             }
         });
-
-        if (bao_gia != "") {
-            $(".them_moi_vt").show();
-        } else {
-            $(".them_moi_vt").hide();
-        }
     });
 
-    $("#bao_gia").change(function() {
-        var bao_gia = $(this).val();
-        if (bao_gia != "") {
-            $(".them_moi_vt").slideDown();
-        } else {
-            $(".them_moi_vt").slideUp();
-        }
-    })
-
     $('.add_vat_tu').click(function() {
-        var id_p = $("#bao_gia").val();
         var id_ncc = $("#id_nha_cung_cap").val();
         var com_id = <?= $com_id ?>;
         $.ajax({
@@ -413,7 +389,6 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
             type: 'POST',
             data: {
                 id_com: com_id,
-                id_p: id_p,
                 id_ncc: id_ncc
             },
             success: function(data) {
@@ -449,9 +424,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                 id_nha_cung_cap: {
                     required: true,
                 },
-                bao_gia: {
-                    required: true
-                },
+
                 // dan_ctrinh: {
                 //     required: true,
                 // },
@@ -469,9 +442,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                 id_nha_cung_cap: {
                     required: "Không được để trống",
                 },
-                bao_gia: {
-                    required: "Không được để trống",
-                },
+
                 // dan_ctrinh: {
                 //     required: "Không được để trống",
                 // },
@@ -511,6 +482,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
             var gt_bao_lanh = $("input[name='gt_bao_lanh']").val();
             var han_bao_lanh = $("input[name='han_bao_lanh']").val();
             var ngay_bat_dau = $("input[name='ngay_bat_dau']").val();
+
             var ngay_ket_thuc = $("input[name='ngay_ket_thuc']").val();
             var bao_gom_van_chuyen = 0
             if ($("input[name='bao_gom_van_chuyen']").is(":checked")) {

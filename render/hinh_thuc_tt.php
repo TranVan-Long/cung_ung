@@ -22,21 +22,21 @@ if ($com_id == "" && $id_phieu == "" && $id_hd_dh == "" && $loai_phieu == "" && 
                     <div class="form-row">
                         <div class="form-group share_form_select">
                             <label>Tên ngân hàng <span class="cr_red">*</span></label>
-                            <input name="ten_nhanhang" class="form-control" type="text">
+                            <input name="ten_nhanhang" class="form-control" type="text" placeholder="Nhập tên ngân hàng">
                         </div>
                         <div class="form-group share_form_select">
                             <label>Chi nhánh <span class="cr_red">*</span></label>
-                            <input type="text" class="form-control" name="chi_nhanh">
+                            <input type="text" class="form-control" name="chi_nhanh" placeholder="Nhập tên chi nhánh ngân hàng">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group share_form_select">
                             <label>Số tài khoản <span class="cr_red">*</span></label>
-                            <input type="number" class="form-control" name="so_tk">
+                            <input type="number" class="form-control" name="so_tk" placeholder="Nhập tên số tài khoản ngân hàng">
                         </div>
                         <div class="form-group">
                             <label>Chủ tài khoản </label>
-                            <input type="text" name="chu_taik" class="form-control">
+                            <input type="text" name="chu_taik" class="form-control" placeholder="Nhập tên chủ tài khoản">
                         </div>
                     </div>
                 </div>
@@ -138,21 +138,21 @@ if ($com_id == "" && $id_phieu == "" && $id_hd_dh == "" && $loai_phieu == "" && 
                     <div class="form-row">
                         <div class="form-group share_form_select">
                             <label>Tên ngân hàng <span class="cr_red">*</span></label>
-                            <input name="ten_nhanhang" class="form-control" type="text">
+                            <input name="ten_nhanhang" class="form-control" type="text" placeholder="Nhập tên ngân hàng">
                         </div>
                         <div class="form-group share_form_select">
                             <label>Chi nhánh <span class="cr_red">*</span></label>
-                            <input type="text" class="form-control" name="chi_nhanh">
+                            <input type="text" class="form-control" name="chi_nhanh" placeholder="Nhập tên chi nhánh ngân hàng">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group share_form_select">
                             <label>Số tài khoản <span class="cr_red">*</span></label>
-                            <input type="number" class="form-control" name="so_tk">
+                            <input type="number" class="form-control" name="so_tk" placeholder="Nhập tên số tài khoản ngân hàng" oninput="<?= $oninput ?>">
                         </div>
                         <div class="form-group">
                             <label>Chủ tài khoản </label>
-                            <input type="text" name="chu_taik" class="form-control">
+                            <input type="text" name="chu_taik" class="form-control" placeholder="Nhập tên chủ tài khoản">
                         </div>
                     </div>
                 </div>

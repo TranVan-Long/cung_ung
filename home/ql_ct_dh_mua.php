@@ -7,6 +7,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['com_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 1;
 
         $curl = curl_init();
         $token = $_COOKIE['acc_token'];
@@ -23,6 +24,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 2;
 
         $curl = curl_init();
         $token = $_COOKIE['acc_token'];
@@ -64,15 +66,19 @@ if ($id_dh != "") {
     $list_dhm = new db_query("SELECT d.`id`, d.`id_nha_cc_kh`, d.`id_nguoi_lh`, d.`id_hop_dong`, d.`ngay_ky`, d.`thoi_han`, d.`don_vi_nhan_hang`,
                                 d.`phong_ban`, d.`nguoi_nhan_hang`, d.`dien_thoai_nn`, d.`giu_lai_bao_hanh`, d.`gia_tri_tuong_duong`, d.`ghi_chu`,
                                 d.`gia_tri_don_hang`, d.`thue_vat`, d.`gia_tri_svat`, d.`bao_gom_vat`, d.`chiet_khau`, d.`chi_phi_vchuyen`,
-                                d.`ghi_chu_vchuyen`, d.`ngay_tao`, h.`id_du_an_ctrinh`, n.`ten_nha_cc_kh`, n.`dia_chi_lh`, n.`so_dien_thoai`, l.`ten_nguoi_lh`
+                                d.`ghi_chu_vchuyen`, d.`ngay_tao`, h.`id_du_an_ctrinh`, n.`ten_nha_cc_kh`, n.`dia_chi_lh`, n.`so_dien_thoai`
                                 FROM `don_hang` AS d
                                 INNER JOIN `hop_dong` AS h ON d.`id_hop_dong` = h.`id`
                                 INNER JOIN `nha_cc_kh` AS n ON d.`id_nha_cc_kh` = n.`id`
-                                INNER JOIN `nguoi_lien_he` AS l ON d.`id_nguoi_lh` = l.`id`
                                 WHERE  d.`id` = $id_dh AND d.`phan_loai` = 1 AND d.`id_cong_ty` = $com_id ");
 
     $item = mysql_fetch_assoc($list_dhm->result);
     $id_ctrinh = $item['id_du_an_ctrinh'];
+    $id_nccap = $item['id_nha_cc_kh'];
+    $id_nguoi_lh = $item['id_nguoi_lh'];
+
+    $ten_nguoi_lh = mysql_fetch_assoc((new db_query("SELECT `ten_nguoi_lh` FROM `nguoi_lien_he` WHERE `id` = $id_nguoi_lh
+                                                    AND `id_nha_cc` = $id_nccap "))->result)['ten_nguoi_lh'];
 
     $list_vt_dhm = new db_query("SELECT `id`, `id_don_hang`, `id_hd`, `id_vat_tu`, `so_luong_ky_nay`, `thoi_gian_giao_hang`,
                                     `don_gia`, `tong_tien_trvat`, `thue_vat`, `tong_tien_svat`, `dia_diem_giao_hang`
@@ -131,7 +137,7 @@ if ($id_dh != "") {
     $coun1 = count($com);
 
     $all_dep = [];
-    for($a = 0; $a < $coun1; $a++){
+    for ($a = 0; $a < $coun1; $a++) {
         $item_dep = $com[$a];
         $all_dep[$item_dep['dep_id']] = $item_dep;
     }
@@ -176,7 +182,7 @@ if ($id_dh != "") {
                             lại</a>
                         <h4 class="tieu_de_ct w_100 float_l share_fsize_tow share_clr_four mb_25 cr_weight_bold">Chi
                             tiết đơn hàng mua vật tư</h4>
-                        <div class="ctiet_dk_hp w_100 float_l">
+                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $phan_quyen_nk ?>">
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Tên nhà cung cấp</p>
@@ -190,7 +196,7 @@ if ($id_dh != "") {
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Người liên hệ</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $item['ten_nguoi_lh'] ?></p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $ten_nguoi_lh ?></p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Số điện thoại / Fax</p>
@@ -210,7 +216,7 @@ if ($id_dh != "") {
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Ngày ký</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= date('d/m/Y', $item['ngay_ky']) ?></p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= ($item['ngay_ky'] != 0) ? date('d/m/Y', $item['ngay_ky']) : "" ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
@@ -222,7 +228,7 @@ if ($id_dh != "") {
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thời hạn đơn hàng</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= date('d/m/Y', $item['thoi_han']) ?></p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= ($item['thoi_han'] != 0) ? date('d/m/Y', $item['thoi_han']) : "" ?></p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Đơn vị nhận hàng</p>
@@ -340,7 +346,7 @@ if ($id_dh != "") {
                                                 <td class="share_tb_one"><?= $all_vattu[$row1['id_vat_tu']]['dvt_name'] ?></td>
                                                 <td class="share_tb_two"><?= $all_vattu[$row1['id_vat_tu']]['hsx_name'] ?></td>
                                                 <td class="share_tb_one"><?= $row1['so_luong_ky_nay'] ?></td>
-                                                <td class="share_tb_two"><?= date('d/m/Y', $row1['thoi_gian_giao_hang']) ?></td>
+                                                <td class="share_tb_two"><?= ($row1['thoi_gian_giao_hang'] != 0) ? date('d/m/Y', $row1['thoi_gian_giao_hang']) : "" ?></td>
                                                 <td class="share_tb_two"><?= formatMoney($row1['don_gia']) ?></td>
                                                 <td class="share_tb_two"><?= formatMoney($row1['tong_tien_trvat']) ?></td>
                                                 <td class="share_tb_one"><?= formatMoney($row1['thue_vat']) ?></td>
@@ -357,18 +363,14 @@ if ($id_dh != "") {
                                 <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                                     <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_dh">
                                         Xóa</p>
-                                    <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                        <a href="chinh-sua-don-hang-mua-<?= $id_dh ?>.html" class="share_clr_tow">Chỉnh sửa</a>
-                                    </p>
+                                    <a href="chinh-sua-don-hang-mua-<?= $id_dh ?>.html" class="v-btn btn-blue ml_20">Chỉnh sửa</a>
                                     <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
                                     if (in_array(4, $don_hang2)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_dh">
                                             Xóa</p>
                                     <? }
                                     if (in_array(3, $don_hang2)) { ?>
-                                        <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                            <a href="chinh-sua-don-hang-mua-<?= $id_dh ?>.html" class="share_clr_tow">Chỉnh sửa</a>
-                                        </p>
+                                        <a href="chinh-sua-don-hang-mua-<?= $id_dh ?>.html" class="v-btn btn-blue ml_20">Chỉnh sửa</a>
                                 <? }
                                 } ?>
                             </div>
@@ -432,6 +434,7 @@ if ($id_dh != "") {
         var id_dh = $(this).attr("data");
         var com_id = $(this).attr("data1");
         var user_id = $(this).attr("data2");
+        var phan_quyen_nk = $(".ctiet_dk_hp").attr("data");
 
         $.ajax({
             url: '../ajax/xoa_dh.php',
@@ -440,6 +443,7 @@ if ($id_dh != "") {
                 id_dh: id_dh,
                 com_id: com_id,
                 user_id: user_id,
+                phan_quyen_nk: phan_quyen_nk,
             },
             success: function(data) {
                 if (data == "") {

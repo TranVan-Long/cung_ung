@@ -81,7 +81,15 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                 <div class="tbl-content table-2-row">
                     <table>
                         <tbody>
-                            <? while ($row1 = mysql_fetch_assoc($ds_vt->result)) { ?>
+                            <? while ($row1 = mysql_fetch_assoc($ds_vt->result)) {
+                                $id_vtu = $row1['id_vat_tu'];
+                                $sum_kl_kt = new db_query("SELECT SUM(c.`kl_ky_nay`) AS sum_one, SUM(c.`gia_tri_ky_nay`) AS sum_two FROM `chi_tiet_hs` AS c
+                                                                INNER JOIN `ho_so_thanh_toan` AS h ON h.`id` = c.`id_hs`
+                                                                WHERE h.`id_hd_dh` = $dh_hd AND h.`id_cong_ty` = $com_id AND h.`loai_hs` = 1
+                                                                AND c.`id_vat_tu` = $id_vtu ");
+                                $list_sum = mysql_fetch_assoc($sum_kl_kt->result);
+                                $sum_one = $list_sum['sum_one'];
+                                $sum_two = $list_sum['sum_two']; ?>
                                 <tr>
                                     <td class="w-10"><?= $stt++ ?></td>
                                     <td class="w-20 vat_tu_dh" data="<?= $row1['id_vat_tu'] ?>"><?= $all_vattu[$row1['id_vat_tu']]['dsvt_name'] ?></td>
@@ -95,24 +103,14 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                         <p class="don_gia"><?= $row1['don_gia'] ?></p>
                                     </td>
                                     <td class="w-10">
-                                        <p class="tong_tienvt"><?= $row1['tien_svat'] ?></p>
+                                        <p class="tong_tienvt"><?= $row1['tien_trvat'] ?></p>
                                     </td>
-                                    <?
-                                    $id_vtu = $row1['id_vat_tu'];
-                                    $sum_kl_kt = new db_query("SELECT SUM(c.`kl_ky_nay`) AS sum_one, SUM(c.`gia_tri_ky_nay`) AS sum_two FROM `chi_tiet_hs` AS c
-                                                                INNER JOIN `ho_so_thanh_toan` AS h ON h.`id` = c.`id_hs`
-                                                                WHERE h.`id_hd_dh` = $dh_hd AND h.`id_cong_ty` = $com_id AND h.`loai_hs` = 1
-                                                                AND c.`id_vat_tu` = $id_vtu ");
-                                    $list_sum = mysql_fetch_assoc($sum_kl_kt->result);
-                                    $sum_one = $list_sum['sum_one'];
-                                    $sum_two = $list_sum['sum_two'];
-                                    ?>
                                     <td class="w-10">
                                         <input type="text" name="kl_luy_ke_ky_truoc" data="<?= $row1['thue_vat'] ?>" class="tex_center" value="<?= ($sum_one == 0) ? "0" : $sum_one ?>" readonly>
                                     </td>
                                     <td class="w-10">
                                         <? if ($sum_one != $row1['so_luong']) { ?>
-                                            <input type="text" name="kl_luy_ke_ky_nay" oninput="<?= $oninput ?>" class="tex_center" onkeyup="sl_hs_doi(this)">
+                                            <input type="text" name="kl_luy_ke_ky_nay" autocomplete="off" oninput="<?= $oninput ?>" class="tex_center" onkeyup="sl_hs_doi(this)">
                                         <? } else { ?>
                                             <input type="text" name="kl_luy_ke_ky_nay" oninput="<?= $oninput ?>" class="tex_center" readonly>
                                         <? } ?>
@@ -148,7 +146,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
-                                <td class="w-10"><?= $tien_trs['gia_tri_trvat'] ?></td>
+                                <td class="w-10"><?= formatMoney($tien_trs['gia_tri_trvat']) ?></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -171,7 +169,6 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10">
                                     <span class="tong_thue_vat"><?= $tien_trs['thue_vat'] ?></span>
-                                    <span>(%)</span>
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -179,7 +176,6 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10">
                                     <span class="thue_ky_nay"></span>
-                                    <span>(<?= $tien_trs['thue_vat'] ?>%)</span>
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-5"></td>
@@ -200,7 +196,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10">
-                                    <input name="chi_phi_khac" class="chi_phi_khac" type="text" oninput="<?= $oninput ?>" onkeyup="chiphi_khac(this)" placeholder="Nhập chi phí khác">
+                                    <input name="chi_phi_khac" class="chi_phi_khac" type="text" autocomplete="off" oninput="<?= $oninput ?>" onkeyup="chiphi_khac(this)" placeholder="Nhập chi phí khác">
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-5"></td>
@@ -215,7 +211,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
-                                <td class="w-10"><?= $tien_trs['gia_tri_svat'] ?></td>
+                                <td class="w-10"><?= formatMoney($tien_trs['gia_tri_svat']) ?></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -288,7 +284,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                         <input type="text" name="kl_luy_ke_ky_truoc" data="<?= $row1['thue_vat'] ?>" value="0" class="tex_center" readonly>
                                     </td>
                                     <td class="w-10">
-                                        <input type="text" name="kl_luy_ke_ky_nay" oninput="<?= $oninput ?>" class="tex_center" onkeyup="sl_hs_doi(this)">
+                                        <input type="text" name="kl_luy_ke_ky_nay" autocomplete="off" oninput="<?= $oninput ?>" class="tex_center" onkeyup="sl_hs_doi(this)">
                                     </td>
                                     <td class="w-10">
                                         <input type="text" name="kl_luy_ke_den_nay" data="" value="0" class="tex_center" readonly>
@@ -321,7 +317,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
-                                <td class="w-10"><?= $tien_trs['gia_tri_trvat'] ?></td>
+                                <td class="w-10"><?= formatMoney($tien_trs['gia_tri_trvat']) ?></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -344,7 +340,6 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10">
                                     <span class="tong_thue_vat"><?= $tien_trs['thue_vat'] ?></span>
-                                    <span>(%)</span>
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -352,7 +347,6 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10">
                                     <span class="thue_ky_nay"></span>
-                                    <span>(<?= $tien_trs['thue_vat'] ?>%)</span>
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-5"></td>
@@ -388,7 +382,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
-                                <td class="w-10"><?= $tien_trs['gia_tri_svat'] ?></td>
+                                <td class="w-10"><?= formatMoney($tien_trs['gia_tri_svat']) ?></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -472,17 +466,17 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                     $sum_two = $list_sum['sum_two'];
                                     ?>
                                     <td class="w-10">
-                                        <input type="text" name="kl_luy_ke_ky_truoc" class="tex_center" value="<?= ($sum_one == 0) ? "0" : $sum_one ?>" readonly>
+                                        <input type="text" name="kl_luy_ke_ky_truoc" data="0" class="tex_center" value="<?= ($sum_one == 0) ? "0" : $sum_one ?>" readonly>
                                     </td>
                                     <td class="w-10">
                                         <? if ($sum_one != $row1['khoi_luong_du_kien']) { ?>
-                                            <input type="text" name="kl_luy_ke_ky_nay" oninput="<?= $oninput ?>" class="tex_center" onkeyup="klt_hs_doi(this)">
+                                            <input type="text" name="kl_luy_ke_ky_nay" autocomplete="off" oninput="<?= $oninput ?>" class="tex_center" onkeyup="klt_hs_doi(this)">
                                         <? } else { ?>
                                             <input type="text" name="kl_luy_ke_ky_nay" oninput="<?= $oninput ?>" class="tex_center" readonly>
                                         <? } ?>
                                     </td>
                                     <td class="w-10">
-                                        <input type="text" name="kl_luy_ke_den_nay" class="tex_center" value="<?= ($sum_one == 0) ? "0" : $sum_one ?>" readonly>
+                                        <input type="text" name="kl_luy_ke_den_nay" data="" class="tex_center" value="<?= ($sum_one == 0) ? "0" : $sum_one ?>" readonly>
                                     </td>
                                     <td class="w-10">
                                         <input type="text" name="gt_luy_ke_ky_truoc" class="tex_center" value="<?= ($sum_two == 0) ? "0" : $sum_two ?>" readonly>
@@ -491,7 +485,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                         <input type="text" name="gt_luy_ke_ky_nay" class="tex_center" readonly>
                                     </td>
                                     <td class="w-10">
-                                        <input type="text" name="gt_luy_ke_den_nay" class="tex_center" value="<?= ($sum_two == 0) ? "0" : $sum_two ?>" readonly>
+                                        <input type="text" name="gt_luy_ke_den_nay" data="" class="tex_center" value="<?= ($sum_two == 0) ? "0" : $sum_two ?>" readonly>
                                     </td>
                                     <td class="w-5">
                                         <input type="text" name="phan_tram_thuc_hien" value="<?= ($sum_two * 100) / $row1['thanh_tien_du_kien'] ?>" class="tex_center" readonly>
@@ -512,7 +506,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
-                                <td class="w-10"><?= $tien_trs['gia_tri_trvat'] ?></td>
+                                <td class="w-10"><?= formatMoney($tien_trs['gia_tri_trvat']) ?></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -562,7 +556,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10">
-                                    <input name="chi_phi_khac" class="chi_phi_khac" type="text" oninput="<?= $oninput ?>" onkeyup="chiphi_khac_thue(this)" placeholder="Nhập chi phí khác">
+                                    <input name="chi_phi_khac" class="chi_phi_khac" type="text" autocomplete="off" oninput="<?= $oninput ?>" onkeyup="chiphi_khac_thue(this)" placeholder="Nhập chi phí khác">
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-5"></td>
@@ -577,7 +571,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
-                                <td class="w-10"><?= $tien_trs['gia_tri_svat'] ?></td>
+                                <td class="w-10"><?= formatMoney($tien_trs['gia_tri_svat']) ?></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -647,13 +641,13 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                         <p class="tong_tienvt"><?= $row1['thanh_tien_du_kien'] ?></p>
                                     </td>
                                     <td class="w-10">
-                                        <input type="text" name="kl_luy_ke_ky_truoc" value="0" class="tex_center" readonly>
+                                        <input type="text" name="kl_luy_ke_ky_truoc" data="0" value="0" class="tex_center" readonly>
                                     </td>
                                     <td class="w-10">
-                                        <input type="text" name="kl_luy_ke_ky_nay" oninput="<?= $oninput ?>" class="tex_center" onkeyup="klt_hs_doi(this)">
+                                        <input type="text" name="kl_luy_ke_ky_nay" autocomplete="off" oninput="<?= $oninput ?>" class="tex_center" onkeyup="klt_hs_doi(this)">
                                     </td>
                                     <td class="w-10">
-                                        <input type="text" name="kl_luy_ke_den_nay" value="0" class="tex_center" readonly>
+                                        <input type="text" name="kl_luy_ke_den_nay" data="" value="0" class="tex_center" readonly>
                                     </td>
                                     <td class="w-10">
                                         <input type="text" name="gt_luy_ke_ky_truoc" value="0" class="tex_center" readonly>
@@ -662,7 +656,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                         <input type="text" name="gt_luy_ke_ky_nay" class="tex_center" readonly>
                                     </td>
                                     <td class="w-10">
-                                        <input type="text" name="gt_luy_ke_den_nay" value="0" class="tex_center" readonly>
+                                        <input type="text" name="gt_luy_ke_den_nay" data="" value="0" class="tex_center" readonly>
                                     </td>
                                     <td class="w-5">
                                         <input type="text" name="phan_tram_thuc_hien" class="tex_center" readonly>
@@ -683,7 +677,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
-                                <td class="w-10"><?= $tien_trs['gia_tri_trvat'] ?></td>
+                                <td class="w-10"><?= formatMoney($tien_trs['gia_tri_trvat']) ?></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -733,7 +727,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10">
-                                    <input name="chi_phi_khac" class="chi_phi_khac" type="text" oninput="<?= $oninput ?>" onkeyup="chiphi_khac_thue(this)" placeholder="Nhập chi phí khác">
+                                    <input name="chi_phi_khac" class="chi_phi_khac" type="text" autocomplete="off" oninput="<?= $oninput ?>" onkeyup="chiphi_khac_thue(this)" placeholder="Nhập chi phí khác">
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-5"></td>
@@ -748,7 +742,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
-                                <td class="w-10"><?= $tien_trs['gia_tri_svat'] ?></td>
+                                <td class="w-10"><?= formatMoney($tien_trs['gia_tri_svat']) ?></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -835,7 +829,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                     </td>
                                     <td class="w-10">
                                         <? if ($sum_one != $row1['so_luong']) { ?>
-                                            <input type="text" name="kl_luy_ke_ky_nay" oninput="<?= $oninput ?>" class="tex_center" onkeyup="kl_hs_doi(this)">
+                                            <input type="text" name="kl_luy_ke_ky_nay" autocomplete="off" oninput="<?= $oninput ?>" class="tex_center" onkeyup="kl_hs_doi(this)">
                                         <? } else { ?>
                                             <input type="text" name="kl_luy_ke_ky_nay" oninput="<?= $oninput ?>" class="tex_center" readonly>
                                         <? } ?>
@@ -871,7 +865,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
-                                <td class="w-10"><?= $tien_trs['gia_tri_trvat'] ?></td>
+                                <td class="w-10"><?= formatMoney($tien_trs['gia_tri_trvat']) ?></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -894,7 +888,6 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10">
                                     <span class="tong_thue_vat"><?= ($tien_trs['gia_tri_trvat'] * $tien_trs['thue_vat']) / 100 ?></span>
-                                    <span class="thue_vt" data="<?= $tien_trs['thue_vat'] ?>">(<?= $tien_trs['thue_vat'] ?> %)</span>
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -902,7 +895,6 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10">
                                     <span class="thue_ky_nay"></span>
-                                    <span>(<?= $tien_trs['thue_vat'] ?>%)</span>
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-5"></td>
@@ -923,7 +915,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10">
-                                    <input name="chi_phi_khac" class="chi_phi_khac" type="text" oninput="<?= $oninput ?>" onkeyup="chiphi_khac_vc(this)" placeholder="Nhập chi phí khác">
+                                    <input name="chi_phi_khac" class="chi_phi_khac" type="text" autocomplete="off" oninput="<?= $oninput ?>" onkeyup="chiphi_khac_vc(this)" placeholder="Nhập chi phí khác">
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-5"></td>
@@ -938,7 +930,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
-                                <td class="w-10"><?= $tien_trs['gia_tri_svat'] ?></td>
+                                <td class="w-10"><?= formatMoney($tien_trs['gia_tri_svat']) ?></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -1008,7 +1000,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                         <p class="tong_tienvt"><?= $row1['thanh_tien'] ?></p>
                                     </td>
                                     <td class="w-10">
-                                        <input type="text" name="kl_luy_ke_ky_truoc" data="" value="0" class="tex_center" readonly>
+                                        <input type="text" name="kl_luy_ke_ky_truoc" data="0" value="0" class="tex_center" readonly>
                                     </td>
                                     <td class="w-10">
                                         <input type="text" name="kl_luy_ke_ky_nay" oninput="<?= $oninput ?>" class="tex_center" onkeyup="kl_hs_doi(this)">
@@ -1044,7 +1036,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
-                                <td class="w-10"><?= $tien_trs['gia_tri_trvat'] ?></td>
+                                <td class="w-10"><?= formatMoney($tien_trs['gia_tri_trvat']) ?></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -1067,7 +1059,6 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10">
                                     <span class="tong_thue_vat"><?= ($tien_trs['gia_tri_trvat'] * $tien_trs['thue_vat']) / 100 ?></span>
-                                    <span class="thue_vt" data="<?= $tien_trs['thue_vat'] ?>">(<?= $tien_trs['thue_vat'] ?> %)</span>
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -1075,7 +1066,6 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10">
                                     <span class="thue_ky_nay"></span>
-                                    <span>(<?= $tien_trs['thue_vat'] ?>%)</span>
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-5"></td>
@@ -1096,7 +1086,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10">
-                                    <input name="chi_phi_khac" class="chi_phi_khac" type="text" oninput="<?= $oninput ?>" onkeyup="chiphi_khac_vc(this)" placeholder="Nhập chi phí khác">
+                                    <input name="chi_phi_khac" class="chi_phi_khac" type="text" autocomplete="off" oninput="<?= $oninput ?>" onkeyup="chiphi_khac_vc(this)" placeholder="Nhập chi phí khác">
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-5"></td>
@@ -1111,7 +1101,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
-                                <td class="w-10"><?= $tien_trs['gia_tri_svat'] ?></td>
+                                <td class="w-10"><?= formatMoney($tien_trs['gia_tri_svat']) ?></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -1180,7 +1170,15 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
             <div class="tbl-content table-2-row">
                 <table>
                     <tbody>
-                        <? while ($row1 = mysql_fetch_assoc($ds_vt->result)) { ?>
+                        <? while ($row1 = mysql_fetch_assoc($ds_vt->result)) {
+                            $id_vtu = $row1['id_vat_tu'];
+                            $sum_kl_kt = new db_query("SELECT SUM(c.`kl_ky_nay`) AS sum_one, SUM(c.`gia_tri_ky_nay`) AS sum_two FROM `chi_tiet_hs` AS c
+                                                        INNER JOIN `ho_so_thanh_toan` AS h ON h.`id` = c.`id_hs`
+                                                        WHERE h.`id_hd_dh` = $dh_hd AND h.`id_cong_ty` = $com_id
+                                                        AND h.`loai_hs` = 2 AND c.`id_vat_tu` = $id_vtu ");
+                            $list_sum = mysql_fetch_assoc($sum_kl_kt->result);
+                            $sum_one = $list_sum['sum_one'];
+                            $sum_two = $list_sum['sum_two']; ?>
                             <tr>
                                 <td class="w-10"><?= $stt++ ?></td>
                                 <td class="w-20 vat_tu_dh" data="<?= $row1['id_vat_tu'] ?>"><?= $all_vattu[$row1['id_vat_tu']]['dsvt_name'] ?></td>
@@ -1194,30 +1192,20 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                     <p class="don_gia"><?= $row1['don_gia'] ?></p>
                                 </td>
                                 <td class="w-10">
-                                    <p class="tong_tienvt"><?= $row1['tong_tien_svat'] ?></p>
+                                    <p class="tong_tienvt"><?= $row1['tong_tien_trvat'] ?></p>
                                 </td>
-                                <?
-                                $id_vtu = $row1['id_vat_tu'];
-                                $sum_kl_kt = new db_query("SELECT SUM(c.`kl_ky_nay`) AS sum_one, SUM(c.`gia_tri_ky_nay`) AS sum_two FROM `chi_tiet_hs` AS c
-                                                                    INNER JOIN `ho_so_thanh_toan` AS h ON h.`id` = c.`id_hs`
-                                                                    WHERE h.`id_hd_dh` = $dh_hd AND h.`id_cong_ty` = $com_id
-                                                                    AND h.`loai_hs` = 2 AND c.`id_vat_tu` = $id_vtu ");
-                                $list_sum = mysql_fetch_assoc($sum_kl_kt->result);
-                                $sum_one = $list_sum['sum_one'];
-                                $sum_two = $list_sum['sum_two'];
-                                ?>
                                 <td class="w-10">
-                                    <input type="text" name="kl_luy_ke_ky_truoc" value="<?= ($sum_one == 0) ? "0" : $sum_one ?>" class="tex_center" readonly>
+                                    <input type="text" name="kl_luy_ke_ky_truoc" data="<?= $row1['thue_vat'] ?>" value="<?= ($sum_one == 0) ? "0" : $sum_one ?>" class="tex_center" readonly>
                                 </td>
                                 <td class="w-10">
                                     <? if ($sum_one != $row1['so_luong_ky_nay']) { ?>
-                                        <input type="text" name="kl_luy_ke_ky_nay" oninput="<?= $oninput ?>" class="tex_center" onkeyup="sl_hs_doi(this)">
+                                        <input type="text" name="kl_luy_ke_ky_nay" autocomplete="off" oninput="<?= $oninput ?>" class="tex_center" onkeyup="sl_hs_doi(this)">
                                     <? } else { ?>
                                         <input type="text" name="kl_luy_ke_ky_nay" oninput="<?= $oninput ?>" class="tex_center" readonly>
                                     <? } ?>
                                 </td>
                                 <td class="w-10">
-                                    <input type="text" name="kl_luy_ke_den_nay" value="<?= ($sum_one == 0) ? "0" : $sum_one ?>" class="tex_center" readonly>
+                                    <input type="text" name="kl_luy_ke_den_nay" data="" value="<?= ($sum_one == 0) ? "0" : $sum_one ?>" class="tex_center" readonly>
                                 </td>
                                 <td class="w-10">
                                     <input type="text" name="gt_luy_ke_ky_truoc" class="tex_center" value="<?= ($sum_two == 0) ? "0" : $sum_two ?>" readonly>
@@ -1226,7 +1214,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                     <input type="text" name="gt_luy_ke_ky_nay" class="tex_center" readonly>
                                 </td>
                                 <td class="w-10">
-                                    <input type="text" name="gt_luy_ke_den_nay" class="tex_center" value="<?= ($sum_two == 0) ? "0" : $sum_two ?>" readonly>
+                                    <input type="text" name="gt_luy_ke_den_nay" data="" class="tex_center" value="<?= ($sum_two == 0) ? "0" : $sum_two ?>" readonly>
                                 </td>
                                 <td class="w-5">
                                     <input type="text" name="phan_tram_thuc_hien" value="<?= ($sum_two * 100) / $row1['tong_tien_svat'] ?>" class="tex_center" readonly>
@@ -1247,7 +1235,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                             <td class="w-10"></td>
                             <td class="w-10"></td>
                             <td class="w-10"></td>
-                            <td class="w-10"><?= $tien_trs['gia_tri_don_hang'] ?></td>
+                            <td class="w-10"><?= formatMoney($tien_trs['gia_tri_don_hang']) ?></td>
                             <td class="w-10"></td>
                             <td class="w-10"></td>
                             <td class="w-10"></td>
@@ -1270,7 +1258,6 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                             <td class="w-10"></td>
                             <td class="w-10">
                                 <span class="tong_thue_vat"><?= $tien_trs['thue_vat'] ?></span>
-                                <span>(%)</span>
                             </td>
                             <td class="w-10"></td>
                             <td class="w-10"></td>
@@ -1278,7 +1265,6 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                             <td class="w-10"></td>
                             <td class="w-10">
                                 <span class="thue_ky_nay"></span>
-                                <span>(<?= $tien_trs['thue_vat'] ?>%)</span>
                             </td>
                             <td class="w-10"></td>
                             <td class="w-5"></td>
@@ -1299,7 +1285,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                             <td class="w-10"></td>
                             <td class="w-10"></td>
                             <td class="w-10">
-                                <input name="chi_phi_khac" class="chi_phi_khac" type="text" oninput="<?= $oninput ?>" onkeyup="chiphi_khac(this)" placeholder="Nhập chi phí khác">
+                                <input name="chi_phi_khac" class="chi_phi_khac" type="text" autocomplete="off" oninput="<?= $oninput ?>" onkeyup="chiphi_khac(this)" placeholder="Nhập chi phí khác">
                             </td>
                             <td class="w-10"></td>
                             <td class="w-5"></td>
@@ -1314,7 +1300,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                             <td class="w-10"></td>
                             <td class="w-10"></td>
                             <td class="w-10"></td>
-                            <td class="w-10"><?= $tien_trs['gia_tri_svat'] ?></td>
+                            <td class="w-10"><?= formatMoney($tien_trs['gia_tri_svat']) ?></td>
                             <td class="w-10"></td>
                             <td class="w-10"></td>
                             <td class="w-10"></td>
@@ -1387,7 +1373,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                     <input type="text" name="kl_luy_ke_ky_truoc" data="<?= $row1['thue_vat'] ?>" value="0" class="tex_center" readonly>
                                 </td>
                                 <td class="w-10">
-                                    <input type="text" name="kl_luy_ke_ky_nay" oninput="<?= $oninput ?>" class="tex_center" onkeyup="sl_hs_doi(this)">
+                                    <input type="text" name="kl_luy_ke_ky_nay" autocomplete="off" oninput="<?= $oninput ?>" class="tex_center" onkeyup="sl_hs_doi(this)">
                                 </td>
                                 <td class="w-10">
                                     <input type="text" name="kl_luy_ke_den_nay" data="" value="0" class="tex_center" readonly>
@@ -1420,7 +1406,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                             <td class="w-10"></td>
                             <td class="w-10"></td>
                             <td class="w-10"></td>
-                            <td class="w-10"><?= $tien_trs['gia_tri_don_hang'] ?></td>
+                            <td class="w-10"><?= formatMoney($tien_trs['gia_tri_don_hang']) ?></td>
                             <td class="w-10"></td>
                             <td class="w-10"></td>
                             <td class="w-10"></td>
@@ -1434,7 +1420,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                             <td class="w-10"></td>
                         </tr>
                         <tr class="bg-ed">
-                            <td class="w-10 text-bold">Thuế VAT (%)</td>
+                            <td class="w-10 text-bold">Thuế VAT</td>
                             <td class="w-20"></td>
                             <td class="w-10"></td>
                             <td class="w-10"></td>
@@ -1450,7 +1436,6 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                             <td class="w-10"></td>
                             <td class="w-10">
                                 <span class="thue_ky_nay"></span>
-                                <span>(<?= $tien_trs['thue_vat'] ?>%)</span>
                             </td>
                             <td class="w-10"></td>
                             <td class="w-5"></td>
@@ -1471,7 +1456,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                             <td class="w-10"></td>
                             <td class="w-10"></td>
                             <td class="w-10">
-                                <input name="chi_phi_khac" class="chi_phi_khac" type="text" oninput="<?= $oninput ?>" onkeyup="chiphi_khac(this)" placeholder="Nhập chi phí khác">
+                                <input name="chi_phi_khac" class="chi_phi_khac" type="text" autocomplete="off" oninput="<?= $oninput ?>" onkeyup="chiphi_khac(this)" placeholder="Nhập chi phí khác">
                             </td>
                             <td class="w-10"></td>
                             <td class="w-5"></td>
@@ -1486,7 +1471,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                             <td class="w-10"></td>
                             <td class="w-10"></td>
                             <td class="w-10"></td>
-                            <td class="w-10"><?= $tien_trs['gia_tri_svat'] ?></td>
+                            <td class="w-10"><?= formatMoney($tien_trs['gia_tri_svat']) ?></td>
                             <td class="w-10"></td>
                             <td class="w-10"></td>
                             <td class="w-10"></td>

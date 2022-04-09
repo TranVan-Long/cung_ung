@@ -6,10 +6,12 @@ include("config.php");
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
+        $com_name = $_SESSION['com_name'];
         $user_id = $_SESSION['com_id'];
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
+        $com_name = $_SESSION['com_name'];
 
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
@@ -26,7 +28,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $ratting_id = $_GET['id'];
-    $rat_get = new db_query("SELECT d.`id`, d.`ngay_danh_gia`, d.`nguoi_danh_gia`, d.`phong_ban`, d.`id_nha_cc`, d.`danh_gia_khac`,
+    $rat_get = new db_query("SELECT d.`id`, d.`ngay_danh_gia`, d.`nguoi_danh_gia`, d.`phong_ban`, d.`id_nha_cc`, d.`danh_gia_khac`,d.`quyen_nlap`, d.`tong_diem`,
                             n.`ten_nha_cc_kh`, n.`ten_vt`, n.`dia_chi_lh`, n.`sp_cung_ung`
                             FROM `danh_gia` AS d
                             INNER JOIN `nha_cc_kh` AS n ON d.`id_nha_cc` = n.`id`
@@ -63,9 +65,6 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             $item1 = $data_list_nv[$i];
             $user[$item1["ep_id"]] = $item1;
         }
-
-        $ep_name = $user[$user_id]['ep_name'];
-        $phong_ban = $user[$user_id]['dep_name'];
     }
 } else {
     header('Location: /');
@@ -119,13 +118,21 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             </div>
                             <div class="form-col-50 right p-10 pt-10">
                                 <p class="detail-title">Người đánh giá</p>
-                                <p class="detail-data text-500"><?= $ep_name ?></p>
+                                <? if ($item['quyen_nlap'] == 1) { ?>
+                                    <p class="detail-data text-500"><?= $com_name ?></p>
+                                <? } else if ($item['quyen_nlap'] == 2) { ?>
+                                    <p class="detail-data text-500"><?= $user[$user_id]['ep_name'] ?></p>
+                                <? } ?>
                             </div>
                         </div>
                         <div class="form-row left border-top2">
                             <div class="form-col-50 left p-10">
                                 <p class="detail-title">Phòng ban</p>
-                                <p class="detail-data text-500"><?= $phong_ban ?></p>
+                                <? if ($item['quyen_nlap'] == 1) { ?>
+                                    <p class="detail-data text-500"></p>
+                                <? } else if ($item['quyen_nlap'] == 2) { ?>
+                                    <p class="detail-data text-500"><?= $user[$user_id]['dep_name'] ?></p>
+                                <? } ?>
                             </div>
                         </div>
                         <div class="form-row left border-top2">
@@ -151,7 +158,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <div class="form-row left border-top2">
                             <div class="form-col-50 left p-10">
                                 <p class="detail-title">Điểm đánh giá</p>
-                                <p class="detail-data text-500"><?= $tong_diem ?></p>
+                                <p class="detail-data text-500"><?= $item['tong_diem'] ?></p>
                             </div>
                             <div class="form-col-50 right p-10 pt-10">
                                 <p class="detail-title">Đánh giá khác</p>
@@ -191,7 +198,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                 <td class="w-10"><?= $row['he_so'] ?></td>
                                                 <td class=""><?= $row['diem_danh_gia'] ?></td>
                                                 <td class=""><?= $row['tong_diem_danh_gia'] ?></td>
-                                                <td><?= $row['danh_gia_chi_tiet'] ?></td>
+                                                <td><?= ($row['danh_gia_chi_tiet'] != "0") ? $row['danh_gia_chi_tiet'] : "" ?></td>
                                             </tr>
                                         <? } ?>
                                     </tbody>
@@ -203,7 +210,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                             <p class="v-btn btn-outline-red modal-btn show_btn_modal mr-20 mt-15" data-target="delete">Xóa</p>
                             <a href="chinh-sua-danh-gia-nha-cung-cap-<?= $item['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
-                        <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                            <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
                             if (in_array(4, $ncc_rat3)) { ?>
                                 <p class="v-btn btn-outline-red modal-btn show_btn_modal mr-20 mt-15" data-target="delete">Xóa</p>
                             <? }

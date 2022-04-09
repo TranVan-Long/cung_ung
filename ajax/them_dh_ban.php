@@ -3,7 +3,7 @@ include("config.php");
 $com_id = getValue('com_id', 'int', 'POST', '');
 $user_id = getValue('user_id', 'int', 'POST', '');
 $id_kh = getValue('id_kh', 'int', 'POST', '');
-
+$id_nguoi_lh = getValue('id_nguoi_lh', 'int', 'POST', '');
 $id_hd = getValue('id_hd', 'int', 'POST', '');
 
 if($_POST['ngayky_dh'] != ""){
@@ -57,7 +57,7 @@ if ($com_id != "" && $id_kh != "" && $cou > 0) {
                             `don_vi_nhan_hang`, `phong_ban`, `nguoi_nhan_hang`, `dien_thoai_nn`, `giu_lai_bao_hanh`, `gia_tri_tuong_duong`, `ghi_chu`,
                             `gia_tri_don_hang`, `thue_vat`, `gia_tri_svat`, `bao_gom_vat`, `chiet_khau`, `chi_phi_vchuyen`, `ghi_chu_vchuyen`, `phan_loai`,
                             `gui_mail`, `hieu_luc`, `trang_thai`, `ngay_tao`, `ngay_chinh_sua`, `nhap_xuat_kho`, `id_cong_ty`) VALUES ('','$id_kh',
-                            '$user_id','$id_hd','$id_ctrinh','$ngayky_dh','$thoi_han_dh','$dv_nha_hang',
+                            '$id_nguoi_lh','$id_hd','$id_ctrinh','$ngayky_dh','$thoi_han_dh','$dv_nha_hang',
                             '$pb_nguoi_nhan','$nguoi_nhan','$dt_nguoi_nhan','$baoh_hd','$gia_tri_bh','$ghi_chu','$giatr_vat','$thue_vat','$gias_vat','$dgia_vat',
                             '$tien_chkhau','$chi_phi_vc','$ghic_vc','$phan_loai','',1,'$trang_thai','$ngay_tao','','','$com_id')");
 

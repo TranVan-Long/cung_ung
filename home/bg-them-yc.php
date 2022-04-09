@@ -7,10 +7,12 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $user_id = $_SESSION['com_id'];
         $user_name = $_SESSION['com_name'];
         $com_id = $_SESSION['com_id'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $user_id = $_SESSION['ep_id'];
         $user_name = $_SESSION['ep_name'];
         $com_id = $_SESSION['user_com_id'];
+        $phan_quyen_nk = 2;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `yeu_cau_bao_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
@@ -27,7 +29,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 $date = date('Y-m-d', time());
 $date1 = strtotime($date);
 
-$list_nhacc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 1 ");
+$list_nhacc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ");
 
 $curl = curl_init();
 $data = array(
@@ -80,7 +82,7 @@ $cou = count($list_congtrinh);
                     <a class="text-black" href="quan-ly-yeu-cau-bao-gia.html"><?php echo $ic_lt ?> Quay lại</a>
                     <p class="page-title mt-20">Thêm yêu cầu báo giá</p>
                 </div>
-                <form action="" class="main-form">
+                <form class="main-form" data="<?= $phan_quyen_nk ?>">
                     <div class="w-100 left mt-10">
                         <div class="form-control edit-form">
                             <div class="form-row left">
@@ -293,6 +295,7 @@ $cou = count($list_congtrinh);
             var noi_dung = $("textarea[name='noi_dung_thu']").val();
             var mail_nhan_bg = $("input[name='mail_nhan_bao_gia']").val();
             var com_id = $(this).attr("data");
+            var phan_quyen_nk = $(".main-form").attr("data");
 
             var gui_mail = "";
             if ($("input[name='mail_ngay']").is(":checked")) {
@@ -340,6 +343,7 @@ $cou = count($list_congtrinh);
                     gia_baog_vat: gia_baog_vat,
                     ma_vt: ma_vt,
                     so_luong: so_luong,
+                    phan_quyen_nk: phan_quyen_nk,
                 },
                 success: function(data) {
                     if (data == "") {

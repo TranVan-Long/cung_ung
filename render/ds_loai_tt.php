@@ -11,7 +11,7 @@ if ($hd_dh != "" && $com_id != "" && $loai_phieu != "") {
 
         if ($phan_loai == 1 || $phan_loai == 3 || $phan_loai == 4) { ?>
             <label>Loại thanh toán <span class="cr_red">*</span></label>
-            <select name="lthanh_toan" class="form-control all_ltt share_select" data="<?= $com_id ?>" onchange="loai_tt_doi(this)">
+            <select name="lthanh_toan" class="form-control all_ltt  share_select" data="<?= $com_id ?>" onchange="loai_tt_doi(this)">
                 <option value="">-- Chọn loại thanh toán --</option>
                 <option value="1">Tạm ứng</option>
                 <option value="2">Theo hợp đồng</option>

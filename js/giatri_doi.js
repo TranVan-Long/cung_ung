@@ -1,5 +1,6 @@
 function sl_doi(id) {
     var so_luong = Number($(id).val());
+    console.log(so_luong);
     var don_gia = Number($(id).parents('.item').find('.don_gia').val())
     var thue_vat = Number($(id).parents('.item').find('.thue_vat').val())
     var tongtien = 0
@@ -115,10 +116,7 @@ function tong_vt() {
         tong_svat += tien_svat;
     });
     $('#tong_sau_vat').val(tong_svat);
-    // document.getElementById('tong_truoc_vat').value = tong_tien
-
     baoHanh();
-
 }
 
 function baoLanh() {
@@ -713,4 +711,75 @@ function tong_tatc() {
     });
 
     $(".sum_tatca").text(tong_ca);
+}
+
+// hop dong van chuyen
+function sl_vc_doi(id) {
+    var sl_vc = Number($(id).val());
+    var dg_vc = Number($(id).parents(".item").find(".don_gia").val());
+    var tien_vc = 0;
+
+    if (dg_vc != "" && sl_vc != "") {
+        tien_vc = sl_vc * dg_vc;
+        $(id).parents(".item").find(".tong_trvat").val(tien_vc);
+    } else if (dg_vc == "" || sl_vc == "") {
+        tien_vc = 0;
+        $(id).parents(".item").find(".tong_trvat").val(tien_vc);
+    }
+    tong_tien_vc();
+}
+
+function dg_vc_doi(id) {
+    var sl_vc = Number($(id).parents(".item").find(".so_luong").val());
+    var dg_vc = Number($(id).val());
+    var tien_vc = 0;
+
+    if (dg_vc != "" && sl_vc != "") {
+        tien_vc = sl_vc * dg_vc;
+        $(id).parents(".item").find(".tong_trvat").val(tien_vc);
+    } else if (dg_vc == "" || sl_vc == "") {
+        tien_vc = 0;
+        $(id).parents(".item").find(".tong_trvat").val(tien_vc);
+    }
+    tong_tien_vc();
+}
+
+function thue_vc_doi(id) {
+    var thue_vat = Number($(id).val());
+    var tien_trvat = Number($("#tong_truoc_vat").val());
+    var tien_svat = 0 ;
+
+    if (thue_vat != "") {
+        tien_svat = tien_trvat + ((tien_trvat * thue_vat) / 100);
+    } else {
+        tien_svat = tien_trvat;
+    }
+    $("#tong_sau_vat").val(tien_svat);
+    tong_tien_vc();
+    baoHanh();
+}
+
+function tong_tien_vc() {
+    var tong_trvat = 0;
+    var tong_svat = 0;
+    var thue_vat = Number($(".thue_vat_tong").val());
+
+    $(".tong_trvat").each(function () {
+        var tien_don = Number($(this).val());
+        if (tien_don != "" && tien_don != 0) {
+            tong_trvat += tien_don;
+        } else if(tien_don == "" || tien_don == 0){
+            tien_don = 0;
+            tong_trvat += tien_don;
+        }
+    });
+    $('#tong_truoc_vat').val(tong_trvat);
+
+    if (thue_vat != "") {
+        tong_svat = tong_trvat + ((tong_trvat * thue_vat) / 100);
+    } else {
+        tong_svat = tong_trvat;
+    }
+    $('#tong_sau_vat').val(tong_svat);
+    baoHanh();
 }

@@ -28,7 +28,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $list_ct_kh = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `ma_so_thue`, `ten_giao_dich`, `dia_chi_dkkd`,
                         `so_dkkd`, `dia_chi_lh`, `fax`, `so_dien_thoai`, `website`, `email`, `phan_loai`
                         FROM `nha_cc_kh`
-                        WHERE `phan_loai` = 2 AND `id` = '$id' ");
+                        WHERE `phan_loai` = 2 AND `id` = $id AND `id_cong_ty` = $com_id ");
     $row = mysql_fetch_assoc($list_ct_kh->result);
 
     $list_tk = new db_query("SELECT * FROM `tai_khoan` WHERE `id_nha_cc_kh` = '$id' ");

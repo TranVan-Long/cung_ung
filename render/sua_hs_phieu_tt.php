@@ -36,6 +36,7 @@ if ($com_id != "" && $hd_dh != "" && $id_phieu != "" && $loai_phieu != "" && $lo
                             $id_hs = $row1['id_hs'];
                             $than_tient = mysql_fetch_assoc((new db_query("SELECT `thoi_han_thanh_toan`, `tong_tien_tatca` FROM `ho_so_thanh_toan`
                                                                         WHERE `id` = $id_hs AND `id_cong_ty` = $com_id "))->result);
+
                             $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`da_thanh_toan`) AS sumtt FROM `chi_tiet_phieu_tt_vt`
                                                                         WHERE `id_hs` = $id_hs AND `id_cong_ty` = $com_id AND `id_phieu_tt` != $id_phieu "))->result); ?>
 

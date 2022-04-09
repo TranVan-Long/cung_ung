@@ -120,7 +120,7 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Thuế suất VAT</label>
-                                        <input type="number" name="thue_vat" class="form-control thue_vat_tong" onkeyup="tong_vt()" placeholder="Nhập thuế suất VAT">
+                                        <input type="number" name="thue_vat" class="form-control thue_vat_tong" readonly placeholder="Nhập thuế suất VAT">
                                     </div>
                                     <div class="form-group">
                                         <label>Giá trị sau VAT</label>
@@ -293,15 +293,6 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
     cancel_add.click(function() {
         modal_share.show();
     });
-
-    // $(document).ready(function() {
-    //     $("input[name='sau_vat']").val($("input[name='truoc_vat']").val());
-    //     $("input[name='thue_vat']").keyup(function() {
-    //         var truoc_vat = Number($("input[name='truoc_vat']").val());
-    //         var vat = Number($(this).val());
-    //         $("input[name='sau_vat']").val(truoc_vat + (truoc_vat * vat) / 100);
-    //     });
-    // });
 
     $(".save_add").click(function() {
         var form_add_ban = $(".form_add_hp_mua");

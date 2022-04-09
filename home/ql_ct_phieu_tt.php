@@ -30,8 +30,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `phieu_tt` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $phieu_tt = explode(',', $item_nv['phieu_tt']);
-            if (in_array(1, $phieu_tt) == FALSE) {
+            $phieu_tt3 = explode(',', $item_nv['phieu_tt']);
+            if (in_array(1, $phieu_tt3) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -62,12 +62,16 @@ for ($i = 0; $i < $cou; $i++) {
 $id = getValue('id', 'int', 'GET', '');
 if ($id != "") {
     $list_phieu = new db_query("SELECT p.`id`, p.`id_hd_dh`, p.`id_ncc_kh`, p.`loai_phieu_tt`, p.`ngay_thanh_toan`, p.`hinh_thuc_tt`, p.`loai_thanh_toan`,
-                                p.`nguoi_nhan_tien`, p.`phi_giao_dich`, p.`phan_loai`, p.`trang_thai`, p.`id_nguoi_lap`, n.`ten_nha_cc_kh`
-                                FROM `phieu_thanh_toan` AS p
+                                p.`nguoi_nhan_tien`, p.`phi_giao_dich`, p.`phan_loai`, p.`trang_thai`, p.`id_nguoi_lap`, p.`quyen_nlap`, p.`so_tien`,
+                                p.`ngay_tao`, n.`ten_nha_cc_kh` FROM `phieu_thanh_toan` AS p
                                 INNER JOIN `nha_cc_kh` AS n ON p.`id_ncc_kh` = n.`id`
                                 WHERE p.`id` = $id AND p.`id_cong_ty` = $com_id ");
     $row = mysql_fetch_assoc($list_phieu->result);
     $id_hd_dh = $row['id_hd_dh'];
+    $loai_phieu_tt = $row['loai_phieu_tt'];
+    $ngay_tao_phieu = $row['ngay_tao'];
+    $quyen_nlap = $row['quyen_nlap'];
+    $hinh_thuc_tt = $row['hinh_thuc_tt'];
 
     if ($row['phan_loai'] == 1 || $row['phan_loai'] == 3 || $row['phan_loai'] == 4 || $row['phan_loai'] ==  5) {
         $dv_chitra = $com_name;
@@ -75,6 +79,21 @@ if ($id != "") {
     } else if ($row['phan_loai'] == 2 || $row['phan_loai'] == 6) {
         $dv_chitra = $row['ten_nha_cc_kh'];
         $dv_thuhuong = $com_name;
+    }
+
+    $tong_tatca = mysql_fetch_assoc((new db_query("SELECT SUM(`tong_tien_tatca`) AS tongtien FROM `ho_so_thanh_toan`
+                                                WHERE `id_cong_ty` = $com_id AND `id_hd_dh` = $id_hd_dh
+                                                AND `loai_hs` = $loai_phieu_tt "))->result)['tongtien'];
+
+    $ds_phieu = new db_query("SELECT `id` FROM `phieu_thanh_toan` WHERE `id` != $id AND `id_cong_ty` = $com_id AND `ngay_tao` < $ngay_tao_phieu
+                            AND `loai_thanh_toan` = 2 AND `id_hd_dh` = $id_hd_dh AND `loai_phieu_tt` = $loai_phieu_tt ");
+
+    if (mysql_num_rows($ds_phieu->result) > 0) {
+        $tong_tien_tra = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS tongtien_tra FROM `phieu_thanh_toan` WHERE `id` != $id AND `id_cong_ty` = $com_id
+                                                        AND `ngay_tao` < $ngay_tao_phieu AND `loai_thanh_toan` = 2 AND `id_hd_dh` = $id_hd_dh
+                                                        AND `loai_phieu_tt` = $loai_phieu_tt "))->result)['tongtien_tra'];
+    } else {
+        $tong_tien_tra = 0;
     }
 
     $list_tt = new db_query("SELECT `id_hs`, `da_thanh_toan` FROM `chi_tiet_phieu_tt_vt` WHERE `id_phieu_tt` = $id AND `id_cong_ty` = $com_id AND `id_hd_dh` = $id_hd_dh ");
@@ -188,16 +207,56 @@ if ($id != "") {
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Trạng thái</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">Hoàn thành</p>
+                                    <? if ($row['trang_thai'] == 1) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one">Chưa hoàn thành</p>
+                                    <? } else { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one">Hoàn thành</p>
+                                    <? } ?>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Người lập</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $all_nv[$row['id_nguoi_lap']]['ep_name'] ?></p>
+                                    <? if ($quyen_nlap == 1) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one"><?= $com_name ?></p>
+                                    <? } else if ($quyen_nlap == 2) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one"><?= $all_nv[$row['id_nguoi_lap']]['ep_name'] ?></p>
+                                    <? } ?>
                                 </div>
                             </div>
                         </div>
+                        <? if ($hinh_thuc_tt == 2 || $hinh_thuc_tt == 3) {
+                            $list_tk = new db_query("SELECT `ten_ngan_hang`, `ten_chi_nhanh`, `so_tk`, `chu_tk` FROM `tai_khoan_thanh_toan` WHERE `id_phieu_tt` = $id ");
+                             ?>
+                            <div class="w-100 left mb-20">
+                                <p class="text-bold">Danh sách tài khoản ngân hàng</p>
+                                <? while ($row_tk = mysql_fetch_assoc($list_tk->result)) { ?>
+                                    <div class="left w-100 bordered mt-10 ds_tk_nhang detail-form">
+                                        <div class="form-row left">
+                                            <div class="form-col-50 left mb_15 no-border">
+                                                <p class="detail-title"> Tên ngân hàng</p>
+                                                <p class="detail-data text-500"><?= $row_tk['ten_ngan_hang'] ?></p>
+                                            </div>
+                                            <div class="form-col-50 right mb_15 no-border">
+                                                <p class="detail-title">Chi nhánh</p>
+                                                <p class="detail-data text-500"><?= $row_tk['ten_chi_nhanh'] ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-row left">
+                                            <div class="form-col-50 left mb_15 no-border">
+                                                <p class="detail-title"> Số tài khoản</p>
+                                                <p class="detail-data text-500"><?= $row_tk['so_tk'] ?></p>
+                                            </div>
+                                            <div class="form-col-50 right mb_15 no-border">
+                                                <p class="detail-title">Chủ tài khoản</p>
+                                                <p class="detail-data text-500"><?= $row_tk['chu_tk'] ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <? } ?>
+                            </div>
+                        <?}?>
+
                         <div class="ctiet_hopd_vt w_100 float_l">
                             <div class="ctn_table_ct w_100 float_l">
                                 <table class="table">
@@ -212,35 +271,34 @@ if ($id != "") {
                                     <tbody>
                                         <tr class="sh_bgr_four">
                                             <td class="tex_left share_clr_four cr_weight share_tb_five">Tổng</td>
-                                            <td class="share_clr_four cr_weight share_tb_five tong_tien_all">434534534</td>
+                                            <td class="share_clr_four cr_weight share_tb_five tong_tien_all"><?= formatMoney($tong_tatca - $tong_tien_tra) ?></td>
                                             <td class="share_tb_five"></td>
-                                            <td class="share_clr_four cr_weight share_tb_five da_thanh_toan_all">345345345</td>
+                                            <td class="share_clr_four cr_weight share_tb_five da_thanh_toan_all"><?= formatMoney($row['so_tien']) ?></td>
                                         </tr>
                                         <?
                                         while ($item = mysql_fetch_assoc($list_tt->result)) {
                                             $id_hs = $item['id_hs'];
-                                            $hs_tt = mysql_fetch_assoc((new db_query("SELECT `thoi_han_thanh_toan`, `tong_tien_tatca` FROM `ho_so_thanh_toan` WHERE `id` = $id_hs AND `id_cong_ty` = $com_id"))->result);
-                                            $thoi_han_thanh_toan = date('d/m/Y', $hs_tt['thoi_han_thanh_toan']);
+                                            $hs_tt = mysql_fetch_assoc((new db_query("SELECT `thoi_han_thanh_toan`, `tong_tien_tatca` FROM `ho_so_thanh_toan`
+                                                                        WHERE `id` = $id_hs AND `id_cong_ty` = $com_id"))->result);
+                                            $check_ttoan_tt = new db_query("SELECT `id` FROM `phieu_thanh_toan` WHERE `id` != $id AND `id_cong_ty` = $com_id
+                                                                        AND `ngay_tao` < $ngay_tao_phieu AND `loai_thanh_toan` = 2
+                                                                        AND `id_hd_dh` = $id_hd_dh AND `loai_phieu_tt` = $loai_phieu_tt ");
+                                            if (mysql_num_rows($check_ttoan_tt->result) > 0) {
+                                                $tienda_tt = mysql_fetch_assoc((new db_query("SELECT SUM(c.`da_thanh_toan`) AS tongda_ttoan FROM `chi_tiet_phieu_tt_vt` AS c
+                                                                        INNER JOIN `phieu_thanh_toan` AS p ON c.`id_phieu_tt` = p.`id`
+                                                                        WHERE c.`id_cong_ty` = $com_id AND c.`id_hs` = $id_hs AND c.`id_phieu_tt` != $id
+                                                                        AND c.`id_hd_dh` = $id_hd_dh AND p.`ngay_tao` < $ngay_tao_phieu
+                                                                        AND p.`loai_phieu_tt` = $loai_phieu_tt AND p.`loai_thanh_toan` = 2 "))->result)['tongda_ttoan'];
+                                            } else {
+                                                $tienda_tt = 0;
+                                            }
                                         ?>
                                             <tr>
-                                                <td class="tex_left share_tb_five">HS - <?= $id_hs   ?></td>
-                                                <td class="share_tb_five tong_tien_hs"><?= number_format($hs_tt['tong_tien_tatca'])?></td>
-                                                <td class="share_tb_five"><?= $thoi_han_thanh_toan?></td>
+                                                <td class="tex_left share_tb_five">HS - <?= $id_hs ?></td>
+                                                <td class="share_tb_five tong_tien_hs"><?= number_format($hs_tt['tong_tien_tatca'] - $tienda_tt) ?></td>
+                                                <td class="share_tb_five"><?= ($hs_tt['thoi_han_thanh_toan'] != 0) ? date('d/m/Y', $hs_tt['thoi_han_thanh_toan']) : "" ?></td>
                                                 <td class="share_tb_five da_thanh_toan_hs"><?= number_format($item['da_thanh_toan']) ?></td>
                                             </tr>
-                                            
-                                            <!-- <tr class="sh_bgr_five">
-                                            <td class="tex_left share_tb_five">Công trình xây dựng cầu XYZ</td>
-                                            <td class="share_tb_five">25.000.000</td>
-                                            <td class="share_tb_five"></td>
-                                            <td class="share_tb_five">25.000.000</td>
-                                        </tr> -->
-                                            <!-- <tr>
-                                            <td class="tex_left share_tb_five">TT-08954</td>
-                                            <td class="share_tb_five">25.000.000</td>
-                                            <td class="share_tb_five"></td>
-                                            <td class="share_tb_five">25.000.000</td>
-                                        </tr> -->
                                         <? } ?>
                                     </tbody>
                                 </table>
@@ -254,10 +312,10 @@ if ($id != "") {
                                         <a href="chinh-sua-phieu-thanh-toan-<?= $id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                     </p>
                                     <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                                    if (in_array(4, $phieu_tt)) { ?>
+                                    if (in_array(4, $phieu_tt3)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_phieu_tt">Xóa</p>
                                     <? }
-                                    if (in_array(3, $phieu_tt)) { ?>
+                                    if (in_array(3, $phieu_tt3)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
                                             <a href="chinh-sua-phieu-thanh-toan-<?= $id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                         </p>

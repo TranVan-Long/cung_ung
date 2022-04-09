@@ -25,17 +25,34 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
 
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $hd_id = $_GET['id'];
-    $hd_get = new db_query("SELECT * FROM `hop_dong` WHERE `id` = '" . $hd_id . "' ");
+    $hd_get = new db_query("SELECT * FROM `hop_dong` WHERE `id` = $hd_id AND `id_cong_ty` = $com_id ");
     $get_vt_ban = new db_query("SELECT * FROM `vat_tu_hd_dh` WHERE `id_hd_mua_ban` = $hd_id");
     $hd_detail = mysql_fetch_assoc($hd_get->result);
-
+    $thue1 = $hd_detail['thue_vat'];
     $ngay_hop_dong = date('Y-m-d', $hd_detail['ngay_ky_hd']);
     $id_ncc = $hd_detail['id_nha_cc_kh'];
     $du_an_ctr = $hd_detail['id_du_an_ctrinh'];
-    $ngay_bat_dau = date('Y-m-d', $hd_detail['tg_bd_thuc_hien']);
-    $ngay_ket_thuc = date('Y-m-d', $hd_detail['tg_kt_thuc_hien']);
+
+    if ($hd_detail['tg_bd_thuc_hien'] != 0 && $hd_detail['tg_bd_thuc_hien'] != "") {
+        $ngay_bat_dau = date('Y-m-d', $hd_detail['tg_bd_thuc_hien']);
+    } else {
+        $ngay_bat_dau = "";
+    }
+
+    if ($hd_detail['tg_kt_thuc_hien'] != 0) {
+        $ngay_ket_thuc = date('Y-m-d', $hd_detail['tg_kt_thuc_hien']);
+    } else {
+        $ngay_ket_thuc = 0;
+    }
+
     $hinh_thuc_hd = $hd_detail['hinh_thuc_hd'];
-    $thoi_han_bl = date('Y-m-d', $hd_detail['thoi_han_blanh']);
+
+    if ($hd_detail['thoi_han_blanh'] != 0) {
+        $thoi_han_bl = date('Y-m-d', $hd_detail['thoi_han_blanh']);
+    } else {
+        $thoi_han_bl = "";
+    }
+
     $id_bao_gia = $hd_detail['id_bao_gia'];
 } else {
     header('Location: /quan-ly-trang-chu.html');
@@ -130,7 +147,7 @@ $cong_trinh_data = $list_ct['data']['items'];
                                         <select id="id_nha_cung_cap" name="id_nha_cung_cap" class="form-control all_nhacc" data="<?= $com_id ?>">
                                             <option value="">-- Chọn nhà cung cấp --</option>
                                             <?
-                                            $get_ncc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 1");
+                                            $get_ncc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ");
                                             while ($ncc_fetch = mysql_fetch_assoc($get_ncc->result)) {
                                             ?>
                                                 <option value="<?= $ncc_fetch['id'] ?>" <?= ($id_ncc == $ncc_fetch['id']) ? "selected" : "" ?>><?= $ncc_fetch['ten_nha_cc_kh'] ?></option>
@@ -175,7 +192,7 @@ $cong_trinh_data = $list_ct['data']['items'];
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Thuế suất VAT</label>
-                                        <input type="text" name="thue_vat" value="<?= $hd_detail['thue_vat'] ?>" class="form-control thue_vat_tong" onkeyup="tong_vt()" placeholder="Nhập thuế suất VAT">
+                                        <input type="number" name="thue_vat" value="<?= $thue1 ?>" class="form-control thue_vat_tong" placeholder="Thuế suất VAT" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label>Tiền chiết khấu</label>
@@ -305,7 +322,7 @@ $cong_trinh_data = $list_ct['data']['items'];
                                                         </td>
                                                         <td class="share_tb_three">
                                                             <div class="form-group share_form_select">
-                                                                <select name="ma_vt_ban_old" class="ma_vt_ban share_select" onchange="hd_vt_change(this)">
+                                                                <select name="ma_vt_ban_old" class="ma_vt_ban share_select" onchange="hd_vt_change(this)" data="<?= $com_id ?>">
                                                                     <option value="">-- Chọn Vật tư --</option>
                                                                     <?
                                                                     $list_vt_data = new db_query("SELECT `id_vat_tu` FROM `vat_tu_da_bao_gia` WHERE `id_bao_gia` = $id_bao_gia AND `id_cong_ty` = $com_id");
@@ -333,7 +350,7 @@ $cong_trinh_data = $list_ct['data']['items'];
                                                         </td>
                                                         <td class="share_tb_two">
                                                             <div class="form-group">
-                                                                <input type="number" name="so_luong_old" value="<?= $vt_mua_fetch['so_luong'] ?>" class="form-control so_luong" onkeyup="sl_doi(this),tong_vt()">
+                                                                <input type="number" name="so_luong_old" value="<?= $vt_mua_fetch['so_luong'] ?>" class="form-control so_luong" onkeyup="sl_doi(this)">
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_two">
@@ -348,7 +365,7 @@ $cong_trinh_data = $list_ct['data']['items'];
                                                         </td>
                                                         <td class="share_tb_two">
                                                             <div class="form-group">
-                                                                <input type="number" name="vt_thue_vat_old" value="<?= $vt_mua_fetch['thue_vat'] ?>" class="form-control thue_vat" onkeyup="thue_doi(this),tong_vt()">
+                                                                <input type="number" name="vt_thue_vat_old" value="<?= $vt_mua_fetch['thue_vat'] ?>" data="<?= ($vt_mua_fetch['don_gia'] * $vt_mua_fetch['so_luong'] * $vt_mua_fetch['thue_vat']) / 100 ?>" class="form-control thue_vat" onkeyup="thue_doi(this)">
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_two">
@@ -436,11 +453,7 @@ $cong_trinh_data = $list_ct['data']['items'];
 <script type="text/javascript" src="../js/giatri_doi.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script>
-    $(window).on("load", function() {
-        tong_vt();
-        baoLanh();
-        baoHanh();
-    });
+
     $(document).on('click', '.remo_cot_ngang, .remove-btn', function() {
         tong_vt();
         baoLanh();
@@ -457,10 +470,9 @@ $cong_trinh_data = $list_ct['data']['items'];
     autocomplete(document.getElementById("ten_nh"), bank);
 
     function hd_vt_change(id) {
-        var id_p = $("#bao_gia").val();
         var id_vt = $(id).val();
         var id_v = $(id).parents(".item").attr("data");
-        var com_id = $(".form_add_hp_mua").attr("data");
+        var com_id = $(id).attr("data");
         $.ajax({
             url: '../render/hd_mua_vat_tu.php',
             type: 'POST',
@@ -468,7 +480,6 @@ $cong_trinh_data = $list_ct['data']['items'];
                 id_vt: id_vt,
                 id_v: id_v,
                 id_com: com_id,
-                id_p: id_p,
             },
             success: function(data) {
                 $(id).parents(".item").html(data);
@@ -493,7 +504,7 @@ $cong_trinh_data = $list_ct['data']['items'];
     });
 
     $('.add_vat_tu').click(function() {
-        var id_p = $("#bao_gia").val();
+        // var id_p = $("#bao_gia").val();
         var id_ncc = $("#id_nha_cung_cap").val();
         var com_id = <?= $com_id ?>;
         $.ajax({
@@ -501,7 +512,7 @@ $cong_trinh_data = $list_ct['data']['items'];
             type: 'POST',
             data: {
                 id_com: com_id,
-                id_p: id_p,
+                // id_p: id_p,
                 id_ncc: id_ncc
             },
             success: function(data) {
@@ -509,34 +520,6 @@ $cong_trinh_data = $list_ct['data']['items'];
                 RefSelect2();
             }
         });
-    });
-
-    $('#bao_gia').change(function() {
-        var id_p = $("#bao_gia").val();
-        var id_ncc = $("#id_nha_cung_cap").val();
-        var com_id = <?= $com_id ?>;
-        var id_vt = new Array();
-        $("input[name='id_vt_ban_old'").each(function() {
-            var id_vt_cu = $(this).val();
-            if (id_vt_cu != "") {
-                id_vt.push(id_vt_cu);
-            }
-        });
-        $.ajax({
-            url: '../ajax/hd_mua_sua_xoa_vt.php',
-            type: 'POST',
-            data: {
-                id: id_vt,
-            },
-            success: function(data) {
-                if (data == "") {
-                    window.location.reload();
-                } else {
-                    alert(data);
-                }
-            }
-        });
-
     });
 
     $('.xoa_vt_tb').click(function() {

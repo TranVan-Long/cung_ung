@@ -67,8 +67,8 @@ if ($id_khach_hang != "" && ($count_vt_o > 0  || $count_vt > 0)) {
         $noi_dung = 'Bạn đã chỉnh sửa hợp đồng bán vật tư: HĐ - ' . $hd_id;
         $ngay_tao = strtotime(date('Y-m-d', time()));
         $gio_tao = strtotime(date('H:i:s', time()));
-        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`,`role`, `ngay_tao`,`gio_tao`, `noi_dung`)
-                          VALUES('', '$user_id','$role', '$ngay_tao','$gio_tao', '$noi_dung')");
+        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`,`role`, `ngay_tao`,`gio_tao`, `noi_dung`, `id_cong_ty`)
+                          VALUES('', '$user_id','$role', '$ngay_tao','$gio_tao', '$noi_dung', '$com_id')");
     }
 } else {
     echo "Khách hàng không được để trống.";

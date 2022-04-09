@@ -6,12 +6,41 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     if ($_COOKIE['role'] == 1) {
         $user_id = $_SESSION['com_id'];
         $com_id = $_SESSION['com_id'];
-        $phan_loai = 1;
+        $phan_loai_nk = 1;
+
+        $com_id = $_SESSION['com_id'];
+        $curl = curl_init();
+        $token = $_COOKIE['acc_token'];
+        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data_list = json_decode($response, true);
+        $list_nv = $data_list['data']['items'];
+        $coun = count($list_nv);
     } else if ($_COOKIE['role'] == 2) {
         $user_id = $_SESSION['ep_id'];
         $com_id = $_SESSION['user_com_id'];
         $user_name = $_SESSION['ep_name'];
-        $phan_loai = 2;
+        $phan_loai_nk = 2;
+
+        $com_id = $_SESSION['user_com_id'];
+        $curl = curl_init();
+        $token = $_COOKIE['acc_token'];
+        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data_list = json_decode($response, true);
+        $list_nv = $data_list['data']['items'];
+        $coun = count($list_nv);
+
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `don_hang` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
@@ -83,8 +112,8 @@ $cou = count($all_ctrinh);
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Thêm đơn hàng bán vật tư</h4>
-                        <div class="ctiet_dk_hp w_100 float_l">
-                            <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_id ?>" data1="<?= $phan_loai ?>">
+                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $user_id ?>">
+                            <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_id ?>" data1="<?= $phan_loai_nk ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Tên khách hàng <span class="cr_red">*</span></label>
@@ -103,7 +132,16 @@ $cou = count($all_ctrinh);
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Người liên hệ</label>
-                                        <input type="text" name="nguoi_lh" class="form-control" value="<?= $user_name ?>" data-id="<?= $user_id ?>" readonly>
+                                        <? if ($phan_loai_nk == 1) { ?>
+                                            <select name="nguoi_lh" class="form-control share_select all_nvct">
+                                                <option value="">-- Chọn người liên hệ --</option>
+                                                <? for ($i = 0; $i < $coun; $i++) { ?>
+                                                    <option value="<?= $list_nv[$i]['ep_id'] ?>">(<?= $list_nv[$i]['ep_id'] ?>) <?= $list_nv[$i]['ep_name'] ?></option>
+                                                <? } ?>
+                                            </select>
+                                        <? } else if ($phan_loai_nk == 2) { ?>
+                                            <input type="text" name="nguoi_lh" class="form-control all_nvct" value="<?= $user_name ?>" data-id="<?= $user_id ?>" readonly>
+                                        <? } ?>
                                     </div>
                                     <div class="form-group share_form_select">
                                         <label>Số điện thoại / Fax</label>
@@ -180,8 +218,8 @@ $cou = count($all_ctrinh);
                                         <input type="text" name="giatr_vat" id="tong_truoc_vat" class="form-control h_border cr_weight" readonly>
                                     </div>
                                     <div class="form-group  d_flex fl_agi form_lb">
-                                        <label>Đơn giá đã bao gồm VAT</label>
-                                        <input type="checkbox" name="dgia_vat">
+                                        <label for="lab_cli">Đơn giá đã bao gồm VAT</label>
+                                        <input type="checkbox" name="dgia_vat" id="lab_cli">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">

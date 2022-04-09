@@ -72,7 +72,7 @@ if ($id_dh != "" && $com_id != "" && $id_hd != "" && $id_ncc != "") {
                 </td>
                 <td class="share_tb_two">
                     <div class="form-group">
-                        <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control">
+                        <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control" readonly>
                     </div>
                 </td>
                 <td class="share_tb_eight">
@@ -158,7 +158,7 @@ if ($id_dh != "" && $com_id != "" && $id_hd != "" && $id_ncc != "") {
                     </td>
                     <td class="share_tb_two">
                         <div class="form-group">
-                            <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control">
+                            <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control" readonly>
                         </div>
                     </td>
                     <td class="share_tb_eight">
@@ -237,7 +237,7 @@ if ($id_dh != "" && $com_id != "" && $id_hd != "" && $id_ncc != "") {
                     </td>
                     <td class="share_tb_two">
                         <div class="form-group">
-                            <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control">
+                            <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control" readonly>
                         </div>
                     </td>
                     <td class="share_tb_eight">
@@ -325,7 +325,7 @@ if ($id_dh != "" && $com_id != "" && $id_hd != "" && $id_ncc != "") {
                 </td>
                 <td class="share_tb_two">
                     <div class="form-group">
-                        <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control">
+                        <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control" readonly>
                     </div>
                 </td>
                 <td class="share_tb_eight">
@@ -404,7 +404,7 @@ if ($id_dh != "" && $com_id != "" && $id_hd != "" && $id_ncc != "") {
                 </td>
                 <td class="share_tb_two">
                     <div class="form-group">
-                        <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control">
+                        <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control" readonly>
                     </div>
                 </td>
                 <td class="share_tb_eight">

@@ -24,7 +24,7 @@ $count = count($kho_vt);
     </td>
     <td class="w-25">
         <div class="v-select2">
-            <select name="materials_name" class="share_select materials_name">
+            <select name="materials_name" class="share_select materials_name" onchange="change_vt(this)">
                 <option value="">-- Chọn vật tư/thiết bị --</option>
                 <? for ($i = 0; $i < $count; $i++) { ?>
                     <option value="<?= $kho_vt[$i]['dsvt_id'] ?>"><?= $kho_vt[$i]['dsvt_name'] ?></option>
@@ -39,7 +39,3 @@ $count = count($kho_vt);
         <input type="number" name="so_luong" readonly>
     </td>
 </tr>
-<script>
-    change_vt();
-    RefSelect2();
-</script>

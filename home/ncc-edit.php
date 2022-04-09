@@ -144,7 +144,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <div class="form-control edit-form mt-30 left w-100">
                             <div class="border-bottom pb-10">
                                 <p class="d-inline-block text-bold mr-20 mt-15">Danh sách tài khoản ngân hàng</p>
-                                <p class="d-inline-block text-500 text-blue link-text mt-15" id="add-bank-acc">&plus; Thêm
+                                <p class="d-inline-block text-500 text-blue link-text mt-15 add_bank_kh">&plus; Thêm
                                     mới tài khoản ngân
                                     hàng</p>
                             </div>
@@ -306,6 +306,20 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script>
+    $(".add_bank_kh").click(function() {
+        var kh_bank = 1;
+        $.ajax({
+            url: '../render/tai_khoan_html.php',
+            type: 'POST',
+            data: {
+                kh_bank: kh_bank
+            },
+            success: function(data) {
+                $('#bank-list').append(data);
+            }
+        })
+    });
+
     $('.submit-btn').click(function() {
         var form = $('.main-form');
         form.validate({
@@ -375,11 +389,11 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             var thong_tin_khac = $("input[name='thong_tin_khac']").val();
 
             // ngan hang cu
-            var id_ngan_hang_old = new Array();
-            var ten_ngan_hang_old = new Array();
-            var ten_chi_nhanh_old = new Array();
-            var so_tk_old = new Array();
-            var chu_tk_old = new Array();
+            var id_ngan_hang_old = [];
+            var ten_ngan_hang_old = [];
+            var ten_chi_nhanh_old = [];
+            var so_tk_old = [];
+            var chu_tk_old = [];
             $("input[name='id_ngan_hang_old']").each(function() {
                 var id_nh_o = $(this).val();
                 if (id_nh_o != "") {
@@ -410,18 +424,18 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             });
 
             // ngan hang moi
-            var ten_ngan_hang = new Array();
-            var ten_chi_nhanh = new Array();
-            var so_tk = new Array();
-            var chu_tk = new Array();
+            var ten_ngan_hang = [];
+            var ten_chi_nhanh = [];
+            var so_tk = [];
+            var chu_tk = [];
 
-            $("input[name='ten_ngan_hang']").each(function() {
+            $("input[name='ten_nhanhang']").each(function() {
                 var ten_nh = $(this).val();
                 if (ten_nh != "") {
                     ten_ngan_hang.push(ten_nh);
                 }
             });
-            $("input[name='ten_chi_nhanh']").each(function() {
+            $("input[name='chi_nhanh']").each(function() {
                 var ten_cn = $(this).val();
                 if (ten_cn != "") {
                     ten_chi_nhanh.push(ten_cn);
@@ -433,16 +447,16 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     so_tk.push(stk_n);
                 }
             });
-            $("input[name='chu_tk']").each(function() {
+            $("input[name='chu_taik']").each(function() {
                 chu_tk.push($(this).val());
             });
 
             // nguoi lien he cu
-            var id_nguoi_lh_old = new Array();
-            var ten_nguoi_lh_old = new Array();
-            var chuc_vu_old = new Array();
-            var so_dien_thoai_lh_old = new Array();
-            var email_lh_old = new Array();
+            var id_nguoi_lh_old = [];
+            var ten_nguoi_lh_old = [];
+            var chuc_vu_old = [];
+            var so_dien_thoai_lh_old = [];
+            var email_lh_old = [];
             $("input[name='id_nguoi_lh_old']").each(function() {
                 var nlh_o = $(this).val();
                 if (nlh_o != "") {
@@ -476,10 +490,10 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             });
 
             // nguoi lien he moi
-            var ten_nguoi_lh = new Array();
-            var chuc_vu = new Array();
-            var so_dien_thoai_lh = new Array();
-            var email_lh = new Array();
+            var ten_nguoi_lh = [];
+            var chuc_vu = [];
+            var so_dien_thoai_lh = [];
+            var email_lh = [];
 
             $("input[name='ten_nguoi_lh']").each(function() {
                 var ten_nlh = $(this).val();

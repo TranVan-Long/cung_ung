@@ -28,13 +28,14 @@ for ($j = 0; $j < count($data_vttb); $j++) {
 }
 
 
-$hd_get = new db_query("SELECT `ngay_ky_hd`, `id_nha_cc_kh`, `gia_tri_trvat`, `bao_gom_vat`, `thue_vat`, `gia_tri_svat`, `thoa_tuan_hoa_don`, `yc_tien_do`, `noi_dung_hd`, `noi_dung_luu_y`, `dieu_khoan_tt` FROM `hop_dong` WHERE `id` = $id");
+$hd_get = new db_query("SELECT `ngay_ky_hd`, `id_nha_cc_kh`, `gia_tri_trvat`, `bao_gom_vat`, `thue_vat`, `gia_tri_svat`,
+                        `thoa_tuan_hoa_don`, `yc_tien_do`, `noi_dung_hd`, `noi_dung_luu_y`, `dieu_khoan_tt` FROM `hop_dong` WHERE `id` = $id AND `id_cong_ty` = $com_id ");
 $hd_detail = mysql_fetch_assoc($hd_get->result);
 
 $ncc_id = $hd_detail['id_nha_cc_kh'];
 $ngay_ky_hd = date('d/m/Y', $hd_detail['ngay_ky_hd']);
 
-$ncc = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh` FROM nha_cc_kh WHERE `id` = $ncc_id"))->result);
+$ncc = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh` FROM nha_cc_kh WHERE `id` = $ncc_id AND `id_cong_ty` = $com_id "))->result);
 
 if ($hd_detail['bao_gom_vat'] == 1) {
     $gia_vat = "Giá ở trên đã bao gồm VAT";

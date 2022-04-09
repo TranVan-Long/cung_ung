@@ -68,6 +68,9 @@ $congno_ptra = $_POST['congno_ptra'];
 $congno_ptra = str_replace('_', ',', $congno_ptra);
 $congno_ptra = rtrim($congno_ptra, ',');
 
+$ngay_tao = strtotime(date('Y-m-d', time()));
+$gio_tao = strtotime(date('H:i:s', time()));
+
 if ($id_nv == "") {
     echo "Chọn nhân viên phân quyền";
 } else if ($com_id != "" && $id_nv != "") {
@@ -80,12 +83,21 @@ if ($id_nv == "") {
                             `id_nhan_vien`, `id_cong_ty`) VALUES ('','$yc_vt','$hop_dong','$don_hang','$hs_tt','$phieu_tt','$bang_gia','$yc_baogia',
                             '$bao_gia','$bao_gia_kh','$nha_cc','$danhgia_ncc','$tc_danhgia','$khach_hang','$dso_bhang','$congno_pthu','$congno_ptra',
                             '$id_nv','$com_id')");
+        $id_quyen = mysql_fetch_assoc((new db_query("SELECT LAST_INSERT_ID() AS id_quyen")) -> result)['id_quyen'];
+        $noi_dung_nk = "Bạn đã phân quyền cho nhân viên: ID - ". $id_nv . "Mã phân quyền: ".$id_quyen;
+        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
+                            VALUES('', '$com_id', '1', '$ngay_tao','$gio_tao', '$noi_dung_nk',`$com_id`)");
+
     } else {
         $inser_pq = new db_query("INSERT INTO `phan_quyen`(`id`, `yeu_cau_vat_tu`, `hop_dong`, `don_hang`, `ho_so_tt`, `phieu_tt`, `bang_gia`, `yeu_cau_bao_gia`,
                             `bao_gia`, `bao_gia_kh`, `nha_cung_cap`, `danh_gia_ncc`, `tieu_chi_danh_gia`, `khach_hang`, `bc_doanh_so`, `cog_no_thu`, `cong_no_tra`,
                             `id_nhan_vien`, `id_cong_ty`) VALUES ('','$yc_vt','$hop_dong','$don_hang','$hs_tt','$phieu_tt','$bang_gia','$yc_baogia',
                             '$bao_gia','$bao_gia_kh','$nha_cc','$danhgia_ncc','$tc_danhgia','$khach_hang','$dso_bhang','$congno_pthu','$congno_ptra',
                             '$id_nv','$com_id')");
+        $id_quyen = mysql_fetch_assoc((new db_query("SELECT LAST_INSERT_ID() AS id_quyen"))->result)['id_quyen'];
+        $noi_dung_nk = "Bạn đã phân quyền cho nhân viên: ID - " . $id_nv . "Mã phân quyền: " . $id_quyen;
+        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
+                            VALUES('', '$com_id', '1', '$ngay_tao','$gio_tao', '$noi_dung_nk',`$com_id`)");
     }
 } else {
     echo "Phân quyền thất bại, vui lòng thử lại!";

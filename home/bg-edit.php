@@ -5,6 +5,9 @@ include("config.php");
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
     $user_id = $_SESSION['com_id'];
+    $com_name = $_SESSION['com_name'];
+    $phan_quyen_nk = 1;
+
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
@@ -19,6 +22,9 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
 } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
     $com_id = $_SESSION['user_com_id'];
     $user_id = $_SESSION['ep_id'];
+    $com_name = $_SESSION['com_name'];
+    $phan_quyen_nk = 2;
+
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
@@ -52,7 +58,7 @@ for ($i = 0; $i < count($list_nv); $i++) {
 
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $id = $_GET['id'];
-    $qr_ctiet = new db_query("SELECT b.`id`, b.`id_yc_bg`,b.`id_nha_cc`, b.`id_nguoi_lap`, b.`ngay_gui`, b.`ngay_bd`, b.`ngay_kt`,
+    $qr_ctiet = new db_query("SELECT b.`id`, b.`id_yc_bg`,b.`id_nha_cc`, b.`id_nguoi_lap`, b.`ngay_gui`, b.`ngay_bd`, b.`ngay_kt`,b.`quyen_nlap`,
                                 b.`ngay_tao`,b.`id_cong_ty`, n.`ten_nha_cc_kh` FROM `bao_gia` AS b
                                 INNER JOIN `nha_cc_kh` AS n ON b.`id_nha_cc` = n.`id`
                                 WHERE b.`id` = $id AND b.`id_cong_ty` = $com_id ");
@@ -96,7 +102,7 @@ $date_now = date('Y-m-d', time());
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -131,7 +137,7 @@ $date_now = date('Y-m-d', time());
                 </div>
                 <form class="main-form" data="<?= $com_id ?>" data1="<?= $date_now ?>">
                     <div class="w-100 left mt-10">
-                        <div class="form-control edit-form">
+                        <div class="form-control edit-form" data="<?= $phan_quyen_nk ?>" data1="<?= $user_id ?>">
                             <div class="form-row left">
                                 <div class="form-col-50 no-border left mb_15">
                                     <label for="">Số báo giá<span class="text-red">&ast;</span></label>
@@ -145,7 +151,11 @@ $date_now = date('Y-m-d', time());
                             <div class="form-row left">
                                 <div class="form-col-50 no-border left mb_15 v-select2">
                                     <label for="">Người lập</label>
-                                    <input type="text" name="nguoi_lap" value="<?= $user[$user_id]['ep_name'] ?>" readonly>
+                                    <? if ($list_ct['quyen_nlap'] == 1) { ?>
+                                        <input type="text" name="nguoi_lap" value="<?= $com_name ?>" readonly>
+                                    <? } else if ($list_ct['quyen_nlap'] == 2) { ?>
+                                        <input type="text" name="nguoi_lap" value="<?= $user[$user_id]['ep_name'] ?>" readonly>
+                                    <? } ?>
                                 </div>
                                 <div class="form-col-50 no-border right mb_15 v-select2">
                                     <label for="">Nhà cung cấp<span class="text-red">&ast;</span></label>
@@ -415,6 +425,8 @@ $date_now = date('Y-m-d', time());
             var ngay_kt = $("input[name='den_ngay']").val();
             var com_id = $("#rererences").attr("data");
             var date_now = $("#rererences").attr("data1");
+            var phan_quyen_nk = $(".edit-form").attr("data");
+            var user_id = $(".edit-form").attr("data1");
 
             var new_ma_vt = new Array();
             $("input[name='ma_vat_tu']").each(function() {
@@ -508,6 +520,7 @@ $date_now = date('Y-m-d', time());
                         type: 'POST',
                         data: {
                             com_id: com_id,
+                            user_id: user_id,
                             id_bao_gia: so_bao_gia,
                             id_ncc: id_ncc,
                             id_phieu_yc: id_phieu_yc,
@@ -520,7 +533,8 @@ $date_now = date('Y-m-d', time());
                             new_thue: new_thue,
                             new_tongs: new_tongs,
                             new_cs_kt: new_cs_kt,
-                            new_ddh: new_ddh
+                            new_ddh: new_ddh,
+                            phan_quyen_nk: phan_quyen_nk,
 
                         },
                         success: function(data) {

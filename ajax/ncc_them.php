@@ -69,7 +69,8 @@ if ($ten_nha_cc_kh != "" && $cou1 > 0 && $cou4 > 0) {
         $noi_dung = 'Bạn đã thêm nhà cung cấp: ' . $ten_nha_cc_kh . '. Mã: NCC-' . $id_ncc;
         $ngay_tao = strtotime(date('Y-m-d', time()));
         $gio_tao = strtotime(date('H:i:s', time()));
-        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung')");
+        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
+        VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung','$com_id')");
     }
 } else {
     echo "Thao tác thất bại vui lòng thử lại!";

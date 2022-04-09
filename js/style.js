@@ -35,7 +35,10 @@ $(".avt_menu").click(function() {
 $(".collapse").click(function() {
     var id = $(this).attr("data-tab");
     $(".collapse ul").removeClass("active");
-    $('#' + id).addClass("active");
+    // setTimeout(function () {
+        $('#' + id).toggleClass("active");
+    // }, 50);
+
 });
 
 // function widthSelect() {

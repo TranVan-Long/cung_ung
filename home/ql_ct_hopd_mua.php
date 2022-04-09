@@ -64,6 +64,13 @@ $response = curl_exec($curl);
 curl_close($curl);
 $list_ct = json_decode($response, true);
 $cong_trinh_data = $list_ct['data']['items'];
+$coun1 = count($cong_trinh_data);
+$all_ctr = [];
+for ($r = 0; $r < $coun1; $r++) {
+    $item_ctr = $cong_trinh_data[$r];
+    $all_ctr[$item_ctr['ctr_id']] = $item_ctr;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -120,7 +127,7 @@ $cong_trinh_data = $list_ct['data']['items'];
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Dự án / Công trình</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $cong_trinh_data[$hd_detail['id_du_an_ctrinh']]['ctr_name'] ?></p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $all_ctr[$hd_detail['id_du_an_ctrinh']]['ctr_name'] ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
@@ -154,7 +161,7 @@ $cong_trinh_data = $list_ct['data']['items'];
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thuế suất VAT</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $hd_detail['thue_vat'] ?>%</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= formatMoney($hd_detail['thue_vat']) ?></p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Tiền chiết khấu</p>
@@ -180,11 +187,14 @@ $cong_trinh_data = $list_ct['data']['items'];
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thời hạn bảo lãnh</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= date('d/m/Y', $hd_detail['thoi_han_blanh']) ?></p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= ($hd_detail['thoi_han_blanh'] != 0) ? date('d/m/Y', $hd_detail['thoi_han_blanh']) : "" ?></p>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thời gian thực hiện</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= date('d/m/Y', $hd_detail['tg_bd_thuc_hien']) ?> - <?= date('d/m/Y', $hd_detail['tg_kt_thuc_hien']) ?></p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one">
+                                        <?= ($hd_detail['tg_bd_thuc_hien'] != 0) ? date('d/m/Y', $hd_detail['tg_bd_thuc_hien']) : "" ?> -
+                                        <?= ($hd_detail['tg_kt_thuc_hien'] != 0) ? date('d/m/Y', $hd_detail['tg_kt_thuc_hien']) : "" ?>
+                                    </p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
@@ -287,9 +297,7 @@ $cong_trinh_data = $list_ct['data']['items'];
                                 <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                                     <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">
                                         Xóa</p>
-                                    <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                        <a href="chinh-sua-hop-dong-mua-<?= $hd_id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
-                                    </p>
+                                    <a href="chinh-sua-hop-dong-mua-<?= $hd_id ?>.html" class="v-btn btn-blue ml_20">Chỉnh sửa</a>
                                     <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
                                     if (in_array(4, $hop_dong2)) {
                                     ?>
@@ -297,9 +305,7 @@ $cong_trinh_data = $list_ct['data']['items'];
                                             Xóa</p>
                                     <? }
                                     if (in_array(3, $hop_dong2)) { ?>
-                                        <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                            <a href="chinh-sua-hop-dong-mua-<?= $hd_id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
-                                        </p>
+                                        <a href="chinh-sua-hop-dong-mua-<?= $hd_id ?>.html" class="v-btn btn-blue ml_20">Chỉnh sửa</a>
                                 <? }
                                 } ?>
                             </div>

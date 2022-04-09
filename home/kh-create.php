@@ -120,7 +120,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                         <div class="form-control edit-form mt-15 left w-100">
                             <div class="border-bottom pb-10">
                                 <p class="d-inline-block text-bold mr-20 mt-15">Danh sách tài khoản ngân hàng</p>
-                                <p class="d-inline-block text-500 text-blue link-text mt-15" id="add-bank-acc">&plus; Thêm
+                                <p class="d-inline-block text-500 text-blue link-text mt-15 add_bank_kh">&plus; Thêm
                                     mới tài khoản ngân
                                     hàng</p>
                             </div>
@@ -130,12 +130,12 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                         <div class="form-row left">
                                             <div class="form-col-50 left mb_15">
                                                 <label for="ten-ngan-hang">Tên ngân hàng<span class="text-red">&ast;</span></label>
-                                                <input type="text" name="ten_ngan_hang" placeholder="Nhập tên ngân hàng">
+                                                <input type="text" name="ten_nhanhang" placeholder="Nhập tên ngân hàng">
                                             </div>
                                             <div class="form-col-50 right mb_15 v-select2">
                                                 <label for="chi-nhanh-ngan-hang">Chi nhánh
                                                     <span class="text-red">&ast;</span></label>
-                                                <input type="text" name="ten_chi_nhanh" placeholder="Nhập tên chi nhánh ngân hàng">
+                                                <input type="text" name="chi_nhanh" placeholder="Nhập tên chi nhánh ngân hàng">
                                             </div>
                                         </div>
                                         <div class="form-row left">
@@ -145,7 +145,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                             </div>
                                             <div class="form-col-50 right mb_15">
                                                 <label>Chủ tài khoản</label>
-                                                <input type="text" name="chu_tk" placeholder="Nhập tên chủ tài khoản">
+                                                <input type="text" name="chu_taik" placeholder="Nhập tên chủ tài khoản">
                                             </div>
                                         </div>
                                     </div>
@@ -194,6 +194,20 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script>
+    $(".add_bank_kh").click(function() {
+        var kh_bank = 1;
+        $.ajax({
+            url: '../render/tai_khoan_html.php',
+            type: 'POST',
+            data: {
+                kh_bank: kh_bank
+            },
+            success: function(data) {
+                $('#bank-list').append(data);
+            }
+        })
+    });
+
     $('.submit-btn').click(function() {
         var form = $('.main-form');
         form.validate({
@@ -208,16 +222,16 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                 ten_giao_dich: {
                     required: true,
                 },
-                ten_ngan_hang: {
-                    required: true,
-                },
-                chi_nhanh_ngan_hang: {
-                    required: true,
-                },
-                so_tai_khoan: {
-                    required: true,
-                    number: true,
-                }
+                // ten_ngan_hang: {
+                //     required: true,
+                // },
+                // chi_nhanh_ngan_hang: {
+                //     required: true,
+                // },
+                // so_tai_khoan: {
+                //     required: true,
+                //     number: true,
+                // }
             },
             messages: {
                 ten_khach_hang: {
@@ -226,23 +240,22 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                 ten_giao_dich: {
                     required: "Tên giao dịch không được để trống.",
                 },
-                ten_ngan_hang: {
-                    required: "Vui lòng chọn ngân hàng.",
-                },
-                chi_nhanh_ngan_hang: {
-                    required: "Vui lòng chọn chi nhánh.",
-                },
-                so_tai_khoan: {
-                    required: "Số tài khoản không được để trống.",
-                    number: "Số tài khoản không đúng định dạng.",
-                }
+                // ten_ngan_hang: {
+                //     required: "Vui lòng chọn ngân hàng.",
+                // },
+                // chi_nhanh_ngan_hang: {
+                //     required: "Vui lòng chọn chi nhánh.",
+                // },
+                // so_tai_khoan: {
+                //     required: "Số tài khoản không được để trống.",
+                //     number: "Số tài khoản không đúng định dạng.",
+                // }
             }
         });
         if (form.valid() === true) {
             var user_id = $(".main-form").attr("data2");
             var com_id = $(".main-form").attr("data1");
             var role = $(".main-form").attr("data");
-
             var ten_kh = $("input[name='ten_khach_hang']").val();
             var ten_goi_tat = $("input[name='ten_goi_tat']").val();
             var ten_giao_dich = $("input[name='ten_giao_dich']").val();
@@ -258,7 +271,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 
 
             var nh = [];
-            $("input[name='ten_ngan_hang']").each(function() {
+            $("input[name='ten_nhanhang']").each(function() {
                 var ten_nh = $(this).val();
                 if (ten_nh != "") {
                     nh.push(ten_nh);
@@ -266,7 +279,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
             });
 
             var ch = [];
-            $("input[name='ten_chi_nhanh']").each(function() {
+            $("input[name='chi_nhanh']").each(function() {
                 var ten_ch_nh = $(this).val();
                 if (ten_ch_nh != "") {
                     ch.push(ten_ch_nh);
@@ -282,7 +295,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
             });
 
             var ctk = [];
-            $("input[name='chu_tk']").each(function() {
+            $("input[name='chu_taik']").each(function() {
                 var chu_tk = $(this).val();
                 if (chu_tk == "") {
                     chu_tk = "0";

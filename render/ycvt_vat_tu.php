@@ -29,11 +29,11 @@ $ten_dvt = $id_vt[$id]['dvt_name'];
 if (isset($id_v) || $id_v != "") {
 ?>
     <td class="w-10">
-    <p class="modal-btn" data-target="remove-<?= $id_v ?>"><i class="ic-delete remove-item"></i></p>
+        <p class="modal-btn" data-target="remove-<?= $id_v ?>"><i class="ic-delete remove-item"></i></p>
     </td>
     <td class="w-25">
         <div class="v-select2">
-            <select name="vat_tu_old" class="share_select materials_name">
+            <select name="vat_tu_old" class="share_select materials_name" onchange="change_vt(this)">
                 <option value="">-- Chọn vật tư/thiết bị --</option>
                 <? for ($i = 0; $i < $count; $i++) { ?>
                     <option value="<?= $kho_vt[$i]['dsvt_id'] ?>" <?= ($kho_vt[$i]['dsvt_id'] == $id) ? "selected" : "" ?>><?= $kho_vt[$i]['dsvt_name'] ?></option>
@@ -50,7 +50,7 @@ if (isset($id_v) || $id_v != "") {
         <? } else { ?>
             <input type="number" name="so_luong_old" disabled>
         <? } ?>
-       
+
     </td>
 <? } else { ?>
 
@@ -60,7 +60,7 @@ if (isset($id_v) || $id_v != "") {
     </td>
     <td class="w-25">
         <div class="v-select2">
-            <select name="materials_name" class="share_select materials_name">
+            <select name="materials_name" class="share_select materials_name" onchange="change_vt(this)">
                 <option value="">-- Chọn vật tư/thiết bị --</option>
                 <? for ($i = 0; $i < $count; $i++) { ?>
                     <option value="<?= $kho_vt[$i]['dsvt_id'] ?>" <?= ($kho_vt[$i]['dsvt_id'] == $id) ? "selected" : "" ?>><?= $kho_vt[$i]['dsvt_name'] ?></option>
@@ -72,7 +72,7 @@ if (isset($id_v) || $id_v != "") {
         <input type="text" name="dv_tinh" value="<?= $ten_dvt ?>" readonly>
     </td>
     <td class="w-25">
-    <? if ($id != "") { ?>
+        <? if ($id != "") { ?>
             <input type="number" name="so_luong">
         <? } else { ?>
             <input type="number" name="so_luong" disabled>
@@ -80,11 +80,3 @@ if (isset($id_v) || $id_v != "") {
     </td>
 
 <? } ?>
-<script>
-    // var id_v = "<?= $id_v ?>";
-    // if (id_v != "") {
-    //     xoa_v();
-    // }
-    change_vt();
-    RefSelect2();
-</script>

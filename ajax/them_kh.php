@@ -48,9 +48,10 @@ if($ten_kh != "" && $com_id != "" && $user_id != "" && $cou1 > 0){
         $row0 = mysql_fetch_assoc($row->result);
         $id_kh = $row0['kh_id'];
 
-        for ($j = 0; $j < $count; $j++) {
+        for ($j = 0; $j < $cou1; $j++) {
             $nh_kh = new db_query("INSERT INTO `tai_khoan`(`id`, `id_nha_cc_kh`, `ten_ngan_hang`, `ten_chi_nhanh`, `so_tk`, `chu_tk`)
                 VALUES ('','$id_kh','$ten_nh[$j]','$ten_ch_nh[$j]','$so_tai_khoan[$j]','$chu_tk[$j]')");
+
         };
 
         $noi_dung_nk = "Bạn đã thêm khách hàng: ".$id_kh." - ".$ten_kh;

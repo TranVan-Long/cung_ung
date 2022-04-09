@@ -128,6 +128,7 @@ $('.submit-btn').click(function () {
         var noi_dung_thu = $("textarea[name='noi_dung_thu']").val();
         var mail_nhan_bg = $("input[name='mail_nhan_bao_gia']").val();
         var com_id = $(".main-form").attr("data");
+        var phan_quyen_nk = $(".main-form").attr("data1");
 
         var gui_mail = "";
         if ($("input[name='mail_ngay']").is(":checked")) {
@@ -202,6 +203,7 @@ $('.submit-btn').click(function () {
                 so_luong: so_luong,
                 new_ma_vt: new_ma_vt,
                 new_sl: new_so_luong,
+                phan_quyen_nk: phan_quyen_nk,
             },
             success: function (data) {
                 if (data == "") {

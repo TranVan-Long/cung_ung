@@ -7,9 +7,14 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['com_id'];
+        $user_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
+        $user_name = $_SESSION['ep_name'];
+        $phan_quyen_nk = 2;
+
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `danh_gia_ncc` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
@@ -90,7 +95,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
                 </div>
                 <form class="main-form" data="<?= $com_id ?>">
                     <div class="w-100 left mt-10">
-                        <div class="form-control edit-form">
+                        <div class="form-control edit-form" data="<?= $phan_quyen_nk ?>">
                             <div class="form-row left">
                                 <div class="form-col-50 no-border mb_15 left">
                                     <label>Ngày đánh giá<span class="text-red">&ast;</span></label>
@@ -100,11 +105,15 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
                             <div class="form-row left">
                                 <div class="form-col-50 no-border mb_15 left">
                                     <label>Người lập<span class="text-red">&ast;</span></label>
-                                    <input type="text" name="nguoi_danh_gia" placeholder="Nhập người đánh giá" id="nguoi_dg" value="<?= $ep_name ?>" data-id="<?= $ep_id ?>" readonly>
+                                    <input type="text" name="nguoi_danh_gia" placeholder="Nhập người đánh giá" id="nguoi_dg" value="<?= $user_name ?>" data-id="<?= $user_id ?>" readonly>
                                 </div>
                                 <div class="form-col-50 no-border mb_15 right">
                                     <label>Phòng ban</label>
-                                    <input type="text" name="phong_ban" id="phong_ban" placeholder="Nhập phòng ban" value="<?= $phong_ban ?>" data-id="<?= $dep_id ?>" readonly>
+                                    <? if ($phan_quyen_nk == 1) { ?>
+                                        <input type="text" name="phong_ban" value="" readonly>
+                                    <? } else if ($phan_quyen_nk == 2) { ?>
+                                        <input type="text" name="phong_ban" id="phong_ban" placeholder="Nhập phòng ban" value="<?= $phong_ban ?>" data-id="<?= $dep_id ?>" readonly>
+                                    <? } ?>
                                 </div>
                             </div>
                             <div class="form-row left">
@@ -340,7 +349,13 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
         if (form.valid() === true) {
             var ngay_dg = $("input[name='ngay_danh_gia']").val();
             var user_id = $("#nguoi_dg").attr("data-id");
-            var dep_id = $("#phong_ban").attr("data-id");
+            var phan_quyen_nk = $(".edit-form").attr("data");
+            if (phan_quyen_nk == 1) {
+                var dep_id = "";
+            } else if (phan_quyen_nk == 2) {
+                var dep_id = $("#phong_ban").attr("data-id");
+            };
+
             var id_nhacc = $("select[name='nha_cung_cap']").val();
             var dg_khac = $("textarea[name='danh_gia_khac']").val();
             var com_id = $(".main-form").attr("data");
@@ -374,7 +389,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
             $("input[name='dg_ctiet']").each(function() {
                 var dg_ctiet = $(this).val();
                 if (dg_ctiet == "") {
-                    dg_ctiet = "NUll";
+                    dg_ctiet = 0;
                     dg_ct.push(dg_ctiet);
                 } else {
                     dg_ct.push(dg_ctiet);
@@ -405,6 +420,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
                     dg_ctiet: dg_ct,
                     thang_diem: tgd,
                     tong_diem_dg: tong_diem_dg,
+                    phan_quyen_nk: phan_quyen_nk,
                 },
                 success: function(data) {
                     if (data == "") {

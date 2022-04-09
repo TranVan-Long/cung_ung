@@ -232,8 +232,8 @@ $cou1 = count($dep);
                                         <input type="text" name="giatr_vat" id="tong_truoc_vat" class="form-control h_border cr_weight" readonly>
                                     </div>
                                     <div class="form-group  d_flex fl_agi form_lb">
-                                        <label>Đơn giá đã bao gồm VAT</label>
-                                        <input type="checkbox" name="dgia_vat">
+                                        <label for="lab_cli">Đơn giá đã bao gồm VAT</label>
+                                        <input type="checkbox" name="dgia_vat" id="lab_cli">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">

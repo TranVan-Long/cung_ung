@@ -6,6 +6,7 @@ $ngay_lap = $_POST['ngay_lap'];
 $id_nhacc = getValue('nhacc_id', 'int', 'POST', '');
 $id_nguoi_lh = getValue('id_nguoi_lh', 'int', 'POST', '');
 $id_ctrinh = getValue('id_ctrinh', 'int', 'POST', '');
+$phan_quyen_nk = getValue('phan_quyen_nk', 'int', 'POST', '');
 $noi_dung = $_POST['noi_dung'];
 $mail_nhan_bg = $_POST['mail_nhan_bg'];
 
@@ -24,8 +25,9 @@ if ($user_id != "" && $com_id != "" && $id_nhacc != "" && $cou > 0) {
         echo "Điền đầy đủ thông tin yêu vầu vật tư";
     } else if ($cou == $co1) {
         $inser_ycbg = new db_query("INSERT INTO `yeu_cau_bao_gia`(`id`, `id_nguoi_lap`, `nha_cc_kh`, `id_cong_trinh`, `id_nguoi_tiep_nhan`, `noi_dung_thu`,
-        `mail_nhan_bg`, `gui_mail`, `ngay_bd`, `ngay_kt`, `gia_bg_vat`, `phan_loai`, `trang_thai`, `ngay_tao`, `ngay_chinh_sua`, `id_cong_ty`)
-        VALUES (NULL,'$user_id','$id_nhacc','$id_ctrinh','$id_nguoi_lh','$noi_dung','$mail_nhan_bg','$gui_mail',NULL,NULL,'$gia_baog_vat',1,1,'$ngay_lap',NULL,'$com_id')");
+        `mail_nhan_bg`, `gui_mail`, `ngay_bd`, `ngay_kt`, `gia_bg_vat`, `phan_loai`, `trang_thai`, `quyen_nlap`, `ngay_tao`, `ngay_chinh_sua`, `id_cong_ty`)
+        VALUES (NULL,'$user_id','$id_nhacc','$id_ctrinh','$id_nguoi_lh','$noi_dung','$mail_nhan_bg','$gui_mail',
+                '','','$gia_baog_vat',1,1,'$phan_quyen_nk','$ngay_lap','','$com_id')");
 
         $id_ycbg = new db_query("SELECT LAST_INSERT_ID() AS yc_id");
         $yc_id = mysql_fetch_assoc($id_ycbg->result)['yc_id'];
@@ -37,7 +39,8 @@ if ($user_id != "" && $com_id != "" && $id_nhacc != "" && $cou > 0) {
         $noi_dung_thu = "Bạn đã thêm phiếu yêu cầu báo giá: BG - " . $yc_id;
         $ngay_tao = strtotime(date('Y-m-d', time()));
         $gio_tao = strtotime(date('H:i:s', time()));
-        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id', '$ngay_tao','$gio_tao', '$noi_dung_thu')");
+        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`)
+                            VALUES('', '$user_id', '$phan_quyen_nk', '$ngay_tao','$gio_tao', '$noi_dung_thu')");
     }
 } else {
     echo "Bạn yêu cầu báo giá không thành công, vui lòng thử lại!";

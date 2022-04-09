@@ -6,6 +6,20 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
         $com_name = $_SESSION['com_name'];
+
+        $curl = curl_init();
+        $token = $_COOKIE['acc_token'];
+        curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data_list = json_decode($response, true);
+        $data_list_nv = $data_list['data']['items'];
+        $count = count($data_list_nv);
+
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $com_name = $_SESSION['com_name'];
@@ -158,15 +172,10 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Người liên hệ</p>
-                                    <? if ($ctiet_dh['phan_loai'] == 2) { ?>
                                         <p class="cr_weight share_fsize_tow share_clr_one">
                                             <?= $all_nv[$ctiet_dh['id_nguoi_lh']]['ep_name'] ?>
                                         </p>
-                                    <? } else if ($ctiet_dh['phan_loai'] == 1) { ?>
-                                        <p class="cr_weight share_fsize_tow share_clr_one">
-                                            <?= $ctiet_dh['id_nguoi_lh'] ?>
-                                        </p>
-                                    <? } ?>
+
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Số điện thoại / Fax</p>
@@ -354,20 +363,14 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                                     <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_dh">
                                         Xóa</p>
-                                    <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                        <a href="chinh-sua-don-hang-ban-<?= $id_dh ?>.html" class="share_clr_tow">Chỉnh
-                                            sửa</a>
-                                    </p>
-                                    <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                                    <a href="chinh-sua-don-hang-ban-<?= $id_dh ?>.html" class="v-btn btn-blue ml_20">Chỉnh sửa</a>
+                                <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
                                     if (in_array(4, $don_hang3)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_dh">
                                             Xóa</p>
                                     <? }
                                     if (in_array(3, $don_hang3)) { ?>
-                                        <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                            <a href="chinh-sua-don-hang-ban-<?= $id_dh ?>.html" class="share_clr_tow">Chỉnh
-                                                sửa</a>
-                                        </p>
+                                        <a href="chinh-sua-don-hang-ban-<?= $id_dh ?>.html" class="v-btn btn-blue ml_20">Chỉnh sửa</a>
                                 <? }
                                 } ?>
                             </div>

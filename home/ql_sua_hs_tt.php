@@ -7,11 +7,12 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['com_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
         $com_name = $_SESSION['com_name'];
-
+        $phan_quyen_nk = 2;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `ho_so_tt` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
@@ -112,7 +113,7 @@ if ($id != "") {
                         <a class="prew_href share_fsize_one share_clr_one" href="quan-ly-ho-so-thanh-toan.html">
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Sửa hồ sơ thanh toán</h4>
-                        <div class="ctiet_dk_hp w_100 float_l">
+                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $phan_quyen_nk ?>">
                             <form class="form_add_hp_mua share_distance w_100 float_l" data2="<?= $id ?>" data="<?= $com_id ?>" data1="<?= $user_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
@@ -249,13 +250,14 @@ if ($id != "") {
     $(".all_loai_hs").change(function() {
         var loai_hs = $(this).val();
         var com_id = $(".form_add_hp_mua").attr("data");
-
+        var hs_phieu = 1;
         $.ajax({
             url: '../render/ds_hd_dh.php',
             type: 'POST',
             data: {
                 loai_hs: loai_hs,
                 com_id: com_id,
+                hs_phieu: hs_phieu,
             },
             success: function(data) {
                 $(".all_hd_dh").html(data);
@@ -367,6 +369,7 @@ if ($id != "") {
             var com_id = $(".form_add_hp_mua").attr("data");
             var user_id = $(".form_add_hp_mua").attr("data1");
             var id_hs = $(".form_add_hp_mua").attr("data2");
+            var phan_quyen_nk = $(".ctiet_dk_hp").attr("data");
 
             var id_hs_ct = [];
             $(".vat_tu_hs").each(function() {
@@ -431,14 +434,16 @@ if ($id != "") {
                     tien_thue: tien_thue,
                     chi_phi_khac: chi_phi_khac,
                     tien_svat: tien_svat,
+                    phan_quyen_nk: phan_quyen_nk,
                 },
                 success: function(data) {
-                    if (data == "") {
-                        alert("Bạn cập nhật hồ sơ thanh toán thành công");
-                        window.location.href = '/chi-tiet-ho-so-thanh-toan-' + id_hs + '.html';
-                    } else if (data != "") {
+                    // if (data == "") {
+                    //     alert("Bạn cập nhật hồ sơ thanh toán thành công");
+                    //     window.location.href = '/chi-tiet-ho-so-thanh-toan-' + id_hs + '.html';
+                    // } else if (data != "") {
                         alert(data);
-                    }
+                    // }
+                    // console.log(data);
                 }
             });
         }

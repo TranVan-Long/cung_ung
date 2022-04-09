@@ -5,6 +5,8 @@ include("config.php");
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
     $user_id = $_SESSION['com_id'];
+    $com_name = $_SESSION['com_name'];
+
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
@@ -19,6 +21,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
 } elseif (isset($_SESSION['quyen']) && ($_SESSION['quyen'] == 2)) {
     $com_id = $_SESSION['user_com_id'];
     $user_id = $_SESSION['ep_id'];
+    $com_name = $_SESSION['com_name'];
+
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
@@ -68,24 +72,24 @@ if ($tk != "" && $ct != "") {
 $start = ($page - 1) * $ht;
 $start = abs($start);
 
-$list_yc = "SELECT y.`id`, y.`id_nguoi_lap`, y.`nha_cc_kh`, y.`phan_loai`, y.`ngay_tao`, y.`id_cong_ty`, n.`ten_nha_cc_kh`
+$list_yc = "SELECT y.`id`, y.`id_nguoi_lap`, y.`nha_cc_kh`, y.`phan_loai`, y.`ngay_tao`, y.`quyen_nlap`, y.`id_cong_ty`, n.`ten_nha_cc_kh`
                     FROM `yeu_cau_bao_gia` AS y INNER JOIN `nha_cc_kh` AS n ON y.`nha_cc_kh` = n.`id`
                     WHERE y.`phan_loai` = 1 AND y.`id_cong_ty` = $com_id ";
 if ($ct != "") {
     if ($tk == 1) {
         $sql = "AND y.`id` = $ct ";
-        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_bao_gia` WHERE `id` = $ct ");
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_bao_gia` WHERE `id` = $ct AND `id_cong_ty` = $com_id ");
     } else if ($tk == 2) {
         $sql = "AND y.`id_nguoi_lap` = $ct ";
-        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1 AND `id_nguoi_lap` = $ct ");
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1 AND `id_nguoi_lap` = $ct AND `id_cong_ty` = $com_id ");
     } else if ($tk == 3) {
         $sql = "AND y.`nha_cc_kh` = $ct ";
-        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1 AND `nha_cc_kh` = $ct ");
+        $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1 AND `nha_cc_kh` = $ct AND `id_cong_ty` = $com_id ");
     }
 }
 
 if ($tk == "" || $ct == "") {
-    $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1");
+    $cou = new db_query("SELECT COUNT(`id`) AS total FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ");
 }
 
 $total = mysql_fetch_assoc($cou->result)['total'];
@@ -160,21 +164,25 @@ $stt = 1;
                                 <select name="search" class="share_select tk_chi_tiet">
                                     <option value="">Nhập thông tin cần tìm kiếm</option>
                                     <? if ($tk == 1) {
-                                        $list_tt = new db_query("SELECT `id`, `phan_loai` FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1 ");
+                                        $list_tt = new db_query("SELECT `id`, `phan_loai` FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ");
                                         while ($row = mysql_fetch_assoc($list_tt->result)) {
                                     ?>
                                             <option value="<?= $row['id'] ?>" <?= ($row['id'] == $ct) ? "selected" : "" ?>>BG - <?= $row['id'] ?></option>
                                         <? }
                                     } else if ($tk == 2) {
-                                        $list_t = new db_query("SELECT DISTINCT `id_nguoi_lap`, `phan_loai` FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1");
+                                        $list_t = new db_query("SELECT DISTINCT `id_nguoi_lap`, `quyen_nlap` FROM `yeu_cau_bao_gia` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ");
                                         while ($row1 = mysql_fetch_assoc($list_t->result)) {
+                                            if($row1['quyen_nlap'] == 2){
                                         ?>
                                             <option value="<?= $row1['id_nguoi_lap'] ?>" <?= ($row1['id_nguoi_lap'] == $ct) ? "selected" : "" ?>>(<?= $row1['id_nguoi_lap'] ?>) <?= $list_nv[$row1['id_nguoi_lap']]['ep_name'] ?></option>
-                                        <? }
+                                        <? }else if($row1['quyen_nlap'] == 1){?>
+                                            <option value="<?= $com_id ?>" <?= ($com_id == $ct) ? "selected" : "" ?>><?= $com_name ?></option>
+                                        <?}
+                                        }
                                     } else if ($tk == 3) {
                                         $list_t = new db_query("SELECT DISTINCT y.`nha_cc_kh`, y.`phan_loai`, n.`ten_nha_cc_kh` FROM `yeu_cau_bao_gia` AS y
                                                             INNER JOIN `nha_cc_kh` AS n ON y.`nha_cc_kh` = n.`id`
-                                                            WHERE y.`phan_loai` = 1");
+                                                            WHERE y.`phan_loai` = 1 AND y.`id_cong_ty` = $com_id ");
                                         while ($row1 = mysql_fetch_assoc($list_t->result)) {
                                         ?>
                                             <option value="<?= $row1['nha_cc_kh'] ?>" <?= ($row1['nha_cc_kh'] == $ct) ? "selected" : "" ?>><?= $row1['ten_nha_cc_kh'] ?></option>
@@ -203,11 +211,15 @@ $stt = 1;
                                 <div class="tbl-content">
                                     <table>
                                         <tbody>
-                                            <? while ($item = mysql_fetch_assoc($list_yc1->result)) { ?>
+                                            <? while ($item = mysql_fetch_assoc($list_yc1->result)) {
+                                                if($item['quyen_nlap'] == 1){
+                                                    $nguoi_lap_bg =  $com_name;
+                                                }else if($item['quyen_nlap'] == 2){
+                                                    $nguoi_lap_bg = $list_nv[$item['id_nguoi_lap']]['ep_name']; }?>
                                                 <tr>
                                                     <td class="w-10"><?= $stt++ ?></td>
                                                     <td class="w-15"><a href="chi-tiet-yeu-cau-bao-gia-<?= $item['id'] ?>.html" class="text-500">BG-<?= $item['id'] ?></a></td>
-                                                    <td class="w-30"><?= $list_nv[$item['id_nguoi_lap']]['ep_name'] ?></td>
+                                                    <td class="w-30"><?= $nguoi_lap_bg ?></td>
                                                     <td class="w-15"><?= date('d/m/Y', $item['ngay_tao']) ?></td>
                                                     <td class="w-30"><?= $ten_cty = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `id` = '" . $item['nha_cc_kh'] . "' "))->result)['ten_nha_cc_kh'] ?></td>
                                                 </tr>

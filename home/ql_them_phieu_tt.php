@@ -6,10 +6,12 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
     $com_name = $_SESSION['com_name'];
     $user_id = $_SESSION['com_id'];
+    $phan_quyen_nk = 1;
 } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
     $com_id = $_SESSION['user_com_id'];
     $com_name = $_SESSION['com_name'];
     $user_id = $_SESSION['ep_id'];
+    $phan_quyen_nk = 2;
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `phieu_tt` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
@@ -60,7 +62,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Thêm phiếu thanh toán</h4>
-                        <div class="ctiet_dk_hp w_100 float_l">
+                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $phan_quyen_nk ?>">
                             <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_name ?>" data1="<?= $user_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
@@ -420,6 +422,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
             var ty_gia = $("input[name='ty_gia']").val();
             var gia_quydoi = $("input[name='so_tien_qdoi']").val();
             var tongt_thanhtoan = $(".sum_tatca").text();
+            var phan_quyen_nk = $(".ctiet_dk_hp").attr("data");
 
             var ten_nganhang = new Array();
             $("input[name='ten_nhanhang']").each(function() {
@@ -482,6 +485,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                 }
             });
 
+            var tong_tien_tatca_tr = $(".tong_tien_tatca_tr").attr("data");
+
             $.ajax({
                 url: '../ajax/them_phieu_tt.php',
                 type: 'POST',
@@ -508,6 +513,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                     tien_ttoan: tien_ttoan,
                     tong_tien: tong_tien,
                     tongt_thanhtoan: tongt_thanhtoan,
+                    phan_quyen_nk: phan_quyen_nk,
+                    tong_tien_tatca_tr: tong_tien_tatca_tr,
                 },
                 success: function(data) {
                     if (data == "") {

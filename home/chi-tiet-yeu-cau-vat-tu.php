@@ -5,6 +5,8 @@ include("config.php");
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
     $user_id = $_SESSION['com_id'];
+    $com_name = $_SESSION['com_name'];
+    $phan_quyen_nduyet = 1;
 
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
@@ -21,6 +23,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
 } elseif (isset($_SESSION['quyen']) && ($_SESSION['quyen'] == 2)) {
     $com_id = $_SESSION['user_com_id'];
     $user_id = $_SESSION['ep_id'];
+    $com_name = $_SESSION['com_name'];
+    $phan_quyen_nduyet = 2;
 
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
@@ -60,13 +64,14 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $item = mysql_fetch_assoc($get_ycvt->result);
     $id_nyc = $item['id_nguoi_yc'];
     $ngay_tao = date('d/m/Y', $item['ngay_tao']);
-    $ngay_ht = date('d/m/Y', $item['ngay_ht_yc']);
+    $ngay_ht = $item['ngay_ht_yc'];
     $cong_trinh = $item['id_cong_trinh'];
     $dien_giai = $item['dien_giai'];
     $trang_thai = $item['trang_thai'];
     $ngay_duyet = date('d/m/Y', $item['ngay_duyet']);
     $nguoi_duyet = $item['id_nguoi_duyet'];
     $ly_do_tu_choi = $item['ly_do_tu_choi'];
+    $phan_quyen_nk = $item['role'];
 
 
     $get_vtyc = new db_query("SELECT * FROM `chi_tiet_yc_vt` WHERE `id_yc_vt` = $ycvt_id");
@@ -117,28 +122,14 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     curl_close($curl);
     $list_cong_trinh = json_decode($response, true);
     $cong_trinh_data = $list_cong_trinh['data']['items'];
+
+    $all_ctr = [];
+    for ($l = 0; $l < count($cong_trinh_data); $l++) {
+        $ctr_item = $cong_trinh_data[$l];
+        $all_ctr[$ctr_item['ctr_id']] = $ctr_item;
+    }
 }
 
-if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
-    $cp_id = $_SESSION['com_id'];
-    if ($id_nyc == $cp_id) {
-        $user_name = $_SESSION['com_name'];
-        $dept_name  = "";
-    } else {
-        $user_name = $all_user[$id_nyc]['ep_name'];
-        $dept_name  = $all_user[$id_nyc]['dep_name'];
-    };
-
-    if ($cp_id == $nguoi_duyet) {
-        $ten_nguoi_duyet = $_SESSION['com_name'];
-    } else {
-        $ten_nguoi_duyet = $all_user[$nguoi_duyet]['ep_name'];
-    };
-} else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-    $user_name = $all_user[$id_nyc]['ep_name'];
-    $dept_name  = $all_user[$id_nyc]['dep_name'];
-    $ten_nguoi_duyet = $all_user[$nguoi_duyet]['ep_name'];
-}
 
 ?>
 <!DOCTYPE html>
@@ -189,11 +180,19 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                         <div class="form-row left border-top">
                             <div class="form-col-50 left pl-10 pt-10 mb_12">
                                 <p class="left text-left w-50"> Người yêu cầu</p>
-                                <p class="right text-right w-50 cr_weight"><?= $user_name ?></p>
+                                <? if ($phan_quyen_nk == 1) { ?>
+                                    <p class="right text-right w-50 cr_weight"><?= $com_name ?></p>
+                                <? } else if ($phan_quyen_nk == 2) { ?>
+                                    <p class="right text-right w-50 cr_weight"><?= $all_user[$id_nyc]['ep_name'] ?></p>
+                                <? } ?>
                             </div>
                             <div class="form-col-50 right pr-10 pt-10 mb_12">
                                 <p class="left text-left w-50">Phòng ban</p>
-                                <p class="right text-right w-50 cr_weight"><?= $dept_name ?></p>
+                                <? if ($phan_quyen_nk == 1) { ?>
+                                    <p class="right text-right w-50 cr_weight"></p>
+                                <? } else if ($phan_quyen_nk == 2) { ?>
+                                    <p class="right text-right w-50 cr_weight"><?= $all_user[$id_nyc]['dep_name'] ?></p>
+                                <? } ?>
                             </div>
                         </div>
                         <div class="form-row left border-top">
@@ -203,13 +202,13 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                             </div>
                             <div class="form-col-50 right pr-10 pt-10 mb_12">
                                 <p class="left text-left w-50">Ngày phải hoàn thành yêu cầu</p>
-                                <p class="right text-right w-50 cr_weight"><?= $ngay_ht ?></p>
+                                <p class="right text-right w-50 cr_weight"><?= ($ngay_ht != 0) ? date('d/m/Y', $ngay_ht) : "" ?></p>
                             </div>
                         </div>
                         <div class="form-row left border-top">
                             <div class="form-col-50 left pt-10 mb_12 pl-10">
                                 <p class="left text-left w-50">Công trình</p>
-                                <p class="right text-right w-50 cr_weight"><?= $cong_trinh_data[$cong_trinh]['ctr_name'] ?></p>
+                                <p class="right text-right w-50 cr_weight"><?= $all_ctr[$cong_trinh]['ctr_name'] ?></p>
                             </div>
                         </div>
                         <div class="form-row left border-top">
@@ -236,7 +235,11 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                             <div class="form-row left border-top">
                                 <div class="form-col-50 left pl-10 pt-10 mb_12">
                                     <p class="left text-left w-50">Người duyệt</p>
-                                    <p class="right text-right w-50 cr_weight"><?= $ten_nguoi_duyet ?></p>
+                                    <? if ($item['phan_quyen_nduyet'] == 1) { ?>
+                                        <p class="right text-right w-50 cr_weight"><?= $com_name ?></p>
+                                    <? } else if ($item['phan_quyen_nduyet'] == 2) { ?>
+                                        <p class="right text-right w-50 cr_weight"><?= $all_user[$item['phan_quyen_nduyet']]['ep_name'] ?></p>
+                                    <? } ?>
                                 </div>
                                 <div class="form-col-50 right pr-10 pt-10 mb_12">
                                     <p class="left text-left w-50">Ngày duyệt</p>
@@ -322,9 +325,9 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                                     <button class="v-btn mb_10 btn-outline-red modal-btn ml-20" data-target="rejection">Từ chối</button>
                                     <button class="v-btn mb_10 btn-blue modal-btn ml-20" data-target="acceptance">Duyệt</button>
                                 </div>
-                            <? }
-                            }
-                        } ?>
+                    <? }
+                        }
+                    } ?>
                     <div class="left mt-20 xuatc_gm">
                         <p class="v-btn btn-green xuat_excel" data=<?= $ycvt_id ?>>Xuất excel</p>
                         <!-- <p class="share_w_148"></p> -->
@@ -396,7 +399,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                     <p class="text-500 mt-40">Số lượng duyệt</p>
                     <div class="w-100">
                         <div class="table-wrapper mt-15">
-                            <div class="table-container table_duyet">
+                            <div class="table-container table_duyet" data="<?= $ycvt_id ?>" data1="<?= $user_id ?>">
                                 <div class="tbl-header">
                                     <table>
                                         <thead>
@@ -438,7 +441,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                 <div class="m-foot">
                     <div class="right huy_xong">
                         <p class="v-btn btn-outline-blue right cancel mr-20">Hủy</p>
-                        <button type="button" class="v-btn share_clr_tow sh_bgr_six right duyet_submit" data="<?= $com_id ?>">Đồng ý</button>
+                        <button type="button" class="v-btn share_clr_tow sh_bgr_six right duyet_submit" data="<?= $com_id ?>" data1="<?= $phan_quyen_nduyet ?>">Đồng ý</button>
                     </div>
                 </div>
             </div>
@@ -479,12 +482,13 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     });
 
     $(".duyet_submit").click(function() {
-        var ycvt_id = '<?= $ycvt_id ?>';
+        var ycvt_id = $(".table_duyet").attr("data");
         var id_kho = $("select[name='kho_vat_tu']").val();
-        var ep_id = '<?= $user_id ?>';
+        var nguoi_duyet = $(".table_duyet").attr("data1");
         var com_id = $(this).attr("data");
+        var phan_quyen_nduyet = $(this).attr("data1");
 
-        var id_vat_tu = new Array();
+        var id_vat_tu = [];
         $("input[name='id_vat_tu']").each(function() {
             var id_vt = $(this).val();
             if (id_vt != "") {
@@ -492,7 +496,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
             }
         });
 
-        var so_luong_duyet = new Array();
+        var so_luong_duyet = [];
         $("input[name='so_luong_duyet']").each(function() {
             var sl_duyet = $(this).val();
             if (sl_duyet != "") {
@@ -513,10 +517,11 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                     ycvt_id: ycvt_id,
                     id_kho: id_kho,
                     so_luong_duyet: so_luong_duyet,
-                    ep_id: ep_id,
+                    nguoi_duyet: nguoi_duyet,
                     id_vat_tu: id_vat_tu,
                     so_luong_duyet: so_luong_duyet,
                     com_id: com_id,
+                    phan_quyen_nduyet: phan_quyen_nduyet,
                 },
                 success: function(data) {
                     if (data == "") {

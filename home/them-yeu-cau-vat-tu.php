@@ -134,7 +134,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                             <div class="form-control">
                                 <div class="form-row left">
                                     <div class="form-col-50 left v-select2 mb_15">
-                                        <label>Phòng ban <span class="text-red">*</span></label>
+                                        <label>Phòng ban</label>
                                         <input type="text" name="phong_ban" value="<?= $dept_name ?>" readonly>
                                     </div>
                                     <div class="form-col-50 right v-select2 mb_15">
@@ -250,28 +250,27 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
             },
             success: function(data) {
                 $("#materials").append(data);
+                RefSelect2();
             }
         });
     });
 
-    function change_vt() {
-        $(".materials_name").change(function() {
-            var id_vt = $(this).val();
-            var _this = $(this);
-            var com_id = $("#nguoi_yeu_cau").attr('data1');
-            $.ajax({
-                url: '../render/ycvt_vat_tu.php',
-                type: 'POST',
-                data: {
-                    id_vt: id_vt,
-                    com_id: com_id,
-                },
-                success: function(data) {
-                    _this.parents(".item").html(data);
-                }
-            })
+    function change_vt(id) {
+        var id_vt = $(id).val();
+        var com_id = $("#nguoi_yeu_cau").attr('data1');
+        $.ajax({
+            url: '../render/ycvt_vat_tu.php',
+            type: 'POST',
+            data: {
+                id_vt: id_vt,
+                com_id: com_id,
+            },
+            success: function(data) {
+                $(id).parents(".item").html(data);
+                RefSelect2();
+            }
         });
-        RefSelect2();
+
     };
 
 
@@ -309,6 +308,9 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
             var cong_trinh = $("#cong_trinh").val();
             var ngay_tao_yeu_cau = $("input[name='ngay_tao_yeu_cau']").val();
             var ngay_phai_hoan_thanh = $("input[name='ngay_phai_hoan_thanh']").val();
+            if (ngay_phai_hoan_thanh == "") {
+                ngay_phai_hoan_thanh = 0;
+            }
             var dien_giai = $("#dien_giai").val();
 
             var vat_tu = new Array();

@@ -92,6 +92,7 @@ RewriteRule ^nhat-ky-hoat-dong.html$ /home/ql_nhatky.php [NE,L]
 
 # quản lý cài đặt nhân viên
 RewriteRule ^quan-ly-cai-dat-nhan-vien.html$ /home/ql_setting_nv.php [NE,L]
+RewriteRule ^nhat-ky-hoat-dong-nhan-vien.html$ /home/ql_nhatky_nv.php [NE,L]
 
 # quản lý khách hàng
 RewriteRule ^quan-ly-khach-hang.html$ /home/kh-index.php [NE,L]

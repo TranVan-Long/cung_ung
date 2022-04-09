@@ -181,7 +181,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                     <h4 class="w_100 float_l">Chỉnh sửa yêu cầu vật tư</h4>
                 </div>
                 <div class="c-body">
-                    <form action="" class="form-edit w_100 float_l">
+                    <form class="form-edit w_100 float_l" data="<?= $com_id ?>" data1="<?= $ycvt_id ?>">
                         <div class="form-control">
                             <div class="form-row left">
                                 <div class="form-col-50 mb_15">
@@ -191,12 +191,16 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                             </div>
                             <div class="form-row left">
                                 <div class="form-col-50 left v-select2 mb_15">
-                                    <label>Phòng ban<span class="text-red">*</span></label>
-                                    <input type="text" name="phong_ban" value="<?= $dept_name ?>" readonly>
+                                    <label>Phòng ban </label>
+                                    <? if ($role == 1) { ?>
+                                        <input type="text" name="phong_ban" value="" readonly>
+                                    <? } else if ($role == 2) { ?>
+                                        <input type="text" name="phong_ban" value="<?= $dept_name ?>" readonly>
+                                    <? } ?>
                                 </div>
                                 <div class="form-col-50 right v-select2 mb_15">
                                     <label>Người yêu cầu <span class="text-red">*</span></label>
-                                    <input type="text" name="nguoi_yeu_cau" id="nguoi_yeu_cau" data="<?= $role ?>" data1="<?= $com_id?>" data2="<?= $user_id?>" value="<?= $user_name ?>" readonly>
+                                    <input type="text" name="nguoi_yeu_cau" id="nguoi_yeu_cau" data="<?= $role ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>" value="<?= $user_name ?>" readonly>
                                 </div>
                             </div>
                             <div class="form-row left">
@@ -257,7 +261,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                                                         </td>
                                                         <td class="w-25">
                                                             <div class="v-select2">
-                                                                <select name="vat_tu_old" class="share_select materials_name">
+                                                                <select name="vat_tu_old" class="share_select materials_name" onchange="change_vt(this)" data="<?= $com_id ?>">
                                                                     <option value="">-- Chọn vật tư/thiết bị --</option>
                                                                     <? for ($i = 0; $i < count($vat_tu_data); $i++) { ?>
                                                                         <option value="<?= $vat_tu_data[$i]['dsvt_id'] ?>" <?= ($vat_tu_data[$i]['dsvt_id'] == $row1['id_vat_tu']) ? "selected" : "" ?>><?= $vat_tu_data[$i]['dsvt_name'] ?></option>
@@ -343,38 +347,40 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript">
     $("#add-material").click(function() {
+        var com_id = $(".form-edit").attr("data");
         $.ajax({
             url: '../ajax/ycvt_them_vt.php',
             type: 'POST',
+            data: {
+                com_id: com_id,
+            },
             success: function(data) {
                 $("#materials").append(data);
+                RefSelect2();
             }
         });
+
     });
 
-    function change_vt() {
-        $(".materials_name").change(function() {
-            var id_vt = $(this).val();
-            var _this = $(this);
-            var com_id = <?= $com_id ?>;
-            $.ajax({
-                url: '../render/ycvt_vat_tu.php',
-                type: 'POST',
-                data: {
-                    id_vt: id_vt,
-                    com_id: com_id,
-                },
-                success: function(data) {
-                    _this.parents(".item").html(data);
-                }
-            })
+    function change_vt(id) {
+        var id_vt = $(id).val();
+        var com_id = $(".form-edit").attr("data");
+        $.ajax({
+            url: '../render/ycvt_vat_tu.php',
+            type: 'POST',
+            data: {
+                id_vt: id_vt,
+                com_id: com_id,
+            },
+            success: function(data) {
+                $(id).parents(".item").html(data);
+                RefSelect2();
+            }
         });
-        RefSelect2();
     };
 
     $(".remove_vat_tu").click(function() {
         var id = $(this).attr("data-id");
-
         $.ajax({
             url: '../ajax/ycvt_xoa_vt.php',
             type: 'POST',
@@ -399,9 +405,9 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                 error.wrap("<span class='error'>");
             },
             rules: {
-                phong_ban: {
-                    required: true,
-                },
+                // phong_ban: {
+                //     required: true,
+                // },
                 nguoi_yeu_cau: {
                     required: true,
                 },
@@ -410,9 +416,9 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                 },
             },
             messages: {
-                phong_ban: {
-                    required: "Không được để trống",
-                },
+                // phong_ban: {
+                //     required: "Không được để trống",
+                // },
                 nguoi_yeu_cau: {
                     required: "Không được để trống",
                 },
@@ -422,7 +428,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
             },
         });
         if (create_ycvt.valid() === true) {
-            var id_ycvt = "<?= $ycvt_id ?>";
+            var id_ycvt = $(".form-edit").attr("data1");
             var ngay_ht = $("input[name='ngay_phai_hoan_thanh']").val();
             var dien_giai = $("textarea[name='dien_giai']").val();
 
@@ -488,8 +494,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                         so_luong: so_luong,
 
                         user_id: user_id,
-                        com_id:role,
-                        role:role,
+                        com_id: role,
+                        role: role,
                     },
                     success: function(data) {
                         if (data == "") {

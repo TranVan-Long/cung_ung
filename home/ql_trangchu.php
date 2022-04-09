@@ -10,8 +10,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['user_com_id'];
 }
 
-$month_start = strtotime('first day of this year', time());
-$month_end = strtotime('last day of this month', time());
+$month_start = strtotime(date('Y-m-01'));
+$month_end = strtotime(date("Y-m-t"));
 
 $year_start = strtotime('first day of January', time());
 $year_end = strtotime('last day of December', time());
@@ -32,409 +32,255 @@ $array_t = array(
 );
 
 $ngay_hom_nay = strtotime(date('Y-m-d', time()));
-// echo $ngay_hom_nay;
 // trả theo ngày
-$da_tra = 0;
-$tong_tra = 0;
-$phieu_tt_tra = new db_query("SELECT `id` FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_thanh_toan` = 2
-                            AND (`phan_loai` = 1 OR `phan_loai` = 3 OR `phan_loai` = 4 OR `phan_loai` = 5) AND `ngay_tao` = $ngay_hom_nay ");
+$da_tra = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS sotien FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_thanh_toan` = 2
+                            AND (`phan_loai` = 1 OR `phan_loai` = 3 OR `phan_loai` = 4 OR `phan_loai` = 5) AND `ngay_tao` = $ngay_hom_nay "))->result)['sotien'];
 
-$all_hd_tra = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND (`phan_loai` = 1 OR `phan_loai` = 3 OR `phan_loai` = 4 )
-                            AND `tg_kt_thuc_hien` >= $ngay_hom_nay ");
-
-while ($hd_tra = mysql_fetch_assoc($all_hd_tra->result)) {
-    $gia_tri_svat = $hd_tra['gia_tri_svat'];
-    $tong_tra += $gia_tri_svat;
+if ($da_tra == "") {
+    $da_tra = 0;
 }
 
-while ($row_tra = mysql_fetch_assoc($phieu_tt_tra->result)) {
-    $id_phieu_tra = $row_tra['id'];
-    $list_dtt_tra = mysql_fetch_assoc((new db_query("SELECT `da_thanh_toan` FROM `chi_tiet_phieu_tt_vt`
-                                WHERE `id_phieu_tt` = $id_phieu_tra AND `id_cong_ty` = $com_id "))->result);
-    $da_tra += $list_dtt_tra['da_thanh_toan'];
-}
+$tong_tra = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS giatri_svat FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                            AND (`phan_loai` = 1 OR `phan_loai` = 3 OR `phan_loai` = 4 )
+                                            AND `tg_bd_thuc_hien` >= $ngay_hom_nay"))->result)['giatri_svat'];
 
 $con_lai_tra = $tong_tra - $da_tra;
 // trả theo tháng
-$da_tra_m = 0;
-$tong_tra_m = 0;
 
-$all_hd_tra_m = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND (`phan_loai` = 1 OR `phan_loai` = 4 )
-                            AND `tg_bd_thuc_hien` >= $month_start AND `tg_kt_thuc_hien` <= $month_end ");
-
-while ($hd_tra_m = mysql_fetch_assoc($all_hd_tra_m->result)) {
-    $gia_tri_svat_m = $hd_tra_m['gia_tri_svat'];
-    $tong_tra_m += $gia_tri_svat_m;
+$da_tra_m = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS sotien_m FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_thanh_toan` = 2
+                                            AND (`phan_loai` = 1 OR `phan_loai` = 3 OR `phan_loai` = 4 OR `phan_loai` = 5) AND `ngay_tao` >= $month_start
+                                            AND `ngay_tao` <= $month_end "))->result)['sotien_m'];
+if ($da_tra_m == "") {
+    $da_tra_m = 0;
 }
 
-$phieu_tt_tra_m = new db_query("SELECT `id` FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_thanh_toan` = 2
-                            AND (`phan_loai` = 1 OR `phan_loai` = 3 OR `phan_loai` = 4 OR `phan_loai` = 5) AND `ngay_tao` >= $month_start AND `ngay_tao` <= $month_end ");
+$tong_tra_m = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gtri_s  FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                            AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
+                                            AND `tg_bd_thuc_hien` >= $month_start AND `tg_kt_thuc_hien` <= $month_end "))->result)['gtri_s'];
 
-while ($row_tra_m = mysql_fetch_assoc($phieu_tt_tra_m->result)) {
-    $id_phieu_tra_m = $row_tra_m['id'];
-    $list_dtt_tra_m = mysql_fetch_assoc((new db_query("SELECT `da_thanh_toan` FROM `chi_tiet_phieu_tt_vt`
-                                WHERE `id_phieu_tt` = $id_phieu_tra_m AND `id_cong_ty` = $com_id "))->result);
-    $da_tra_m += $list_dtt_tra_m['da_thanh_toan'];
-}
 $con_lai_tra_m = $tong_tra_m - $da_tra_m;
 // trả theo năm
-$da_tra_y = 0;
-$tong_tra_y = 0;
 
-$all_hd_tra_y = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND (`phan_loai` = 1 OR `phan_loai` = 4 )
-                            AND `tg_bd_thuc_hien` >= $year_start AND `tg_kt_thuc_hien` <= $year_end ");
+$da_tra_y = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS sotien_y FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_thanh_toan` = 2
+                        AND (`phan_loai` = 1 OR `phan_loai` = 3 OR `phan_loai` = 4 OR `phan_loai` = 5)
+                        AND `ngay_tao` >= $year_start AND `ngay_tao` <= $year_end "))->result)['sotien_y'];
 
-while ($hd_tra_y = mysql_fetch_assoc($all_hd_tra_y->result)) {
-    $gia_tri_svat_y = $hd_tra_y['gia_tri_svat'];
-    $tong_tra_y += $gia_tri_svat_y;
+if ($da_tra_y == "") {
+    $da_tra_y = 0;
 }
 
-$phieu_tt_tra_y = new db_query("SELECT `id` FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_thanh_toan` = 2
-                            AND (`phan_loai` = 1 OR `phan_loai` = 3 OR `phan_loai` = 4 OR `phan_loai` = 5) AND `ngay_tao` >= $year_start AND `ngay_tao` <= $year_end ");
+$tong_tra_y = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gtri_y  FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                            AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
+                            AND `tg_bd_thuc_hien` >= $year_start AND `tg_kt_thuc_hien` <= $year_end "))->result)['gtri_y'];
 
-while ($row_tra_y = mysql_fetch_assoc($phieu_tt_tra_y->result)) {
-    $id_phieu_tra_y = $row_tra_y['id'];
-    $list_dtt_tra_y = mysql_fetch_assoc((new db_query("SELECT `da_thanh_toan` FROM `chi_tiet_phieu_tt_vt`
-                                WHERE `id_phieu_tt` = $id_phieu_tra_y AND `id_cong_ty` = $com_id "))->result);
-    $da_tra_y += $list_dtt_tra_y['da_thanh_toan'];
-}
 $con_lai_tra_y = $tong_tra_y - $da_tra_y;
 
 // thu theo ngày
-$da_thu = 0;
-$tong_thu = 0;
-$phieu_tt_thu = new db_query("SELECT `id` FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_thanh_toan` = 2
-                            AND (`phan_loai` = 2 OR `phan_loai` = 6) AND `ngay_tao` = $ngay_hom_nay ");
+$da_thu = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS sotien FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_thanh_toan` = 2
+                            AND (`phan_loai` = 2 OR `phan_loai` = 6 ) AND `ngay_tao` = $ngay_hom_nay "))->result)['sotien'];
 
-$all_hd_tra = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2  AND `tg_kt_thuc_hien` >= $ngay_hom_nay ");
-
-while ($hd_thu = mysql_fetch_assoc($all_hd_tra->result)) {
-    $gia_tri_svat = $hd_thu['gia_tri_svat'];
-    $tong_thu += $gia_tri_svat;
+if ($da_thu == "") {
+    $da_thu = 0;
 }
 
-while ($row_thu = mysql_fetch_assoc($phieu_tt_thu->result)) {
-    $id_phieu_thu = $row_thu['id'];
-    $list_dtt_thu = mysql_fetch_assoc((new db_query("SELECT `da_thanh_toan` FROM `chi_tiet_phieu_tt_vt`
-                                WHERE `id_phieu_tt` = $id_phieu_thu AND `id_cong_ty` = $com_id "))->result);
-    $da_thu += $list_dtt_thu['da_thanh_toan'];
-}
+$tong_thu = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS giatri_svat FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                            AND `phan_loai` = 2 AND `tg_bd_thuc_hien` >= $ngay_hom_nay"))->result)['giatri_svat'];
 
 $con_lai_thu = $tong_thu - $da_thu;
-
-// thu theo tháng
-$da_thu_m = 0;
-$tong_thu_m = 0;
-
-$all_hd_thu_m = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `tg_bd_thuc_hien` >= $month_start AND `tg_kt_thuc_hien` <= $month_end ");
-
-while ($hd_thu_m = mysql_fetch_assoc($all_hd_thu_m->result)) {
-    $gia_tri_svat_m = $hd_thu_m['gia_tri_svat'];
-    $tong_thu_m += $gia_tri_svat_m;
+// thu theo thang
+$da_thu_m = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS sotien_m FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_thanh_toan` = 2
+                                            AND (`phan_loai` = 2 OR `phan_loai` = 6) AND `ngay_tao` >= $month_start
+                                            AND `ngay_tao` <= $month_end "))->result)['sotien_m'];
+if ($da_thu_m == "") {
+    $da_thu_m = 0;
 }
 
-$phieu_tt_thu_m = new db_query("SELECT `id` FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_thanh_toan` = 2
-                            AND (`phan_loai` = 2 OR `phan_loai` = 6) AND `ngay_tao` >= $month_start AND `ngay_tao` <= $month_end ");
-
-while ($row_thu_m = mysql_fetch_assoc($phieu_tt_thu_m->result)) {
-    $id_phieu_thu_m = $row_thu_m['id'];
-    $list_dtt_thu_m = mysql_fetch_assoc((new db_query("SELECT `da_thanh_toan` FROM `chi_tiet_phieu_tt_vt`
-                                WHERE `id_phieu_tt` = $id_phieu_thu_m AND `id_cong_ty` = $com_id "))->result);
-    $da_thu_m += $list_dtt_thu_m['da_thanh_toan'];
+$tong_thu_m = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gtri_s  FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                            AND `phan_loai` = 2 AND `tg_bd_thuc_hien` >= $month_start AND `tg_kt_thuc_hien` <= $month_end "))->result)['gtri_s'];
+if($tong_thu_m == ""){
+    $tong_thu_m = 0;
 }
 $con_lai_thu_m = $tong_thu_m - $da_thu_m;
+// thu theo nam
 
-// thu theo năm
-$da_thu_y = 0;
-$tong_thu_y = 0;
+$da_thu_y = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS sotien_y FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_thanh_toan` = 2
+                        AND (`phan_loai` = 2 OR `phan_loai` = 6) AND `ngay_tao` >= $year_start AND `ngay_tao` <= $year_end "))->result)['sotien_y'];
 
-$all_hd_thu_y = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `tg_bd_thuc_hien` >= $year_start AND `tg_kt_thuc_hien` <= $year_end ");
-
-while ($hd_thu_y = mysql_fetch_assoc($all_hd_thu_y->result)) {
-    $gia_tri_svat_y = $hd_thu_y['gia_tri_svat'];
-    $tong_thu_y += $gia_tri_svat_y;
+if ($da_thu_y == "") {
+    $da_thu_y = 0;
 }
 
-$phieu_tt_thu_y = new db_query("SELECT `id` FROM `phieu_thanh_toan` WHERE `id_cong_ty` = $com_id AND `loai_thanh_toan` = 2
-                            AND (`phan_loai` = 2 OR `phan_loai` = 6 ) AND `ngay_tao` >= $year_start AND `ngay_tao` <= $year_end ");
+$tong_thu_y = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gtri_y  FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                            AND `phan_loai` = 2 AND `tg_bd_thuc_hien` >= $year_start AND `tg_kt_thuc_hien` <= $year_end "))->result)['gtri_y'];
 
-while ($row_thu_y = mysql_fetch_assoc($phieu_tt_thu_y->result)) {
-    $id_phieu_thu_y = $row_thu_y['id'];
-    $list_dtt_thu_y = mysql_fetch_assoc((new db_query("SELECT `da_thanh_toan` FROM `chi_tiet_phieu_tt_vt`
-                                WHERE `id_phieu_tt` = $id_phieu_thu_y AND `id_cong_ty` = $com_id "))->result);
-    $da_thu_y += $list_dtt_thu_y['da_thanh_toan'];
-}
 $con_lai_thu_y = $tong_thu_y - $da_thu_y;
 
-
-// gia tri theo hd mua, ban
-$tong_tra_m1 = 0;
-$tong_tra_m2 = 0;
-$tong_tra_m3 = 0;
-$tong_tra_m4 = 0;
-$tong_tra_m5 = 0;
-$tong_tra_m6 = 0;
-$tong_tra_m7 = 0;
-$tong_tra_m8 = 0;
-$tong_tra_m9 = 0;
-$tong_tra_m10 = 0;
-$tong_tra_m11 = 0;
-$tong_tra_m12 = 0;
-
-$tong_thu_m1 = 0;
-$tong_thu_m2 = 0;
-$tong_thu_m3 = 0;
-$tong_thu_m4 = 0;
-$tong_thu_m5 = 0;
-$tong_thu_m6 = 0;
-$tong_thu_m7 = 0;
-$tong_thu_m8 = 0;
-$tong_thu_m9 = 0;
-$tong_thu_m10 = 0;
-$tong_thu_m111 = 0;
-$tong_thu_m12 = 0;
-
-
+// gia tri hop dong mua, ban trong nam
 $day_start_t1 = strtotime('first day of January', time());
 $day_end_t1 = strtotime('last day of January', time());
 
-// hd mua
-$all_hd_tra_m1 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `tg_bd_thuc_hien` >= $day_start_t1 AND `tg_kt_thuc_hien` <= $day_end_t1 ");
-
-while ($hd_tra_m1 = mysql_fetch_assoc($all_hd_tra_m11->result)) {
-    $gia_tri_svat_m1 = $hd_tra_m1['gia_tri_svat'];
-    $tong_tra_m1 += $gia_tri_svat_m1;
+$tong_tra_m1 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
+                            AND `tg_bd_thuc_hien` >= $day_start_t1 AND `tg_kt_thuc_hien` <= $day_end_t1 ")) -> result)['gia_tri_s'];
+if($tong_tra_m1 == ""){
+    $tong_tra_m1 = 0;
 }
-// hd ban
-$all_hd_thu_m1 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `tg_bd_thuc_hien` >= $day_start_t1 AND `tg_kt_thuc_hien` <= $day_end_t1 ");
-
-while ($hd_thu_m1 = mysql_fetch_assoc($all_hd_thu_m1->result)) {
-    $gia_tri_svat_m2 = $hd_thu_m1['gia_tri_svat'];
-    $tong_thu_m1 += $gia_tri_svat_m2;
+$tong_thu_m1 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
+                            AND `tg_bd_thuc_hien` >= $day_start_t1 AND `tg_kt_thuc_hien` <= $day_end_t1 ")) -> result)['gia_tri_s'];
+if ($tong_thu_m1 == "") {
+    $tong_thu_m1 = 0;
 }
-
 $day_start_t2 = strtotime('first day of February', time());
 $day_end_t2 = strtotime('last day of February', time());
 
-// hd mua
-$all_hd_tra_m2 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `tg_bd_thuc_hien` >= $day_start_t2 AND `tg_kt_thuc_hien` <= $day_end_t2 ");
-
-while ($hd_tra_m2 = mysql_fetch_assoc($all_hd_tra_m2->result)) {
-    $gia_tri_svat_m3 = $hd_tra_m2['gia_tri_svat'];
-    $tong_tra_m2 += $gia_tri_svat_m3;
+$tong_tra_m2 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
+                            AND `tg_bd_thuc_hien` >= $day_start_t2 AND `tg_kt_thuc_hien` <= $day_end_t2 ")) -> result)['gia_tri_s'];
+if ($tong_tra_m2 == "") {
+    $tong_tra_m2 = 0;
 }
-// hd ban
-$all_hd_thu_m2 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `tg_bd_thuc_hien` >= $day_start_t2 AND `tg_kt_thuc_hien` <= $day_end_t2 ");
-
-while ($hd_thu_m2 = mysql_fetch_assoc($all_hd_thu_m2->result)) {
-    $gia_tri_svat_m4 = $hd_thu_m2['gia_tri_svat'];
-    $tong_thu_m2 += $gia_tri_svat_m4;
+$tong_thu_m2 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
+                            AND `tg_bd_thuc_hien` >= $day_start_t2 AND `tg_kt_thuc_hien` <= $day_end_t2 ")) -> result)['gia_tri_s'];
+if ($tong_thu_m2 == "") {
+    $tong_thu_m2 = 0;
 }
 
 $day_start_t3 = strtotime('first day of March', time());
 $day_end_t3 = strtotime('last day of March', time());
 
-// hd mua
-$all_hd_tra_m3 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `tg_bd_thuc_hien` >= $day_start_t3 AND `tg_kt_thuc_hien` <= $day_end_t3 ");
-
-while ($hd_tra_m3 = mysql_fetch_assoc($all_hd_tra_m3->result)) {
-    $gia_tri_svat_m5 = $hd_tra_m3['gia_tri_svat'];
-    $tong_tra_m3 += $gia_tri_svat_m5;
+$tong_tra_m3 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
+                            AND `tg_bd_thuc_hien` >= $day_start_t3 AND `tg_kt_thuc_hien` <= $day_end_t3 ")) -> result)['gia_tri_s'];
+if ($tong_tra_m3 == "") {
+    $tong_tra_m3 = 0;
 }
-// hd ban
-$all_hd_thu_m3 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `tg_bd_thuc_hien` >= $day_start_t3 AND `tg_kt_thuc_hien` <= $day_end_t3 ");
-
-while ($hd_thu_m3 = mysql_fetch_assoc($all_hd_thu_m3->result)) {
-    $gia_tri_svat_m6 = $hd_thu_m3['gia_tri_svat'];
-    $tong_thu_m3 += $gia_tri_svat_m6;
+$tong_thu_m3 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
+                            AND `tg_bd_thuc_hien` >= $day_start_t3 AND `tg_kt_thuc_hien` <= $day_end_t3 ")) -> result)['gia_tri_s'];
+if ($tong_thu_m3 == "") {
+    $tong_thu_m3 = 0;
 }
 
 $day_start_t4 = strtotime('first day of April', time());
 $day_end_t4 = strtotime('last day of April', time());
 
-// hd mua
-$all_hd_tra_m4 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `tg_bd_thuc_hien` >= $day_start_t4 AND `tg_kt_thuc_hien` <= $day_end_t4 ");
-
-while ($hd_tra_m4 = mysql_fetch_assoc($all_hd_tra_m4->result)) {
-    $gia_tri_svat_m7 = $hd_tra_m4['gia_tri_svat'];
-    $tong_tra_m4 += $gia_tri_svat_m7;
+$tong_tra_m4 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
+                            AND `tg_bd_thuc_hien` >= $day_start_t4 AND `tg_kt_thuc_hien` <= $day_end_t4 ")) -> result)['gia_tri_s'];
+if ($tong_tra_m4 == "") {
+    $tong_tra_m4 = 0;
 }
-// hd ban
-$all_hd_thu_m4 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `tg_bd_thuc_hien` >= $day_start_t4 AND `tg_kt_thuc_hien` <= $day_end_t4 ");
-
-while ($hd_thu_m4 = mysql_fetch_assoc($all_hd_thu_m4->result)) {
-    $gia_tri_svat_m8 = $hd_thu_m4['gia_tri_svat'];
-    $tong_thu_m4 += $gia_tri_svat_m8;
+$tong_thu_m4 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
+                            AND `tg_bd_thuc_hien` >= $day_start_t4 AND `tg_kt_thuc_hien` <= $day_end_t4 ")) -> result)['gia_tri_s'];
+if ($tong_thu_m4 == "") {
+    $tong_thu_m4 = 0;
 }
 
 $day_start_t5 = strtotime('first day of May', time());
 $day_end_t5 = strtotime('last day of May', time());
 
-// hd mua
-$all_hd_tra_m5 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `tg_bd_thuc_hien` >= $day_start_t5 AND `tg_kt_thuc_hien` <= $day_end_t5 ");
-
-while ($hd_tra_m5 = mysql_fetch_assoc($all_hd_tra_m5->result)) {
-    $gia_tri_svat_m9 = $hd_tra_m5['gia_tri_svat'];
-    $tong_tra_m5 += $gia_tri_svat_m9;
+$tong_tra_m5 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
+                            AND `tg_bd_thuc_hien` >= $day_start_t5 AND `tg_kt_thuc_hien` <= $day_end_t5 ")) -> result)['gia_tri_s'];
+if ($tong_tra_m5 == "") {
+    $tong_tra_m5 = 0;
 }
-// hd ban
-$all_hd_thu_m5 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `tg_bd_thuc_hien` >= $day_start_t5 AND `tg_kt_thuc_hien` <= $day_end_t5 ");
-
-while ($hd_thu_m5 = mysql_fetch_assoc($all_hd_thu_m5->result)) {
-    $gia_tri_svat_m10 = $hd_thu_m5['gia_tri_svat'];
-    $tong_thu_m5 += $gia_tri_svat_m10;
+$tong_thu_m5 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
+                            AND `tg_bd_thuc_hien` >= $day_start_t5 AND `tg_kt_thuc_hien` <= $day_end_t5 ")) -> result)['gia_tri_s'];
+if ($tong_thu_m5 == "") {
+    $tong_thu_m5 = 0;
 }
 
 $day_start_t6 = strtotime('first day of June', time());
 $day_end_t6 = strtotime('last day of June', time());
 
-// hd mua
-$all_hd_tra_m6 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `tg_bd_thuc_hien` >= $day_start_t6 AND `tg_kt_thuc_hien` <= $day_end_t6 ");
-
-while ($hd_tra_m6 = mysql_fetch_assoc($all_hd_tra_m6->result)) {
-    $gia_tri_svat_m11 = $hd_tra_m6['gia_tri_svat'];
-    $tong_tra_m6 += $gia_tri_svat_m11;
+$tong_tra_m6 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
+                            AND `tg_bd_thuc_hien` >= $day_start_t6 AND `tg_kt_thuc_hien` <= $day_end_t6 ")) -> result)['gia_tri_s'];
+if ($tong_tra_m6 == "") {
+    $tong_tra_m6 = 0;
 }
-// hd ban
-$all_hd_thu_m6 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `tg_bd_thuc_hien` >= $day_start_t6 AND `tg_kt_thuc_hien` <= $day_end_t6 ");
-
-while ($hd_thu_m6 = mysql_fetch_assoc($all_hd_thu_m6->result)) {
-    $gia_tri_svat_m12 = $hd_thu_m6['gia_tri_svat'];
-    $tong_thu_m6 += $gia_tri_svat_m12;
+$tong_thu_m6 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
+                            AND `tg_bd_thuc_hien` >= $day_start_t6 AND `tg_kt_thuc_hien` <= $day_end_t6 ")) -> result)['gia_tri_s'];
+if ($tong_thu_m6 == "") {
+    $tong_thu_m6 = 0;
 }
 
 $day_start_t7 = strtotime('first day of July', time());
 $day_end_t7 = strtotime('last day of July', time());
 
-// hd mua
-$all_hd_tra_m7 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `tg_bd_thuc_hien` >= $day_start_t7 AND `tg_kt_thuc_hien` <= $day_end_t7 ");
-
-while ($hd_tra_m7 = mysql_fetch_assoc($all_hd_tra_m7->result)) {
-    $gia_tri_svat_m13 = $hd_tra_m7['gia_tri_svat'];
-    $tong_tra_m7 += $gia_tri_svat_m13;
+$tong_tra_m7 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
+                            AND `tg_bd_thuc_hien` >= $day_start_t7 AND `tg_kt_thuc_hien` <= $day_end_t7 ")) -> result)['gia_tri_s'];
+if ($tong_tra_m7 == "") {
+    $tong_tra_m7 = 0;
 }
-// hd ban
-$all_hd_thu_m7 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `tg_bd_thuc_hien` >= $day_start_t7 AND `tg_kt_thuc_hien` <= $day_end_t7 ");
-
-while ($hd_thu_m7 = mysql_fetch_assoc($all_hd_thu_m7->result)) {
-    $gia_tri_svat_m14 = $hd_thu_m7['gia_tri_svat'];
-    $tong_thu_m7 += $gia_tri_svat_m14;
+$tong_thu_m7 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
+                            AND `tg_bd_thuc_hien` >= $day_start_t7 AND `tg_kt_thuc_hien` <= $day_end_t7 ")) -> result)['gia_tri_s'];
+if ($tong_thu_m7 == "") {
+    $tong_thu_m7 = 0;
 }
 
 $day_start_t8 = strtotime('first day of August', time());
 $day_end_t8 = strtotime('last day of August', time());
 
-// hd mua
-$all_hd_tra_m8 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `tg_bd_thuc_hien` >= $day_start_t8 AND `tg_kt_thuc_hien` <= $day_end_t8 ");
-
-while ($hd_tra_m8 = mysql_fetch_assoc($all_hd_tra_m8->result)) {
-    $gia_tri_svat_m15 = $hd_tra_m8['gia_tri_svat'];
-    $tong_tra_m8 += $gia_tri_svat_m15;
+$tong_tra_m8 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
+                            AND `tg_bd_thuc_hien` >= $day_start_t8 AND `tg_kt_thuc_hien` <= $day_end_t8 ")) -> result)['gia_tri_s'];
+if ($tong_tra_m8 == "") {
+    $tong_tra_m8 = 0;
 }
-// hd ban
-$all_hd_thu_m8 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `tg_bd_thuc_hien` >= $day_start_t8 AND `tg_kt_thuc_hien` <= $day_end_t8 ");
-
-while ($hd_thu_m8 = mysql_fetch_assoc($all_hd_thu_m8->result)) {
-    $gia_tri_svat_m16 = $hd_thu_m8['gia_tri_svat'];
-    $tong_thu_m8 += $gia_tri_svat_m16;
+$tong_thu_m8 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
+                            AND `tg_bd_thuc_hien` >= $day_start_t8 AND `tg_kt_thuc_hien` <= $day_end_t8 ")) -> result)['gia_tri_s'];
+if ($tong_thu_m8 == "") {
+    $tong_thu_m8 = 0;
 }
 
 $day_start_t9 = strtotime('first day of September', time());
 $day_end_t9 = strtotime('last day of September', time());
 
-// hd mua
-$all_hd_tra_m9 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `tg_bd_thuc_hien` >= $day_start_t9 AND `tg_kt_thuc_hien` <= $day_end_t9 ");
-
-while ($hd_tra_m9 = mysql_fetch_assoc($all_hd_tra_m9->result)) {
-    $gia_tri_svat_m17 = $hd_tra_m9['gia_tri_svat'];
-    $tong_tra_m9 += $gia_tri_svat_m17;
+$tong_tra_m9 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
+                            AND `tg_bd_thuc_hien` >= $day_start_t9 AND `tg_kt_thuc_hien` <= $day_end_t9 ")) -> result)['gia_tri_s'];
+if ($tong_tra_m9 == "") {
+    $tong_tra_m9 = 0;
 }
-// hd ban
-$all_hd_thu_m9 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `tg_bd_thuc_hien` >= $day_start_t9 AND `tg_kt_thuc_hien` <= $day_end_t9 ");
-
-while ($hd_thu_m9 = mysql_fetch_assoc($all_hd_thu_m9->result)) {
-    $gia_tri_svat_m18 = $hd_thu_m9['gia_tri_svat'];
-    $tong_thu_m9 += $gia_tri_svat_m18;
+$tong_thu_m9 = mysql_fetch_assoc((new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
+                            AND `tg_bd_thuc_hien` >= $day_start_t9 AND `tg_kt_thuc_hien` <= $day_end_t9 ")) -> result)['gia_tri_s'];
+if ($tong_thu_m9 == "") {
+    $tong_thu_m9 = 0;
 }
 
 $day_start_t10 = strtotime('first day of October', time());
 $day_end_t10 = strtotime('last day of October', time());
 
-// hd mua
-$all_hd_tra_m10 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `tg_bd_thuc_hien` >= $day_start_t10 AND `tg_kt_thuc_hien` <= $day_end_t10 ");
-
-while ($hd_tra_m10 = mysql_fetch_assoc($all_hd_tra_m10->result)) {
-    $gia_tri_svat_m19 = $hd_tra_m10['gia_tri_svat'];
-    $tong_tra_m10 += $gia_tri_svat_m19;
+$tong_tra_m10 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
+                            AND `tg_bd_thuc_hien` >= $day_start_t10 AND `tg_kt_thuc_hien` <= $day_end_t10 ")) -> result)['gia_tri_s'];
+if ($tong_tra_m10 == "") {
+    $tong_tra_m10 = 0;
 }
-// hd ban
-$all_hd_thu_m10 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `tg_bd_thuc_hien` >= $day_start_t10 AND `tg_kt_thuc_hien` <= $day_end_t10 ");
-
-while ($hd_thu_m10 = mysql_fetch_assoc($all_hd_thu_m10->result)) {
-    $gia_tri_svat_m20 = $hd_thu_m10['gia_tri_svat'];
-    $tong_thu_m10 += $gia_tri_svat_m20;
+$tong_thu_m10 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
+                            AND `tg_bd_thuc_hien` >= $day_start_t10 AND `tg_kt_thuc_hien` <= $day_end_t10 ")) -> result)['gia_tri_s'];
+if ($tong_thu_m10 == "") {
+    $tong_thu_m10 = 0;
 }
 
 $day_start_t11 = strtotime('first day of November', time());
 $day_end_t11 = strtotime('last day of November', time());
 
-// hd mua
-$all_hd_tra_m11 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `tg_bd_thuc_hien` >= $day_start_t11 AND `tg_kt_thuc_hien` <= $day_end_t11 ");
-
-while ($hd_tra_m11 = mysql_fetch_assoc($all_hd_tra_m11->result)) {
-    $gia_tri_svat_m21 = $hd_tra_m11['gia_tri_svat'];
-    $tong_tra_m11 += $gia_tri_svat_m21;
+$tong_tra_m11 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
+                            AND `tg_bd_thuc_hien` >= $day_start_t11 AND `tg_kt_thuc_hien` <= $day_end_t11 ")) -> result)['gia_tri_s'];
+if ($tong_tra_m11 == "") {
+    $tong_tra_m11 = 0;
 }
-// hd ban
-$all_hd_thu_m11 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `tg_bd_thuc_hien` >= $day_start_t11 AND `tg_kt_thuc_hien` <= $day_end_t11 ");
-
-while ($hd_thu_m11 = mysql_fetch_assoc($all_hd_thu_m11->result)) {
-    $gia_tri_svat_m22 = $hd_thu_m11['gia_tri_svat'];
-    $tong_thu_m11 += $gia_tri_svat_m22;
+$tong_thu_m11 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
+                            AND `tg_bd_thuc_hien` >= $day_start_t11 AND `tg_kt_thuc_hien` <= $day_end_t11 ")) -> result)['gia_tri_s'];
+if ($tong_thu_m11 == "") {
+    $tong_thu_m11 = 0;
 }
 
 $day_start_t12 = strtotime('first day of December', time());
 $day_end_t12 = strtotime('last day of December', time());
 
-// hd mua
-$all_hd_tra_m12 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `tg_bd_thuc_hien` >= $day_start_t12 AND `tg_kt_thuc_hien` <= $day_end_t12 ");
-
-while ($hd_tra_m12 = mysql_fetch_assoc($all_hd_tra_m12->result)) {
-    $gia_tri_svat_m23 = $hd_tra_m12['gia_tri_svat'];
-    $tong_tra_m12 += $gia_tri_svat_m23;
+$tong_tra_m12 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
+                            AND `tg_bd_thuc_hien` >= $day_start_t12 AND `tg_kt_thuc_hien` <= $day_end_t12 ")) -> result)['gia_tri_s'];
+if ($tong_tra_m12 == "") {
+    $tong_tra_m12 = 0;
 }
-// hd ban
-$all_hd_thu_m12 = new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `tg_bd_thuc_hien` >= $day_start_t12 AND `tg_kt_thuc_hien` <= $day_end_t12 ");
-
-while ($hd_thu_m12 = mysql_fetch_assoc($all_hd_thu_m12->result)) {
-    $gia_tri_svat_m24 = $hd_thu_m12['gia_tri_svat'];
-    $tong_thu_m12 += $gia_tri_svat_m24;
+$tong_thu_m12 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
+                            AND `tg_bd_thuc_hien` >= $day_start_t12 AND `tg_kt_thuc_hien` <= $day_end_t12 ")) -> result)['gia_tri_s'];
+if ($tong_thu_m12 == "") {
+    $tong_thu_m12 = 0;
 }
 
 ?>

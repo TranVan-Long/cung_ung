@@ -8,10 +8,13 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['com_id'];
+        $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
-
+        $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 2;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `danh_gia_ncc` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
@@ -27,7 +30,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $id = $_GET['id'];
-    $list_dg = mysql_fetch_assoc((new db_query("SELECT `id`, `ngay_danh_gia`, `nguoi_danh_gia`, `phong_ban`, `id_nha_cc`, `danh_gia_khac`,
+    $list_dg = mysql_fetch_assoc((new db_query("SELECT `id`, `ngay_danh_gia`, `nguoi_danh_gia`, `phong_ban`, `id_nha_cc`, `danh_gia_khac`,`quyen_nlap`,
                             `tong_diem` FROM `danh_gia` WHERE `id`='$id' AND `id_cong_ty` = $com_id "))->result);
 
     $id_ncc = $list_dg['id_nha_cc'];
@@ -51,15 +54,12 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             $item1 = $data_list_nv[$i];
             $user[$item1["ep_id"]] = $item1;
         }
-
-        $ep_name = $user[$list_dg['nguoi_danh_gia']]['ep_name'];
-        $phong_ban = $user[$list_dg['nguoi_danh_gia']]['dep_name'];
     }
 
-    $list_nhacc = new db_query("SELECT `id`, `ten_nha_cc_kh`, `phan_loai` FROM `nha_cc_kh` WHERE `phan_loai` = 1 ");
+    $list_nhacc = new db_query("SELECT `id`, `ten_nha_cc_kh`, `phan_loai` FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ");
 
     $list_ncc = mysql_fetch_assoc((new db_query("SELECT `id`, `ten_nha_cc_kh`, `dia_chi_lh`, `sp_cung_ung`, `phan_loai`
-                                                FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id` = '$id_ncc' "))->result);
+                                                FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id` = '$id_ncc' AND `id_cong_ty` = $com_id "))->result);
 
     $list_ctiet_dg = new db_query(" SELECT c.`id`, c.`id_danh_gia`, c.`id_tieu_chi`, c.`diem_danh_gia`, c.`tong_diem_danh_gia`, c.`danh_gia_chi_tiet`, t.`he_so`, t.`kieu_gia_tri`
                                     FROM `chi_tiet_danh_gia` AS c
@@ -107,7 +107,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 </div>
                 <form class="main-form" data="<?= $com_id ?>" data1="<?= $_COOKIE['user'] ?>">
                     <div class="w-100 left mt-10">
-                        <div class="form-control edit-form">
+                        <div class="form-control edit-form" data="<?= $phan_quyen_nk ?>">
                             <div class="form-row left">
                                 <div class="form-col-50 no-border left mb_15">
                                     <label>Số phiếu</label>
@@ -121,17 +121,26 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             <div class="form-row left">
                                 <div class="form-col-50 no-border left mb_15">
                                     <label>Người đánh giá<span class="text-red">&ast;</span></label>
-                                    <input type="text" name="nguoi_danh_gia" placeholder="Nhập người đánh giá" value="<?= $ep_name ?>" readonly>
+                                    <? if ($list_dg['quyen_nlap'] == 1) { ?>
+                                        <input type="text" name="nguoi_danh_gia" placeholder="Nhập người đánh giá" value="<?= $com_name ?>" readonly>
+                                    <? } else if ($list_dg['quyen_nlap'] == 2) { ?>
+                                        <input type="text" name="nguoi_danh_gia" placeholder="Nhập người đánh giá" value="<?= $user[$list_dg['nguoi_danh_gia']]['ep_name'] ?>" readonly>
+                                    <? } ?>
                                 </div>
                                 <div class="form-col-50 no-border right mb_15">
                                     <label>Phòng ban</label>
-                                    <input type="text" name="phong_ban" placeholder="Nhập phòng ban" value="<?= $phong_ban ?>" readonly>
+                                    <? if ($list_dg['quyen_nlap'] == 1) { ?>
+                                        <input type="text" name="phong_ban" placeholder="Nhập phòng ban" value="" readonly>
+                                    <? } else if ($list_dg['quyen_nlap'] == 2) { ?>
+                                        <input type="text" name="phong_ban" placeholder="Nhập phòng ban" value="<?= $user[$list_dg['nguoi_danh_gia']]['dep_name'] ?>" readonly>
+                                    <? } ?>
                                 </div>
                             </div>
                             <div class="form-row left">
                                 <div class="form-col-50 no-border left mb_15 v-select2">
                                     <label for="nha-cung-cap">Nhà cung cấp<span class="text-red">&ast;</span></label>
                                     <select class="share_select" name="nha_cung_cap" id="nha-cung-cap">
+                                        <option value="">Chọn nhà cung cấp</option>
                                         <? while ($row = mysql_fetch_assoc($list_nhacc->result)) { ?>
                                             <option value="<?= $row['id'] ?>" <?= ($row['id'] == $list_dg['id_nha_cc']) ? "selected" : "" ?>><?= $row['ten_nha_cc_kh'] ?></option>
                                         <? } ?>
@@ -159,7 +168,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             <div class="form-row left">
                                 <div class="form-col-50 no-border left mb_15">
                                     <p>Điểm đánh giá</p>
-                                    <input type="text" name="tongd_dg" id="tongd_dg" class="hidden_bd" readonly>
+                                    <input type="text" name="tongd_dg" id="tongd_dg" value="<?= $list_ncc['tong_diem'] ?>" class="hidden_bd" readonly>
                                 </div>
                             </div>
                             <div class="form-row left">
@@ -253,7 +262,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                             <input type="text" name="tongdiem_dg" class="hidden_bd tdiem_dg" value="<?= $row['tong_diem_danh_gia'] ?>" readonly>
                                                         </td>
                                                         <td class="w-15">
-                                                            <input type="text" name="dgia_ctiet" value="<?= ($row['danh_gia_chi_tiet'] == 'NULL') ? "" : $row['danh_gia_chi_tiet'] ?>">
+                                                            <input type="text" name="dgia_ctiet" value="<?= ($row['danh_gia_chi_tiet'] == '0') ? "" : $row['danh_gia_chi_tiet'] ?>">
                                                         </td>
                                                     </tr>
                                                 <? } ?>
@@ -443,6 +452,8 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             var id_dg = $(this).attr("data-id");
             var user_id = $(".main-form").attr("data1");
             var com_id = $(".main-form").attr("data");
+            var phan_quyen_nk = $(".edit-form").attr("data");
+            var tong_diem = $("#tongd_dg").val();
 
             // danh gia cu
             var id = [];
@@ -481,7 +492,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             $("input[name='dgia_ctiet']").each(function() {
                 var dg_ctiet = $(this).val();
                 if (dg_ctiet == "") {
-                    dg_ctiet = "NULL";
+                    dg_ctiet = 0;
                     ct.push(dg_ctiet);
                 } else {
                     ct.push(dg_ctiet);
@@ -533,7 +544,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             $("input[name='dg_ctiet']").each(function() {
                 var new_dg_ctiet = $(this).val();
                 if (new_dg_ctiet == "") {
-                    new_dg_ctiet = "NULL";
+                    new_dg_ctiet = 0;
                     n_ct.push(new_dg_ctiet);
                 } else {
                     n_ct.push(new_dg_ctiet);
@@ -549,6 +560,8 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     id_dg: id_dg,
                     nha_cc: nha_cc,
                     dg_khac: dg_khac,
+                    phan_quyen_nk: phan_quyen_nk,
+                    tong_diem: tong_diem,
 
                     id: id,
                     id_tc: tc,
@@ -565,13 +578,12 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 
                 },
                 success: function(data) {
-                    // if (data == "") {
-                    //     alert("Bạn sửa đánh giá thành công");
-                    //     window.location.href = '/danh-gia-nha-cung-cap.html';
-                    // } else {
-                    //     alert(data);
-                    // }
-                    console.log(data);
+                    if (data == "") {
+                        alert("Bạn sửa đánh giá thành công");
+                        window.location.href = '/danh-gia-nha-cung-cap.html';
+                    } else {
+                        alert(data);
+                    }
                 }
             })
         }

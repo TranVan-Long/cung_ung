@@ -21,9 +21,23 @@ $bao_hanh               = $_POST['bao_hanh'];
 $gt_bao_hanh            = $_POST['gt_bao_hanh'];
 $bao_lanh               = $_POST['bao_lanh'];
 $gt_bao_lanh            = $_POST['gt_bao_lanh'];
-$han_bao_lanh           = strtotime($_POST['han_bao_lanh']);
-$ngay_bat_dau           = strtotime($_POST['ngay_bat_dau']);
-$ngay_ket_thuc          = strtotime($_POST['ngay_ket_thuc']);
+if ($_POST['han_bao_lanh'] != "") {
+    $han_bao_lanh = strtotime($_POST['han_bao_lanh']);
+} else {
+    $han_bao_lanh = 0;
+}
+
+if ($_POST['ngay_bat_dau'] != "") {
+    $ngay_bat_dau = strtotime($_POST['ngay_bat_dau']);
+} else {
+    $ngay_bat_dau = 0;
+}
+
+if ($_POST['ngay_ket_thuc'] != "") {
+    $ngay_ket_thuc = strtotime($_POST['ngay_ket_thuc']);
+} else {
+    $ngay_ket_thuc = 0;
+}
 $bao_gom_van_chuyen     = $_POST['bao_gom_van_chuyen'];
 $yc_tiendo              = $_POST['yc_tiendo'];
 $noi_dung_hd            = $_POST['noi_dung_hd'];
@@ -66,8 +80,8 @@ if ($id_nha_cung_cap != "") {
         $noi_dung = 'Bạn đã chỉnh sửa hợp đồng mua vật tư: HĐ - ' . $hd_id;
         $ngay_tao = strtotime(date('Y-m-d', time()));
         $gio_tao = strtotime(date('H:i:s', time()));
-        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`)
-                          VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung')");
+        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
+                          VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung','$com_id')");
     } else {
         echo "Thêm ít nhất một vật tư.";
     }

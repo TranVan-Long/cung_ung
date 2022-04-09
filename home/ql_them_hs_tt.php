@@ -9,15 +9,17 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['com_id'];
         $com_name = $_SESSION['com_name'];
         $user_id = $_SESSION['com_id'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $com_name = $_SESSION['com_name'];
         $user_id = $_SESSION['ep_id'];
+        $phan_quyen_nk = 2;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `ho_so_tt` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $hs_tt = explode(',', $item_nv['ho_so_tt']);
-            if (in_array(2, $hs_tt) == FALSE) {
+            $hs_tt3 = explode(',', $item_nv['ho_so_tt']);
+            if (in_array(2, $hs_tt3) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -82,7 +84,7 @@ $vat_tu_data = $list_vt['data']['items'];
                     <div class="chi_tiet_hd w_100 float_l">
                         <a class="prew_href share_fsize_one share_clr_one" href="quan-ly-ho-so-thanh-toan.html">Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Tạo hồ sơ thanh toán</h4>
-                        <div class="ctiet_dk_hp w_100 float_l">
+                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $phan_quyen_nk ?>">
                             <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_id ?>" data1="<?= $com_name ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
@@ -124,207 +126,7 @@ $vat_tu_data = $list_vt['data']['items'];
                                 </div>
                                 <div class="table-wrapper mt-10 them_moi_vt">
                                     <div class="table-container table-3900 ds_vat_tu" data="<?= $user_id ?>">
-                                        <!-- <div class="tbl-header">
-                                            <table>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="w-10" rowspan="2">STT</th>
-                                                        <th class="w-20" rowspan="2">Tên vật tư</th>
-                                                        <th class="w-10" rowspan="2">Hãng sản xuất</th>
-                                                        <th class="w-10" rowspan="2">Xuất xứ</th>
-                                                        <th class="w-10" rowspan="2">Đơn vị tính</th>
-                                                        <th class="w-30 border-bottom-w" colspan="3" scope="colgroup">Đơn hàng</th>
-                                                        <th class="w-30 border-bottom-w" colspan="3" scope="colgroup">Khối lượng thực hiện</th>
-                                                        <th class="w-30 border-bottom-w" colspan="3" scope="colgroup">Giá trị thực hiện</th>
-                                                        <th class="w-5" rowspan="2">% Thực hiện</th>
-                                                        <th class="w-20 border-bottom-w" colspan="2" scope="colgroup">Giá trị thực hiện</th>
 
-                                                    </tr>
-                                                    <tr class="border-top-w">
-                                                        <th scope="colgroup">Số lượng</th>
-                                                        <th scope="colgroup">Đơn giá(VNĐ)</th>
-                                                        <th scope="colgroup">Giá trị(VNĐ)</th>
-                                                        <th scope="colgroup">Lũy kế kỳ trước</th>
-                                                        <th scope="colgroup">Kỳ này</th>
-                                                        <th scope="colgroup">Lũy kế đến nay</th>
-                                                        <th scope="colgroup">Lũy kế kỳ trước(VNĐ)</th>
-                                                        <th scope="colgroup">Kỳ này(VNĐ)</th>
-                                                        <th scope="colgroup">Lũy kế đến nay(VNĐ)</th>
-                                                        <th scope="colgroup">Số lượng</th>
-                                                        <th scope="colgroup">Giá trị(VNĐ)</th>
-
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                        <div class="tbl-content table-2-row">
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="w-10">1</td>
-                                                        <td class="w-20">Thép</td>
-                                                        <td class="w-10">Vina hey</td>
-                                                        <td class="w-10">Việt Nam</td>
-                                                        <td class="w-10">Lọ</td>
-                                                        <td class="w-10">
-                                                            <p>10</p>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <p>10.000</p>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <p>100.000</p>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="kl_luy_ke_ky_truoc" value="0" readonly>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="kl_luy_ke_ky_nay">
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="kl_luy_ke_den_nay" value="0" readonly>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="gt_luy_ke_ky_truoc" value="0" readonly>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="gt_luy_ke_ky_nay">
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="gt_luy_ke_den_nay" readonly>
-                                                        </td>
-                                                        <td class="w-5">
-                                                            <input type="text" name="phan_tram_thuc_hien" readonly>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="con_lai_so_luong" readonly>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="con_lai_gia_tri" readonly>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="w-10">2</td>
-                                                        <td class="w-20">Antimatter</td>
-                                                        <td class="w-10">ISVN</td>
-                                                        <td class="w-10">Lào</td>
-                                                        <td class="w-10">Hạt</td>
-                                                        <td class="w-10">
-                                                            <p>10</p>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <p>10.000</p>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <p>100.000</p>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="kl_luy_ke_ky_truoc" value="0" readonly>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="kl_luy_ke_ky_nay">
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="kl_luy_ke_den_nay" value="0" readonly>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="gt_luy_ke_ky_truoc" value="0" readonly>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="gt_luy_ke_ky_nay">
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="gt_luy_ke_den_nay" readonly>
-                                                        </td>
-                                                        <td class="w-5">
-                                                            <input type="text" name="phan_tram_thuc_hien" readonly>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="con_lai_so_luong" readonly>
-                                                        </td>
-                                                        <td class="w-10">
-                                                            <input type="text" name="con_lai_gia_tri" readonly>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="bg-ed">
-                                                        <td class="w-10 text-bold">Tổng cộng trước VAT</td>
-                                                        <td class="w-20"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10">100.000</td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10">100.000(1)</td>
-                                                        <td class="w-10">90.000</td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-5"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                    </tr>
-                                                    <tr class="bg-ed">
-                                                        <td class="w-10 text-bold">Thuế VAT</td>
-                                                        <td class="w-20"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10">10.000</td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10">100.000(2)</td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-5"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                    </tr>
-                                                    <tr class="bg-ed">
-                                                        <td class="w-10 text-bold">Chi phí khác</td>
-                                                        <td class="w-20"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10">Nhập chi phí khác(3)</td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-5"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                    </tr>
-                                                    <tr class="bg-ed">
-                                                        <td class="w-10 text-bold">Tổng cộng sau VAT</td>
-                                                        <td class="w-20"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10">Tổng tiền = 1+2+3</td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-5"></td>
-                                                        <td class="w-10"></td>
-                                                        <td class="w-10"></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="form-button w_100">
@@ -436,9 +238,7 @@ $vat_tu_data = $list_vt['data']['items'];
             }
         });
 
-        if (loai_hs != "") {
-            $(".table-wrapper").css("border", "1px solid #474747");
-        } else {
+        if (loai_hs == "") {
             $(".table-wrapper").css("border", "none");
         }
     });
@@ -526,6 +326,7 @@ $vat_tu_data = $list_vt['data']['items'];
             var thoi_han_tt = $("input[name='thoih_ttoan']").val();
             var com_id = $(".form_add_hp_mua").attr("data");
             var user_id = $(".ds_vat_tu").attr("data");
+            var phan_quyen_nk = $(".ctiet_dk_hp").attr("data");
 
             var id_vt = [];
             $(".vat_tu_dh").each(function() {
@@ -580,6 +381,7 @@ $vat_tu_data = $list_vt['data']['items'];
                     chi_phi_khac: chi_phi_khac,
                     tien_thue: tien_thue,
                     tien_svat: tien_svat,
+                    phan_quyen_nk: phan_quyen_nk,
                 },
                 success: function(data) {
                     if (data == "") {

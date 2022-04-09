@@ -7,15 +7,18 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['com_id'];
         $com_name = $_SESSION['com_name'];
         $user_id = $_SESSION['com_id'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $com_name = $_SESSION['com_name'];
         $user_id = $_SESSION['ep_id'];
+        $phan_quyen_nk = 2;
+
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `phieu_tt` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
-            $phieu_tt = explode(',', $item_nv['phieu_tt']);
-            if (in_array(1, $phieu_tt) == FALSE) {
+            $phieu_tt3 = explode(',', $item_nv['phieu_tt']);
+            if (in_array(3, $phieu_tt3) == FALSE) {
                 header('Location: /quan-ly-trang-chu.html');
             }
         } else {
@@ -27,13 +30,14 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 $id  = getValue('id', 'int', 'GET', '');
 if ($id != "") {
     $list_ptt = new db_query("SELECT p.`id_hd_dh`, p.`id_ncc_kh`, p.`loai_phieu_tt`, p.`ngay_thanh_toan`, p.`hinh_thuc_tt`, p.`loai_thanh_toan`, p.`phan_loai`,
-                            p.`nguoi_nhan_tien`, p.`so_tien`, p.`ty_gia`, p.`phi_giao_dich`, p.`gia_tri_quy_doi`, p.`trang_thai`, p.`id_nguoi_lap`,
+                            p.`nguoi_nhan_tien`, p.`so_tien`, p.`ty_gia`, p.`phi_giao_dich`, p.`gia_tri_quy_doi`, p.`trang_thai`, p.`ngay_tao`, p.`id_nguoi_lap`,
                             n.`id`, n.`ten_nha_cc_kh`
                             FROM `phieu_thanh_toan` AS p
                             INNER JOIN `nha_cc_kh` AS n ON p.`id_ncc_kh` = n.`id`
                             WHERE p.`id` = $id AND p.`id_cong_ty` = $com_id ");
     $item = mysql_fetch_assoc($list_ptt->result);
     $id_hd_dh = $item['id_hd_dh'];
+    $ngay_tao_phieu = $item['ngay_tao'];
 
     $loai_phieu_tt = $item['loai_phieu_tt'];
     if ($loai_phieu_tt == 1) {
@@ -87,11 +91,11 @@ if ($id != "") {
             <div class="content">
                 <div class="ctn_ctiet_hd w_100 float_l">
                     <div class="chi_tiet_hd mt_25 w_100 float_l">
-                        <a class="prew_href share_fsize_one share_clr_one" href="quan-ly-hop-dong.html">
+                        <a class="prew_href share_fsize_one share_clr_one" href="chi-tiet-phieu-thanh-toan-<?= $id ?>.html">
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">
                             Chỉnh sửa phiếu thanh toán </h4>
-                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $id ?>">
+                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $id ?>" data1="<?= $com_name ?>">
                             <form class="form_add_hp_mua share_distance w_100 float_l" data="<?= $com_id ?>" data1="<?= $user_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
@@ -123,12 +127,11 @@ if ($id != "") {
                                                     <option value="<?= $row_hs['id_hd_dh'] ?>" <?= ($row_hs['id_hd_dh'] == $item['id_hd_dh']) ? "selected" : "" ?>> ĐH - <?= $row_hs['id_hd_dh'] ?></option>
                                             <? }
                                             } ?>
-
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
-                                    <div class="form-group">
+                                    <div class="form-group nha_cc_kh">
                                         <? if ($item['phan_loai'] == 1 || $item['phan_loai'] == 3 || $item['phan_loai'] == 4 || $item['phan_loai'] == 5) { ?>
                                             <label>Nhà cung cấp</label>
                                             <input type="text" name="khachh_nhacc" value="<?= $item['ten_nha_cc_kh'] ?>" data="<?= $item['id'] ?>" data1="<?= $item['phan_loai'] ?>" class="form-control cr_weight h_border">
@@ -152,9 +155,9 @@ if ($id != "") {
                                             <option value="3" <?= ($item['hinh_thuc_tt'] == 3) ? "selected" : "" ?>>Chuyển khoản</option>
                                         </select>
                                     </div>
-                                    <div class="form-group share_form_select">
+                                    <div class="form-group share_form_select loai_thanht">
                                         <label>Loại thanh toán</label>
-                                        <select name="lthanh_toan" class="form-control loai_thanh_toan" data="<?= $com_id ?>" onchange="loai_tt_doi(this)">
+                                        <select name="lthanh_toan" class="form-control all_ltt" data="<?= $com_id ?>" onchange="loai_tt_doi(this)">
                                             <option value="">-- Chọn loại thanh toán --</option>
                                             <option value="1" <?= ($item['loai_thanh_toan'] == 1) ? "selected" : "" ?>>Tạm ứng</option>
                                             <option value="2" <?= ($item['loai_thanh_toan'] == 2) ? "selected" : "" ?>>Theo hợp đồng</option>
@@ -208,7 +211,8 @@ if ($id != "") {
                                 <div class="form-them-nganh w_100 float_l">
                                     <? if ($item['hinh_thuc_tt'] == 2 || $item['hinh_thuc_tt'] == 3) {
                                         $tai_khoan = new db_query("SELECT `id`, `ten_ngan_hang`, `ten_chi_nhanh`, `so_tk`, `chu_tk`
-                                            FROM `tai_khoan_thanh_toan` WHERE `id_phieu_tt` = $id  "); ?>
+                                                                    FROM `tai_khoan_thanh_toan` WHERE `id_phieu_tt` = $id  ");
+                                    ?>
                                         <div class="ctie_form_nhang w_100 float_l">
                                             <div class="tieu_de w_100 float_l d_flex fl_wrap mb_10">
                                                 <p class="mr_30 share_fsize_tow share_clr_one cr_weight cate_bank">Danh sách tài khoản ngân hàng</p>
@@ -218,10 +222,9 @@ if ($id != "") {
                                                 <div class="tien_chi_tra w_100 float_l d_flex fl_agi">
                                                     <div class="form-ctra w_100 float_l">
                                                         <div class="form-row">
-                                                            <div class="form-group share_form_select">
+                                                            <div class="form-group ">
                                                                 <label>Tên ngân hàng <span class="cr_red">*</span></label>
                                                                 <input name="ten_nhanhang" class="form-control" type="text" value="<?= $row1['ten_ngan_hang'] ?>">
-                                                                <input name="id_stk" type="hidden" value="<?= $row1['id'] ?>">
                                                             </div>
                                                             <div class="form-group share_form_select">
                                                                 <label>Chi nhánh <span class="cr_red">*</span></label>
@@ -235,7 +238,7 @@ if ($id != "") {
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Chủ tài khoản </label>
-                                                                <input type="text" name="chu_taik" class="form-control" value="<?= $row1['chu_tk'] ?>">
+                                                                <input type="text" name="chu_taik" class="form-control" value="<?= ($row1['chu_tk'] != 0) ? $row1['chu_tk'] : "" ?>">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -243,67 +246,104 @@ if ($id != "") {
                                                 </div>
                                             <? } ?>
                                         </div>
-                                </div>
-                            <? } else if ($item['hinh_thuc_tt'] == 1) {
+                                    <? } else if ($item['hinh_thuc_tt'] == 1) {
                                         echo "";
                                     } ?>
-                        </div>
-                        <div class="them_moi_vt w_100 float_l">
-                            <? if ($item['loai_thanh_toan'] == 2) {
-                                $list_hs = new db_query("SELECT `id`, `id_phieu_tt`, `id_hd_dh`, `id_hs`, `da_thanh_toan`
-                                                                FROM `chi_tiet_phieu_tt_vt` WHERE `id_cong_ty` = $com_id AND `id_phieu_tt` = $id
-                                                                AND `id_hd_dh` = $id_hd_dh ");
-                            ?>
-
-                                <div class="ctn_table w_100 float_l">
-                                    <table class="table" data="<?= $id ?>">
-                                        <thead>
-                                            <tr>
-                                                <th class="share_tb_five">Hồ sơ thanh toán</th>
-                                                <th class="share_tb_five">Giá trị còn phải thanh toán</th>
-                                                <th class="share_tb_five">Thời hạn thanh toán</th>
-                                                <th class="share_tb_five">Thanh toán</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="sh_bgr_four">
-                                                <td class="tex_left share_clr_four cr_weight share_h_52 share_tb_five">Tổng</td>
-                                                <td class="share_clr_four cr_weight share_tb_five"></td>
-                                                <td class="share_tb_five"></td>
-                                                <td class="share_clr_four cr_weight share_tb_five sum_tatca"></td>
-                                            </tr>
-                                            <? while ($row1 = mysql_fetch_assoc($list_hs->result)) {
-                                                $id_hs = $row1['id_hs'];
-                                                $than_tient = mysql_fetch_assoc((new db_query("SELECT `thoi_han_thanh_toan`, `tong_tien_tatca` FROM `ho_so_thanh_toan`
-                                                                        WHERE `id` = $id_hs AND `id_cong_ty` = $com_id "))->result);
-                                                $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`da_thanh_toan`) AS sumtt FROM `chi_tiet_phieu_tt_vt`
-                                                                        WHERE `id_hs` = $id_hs AND `id_cong_ty` = $com_id AND `id_phieu_tt` != $id "))->result); ?>
-
-                                                <tr>
-                                                    <td class="tex_left share_h_52 share_tb_five ho_so" data="<?= $row1['id_hs'] ?>" data1="<?= $row1['id'] ?>">HS - <?= $row1['id_hs'] ?></td>
-                                                    <td class="share_tb_five tongtien" data="<?= $row1['tong_tien_tatca'] ?>"><?= $than_tient['tong_tien_tatca'] - $tong_tien['sumtt'] ?></td>
-                                                    <td class="share_tb_five"><?= ($than_tient['thoi_han_thanh_toan'] == 0) ? "" : date('d/m/Y', $than_tient['thoi_han_thanh_toan']) ?></td>
-                                                    <td class="share_tb_five">
-                                                        <div class="form-group">
-                                                            <input type="text" name="so_tien_ctra" data="<?= $row1['da_thanh_toan'] ?>" value="<?= $row1['da_thanh_toan'] ?>" onkeyup=" change_tien(this)" class="form-control tex_center">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <? } ?>
-                                        </tbody>
-                                    </table>
                                 </div>
-                            <? } else if ($item['loai_thanh_toan'] == 1) {
-                                echo "";
-                            } ?>
+                                <div class="them_moi_vt w_100 float_l">
+                                    <? if ($item['loai_thanh_toan'] == 2) {
+                                        $list_hs = new db_query("SELECT `id`, `id_phieu_tt`, `id_hd_dh`, `id_hs`, `da_thanh_toan`
+                                                                        FROM `chi_tiet_phieu_tt_vt` WHERE `id_cong_ty` = $com_id AND `id_phieu_tt` = $id
+                                                                        AND `id_hd_dh` = $id_hd_dh ");
+
+                                        $tong_tatca = mysql_fetch_assoc((new db_query("SELECT SUM(`tong_tien_tatca`) AS tongtien FROM `ho_so_thanh_toan`
+                                                                                    WHERE `id_cong_ty` = $com_id AND `id_hd_dh` = $id_hd_dh
+                                                                                    AND `loai_hs` = $loai_phieu_tt "))->result)['tongtien'];
+
+                                        $ds_phieu = new db_query("SELECT `id` FROM `phieu_thanh_toan` WHERE `id` != $id AND `id_cong_ty` = $com_id AND `ngay_tao` < $ngay_tao_phieu
+                                                                AND `loai_thanh_toan` = 2 AND `id_hd_dh` = $id_hd_dh AND `loai_phieu_tt` = $loai_phieu_tt ");
+
+                                        if (mysql_num_rows($ds_phieu->result) > 0) {
+                                            $tong_da_tt = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS tongtien_tra FROM `phieu_thanh_toan` WHERE `id` != $id
+                                                                AND `id_cong_ty` = $com_id
+                                                                AND `ngay_tao` < $ngay_tao_phieu AND `loai_thanh_toan` = 2 AND `id_hd_dh` = $id_hd_dh
+                                                                AND `loai_phieu_tt` = $loai_phieu_tt "))->result)['tongtien_tra'];
+                                        } else {
+                                            $tong_da_tt = 0;
+                                        }
+
+                                        $gia_tri_tt = $tong_tatca - $tong_da_tt;
+
+                                        $tong_datt = mysql_fetch_assoc((new db_query("SELECT `so_tien` FROM `phieu_thanh_toan`
+                                                                        WHERE `loai_phieu_tt` = $loai_phieu_tt AND `loai_thanh_toan` = 2
+                                                                        AND `id_hd_dh` = $id_hd_dh AND `id_cong_ty` = $com_id AND `id` = $id "))->result)['so_tien'];
+                                    ?>
+
+                                        <div class="ctn_table w_100 float_l">
+                                            <table class="table" data="<?= $id ?>">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="share_tb_five">Hồ sơ thanh toán</th>
+                                                        <th class="share_tb_five">Giá trị còn phải thanh toán</th>
+                                                        <th class="share_tb_five">Thời hạn thanh toán</th>
+                                                        <th class="share_tb_five">Thanh toán</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="sh_bgr_four">
+                                                        <td class="tex_left share_clr_four cr_weight share_h_52 share_tb_five">Tổng</td>
+                                                        <td class="share_clr_four cr_weight share_tb_five"><?= formatMoney($gia_tri_tt) ?></td>
+                                                        <td class="share_tb_five"></td>
+                                                        <td class="share_clr_four cr_weight share_tb_five sum_tatca"><?= $tong_datt ?></td>
+                                                    </tr>
+                                                    <? while ($row1 = mysql_fetch_assoc($list_hs->result)) {
+                                                        $id_hs = $row1['id_hs'];
+
+                                                        $than_tient = mysql_fetch_assoc((new db_query("SELECT `thoi_han_thanh_toan`, `tong_tien_tatca` FROM `ho_so_thanh_toan`
+                                                                                WHERE `id` = $id_hs AND `id_cong_ty` = $com_id "))->result);
+
+                                                        $check_ttoan_tt = new db_query("SELECT `id` FROM `phieu_thanh_toan` WHERE `id` != $id AND `id_cong_ty` = $com_id
+                                                                                AND `ngay_tao` < $ngay_tao_phieu AND `loai_thanh_toan` = 2
+                                                                                AND `id_hd_dh` = $id_hd_dh AND `loai_phieu_tt` = $loai_phieu_tt ");
+
+                                                        if (mysql_num_rows($check_ttoan_tt->result) > 0) {
+                                                            $tienda_tt = mysql_fetch_assoc((new db_query("SELECT SUM(c.`da_thanh_toan`) AS tongda_ttoan FROM `chi_tiet_phieu_tt_vt` AS c
+                                                                                INNER JOIN `phieu_thanh_toan` AS p ON c.`id_phieu_tt` = p.`id`
+                                                                                WHERE c.`id_cong_ty` = $com_id AND c.`id_hs` = $id_hs AND c.`id_phieu_tt` != $id
+                                                                                AND c.`id_hd_dh` = $id_hd_dh AND p.`ngay_tao` < $ngay_tao_phieu
+                                                                                AND p.`loai_phieu_tt` = $loai_phieu_tt AND p.`loai_thanh_toan` = 2 "))->result)['tongda_ttoan'];
+                                                        } else {
+                                                            $tienda_tt = 0;
+                                                        }
+
+                                                    ?>
+
+                                                        <tr>
+                                                            <td class="tex_left share_h_52 share_tb_five ho_so" data="<?= $row1['id_hs'] ?>" data1="<?= $row1['id'] ?>">HS - <?= $row1['id_hs'] ?></td>
+                                                            <td class="share_tb_five tongtien" data="<?= $than_tient['tong_tien_tatca'] - $tienda_tt ?>"><?= formatMoney($than_tient['tong_tien_tatca'] - $tienda_tt) ?></td>
+                                                            <td class="share_tb_five"><?= ($than_tient['thoi_han_thanh_toan'] == 0) ? "" : date('d/m/Y', $than_tient['thoi_han_thanh_toan']) ?></td>
+                                                            <td class="share_tb_five">
+                                                                <div class="form-group">
+                                                                    <input type="text" name="so_tien_ctra" data="<?= $row1['da_thanh_toan'] ?>" value="<?= $row1['da_thanh_toan'] ?>" oninput="<?= $oninput ?>" onkeyup=" change_tien(this)" class="form-control tex_center">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    <? } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    <? } else if ($item['loai_thanh_toan'] == 1) {
+                                        echo "";
+                                    } ?>
+                                </div>
+                                <div class="form-button w_100">
+                                    <div class="form_button phieu_button">
+                                        <button type="button" class="cancel_add share_cursor mb_10 share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
+                                        <button type="button" class="save_add share_cursor mb_10 share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-button w_100">
-                            <div class="form_button phieu_button">
-                                <button type="button" class="cancel_add share_cursor mb_10 share_w_148 share_h_36 cr_weight s_radius_two share_clr_four share_bgr_tow share_fsize_tow">Hủy</button>
-                                <button type="button" class="save_add share_cursor mb_10 share_w_148 share_h_36 cr_weight s_radius_two share_clr_tow share_bgr_one share_fsize_tow">Xong</button>
-                            </div>
-                        </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -351,25 +391,52 @@ if ($id != "") {
 <script type="text/javascript" src="../js/app.js"></script>
 <script type="text/javascript" src="../js/giatri_doi.js"></script>
 <script>
-    $(".all_nhacc, .all_hd_dh").select2({
+    $(".all_hd_dh").select2({
         width: '100%',
     });
 
-    $(".all_hd_dh").change(function() {
-        var loai_phieu = $(".loai_phieu").val();
-        var hd_dh = $(this).val();
-        var com_id = $(".loai_phieu").attr("data");
+    $(".loai_phieu, .all_hthuc, .all_ltt").select2({
+        width: '100%',
+        minimumResultsForSearch: Infinity
+    });
+
+    $(".loai_phieu").change(function() {
+        var loai_phieu = $(this).val();
+        var com_id = $(this).attr("data");
         var id_phieu = $(".ctiet_dk_hp").attr("data");
-        var loai_tt = $(".loai_thanh_toan").val();
+        var hs_phieu = 2;
         $.ajax({
-            url: '../render/sua_hs_phieu_tt.php',
+            url: '../render/ds_hd_dh.php',
+            type: 'POST',
+            data: {
+                loai_hs: loai_phieu,
+                com_id: com_id,
+                hs_phieu: hs_phieu,
+            },
+            success: function(data) {
+                $(".all_hd_dh").html(data);
+            }
+        });
+
+        $.ajax({
+            url: '../render/phieu_ncc_kh.php',
             type: 'POST',
             data: {
                 loai_phieu: loai_phieu,
-                hd_dh: hd_dh,
+                com_id: com_id,
+            },
+            success: function(data) {
+                $(".nha_cc_kh").html(data);
+            }
+        });
+
+        $.ajax({
+            url: '../render/lthanh_toan.php',
+            type: 'POST',
+            data: {
+                loai_phieu: loai_phieu,
                 com_id: com_id,
                 id_phieu: id_phieu,
-                loai_tt: loai_tt,
             },
             success: function(data) {
                 $(".them_moi_vt").html(data);
@@ -377,60 +444,125 @@ if ($id != "") {
         });
     });
 
+    $(".all_hd_dh").change(function() {
+        var loai_phieu = $(".loai_phieu").val();
+        var hd_dh = $(this).val();
+        var com_id = $(".loai_phieu").attr("data");
+        var id_phieu = $(".ctiet_dk_hp").attr("data");
+        var com_name = $(".ctiet_dk_hp").attr("data1");
+
+        $.ajax({
+            url: '../render/phieu_ncc_kh.php',
+            type: 'POST',
+            data: {
+                hd_dh: hd_dh,
+                loai_phieu: loai_phieu,
+                com_id: com_id,
+            },
+            success: function(data) {
+                $(".nha_cc_kh").html(data);
+            }
+        });
+
+        $.ajax({
+            url: '../render/dv_ctra_hthu.php',
+            type: 'POST',
+            data: {
+                hd_dh: hd_dh,
+                loai_phieu: loai_phieu,
+                com_id: com_id,
+                com_name: com_name,
+            },
+            success: function(data) {
+                $(".dv_ctra_hthu").html(data);
+            }
+        });
+
+        $.ajax({
+            url: '../render/ds_loai_tt.php',
+            type: 'POST',
+            data: {
+                hd_dh: hd_dh,
+                loai_phieu: loai_phieu,
+                com_id: com_id,
+            },
+            success: function(data) {
+                $(".loai_thanht").html(data);
+                RefSelect2();
+            }
+        });
+
+        $.ajax({
+            url: '../render/lthanh_toan.php',
+            type: 'POST',
+            data: {
+                loai_phieu: loai_phieu,
+                hd_dh: hd_dh,
+                com_id: com_id,
+                id_phieu: id_phieu,
+            },
+            success: function(data) {
+                $(".them_moi_vt").html(data);
+            }
+        });
+
+    });
+
+    $(document).on('click', '.add_ngan_hang', function() {
+        var html = `<div class="tien_chi_tra w_100 float_l d_flex fl_agi">
+                        <div class="form-ctra w_100 float_l">
+                            <div class="form-row">
+                                <div class="form-group share_form_select">
+                                    <label>Tên ngân hàng <span class="cr_red">*</span></label>
+                                    <input type="text" name="ten_nhanhang" class="form-control" placeholder="Nhập tên ngân hàng">
+                                </div>
+                                <div class="form-group share_form_select">
+                                    <label>Chi nhánh <span class="cr_red">*</span></label>
+                                    <input type="text" name="chi_nhanh" class="form-control" placeholder="Nhập tên chi nhánh ngân hàng">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group share_form_select">
+                                    <label>Số tài khoản <span class="cr_red">*</span></label>
+                                    <input type="text" name="so_tk" class="form-control" placeholder="Nhập số tài khoản ngân hàng">
+                                </div>
+                                <div class="form-group">
+                                    <label>Chủ tài khoản </label>
+                                    <input type="text" name="chu_taik" class="form-control" placeholder="Nhập tên chủ tài khoản">
+                                </div>
+                            </div>
+                        </div>
+                        <span class="remove_tnh ml_50 share_cursor"><img src="../img/remove-2.png" alt="xóa"></span>
+                    </div>`;
+        $(".form-them-nganh .ctie_form_nhang").append(html);
+        // CheckSelect();
+    });
+
     $(".all_hthuc").change(function() {
         var hthuc_tt = $(this).val();
+        var com_id = $(".form_add_hp_mua").attr("data");
         var id_phieu = $(".ctiet_dk_hp").attr("data");
         var loai_phieu = $(".loai_phieu").val();
-        var com_id = $(".form_add_hp_mua").attr("data");
         var id_hd_dh = $(".all_hd_dh").val();
         $.ajax({
             url: '../render/hinh_thuc_tt.php',
             type: 'POST',
             data: {
                 hthuc_tt: hthuc_tt,
+                com_id: com_id,
                 id_phieu: id_phieu,
                 loai_phieu: loai_phieu,
-                com_id: com_id,
                 id_hd_dh: id_hd_dh,
             },
             success: function(data) {
                 if (hthuc_tt == 1) {
                     $(".form-them-nganh .ctie_form_nhang").remove()
+                    $(".tien_chi_tra").remove();
                 } else if (hthuc_tt == 2 || hthuc_tt == 3) {
                     $(".form-them-nganh").html(data);
                 }
             }
         });
-    });
-
-    $(".add_ngan_hang").click(function() {
-        var html = `<div class="tien_chi_tra w_100 float_l d_flex fl_agi">
-                        <div class="form-ctra w_100 float_l">
-                            <div class="form-row">
-                                <div class="form-group share_form_select">
-                                    <label>Tên ngân hàng <span class="cr_red">*</span></label>
-                                    <input type="text" name="new_ten_nganh" class="form-control ten_nganhang">
-                                </div>
-                                <div class="form-group share_form_select">
-                                    <label>Chi nhánh <span class="cr_red">*</span></label>
-                                    <input type="text" name="new_cnhanh" class="form-control chi_nhanh">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group share_form_select">
-                                    <label>Số tài khoản <span class="cr_red">*</span></label>
-                                    <input type="text" name="new_so_taik" class="form-control so_taik" oninput="<?= $oninput ?>">
-                                </div>
-                                <div class="form-group">
-                                    <label>Chủ tài khoản </label>
-                                    <input type="text" name="new_chu_taik" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <span class="remove_tnh ml_50 share_cursor"><img src="../img/remove-2.png" alt="xóa"></span>
-                    </div>`;
-        $(".form-them-nganh").append(html);
-        CheckSelect();
     });
 
     function loai_tt_doi(id) {
@@ -501,15 +633,6 @@ if ($id != "") {
                 },
                 so_tien: {
                     required: true,
-                },
-                ten_nganhang: {
-                    required: true,
-                },
-                chi_nhanh: {
-                    required: true,
-                },
-                so_taik: {
-                    required: true,
                 }
             },
             messages: {
@@ -523,15 +646,6 @@ if ($id != "") {
                     required: "Không được để trống",
                 },
                 so_tien: {
-                    required: "Không được để trống",
-                },
-                ten_nganhang: {
-                    required: "Không được để trống",
-                },
-                chi_nhanh: {
-                    required: "Không được để trống",
-                },
-                so_taik: {
                     required: "Không được để trống",
                 }
             }
@@ -553,51 +667,8 @@ if ($id != "") {
             var nguoi_ntien = $("input[name='nguoi_ntien']").val();
             var phan_loai = $("input[name='khachh_nhacc']").attr("data1");
 
-            var id_stk = [];
-            $("input[name='id_stk']").each(function() {
-                var idstk = $(this).val();
-                if (idstk != "") {
-                    id_stk.push(idstk);
-                }
-            });
-
-            var ten_nganhang = [];
-            $("input[name='ten_nganhang']").each(function() {
-                var tnh = $(this).val();
-                if (tnh != "") {
-                    ten_nganhang.push(tnh);
-                }
-            });
-
-            var chi_nhanh = [];
-            $("input[name='chi_nhanh']").each(function() {
-                var cnhanh = $(this).val();
-                if (cnhanh != "") {
-                    chi_nhanh.push(cnhanh);
-                }
-            });
-
-            var so_tk = [];
-            $("input[name='so_taik']").each(function() {
-                var stk = $(this).val();
-                if (stk != "") {
-                    so_tk.push(stk);
-                }
-            });
-
-            var chu_tk = [];
-            $("input[name='chu_taik']").each(function() {
-                var ctk = $(this).val();
-                if (ctk != "") {
-                    chu_tk.push(ctk);
-                } else {
-                    ctk = 0;
-                    chu_tk.push(ctk);
-                }
-            });
-
             var new_tngan_hang = [];
-            $("input[name='new_ten_nganh']").each(function() {
+            $("input[name='ten_nhanhang']").each(function() {
                 var n_tnh = $(this).val();
                 if (n_tnh != "") {
                     new_tngan_hang.push(n_tnh);
@@ -605,7 +676,7 @@ if ($id != "") {
             });
 
             var new_chi_nhanh = [];
-            $("input[name='new_cnhanh']").each(function() {
+            $("input[name='chi_nhanh']").each(function() {
                 var n_cnhanh = $(this).val();
                 if (n_cnhanh != "") {
                     new_chi_nhanh.push(n_cnhanh);
@@ -613,7 +684,7 @@ if ($id != "") {
             });
 
             var new_so_tk = [];
-            $("input[name='new_so_taik']").each(function() {
+            $("input[name='so_tk']").each(function() {
                 var n_stk = $(this).val();
                 if (n_stk != "") {
                     new_so_tk.push(n_stk);
@@ -621,7 +692,7 @@ if ($id != "") {
             });
 
             var new_chu_tk = [];
-            $("input[name='new_chu_taik']").each(function() {
+            $("input[name='chu_taik']").each(function() {
                 var n_ctk = $(this).val();
                 if (n_ctk != "") {
                     new_chu_tk.push(n_ctk);
@@ -667,6 +738,8 @@ if ($id != "") {
                 }
             });
 
+            var tong_tien_tatca_tr = $(".tong_tien_tatca_tr").attr("data");
+
             $.ajax({
                 url: '../ajax/sua_phieu_tt.php',
                 type: 'POST',
@@ -685,11 +758,7 @@ if ($id != "") {
                     gia_quy_doi: gia_quy_doi,
                     phi_giaod: phi_giaod,
                     nguoi_ntien: nguoi_ntien,
-                    id_stk: id_stk,
-                    ten_nganhang: ten_nganhang,
-                    chi_nhanh: chi_nhanh,
-                    so_tk: so_tk,
-                    chu_tk: chu_tk,
+
                     new_tngan_hang: new_tngan_hang,
                     new_chi_nhanh: new_chi_nhanh,
                     new_so_tk: new_so_tk,
@@ -701,9 +770,11 @@ if ($id != "") {
                     tong_tien: tong_tien,
                     tongt_thanhtoan: tongt_thanhtoan,
                     id_ctp: id_ctp,
+                    tong_tien_tatca_tr: tong_tien_tatca_tr,
                 },
                 success: function(data) {
                     if (data == "") {
+                        alert("Bạn đã cập nhật phiếu thanh toán thành công");
                         window.location.href = '/quan-ly-phieu-thanh-toan.html';
                     } else {
                         alert(data);

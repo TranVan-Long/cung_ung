@@ -6,13 +6,16 @@ $date_now = strtotime(date('Y-m-d'));
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] = 1) {
         $user_id = $_SESSION['ep_id'];
+        $list_hnay = new db_query("SELECT `id`, `id_nguoi_dung`, `ngay_tao`, `gio_tao`, `noi_dung` FROM `nhat_ky_hd`
+        WHERE `id_nguoi_dung` = $user_id AND `ngay_tao` = $date_now AND `role` = 1 AND `id_cong_ty` = $user_id ORDER BY `gio_tao` DESC");
+        $list_cu = new db_query("SELECT `id`, `id_nguoi_dung`, `ngay_tao`, `gio_tao`, `noi_dung` FROM `nhat_ky_hd`
+        WHERE `id_nguoi_dung` = $user_id AND `ngay_tao` < $date_now AND `role` = 1 AND `id_cong_ty` = $user_id ORDER BY `ngay_tao` DESC");
     } else if ($_COOKIE['role'] = 2) {
-        $user_id = $_SESSION['com_id'];
+       header("Location: /quan-ly-trang-chu.html");
     }
 }
 
-$list_hnay = new db_query("SELECT `id`, `id_nguoi_dung`, `ngay_tao`, `gio_tao`, `noi_dung` FROM `nhat_ky_hd` WHERE `id_nguoi_dung` = $user_id AND `ngay_tao` = $date_now ORDER BY `gio_tao` DESC");
-$list_cu = new db_query("SELECT `id`, `id_nguoi_dung`, `ngay_tao`, `gio_tao`, `noi_dung` FROM `nhat_ky_hd` WHERE `id_nguoi_dung` = $user_id AND `ngay_tao` < $date_now ORDER BY `ngay_tao` DESC");
+
 ?>
 <!DOCTYPE html>
 <html lang="vi">

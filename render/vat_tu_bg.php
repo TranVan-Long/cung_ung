@@ -58,7 +58,7 @@ if(isset($id_p) && $id_p != "" && $id_ncc != ""){
         <input type="text" name="tong_truoc_vat" class="tex_center tong_trvat" readonly>
     </td>
     <td class="w-25">
-        <input type="text" name="thue_vat" class="tex_center thue_vat" onkeyup="thue_doi(this)" readonly>
+        <input type="text" name="thue_vat" class="tex_center thue_vat" onkeyup="thue_doi(this)" >
     </td>
     <td class="w-30">
         <input type="text" name="tong_sau_vat" class="tex_center tong_svat" readonly>

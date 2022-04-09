@@ -65,14 +65,7 @@ if ($id != "") {
                             INNER JOIN `nha_cc_kh` AS n ON p.`id_ncc_kh` = n.`id`
                             WHERE p.`id` = $id AND p.`id_cong_ty` = $com_id ");
     $item = mysql_fetch_assoc($list_ptt->result);
-
-    if ($item['hinh_thuc_tt'] == 1) {
-        $hinh_thuc_tt = "Tiền mặt";
-    } else if ($item['hinh_thuc_tt'] == 2) {
-        $hinh_thuc_tt = "Bằng thẻ";
-    } else if ($item['hinh_thuc_tt'] == 3) {
-        $hinh_thuc_tt = "Chuyển khoản";
-    };
+    $hinh_thuc_tt  = $item['hinh_thuc_tt'];
 
     if ($item['phan_loai'] == 1 || $item['phan_loai'] == 3 || $item['phan_loai'] == 4 || $item['phan_loai'] ==  5) {
         $dv_chitra = $com_name;
@@ -149,7 +142,13 @@ if ($id != "") {
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Hình thức thanh toán</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $hinh_thuc_tt ?></p>
+                                    <? if ($hinh_thuc_tt == 1) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one">Tiền mặt</p>
+                                    <? } else if ($hinh_thuc_tt == 2) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one">Bằng thẻ</p>
+                                    <? } else if ($hinh_thuc_tt == 3) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one">Chuyển khoản</p>
+                                    <? } ?>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
@@ -205,7 +204,11 @@ if ($id != "") {
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Trạng thái</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">Hoàn thành</p>
+                                    <? if ($item['trang_thai'] == 1) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one">Chưa hoàn thành</p>
+                                    <? } else if ($item['trang_thai'] == 2) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one">Hoàn thành</p>
+                                    <? } ?>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
@@ -217,6 +220,38 @@ if ($id != "") {
                                 </div>
                             </div>
                         </div>
+                        <? if ($hinh_thuc_tt == 2 || $hinh_thuc_tt == 3) {
+                            $list_tk = new db_query("SELECT `ten_ngan_hang`, `ten_chi_nhanh`, `so_tk`, `chu_tk` FROM `tai_khoan_thanh_toan` WHERE `id_phieu_tt` = $id ");
+                        ?>
+                            <div class="w-100 left mb-20 mt-20">
+                                <p class="text-bold">Danh sách tài khoản ngân hàng</p>
+                                <? while ($row_tk = mysql_fetch_assoc($list_tk->result)) { ?>
+                                    <div class="left w-100 bordered mt-10 ds_tk_nhang detail-form">
+                                        <div class="form-row left">
+                                            <div class="form-col-50 left mb_15 no-border">
+                                                <p class="detail-title"> Tên ngân hàng</p>
+                                                <p class="detail-data text-500"><?= $row_tk['ten_ngan_hang'] ?></p>
+                                            </div>
+                                            <div class="form-col-50 right mb_15 no-border">
+                                                <p class="detail-title">Chi nhánh</p>
+                                                <p class="detail-data text-500"><?= $row_tk['ten_chi_nhanh'] ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-row left">
+                                            <div class="form-col-50 left mb_15 no-border">
+                                                <p class="detail-title"> Số tài khoản</p>
+                                                <p class="detail-data text-500"><?= $row_tk['so_tk'] ?></p>
+                                            </div>
+                                            <div class="form-col-50 right mb_15 no-border">
+                                                <p class="detail-title">Chủ tài khoản</p>
+                                                <p class="detail-data text-500"><?= $row_tk['chu_tk'] ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <? } ?>
+                            </div>
+                        <? } ?>
+
                         <div class="xuat_gmc w_100 float_l">
                             <div class="xuat_gmc_two share_xuat_gmc right mb-10 d_flex">
                                 <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>

@@ -58,7 +58,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
         $list_nv[$item1['ep_id']] = $item1;
     };
 
-    $list_ct = new db_query("SELECT y.`id`, y.`id_nguoi_lap`, y.`nha_cc_kh`, y.`id_cong_trinh`, y.`id_nguoi_tiep_nhan`, y.`noi_dung_thu`,
+    $list_ct = new db_query("SELECT y.`id`, y.`id_nguoi_lap`, y.`nha_cc_kh`, y.`id_cong_trinh`, y.`id_nguoi_tiep_nhan`, y.`noi_dung_thu`,y.`quyen_nlap`,
                             y.`mail_nhan_bg`, y.`gui_mail`, y.`gia_bg_vat`, y.`phan_loai`, y.`ngay_tao`, y.`id_cong_ty`, n.`ten_nha_cc_kh`, l.`ten_nguoi_lh`
                             FROM `yeu_cau_bao_gia` AS y
                             INNER JOIN `nha_cc_kh` AS n ON y.`nha_cc_kh` = n.`id`
@@ -66,8 +66,6 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             WHERE y.`id_cong_ty` = $com_id AND y.`id` = $id_bg ");
     $item_ct = mysql_fetch_assoc($list_ct->result);
     $id_nguoi_lap = $item_ct['id_nguoi_lap'];
-
-    $ep_name = $list_nv[$id_nguoi_lap]['ep_name'];
 
     $vt_bg = new db_query("SELECT `id`, `id_vat_tu`, `so_luong_yc_bg` FROM `vat_tu_bao_gia` WHERE `id_yc_bg` = $id_bg ");
 
@@ -106,6 +104,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $data_list1 = json_decode($response1, true);
     $cong_trinh = $data_list1['data']['items'];
     $cou1 = count($cong_trinh);
+
     $all_ctrinh = [];
     for ($l = 0; $l < $cou1; $l++) {
         $item_ct1 = $cong_trinh[$l];
@@ -165,7 +164,11 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             </div>
                             <div class="form-col-50 right p-10">
                                 <p class="detail-title">Người lập</p>
-                                <p class="text-500 detail-data"><?= $ep_name ?></p>
+                                <? if ($item_ct['quyen_nlap'] == 1) { ?>
+                                    <p class="text-500 detail-data"><?= $com_name ?></p>
+                                <? } else if ($item_ct['quyen_nlap'] == 2) { ?>
+                                    <p class="text-500 detail-data"><?= $list_nv[$id_nguoi_lap]['ep_name'] ?></p>
+                                <? } ?>
                             </div>
                         </div>
                         <div class="form-row left border-top2">
@@ -200,13 +203,12 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <p class="text-500 detail-data <?= ($item_ct['gia_bg_vat'] == 1) ? "text-green" : "text-red" ?>"><?= ($item_ct['gia_bg_vat'] == 1) ? "Có" : "Chưa có" ?></p>
                             </div>
                         </div>
-                        <div class="form-row left border-top2">
+                        <!-- <div class="form-row left border-top2">
                             <div class="form-col-50 left p-10">
                                 <p class="detail-title">Đã gửi mail</p>
                                 <p class="text-500 detail-data <?= ($item_ct['gui_mail'] == 1) ? "text-green" : "text-red" ?>"><?= ($item_ct['gui_mail'] == 1) ? "Đã gửi" : "Chưa gửi" ?></p>
                             </div>
-
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="left w-100 mt-50">

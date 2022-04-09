@@ -152,7 +152,7 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Thuế suất VAT</label>
-                                        <input type="number" name="thue_vat" value="<?= $hd_detail['thue_vat'] ?>" class="form-control thue_vat_tong" onkeyup="tong_vt()" placeholder="Nhập thuế suất VAT">
+                                        <input type="number" name="thue_vat" value="<?= $hd_detail['thue_vat'] ?>" class="form-control thue_vat_tong" placeholder="Nhập thuế suất VAT" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label>Giá trị sau VAT</label>

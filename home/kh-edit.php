@@ -27,10 +27,10 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $id = $_GET['id'];
     $list_kh = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `ma_so_thue`, `ten_giao_dich`, `dia_chi_dkkd`, `so_dkkd`, `dia_chi_lh`,
-                        `fax`, `so_dien_thoai`, `website`, `email`, `phan_loai` FROM `nha_cc_kh` WHERE `id` = '$id' AND `phan_loai` = 2 AND `id_cong_ty` = $com_id ");
+                        `fax`, `so_dien_thoai`, `website`, `email`, `phan_loai` FROM `nha_cc_kh` WHERE `id` = $id AND `phan_loai` = 2 AND `id_cong_ty` = $com_id ");
     $row = mysql_fetch_assoc($list_kh->result);
 
-    $list_nh = new db_query("SELECT * FROM `tai_khoan` WHERE `id_nha_cc_kh` = '$id' ");
+    $list_nh = new db_query("SELECT * FROM `tai_khoan` WHERE `id_nha_cc_kh` = $id ");
 }
 
 ?>
@@ -136,7 +136,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <div class="form-control edit-form mt-30 left w-100">
                             <div class="border-bottom pb-10">
                                 <p class="d-inline-block text-bold mr-20 mt-15">Danh sách tài khoản ngân hàng</p>
-                                <p class="d-inline-block text-500 text-blue link-text mt-15" id="add-bank-acc">&plus; Thêm
+                                <p class="d-inline-block text-500 text-blue link-text mt-15 add_bank_kh">&plus; Thêm
                                     mới tài khoản ngân
                                     hàng</p>
                             </div>
@@ -148,21 +148,21 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                             <div class="form-row left">
                                                 <div class="form-col-50 left mb_15">
                                                     <label for="ten-ngan-hang">Tên ngân hàng<span class="text-red">&ast;</span></label>
-                                                    <input type="text" name="ten_nh" placeholder="Nhập tên ngân hàng" value="<?= $item['ten_ngan_hang'] ?>">
+                                                    <input type="text" name="ten_ngan_hang" placeholder="Nhập tên ngân hàng" value="<?= $item['ten_ngan_hang'] ?>">
                                                 </div>
                                                 <div class="form-col-50 right mb_15">
                                                     <label for="chi-nhanh-ngan-hang">Chi nhánh<span class="text-red">&ast;</span></label>
-                                                    <input type="text" name="chi_nhanh_nh" placeholder="Nhập tên chi nhánh ngân hàng" value="<?= $item['ten_chi_nhanh'] ?>">
+                                                    <input type="text" name="ten_chi_nhanh" placeholder="Nhập tên chi nhánh ngân hàng" value="<?= $item['ten_chi_nhanh'] ?>">
                                                 </div>
                                             </div>
                                             <div class="form-row left">
                                                 <div class="form-col-50 left mb_15">
                                                     <label>Số tài khoản<span class="text-red">&ast;</span></label>
-                                                    <input type="text" name="so_tai_khoan" placeholder="Nhập số tài khoản" value="<?= $item['so_tk'] ?>" oninput="<?= $oninput ?>">
+                                                    <input type="text" name="so_tk_c" placeholder="Nhập số tài khoản" value="<?= $item['so_tk'] ?>" oninput="<?= $oninput ?>">
                                                 </div>
                                                 <div class="form-col-50 right mb_15">
                                                     <label>Chủ tài khoản</label>
-                                                    <input type="text" name="chu_tai_khoan" placeholder="Nhập tên chủ tài khoản" value="<?= $item['chu_tk'] ?>">
+                                                    <input type="text" name="chu_tk" placeholder="Nhập tên chủ tài khoản" value="<?= $item['chu_tk'] ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -213,6 +213,20 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 <script type="text/javascript" src="../js/style.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 <script>
+    $(".add_bank_kh").click(function() {
+        var kh_bank = 1;
+        $.ajax({
+            url: '../render/tai_khoan_html.php',
+            type: 'POST',
+            data: {
+                kh_bank: kh_bank
+            },
+            success: function(data) {
+                $('#bank-list').append(data);
+            }
+        })
+    });
+
     $('.submit-btn').click(function() {
         var form = $('.main-form');
         form.validate({
@@ -290,7 +304,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             });
 
             var nh = [];
-            $("input[name='ten_nh']").each(function() {
+            $("input[name='ten_nhanhang']").each(function() {
                 var ten_nh = $(this).val();
                 if (ten_nh != "") {
                     nh.push(ten_nh);
@@ -298,7 +312,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             });
 
             var ch = [];
-            $("input[name='chi_nhanh_nh']").each(function() {
+            $("input[name='chi_nhanh']").each(function() {
                 var ten_ch_nh = $(this).val();
                 if (ten_ch_nh != "") {
                     ch.push(ten_ch_nh);
@@ -306,7 +320,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             })
 
             var stk = [];
-            $("input[name='so_tai_khoan']").each(function() {
+            $("input[name='so_tk']").each(function() {
                 var so_tai_khoan = $(this).val();
                 if (so_tai_khoan != "") {
                     stk.push(so_tai_khoan);
@@ -314,7 +328,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             });
 
             var ctk = [];
-            $("input[name='chu_tai_khoan']").each(function() {
+            $("input[name='chu_taik']").each(function() {
                 var chu_tk = $(this).val();
                 if (chu_tk == "") {
                     chu_tk = "0";
@@ -344,7 +358,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             });
 
             var tk = [];
-            $("input[name='so_tk']").each(function() {
+            $("input[name='so_tk_c']").each(function() {
                 var so_tk = $(this).val();
                 if (so_tk != "") {
                     tk.push(so_tk);
@@ -364,6 +378,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 
             $.ajax({
                 url: '../ajax/sua_tt_kh.php',
+                type: 'POST',
                 data: {
                     id: id,
                     ten_kh: ten_kh,
@@ -382,26 +397,25 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     role: role,
 
                     id_tk: id_tk,
-                    ten_nh: nh,
-                    chi_nhanh: ch,
-                    so_tk: stk,
-                    chu_tk: ctk,
+                    ten_nh: ngan_hang,
+                    chi_nhanh: ch_nh,
+                    so_tk: tk,
+                    chu_tk: chu_tk,
 
-                    ten_nh_moi: ngan_hang,
-                    ten_ch_moi: ch_nh,
-                    so_tk_moi: tk,
-                    chu_tk_moi: chu_tk,
+                    ten_nh_moi: nh,
+                    ten_ch_moi: ch,
+                    so_tk_moi: stk,
+                    chu_tk_moi: ctk,
 
                 },
-                type: 'POST',
 
                 success: function(data) {
-                    if (data == "") {
-                        alert("Cập nhật thông tin khách hàng thành công");
-                        window.location.href = '/quan-ly-khach-hang.html';
-                    } else {
-                        alert(data);
-                    }
+                    // if (data == "") {
+                    //     alert("Cập nhật thông tin khách hàng thành công");
+                    //     window.location.href = '/quan-ly-khach-hang.html';
+                    // } else {
+                    alert(data);
+                    // }
                 }
             });
         }

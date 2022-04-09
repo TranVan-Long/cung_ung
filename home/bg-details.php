@@ -4,6 +4,7 @@ include("config.php");
 
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
+    $con_name = $_SESSION['com_name'];
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
@@ -17,6 +18,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $list_nv = $data_list['data']['items'];
 } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
     $com_id = $_SESSION['user_com_id'];
+    $con_name = $_SESSION['com_name'];
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
@@ -49,7 +51,7 @@ for ($i = 0; $i < count($list_nv); $i++) {
 
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $id = $_GET['id'];
-    $qr_ctiet = new db_query("SELECT b.`id`, b.`id_yc_bg`,b.`id_nha_cc`, b.`id_nguoi_lap`, b.`ngay_gui`, b.`ngay_bd`, b.`ngay_kt`,
+    $qr_ctiet = new db_query("SELECT b.`id`, b.`id_yc_bg`,b.`id_nha_cc`, b.`id_nguoi_lap`, b.`ngay_gui`, b.`ngay_bd`, b.`ngay_kt`,b.`quyen_nlap`,
                                 b.`ngay_tao`,b.`id_cong_ty`, n.`ten_nha_cc_kh` FROM `bao_gia` AS b
                                 INNER JOIN `nha_cc_kh` AS n ON b.`id_nha_cc` = n.`id`
                                 WHERE b.`id` = $id AND b.`id_cong_ty` = $com_id ");
@@ -137,7 +139,11 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <div class="form-row left border-top2">
                             <div class="form-col-50 left p-10">
                                 <p class="detail-title">Người lập</p>
-                                <p class="detail-data text-500"> <?= $user[$user_id]['ep_name'] ?></p>
+                                <? if ($list_ct['quyen_nlap'] == 1) { ?>
+                                    <p class="detail-data text-500"> <?= $con_name ?></p>
+                                <? } else if ($list_ct['quyen_nlap'] == 2) { ?>
+                                    <p class="detail-data text-500"> <?= $user[$user_id]['ep_name'] ?></p>
+                                <? } ?>
                             </div>
                         </div>
                         <div class="form-row left border-top2">

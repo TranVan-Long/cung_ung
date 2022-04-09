@@ -41,24 +41,23 @@ $('#add-bank-acc').click(function() {
                     <div class="bank-form">
                         <div class="form-row left">
                             <div class="form-col-50 left mb_15">
-                                <label>Tên ngân hàng<span class="text-red">*</span></label>
-                                <input type="text" name="ten_ngan_hang" placeholder="Nhập tên ngân hàng">
+                                <label for="ten-ngan-hang">Tên ngân hàng<span class="text-red">&ast;</span></label>
+                                <input type="text" name="ten_nhanhang" placeholder="Nhập tên ngân hàng">
                             </div>
-                            <div class="form-col-50 right mb_15">
-                                <label>Chi nhánh<span
-                                            class="text-red">*</span></label>
-                                <input type="text" name="ten_chi_nhanh" placeholder="Nhập tên chi nhánh ngân hàng">
+                            <div class="form-col-50 right mb_15 v-select2">
+                                <label for="chi-nhanh-ngan-hang">Chi nhánh
+                                    <span class="text-red">&ast;</span></label>
+                                <input type="text" name="chi_nhanh" placeholder="Nhập tên chi nhánh ngân hàng">
                             </div>
                         </div>
                         <div class="form-row left">
                             <div class="form-col-50 left mb_15">
-                                <label>Số tài khoản<span class="text-red">*</span></label>
-                                <input type="number" name="so_tk"
-                                        placeholder="Nhập số tài khoản">
+                                <label>Số tài khoản<span class="text-red">&ast;</span></label>
+                                <input type="text" name="so_tk" placeholder="Nhập số tài khoản" oninput="<?= $oninput ?>">
                             </div>
                             <div class="form-col-50 right mb_15">
                                 <label>Chủ tài khoản</label>
-                                <input type="text" name="chu_tk" placeholder="Nhập tên chủ tài khoản">
+                                <input type="text" name="chu_taik" placeholder="Nhập tên chủ tài khoản">
                             </div>
                         </div>
                     </div>

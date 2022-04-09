@@ -229,15 +229,12 @@ $stt = 1;
                                                 <? } ?>
 
                                                 <td></td>
-
-                                                <? if ($item1['loai_thanh_toan'] == 2) {
-                                                    $id_ph = $item1['id'];
-                                                    $da_thanh_toan = mysql_fetch_assoc((new db_query("SELECT `id_phieu_tt`, `da_thanh_toan` FROM `chi_tiet_phieu_tt_vt` WHERE `id_cong_ty` = $com_id AND `id_phieu_tt` = $id_ph "))->result)['da_thanh_toan'];
-                                                ?>
-                                                    <td><?= $da_thanh_toan ?></td>
+                                                <? if ($item1['loai_thanh_toan'] == 2) { ?>
+                                                    <td><?= ($item1['so_tien'] != 0) ? number_format($item1['so_tien']) : "" ?></td>
                                                 <? } else if ($item1['loai_thanh_toan'] == 1) { ?>
                                                     <td></td>
                                                 <? } ?>
+
                                             </tr>
                                         <? } ?>
                                     </tbody>

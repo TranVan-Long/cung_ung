@@ -106,7 +106,14 @@ $('.save_add').click(function () {
     if (form_validate.valid() === true) {
         var com_id = $(".form_add_hp_mua").attr("data");
         var id_kh = $("select[name='ten_khach_hang']").val();
-        var user_id = $("input[name='nguoi_lh']").attr("data-id");
+        var user_id = $(".ctiet_dk_hp").attr("data");
+        var phan_loai_nk = $(".form_add_hp_mua").attr("data1");
+        if (phan_loai_nk == 1) {
+            var id_nguoi_lh = $(".all_nvct").val();
+        } else if (phan_loai_nk == 2) {
+            var id_nguoi_lh = $(".all_nvct").attr("data-id");
+        }
+
         var id_hd = $("select[name='hop_dong']").val();
         var ngayky_dh = $("input[name='hop_dong']").val();
         var id_ctrinh = $("select[name='duan_ctrinh']").val();
@@ -128,7 +135,7 @@ $('.save_add').click(function () {
         var gias_vat = $("input[name='gias_vat']").val();
         var chi_phi_vc = $("input[name='chi_phi_vc']").val();
         var ghic_vc = $("input[name='ghic_vc']").val();
-        var phan_loai_nk = $(".form_add_hp_mua").attr("data1");
+
 
         var id_vt = [];
         $("input[name='ma_vattu']").each(function () {
@@ -220,6 +227,7 @@ $('.save_add').click(function () {
             data: {
                 com_id: com_id,
                 user_id: user_id,
+                id_nguoi_lh: id_nguoi_lh,
                 id_kh: id_kh,
                 id_hd: id_hd,
                 ngayky_dh: ngayky_dh,

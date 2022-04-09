@@ -20,7 +20,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 
         $data_list = json_decode($response, true);
         $list_nv = $data_list['data']['items'];
-        $cou = count($list_nv);
+        $count = count($list_nv);
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
@@ -36,8 +36,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         curl_close($curl);
 
         $data_list = json_decode($response, true);
-        $data_list_nv = $data_list['data']['items'];
-        $count = count($data_list_nv);
+        $list_nv = $data_list['data']['items'];
+        $count = count($list_nv);
 
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
@@ -188,7 +188,17 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group share_form_select">
                                         <label>Người liên hệ</label>
-                                        <input type="text" name="nguoi_lh" class="form-control" value="<?= $all_nv[$ctiet_dh['id_nguoi_lh']]['ep_name'] ?>" data="<?= $ctiet_dh['id_nguoi_lh'] ?>" readonly>
+                                        <? if ($phan_loai_nk == 1) { ?>
+                                            <select name="nguoi_lh" class="form-control share_select all_nvct">
+                                                <option value="">-- Chọn người liên hệ --</option>
+                                                <? for ($k = 0; $k < $count; $k++) { ?>
+                                                    <option value="<?= $list_nv[$k]['ep_id'] ?>" <?= ($list_nv[$k]['ep_id'] == $ctiet_dh['id_nguoi_lh']) ? "selected" : "" ?>>(<?= $list_nv[$k]['ep_id'] ?>) <?= $list_nv[$k]['ep_name'] ?></option>
+                                                <? } ?>
+                                            </select>
+                                        <? } else if ($phan_loai_nk == 2) { ?>
+                                            <input type="text" name="nguoi_lh" class="form-control all_nvct" value="<?= $all_nv[$ctiet_dh['id_nguoi_lh']]['ep_name'] ?>" data="<?= $ctiet_dh['id_nguoi_lh'] ?>" readonly>
+                                        <? } ?>
+
                                     </div>
                                     <div class="form-group share_form_select">
                                         <label>Số điện thoại / Fax</label>
@@ -281,7 +291,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Giá trị trước VAT</label>
-                                        <input type="text" name="giatr_vat" value="<?= $ctiet_dh['gia_tri_don_hang'] ?>" id="tong_truoc_vat" class="form-control h_border cr_weight">
+                                        <input type="text" name="giatr_vat" value="<?= $ctiet_dh['gia_tri_don_hang'] ?>" id="tong_truoc_vat" class="form-control h_border cr_weight" readonly>
                                     </div>
                                     <div class="form-group  d_flex fl_agi form_lb">
                                         <label>Đơn giá đã bao gồm VAT</label>
@@ -301,7 +311,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Giá trị sau VAT</label>
-                                        <input type="text" name="gias_vat" value="<?= $ctiet_dh['gia_tri_svat'] ?>" id="tong_sau_vat" class="form-control h_border cr_weight">
+                                        <input type="text" name="gias_vat" value="<?= $ctiet_dh['gia_tri_svat'] ?>" id="tong_sau_vat" class="form-control h_border cr_weight" readonly>
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -371,7 +381,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                         </td>
                                                         <td class="share_tb_two">
                                                             <div class="form-group">
-                                                                <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control">
+                                                                <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control" readonly>
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_eight">
@@ -613,6 +623,11 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             var chi_phi_vc = $("input[name='chi_phi_vc']").val();
             var ghic_vc = $("textarea[name='ghic_vc']").val();
             var phan_loai_nk = $(".ctiet_dk_hp").attr("data");
+            if (phan_loai_nk == 1) {
+                var id_nguoi_lh = $(".all_nvct").val();
+            } else if (phan_loai_nk == 2) {
+                var id_nguoi_lh = $(".all_nvct").attr("data");
+            }
 
             var id_vt_dc = [];
             $("input[name='vat_tu']").each(function() {
@@ -711,6 +726,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 data: {
                     com_id: com_id,
                     user_id: user_id,
+                    id_nguoi_lh: id_nguoi_lh,
                     id_kh: id_kh,
                     id_hd: id_hd,
                     so_dh: so_dh,

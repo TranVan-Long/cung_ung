@@ -65,9 +65,13 @@ if ($tt_ctr == 1) {
         }
     }
 }
-
 $chuoi_id = implode(',', $newArr);
 
+$all_ctr = [];
+for($n = 0; $n < $coun1; $n++){
+    $new_ctr = $cong_trinh_data[$n];
+    $all_ctr[$new_ctr['ctr_id']] = $new_ctr;
+}
 
 if ($tk != "" && $tk_ct != "") {
     $url = '/quan-ly-yeu-cau-vat-tu.html?currP=' . $currP . '&tk=' . $tk . '&tk_ct=' . $tk_ct . '&filter2=' . $filter_2;
@@ -148,19 +152,19 @@ $ycvt_data = new db_query($list_ycvt);
 
 $stt = 1;
 
-$curl = curl_init();
-$data = array(
-    'id_com' => $com_id,
-);
-curl_setopt($curl, CURLOPT_POST, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-$response = curl_exec($curl);
-curl_close($curl);
-$list_cong_trinh = json_decode($response, true);
-$cong_trinh_data = $list_cong_trinh['data']['items'];
+// $curl = curl_init();
+// $data = array(
+//     'id_com' => $com_id,
+// );
+// curl_setopt($curl, CURLOPT_POST, 1);
+// curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+// curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+// curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+// curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+// $response = curl_exec($curl);
+// curl_close($curl);
+// $list_cong_trinh = json_decode($response, true);
+// $cong_trinh_data = $list_cong_trinh['data']['items'];
 
 ?>
 <!DOCTYPE html>
@@ -223,25 +227,25 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                                 <select name="search" class="share_select" id="search">
                                     <option value="">Nhập thông tin cần tìm kiếm</option>
                                     <? if ($tk == 1) {
-                                        $danh_sach = new db_query("SELECT `id` FROM `yeu_cau_vat_tu` ORDER BY `id` DESC");
+                                        $danh_sach = new db_query("SELECT `id` FROM `yeu_cau_vat_tu`  WHERE `id_cong_ty` = $com_id ORDER BY `id` DESC");
                                         while ($item = mysql_fetch_assoc($danh_sach->result)) {
                                     ?>
                                             <option value="<?= $item['id'] ?>" <?= ($item['id'] == $tk_ct) ? "selected" : "" ?>>YC - <?= $item['id'] ?></option>
                                         <? }
                                     } else if ($tk == 2) {
-                                        $danh_sach = new db_query("SELECT DISTINCT `ngay_tao` FROM `yeu_cau_vat_tu` ORDER BY `ngay_tao` DESC");
+                                        $danh_sach = new db_query("SELECT DISTINCT `ngay_tao` FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id ORDER BY `ngay_tao` DESC");
                                         while ($item = mysql_fetch_assoc($danh_sach->result)) {
                                         ?>
                                             <option value="<?= date("Y-m-d", $item['ngay_tao']) ?>" <?= ($item['ngay_tao'] == $tk_ct) ? "selected" : "" ?>><?= date("d/m/Y", $item['ngay_tao']); ?></option>
                                         <? }
                                     } else if ($tk == 3) {
-                                        $danh_sach = new db_query("SELECT DISTINCT `id_cong_trinh` FROM `yeu_cau_vat_tu` ORDER BY `id_cong_trinh` DESC");
+                                        $danh_sach = new db_query("SELECT DISTINCT `id_cong_trinh` FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id ORDER BY `id_cong_trinh` DESC");
                                         while ($item = mysql_fetch_assoc($danh_sach->result)) {
                                         ?>
-                                            <option value="<?= $item['id_cong_trinh'] ?>" <?= ($item['id_cong_trinh'] == $tk_ct) ? "selected" : "" ?>><?= $cong_trinh_data[$item['id_cong_trinh']]['ctr_name'] ?></option>
+                                            <option value="<?= $item['id_cong_trinh'] ?>" <?= ($item['id_cong_trinh'] == $tk_ct) ? "selected" : "" ?>><?= $all_ctr[$item['id_cong_trinh']]['ctr_name'] ?></option>
                                         <? }
                                     } else if ($tk == 4) {
-                                        $danh_sach = new db_query("SELECT DISTINCT `ngay_ht_yc` FROM `yeu_cau_vat_tu` ORDER BY `ngay_ht_yc` DESC");
+                                        $danh_sach = new db_query("SELECT DISTINCT `ngay_ht_yc` FROM `yeu_cau_vat_tu` WHERE `id_cong_ty` = $com_id ORDER BY `ngay_ht_yc` DESC");
                                         while ($item = mysql_fetch_assoc($danh_sach->result)) {
                                         ?>
                                             <option value="<?= date("Y-m-d", $item['ngay_ht_yc']) ?>" <?= ($item['ngay_ht_yc'] == $tk_ct) ? "selected" : "" ?>><?= date("d/m/Y", $item['ngay_ht_yc']); ?></option>
@@ -310,7 +314,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                                                     <a href="quan-ly-chi-tiet-yeu-cau-vat-tu-<?= $item['id'] ?>.html" class="text-bold">YC-<?= $item['id'] ?></a>
                                                 </td>
                                                 <td class="w-10"><?= date("d/m/Y", $item['ngay_tao']); ?></td>
-                                                <td class="w-20"><?= $cong_trinh_data[$item['id_cong_trinh']]['ctr_name'] ?></td>
+                                                <td class="w-20"><?= $all_ctr[$item['id_cong_trinh']]['ctr_name'] ?></td>
                                                 <td class="w-15">
                                                     <? if (!empty($item['ngay_ht_yc'])) { ?>
                                                         <?= date("d/m/Y", $item['ngay_ht_yc']); ?>
