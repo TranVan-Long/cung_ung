@@ -50,7 +50,9 @@ $ngay_tao = strtotime(date('Y-m-d', time()));
 $gio_tao = strtotime(date('H:i:s', time()));
 
 if($com_id != "" && $id != "" && $user_id != ""){
-    if($cou1 > 0 && $co1 == 0){
+    if($cou1 == 0 && $co1 == 0){
+        echo "Bạn thêm ít nhất 1 tài khoản ngân hàng";
+    }else if($cou1 > 0 && $co1 == 0){
         if ($cou1 != $cou2 || $cou2 != $cou3 || $cou3 != $cou4) {
             echo "Điền đầy đủ thông tin tài khoản";
         } else {
@@ -63,7 +65,8 @@ if($com_id != "" && $id != "" && $user_id != ""){
                                 WHERE `id` = '$id_tk[$j]' ");
             };
 
-            $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung')");
+            $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
+                                VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung','$com_id')");
         }
 
     }else if($cou1 == 0 && $co1 > 0){
@@ -79,7 +82,8 @@ if($com_id != "" && $id != "" && $user_id != ""){
                 VALUES ('','$id','$ten_nh_moi[$i]','$ten_ch_moi[$i]','$so_tk_moi[$i]','$chu_tk_moi[$i]')");
             };
 
-            $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung')");
+            $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
+                                VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung','$com_id')");
         }
     }else if($cou1 > 0 && $co1 > 0){
         if ($cou1 != $cou2 || $cou2 != $cou3 || $cou3 != $cou4 || $co1 != $co2 || $co2 != $co3) {
@@ -99,7 +103,8 @@ if($com_id != "" && $id != "" && $user_id != ""){
                 VALUES ('','$id','$ten_nh_moi[$i]','$ten_ch_moi[$i]','$so_tk_moi[$i]','$chu_tk_moi[$i]')");
             };
 
-            $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung')");
+            $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
+                                VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung','$com_id')");
         }
     }
 }else{

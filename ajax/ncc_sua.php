@@ -66,7 +66,12 @@ $role = getValue('role','int', 'POST', '');
 $ngay_sua = strtotime(date('Y-m-d', time()));
 
 if ($ten_nha_cc_kh != "" && $ten_giao_dich != "") {
-    if($count_nh_o_1 > 0 && $count_nh_n_1 == 0 && $count_nlh_o_1 > 0 && $count_nlh_n_1 == 0){
+    if($count_nh_o_1 == 0 && $count_nh_n_1 == 0){
+        echo "Thêm ít nhất 1 tài khoản ngân hàng";
+    }else if($count_nlh_o_1 == 0 && $count_nlh_n_1 == 0){
+        echo "Thêm ít nhất 1 người liên hệ nhà cung cấp";
+    }
+    else if($count_nh_o_1 > 0 && $count_nh_n_1 == 0 && $count_nlh_o_1 > 0 && $count_nlh_n_1 == 0){
         if($count_nh_o_1 != $count_nh_o_2 || $count_nh_o_2 != $count_nh_o_3 || $count_nh_o_3 != $count_nh_o_4 || $count_nlh_o_1 != $count_nlh_o_2 || $count_nlh_o_2 != $count_nlh_o_3 || $count_nlh_o_3 != $count_nlh_o_4){
             echo "Điền đầy đủ thông tin tài khoản ngân hàng, người liên hệ";
         }else if($count_nh_o_1 == $count_nh_o_2 && $count_nh_o_2 == $count_nh_o_3 && $count_nh_o_3 == $count_nh_o_4 && $count_nlh_o_1 == $count_nlh_o_2 && $count_nlh_o_2 == $count_nlh_o_3 && $count_nlh_o_3 == $count_nlh_o_4){

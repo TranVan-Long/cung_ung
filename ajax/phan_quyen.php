@@ -3,6 +3,7 @@ include("config.php");
 
 $com_id = getValue('com_id', 'int', 'POST', '');
 $id_nv = getValue('id_nv', 'int', 'POST', '');
+$phan_quyen_nk = getValue('phan_quyen_nk', 'int', 'POST', '');
 
 $yc_vt = $_POST['yc_vt'];
 $yc_vt = str_replace('_', ',', $yc_vt);
@@ -85,6 +86,7 @@ if ($id_nv == "") {
                             '$id_nv','$com_id')");
         $id_quyen = mysql_fetch_assoc((new db_query("SELECT LAST_INSERT_ID() AS id_quyen")) -> result)['id_quyen'];
         $noi_dung_nk = "Bạn đã phân quyền cho nhân viên: ID - ". $id_nv . "Mã phân quyền: ".$id_quyen;
+
         $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
                             VALUES('', '$com_id', '1', '$ngay_tao','$gio_tao', '$noi_dung_nk',`$com_id`)");
 

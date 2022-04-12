@@ -7,11 +7,13 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $user_id = $_SESSION['com_id'];
         $user_name = $_SESSION['com_name'];
         $com_id = $_SESSION['com_id'];
+        $com_name = $_SESSION['com_name'];
         $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $user_id = $_SESSION['ep_id'];
         $user_name = $_SESSION['ep_name'];
         $com_id = $_SESSION['user_com_id'];
+        $com_name = $_SESSION['com_name'];
         $phan_quyen_nk = 2;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
@@ -84,7 +86,7 @@ $cou = count($list_congtrinh);
                 </div>
                 <form class="main-form" data="<?= $phan_quyen_nk ?>">
                     <div class="w-100 left mt-10">
-                        <div class="form-control edit-form">
+                        <div class="form-control edit-form" data="<?= $com_name ?>">
                             <div class="form-row left">
                                 <div class="form-col-50 no-border left mb_15">
                                     <label>Người lập</label>
@@ -296,12 +298,13 @@ $cou = count($list_congtrinh);
             var mail_nhan_bg = $("input[name='mail_nhan_bao_gia']").val();
             var com_id = $(this).attr("data");
             var phan_quyen_nk = $(".main-form").attr("data");
+            var com_name = $(".edit-form").attr("data");
 
             var gui_mail = "";
             if ($("input[name='mail_ngay']").is(":checked")) {
                 gui_mail = 1;
             } else {
-                gui_mail = 0
+                gui_mail = 0;
             };
 
             var gia_baog_vat = "";
@@ -333,6 +336,7 @@ $cou = count($list_congtrinh);
                 data: {
                     user_id: user_id,
                     com_id: com_id,
+                    com_name: com_name,
                     ngay_lap: ngay_lap,
                     nhacc_id: nhacc_id,
                     id_nguoi_lh: id_nguoi_lh,

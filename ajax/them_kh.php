@@ -55,7 +55,8 @@ if($ten_kh != "" && $com_id != "" && $user_id != "" && $cou1 > 0){
         };
 
         $noi_dung_nk = "Bạn đã thêm khách hàng: ".$id_kh." - ".$ten_kh;
-        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung_nk')");
+        $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
+                            VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung_nk','$com_id')");
     }
 
 }else{

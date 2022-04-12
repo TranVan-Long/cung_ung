@@ -5,7 +5,9 @@ include("config.php");
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
+        $user_id  $_SESSION['com_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 1;
 
         $curl = curl_init();
         $token = $_COOKIE['acc_token'];
@@ -24,6 +26,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['user_com_id'];
         $com_name = $_SESSION['com_name'];
         $user_id = $_SESSION['ep_id'];
+        $phan_quyen_nk = 2;
 
         $curl = curl_init();
         $token = $_COOKIE['acc_token'];
@@ -156,7 +159,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             lại</a>
                         <h4 class="tieu_de_ct w_100 float_l share_fsize_tow share_clr_four mb_25 cr_weight_bold">Chi
                             tiết đơn hàng bán vật tư</h4>
-                        <div class="ctiet_dk_hp w_100 float_l">
+                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $phan_quyen_nk ?>" data1="<?= $user_id ?>">
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Tên khách hàng</p>
@@ -431,12 +434,16 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $(".save_new_dp").click(function() {
         var id_dh = $(this).attr("data-id");
         var com_id = $(this).attr("data");
+        var user_id = $(".ctiet_dk_hp").attr("data1");
+        var phan_quyen_nk = $(".ctiet_dk_hp").attr("data");
         $.ajax({
             url: '../ajax/xoa_dh_ban.php',
             type: 'POST',
             data: {
                 id_dh: id_dh,
                 com_id: com_id,
+                user_id: user_id,
+                phan_quyen_nk: phan_quyen_nk,
             },
             success: function(data) {
                 if (data == "") {

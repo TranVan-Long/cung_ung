@@ -15,10 +15,12 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $user_id = $_SESSION['com_id'];
         $com_id = $_SESSION['com_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $user_id = $_SESSION['ep_id'];
         $com_id = $_SESSION['user_com_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 2;
 
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
@@ -107,7 +109,7 @@ for ($r = 0; $r < $coun1; $r++) {
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 float_l share_fsize_tow share_clr_four mb_25 cr_weight_bold">Chi
                             tiết hợp đồng mua</h4>
-                        <div class="ctiet_dk_hp w_100 float_l">
+                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $user_id ?>" data1="<?= $com_id ?>" data2="<?= $phan_quyen_nk ?>">
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Số hợp đồng</p>
@@ -384,18 +386,19 @@ for ($r = 0; $r < $coun1; $r++) {
 
     $(".xoa_hd_mua").click(function() {
         var id = $(this).attr("data-id");
-        //log record
-        var ep_id = '<?= $user_id ?>';
-        var hd_id = '<?= $hd_id ?>';
+        var com_id = $(".ctiet_dk_hp").attr("data1");
+        var user_id = $(".ctiet_dk_hp").attr("data");
+        var phan_quyen_nk = $(".ctiet_dk_hp").attr("data2");
         var loai = "mua vật tư"
         $.ajax({
             url: '../ajax/hd_xoa.php',
             type: 'POST',
             data: {
                 id: id,
-                ep_id: ep_id,
-                hd_id: hd_id,
+                com_id: com_id,
+                user_id: user_id,
                 loai: loai,
+                phan_quyen_nk: phan_quyen_nk,
             },
             success: function(data) {
                 if (data == "") {

@@ -1,18 +1,24 @@
 <?
 include("config.php");
 
-$cong_trinh             = getValue('cong_trinh','int','POST','');
-$ngay_tao_yeu_cau       =  strtotime($_POST['ngay_tao_yeu_cau']);
-$ngay_phai_hoan_thanh   =  strtotime($_POST['ngay_phai_hoan_thanh']);
-$dien_giai              = $_POST['dien_giai'];
-$trang_thai             = 1;
+$cong_trinh = getValue('cong_trinh','int','POST','');
+$ngay_tao_yeu_cau =  strtotime($_POST['ngay_tao_yeu_cau']);
 
-$vat_tu                 = $_POST['vat_tu'];
-$so_luong               = $_POST['so_luong'];
+if($_POST['ngay_phai_hoan_thanh'] != ""){
+    $ngay_phai_hoan_thanh =  strtotime($_POST['ngay_phai_hoan_thanh']);
+}else{
+    $ngay_phai_hoan_thanh = 0;
+}
 
-$user_id                = getValue('user_id', 'int', 'POST', '');
-$com_id                =  getValue('com_id', 'int', 'POST', '');
-$role                =  getValue('role', 'int', 'POST', '');
+$dien_giai = $_POST['dien_giai'];
+$trang_thai = 1;
+
+$vat_tu = $_POST['vat_tu'];
+$so_luong = $_POST['so_luong'];
+
+$user_id = getValue('user_id', 'int', 'POST', '');
+$com_id =  getValue('com_id', 'int', 'POST', '');
+$role =  getValue('role', 'int', 'POST', '');
 
 $count = count($vat_tu);
 $count1 = count($so_luong);
@@ -20,7 +26,7 @@ $count1 = count($so_luong);
 
 
 if ($user_id != "") {
-    if ($count <= 0 && $count1 <= 0) {
+    if ($count == 0 && $count1 == 0) {
         echo "Thêm ít nhất 1 vật tư.";
     } else {
         if ($count != $count1) {
@@ -41,8 +47,8 @@ if ($user_id != "") {
             $noi_dung = 'Bạn đã thêm phiếu yêu cầu vật tư: YC-' . $id_yc;
             $ngay_tao = strtotime(date('Y-m-d', time()));
             $gio_tao  = strtotime(date('H:i:s', time()));
-            $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`,`role`, `ngay_tao`, `gio_tao`, `noi_dung`)
-                          VALUES('', '$user_id','$role', '$ngay_tao', '$gio_tao', '$noi_dung')");
+            $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`,`role`, `ngay_tao`, `gio_tao`, `noi_dung`,`id_cong_ty`)
+                          VALUES('', '$user_id','$role', '$ngay_tao', '$gio_tao', '$noi_dung','$com_id')");
         }
     }
 } else {

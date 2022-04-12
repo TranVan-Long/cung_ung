@@ -8,6 +8,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['com_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 1;
 
         $curl = curl_init();
         $token = $_COOKIE['acc_token'];
@@ -25,6 +26,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 2;
 
         $curl = curl_init();
         $token = $_COOKIE['acc_token'];
@@ -127,7 +129,7 @@ if (isset($_GET['id']) && $_GET['id'] != "" && $_GET['id'] != 0) {
                     <p class="page-title text-blue mt-20 mb_10">Chi tiết báo giá cho khách hàng</p>
                 </div>
                 <div class="w-100 left mt-10">
-                    <div class="form-control detail-form">
+                    <div class="form-control detail-form" data="<?= $phan_quyen_nk ?>">
                         <div class="form-row left">
                             <div class="form-col-50 left p-10 no-border">
                                 <p class="detail-title">Số phiếu phản hồi</p>
@@ -253,6 +255,7 @@ if (isset($_GET['id']) && $_GET['id'] != "" && $_GET['id'] != 0) {
         var id_bg = $(this).attr("data");
         var user_id = $(this).attr("data1");
         var com_id = $(this).attr("data2");
+        var phan_quyen_nk = $(".detail-form").attr("data");
         $.ajax({
             url: '../ajax/xoa_bg_kh.php',
             type: 'POST',
@@ -260,10 +263,11 @@ if (isset($_GET['id']) && $_GET['id'] != "" && $_GET['id'] != 0) {
                 id_bg: id_bg,
                 user_id: user_id,
                 com_id: com_id,
+                phan_quyen_nk: phan_quyen_nk,
             },
             success: function(data) {
                 if (data == "") {
-                    // alert("Bạn đã xóa phiếu bào giá khách hàng");
+                    alert("Bạn đã xóa phiếu báo giá khách hàng thành công");
                     window.location.href = '/quan-ly-bao-gia-khach-hang.html';
                 } else if ($data != "") {
                     alert(data);

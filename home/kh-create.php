@@ -222,16 +222,6 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                 ten_giao_dich: {
                     required: true,
                 },
-                // ten_ngan_hang: {
-                //     required: true,
-                // },
-                // chi_nhanh_ngan_hang: {
-                //     required: true,
-                // },
-                // so_tai_khoan: {
-                //     required: true,
-                //     number: true,
-                // }
             },
             messages: {
                 ten_khach_hang: {
@@ -240,16 +230,6 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                 ten_giao_dich: {
                     required: "Tên giao dịch không được để trống.",
                 },
-                // ten_ngan_hang: {
-                //     required: "Vui lòng chọn ngân hàng.",
-                // },
-                // chi_nhanh_ngan_hang: {
-                //     required: "Vui lòng chọn chi nhánh.",
-                // },
-                // so_tai_khoan: {
-                //     required: "Số tài khoản không được để trống.",
-                //     number: "Số tài khoản không đúng định dạng.",
-                // }
             }
         });
         if (form.valid() === true) {

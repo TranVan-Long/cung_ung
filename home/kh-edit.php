@@ -410,12 +410,12 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 },
 
                 success: function(data) {
-                    // if (data == "") {
-                    //     alert("Cập nhật thông tin khách hàng thành công");
-                    //     window.location.href = '/quan-ly-khach-hang.html';
-                    // } else {
-                    alert(data);
-                    // }
+                    if (data == "") {
+                        alert("Cập nhật thông tin khách hàng thành công");
+                        window.location.href = '/quan-ly-khach-hang.html';
+                    } else {
+                        alert(data);
+                    }
                 }
             });
         }

@@ -149,7 +149,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 </div>
                 <form class="main-form" data="<?= $com_id ?>" data1="<?= $phan_quyen_nk ?>">
                     <div class="w-100 left mt-10">
-                        <div class="form-control edit-form">
+                        <div class="form-control edit-form" data="<?= $com_name ?>">
                             <div class="form-row left">
                                 <div class="form-col-50 no-border left mb_15">
                                     <label>Số phiếu yêu cầu</label>
@@ -211,7 +211,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                     <label>Mail nhận báo giá</label>
                                     <input type="text" name="mail_nhan_bao_gia" placeholder="Nhập mail nhận báo giá" value="<?= $item_ct['mail_nhan_bg'] ?>">
                                     <div class="d_flex align-items-center checkbox-lbs mt-15">
-                                        <label for="mail_ngay" class="mb-0 mr-30">Gửi email</label>
+                                        <label for="mail_ngay" class="mb-0 mr-30">Gửi email ngay</label>
                                         <input type="checkbox" name="mail_ngay" id="mail_ngay" value="1" <?= ($item_ct['gui_mail'] == 1) ? "checked" : "" ?>>
                                     </div>
                                 </div>

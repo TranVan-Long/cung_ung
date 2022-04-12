@@ -8,45 +8,95 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
 }
 $id = getValue('id', 'int', 'GET', 0);
 
-$get_ycvt = new db_query("SELECT `id`, `id_nguoi_yc`, `id_cong_trinh`, `ngay_ht_yc`, `dien_giai`, `trang_thai`, `id_kho`, `ly_do_tu_choi`, `id_nguoi_duyet`, `ngay_duyet`, `ngay_tao`, `ngay_chinh_sua`, `id_cong_ty` FROM `yeu_cau_vat_tu` WHERE `id` = $id ");
+$get_ycvt = new db_query("SELECT `id`, `id_nguoi_yc`, `id_cong_trinh`, `ngay_ht_yc`, `dien_giai`, `trang_thai`, `id_kho`,
+                        `ly_do_tu_choi`, `role`, `phan_quyen_nduyet`, `id_nguoi_duyet`, `ngay_duyet`, `ngay_tao`,
+                        `ngay_chinh_sua`, `id_cong_ty` FROM `yeu_cau_vat_tu` WHERE `id` = $id AND `id_cong_ty` = $com_id ");
 
 $item = mysql_fetch_assoc($get_ycvt->result);
-$id_nyc = $item['id_nguoi_yc'];
+
 $ngay_tao = date('d/m/Y', $item['ngay_tao']);
-$ngay_ht = date('d/m/Y', $item['ngay_ht_yc']);
+if($item['ngay_ht_yc'] != 0){
+    $ngay_ht = date('d/m/Y', $item['ngay_ht_yc']);
+}else{
+    $ngay_ht = "";
+}
 $cong_trinh = $item['id_cong_trinh'];
 $dien_giai = $item['dien_giai'];
 $trang_thai = $item['trang_thai'];
 $ngay_duyet = date('d/m/Y', $item['ngay_duyet']);
-$nguoi_duyet = $item['id_nguoi_duyet'];
 $ly_do_tu_choi = $item['ly_do_tu_choi'];
 
 
+if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
+    $com_id = $_SESSION['com_id'];
+    $user_id = $_SESSION['com_id'];
+    $com_name = $_SESSION['com_name'];
+    $phan_quyen_nduyet = 1;
 
-$curl = curl_init();
-$token = $_COOKIE['acc_token'];
-curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
-$response = curl_exec($curl);
-curl_close($curl);
-$data_list = json_decode($response, true);
-$data_list_nv = $data_list['data']['items'];
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
 
-foreach ($data_list_nv as $key => $items) {
-    if ($id_nyc == $items['ep_id']) {
-        $user_name = $items['ep_name'];
-        $dept_id    = $items['dep_id'];
-        $dept_name  = $items['dep_name'];
-        $com_id = $items['com_id'];
+    $data_list = json_decode($response, true);
+    $data_list_nv = $data_list['data']['items'];
+    $cou = count($data_list_nv);
+} elseif (isset($_SESSION['quyen']) && ($_SESSION['quyen'] == 2)) {
+    $com_id = $_SESSION['user_com_id'];
+    $user_id = $_SESSION['ep_id'];
+    $com_name = $_SESSION['com_name'];
+    $phan_quyen_nduyet = 2;
+
+    $curl = curl_init();
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $data_list = json_decode($response, true);
+    $data_list_nv = $data_list['data']['items'];
+    $cou = count($data_list_nv);
+
+    $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
+    if (mysql_num_rows($kiem_tra_nv->result) > 0) {
+        $item_nv = mysql_fetch_assoc((new db_query("SELECT `yeu_cau_vat_tu` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
+        $ycvt3 = explode(',', $item_nv['yeu_cau_vat_tu']);
+        if (in_array(1, $ycvt3) == FALSE) {
+            header('Location: /quan-ly-trang-chu.html');
+        }
+    } else {
+        header('Location: /quan-ly-trang-chu.html');
     }
-    if ($nguoi_duyet == $items['ep_id']) {
-        $ten_nguoi_duyet = $items['ep_name'];
-    }
+};
+
+$all_user = [];
+for ($i = 0; $i < $cou; $i++) {
+    $user_o = $data_list_nv[$i];
+    $all_user[$user_o['ep_id']] = $user_o;
 }
 
-$get_vtyc = new db_query("SELECT `id`, `id_yc_vt`, `id_vat_tu`, `so_luong_yc_duyet`, `so_luong_duyet` FROM `chi_tiet_yc_vt` WHERE `id_yc_vt` = $id");
+if($item['role'] == 1){
+    $nguoi_yc = $_SESSION['com_name'];
+    $dep_name = "";
+}else if($item['role'] == 2){
+    $nguoi_yc = $all_user[$item['id_nguoi_yc']]['ep_name'];
+    $dep_name = $all_user[$item['id_nguoi_yc']]['dep_name'];;
+}
+
+if ($item['phan_quyen_nduyet'] == 1) {
+    $nguoi_duyet = $_SESSION['com_name'];
+} else if ($item['role'] == 2) {
+    $nguoi_duyet = $all_user[$item['id_nguoi_duyet']]['ep_name'];
+}
+
+$get_vtyc = new db_query("SELECT `id_yc_vt`, `id_vat_tu`, `so_luong_yc_duyet`, `so_luong_duyet` FROM `chi_tiet_yc_vt` WHERE `id_yc_vt` = $id");
 
 
 $curl = curl_init();
@@ -81,6 +131,11 @@ $response = curl_exec($curl);
 curl_close($curl);
 $list_cong_trinh = json_decode($response, true);
 $cong_trinh_data = $list_cong_trinh['data']['items'];
+$all_ctr = [];
+for($j = 0; $j < count($cong_trinh_data); $j++){
+    $item_ctr = $cong_trinh_data[$j];
+    $all_ctr[$item_ctr[$j]['ctr_id']] = $item_ctr;
+}
 
 $stt = 1;
 
@@ -99,11 +154,11 @@ echo '<tr><th colspan="2" style="font-size:18px;height:60px;vertical-align: midd
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Người yêu cầu:</td>
-    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= $user_name ?></td>
+    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= $nguoi_yc ?></td>
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Phòng ban:</td>
-    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= $dept_name ?></td>
+    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= $dep_name ?></td>
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Ngày tạo yêu cầu:</td>
@@ -115,7 +170,7 @@ echo '<tr><th colspan="2" style="font-size:18px;height:60px;vertical-align: midd
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Công trình:</td>
-    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= $cong_trinh_data[$cong_trinh]['ctr_name'] ?></td>
+    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= $all_ctr[$item['id_cong_trinh']]['ctr_name'] ?></td>
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Diễn giải:</td>
@@ -138,7 +193,7 @@ echo '<tr><th colspan="2" style="font-size:18px;height:60px;vertical-align: midd
 <? while ($row = mysql_fetch_assoc($get_vtyc->result)) { ?>
     <tr style="height:40px">
         <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px;border-top: 1px solid;">Mã vật tư:</td>
-        <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;border-top: 1px solid;"><?= $vat_tu[$row['id_vat_tu']]['dsvt_maVatTuThietBi']?>-<?= $vat_tu[$row['id_vat_tu']]['dsvt_id'] ?></td>
+        <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;border-top: 1px solid;">VT - <?= $row['id_vat_tu'] ?></td>
     </tr>
     <tr style="height:40px">
         <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Tên vật tư:</td>

@@ -6,10 +6,12 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
     $com_name = $_SESSION['com_name'];
     $user_id = $_SESSION['com_id'];
+    $phan_quyen_nk = 1;
 } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
     $com_id = $_SESSION['user_com_id'];
     $com_name = $_SESSION['com_name'];
     $user_id = $_SESSION['ep_id'];
+    $phan_quyen_nk = 2;
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `tieu_chi_danh_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
@@ -57,7 +59,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                 </div>
                 <form action="" class="main-form">
                     <div class="w-100 left mt-10">
-                        <div class="form-control edit-form">
+                        <div class="form-control edit-form" data="<?= $phan_quyen_nk ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>">
                             <div class="form-row left">
                                 <div class="form-col-50 no-border left mb_15">
                                     <label>Tiêu chí đánh giá<span class="text-red">&ast;</span></label>
@@ -181,8 +183,9 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                 }
             })
             //get user id
-            var ep_id = '<?= $user_id ?>';
-            var com_id = '<?= $com_id ?>';
+            var user_id = $(".edit-form").attr("data2");
+            var com_id = $(".edit-form").attr("data1");
+            var phan_quyen_nk = $(".edit-form").attr("data");
             $.ajax({
                 url: '../ajax/tc_them.php',
                 type: 'POST',
@@ -195,8 +198,9 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                     ten_hien_thi: ten_hien_thi,
 
                     //user id
-                    ep_id: ep_id,
-                    com_id: com_id
+                    user_id: user_id,
+                    com_id: com_id,
+                    phan_quyen_nk: phan_quyen_nk,
 
                 },
                 success: function(data) {

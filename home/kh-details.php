@@ -70,7 +70,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 </div>
 
                 <div class="w-100 left mt-10">
-                    <div class="form-control detail-form">
+                    <div class="form-control detail-form" data="<?= $com_id ?>">
                         <div class="form-row left">
                             <div class="form-col-50 left p-10 no-border">
                                 <p class="detail-title">Mã khách hàng</p>
@@ -223,6 +223,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
         var id = $(this).attr("data3");
         var user_id = $(this).attr("data2");
         var role = $(this).attr("data");
+        var com_id = $(".detail-form").attr("data");
         $.ajax({
             url: '../ajax/xoa_kh.php',
             type: 'POST',
@@ -230,7 +231,8 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 id: id,
                 user_id: user_id,
                 role: role,
-                ten_kh:ten_kh,
+                ten_kh: ten_kh,
+                com_id: com_id,
             },
             success: function(data) {
                 if (data == "") {

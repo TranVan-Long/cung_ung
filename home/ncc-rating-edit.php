@@ -31,7 +31,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $id = $_GET['id'];
     $list_dg = mysql_fetch_assoc((new db_query("SELECT `id`, `ngay_danh_gia`, `nguoi_danh_gia`, `phong_ban`, `id_nha_cc`, `danh_gia_khac`,`quyen_nlap`,
-                            `tong_diem` FROM `danh_gia` WHERE `id`='$id' AND `id_cong_ty` = $com_id "))->result);
+                            `tong_diem` FROM `danh_gia` WHERE `id`= $id AND `id_cong_ty` = $com_id "))->result);
 
     $id_ncc = $list_dg['id_nha_cc'];
 
@@ -168,7 +168,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             <div class="form-row left">
                                 <div class="form-col-50 no-border left mb_15">
                                     <p>Điểm đánh giá</p>
-                                    <input type="text" name="tongd_dg" id="tongd_dg" value="<?= $list_ncc['tong_diem'] ?>" class="hidden_bd" readonly>
+                                    <input type="text" name="tongd_dg" id="tongd_dg" value="<?= $list_dg['tong_diem'] ?>" class="hidden_bd" readonly>
                                 </div>
                             </div>
                             <div class="form-row left">

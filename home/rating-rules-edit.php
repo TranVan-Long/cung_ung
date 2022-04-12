@@ -5,10 +5,12 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
     $com_name = $_SESSION['com_name'];
     $user_id = $_SESSION['com_id'];
+    $phan_quyen_nk = 1;
 } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
     $com_id = $_SESSION['user_com_id'];
     $com_name = $_SESSION['com_name'];
     $user_id = $_SESSION['ep_id'];
+    $phan_quyen_nk = 2;
     $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
     if (mysql_num_rows($kiem_tra_nv->result) > 0) {
         $item_nv = mysql_fetch_assoc((new db_query("SELECT `tieu_chi_danh_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
@@ -66,7 +68,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     <a class="text-black" href="tieu-chi-danh-gia.html"><?php echo $ic_lt ?> Quay lại</a>
                     <p class="page-title mt_20 mb_10">Chỉnh sửa tiêu chí đánh giá</p>
                 </div>
-                <form action="" class="main-form">
+                <form class="main-form" data="<?= $phan_quyen_nk ?>" data1="<?= $tieu_chi_id ?>">
                     <div class="w-100 left mt-10">
                         <div class="form-control edit-form">
                             <div class="form-row left">
@@ -84,9 +86,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <div class="form-row left chon_gt">
                                     <div class="form-col-50 no-border left mb_15 v-select2">
                                         <label>Chọn kiểu giá trị</label>
-                                        <select id="value-type" name="kieu_gia_tri" class="share_select" disabled>
-                                            <option value="1" selected>Nhập tay</option>
-                                        </select>
+                                        <input name="kieu_gia_tri" class="form-control" value="Nhập tay" data="1" readonly>
                                     </div>
                                     <div class="form-col-50 no-border right mb_15 gia_tri1">
                                         <input type="hiden" class="d-none" name="id_gia_tri_old" value="<?= $gt['id'] ?>">
@@ -98,9 +98,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <div class="form-row left chon_gt">
                                     <div class="form-col-50 no-border left mb_15 v-select2">
                                         <label>Chọn kiểu giá trị</label>
-                                        <select id="value-type" name="kieu_gia_tri" class="share_select" disabled>
-                                            <option value="2" selected>Danh sách</option>
-                                        </select>
+                                        <input name="kieu_gia_tri" class="form-control" value="Danh sách" data="2" readonly>
                                     </div>
                                 </div>
 
@@ -238,11 +236,10 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             }
         });
         if (form.valid() === true) {
-            var tc_id = "<?= $tieu_chi_id ?>";
+            var tc_id = $(".main-form").attr("data1");
             var tieu_chi_danh_gia = $("input[name='tieu_chi_danh_gia']").val();
 
-
-            var id_gia_tri_old = new Array();
+            var id_gia_tri_old = [];
             $("input[name='id_gia_tri_old']").each(function() {
                 var id_gt_old = $(this).val();
                 if (id_gt_old != "") {
@@ -250,7 +247,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 }
             });
 
-            var ten_hien_thi_old = new Array();
+            var ten_hien_thi_old = [];
             $("input[name='ten_hien_thi_old']").each(function() {
                 var tht_old = $(this).val();
                 if (tht_old != "") {
@@ -258,7 +255,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 }
             });
 
-            var gia_tri = new Array();
+            var gia_tri = [];
             $("input[name='gia_tri']").each(function() {
                 var gt = $(this).val();
                 if (gt != "") {
@@ -266,7 +263,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 }
             });
 
-            var ten_hien_thi = new Array();
+            var ten_hien_thi = [];
             $("input[name='ten_hien_thi']").each(function() {
                 var tht = $(this).val();
                 if (tht != "") {
@@ -275,7 +272,10 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             });
 
             //get user id
-            var ep_id = "<?= $user_id ?>";
+            var phan_quyen_nk = $(".main-form").attr("data");
+            var com_id = $(".main-form").attr("data1");
+            var user_id = $(".main-form").attr("data2");
+            var kieu_gia_tri = $("input[name='kieu_gia_tri']").attr("data");
 
             $.ajax({
                 url: '../ajax/tc_sua.php',
@@ -284,15 +284,16 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     tc_id: tc_id,
                     tieu_chi_danh_gia: tieu_chi_danh_gia,
 
-
                     id_gia_tri_old: id_gia_tri_old,
                     ten_hien_thi_old: ten_hien_thi_old,
 
                     gia_tri: gia_tri,
                     ten_hien_thi: ten_hien_thi,
 
-                    //user id
-                    ep_id: ep_id
+                    user_id: user_id,
+                    phan_quyen_nk: phan_quyen_nk,
+                    com_id: com_id,
+                    kieu_gia_tri: kieu_gia_tri,
                 },
                 success: function(data) {
                     if (data == "") {

@@ -8,6 +8,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_name = $_SESSION['com_name'];
         $user_name = $_SESSION['com_name'];
         $user_id = $_SESSION['com_id'];
+        $phan_quyen_nk = 1;
 
         $curl = curl_init();
         $token = $_COOKIE['acc_token'];
@@ -25,6 +26,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_name = $_SESSION['com_name'];
         $user_name = $_SESSION['ep_name'];
         $user_id = $_SESSION['ep_id'];
+        $phan_quyen_nk = 2;
 
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
@@ -112,7 +114,7 @@ if ($id != "") {
                     <div class="chi_tiet_hd mt_25 w_100 float_l">
                         <a class="prew_href share_fsize_one mb_25 share_clr_one" href="quan-ly-phieu-thanh-toan.html">Quay lại</a>
                         <h4 class="tieu_de_ct w_100 float_l share_fsize_tow share_clr_four cr_weight_bold mb_25">Chi tiết phiếu thanh toán</h4>
-                        <div class="ctiet_dk_hp w_100 float_l">
+                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $phan_quyen_nk ?>" data1="<?= $user_id ?>">
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Hợp đồng / Đơn hàng</p>
@@ -300,7 +302,7 @@ if ($id != "") {
                             <div class="form_butt_ht mb_20">
                                 <div class="tow_butt_flex d_flex">
                                     <button type="button" class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
-                                    <button type="button" class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp">Đồng
+                                    <button type="button" class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp" data="<?= $id ?>" data1="<?= $com_id ?>">Đồng
                                         ý</button>
                                 </div>
                             </div>
@@ -323,6 +325,34 @@ if ($id != "") {
     remove_phieu_tt.click(function() {
         modal_share.show();
     });
+
+    $(".save_new_dp").click(function() {
+        var id = $(this).attr("data");
+        var com_id = $(this).attr("data1");
+        var user_id = $(".ctiet_dk_hp").attr("data1");
+        var phan_quyen_nk = $(".ctiet_dk_hp").attr("data");
+
+        $.ajax({
+            url: '../ajax/ptt_xoa.php',
+            type: 'POST',
+            data: {
+                id: id,
+                com_id: com_id,
+                user_id: user_id,
+                phan_quyen_nk: phan_quyen_nk,
+            },
+            success: function(data) {
+                if (data == "") {
+                    alert("Bạn đã xóa phiếu thanh toán tạm ứng thành công");
+                    window.location.href = '/quan-ly-phieu-thanh-toan.html';
+                } else {
+                    alert(data);
+                }
+            }
+
+        })
+    })
+
     $(".xuat_excel").click(function() {
         var id = $(this).attr("data");
         window.location.href = '../excel/ptt_tu_excel.php?id=' + id;

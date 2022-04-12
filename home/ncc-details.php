@@ -66,7 +66,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     <p class="page-title text-blue mt-20">Chi tiết nhà cung cấp</p>
                 </div>
                 <div class="w-100 left mt-10">
-                    <div class="form-control detail-form">
+                    <div class="form-control detail-form" data="<?= $com_id ?>" data1="<?= $role ?>">
                         <div class="form-row left">
                             <div class="form-col-50 left p-10 no-border">
                                 <p class="detail-title">Mã nhà cung cấp</p>
@@ -206,7 +206,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                             <p class="v-btn btn-outline-red modal-btn mr-20 mt-15" data-target="delete">Xóa</p>
                             <a href="chinh-sua-nha-cung-cap-<?= $ncc_detail['id'] ?>.html" class="v-btn btn-blue mt-15">Chỉnh sửa</a>
-                        <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                            <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
                             if (in_array(4, $ncc3)) { ?>
                                 <p class="v-btn btn-outline-red modal-btn mr-20 mt-15" data-target="delete">Xóa</p>
                             <? }
@@ -234,7 +234,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                             </div>
                             <div class="right">
-                                <button class="v-btn sh_bgr_six share_clr_tow right delete-ncc" data="<?= $role ?>" data1="<?= $id ?>" data2="<?= $user_id ?>" data3="<?= $ncc_detail['ten_nha_cc_kh'] ?>">Đồng ý</button>
+                                <button class="v-btn sh_bgr_six share_clr_tow right delete-ncc" data1="<?= $id ?>" data2="<?= $user_id ?>" data3="<?= $ncc_detail['ten_nha_cc_kh'] ?>">Đồng ý</button>
                             </div>
                         </div>
                     </div>
@@ -257,10 +257,11 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     });
 
     $(".delete-ncc").click(function() {
-        var role = $(this).attr("data");
+        var role = $(".detail-form").attr("data1");
         var id = $(this).attr("data1");
         var user_id = $(this).attr("data2");
         var ncc_name = $(this).attr("data3");
+        var com_id = $(".detail-form").attr("data");
         $.ajax({
             url: '../ajax/ncc_xoa.php',
             type: 'POST',
@@ -269,12 +270,13 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 user_id: user_id,
                 ncc_name: ncc_name,
                 role: role,
+                com_id: com_id,
             },
             success: function(data) {
                 if (data == "") {
                     window.location.href = '/quan-ly-nha-cung-cap.html';
                 } else {
-                    alert("Bị lỗi");
+                    alert(data);
                 }
             }
         });

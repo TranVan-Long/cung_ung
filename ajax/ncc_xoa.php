@@ -15,9 +15,9 @@ $gio_tao = strtotime(date('H:i:s', time()));
 
 if ($id != "" && $com_id != "" && $user_id != "") {
     $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
-    VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung',`$com_id`)");
+    VALUES('', '$user_id', '$role', '$ngay_tao','$gio_tao', '$noi_dung','$com_id')");
 
-    $delete_ncc = new db_query("DELETE FROM `nha_cc_kh` WHERE `id` = '$id' ");
+    $delete_ncc = new db_query("DELETE FROM `nha_cc_kh` WHERE `id` = '$id' AND `id_cong_ty` = $com_id ");
 } else {
     echo "Xóa không thành công.";
 }

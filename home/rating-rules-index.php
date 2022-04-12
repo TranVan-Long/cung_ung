@@ -6,9 +6,11 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     if ($_COOKIE['role'] == 1) {
         $user_id = $_SESSION['com_id'];
         $com_id = $_SESSION['com_id'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $user_id = $_SESSION['ep_id'];
         $com_id = $_SESSION['user_com_id'];
+        $phan_quyen_nk = 2;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `tieu_chi_danh_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
@@ -156,7 +158,7 @@ $stt = 1;
                                     </thead>
                                 </table>
                             </div>
-                            <div class="tbl-content">
+                            <div class="tbl-content" data="<?= $phan_quyen_nk ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>">
                                 <table>
                                     <tbody>
                                         <?
@@ -316,13 +318,17 @@ $stt = 1;
     });
     $(".delete-tc").click(function() {
         var id = $(this).attr("data-id");
-        var ep_id = '<?= $user_id ?>';
+        var user_id = $(".tbl-content").attr("data2");
+        var com_id = $(".tbl-content").attr("data1");
+        var phan_quyen_nk = $(".tbl-content").attr("data")
         $.ajax({
             url: '../ajax/tc_xoa.php',
             type: 'POST',
             data: {
                 id: id,
-                ep_id: ep_id
+                user_id: user_id,
+                com_id: com_id,
+                phan_quyen_nk: phan_quyen_nk,
             },
             success: function(data) {
                 if (data == "") {

@@ -5,7 +5,7 @@ $date_now = strtotime(date('Y-m-d'));
 
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] = 1) {
-        $user_id = $_SESSION['ep_id'];
+        $user_id = $_SESSION['com_id'];
         $list_hnay = new db_query("SELECT `id`, `id_nguoi_dung`, `ngay_tao`, `gio_tao`, `noi_dung` FROM `nhat_ky_hd`
         WHERE `id_nguoi_dung` = $user_id AND `ngay_tao` = $date_now AND `role` = 1 AND `id_cong_ty` = $user_id ORDER BY `gio_tao` DESC");
         $list_cu = new db_query("SELECT `id`, `id_nguoi_dung`, `ngay_tao`, `gio_tao`, `noi_dung` FROM `nhat_ky_hd`
@@ -129,7 +129,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                     <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                 </div>
                 <div class="right mb_10">
-                    <button class="v-btn btn-green right confirm-delete" data-id="">Đồng ý</button>
+                    <button class="v-btn btn-green right confirm-delete" data-id="" data="<?= $user_id ?>">Đồng ý</button>
                 </div>
             </div>
         </div>
@@ -154,11 +154,13 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 
     $("#xoa_log .confirm-delete").click(function() {
         var id = $(this).attr('data-id');
+        var com_id = $(this).attr("data");
         $.ajax({
             url: '../ajax/nhat_ky_xoa.php',
             type: 'POST',
             data: {
                 id: id,
+                com_id: com_id,
             },
             success: function(data) {
                 if (data == "") {

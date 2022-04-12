@@ -90,6 +90,7 @@ curl_close($curl);
 $list_cong_trinh = json_decode($response, true);
 $cong_trinh_data = $list_cong_trinh['data']['items'];
 
+
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -135,7 +136,11 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                                 <div class="form-row left">
                                     <div class="form-col-50 left v-select2 mb_15">
                                         <label>Phòng ban</label>
-                                        <input type="text" name="phong_ban" value="<?= $dept_name ?>" readonly>
+                                        <? if ($role == 1) { ?>
+                                            <input type="text" name="phong_ban" value="" readonly>
+                                        <? } else if ($role == 2) { ?>
+                                            <input type="text" name="phong_ban" value="<?= $dept_name ?>" readonly>
+                                        <? } ?>
                                     </div>
                                     <div class="form-col-50 right v-select2 mb_15">
                                         <label>Người yêu cầu <span class="text-red">*</span></label>
@@ -148,9 +153,10 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                                         <label>Công trình <span class="text-red">*</span></label>
                                         <select name="cong_trinh" class="share_select" id="cong_trinh">
                                             <option value="">-- Chọn công trình --</option>
-                                            <? foreach ($cong_trinh_data as $key => $items) { ?>
+                                            <? foreach ($cong_trinh_data as $key => $items) {
+                                                if($items['ctr_trangthai'] == 0 || $items['ctr_trangthai'] == 1){ ?>
                                                 <option value="<?= $items['ctr_id'] ?>"><?= $items['ctr_name'] ?></option>
-                                            <? } ?>
+                                            <? }} ?>
                                         </select>
                                     </div>
                                 </div>

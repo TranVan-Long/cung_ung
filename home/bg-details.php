@@ -5,6 +5,8 @@ include("config.php");
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
     $con_name = $_SESSION['com_name'];
+    $phan_quyen_nk = 1;
+    $user_id = $_SESSION['com_id'];
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
@@ -19,6 +21,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
 } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
     $com_id = $_SESSION['user_com_id'];
     $con_name = $_SESSION['com_name'];
+    $user_id = $_SESSION['ep_id'];
+    $phan_quyen_nk = 2;
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
@@ -125,7 +129,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     <p class="page-title text-blue mt-20">Chi tiết báo giá</p>
                 </div>
                 <div class="w-100 left mt-10">
-                    <div class="form-control detail-form">
+                    <div class="form-control detail-form" data="<?= $phan_quyen_nk  ?>" data1="<?= $user_id ?>">
                         <div class="form-row left">
                             <div class="form-col-50 left p-10 no-border">
                                 <p class="detail-title">Số báo giá</p>
@@ -277,6 +281,8 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $("#delete .remove_bg").click(function() {
         var id = $(this).attr("data");
         var com_id = $(this).attr("data1");
+        var user_id = $(".detail-form").attr("data1");
+        var phan_quyen_nk = $(".detail-form").attr("data");
 
         $.ajax({
             url: '../ajax/xoa_phieu_bg.php',
@@ -284,6 +290,8 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             data: {
                 id: id,
                 com_id: com_id,
+                phan_quyen_nk: phan_quyen_nk,
+                user_id: user_id,
             },
             success: function(data) {
                 window.location.href = '/quan-ly-bao-gia.html';

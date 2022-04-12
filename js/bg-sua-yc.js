@@ -129,6 +129,7 @@ $('.submit-btn').click(function () {
         var mail_nhan_bg = $("input[name='mail_nhan_bao_gia']").val();
         var com_id = $(".main-form").attr("data");
         var phan_quyen_nk = $(".main-form").attr("data1");
+        var com_name = $(".edit-form").attr("data");
 
         var gui_mail = "";
         if ($("input[name='mail_ngay']").is(":checked")) {
@@ -189,6 +190,7 @@ $('.submit-btn').click(function () {
             type: 'POST',
             data: {
                 com_id: com_id,
+                com_name: com_name,
                 user_id: user_id,
                 id_bg: id_bg,
                 id_nha_cc: id_nha_cc,

@@ -17,10 +17,12 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['com_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 2;
 
         $curl = curl_init();
         $token = $_COOKIE['acc_token'];
@@ -98,10 +100,10 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
             </div>
             <div class="content">
                 <div class="ctn_ctiet_hd w_100 float_l">
-                    <div class="chi_tiet_hd mt_27 w_100 float_l">
+                    <div class="chi_tiet_hd mt_27 w_100 float_l" data="<?= $phan_quyen_nk ?>" data1="<?= $user_id ?>">
                         <a class="prew_href share_fsize_one share_clr_one mb_26" href="quan-ly-hop-dong.html">Quay lại</a>
                         <h4 class="tieu_de_ct w_100 float_l share_fsize_tow share_clr_four mb_25 cr_weight_bold">Chi tiết hợp đồng bán</h4>
-                        <div class="ctiet_dk_hp w_100 float_l">
+                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $com_id ?>">
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Số hợp đồng</p>
@@ -233,7 +235,6 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
                             </div>
                         </div>
                         <div class="xuat_gmc w_100 float_l">
-                            <!-- <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">Xóa</p> -->
                             <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                                 <div class="xuat_gmc_two share_xuat_gmc d_flex mb_10 right">
                                     <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">Xóa</p>
@@ -312,17 +313,18 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
     });
     $(".xoa_hd_ban").click(function() {
         var id = $(this).attr("data-id");
-        //log record
-        var ep_id = '<?= $user_id ?>';
-        var hd_id = '<?= $hd_id ?>';
+        var phan_quyen_nk = $(".chi_tiet_hd").attr("data");
+        var user_id = $(".chi_tiet_hd").attr("data1");
+        var com_id = $(".ctiet_dk_hp").attr("data");
         var loai = "bán vật tư"
         $.ajax({
             url: '../ajax/hd_xoa.php',
             type: 'POST',
             data: {
                 id: id,
-                ep_id: ep_id,
-                hd_id: hd_id,
+                user_id: user_id,
+                com_id: com_id,
+                phan_quyen_nk: phan_quyen_nk,
                 loai: loai,
             },
             success: function(data) {

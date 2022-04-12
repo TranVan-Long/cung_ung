@@ -3,6 +3,8 @@ include "../includes/icon.php";
 include("config.php");
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
+    $user_id = $_SESSION['com_id'];
+    $phan_quyen_nk = 1;
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
     curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
@@ -15,22 +17,10 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $data_list = json_decode($response, true);
     $list_nv = $data_list['data']['items'];
     $cou = count($list_nv);
-} else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-    // header('Location: /quan-ly-trang-chu.html');
-    $com_id = $_SESSION['user_com_id'];
-    $curl = curl_init();
-    $token = $_COOKIE['acc_token'];
-    curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
-    $response = curl_exec($curl);
-    curl_close($curl);
-
-    $data_list = json_decode($response, true);
-    $list_nv = $data_list['data']['items'];
-    $cou = count($list_nv);
-};
+}else if(isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2){
+    header('Location: /quan-ly-trang-chu.html');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -71,7 +61,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                                 <p class="his_ql"><a href="nhat-ky-hoat-dong.html" class="cai_dtl">Nhật ký hoạt động</a></p>
                             </div>
                         </div>
-                        <div class="ctn_sett w_100 float_l">
+                        <div class="ctn_sett w_100 float_l" data="<?= $phan_quyen_nk ?>" data1="<?= $user_id ?>">
                             <div class="w_100 float_l">
                                 <a href="quan-ly-cai-dat.html" class="quay_lai share_fsize_one share_clr_one">Quay lại</a>
                             </div>
@@ -942,6 +932,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $(".save_phanquyen").click(function() {
         var com_id = $(".form_search").attr("data");
         var id_nv = $("select[name='search_nv']").val();
+        var phan_quyen_nk = $(".ctn_sett").attr("data");
 
         var ycvt = document.getElementsByName("yeucau_vt");
         var yc_vt = "";
@@ -1094,12 +1085,13 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                 dso_bhang: dso_bhang,
                 congno_pthu: congno_pthu,
                 congno_ptra: congno_ptra,
+                phan_quyen_nk: phan_quyen_nk,
             },
             success: function(data) {
                 if (data == "") {
                     alert("Bạn phân quyền thành công");
                     window.location.reload();
-                }else if(data != ""){
+                } else if (data != "") {
                     alert(data);
                 }
             }

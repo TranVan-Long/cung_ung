@@ -12,7 +12,8 @@ $gio_tao = strtotime(date('H:i:s', time()));
 
 if ($id_dh != "" && $com_id != "" && $user_id != "") {
 
-    $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id','$phan_quyen_nk','$ngay_tao','$gio_tao', '$noi_dung_nk')");
+    $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`, `gio_tao`, `noi_dung`, `id_cong_ty`)
+                        VALUES('', '$user_id','$phan_quyen_nk','$ngay_tao','$gio_tao', '$noi_dung_nk', '$com_id')");
 
     $remo_dh = new db_query("DELETE FROM `don_hang` WHERE `id` = $id_dh AND `id_cong_ty` = $com_id ");
 } else {

@@ -16,10 +16,12 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['com_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 2;
 
         $curl = curl_init();
         $token = $_COOKIE['acc_token'];
@@ -119,7 +121,7 @@ for ($i = 0; $i < count($cong_trinh_data); $i++) {
                     <div class="chi_tiet_hd mt_25 w_100 float_l">
                         <a class="prew_href share_fsize_one mb_25 share_clr_one" href="quan-ly-hop-dong.html">Quay lại</a>
                         <h4 class="tieu_de_ct w_100 float_l share_fsize_tow share_clr_four cr_weight_bold mb_25">Chi tiết hợp đồng thuê vận chuyển</h4>
-                        <div class="ctiet_dk_hp w_100 float_l">
+                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $user_id ?>" data1="<?= $phan_quyen_nk ?>">
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Số hợp đồng</p>
@@ -255,7 +257,7 @@ for ($i = 0; $i < count($cong_trinh_data); $i++) {
                                     <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
                                         <a href="chinh-sua-hop-dong-van-chuyen-<?= $hd_id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                     </p>
-                                <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                                    <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
                                     if (in_array(4, $hop_dong2)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">Xóa</p>
                                     <? }
@@ -296,7 +298,7 @@ for ($i = 0; $i < count($cong_trinh_data); $i++) {
                             <div class="form_butt_ht mb_20">
                                 <div class="tow_butt_flex d_flex">
                                     <button type="button" class="js_btn_huy mb_10 share_cursor btn_d share_w_148 share_clr_four share_bgr_tow share_h_36">Hủy</button>
-                                    <button type="button" class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp xoa_hd_vc" data-id="<?= $hd_id ?>">Đồng
+                                    <button type="button" class="share_w_148 mb_10 share_cursor share_clr_tow share_h_36 sh_bgr_six save_new_dp xoa_hd_vc" data-id="<?= $hd_id ?>" data="<?= $com_id ?>">Đồng
                                         ý</button>
                                 </div>
                             </div>
@@ -321,17 +323,18 @@ for ($i = 0; $i < count($cong_trinh_data); $i++) {
     });
     $(".xoa_hd_vc").click(function() {
         var id = $(this).attr("data-id");
-        //log record
-        var ep_id = '<?= $user_id ?>';
-        var hd_id = '<?= $hd_id ?>';
+        var user_id = $(".ctiet_dk_hp").attr("data");
+        var phan_quyen_nk = $(".ctiet_dk_hp").attr("data1");
+        var com_id = $(this).attr("data");
         var loai = "thuê vận chuyển"
         $.ajax({
             url: '../ajax/hd_xoa.php',
             type: 'POST',
             data: {
                 id: id,
-                ep_id: ep_id,
-                hd_id: hd_id,
+                user_id: user_id,
+                phan_quyen_nk: phan_quyen_nk,
+                com_id: com_id,
                 loai: loai,
             },
             success: function(data) {

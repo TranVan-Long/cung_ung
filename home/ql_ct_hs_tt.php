@@ -5,6 +5,8 @@ include("config.php");
 if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['com_id'];
     $com_name = $_SESSION['com_name'];
+    $user_id = $_SESSION['com_id'];
+    $phan_quyen_nk = 1;
 
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
@@ -21,6 +23,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $com_id = $_SESSION['user_com_id'];
     $com_name = $_SESSION['com_name'];
     $user_id = $_SESSION['ep_id'];
+    $phan_quyen_nk = 2;
 
     $curl = curl_init();
     $token = $_COOKIE['acc_token'];
@@ -63,19 +66,19 @@ if ($id != "") {
     $loai_hs = $ho_so['loai_hs'];
     $id_hd_dh = $ho_so['id_hd_dh'];
 
-    if($loai_hs == 1){
+    if ($loai_hs == 1) {
         $phan_loai_hd = new db_query("SELECT h.`phan_loai`, n.`ten_nha_cc_kh` FROM `hop_dong` AS h
                                     INNER JOIN `nha_cc_kh` AS n ON h.`id_nha_cc_kh` = n.`id`
                                     WHERE h.`id` = $id_hd_dh AND h.`id_cong_ty` = $com_id ");
         $ploai_hd = mysql_fetch_assoc($phan_loai_hd->result);
 
         $loai_hd = $ploai_hd['phan_loai'];
-        if($loai_hd == 1 || $loai_hd == 3 || $loai_hd == 4){
+        if ($loai_hd == 1 || $loai_hd == 3 || $loai_hd == 4) {
             $dv_thuc_hien = $ploai_hd['ten_nha_cc_kh'];
-        }else if($loai_hd == 2){
+        } else if ($loai_hd == 2) {
             $dv_thuc_hien = $com_name;
         }
-    }else if($list_hs == 2){
+    } else if ($list_hs == 2) {
         $phan_loai_dh = new db_query("SELECT  d.`phan_loai`, n.`ten_nha_cc_kh`, d.`gia_tri_don_hang`, d.`thue_vat`, d.`gia_tri_svat`
                                         FROM `don_hang` AS d
                                         INNER JOIN `nha_cc_kh` AS n ON d.`id_nha_cc_kh` = n.`id`
@@ -111,7 +114,6 @@ if ($id != "") {
         $item2 = $list_vattu[$j];
         $all_vattu[$item2['dsvt_id']] = $item2;
     };
-
 }
 
 ?>
@@ -142,12 +144,12 @@ if ($id != "") {
             <div class="header-container">
                 <? include('../includes/ql_header_nv.php') ?>
             </div>
-            <div class="content" data="<?= $com_id ?>" data1="<?= $id ?>" data2="<?= $id_hd_dh ?>" data3="<?= $loai_hs ?>" data4="<?= $user_id?>">
+            <div class="content" data="<?= $com_id ?>" data1="<?= $id ?>" data2="<?= $id_hd_dh ?>" data3="<?= $loai_hs ?>" data4="<?= $user_id ?>">
                 <div class="ctn_ctiet_hd w_100 float_l">
                     <div class="chi_tiet_hd mt_27 w_100 float_l">
                         <a class="prew_href share_fsize_one share_clr_one mb_26" href="quan-ly-ho-so-thanh-toan.html">Quay lại</a>
                         <h4 class="tieu_de_ct w_100 float_l share_fsize_tow share_clr_four mb_25 cr_weight_bold">Chi tiết hồ sơ thanh toán</h4>
-                        <div class="ctiet_dk_hp w_100 float_l">
+                        <div class="ctiet_dk_hp w_100 float_l" data="<?= $user_id ?>" data1="<?= $phan_quyen_nk ?>">
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Hợp đồng / Đơn hàng</p>
@@ -212,22 +214,25 @@ if ($id != "") {
                         </div>
                         <div class="xuat_gmc w_100 float_l">
                             <div class="xuat_gmc_two share_xuat_gmc right d_flex mb-10">
-                                <? if($ho_so['trang_thai'] == 1){
-                                if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
-                                    <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hs">Xóa</p>
-                                    <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
-                                        <a href="chinh-sua-ho-so-thanh-toan-<?= $id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
-                                    </p>
-                                    <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
-                                    if (in_array(4, $hs_tt3)) { ?>
+                                <? if ($ho_so['trang_thai'] == 1) {
+                                    if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hs">Xóa</p>
-                                    <? }
-                                    if (in_array(3, $hs_tt3)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
                                             <a href="chinh-sua-ho-so-thanh-toan-<?= $id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                         </p>
+                                        <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                                        if (in_array(4, $hs_tt3)) { ?>
+                                            <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hs">Xóa</p>
+                                        <? }
+                                        if (in_array(3, $hs_tt3)) { ?>
+                                            <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
+                                                <a href="chinh-sua-ho-so-thanh-toan-<?= $id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
+                                            </p>
                                 <? }
-                                }}else{ echo ""; } ?>
+                                    }
+                                } else {
+                                    echo "";
+                                } ?>
                             </div>
                             <div class="xuat_gmc_one share_xuat_gmc left d_flex mb-10 mr_10">
                                 <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight xuat_excel" data=<?= $id ?>>Xuất Excel</p>
@@ -306,17 +311,29 @@ if ($id != "") {
         window.location.href = '../excel/hstt_excel.php?id=' + id;
     });
 
-    $(".xoa_hs_tt").click(function(){
+    $(".xoa_hs_tt").click(function() {
+        var user_id = (".ctiet_dk_hp").attr("data");
+        var phan_quyen_nk = $(".ctiet_dk_hp").attr("data1");
+        var com_id = $('.content').attr("data");
+        var id_hs = $('.content').attr("data1");
         $.ajax({
             url: '../ajax/hstt_xoa.php',
-        type: 'POST',
-        data: {
-            user_id: user_id,
-            id_hs: id_hs,
-        },
-        success: function(data) {
-            window.location.href= '/quan-ly-ho-so-thanh-toan.html';
-        }
+            type: 'POST',
+            data: {
+                user_id: user_id,
+                id_hs: id_hs,
+                com_id: com_id,
+                phan_quyen_nk: phan_quyen_nk,
+            },
+            success: function(data) {
+                if (data == "") {
+                    alert("Bạn đã xóa phiếu hồ sơ thanh toán thành công");
+                    window.location.href = '/quan-ly-ho-so-thanh-toan.html';
+                }else{
+                    alert(data);
+                }
+
+            }
         })
     })
 </script>

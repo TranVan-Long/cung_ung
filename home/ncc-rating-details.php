@@ -8,10 +8,12 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['com_id'];
         $com_name = $_SESSION['com_name'];
         $user_id = $_SESSION['com_id'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 2;
 
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
@@ -104,7 +106,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     <p class="page-title text-blue mt-20">Chi tiết phiếu đánh giá</p>
                 </div>
                 <div class="w-100 left mt-10">
-                    <div class="form-control detail-form" data="<?= $nha_cc ?>">
+                    <div class="form-control detail-form" data="<?= $nha_cc ?>" data1="<?= $user_id ?>" data2="<?= $phan_quyen_nk ?>">
                         <div class="form-row left">
                             <div class="form-col-50 left p-10 no-border">
                                 <p class="detail-title">Số phiếu</p>
@@ -239,7 +241,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                             <p class="v-btn btn-outline-blue left cancel">Hủy</p>
                         </div>
                         <div class="right">
-                            <button type="button" class="v-btn sh_bgr_six share_clr_tow right remove_dg" data-id="<?= $id_dg ?>">Đồng ý</button>
+                            <button type="button" class="v-btn sh_bgr_six share_clr_tow right remove_dg" data-id="<?= $id_dg ?>" data="<?= $com_id ?>">Đồng ý</button>
                         </div>
                     </div>
                 </div>
@@ -261,13 +263,17 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 
     $(".remove_dg").click(function() {
         var id = $(this).attr("data-id");
-        var user_id = "<?= $_COOKIE['user'] ?>";
+        var user_id = $(".detail-form").attr("data1");
+        var phan_quyen_nk = $(".detail-form").attr("data2");
+        var com_id = $(this).attr("data");
         $.ajax({
             url: '../ajax/xoa_danh_gia.php',
             type: 'POST',
             data: {
                 id: id,
                 user_id: user_id,
+                phan_quyen_nk: phan_quyen_nk,
+                com_id: com_id,
             },
             success: function(data) {
                 if (data == "") {

@@ -7,10 +7,12 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['com_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
         $com_name = $_SESSION['com_name'];
+        $phan_quyen_nk = 2;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `yeu_cau_bao_gia` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
@@ -150,7 +152,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     <p class="text-blue mt-20 page-title">Chi tiết yêu cầu báo giá</p>
                 </div>
                 <div class="w-100 left mt-10">
-                    <div class="form-control detail-form" data="<?= $com_name ?>">
+                    <div class="form-control detail-form" data="<?= $com_name ?>" data1="<?= $com_id ?>" data2="<?= $phan_quyen_nk ?>">
                         <div class="form-row left">
                             <div class="form-col-50 left p-10 no-border">
                                 <p class="detail-title">Số phiếu yêu cầu</p>
@@ -304,15 +306,25 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $("#delete-vt .dongy_xoa").click(function() {
         var id = $(this).attr("data");
         var user_id = "<?= $user_id ?>";
+        var com_id = $(".detail-form").attr("data1");
+        var phan_quyen_nk = $(".detail-form").attr("data2");
         $.ajax({
             url: '../ajax/xoa_ycbg_vt.php',
             type: 'POST',
             data: {
                 id: id,
                 user_id: user_id,
+                phan_quyen_nk: phan_quyen_nk,
+                com_id: com_id
             },
             success: function(data) {
-                window.location.href = '/quan-ly-yeu-cau-bao-gia.html';
+                if (data == "") {
+                    alert("Bạn xóa phiếu yêu cầu vật tư thành công");
+                    window.location.href = '/quan-ly-yeu-cau-bao-gia.html';
+                }else{
+                    alert(data);
+                }
+
             }
         })
     });
