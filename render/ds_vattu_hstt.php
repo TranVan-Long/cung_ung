@@ -128,7 +128,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                         <input type="text" name="gt_luy_ke_den_nay" data="" class="tex_center" value="<?= ($sum_two == 0) ? "0" : $sum_two ?>" readonly>
                                     </td>
                                     <td class="w-5">
-                                        <input type="text" name="phan_tram_thuc_hien" value="<?= ($sum_two * 100) / $row1['tien_svat'] ?>" class="tex_center" readonly>
+                                        <input type="text" name="phan_tram_thuc_hien" value="<?= ($sum_two * 100) / $row1['tien_trvat'] ?>" class="tex_center" readonly>
                                     </td>
                                     <td class="w-10">
                                         <input type="text" name="con_lai_so_luong" value="<?= $row1['so_luong'] - $sum_one ?>" class="tex_center" readonly>
@@ -1217,7 +1217,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                     <input type="text" name="gt_luy_ke_den_nay" data="" class="tex_center" value="<?= ($sum_two == 0) ? "0" : $sum_two ?>" readonly>
                                 </td>
                                 <td class="w-5">
-                                    <input type="text" name="phan_tram_thuc_hien" value="<?= ($sum_two * 100) / $row1['tong_tien_svat'] ?>" class="tex_center" readonly>
+                                    <input type="text" name="phan_tram_thuc_hien" value="<?= ($sum_two * 100) / $row1['tong_tien_trvat'] ?>" class="tex_center" readonly>
                                 </td>
                                 <td class="w-10">
                                     <input type="text" name="con_lai_so_luong" value="<?= $row1['so_luong_ky_nay'] - $sum_one ?>" class="tex_center" readonly>
@@ -1367,7 +1367,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                     <p class="don_gia"><?= $row1['don_gia'] ?></p>
                                 </td>
                                 <td class="w-10">
-                                    <p class="tong_tienvt"><?= $row1['tong_tien_svat'] ?></p>
+                                    <p class="tong_tienvt"><?= $row1['tong_tien_trvat'] ?></p>
                                 </td>
                                 <td class="w-10">
                                     <input type="text" name="kl_luy_ke_ky_truoc" data="<?= $row1['thue_vat'] ?>" value="0" class="tex_center" readonly>

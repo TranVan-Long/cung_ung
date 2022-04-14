@@ -95,7 +95,7 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
                                         <select name="id_khach_hang" class="form-control all_nhacc">
                                             <option value="">-- Chọn khách hàng --</option>
                                             <?
-                                            $get_kh = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 2");
+                                            $get_kh = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 2 AND `id_cong_ty` = $com_id ");
                                             while ($list_kh = mysql_fetch_assoc($get_kh->result)) {
                                             ?>
                                                 <option value="<?= $list_kh['id'] ?>">(<?= $list_kh['id'] ?>) <?= $list_kh['ten_nha_cc_kh'] ?></option>

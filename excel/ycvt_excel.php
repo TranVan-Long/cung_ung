@@ -131,11 +131,14 @@ $response = curl_exec($curl);
 curl_close($curl);
 $list_cong_trinh = json_decode($response, true);
 $cong_trinh_data = $list_cong_trinh['data']['items'];
+
 $all_ctr = [];
-for($j = 0; $j < count($cong_trinh_data); $j++){
-    $item_ctr = $cong_trinh_data[$j];
-    $all_ctr[$item_ctr[$j]['ctr_id']] = $item_ctr;
+for ($l = 0; $l < count($cong_trinh_data); $l++) {
+    $ctr_item = $cong_trinh_data[$l];
+    $all_ctr[$ctr_item['ctr_id']] = $ctr_item;
 }
+
+$ten_ctr = $all_ctr[$cong_trinh]['ctr_name'];
 
 $stt = 1;
 
@@ -170,7 +173,7 @@ echo '<tr><th colspan="2" style="font-size:18px;height:60px;vertical-align: midd
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Công trình:</td>
-    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= $all_ctr[$item['id_cong_trinh']]['ctr_name'] ?></td>
+    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= $ten_ctr ?></td>
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Diễn giải:</td>

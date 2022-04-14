@@ -30,6 +30,8 @@ if($_POST['thoi_han_tt'] != ""){
 $ngay_tao = strtotime(date('Y-m-d', time()));
 $gio_tao = strtotime(date('H:i:s', time()));
 
+$phan_quyen_nk = getValue('phan_quyen_nk', 'int', 'POST', '');
+
 if($tong_tien_ky_nay == "" && $tien_svat == ""){
     echo "Điền đầy đủ thông tin hồ sơ thanh toán";
 }
@@ -37,8 +39,8 @@ else if($com_id != "" && $hd_dh != "" && $loai_hs != "" && $tong_tien_ky_nay != 
 
     $inser_hs = new db_query("INSERT INTO `ho_so_thanh_toan`(`id`, `id_hd_dh`, `loai_hs`, `dot_nghiem_thu`, `tg_nghiem_thu`, `thoi_han_thanh_toan`,
                             `tong_tien_tt`, `tong_tien_thue`, `tong_tien_tatca`, `chi_phi_khac`, `trang_thai`, `ngay_tao`, `ngay_chinh_sua`,
-                            `id_nguoi_lap`, `id_cong_ty`) VALUES ('','$hd_dh','$loai_hs','$dot_nthu','$thoig_nthu','$thoi_han_tt','$tong_tien_ky_nay',
-                            '$tien_thue','$tien_svat','$chi_phi_khac','1','$ngay_tao','','$user_id','$com_id')");
+                            `id_nguoi_lap`,`quyen_nlap`, `id_cong_ty`) VALUES ('','$hd_dh','$loai_hs','$dot_nthu','$thoig_nthu','$thoi_han_tt','$tong_tien_ky_nay',
+                            '$tien_thue','$tien_svat','$chi_phi_khac','1','$ngay_tao','','$user_id','$phan_quyen_nk','$com_id')");
 
     $id_sinser = new db_query("SELECT LAST_INSERT_ID() AS id_hs ");
     $id_hs = mysql_fetch_assoc($id_sinser -> result)['id_hs'];
@@ -49,7 +51,8 @@ else if($com_id != "" && $hd_dh != "" && $loai_hs != "" && $tong_tien_ky_nay != 
     }
 
     $noi_dung_nk = "Bạn đã thêm hồ sơ thanh toán: ".$id_hs;
-    $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id', '$ngay_tao','$gio_tao', '$noi_dung_nk')");
+    $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`,`role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
+                        VALUES('', '$user_id','$phan_quyen_nk', '$ngay_tao','$gio_tao', '$noi_dung_nk','$com_id')");
 
 }
 else{

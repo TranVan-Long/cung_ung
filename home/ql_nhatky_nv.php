@@ -4,14 +4,14 @@ include("config.php");
 $date_now = strtotime(date('Y-m-d'));
 
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
-    if ($_COOKIE['role'] = 1) {
-        $user_id = $_SESSION['com_id'];
+    if ($_COOKIE['role'] == 1) {
         header("Location: /quan-ly-trang-chu.html");
-    } else if ($_COOKIE['role'] = 2) {
+    } else if ($_COOKIE['role'] == 2) {
         $user_id = $_SESSION['ep_id'];
-        $com_id = $_SESSION['com_id'];
+        $com_id = $_SESSION['user_com_id'];
         $list_hnay = new db_query("SELECT `id`, `id_nguoi_dung`, `ngay_tao`, `gio_tao`, `noi_dung` FROM `nhat_ky_hd`
-                                    WHERE `id_nguoi_dung` = $user_id AND `ngay_tao` = $date_now AND `role` = 2 AND `id_cong_ty` = $com_id ORDER BY `gio_tao` DESC");
+                                    WHERE `id_nguoi_dung` = $user_id AND `ngay_tao` = $date_now AND `role` = 2
+                                    AND `id_cong_ty` = $com_id ORDER BY `gio_tao` DESC");
         $list_cu = new db_query("SELECT `id`, `id_nguoi_dung`, `ngay_tao`, `gio_tao`, `noi_dung` FROM `nhat_ky_hd` WHERE `id_nguoi_dung` = $user_id
                                 AND `ngay_tao` < $date_now AND `role` = 2 AND `id_cong_ty` = $com_id ORDER BY `ngay_tao` DESC");
     }

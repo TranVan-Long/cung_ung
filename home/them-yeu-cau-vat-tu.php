@@ -154,9 +154,10 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                                         <select name="cong_trinh" class="share_select" id="cong_trinh">
                                             <option value="">-- Chọn công trình --</option>
                                             <? foreach ($cong_trinh_data as $key => $items) {
-                                                if($items['ctr_trangthai'] == 0 || $items['ctr_trangthai'] == 1){ ?>
-                                                <option value="<?= $items['ctr_id'] ?>"><?= $items['ctr_name'] ?></option>
-                                            <? }} ?>
+                                                if ($items['ctr_trangthai'] == 0 || $items['ctr_trangthai'] == 1) { ?>
+                                                    <option value="<?= $items['ctr_id'] ?>"><?= $items['ctr_name'] ?></option>
+                                            <? }
+                                            } ?>
                                         </select>
                                     </div>
                                 </div>
@@ -166,7 +167,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                                         <input type="date" id="ngay_tao_yeu_cau" value="<?php echo $date ?>" name="ngay_tao_yeu_cau" readonly>
                                     </div>
                                     <div class="form-col-50 right mb_15">
-                                        <label>Ngày phải hoàn thành yêu cầu</label>
+                                        <label>Ngày phải hoàn thành yêu cầu <span class="text-red">*</span></label>
                                         <input type="date" name="ngay_phai_hoan_thanh" placeholder="Chọn ngày phải hoàn thành yêu cầu">
                                     </div>
                                 </div>
@@ -282,31 +283,39 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
 
     $(".submit-btn").click(function() {
         var create_ycvt = $(".form_save_add");
+        $.validator.addMethod("dateRange",
+            function() {
+                var date1 = $("input[name='ngay_tao_yeu_cau']").val();
+                var date2 = $("input[name='ngay_phai_hoan_thanh']").val();
+                return (date1 <= date2);
+            });
         create_ycvt.validate({
             errorPlacement: function(error, element) {
                 error.appendTo(element.parents(".form-col-50"));
                 error.wrap("<span class='error'>");
             },
             rules: {
-                // phong_ban: {
-                //     required: true,
-                // },
                 nguoi_yeu_cau: {
                     required: true,
                 },
                 cong_trinh: {
                     required: true,
+                },
+                ngay_phai_hoan_thanh: {
+                    required: true,
+                    dateRange: true,
                 },
             },
             messages: {
-                // phong_ban: {
-                //     required: "Không được để trống!",
-                // },
                 nguoi_yeu_cau: {
                     required: "Không được để trống!",
                 },
                 cong_trinh: {
                     required: "Không được để trống!",
+                },
+                ngay_phai_hoan_thanh: {
+                    required: "Không được để trống!",
+                    dateRange: "Ngày hoàn thành yêu cầu phải lớn hơn ngày tạo yêu cầu",
                 },
             },
         });

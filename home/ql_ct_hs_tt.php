@@ -58,7 +58,7 @@ for ($i = 0; $i < count($list_nv); $i++) {
 $id = getValue('id', 'int', 'GET', '');
 
 if ($id != "") {
-    $list_hs = new db_query("SELECT `id`, `id_hd_dh`, `loai_hs`, `dot_nghiem_thu`, `tg_nghiem_thu`, `thoi_han_thanh_toan`, `tong_tien_tt`,
+    $list_hs = new db_query("SELECT `id`, `id_hd_dh`, `loai_hs`, `dot_nghiem_thu`, `tg_nghiem_thu`, `thoi_han_thanh_toan`, `tong_tien_tt`, `quyen_nlap`,
                             `tong_tien_thue`, `tong_tien_tatca`, `chi_phi_khac`, `trang_thai`, `ngay_tao`, `id_nguoi_lap`
                             FROM `ho_so_thanh_toan` WHERE `id_cong_ty` = $com_id AND `id` = $id ");
 
@@ -197,7 +197,11 @@ if ($id != "") {
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Người lập</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $user[$ho_so['id_nguoi_lap']]['ep_name'] ?></p>
+                                    <? if ($ho_so['quyen_nlap'] == 1) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one"><?= $com_name ?></p>
+                                    <? } else if ($ho_so['quyen_nlap'] == 2) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one"><?= $user[$ho_so['id_nguoi_lap']]['ep_name'] ?></p>
+                                    <? } ?>
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Ngày lập</p>
@@ -312,7 +316,7 @@ if ($id != "") {
     });
 
     $(".xoa_hs_tt").click(function() {
-        var user_id = (".ctiet_dk_hp").attr("data");
+        var user_id = $(".ctiet_dk_hp").attr("data");
         var phan_quyen_nk = $(".ctiet_dk_hp").attr("data1");
         var com_id = $('.content').attr("data");
         var id_hs = $('.content').attr("data1");
@@ -329,7 +333,7 @@ if ($id != "") {
                 if (data == "") {
                     alert("Bạn đã xóa phiếu hồ sơ thanh toán thành công");
                     window.location.href = '/quan-ly-ho-so-thanh-toan.html';
-                }else{
+                } else {
                     alert(data);
                 }
 

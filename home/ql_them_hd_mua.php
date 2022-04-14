@@ -24,24 +24,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         }
     }
 }
-// $curl = curl_init();
-// $data = array(
-//     'id_com' => $com_id,
-// );
-// curl_setopt($curl, CURLOPT_POST, 1);
-// curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-// curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-// curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
-// curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-// $response = curl_exec($curl);
-// curl_close($curl);
-// $list_vt = json_decode($response, true);
-// $vat_tu_data = $list_vt['data']['items'];
-// $vat_tu_detail = [];
-// for ($i = 0; $i < count($vat_tu_data); $i++) {
-//     $items_vt = $vat_tu_data[$i];
-//     $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
-// }
+
 
 $curl = curl_init();
 $data = array(
@@ -111,7 +94,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
                                         <select id="id_nha_cung_cap" name="id_nha_cung_cap" class="form-control all_nhacc" data="<?= $com_id ?>">
                                             <option value="">-- Chọn nhà cung cấp --</option>
                                             <?
-                                            $get_ncc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 1");
+                                            $get_ncc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ");
                                             while ($list_ncc = mysql_fetch_assoc($get_ncc->result)) {
                                             ?>
                                                 <option value="<?= $list_ncc['id'] ?>"><?= $list_ncc['ten_nha_cc_kh'] ?></option>

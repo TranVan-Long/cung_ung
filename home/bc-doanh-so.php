@@ -220,31 +220,29 @@ for ($i = 0; $i < count($phieu_vt); $i++) {
                                                             $check_tt = new db_query("SELECT DISTINCT `id` FROM `don_hang`
                                                                                     WHERE `id_cong_ty` = $com_id AND `id_hop_dong` = $hd_id ");
 
-                                                            if(mysql_num_rows($check_tt -> result) > 0){
+                                                            if (mysql_num_rows($check_tt->result) > 0) {
                                                                 $id_dh = new db_query("SELECT `id` FROM `don_hang` WHERE `id_cong_ty` = $com_id
                                                                                         AND `phan_loai` = 2 AND `id_hop_dong` = $hd_id ");
-                                                                while($row1 = mysql_fetch_assoc($id_dh -> result)){
+                                                                while ($row1 = mysql_fetch_assoc($id_dh->result)) {
                                                                     $id_dh_hs = $row1['id'];
                                                                     $check_ttt = new db_query("SELECT `id` FROM `ho_so_thanh_toan`
                                                                                                 WHERE `id_hd_dh` = $id_dh_hs AND `loai_hs` = 2
                                                                                                 AND `id_cong_ty` = $com_id ");
-                                                                    if(mysql_num_rows($check_ttt -> result) > 0){
+                                                                    if (mysql_num_rows($check_ttt->result) > 0) {
                                                                         $tong_ca = new db_query("SELECT `tong_tien_tt`, `chi_phi_khac` FROM `ho_so_thanh_toan`
                                                                                                 WHERE `id_cong_ty` = $com_id AND `id_hd_dh` = $id_dh_hs
                                                                                                 AND `trang_thai` = 2 AND `loai_hs` = 2 ");
-                                                                        while($row2 = mysql_fetch_assoc($tong_ca -> result)){
+                                                                        while ($row2 = mysql_fetch_assoc($tong_ca->result)) {
                                                                             $tong1 += $row2['tong_tien_tt'];
                                                                             $tong2 += $row2['chi_phi_khac'];
                                                                         }
                                                                     }
-
                                                                 }
-                                                            }
-                                                            else{
+                                                            } else {
                                                                 $check_tt = new db_query("SELECT `id` FROM `ho_so_thanh_toan`
                                                                                         WHERE `id_hd_dh` = $hd_id AND `loai_hs` = 1
                                                                                         AND `id_cong_ty` = $com_id ");
-                                                                if(mysql_num_rows($check_tt -> result) > 0){
+                                                                if (mysql_num_rows($check_tt->result) > 0) {
                                                                     $tong_ca = new db_query("SELECT `tong_tien_tt`, `chi_phi_khac` FROM `ho_so_thanh_toan`
                                                                                                 WHERE `id_cong_ty` = $com_id AND `id_hd_dh` = $hd_id
                                                                                                 AND `trang_thai` = 2 AND `loai_hs` = 1 ");
@@ -258,22 +256,58 @@ for ($i = 0; $i < count($phieu_vt); $i++) {
                                                             $tong3 = $tong1 - $tong2;
                                                         ?>
                                                             <p class="table-text gia_tri_th"><?= ($hd_item['gia_tri_svat'] == $tong3) ? $hd_item['tien_svat'] : '0'  ?></p>
-                                                        <?}?>
+                                                        <? } ?>
 
                                                     </td>
                                                     <td class="w-25">
-                                                    <?
-                                                        $ds_hd = new db_query("SELECT n.`id`, y.`tien_svat` FROM `vat_tu_hd_dh` AS y JOIN `hop_dong` AS n ON y.`id_hd_mua_ban` = n.`id` WHERE y.`id_vat_tu` = $id_vt AND n.phan_loai = 2");
+                                                        <?
+                                                        $tong1 = 0;
+                                                        $tong2 = 0;
+                                                        $ds_hd = new db_query("SELECT n.`id`, y.`tien_svat`, n.`gia_tri_svat` FROM `vat_tu_hd_dh` AS y JOIN `hop_dong`
+                                                        AS n ON y.`id_hd_mua_ban` = n.`id` WHERE y.`id_vat_tu` = $id_vt AND n.phan_loai = 2 AND n.`id_cong_ty` = $com_id ");
                                                         while ($hd_item = mysql_fetch_assoc($ds_hd->result)) {
                                                             $hd_id = $hd_item['id'];
-                                                            $trang_thai = mysql_fetch_assoc((new db_query("SELECT `trang_thai` FROM `ho_so_thanh_toan` WHERE `id_hd_dh` = $hd_id AND `loai_hs` = 1 AND `trang_thai`= 2 AND `id_cong_ty` = $com_id"))->result);
-                                                            if ($trang_thai['trang_thai'] == 2) {
+                                                            $check_tt = new db_query("SELECT DISTINCT `id` FROM `don_hang`
+                                                                                    WHERE `id_cong_ty` = $com_id AND `id_hop_dong` = $hd_id ");
+
+                                                            if (mysql_num_rows($check_tt->result) > 0) {
+                                                                $id_dh = new db_query("SELECT `id` FROM `don_hang` WHERE `id_cong_ty` = $com_id
+                                                                                        AND `phan_loai` = 2 AND `id_hop_dong` = $hd_id ");
+                                                                while ($row1 = mysql_fetch_assoc($id_dh->result)) {
+                                                                    $id_dh_hs = $row1['id'];
+                                                                    $check_ttt = new db_query("SELECT `id` FROM `ho_so_thanh_toan`
+                                                                                                WHERE `id_hd_dh` = $id_dh_hs AND `loai_hs` = 2
+                                                                                                AND `id_cong_ty` = $com_id ");
+                                                                    if (mysql_num_rows($check_ttt->result) > 0) {
+                                                                        $tong_ca = new db_query("SELECT `tong_tien_tt`, `chi_phi_khac` FROM `ho_so_thanh_toan`
+                                                                                                WHERE `id_cong_ty` = $com_id AND `id_hd_dh` = $id_dh_hs
+                                                                                                AND `trang_thai` = 2 AND `loai_hs` = 2 ");
+                                                                        while ($row2 = mysql_fetch_assoc($tong_ca->result)) {
+                                                                            $tong1 += $row2['tong_tien_tt'];
+                                                                            $tong2 += $row2['chi_phi_khac'];
+                                                                        }
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                $check_tt = new db_query("SELECT `id` FROM `ho_so_thanh_toan`
+                                                                                        WHERE `id_hd_dh` = $hd_id AND `loai_hs` = 1
+                                                                                        AND `id_cong_ty` = $com_id ");
+                                                                if (mysql_num_rows($check_tt->result) > 0) {
+                                                                    $tong_ca = new db_query("SELECT `tong_tien_tt`, `chi_phi_khac` FROM `ho_so_thanh_toan`
+                                                                                                WHERE `id_cong_ty` = $com_id AND `id_hd_dh` = $hd_id
+                                                                                                AND `trang_thai` = 2 AND `loai_hs` = 1 ");
+                                                                    while ($row2 = mysql_fetch_assoc($tong_ca->result)) {
+                                                                        $tong1 += $row2['tong_tien_tt'];
+                                                                        $tong2 += $row2['chi_phi_khac'];
+                                                                    }
+                                                                }
+                                                            }
+
+                                                            $tong3 = $tong1 - $tong2;
                                                         ?>
-                                                                <p class="table-text gia_tri_th">100%</p>
-                                                            <? } else { ?>
-                                                                <p class="table-text gia_tri_th">0%</p>
-                                                        <? }
-                                                        } ?>
+                                                            <p class="table-text gia_tri_th"><?= ($hd_item['gia_tri_svat'] == $tong3) ? '100%' : '0%'  ?></p>
+
+                                                        <? } ?>
                                                     </td>
                                                 </tr>
                                             <? } ?>

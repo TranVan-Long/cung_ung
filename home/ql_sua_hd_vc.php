@@ -27,9 +27,10 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 $date = date('m-d-Y', time());
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $hd_id = $_GET['id'];
-    $hd_get = new db_query("SELECT * FROM `hop_dong` WHERE `id` = '" . $hd_id . "' ");
+    $hd_get = new db_query("SELECT * FROM `hop_dong` WHERE `id` = $hd_id AND `id_cong_ty` = $com_id  ");
     $hd_detail = mysql_fetch_assoc($hd_get->result);
-    $giatri_tr = $hd_detail['gia_tri_svat'];
+    $giatri_tr = $hd_detail['gia_tri_trvat'];
+    $giatri_s = $hd_detail['gia_tri_svat'];
     $ngay_hop_dong = date('Y-m-d', $hd_detail['ngay_ky_hd']);
     $cong_trinh = $hd_detail['id_du_an_ctrinh'];
     $id_ncc = $hd_detail['id_nha_cc_kh'];
@@ -182,7 +183,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Giá trị sau VAT</label>
-                                        <input type="number" name="sau_vat" value="<?= $hd_detail['gia_tri_svat'] ?>" id="tong_sau_vat" class="form-control cr_weight h_border" readonly>
+                                        <input type="number" name="sau_vat" value="<?= $giatri_s ?>" id="tong_sau_vat" class="form-control cr_weight h_border" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label>Giữ lại bảo hành</label>
@@ -544,7 +545,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             var ten_nh = $("input[name='ten_nh']").val();
             var so_taik = $("input[name='so_taik']").val();
 
-            var vt_id_vat_tu_old = new Array();
+            var vt_id_vat_tu_old = [];
             $("input[name='id_tb_vt_old']").each(function() {
                 var id_vat_tu_old = $(this).val();
                 if (id_vat_tu_old != "") {
@@ -552,35 +553,35 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 }
             });
 
-            var vt_vat_tu_old = new Array();
+            var vt_vat_tu_old = [];
             $("select[name='thietb_vt_old']").each(function() {
                 var ten_vat_tu_old = $(this).val();
                 if (ten_vat_tu_old != "") {
                     vt_vat_tu_old.push(ten_vat_tu_old);
                 }
             });
-            var vt_don_vi_tinh_old = new Array();
+            var vt_don_vi_tinh_old = [];
             $("input[name='don_vi_tinh_old']").each(function() {
                 var sl_vt_old = $(this).val();
                 if (sl_vt_old != "") {
                     vt_don_vi_tinh_old.push(sl_vt_old);
                 }
             });
-            var vt_khoi_luong_old = new Array();
+            var vt_khoi_luong_old = [];
             $("input[name='khoi_luong_old']").each(function() {
                 var kl_vt_old = $(this).val();
                 if (kl_vt_old != "") {
                     vt_khoi_luong_old.push(kl_vt_old);
                 }
             });
-            var vt_don_gia_old = new Array();
+            var vt_don_gia_old = [];
             $("input[name='don_gia_old']").each(function() {
                 var dg_vat_old = $(this).val();
                 if (dg_vat_old != "") {
                     vt_don_gia_old.push(dg_vat_old);
                 }
             });
-            var vt_thanh_tien_old = new Array();
+            var vt_thanh_tien_old = [];
             $("input[name='thanh_tien_old']").each(function() {
                 var tt_vt_old = $(this).val();
                 if (tt_vt_old != "") {
@@ -588,35 +589,35 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 }
             });
 
-            var vt_vat_tu = new Array();
+            var vt_vat_tu = [];
             $("select[name='thietb_vt']").each(function() {
                 var ten_vat_tu = $(this).val();
                 if (ten_vat_tu != "") {
                     vt_vat_tu.push(ten_vat_tu);
                 }
             });
-            var vt_don_vi_tinh = new Array();
+            var vt_don_vi_tinh = [];
             $("input[name='don_vi_tinh']").each(function() {
                 var sl_vt = $(this).val();
                 if (sl_vt != "") {
                     vt_don_vi_tinh.push(sl_vt);
                 }
             });
-            var vt_khoi_luong = new Array();
+            var vt_khoi_luong = [];
             $("input[name='khoi_luong']").each(function() {
                 var kl_vt = $(this).val();
                 if (kl_vt != "") {
                     vt_khoi_luong.push(kl_vt);
                 }
             });
-            var vt_don_gia = new Array();
+            var vt_don_gia = [];
             $("input[name='don_gia']").each(function() {
                 var dg_vat = $(this).val();
                 if (dg_vat != "") {
                     vt_don_gia.push(dg_vat);
                 }
             });
-            var vt_thanh_tien = new Array();
+            var vt_thanh_tien = [];
             $("input[name='thanh_tien']").each(function() {
                 var tt_vt = $(this).val();
                 if (tt_vt != "") {
@@ -624,11 +625,9 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 }
             });
 
-            if (ngay_bat_dau < ngay_ky_hd) {
-                alert("Ngày bắt đầu không được nhỏ hơn ngày ký hợp đồng.")
-            } else {
-                if (ngay_ket_thuc < ngay_bat_dau) {
-                    alert("Ngày kết thúc không được nhỏ hơn ngày bắt đầu.")
+            if (ngay_bat_dau != "" && ngay_ket_thuc != "") {
+                if (ngay_bat_dau < ngay_ket_thuc) {
+                    alert("Thời gian thực hiện ngày bắt đầu không được nhỏ hơn ngày ký hợp đồng.")
                 } else {
                     $.ajax({
                         url: '../ajax/hd_vc_sua.php',
@@ -685,6 +684,61 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         }
                     })
                 }
+            } else {
+                $.ajax({
+                    url: '../ajax/hd_vc_sua.php',
+                    type: 'POST',
+                    data: {
+                        hd_id: hd_id,
+                        user_id: user_id,
+                        com_id: com_id,
+                        role: role,
+
+                        ngay_ky_hd: ngay_ky_hd,
+                        id_nha_cung_cap: id_nha_cung_cap,
+                        dan_ctrinh: dan_ctrinh,
+                        truoc_vat: truoc_vat,
+                        don_gia_vat: don_gia_vat,
+                        thue_vat: thue_vat,
+                        sau_vat: sau_vat,
+                        bao_hanh: bao_hanh,
+                        gt_bao_hanh: gt_bao_hanh,
+                        bao_lanh: bao_lanh,
+                        gt_bao_lanh: gt_bao_lanh,
+                        han_bao_lanh: han_bao_lanh,
+                        ngay_bat_dau: ngay_bat_dau,
+                        ngay_ket_thuc: ngay_ket_thuc,
+                        bao_gom_van_chuyen: bao_gom_van_chuyen,
+                        hmuc_tind: hmuc_tind,
+                        yc_tiendo: yc_tiendo,
+                        noi_dung_hd: noi_dung_hd,
+                        noi_dung_luu_y: noi_dung_luu_y,
+                        dieu_khoan_tt: dieu_khoan_tt,
+                        ten_nh: ten_nh,
+                        so_taik: so_taik,
+
+                        vt_id_vat_tu_old: vt_id_vat_tu_old,
+                        vt_vat_tu_old: vt_vat_tu_old,
+                        vt_don_vi_tinh_old: vt_don_vi_tinh_old,
+                        vt_khoi_luong_old: vt_khoi_luong_old,
+                        vt_don_gia_old: vt_don_gia_old,
+                        vt_thanh_tien_old: vt_thanh_tien_old,
+
+                        vt_vat_tu: vt_vat_tu,
+                        vt_don_vi_tinh: vt_don_vi_tinh,
+                        vt_khoi_luong: vt_khoi_luong,
+                        vt_don_gia: vt_don_gia,
+                        vt_thanh_tien: vt_thanh_tien
+                    },
+                    success: function(data) {
+                        if (data == "") {
+                            alert("Chỉnh sửa hợp đồng thuê vận chuyển thành công!");
+                            window.location.href = 'quan-ly-chi-tiet-hop-dong-van-chuyen-<?= $hd_id ?>.html';
+                        } else {
+                            alert(data);
+                        }
+                    }
+                })
             }
         }
     });

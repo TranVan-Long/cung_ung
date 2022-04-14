@@ -412,6 +412,9 @@ if ($id != "") {
             var tien_trvat = $(".tong_tien_ky_nay").text();
             var tien_thue = $(".thue_ky_nay").text();
             var chi_phi_khac = $("input[name='chi_phi_khac']").val();
+            if(chi_phi_khac == ""){
+                chi_phi_khac = 0;
+            }
             var tien_svat = $(".tong_tatca").text();
 
             $.ajax({
@@ -437,13 +440,12 @@ if ($id != "") {
                     phan_quyen_nk: phan_quyen_nk,
                 },
                 success: function(data) {
-                    // if (data == "") {
-                    //     alert("Bạn cập nhật hồ sơ thanh toán thành công");
-                    //     window.location.href = '/chi-tiet-ho-so-thanh-toan-' + id_hs + '.html';
-                    // } else if (data != "") {
+                    if (data == "") {
+                        alert("Bạn cập nhật hồ sơ thanh toán thành công");
+                        window.location.href = '/chi-tiet-ho-so-thanh-toan-' + id_hs + '.html';
+                    } else if (data != "") {
                         alert(data);
-                    // }
-                    // console.log(data);
+                    }
                 }
             });
         }

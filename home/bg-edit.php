@@ -375,7 +375,7 @@ $date_now = date('Y-m-d', time());
         var form = $('.main-form');
         $.validator.addMethod("dateRange",
             function() {
-                var date1 = $(".main-form").attr("dat1");
+                var date1 = $(".main-form").attr("data1");
                 var date2 = $("#ngay_gui").val();
                 return (date1 >= date2);
 

@@ -118,9 +118,9 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response = curl_exec($curl);
+    $response1 = curl_exec($curl);
     curl_close($curl);
-    $list_cong_trinh = json_decode($response, true);
+    $list_cong_trinh = json_decode($response1, true);
     $cong_trinh_data = $list_cong_trinh['data']['items'];
 
     $all_ctr = [];
@@ -366,7 +366,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     <span class="dismiss cancel">&times;</span>
                 </div>
                 <div class="m-body form-control">
-                    <p>Lý do từ chỗi yêu cầu</p>
+                    <p>Lý do từ chối yêu cầu</p>
                     <textarea name="ly_do" id="" cols="30" rows="10" placeholder="Nhập lý do từ chối yêu cầu"></textarea>
                 </div>
                 <div class="m-foot d_flex flex_jct">
@@ -429,7 +429,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                     <td class="w-20"><?= $row1['so_luong_yc_duyet'] ?></td>
                                                     <td class="w-20">
                                                         <input type="hidden" name="id_vat_tu" type="text" class="d-none" value="<?= $row1['id'] ?>">
-                                                        <input name="so_luong_duyet" class="text-center" type="text" required>
+                                                        <input name="so_luong_duyet" class="text-center" type="text" oninput="<?= $oninput ?>">
                                                     </td>
                                                 </tr>
                                             <? } ?>

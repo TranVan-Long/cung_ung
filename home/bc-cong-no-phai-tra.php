@@ -160,25 +160,25 @@ for ($i = 0; $i < count($ct_data); $i++) {
                             <select name="search" class="share_select">
                                 <option value="">Nhập thông tin cần tìm kiếm</option>
                                 <? if ($tk == 1) {
-                                    $list_kh = new db_query("SELECT DISTINCT `id_nha_cc_kh` FROM `nha_cc_kh` AS k JOIN `hop_dong` AS h ON k.`id` = h.`id_nha_cc_kh` WHERE h.`phan_loai` IN (1,3,4) ORDER BY h.`id_nha_cc_kh` ASC");
+                                    $list_kh = new db_query("SELECT DISTINCT `id_nha_cc_kh` FROM `nha_cc_kh` AS k JOIN `hop_dong` AS h ON k.`id` = h.`id_nha_cc_kh` WHERE `id_cong_ty` = $com_id AND h.`phan_loai` IN (1,3,4) ORDER BY h.`id_nha_cc_kh` ASC");
                                     while ($row1 = mysql_fetch_assoc($list_kh->result)) {
                                 ?>
                                         <option value="<?= $row1['id_nha_cc_kh'] ?>" <?= ($row1['id_nha_cc_kh'] == $tk_ct) ? "selected" : "" ?>>NCC - <?= $row1['id_nha_cc_kh'] ?></option>
                                     <? }
                                 } else if ($tk == 2) {
-                                    $list_kh = new db_query("SELECT DISTINCT `id_nha_cc_kh`,`ten_nha_cc_kh` FROM `nha_cc_kh` AS k JOIN `hop_dong` AS h ON k.`id` = h.`id_nha_cc_kh` WHERE h.`phan_loai` IN (1,3,4) ORDER BY h.`id_nha_cc_kh` ASC");
+                                    $list_kh = new db_query("SELECT DISTINCT `id_nha_cc_kh`,`ten_nha_cc_kh` FROM `nha_cc_kh` AS k JOIN `hop_dong` AS h ON k.`id` = h.`id_nha_cc_kh` WHERE `id_cong_ty` = $com_id AND h.`phan_loai` IN (1,3,4) ORDER BY h.`id_nha_cc_kh` ASC");
                                     while ($row1 = mysql_fetch_assoc($list_kh->result)) {
                                     ?>
                                         <option value="<?= $row1['id_nha_cc_kh'] ?>" <?= ($row1['id_nha_cc_kh'] == $tk_ct) ? "selected" : "" ?>><?= $row1['ten_nha_cc_kh'] ?></option>
                                     <? }
                                 } else if ($tk == 3) {
-                                    $list_hd = new db_query("SELECT DISTINCT `id` FROM `hop_dong` WHERE `phan_loai` IN (1,3,4) ORDER BY `id` ASC");
+                                    $list_hd = new db_query("SELECT DISTINCT `id` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` IN (1,3,4) ORDER BY `id` ASC");
                                     while ($item1 = mysql_fetch_assoc($list_hd->result)) {
                                     ?>
                                         <option value="<?= $item1['id'] ?>" <?= $item1['id'] == $tk_ct ? "selected" : "" ?>>HĐ - <?= $item1['id'] ?></option>
                                     <? }
                                 } else if ($tk == 4) {
-                                    $list_hd = new db_query("SELECT DISTINCT `id_du_an_ctrinh` FROM `hop_dong` WHERE `phan_loai` IN (1,3,4) ORDER BY `id` ASC");
+                                    $list_hd = new db_query("SELECT DISTINCT `id_du_an_ctrinh` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` IN (1,3,4) ORDER BY `id` ASC");
                                     while ($item1 = mysql_fetch_assoc($list_hd->result)) {
                                     ?>
                                         <option value="<?= $item1['id_du_an_ctrinh'] ?>" <?= $item1['id_du_an_ctrinh'] == $tk_ct ? "selected" : "" ?>><?= $all_ct[$item1['id_du_an_ctrinh']]['ctr_name'] ?></option>
@@ -225,7 +225,7 @@ for ($i = 0; $i < count($ct_data); $i++) {
                                                     <td class="w-20">NCC - <?= $item['id_nha_cc_kh'] ?></td>
                                                     <td class="w-30">
                                                         <?
-                                                        $all_ncc_kh = new db_query("SELECT `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `id` = $id_kh");
+                                                        $all_ncc_kh = new db_query("SELECT `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `id_cong_ty` = $com_id AND `id` = $id_kh ");
                                                         while ($ten_kh = mysql_fetch_assoc($all_ncc_kh->result)) {
                                                             echo ($ten_kh['ten_nha_cc_kh']);
                                                         }
@@ -233,7 +233,7 @@ for ($i = 0; $i < count($ct_data); $i++) {
                                                     </td>
                                                     <td class="w-25">
                                                         <?
-                                                        $ds_hd = new db_query("SELECT h.`id` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
+                                                        $ds_hd = new db_query("SELECT h.`id` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE h.`id_cong_ty` = $com_id AND k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
                                                         while ($hd_item = mysql_fetch_assoc($ds_hd->result)) { ?>
                                                             <p class="table-text <? if ($hd_item['id'] == $tk_ct) {
                                                                                         echo ("text-red text-bold");
@@ -242,31 +242,31 @@ for ($i = 0; $i < count($ct_data); $i++) {
                                                     </td>
                                                     <td class="w-25">
                                                         <?
-                                                        $ds_hd = new db_query("SELECT h.`ngay_ky_hd` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
+                                                        $ds_hd = new db_query("SELECT h.`ngay_ky_hd` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE h.`id_cong_ty` = $com_id AND k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
                                                         while ($hd_item = mysql_fetch_assoc($ds_hd->result)) { ?>
                                                             <p class="table-text"><?= date("d/m/Y", $hd_item['ngay_ky_hd']); ?></p>
                                                         <? } ?>
                                                     </td>
                                                     <td class="w-35">
                                                         <?
-                                                        $ds_hd = new db_query("SELECT h.`id_du_an_ctrinh` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
+                                                        $ds_hd = new db_query("SELECT h.`id_du_an_ctrinh` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE h.`id_cong_ty` = $com_id AND k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
                                                         while ($hd_item = mysql_fetch_assoc($ds_hd->result)) { ?>
                                                             <p class="table-text <? if ($hd_item['id_du_an_ctrinh'] == $tk_ct) {
                                                                                         echo ("text-red text-bold");
                                                                                     };
-                                                                                    ($all_ct[$hd_item['id_du_an_ctrinh']]['ctr_name']) ? "" : "text-red" ?>"><?= ($all_ct[$hd_item['id_du_an_ctrinh']]['ctr_name']) ? $all_ct[$hd_item['id_du_an_ctrinh']]['ctr_name'] : "Không có dữ liệu" ?></p>
+                                                                                    ($all_ct[$hd_item['id_du_an_ctrinh']]['ctr_name']) ? "" : "text-red" ?>"><?= $all_ct[$hd_item['id_du_an_ctrinh']]['ctr_name'] ?></p>
                                                         <? } ?>
                                                     </td>
                                                     <td class="w-30">
                                                         <?
-                                                        $ds_hd = new db_query("SELECT h.`gia_tri_svat` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
+                                                        $ds_hd = new db_query("SELECT h.`gia_tri_svat` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE h.`id_cong_ty` = $com_id AND k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
                                                         while ($hd_item = mysql_fetch_assoc($ds_hd->result)) { ?>
                                                             <p class="table-text"><?= formatMoney($hd_item['gia_tri_svat']) ?></p>
                                                         <? } ?>
                                                     </td>
                                                     <td class="w-20">
                                                         <?
-                                                        $ds_hd = new db_query("SELECT h.`han_muc_tin_dung` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
+                                                        $ds_hd = new db_query("SELECT h.`han_muc_tin_dung` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE h.`id_cong_ty` = $com_id AND k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
                                                         while ($hd_item = mysql_fetch_assoc($ds_hd->result)) {
                                                             if ($hd_item['han_muc_tin_dung']) {
                                                         ?>
@@ -278,11 +278,11 @@ for ($i = 0; $i < count($ct_data); $i++) {
                                                     </td>
                                                     <td class="w-30">
                                                         <?
-                                                        $ds_hd = new db_query("SELECT h.`id`, h.`id_nha_cc_kh` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
+                                                        $ds_hd = new db_query("SELECT h.`id`, h.`id_nha_cc_kh` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE h.`id_cong_ty` = $com_id AND k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
                                                         while ($hd_item = mysql_fetch_assoc($ds_hd->result)) {
                                                             $id_hd = $hd_item['id'];
                                                             $id_ncc = $hd_item['id_nha_cc_kh'];
-                                                            $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS summ FROM `phieu_thanh_toan` 
+                                                            $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS summ FROM `phieu_thanh_toan`
                                                             WHERE `loai_phieu_tt` = 1 AND `id_hd_dh` = $id_hd  AND `id_ncc_kh` = $id_ncc AND `loai_thanh_toan` = 2 AND `id_cong_ty` = $com_id "))->result);
                                                         ?>
                                                             <p class="table-text"><?= number_format($tong_tien['summ']) ?></p>
@@ -290,11 +290,11 @@ for ($i = 0; $i < count($ct_data); $i++) {
                                                     </td>
                                                     <td class="w-25">
                                                         <?
-                                                        $ds_hd = new db_query("SELECT h.`id`, h.`id_nha_cc_kh`, h.`gia_tri_svat` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
+                                                        $ds_hd = new db_query("SELECT h.`id`, h.`id_nha_cc_kh`, h.`gia_tri_svat` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE h.`id_cong_ty` = $com_id AND k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
                                                         while ($hd_item = mysql_fetch_assoc($ds_hd->result)) {
                                                             $id_hd = $hd_item['id'];
                                                             $id_ncc = $hd_item['id_nha_cc_kh'];
-                                                            $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS summ FROM `phieu_thanh_toan` 
+                                                            $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS summ FROM `phieu_thanh_toan`
                                                             WHERE `loai_phieu_tt` = 1 AND `id_hd_dh` = $id_hd  AND `id_ncc_kh` = $id_ncc AND `loai_thanh_toan` = 2 AND `id_cong_ty` = $com_id "))->result);
                                                             $gia_tri_hd = $hd_item['gia_tri_svat'];
                                                             $gia_tri_th = $tong_tien['summ'];
@@ -305,11 +305,11 @@ for ($i = 0; $i < count($ct_data); $i++) {
                                                     </td>
                                                     <td class="w-25">
                                                         <?
-                                                        $ds_hd = new db_query("SELECT h.`id`, h.`id_nha_cc_kh`, h.`gia_tri_svat` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
+                                                        $ds_hd = new db_query("SELECT h.`id`, h.`id_nha_cc_kh`, h.`gia_tri_svat` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE h.`id_cong_ty` = $com_id AND k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
                                                         while ($hd_item = mysql_fetch_assoc($ds_hd->result)) {
                                                             $id_hd = $hd_item['id'];
                                                             $id_ncc = $hd_item['id_nha_cc_kh'];
-                                                            $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS summ FROM `phieu_thanh_toan` 
+                                                            $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS summ FROM `phieu_thanh_toan`
                                                             WHERE `loai_phieu_tt` = 1 AND `id_hd_dh` = $id_hd  AND `id_ncc_kh` = $id_ncc AND `loai_thanh_toan` = 2 AND `id_cong_ty` = $com_id "))->result);
                                                             $gia_tri_hd = $hd_item['gia_tri_svat'];
                                                             $gia_tri_th = $tong_tien['summ'];
@@ -320,12 +320,12 @@ for ($i = 0; $i < count($ct_data); $i++) {
                                                     </td>
                                                     <td class="w-20">
                                                     <?
-                                                        $ds_hd = new db_query("SELECT h.`id`, h.`id_nha_cc_kh`, h.`gia_tri_svat`, h.`han_muc_tin_dung` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
+                                                        $ds_hd = new db_query("SELECT h.`id`, h.`id_nha_cc_kh`, h.`gia_tri_svat`, h.`han_muc_tin_dung` FROM `hop_dong` AS h JOIN `nha_cc_kh` AS k ON h.`id_nha_cc_kh` = k.`id` WHERE h.`id_cong_ty` = $com_id AND k.`id` = $id_kh AND h.`phan_loai` IN (1,3,4)");
                                                         while ($hd_item = mysql_fetch_assoc($ds_hd->result)) {
                                                             $id_hd = $hd_item['id'];
                                                             $hm_td = $hd_item['han_muc_tin_dung'];
                                                             $id_ncc = $hd_item['id_nha_cc_kh'];
-                                                            $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS summ FROM `phieu_thanh_toan` 
+                                                            $tong_tien = mysql_fetch_assoc((new db_query("SELECT SUM(`so_tien`) AS summ FROM `phieu_thanh_toan`
                                                             WHERE `loai_phieu_tt` = 1 AND `id_hd_dh` = $id_hd  AND `id_ncc_kh` = $id_ncc AND `loai_thanh_toan` = 2 AND `id_cong_ty` = $com_id "))->result);
                                                             $gia_tri_hd = $hd_item['gia_tri_svat'];
                                                             $gia_tri_th = $tong_tien['summ'];

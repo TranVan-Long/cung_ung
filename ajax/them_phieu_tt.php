@@ -45,7 +45,7 @@ $tongt_thanhtoan = $_POST['tongt_thanhtoan'];
 
 $phan_quyen_nk = getValue('phan_quyen_nk', 'int', 'POST', '');
 
-$ngay_tao_phieu = strtotime(date('Y-m-d H:i:s',time()));
+$ngay_tao_phieu = strtotime(date('Y-m-d',time()));
 
 $ngay_tao = strtotime(date('Y-m-d', time()));
 
