@@ -5,7 +5,7 @@ include("config.php");
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
-        $user_id  $_SESSION['com_id'];
+        $user_id = $_SESSION['com_id'];
         $com_name = $_SESSION['com_name'];
         $phan_quyen_nk = 1;
 
@@ -77,14 +77,11 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                     FROM `vat_tu_dh_mua_ban` WHERE `id_don_hang` = $id_dh AND `id_cong_ty` = $com_id ");
 
     $curl = curl_init();
-    $data = array(
-        'id_com' => $com_id,
-    );
-    curl_setopt($curl, CURLOPT_POST, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/dscongtrinh.php');
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
     $response = curl_exec($curl);
     curl_close($curl);
     $data_list = json_decode($response, true);
@@ -316,7 +313,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Ghi chú vận chuyển</p>
                                     <p class="cr_weight share_fsize_tow share_clr_one">
-                                        <?= ($ctiet_dh['ghi_chu_vchuyen'] != "") ? $ctiet_dh['ghi_chu_vchuyen'] : "Không có" ?>
+                                        <?= $ctiet_dh['ghi_chu_vchuyen'] ?>
                                     </p>
                                 </div>
                             </div>
@@ -363,7 +360,8 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         </div>
                         <div class="xuat_gmc w_100 float_l">
                             <div class="xuat_gmc_two share_xuat_gmc d_flex mb_10 right">
-                                <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+                                <? if($ctiet_dh['trang_thai'] == 1){
+                                     if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                                     <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_dh">
                                         Xóa</p>
                                     <a href="chinh-sua-don-hang-ban-<?= $id_dh ?>.html" class="v-btn btn-blue ml_20">Chỉnh sửa</a>
@@ -375,7 +373,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                     if (in_array(3, $don_hang3)) { ?>
                                         <a href="chinh-sua-don-hang-ban-<?= $id_dh ?>.html" class="v-btn btn-blue ml_20">Chỉnh sửa</a>
                                 <? }
-                                } ?>
+                                }}else if($ctiet_dh['trang_thai'] == 2){ echo ""; } ?>
                             </div>
                             <div class="xuat_gmc_one share_xuat_gmc d_flex left mb_10 mr_10">
                                 <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight xuat_excel" data=<?= $id_dh ?>>Xuất Excel</p>

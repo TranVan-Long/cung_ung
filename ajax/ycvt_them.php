@@ -3,25 +3,22 @@ include("config.php");
 
 $cong_trinh = getValue('cong_trinh','int','POST','');
 $ngay_tao_yeu_cau =  strtotime($_POST['ngay_tao_yeu_cau']);
-
-if($_POST['ngay_phai_hoan_thanh'] != ""){
-    $ngay_phai_hoan_thanh =  strtotime($_POST['ngay_phai_hoan_thanh']);
-}else{
-    $ngay_phai_hoan_thanh = 0;
-}
+$ngay_phai_hoan_thanh =  strtotime($_POST['ngay_phai_hoan_thanh']);
 
 $dien_giai = $_POST['dien_giai'];
+$dien_giai = sql_injection_rp($dien_giai);
+
 $trang_thai = 1;
 
 $vat_tu = $_POST['vat_tu'];
+$count = count($vat_tu);
+
 $so_luong = $_POST['so_luong'];
+$count1 = count($so_luong);
 
 $user_id = getValue('user_id', 'int', 'POST', '');
 $com_id =  getValue('com_id', 'int', 'POST', '');
 $role =  getValue('role', 'int', 'POST', '');
-
-$count = count($vat_tu);
-$count1 = count($so_luong);
 
 
 

@@ -106,14 +106,11 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     $kho_data = $list_kho['data']['items'];
 
     $curl = curl_init();
-    $data = array(
-        'id_com' => $com_id,
-    );
-    curl_setopt($curl, CURLOPT_POST, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/dscongtrinh.php');
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
     $response = curl_exec($curl);
     curl_close($curl);
     $list_cong_trinh = json_decode($response, true);
@@ -140,6 +137,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     $dept_name  = $all_user[$id_nyc]['dep_name'];
     $ten_nguoi_duyet = $all_user[$nguoi_duyet]['ep_name'];
 }
+
+$ngay_hien_tai = date('Y-m-d', time());
 
 ?>
 <!DOCTYPE html>
@@ -221,11 +220,11 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                                     <input type="date" id="ngay_tao_yeu_cau" name="ngay_tao_yeu_cau" value="<?= $ngay_tao ?>" readonly>
                                 </div>
                                 <div class="form-col-50 right mb_15">
-                                    <label>Ngày phải hoàn thành yêu cầu</label>
+                                    <label>Ngày phải hoàn thành yêu cầu <span class="cr_red">*</span></label>
                                     <? if ($item['ngay_ht_yc'] != 0) { ?>
-                                        <input type="date" id="ngay_phai_hoan_thanh" name="ngay_phai_hoan_thanh" value="<?= date('Y-m-d', $item['ngay_ht_yc']) ?>">
+                                        <input type="date" id="ngay_phai_hoan_thanh" data="<?= $ngay_hien_tai ?>" name="ngay_phai_hoan_thanh" value="<?= date('Y-m-d', $item['ngay_ht_yc']) ?>">
                                     <? } else if ($item['ngay_ht_yc'] == 0) { ?>
-                                        <input type="date" id="ngay_phai_hoan_thanh" name="ngay_phai_hoan_thanh" value="">
+                                        <input type="date" id="ngay_phai_hoan_thanh" data="<?= $ngay_hien_tai ?>" name="ngay_phai_hoan_thanh" value="">
                                     <? } ?>
                                 </div>
                             </div>
@@ -261,8 +260,10 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                                                 ?>
                                                     <tr class="item">
                                                         <td class="w-10">
-                                                            <p class="modal-btn" data-target="remove-<?= $row1['id'] ?>"><i class="ic-delete remove-item"></i></p>
-                                                            <input type="hidden" name="id_vat_tu_old" class="d-none" value="<?= $row1['id'] ?>">
+                                                            <p class="modal-btn vattu_cu" data-target="remove-<?= $row1['id'] ?>" data="<?= $row1['id'] ?>">
+                                                                <i class="ic-delete remove-item"></i>
+                                                            </p>
+
                                                         </td>
                                                         <td class="w-25">
                                                             <div class="v-select2">
@@ -277,12 +278,13 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                                                         <td class="w-20"><input type="text" name="don_vi_tinh_old" value="<?= $vat_tu[$row1['id_vat_tu']]['dvt_name'] ?>" readonly></td>
                                                         <td class="w-25">
                                                             <? if ($row1['so_luong_yc_duyet'] != "" && $row1['so_luong_yc_duyet'] != 0) { ?>
-                                                                <input type="number" name="so_luong_old" value="<?= $row1['so_luong_yc_duyet'] ?>">
+                                                                <input type="number" name="so_luong_old" value="<?= $row1['so_luong_yc_duyet'] ?>" onkeyup="check_slnhap(this)">
                                                             <? } else { ?>
                                                                 <input type="text" name="so_luong_old" value="" disabled>
                                                             <? } ?>
                                                         </td>
                                                     </tr>
+
                                                     <div class="modal text-center" id="remove-<?= $row1['id'] ?>">
                                                         <div class="m-content">
                                                             <div class="m-head ">
@@ -353,11 +355,19 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
 <script type="text/javascript">
     $("#add-material").click(function() {
         var com_id = $(".form-edit").attr("data");
+        var vattu_chon1 = [];
+        $(".materials_name").each(function() {
+            var idvt1 = $(this).val();
+            if (idvt1 != "") {
+                vattu_chon1.push(idvt1);
+            }
+        });
         $.ajax({
             url: '../ajax/ycvt_them_vt.php',
             type: 'POST',
             data: {
                 com_id: com_id,
+                vattu_chon: vattu_chon1,
             },
             success: function(data) {
                 $("#materials").append(data);
@@ -370,12 +380,22 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
     function change_vt(id) {
         var id_vt = $(id).val();
         var com_id = $(".form-edit").attr("data");
+        var id_v = $(id).parents("tr").find(".vattu_cu").attr("data");
+        var vattu_chon1 = [];
+        $(".materials_name").each(function() {
+            var idvt1 = $(this).val();
+            if (idvt1 != "" && idvt1 != id_vt) {
+                vattu_chon1.push(idvt1);
+            }
+        });
         $.ajax({
             url: '../render/ycvt_vat_tu.php',
             type: 'POST',
             data: {
                 id_vt: id_vt,
                 com_id: com_id,
+                vattu_chon1: vattu_chon1,
+                id_v: id_v,
             },
             success: function(data) {
                 $(id).parents(".item").html(data);
@@ -404,6 +424,12 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
 
     $(".luu_sua").click(function() {
         var create_ycvt = $(".form-edit");
+        $.validator.addMethod("dateRange",
+            function() {
+                var date1 = $("input[name='ngay_tao_yeu_cau']").val();
+                var date2 = $("input[name='ngay_phai_hoan_thanh']").val();
+                return (date1 <= date2);
+            });
         create_ycvt.validate({
             errorPlacement: function(error, element) {
                 error.appendTo(element.parents(".form-col-50"));
@@ -416,6 +442,10 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                 cong_trinh: {
                     required: true,
                 },
+                ngay_phai_hoan_thanh: {
+                    required: true,
+                    dateRange: true,
+                }
             },
             messages: {
                 nguoi_yeu_cau: {
@@ -424,6 +454,10 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
                 cong_trinh: {
                     required: "Không được để trống",
                 },
+                ngay_phai_hoan_thanh: {
+                    required: "Không được để trống",
+                    dateRange: "Ngày hoàn thành yêu cầu phải lớn hơn ngày tạo yêu cầu",
+                }
             },
         });
         if (create_ycvt.valid() === true) {
@@ -433,8 +467,8 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
             var cong_trinh = $("#cong-trinh").val();
 
             var id_vat_tu_old = new Array();
-            $("input[name='id_vat_tu_old']").each(function() {
-                var id_vt_old = $(this).val();
+            $(".vattu_cu").each(function() {
+                var id_vt_old = $(this).attr("data");
                 if (id_vt_old != "") {
                     id_vat_tu_old.push(id_vt_old);
                 }
@@ -465,8 +499,7 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
             var so_luong = new Array();
             $("input[name='so_luong']").each(function() {
                 var sl = $(this).val();
-                var vatt = $(this).parents(".item").find("select[name='materials_name']").val();
-                if (sl != "" && vatt != "") {
+                if (sl != "" && sl != 0) {
                     so_luong.push(sl);
                 }
             });
@@ -477,68 +510,33 @@ if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) {
             var role = $("#nguoi_yeu_cau").attr('data');
             var ngay_tao = $("input[name='ngay_tao_yeu_cau']").val();
 
-            if (ngay_ht != "") {
-                if (ngay_ht < ngay_tao) {
-                    alert("Ngày phải hoàn thành không được nhỏ hơn ngày tạo yêu cầu.");
-                } else if (ngay_ht >= ngay_tao) {
-                    $.ajax({
-                        url: '../ajax/ycvt_sua.php',
-                        type: 'POST',
-                        data: {
-                            id_ycvt: id_ycvt,
-                            ngay_ht: ngay_ht,
-                            dien_giai: dien_giai,
-                            com_id: com_id,
-                            id_vat_tu_old: id_vat_tu_old,
-                            vat_tu_old: vat_tu_old,
-                            so_luong_old: so_luong_old,
-                            vat_tu: vat_tu,
-                            so_luong: so_luong,
-                            cong_trinh: cong_trinh,
+            $.ajax({
+                url: '../ajax/ycvt_sua.php',
+                type: 'POST',
+                data: {
+                    id_ycvt: id_ycvt,
+                    ngay_ht: ngay_ht,
+                    dien_giai: dien_giai,
+                    com_id: com_id,
+                    id_vat_tu_old: id_vat_tu_old,
+                    vat_tu_old: vat_tu_old,
+                    so_luong_old: so_luong_old,
+                    vat_tu: vat_tu,
+                    so_luong: so_luong,
+                    cong_trinh: cong_trinh,
 
-                            user_id: user_id,
-                            role: role,
-                        },
-                        success: function(data) {
-                            if (data == "") {
-                                alert('"Cập nhật phiếu yêu cầu vật tư thành công!"');
-                                window.location.href = 'quan-ly-chi-tiet-yeu-cau-vat-tu-' + id_ycvt + '.html';
-                            } else {
-                                alert(data);
-                            }
-                        }
-                    });
-                }
-            } else if (ngay_ht == "") {
-                $.ajax({
-                    url: '../ajax/ycvt_sua.php',
-                    type: 'POST',
-                    data: {
-                        id_ycvt: id_ycvt,
-                        ngay_ht: ngay_ht,
-                        dien_giai: dien_giai,
-                        com_id: com_id,
-                        id_vat_tu_old: id_vat_tu_old,
-                        vat_tu_old: vat_tu_old,
-                        so_luong_old: so_luong_old,
-                        vat_tu: vat_tu,
-                        so_luong: so_luong,
-                        cong_trinh: cong_trinh,
-
-                        user_id: user_id,
-                        role: role,
-                    },
-                    success: function(data) {
-                        if (data == "") {
-                            alert('"Cập nhật phiếu yêu cầu vật tư thành công!"');
-                            window.location.href = 'quan-ly-chi-tiet-yeu-cau-vat-tu-' + id_ycvt + '.html';
-                        } else {
-                            alert(data);
-                        }
+                    user_id: user_id,
+                    role: role,
+                },
+                success: function(data) {
+                    if (data == "") {
+                        alert('"Cập nhật phiếu yêu cầu vật tư thành công!"');
+                        window.location.href = 'quan-ly-chi-tiet-yeu-cau-vat-tu-' + id_ycvt + '.html';
+                    } else {
+                        alert(data);
                     }
-                });
-            }
-
+                }
+            });
         }
     });
 </script>

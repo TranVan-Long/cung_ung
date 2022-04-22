@@ -255,3 +255,35 @@ $('#value-type').on('change', function() {
         $('.gia_tri1').remove();
     }
 });
+
+function check_slnhap(id) {
+    var sl_nhap = $(id).val();
+    if (sl_nhap < 0) {
+        var trong = '';
+        $(id).val(trong);
+        $(id).parents(".item").find(".tong_trvat").val(trong);
+        $(id).parents(".item").find(".tong_svat").val(trong);
+
+        $(id).parents(".item").find(".tb_khoi_luong").val(0);
+
+    }
+}
+
+function check_sln(id) {
+    var sl = $(id).val();
+    if (sl < 0) {
+        var rong = '';
+        $(id).val(rong);
+    }
+}
+
+function check_thuenhap(id) {
+    var thue_nhap1 = $(id).val();
+
+    if (thue_nhap1 < 0) {
+        var rong = '';
+        $(id).val(rong);
+        var tong_tr = $(id).parents(".item").find(".tong_trvat").val();
+        $(id).parents(".item").find(".tong_svat").val(tong_tr)
+    }
+}

@@ -1,7 +1,6 @@
 <?php
 include "../includes/icon.php";
 include("config.php");
-
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] == 1) {
         $user_id = $_SESSION['com_id'];
@@ -57,14 +56,11 @@ $list_ncc = new db_query("SELECT DISTINCT n.`id`, n.`ten_nha_cc_kh` FROM `nha_cc
                         WHERE n.`phan_loai` = 1 AND n.`id_cong_ty` = $com_id AND h.`phan_loai` = 1 ");
 
 $curl = curl_init();
-$data = array(
-    'id_com' => $com_id,
-);
-curl_setopt($curl, CURLOPT_POST, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+$token = $_COOKIE['acc_token'];
+curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/dscongtrinh.php');
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
 $response = curl_exec($curl);
 curl_close($curl);
 $data_list = json_decode($response, true);
@@ -252,10 +248,10 @@ $cou1 = count($dep);
                                         <input type="text" name="gias_vat" id="tong_sau_vat" class="form-control h_border cr_weight" readonly>
                                     </div>
                                 </div>
-                                <div class="form-row w_100 float_l">
+                                <div class="form-row w_100 float_l chiphi_vc">
                                     <div class="form-group">
                                         <label>Chi phí vận chuyển</label>
-                                        <input type="text" name="chi_phi_vc" class="form-control" oninput="<?= $oninput ?>" placeholder="Nhập chi phí vận chuyển">
+                                        <input type="number" name="chi_phi_vc" class="form-control" placeholder="Nhập chi phí vận chuyển">
                                     </div>
                                 </div>
                                 <div class="form-group w_100 float_l">
@@ -437,6 +433,18 @@ $cou1 = count($dep);
                 $(".danh_sach_vt").html(data);
             }
         });
+
+        $.ajax({
+            url: '../render/check_hdbg_vc.php',
+            type: 'POST',
+            data: {
+                id_hd: id_hd,
+                com_id: com_id,
+            },
+            success: function(data) {
+                $(".chiphi_vc").html(data);
+            }
+        });
     });
 
     $(".phong_ban").change(function() {
@@ -459,6 +467,7 @@ $cou1 = count($dep);
             }
         })
     });
+
 
     $('.save_add').click(function() {
         var form = $('.form_add_hp_mua');
@@ -616,53 +625,120 @@ $cou1 = count($dep);
 
             var phan_loai_nk = $(".ctiet_dk_hp").attr("data");
 
-            $.ajax({
-                url: '../ajax/them_dh_mua.php',
-                type: 'POST',
-                data: {
-                    com_id: com_id,
-                    user_id: user_id,
-                    ten_ncc: ten_ncc,
-                    nguoi_lh: nguoi_lh,
-                    hop_dong: hop_dong,
-                    ngay_ky_dh: ngay_ky_dh,
-                    id_cong_trinh: id_cong_trinh,
-                    thoi_han: thoi_han,
-                    dv_nhan_hang: dv_nhan_hang,
-                    nguoi_nhan_hang: nguoi_nhan_hang,
-                    phong_ban: phong_ban,
-                    dient_nnhan: dient_nnhan,
-                    phan_tram_bh: phan_tram_bh,
-                    gia_tri_bh: gia_tri_bh,
-                    ghi_chu: ghi_chu,
-                    giatr_vat: giatr_vat,
-                    baogom_dg_vat: baogom_dg_vat,
-                    thue_vat: thue_vat,
-                    tien_ckhau: tien_ckhau,
-                    gias_vat: gias_vat,
-                    chi_phi_vc: chi_phi_vc,
-                    ghic_vc: ghic_vc,
-                    phan_loai_nk: phan_loai_nk,
+            if (thoi_han != "" && ngay_ky_dh != "") {
+                if (thoi_han < ngay_ky_dh) {
+                    alert("Thời hạn giao hàng không nhỏ hơn ngày ký đơn hàng");
+                } else {
+                    $.ajax({
+                        url: '../ajax/them_dh_mua.php',
+                        type: 'POST',
+                        data: {
+                            com_id: com_id,
+                            user_id: user_id,
+                            ten_ncc: ten_ncc,
+                            nguoi_lh: nguoi_lh,
+                            hop_dong: hop_dong,
+                            ngay_ky_dh: ngay_ky_dh,
+                            id_cong_trinh: id_cong_trinh,
+                            thoi_han: thoi_han,
+                            dv_nhan_hang: dv_nhan_hang,
+                            nguoi_nhan_hang: nguoi_nhan_hang,
+                            phong_ban: phong_ban,
+                            dient_nnhan: dient_nnhan,
+                            phan_tram_bh: phan_tram_bh,
+                            gia_tri_bh: gia_tri_bh,
+                            ghi_chu: ghi_chu,
+                            giatr_vat: giatr_vat,
+                            baogom_dg_vat: baogom_dg_vat,
+                            thue_vat: thue_vat,
+                            tien_ckhau: tien_ckhau,
+                            gias_vat: gias_vat,
+                            chi_phi_vc: chi_phi_vc,
+                            ghic_vc: ghic_vc,
+                            phan_loai_nk: phan_loai_nk,
 
-                    ma_vt: ma_vt,
-                    don_gia: don_gia,
-                    so_luong_hd: so_luong_hd,
-                    sl_knay: sl_knay,
-                    thoig_ghang: thoig_ghang,
-                    ttr_vat: ttr_vat,
-                    thue_vat_vt: thue_vat_vt,
-                    dia_chi_g: dia_chi_g,
-                    tts_vat: tts_vat,
-                },
-                success: function(data) {
-                    if (data == "") {
-                        alert("Thêm đơn hàng mua thành công");
-                        window.location.href = '/quan-ly-don-hang.html';
-                    } else if (data != "") {
-                        alert(data);
-                    }
+                            ma_vt: ma_vt,
+                            don_gia: don_gia,
+                            so_luong_hd: so_luong_hd,
+                            sl_knay: sl_knay,
+                            thoig_ghang: thoig_ghang,
+                            ttr_vat: ttr_vat,
+                            thue_vat_vt: thue_vat_vt,
+                            dia_chi_g: dia_chi_g,
+                            tts_vat: tts_vat,
+                        },
+                        success: function(data) {
+                            if (data == "") {
+                                alert("Thêm đơn hàng mua thành công");
+                                window.location.href = '/quan-ly-don-hang.html';
+                            } else if (data != "") {
+                                alert(data);
+                            }
+                        }
+                    });
                 }
-            });
+            } else {
+                $.ajax({
+                    url: '../ajax/them_dh_mua.php',
+                    type: 'POST',
+                    data: {
+                        com_id: com_id,
+                        user_id: user_id,
+                        ten_ncc: ten_ncc,
+                        nguoi_lh: nguoi_lh,
+                        hop_dong: hop_dong,
+                        ngay_ky_dh: ngay_ky_dh,
+                        id_cong_trinh: id_cong_trinh,
+                        thoi_han: thoi_han,
+                        dv_nhan_hang: dv_nhan_hang,
+                        nguoi_nhan_hang: nguoi_nhan_hang,
+                        phong_ban: phong_ban,
+                        dient_nnhan: dient_nnhan,
+                        phan_tram_bh: phan_tram_bh,
+                        gia_tri_bh: gia_tri_bh,
+                        ghi_chu: ghi_chu,
+                        giatr_vat: giatr_vat,
+                        baogom_dg_vat: baogom_dg_vat,
+                        thue_vat: thue_vat,
+                        tien_ckhau: tien_ckhau,
+                        gias_vat: gias_vat,
+                        chi_phi_vc: chi_phi_vc,
+                        ghic_vc: ghic_vc,
+                        phan_loai_nk: phan_loai_nk,
+
+                        ma_vt: ma_vt,
+                        don_gia: don_gia,
+                        so_luong_hd: so_luong_hd,
+                        sl_knay: sl_knay,
+                        thoig_ghang: thoig_ghang,
+                        ttr_vat: ttr_vat,
+                        thue_vat_vt: thue_vat_vt,
+                        dia_chi_g: dia_chi_g,
+                        tts_vat: tts_vat,
+                    },
+                    success: function(data) {
+                        if (data == "") {
+                            alert("Thêm đơn hàng mua thành công");
+                            window.location.href = '/quan-ly-don-hang.html';
+                        } else if (data != "") {
+                            alert(data);
+                        }
+                    }
+                });
+            }
+
+
+        } else {
+            event.preventDefault();
+            event.stopPropagation();
+            var errorElements = document.querySelectorAll(".error");
+            for (let index = 0; index < errorElements.length; index++) {
+                const element = errorElements[index];
+                $('html, body').animate({
+                    scrollTop: $(errorElements[0]).focus().offset().top - 30
+                }, 1000);
+                return false;
+            }
         }
     });
 </script>

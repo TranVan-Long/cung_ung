@@ -28,7 +28,8 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
 
 $date_now = date("Y-m-d", time());
 
-$list_nhacc = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `phan_loai`, `id_cong_ty` FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ");
+$list_nhacc = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `phan_loai`, `id_cong_ty` FROM `nha_cc_kh`
+                            WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ORDER BY `id` DESC ");
 
 
 ?>
@@ -232,6 +233,19 @@ $list_nhacc = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `phan_loai`,
         });
     });
 
+    $(".submit-btn").click(function() {
+        event.preventDefault();
+        event.stopPropagation();
+        var errorElements = document.querySelectorAll(".error");
+        for (let index = 0; index < errorElements.length; index++) {
+            const element = errorElements[index];
+            $('html, body').animate({
+                scrollTop: $(errorElements[0]).focus().offset().top - 30
+            }, 1000);
+            return false;
+        }
+    });
+
     $('.submit-btn').click(function() {
         var form = $('.main-form');
         $.validator.addMethod("dateRange",
@@ -289,7 +303,7 @@ $list_nhacc = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `phan_loai`,
             var tg_hientai = $("#danh_sach_vt").attr("data");
             var phan_quyen_nk = $(".main-form").attr("data1");
 
-            var id_vt = new Array();
+            var id_vt = [];
             $("input[name='ma_vat_tu']").each(function() {
                 var ma_vt = $(this).attr("data");
                 if (ma_vt != "") {
@@ -297,73 +311,67 @@ $list_nhacc = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `phan_loai`,
                 }
             });
 
-            var sl_bg = new Array();
+            var sl_bg = [];
             $("input[name='so_luong_bao_gia']").each(function() {
                 var so_luong = $(this).val();
                 if (so_luong != "") {
                     sl_bg.push(so_luong);
-                } else {
-                    so_luong = 0;
-                    sl_bg.push(so_luong);
                 }
             });
 
-            var don_gia = new Array();
+            var don_gia = [];
             $("input[name='don_gia']").each(function() {
                 var don_g = $(this).val();
                 if (don_g != "") {
                     don_gia.push(don_g);
-                } else {
-                    don_g = 0;
-                    don_gia.push(don_g);
                 }
             });
 
-            var tongtr_vat = new Array();
+            var tongtr_vat = [];
             $("input[name='tong_truoc_vat']").each(function() {
                 var tong_tr = $(this).val();
                 if (tong_tr != "") {
                     tongtr_vat.push(tong_tr);
-                } else {
+                } else if (tong_tr == "") {
                     tong_tr = 0;
                     tongtr_vat.push(tong_tr);
                 }
             });
 
-            var thue = new Array();
+            var thue = [];
             $("input[name='thue_vat']").each(function() {
                 var thue_vat = $(this).val();
                 if (thue_vat != "") {
                     thue.push(thue_vat);
-                } else {
+                } else if (thue_vat == "") {
                     thue_vat = 0;
                     thue.push(thue_vat);
                 }
             });
 
-            var tongs_vat = new Array();
+            var tongs_vat = [];
             $("input[name='tong_sau_vat']").each(function() {
                 var tong_svat = $(this).val();
                 if (tong_svat != "") {
                     tongs_vat.push(tong_svat);
-                } else {
+                } else if (tong_svat == "") {
                     tong_svat = 0;
                     tongs_vat.push(tong_svat);
                 }
             });
 
-            var chinh_sach_khac = new Array();
+            var chinh_sach_khac = [];
             $("input[name='chinh_sach_khac']").each(function() {
                 var cs_khac = $(this).val();
                 if (cs_khac != "") {
                     chinh_sach_khac.push(cs_khac);
                 } else {
-                    cs_khac = 'NULL';
+                    cs_khac = 0;
                     chinh_sach_khac.push(cs_khac);
                 }
             });
 
-            var so_luong_da_dat = new Array();
+            var so_luong_da_dat = [];
             $("input[name='so_luong_da_dat']").each(function() {
                 var sl_dh = $(this).val();
                 if (sl_dh != "") {
@@ -375,7 +383,7 @@ $list_nhacc = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `phan_loai`,
             });
 
             if (tg_apdung != "" && tg_ketthuc != "") {
-                if (tg_apdung <= tg_ketthuc && tg_hientai <= tg_ketthuc) {
+                if (tg_apdung >= ngay_gui && ngay_gui <= tg_ketthuc) {
                     $.ajax({
                         url: '../ajax/them_bao_gia.php',
                         type: 'POST',
@@ -408,9 +416,11 @@ $list_nhacc = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `phan_loai`,
                     })
                 } else if (tg_apdung > tg_ketthuc) {
                     alert("Thời gian áp dụng nhỏ hơn thời gian kết thúc");
+                } else if (tg_apdung < ngay_gui) {
+                    alert("Thời gian áp dụng lớn hơn ngày gửi");
                 }
             } else if (tg_apdung == "" && tg_ketthuc != "") {
-                if (tg_hientai <= tg_ketthuc) {
+                if (ngay_gui <= tg_ketthuc) {
                     $.ajax({
                         url: '../ajax/them_bao_gia.php',
                         type: 'POST',
@@ -430,6 +440,7 @@ $list_nhacc = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `phan_loai`,
                             tongs_vat: tongs_vat,
                             chinh_sach_khac: chinh_sach_khac,
                             so_luong_da_dat: so_luong_da_dat,
+                            phan_quyen_nk: phan_quyen_nk,
                         },
                         success: function(data) {
                             if (data == "") {
@@ -441,38 +452,44 @@ $list_nhacc = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `phan_loai`,
                         }
                     })
                 } else {
-                    alert("Thời gian kết thúc phải lớn hơn hoặc bằng thời gian hiện tại");
+                    alert("Thời gian kết thúc phải lớn hơn hoặc bằng ngày gửi ");
                 }
-            } else if ((tg_apdung != "" && tg_ketthuc == "") || (tg_apdung == "" && tg_ketthuc == "")) {
-                $.ajax({
-                    url: '../ajax/them_bao_gia.php',
-                    type: 'POST',
-                    data: {
-                        com_id: com_id,
-                        user_id: user_id,
-                        ngay_gui: ngay_gui,
-                        nha_cc: nha_cc,
-                        phieu_yc: phieu_yc,
-                        tg_apdung: tg_apdung,
-                        tg_ketthuc: tg_ketthuc,
-                        id_vt: id_vt,
-                        sl_bg: sl_bg,
-                        don_gia: don_gia,
-                        tongtr_vat: tongtr_vat,
-                        thue: thue,
-                        tongs_vat: tongs_vat,
-                        chinh_sach_khac: chinh_sach_khac,
-                        so_luong_da_dat: so_luong_da_dat,
-                    },
-                    success: function(data) {
-                        if (data == "") {
-                            alert("Bạn đã thêm thành công báo giá vật tư");
-                            window.location.href = '/quan-ly-bao-gia.html';
-                        } else {
-                            alert(data);
+            } else if (tg_apdung != "" && tg_ketthuc == "") {
+                if (ngay_gui <= tg_apdung) {
+                    $.ajax({
+                        url: '../ajax/them_bao_gia.php',
+                        type: 'POST',
+                        data: {
+                            com_id: com_id,
+                            user_id: user_id,
+                            ngay_gui: ngay_gui,
+                            nha_cc: nha_cc,
+                            phieu_yc: phieu_yc,
+                            tg_apdung: tg_apdung,
+                            tg_ketthuc: tg_ketthuc,
+                            id_vt: id_vt,
+                            sl_bg: sl_bg,
+                            don_gia: don_gia,
+                            tongtr_vat: tongtr_vat,
+                            thue: thue,
+                            tongs_vat: tongs_vat,
+                            chinh_sach_khac: chinh_sach_khac,
+                            so_luong_da_dat: so_luong_da_dat,
+                            phan_quyen_nk: phan_quyen_nk,
+                        },
+                        success: function(data) {
+                            if (data == "") {
+                                alert("Bạn đã thêm thành công báo giá vật tư");
+                                window.location.href = '/quan-ly-bao-gia.html';
+                            } else {
+                                alert(data);
+                            }
                         }
-                    }
-                })
+                    })
+                } else {
+                    alert("Thời gian áp dụng phải lớn hơn hoặc bằng ngày gửi");
+                }
+
             } else if (tg_apdung == "" && tg_ketthuc == "") {
                 $.ajax({
                     url: '../ajax/them_bao_gia.php',
@@ -493,6 +510,7 @@ $list_nhacc = new db_query("SELECT `id`, `ten_vt`, `ten_nha_cc_kh`, `phan_loai`,
                         tongs_vat: tongs_vat,
                         chinh_sach_khac: chinh_sach_khac,
                         so_luong_da_dat: so_luong_da_dat,
+                        phan_quyen_nk: phan_quyen_nk,
                     },
                     success: function(data) {
                         if (data == "") {

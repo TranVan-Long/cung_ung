@@ -240,16 +240,16 @@ $date_now = date('Y-m-d', time());
                                                             <input type="number" name="so_luong_yeu_cau" value="<?= $list_sl ?>" class="tex_center" readonly>
                                                         </td>
                                                         <td class="w-25">
-                                                            <input type="number" name="so_luong_bao_gia" value="<?= $row['so_luong_bg'] ?>" class="tex_center so_luong" onchange="sl_doi(this)">
+                                                            <input type="text" name="so_luong_bao_gia" value="<?= $row['so_luong_bg'] ?>" oninput="<?= $oninput ?>" class="tex_center so_luong" onkeyup="sl_doi(this)">
                                                         </td>
                                                         <td class="w-25">
-                                                            <input type="number" name="don_gia" value="<?= $row['don_gia'] ?>" class="tex_center don_gia" onchange="dg_doi(this)">
+                                                            <input type="text" name="don_gia" value="<?= $row['don_gia'] ?>" oninput="<?= $oninput ?>" class="tex_center don_gia" onkeyup="dg_doi(this)">
                                                         </td>
                                                         <td class="w-30">
                                                             <input type="number" name="tong_truoc_vat" value="<?= $row['tong_tien_trvat'] ?>" class="tex_center tong_trvat" readonly>
                                                         </td>
                                                         <td class="w-25">
-                                                            <input type="number" name="thue_vat" value="<?= ($row['thue_vat'] != 0) ? $row['thue_vat'] : "" ?>" class="tex_center thue_vat" onchange="thue_doi(this)">
+                                                            <input type="text" name="thue_vat" oninput="<?= $oninput ?>" value="<?= ($row['thue_vat'] != 0) ? $row['thue_vat'] : "" ?>" class="tex_center thue_vat" onkeyup="thue_doi(this)">
                                                         </td>
                                                         <td class="w-30">
                                                             <input type="number" name="tong_sau_vat" value="<?= $row['tong_tien_svat'] ?>" class="tex_center tong_svat" readonly>
@@ -371,6 +371,19 @@ $date_now = date('Y-m-d', time());
         });
     });
 
+    $(".submit-btn").click(function() {
+        event.preventDefault();
+        event.stopPropagation();
+        var errorElements = document.querySelectorAll(".error");
+        for (let index = 0; index < errorElements.length; index++) {
+            const element = errorElements[index];
+            $('html, body').animate({
+                scrollTop: $(errorElements[0]).focus().offset().top - 30
+            }, 1000);
+            return false;
+        }
+    });
+
     $('.submit-btn').click(function() {
         var form = $('.main-form');
         $.validator.addMethod("dateRange",
@@ -421,10 +434,10 @@ $date_now = date('Y-m-d', time());
             var so_bao_gia = $("input[name='so_bao_gia']").attr("data");
             var id_ncc = $("select[name='nha_cung_cap']").val();
             var id_phieu_yc = $("select[name='so_yeu_cau']").val();
-            var ngay_bd = $("input[name='tu_ngay']").val();
-            var ngay_kt = $("input[name='den_ngay']").val();
+            var tg_apdung = $("input[name='tu_ngay']").val();
+            var tg_ketthuc = $("input[name='den_ngay']").val();
             var com_id = $("#rererences").attr("data");
-            var date_now = $("#rererences").attr("data1");
+            var ngay_gui = $("input[name='ngay_gui']").val();
             var phan_quyen_nk = $(".edit-form").attr("data");
             var user_id = $(".edit-form").attr("data1");
 
@@ -441,9 +454,6 @@ $date_now = date('Y-m-d', time());
                 var sl_bg = $(this).val();
                 if (sl_bg != "") {
                     new_sl_bg.push(sl_bg);
-                } else {
-                    sl_bg = 0;
-                    new_sl_bg.push(sl_bg);
                 }
             });
 
@@ -451,9 +461,6 @@ $date_now = date('Y-m-d', time());
             $("input[name='don_gia']").each(function() {
                 var dgia = $(this).val();
                 if (dgia != "") {
-                    new_dgia.push(dgia);
-                } else {
-                    dgia = 0;
                     new_dgia.push(dgia);
                 }
             });
@@ -513,8 +520,8 @@ $date_now = date('Y-m-d', time());
                 }
             });
 
-            if (ngay_bd != "" && ngay_kt != "") {
-                if ((ngay_bd <= ngay_kt) && (ngay_kt >= date_now)) {
+            if (tg_apdung != "" && tg_ketthuc != "") {
+                if (tg_apdung >= ngay_gui && ngay_gui <= tg_ketthuc) {
                     $.ajax({
                         url: '../ajax/sua_bao_gia.php',
                         type: 'POST',
@@ -524,8 +531,8 @@ $date_now = date('Y-m-d', time());
                             id_bao_gia: so_bao_gia,
                             id_ncc: id_ncc,
                             id_phieu_yc: id_phieu_yc,
-                            ngay_bd: ngay_bd,
-                            ngay_kt: ngay_kt,
+                            ngay_bd: tg_apdung,
+                            ngay_kt: tg_ketthuc,
                             new_ma_vt: new_ma_vt,
                             new_sl_bg: new_sl_bg,
                             new_dgia: new_dgia,
@@ -546,52 +553,24 @@ $date_now = date('Y-m-d', time());
                             }
                         }
                     });
-                } else if ((ngay_bd > ngay_kt) || (ngay_kt < date_now)) {
-                    alert("ngay bat dau khong lơn hơn ngay ket thuc");
+                } else if (tg_apdung > tg_ketthuc) {
+                    alert("Thời gian áp dụng nhỏ hơn thời gian kết thúc");
+                } else if (tg_apdung < ngay_gui) {
+                    alert("Thời gian áp dụng lớn hơn ngày gửi");
                 }
-
-            } else if (ngay_bd != "" && ngay_kt == "") {
-                $.ajax({
-                    url: '../ajax/sua_bao_gia.php',
-                    type: 'POST',
-                    data: {
-                        com_id: com_id,
-                        id_bao_gia: so_bao_gia,
-                        id_ncc: id_ncc,
-                        id_phieu_yc: id_phieu_yc,
-                        ngay_bd: ngay_bd,
-                        ngay_kt: ngay_kt,
-                        new_ma_vt: new_ma_vt,
-                        new_sl_bg: new_sl_bg,
-                        new_dgia: new_dgia,
-                        new_tongtr: new_tongtr,
-                        new_thue: new_thue,
-                        new_tongs: new_tongs,
-                        new_cs_kt: new_cs_kt,
-                        new_ddh: new_ddh
-
-                    },
-                    success: function(data) {
-                        if (data == "") {
-                            alert("Bạn đã thêm phiếu báo giá thành công");
-                            window.location.href = '/quan-ly-bao-gia.html';
-                        } else {
-                            alert(data);
-                        }
-                    }
-                });
-            } else if (ngay_bd == "" && ngay_kt != "") {
-                if (ngay_kt >= date_now) {
+            } else if (tg_apdung == "" && tg_ketthuc != "") {
+                if (ngay_gui <= tg_ketthuc) {
                     $.ajax({
                         url: '../ajax/sua_bao_gia.php',
                         type: 'POST',
                         data: {
                             com_id: com_id,
+                            user_id: user_id,
                             id_bao_gia: so_bao_gia,
                             id_ncc: id_ncc,
                             id_phieu_yc: id_phieu_yc,
-                            ngay_bd: ngay_bd,
-                            ngay_kt: ngay_kt,
+                            ngay_bd: tg_apdung,
+                            ngay_kt: tg_ketthuc,
                             new_ma_vt: new_ma_vt,
                             new_sl_bg: new_sl_bg,
                             new_dgia: new_dgia,
@@ -599,7 +578,8 @@ $date_now = date('Y-m-d', time());
                             new_thue: new_thue,
                             new_tongs: new_tongs,
                             new_cs_kt: new_cs_kt,
-                            new_ddh: new_ddh
+                            new_ddh: new_ddh,
+                            phan_quyen_nk: phan_quyen_nk,
 
                         },
                         success: function(data) {
@@ -612,19 +592,55 @@ $date_now = date('Y-m-d', time());
                         }
                     });
                 } else {
-                    alert("ngay ket thuc phai lon hon ngay hien tai");
+                    alert("Thời gian kết thúc phải lớn hơn hoặc bằng ngày gửi ");
                 }
-            } else if (ngay_bd == "" && ngay_kt == "") {
+            } else if (tg_apdung != "" && tg_ketthuc == "") {
+                if (ngay_gui <= tg_apdung) {
+                    $.ajax({
+                        url: '../ajax/sua_bao_gia.php',
+                        type: 'POST',
+                        data: {
+                            com_id: com_id,
+                            user_id: user_id,
+                            id_bao_gia: so_bao_gia,
+                            id_ncc: id_ncc,
+                            id_phieu_yc: id_phieu_yc,
+                            ngay_bd: tg_apdung,
+                            ngay_kt: tg_ketthuc,
+                            new_ma_vt: new_ma_vt,
+                            new_sl_bg: new_sl_bg,
+                            new_dgia: new_dgia,
+                            new_tongtr: new_tongtr,
+                            new_thue: new_thue,
+                            new_tongs: new_tongs,
+                            new_cs_kt: new_cs_kt,
+                            new_ddh: new_ddh,
+                            phan_quyen_nk: phan_quyen_nk,
+                        },
+                        success: function(data) {
+                            if (data == "") {
+                                alert("Bạn đã thêm phiếu báo giá thành công");
+                                window.location.href = '/quan-ly-bao-gia.html';
+                            } else {
+                                alert(data);
+                            }
+                        }
+                    });
+                } else {
+                    alert("Thời gian áp dụng phải lớn hơn hoặc bằng ngày gửi");
+                }
+            } else if (tg_apdung == "" && tg_ketthuc == "") {
                 $.ajax({
                     url: '../ajax/sua_bao_gia.php',
                     type: 'POST',
                     data: {
                         com_id: com_id,
+                        user_id: user_id,
                         id_bao_gia: so_bao_gia,
                         id_ncc: id_ncc,
                         id_phieu_yc: id_phieu_yc,
-                        ngay_bd: ngay_bd,
-                        ngay_kt: ngay_kt,
+                        ngay_bd: tg_apdung,
+                        ngay_kt: tg_ketthuc,
                         new_ma_vt: new_ma_vt,
                         new_sl_bg: new_sl_bg,
                         new_dgia: new_dgia,
@@ -632,8 +648,8 @@ $date_now = date('Y-m-d', time());
                         new_thue: new_thue,
                         new_tongs: new_tongs,
                         new_cs_kt: new_cs_kt,
-                        new_ddh: new_ddh
-
+                        new_ddh: new_ddh,
+                        phan_quyen_nk: phan_quyen_nk,
                     },
                     success: function(data) {
                         if (data == "") {
@@ -645,7 +661,6 @@ $date_now = date('Y-m-d', time());
                     }
                 });
             }
-
         }
     });
 </script>

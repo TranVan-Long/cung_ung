@@ -84,9 +84,9 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
     curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_dsvt.php");
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response1 = curl_exec($curl);
+    $response = curl_exec($curl);
     curl_close($curl);
-    $list_vt = json_decode($response1, true);
+    $list_vt = json_decode($response, true);
     $vat_tu_data = $list_vt['data']['items'];
 
     $vat_tu = [];
@@ -104,24 +104,22 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/api/api_get_kho.php");
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response1 = curl_exec($curl);
+    $response = curl_exec($curl);
     curl_close($curl);
-    $list_kho = json_decode($response1, true);
+    $list_kho = json_decode($response, true);
     $kho_data = $list_kho['data']['items'];
 
     $curl = curl_init();
-    $data = array(
-        'id_com' => $com_id,
-    );
-    curl_setopt($curl, CURLOPT_POST, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/dscongtrinh.php');
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    $response1 = curl_exec($curl);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+    $response = curl_exec($curl);
     curl_close($curl);
-    $list_cong_trinh = json_decode($response1, true);
+    $list_cong_trinh = json_decode($response, true);
     $cong_trinh_data = $list_cong_trinh['data']['items'];
+
 
     $all_ctr = [];
     for ($l = 0; $l < count($cong_trinh_data); $l++) {
@@ -297,9 +295,10 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     </div>
                     <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                         <div class="right mt-20 xoa_csua">
-                            <? if($trang_thai == 1 || $trang_thai == 3){ ?>
-                            <button class="v-btn btn-outline-red modal-btn ml-20" data-target="delete">Xóa</button>
-                            <?} if ($trang_thai == 1) { ?>
+                            <? if ($trang_thai == 1 || $trang_thai == 3) { ?>
+                                <button class="v-btn btn-outline-red modal-btn ml-20" data-target="delete">Xóa</button>
+                            <? }
+                            if ($trang_thai == 1) { ?>
                                 <a href="chinh-sua-yeu-cau-vat-tu-<?= $ycvt_id ?>.html" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
                             <? } ?>
                         </div>
@@ -312,9 +311,10 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) { ?>
                         <div class="right mt-20 xoa_csua">
                             <? if (in_array(4, $ycvt3)) {
-                                if($trang_thai == 1 || $trang_thai == 3){ ?>
-                                <button class="v-btn btn-outline-red modal-btn ml-20" data-target="delete">Xóa</button>
-                                <? }}
+                                if ($trang_thai == 1 || $trang_thai == 3) { ?>
+                                    <button class="v-btn btn-outline-red modal-btn ml-20" data-target="delete">Xóa</button>
+                                <? }
+                            }
                             if (in_array(3, $ycvt3)) {
                                 if ($trang_thai == 1) { ?>
                                     <a href="chinh-sua-yeu-cau-vat-tu-<?= $ycvt_id ?>.html" class="v-btn btn-blue ml-20">Chỉnh sửa</a>
@@ -504,9 +504,6 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
         $("input[name='so_luong_duyet']").each(function() {
             var sl_duyet = $(this).val();
             if (sl_duyet != "") {
-                so_luong_duyet.push(sl_duyet);
-            } else {
-                sl_duyet = 0;
                 so_luong_duyet.push(sl_duyet);
             }
         });

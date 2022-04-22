@@ -9,14 +9,14 @@ $role                  = getValue('role', 'int', 'POST', '');
 
 $ngay_ky_hd             = strtotime($_POST['ngay_ky_hd']);
 $id_nha_cung_cap        = getValue('id_nha_cung_cap', 'int', 'POST', '');
-$dan_ctrinh             = $_POST['dan_ctrinh'];
+$dan_ctrinh             = getValue('dan_ctrinh', 'int', 'POST','');
 $truoc_vat              = $_POST['truoc_vat'];
-$don_gia_vat            = $_POST['don_gia_vat'];
+$don_gia_vat            = getValue('don_gia_vat', 'int', 'POST', '');
 $thue_vat               = $_POST['thue_vat'];
 $sau_vat                = $_POST['sau_vat'];
-$bao_hanh               = $_POST['bao_hanh'];
+$bao_hanh               = getValue('bao_hanh', 'flo', 'POST', '');
 $gt_bao_hanh            = $_POST['gt_bao_hanh'];
-$bao_lanh               = $_POST['bao_lanh'];
+$bao_lanh               = getValue('bao_lanh', 'flo', 'POST', '');
 $gt_bao_lanh            = $_POST['gt_bao_lanh'];
 $han_bao_lanh           = strtotime($_POST['han_bao_lanh']);
 $ngay_bat_dau           = strtotime($_POST['ngay_bat_dau']);
@@ -24,10 +24,15 @@ $ngay_ket_thuc          = strtotime($_POST['ngay_ket_thuc']);
 $bao_gom_van_chuyen     = $_POST['bao_gom_van_chuyen'];
 $hmuc_tind              = $_POST['hmuc_tind'];
 $yc_tiendo              = $_POST['yc_tiendo'];
+$yc_tiendo = sql_injection_rp($yc_tiendo);
 $noi_dung_hd            = $_POST['noi_dung_hd'];
+$noi_dung_hd = sql_injection_rp($noi_dung_hd);
 $noi_dung_luu_y         = $_POST['noi_dung_luu_y'];
+$noi_dung_luu_y = sql_injection_rp($noi_dung_luu_y);
 $dieu_khoan_tt          = $_POST['dieu_khoan_tt'];
+$dieu_khoan_tt = sql_injection_rp($dieu_khoan_tt);
 $ten_nh                 = $_POST['ten_nh'];
+$ten_nh = sql_injection_rp($ten_nh);
 $so_taik                = $_POST['so_taik'];
 
 $vt_id_vat_tu_old              = $_POST['vt_id_vat_tu_old'];
@@ -61,7 +66,14 @@ if ($ngay_ky_hd != "" && $hd_id != "") {
         if ($count1 != $count2 || $count2 != $count3 || $count3 != $count4 || $count_o1 != $count_o2 || $count_o2 != $count_o3 || $count_o3 != $count_o4) {
             echo "Vui lòng điền đầy đủ thông tin Vật tư / Thiết bị / Vật tư vận chuyển.";
         } else {
-            $sua_hd_thue_vc = new db_query("UPDATE `hop_dong` SET `ngay_ky_hd` = '$ngay_ky_hd', `id_nha_cc_kh` = '$id_nha_cung_cap',`id_du_an_ctrinh` = '$dan_ctrinh', `gia_tri_trvat` = '$truoc_vat', `bao_gom_vat` = '$don_gia_vat', `thue_vat` = '$thue_vat', `gia_tri_svat` = '$sau_vat',`giu_lai_bhanh` = '$bao_hanh',`gia_tri_bhanh` = '$gt_bao_hanh',`bao_lanh_hd` = '$bao_lanh',`gia_tri_blanh` = '$gt_bao_lanh',`thoi_han_blanh` = '$han_bao_lanh', `tg_bd_thuc_hien` = '$ngay_bat_dau', `tg_kt_thuc_hien` = '$ngay_ket_thuc', `bgom_vchuyen` = '$bao_gom_van_chuyen', `han_muc_tin_dung` = '$hmuc_tind',`yc_tien_do` = '$yc_tiendo',`noi_dung_hd` = '$noi_dung_hd', `noi_dung_luu_y` = '$noi_dung_luu_y', `dieu_khoan_tt` = '$dieu_khoan_tt', `ten_ngan_hang` = '$ten_nh', `so_tk` = '$so_taik' WHERE `id` = '$hd_id'");
+            $sua_hd_thue_vc = new db_query("UPDATE `hop_dong` SET `ngay_ky_hd` = '$ngay_ky_hd', `id_nha_cc_kh` = '$id_nha_cung_cap',
+                                            `id_du_an_ctrinh` = '$dan_ctrinh', `gia_tri_trvat` = '$truoc_vat', `bao_gom_vat` = '$don_gia_vat',
+                                            `thue_vat` = '$thue_vat', `gia_tri_svat` = '$sau_vat',`giu_lai_bhanh` = '$bao_hanh',
+                                            `gia_tri_bhanh` = '$gt_bao_hanh',`bao_lanh_hd` = '$bao_lanh',`gia_tri_blanh` = '$gt_bao_lanh',
+                                            `thoi_han_blanh` = '$han_bao_lanh', `tg_bd_thuc_hien` = '$ngay_bat_dau', `tg_kt_thuc_hien` = '$ngay_ket_thuc',
+                                            `bgom_vchuyen` = '$bao_gom_van_chuyen', `han_muc_tin_dung` = '$hmuc_tind',`yc_tien_do` = '$yc_tiendo',
+                                            `noi_dung_hd` = '$noi_dung_hd', `noi_dung_luu_y` = '$noi_dung_luu_y', `dieu_khoan_tt` = '$dieu_khoan_tt',
+                                            `ten_ngan_hang` = '$ten_nh', `so_tk` = '$so_taik' WHERE `id` = '$hd_id' AND `id_cong_ty` = $com_id ");
 
             for ($i = 0; $i < count($vt_id_vat_tu_old); $i++) {
                 $sua_vt_hd_vc = new db_query("UPDATE `vat_tu_hd_vc` SET `vat_tu` = '$vt_vat_tu_old[$i]', `don_vi_tinh` = '$vt_don_vi_tinh_old[$i]', `khoi_luong` = '$vt_khoi_luong_old[$i]', `don_gia` = '$vt_don_gia_old[$i]', `thanh_tien` = '$vt_thanh_tien_old[$i]' WHERE `id` = '$vt_id_vat_tu_old[$i]';");

@@ -59,14 +59,11 @@ $list_kh = new db_query("SELECT DISTINCT n.`id`, n.`ten_nha_cc_kh`, n.`id_cong_t
                         WHERE n.`phan_loai` = 2 AND n.`id_cong_ty` = $com_id AND h.`phan_loai` = 2 ");
 
 $curl = curl_init();
-$data = array(
-    'id_com' => $com_id,
-);
-curl_setopt($curl, CURLOPT_POST, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+$token = $_COOKIE['acc_token'];
+curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/dscongtrinh.php');
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
 $response = curl_exec($curl);
 curl_close($curl);
 $data_list = json_decode($response, true);

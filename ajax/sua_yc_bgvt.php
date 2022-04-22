@@ -8,6 +8,7 @@ $id_nha_cc = getValue('id_nha_cc', 'int', 'POST', '');
 $id_nguoi_lh = getValue('id_nguoi_lh', 'int', 'POST', '');
 $id_ctrinh = getValue('id_ctrinh', 'int', 'POST', '');
 $noi_dung = $_POST['noi_dung_thu'];
+$noi_dung = sql_injection_rp($noi_dung);
 $mail_nhan_bg = $_POST['mail_nhan_bg'];
 $phan_quyen_nk = getValue('phan_quyen_nk', 'int', 'POST', '');
 
@@ -38,8 +39,9 @@ $gio_tao = strtotime(date('H:i:s', time()));
 
 if ($com_id != "" && $user_id != "" && $id_bg != "" && ($cou > 0 || $co1 > 0)) {
     if($gui_mail == 1){
-        $check_mail_g = new db_query("SELECT `email` FROM `nha_cc_kh` WHERE `id` = $id_nha_cc AND `phan_loai` = 1 AND `id_cong_ty` = $com_id ");
-        if (mysql_num_rows($check_mail_g->result) > 0) {
+        $mail_g = mysql_fetch_assoc((new db_query("SELECT `email` FROM `nha_cc_kh` WHERE `id` = $id_nha_cc AND `phan_loai` = 1
+                                                AND `id_cong_ty` = $com_id ")) -> result)['email'];
+        if ($mail_g != "") {
             if ($cou > 0 && $co1 == 0) {
                 if ($cou != $cou1 || $cou1 != $cou2) {
                     echo "Điền đầy đủ thông tin vật tư";
@@ -308,8 +310,8 @@ if ($com_id != "" && $user_id != "" && $id_bg != "" && ($cou > 0 || $co1 > 0)) {
                                     WHERE `id` = $id_vatt[$i] ");
                 };
 
-                $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`)
-                                VALUES('', '$user_id', '$phan_quyen_nk', '$ngay_tao','$gio_tao', '$noi_dung_thu')");
+                $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
+                                VALUES('', '$user_id', '$phan_quyen_nk', '$ngay_tao','$gio_tao', '$noi_dung_thu','$com_id')");
             }
         } else if ($cou == 0 && $co1 > 0) {
             if ($co1 != $co2) {
@@ -324,8 +326,8 @@ if ($com_id != "" && $user_id != "" && $id_bg != "" && ($cou > 0 || $co1 > 0)) {
                                         VALUES ('','$id_bg','$new_ma_vt[$j]','$new_sl[$j]')");
                 };
 
-                $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`)
-                                VALUES('', '$user_id', '$phan_quyen_nk', '$ngay_tao','$gio_tao', '$noi_dung_thu')");
+                $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
+                                VALUES('', '$user_id', '$phan_quyen_nk', '$ngay_tao','$gio_tao', '$noi_dung_thu','$com_id')");
             }
         } else if ($cou > 0 && $co1 > 0) {
             if ($cou != $cou1 || $cou1 != $cou2 || $co1 != $co2) {
@@ -345,8 +347,8 @@ if ($com_id != "" && $user_id != "" && $id_bg != "" && ($cou > 0 || $co1 > 0)) {
                                         VALUES ('','$id_bg','$new_ma_vt[$j]','$new_sl[$j]')");
                 };
 
-                $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`)
-                                VALUES('', '$user_id', '$phan_quyen_nk', '$ngay_tao','$gio_tao', '$noi_dung_thu')");
+                $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
+                                VALUES('', '$user_id', '$phan_quyen_nk', '$ngay_tao','$gio_tao', '$noi_dung_thu','$com_id')");
             }
         }
     }

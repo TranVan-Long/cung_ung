@@ -10,7 +10,7 @@
                 <div class="txt-dc">
                     <p class="coweb">
                         <span><a href="https://goo.gl/maps/stYYuH5Ln5U2" rel="nofollow" target="_blank" class="share_clr_tow">Địa chỉ 1: Tầng 4, B50, Lô 6, KĐT Định Công - Hoàng Mai -
-                            Hà Nội</a></span>
+                                Hà Nội</a></span>
                     </p>
                     <p class="coweb">
                         <span>Địa chỉ 2: Thôn Thanh Miếu, Xã Việt Hưng, Huyện Văn Lâm,
@@ -50,7 +50,7 @@
                             <img src="/img/mui_ten.png" alt="Về chúng tôi" />
                         </picture>
                         <span>
-                            <a rel="nofollow" href="https://timviec365.vn/gioi-thieu-cong-ty.html" >Về chúng tôi</a></span>
+                            <a rel="nofollow" href="https://timviec365.vn/gioi-thieu-cong-ty.html">Về chúng tôi</a></span>
                     </p>
                     <p>
                         <picture class="fa">
@@ -89,7 +89,7 @@
                         <picture class="fa">
                             <img src="/img/mui_ten.png" alt="Quy định bảo mật" />
                         </picture>
-                        <span><a rel="nofollow" href="https://timviec365.vn/quy-dinh-bao-mat.html" >Quy định bảo mật</a></span>
+                        <span><a rel="nofollow" href="https://timviec365.vn/quy-dinh-bao-mat.html">Quy định bảo mật</a></span>
                     </p>
                     <p>
                         <picture class="fa">
@@ -145,7 +145,7 @@
                         <div class="border-btn">
                             <div class="btn-tv share_bgr_tow">
                                 <a><img src="../img/ft-dow1-res.png" alt="App CV365" />
-                                         Download app Timviec365
+                                    Download app Timviec365
                                 </a>
                             </div>
                             <div class="btn-tv share_bgr_tow">
@@ -266,3 +266,16 @@
         </div>
     </div>
 </div>
+<script>
+    var Tawk_API = Tawk_API || {},
+        Tawk_LoadStart = new Date();
+    (function() {
+        var s1 = document.createElement('script'),
+            s0 = document.getElementsByTagName('script')[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/597813875dfc8255d623ef26/default';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+</script>

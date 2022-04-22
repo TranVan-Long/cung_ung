@@ -36,42 +36,42 @@ $vat_tu_data = $list_vt['data']['items'];
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="text" name="don_vi" class="form-control" disabled>
+            <input type="text" name="don_vi" class="form-control" readonly>
         </div>
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="text" name="hang_san_xuat" class="form-control" disabled>
+            <input type="text" name="hang_san_xuat" class="form-control" readonly>
         </div>
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="text" name="xuat_xu" class="form-control" disabled>
+            <input type="text" name="xuat_xu" class="form-control" readonly>
         </div>
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="number" name="so_luong" class="form-control so_luong" disabled>
+            <input type="number" name="so_luong" class="form-control so_luong" readonly>
         </div>
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="number" name="don_gia" class="form-control don_gia" disabled>
+            <input type="number" name="don_gia" class="form-control don_gia" readonly>
         </div>
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="number" name="tien_tvat" class="form-control tong_trvat" disabled>
+            <input type="number" name="tien_tvat" class="form-control tong_trvat" readonly>
         </div>
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="number" name="thue_vat" class="form-control thue_vat" disabled>
+            <input type="number" name="thue_vat" data="0" class="form-control thue_vat" readonly>
         </div>
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="text" name="tien_svat" class="form-control tong_svat" disabled>
+            <input type="text" name="tien_svat" class="form-control tong_svat" readonly>
         </div>
     </td>
 </tr>

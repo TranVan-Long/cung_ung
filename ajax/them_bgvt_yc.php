@@ -14,7 +14,7 @@ curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlykhoxaydung.timviec365.vn/a
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 $response = curl_exec($curl);
 curl_close($curl);
-$emp0 = json_decode($response,true);
+$emp0 = json_decode($response, true);
 $emp = $emp0['data']['items'];
 $cou = count($emp);
 
@@ -25,11 +25,11 @@ $cou = count($emp);
     </td>
     <td class="w-15">
         <div class="v-select2">
-            <select name="ten_day_du" class="share_select ten_vat_tu">
+            <select name="ten_day_du" class="share_select ten_vat_tu" onchange="doi_vt(this)" data="<?= $com_id ?>">
                 <option value="">Chọn vật tư thiết bị</option>
-                <? for($j = 0; $j < $cou; $j++) {?>
+                <? for ($j = 0; $j < $cou; $j++) { ?>
                     <option value="<?= $emp[$j]['dsvt_id'] ?>">(<?= $emp[$j]['dsvt_id'] ?>) <?= $emp[$j]['dsvt_name'] ?></option>
-                <?}?>
+                <? } ?>
             </select>
         </div>
     </td>
@@ -43,7 +43,3 @@ $cou = count($emp);
         <input type="text" name="so_luong" readonly>
     </td>
 </tr>
-<script>
-    doi_vt();
-    RefSelect2();
-</script>

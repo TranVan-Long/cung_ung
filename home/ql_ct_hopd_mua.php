@@ -1,15 +1,6 @@
 <?php
 include "../includes/icon.php";
 include("config.php");
-
-if (isset($_GET['id']) && $_GET['id'] != "") {
-    $hd_id = $_GET['id'];
-    $hd_get = new db_query("SELECT `ngay_ky_hd`, `id_nha_cc_kh`, `id_du_an_ctrinh`, `hd_nguyen_tac`, `hinh_thuc_hd`, `gia_tri_trvat`, `bao_gom_vat`, `thue_vat`, `gia_tri_svat`,`tien_chiet_khau`, `giu_lai_bhanh`, `gia_tri_bhanh`, `thoi_han_blanh`,`bao_lanh_hd`,`gia_tri_blanh`, `tg_bd_thuc_hien`, `tg_kt_thuc_hien`, `bgom_vchuyen`, `ten_ngan_hang`, `so_tk`,`id_bao_gia`, `thoa_tuan_hoa_don`,  `yc_tien_do`, `noi_dung_hd`, `noi_dung_luu_y`, `dieu_khoan_tt` FROM `hop_dong` WHERE `id` = $hd_id");
-    $hd_detail = mysql_fetch_assoc($hd_get->result);
-
-    $ncc_id = $hd_detail['id_nha_cc_kh'];
-    $ncc = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh` FROM nha_cc_kh WHERE `id` = $ncc_id"))->result);
-}
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] == 1) {
         $user_id = $_SESSION['com_id'];
@@ -34,6 +25,19 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         }
     }
 }
+if (isset($_GET['id']) && $_GET['id'] != "") {
+    $hd_id = $_GET['id'];
+    $hd_get = new db_query("SELECT `ngay_ky_hd`, `id_nha_cc_kh`, `id_du_an_ctrinh`, `hd_nguyen_tac`, `hinh_thuc_hd`, `gia_tri_trvat`, `bao_gom_vat`,
+                            `thue_vat`, `gia_tri_svat`,`tien_chiet_khau`, `giu_lai_bhanh`, `gia_tri_bhanh`, `thoi_han_blanh`,`bao_lanh_hd`,`gia_tri_blanh`,
+                            `tg_bd_thuc_hien`, `tg_kt_thuc_hien`, `bgom_vchuyen`, `ten_ngan_hang`, `so_tk`,`id_bao_gia`, `thoa_tuan_hoa_don`,  `yc_tien_do`,
+                            `noi_dung_hd`, `noi_dung_luu_y`, `dieu_khoan_tt` FROM `hop_dong` WHERE `id` = $hd_id AND `id_cong_ty` = $com_id ");
+    $hd_detail = mysql_fetch_assoc($hd_get->result);
+    // echo $hd_detail['id_du_an_ctrinh'];
+
+    $ncc_id = $hd_detail['id_nha_cc_kh'];
+    $ncc = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh` FROM nha_cc_kh WHERE `id` = $ncc_id"))->result);
+}
+
 
 $curl = curl_init();
 $data = array(
@@ -55,13 +59,11 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
 }
 
 $curl = curl_init();
-$data = array(
-    'id_com' => $com_id,
-);
+$token = $_COOKIE['acc_token'];
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php");
+curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlycongtrinh.timviec365.vn/api/dscongtrinh.php");
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
 $response = curl_exec($curl);
 curl_close($curl);
 $list_ct = json_decode($response, true);
@@ -218,7 +220,11 @@ for ($r = 0; $r < $coun1; $r++) {
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Báo giá</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one">BG - <?= $hd_detail['id_bao_gia'] ?></p>
+                                    <? if ($hd_detail['id_bao_gia'] != 0) { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one">BG - <?= $hd_detail['id_bao_gia'] ?></p>
+                                    <? } else { ?>
+                                        <p class="cr_weight share_fsize_tow share_clr_one"></p>
+                                    <? } ?>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">

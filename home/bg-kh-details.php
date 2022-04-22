@@ -62,7 +62,8 @@ for ($i = 0; $i < count($data_list_nv); $i++) {
 
 if (isset($_GET['id']) && $_GET['id'] != "" && $_GET['id'] != 0) {
     $id_bg = $_GET['id'];
-    $list_yc = mysql_fetch_assoc((new db_query("SELECT y.`id`, y.`id_nguoi_lap`, y.`nha_cc_kh`, y.`noi_dung_thu`, y.`ngay_bd`, y.`ngay_kt`, y.`ngay_tao`, y.`id_cong_ty`, n.`ten_nha_cc_kh`
+    $list_yc = mysql_fetch_assoc((new db_query("SELECT y.`id`, y.`id_nguoi_lap`, y.`nha_cc_kh`, y.`noi_dung_thu`, y.`ngay_bd`, y.`ngay_kt`,
+                            y.`ngay_tao`, y.`id_cong_ty`, n.`ten_nha_cc_kh`, y.`quyen_nlap`
                             FROM `yeu_cau_bao_gia` AS y
                             INNER JOIN `nha_cc_kh` AS n ON y.`nha_cc_kh` = n.`id`
                             WHERE y.id = $id_bg AND y.`id_cong_ty` = $com_id "))->result);
@@ -139,7 +140,11 @@ if (isset($_GET['id']) && $_GET['id'] != "" && $_GET['id'] != 0) {
                         <div class="form-row left border-top2">
                             <div class="form-col-50 left p-10">
                                 <p class="detail-title">Người phản hồi</p>
-                                <p class="detail-data text-500"><?= $user[$list_yc['id_nguoi_lap']]['ep_name'] ?></p>
+                                <? if ($list_yc['quyen_nlap'] == 1) { ?>
+                                    <p class="detail-data text-500"><?= $com_name ?></p>
+                                <? } else if ($list_yc['quyen_nlap'] == 2) { ?>
+                                    <p class="detail-data text-500"><?= $user[$list_yc['id_nguoi_lap']]['ep_name'] ?></p>
+                                <? } ?>
                             </div>
                             <div class="form-col-50 right p-10">
                                 <p class="detail-title">Ngày phản hồi</p>
@@ -267,8 +272,8 @@ if (isset($_GET['id']) && $_GET['id'] != "" && $_GET['id'] != 0) {
             },
             success: function(data) {
                 if (data == "") {
-                    alert("Bạn đã xóa phiếu báo giá khách hàng thành công");
-                    window.location.href = '/quan-ly-bao-gia-khach-hang.html';
+                    // alert("Bạn đã xóa phiếu báo giá khách hàng thành công");
+                    window.location.href = '/quan-ly-bao-gia-cho-khach-hang.html';
                 } else if ($data != "") {
                     alert(data);
                 }

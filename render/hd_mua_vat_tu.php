@@ -3,8 +3,10 @@ include('config.php');
 
 $id = getValue('id_vt', 'int', 'POST', '');
 
-$id_v = $_POST['id_v'];
-$com_id = $_POST['id_com'];
+$id_v = getValue('id_v', 'int', 'POST', '');
+$com_id = getValue('id_com', 'int', 'POST', '');
+$vattu_chon = $_POST['vattu_chon'];
+$dg_vat = getValue('dg_vat', 'int', 'POST', '');
 
 $curl = curl_init();
 $data = array(
@@ -26,8 +28,7 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
     $vat_tu_detail[$items_vt['dsvt_id']] = $items_vt;
 }
 
-if ($id_v != "") {
-?>
+if ($id_v != "") { ?>
     <td class="share_tb_one">
         <p><img src="../img/remove.png" alt="xóa" data-id="<?= $id_v ?>" class="remo_cot_ngang share_cursor"></p>
         <input type="hidden" name="id_vat_tu" value="<?= $id_v ?>">
@@ -36,9 +37,11 @@ if ($id_v != "") {
         <div class="form-group share_form_select">
             <select name="ma_vt_ban" class="ma_vt_ban share_select" onchange="hd_vt_change(this)" data="<?= $com_id ?>">
                 <option value="">-- Chọn vật tư --</option>
-                <? foreach ($vat_tu_data as $key => $items) { ?>
-                    <option value="<?= $items['dsvt_id'] ?>" <?= ($items['dsvt_id'] == $id) ? "selected" : "" ?>><?= $items['dsvt_name'] ?></option>
-                <? } ?>
+                <? foreach ($vat_tu_data as $key => $items) {
+                    if (in_array($items['dsvt_id'], $vattu_chon) == false) { ?>
+                        <option value="<?= $items['dsvt_id'] ?>" <?= ($items['dsvt_id'] == $id) ? "selected" : "" ?>>(<?= $items['dsvt_id'] ?>) <?= $items['dsvt_name'] ?></option>
+                <? }
+                } ?>
             </select>
         </div>
     </td>
@@ -59,7 +62,7 @@ if ($id_v != "") {
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="number" name="so_luong" class="form-control so_luong" onkeyup="sl_doi(this), baoLanh()">
+            <input type="text" name="so_luong" oninput="<?= $oninput ?>" class="form-control so_luong" onkeyup="sl_doi(this), baoLanh()">
         </div>
     </td>
     <td class="share_tb_two">
@@ -74,7 +77,7 @@ if ($id_v != "") {
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="number" name="vt_thue_vat" data="" class="form-control thue_vat" onkeyup="thue_doi(this), baoLanh()">
+            <input type="number" name="vt_thue_vat" data="<?= ($dg_vat == 1) ? 0 : "" ?>" class="form-control thue_vat" onkeyup="thue_doi(this), baoLanh()" <?= ($dg_vat == 1) ? "readonly" : "" ?>>
         </div>
     </td>
     <td class="share_tb_two">
@@ -90,9 +93,11 @@ if ($id_v != "") {
         <div class="form-group share_form_select">
             <select name="ma_vt_ban" class="ma_vt_ban share_select" onchange="hd_vt_change(this)" data="<?= $com_id ?>">
                 <option value="">-- Chọn Vật tư a --</option>
-                <? for ($i = 0; $i < count($vat_tu_data); $i++) { ?>
-                    <option value="<?= $vat_tu_data[$i]['dsvt_id'] ?>" <?= ($vat_tu_data[$i]['dsvt_id'] == $id) ? "selected" : "" ?>><?= $vat_tu_data[$i]['dsvt_name'] ?></option>
-                <? } ?>
+                <? for ($i = 0; $i < count($vat_tu_data); $i++) {
+                    if (in_array($vat_tu_data[$i]['dsvt_id'], $vattu_chon) == false) { ?>
+                        <option value="<?= $vat_tu_data[$i]['dsvt_id'] ?>" <?= ($vat_tu_data[$i]['dsvt_id'] == $id) ? "selected" : "" ?>>(<?= $vat_tu_data[$i]['dsvt_id'] ?>) <?= $vat_tu_data[$i]['dsvt_name'] ?></option>
+                <? }
+                } ?>
             </select>
         </div>
     </td>
@@ -113,7 +118,7 @@ if ($id_v != "") {
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="number" name="so_luong" class="form-control so_luong" oninput="<?= $oninput ?>" onkeyup="sl_doi(this), baoLanh()">
+            <input type="text" name="so_luong" class="form-control so_luong" oninput="<?= $oninput ?>" placeholder="Nhập số lượng lớn hơn 0" onkeyup="sl_doi(this), baoLanh()">
         </div>
     </td>
     <td class="share_tb_two">
@@ -128,7 +133,7 @@ if ($id_v != "") {
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="number" name="vt_thue_vat" data="" class="form-control thue_vat" onkeyup="thue_doi(this), baoLanh()">
+            <input type="number" name="vt_thue_vat" data="<?= ($dg_vat == 1) ? 0 : "" ?>" class="form-control thue_vat" onkeyup="thue_doi(this), baoLanh()" <?= ($dg_vat == 1) ? "readonly" : "" ?>>
         </div>
     </td>
     <td class="share_tb_two">

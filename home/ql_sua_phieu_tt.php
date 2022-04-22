@@ -180,17 +180,17 @@ if ($id != "") {
                                             <div class="form-row w_100 float_l">
                                                 <div class="form-group">
                                                     <label>Số tiền <span class="cr_red">*</span></label>
-                                                    <input type="text" name="so_tien" value="<?= $item['so_tien'] ?>" oninput="<?= $oninput ?>" class="form-control" placeholder="Nhập số tiền">
+                                                    <input type="text" name="so_tien" value="<?= $item['so_tien'] ?>" onkeyup="so_tien_doi(this)" oninput="<?= $oninput ?>" class="form-control so_tien" placeholder="Nhập số tiền">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Tỷ giá</label>
-                                                    <input type="text" name="ty_gia" value="<?= $item['ty_gia'] ?>" oninput="<?= $oninput ?>" class="form-control" placeholder="Nhập tỷ giá">
+                                                    <input type="text" name="ty_gia" value="<?= $item['ty_gia'] ?>" onkeyup="ty_gia_doi(this)" oninput="<?= $oninput ?>" class="form-control ty_gia" placeholder="Nhập tỷ giá">
                                                 </div>
                                             </div>
                                             <div class="form-row w_100 float_l">
                                                 <div class="form-group">
                                                     <label>Giá trị quy đổi</label>
-                                                    <input type="text" name="gia_quy_doi" value="<?= $item['gia_tri_quy_doi'] ?>" oninput="<?= $oninput ?>" class="form-control h_border cr_weight" value="0">
+                                                    <input type="text" name="gia_quy_doi" value="<?= $item['gia_tri_quy_doi'] ?>" oninput="<?= $oninput ?>" class="form-control h_border cr_weight gia_qdoi" value="0">
                                                 </div>
                                             </div>
                                         </div>

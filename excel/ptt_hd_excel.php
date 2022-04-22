@@ -49,12 +49,12 @@ for ($i = 0; $i < $cou; $i++) {
 
 $id = getValue('id', 'int', 'GET', 0);
 
-if ($id != "") {
+if ($id != "" && $id != 0) {
     $list_phieu = new db_query("SELECT p.`id`, p.`id_hd_dh`, p.`id_ncc_kh`, p.`loai_phieu_tt`, p.`ngay_thanh_toan`, p.`hinh_thuc_tt`, p.`loai_thanh_toan`,
-                                p.`nguoi_nhan_tien`, p.`phi_giao_dich`, p.`phan_loai`, p.`trang_thai`, p.`id_nguoi_lap`, n.`ten_nha_cc_kh`
+                                p.`nguoi_nhan_tien`, p.`phi_giao_dich`, p.`phan_loai`, p.`trang_thai`, p.`id_nguoi_lap`, n.`ten_nha_cc_kh`, p.`so_tien`
                                 FROM `phieu_thanh_toan` AS p
                                 INNER JOIN `nha_cc_kh` AS n ON p.`id_ncc_kh` = n.`id`
-                                WHERE p.`id` = $id AND p.`id_cong_ty` = $com_id ");
+                                WHERE p.`id` = $id AND p.`id_cong_ty` = $com_id AND p.`loai_thanh_toan` = 2 ");
     $row = mysql_fetch_assoc($list_phieu->result);
     $id_hd_dh = $row['id_hd_dh'];
 
@@ -66,7 +66,7 @@ if ($id != "") {
         $dv_thuhuong = $com_name;
     }
 
-    $list_tt = mysql_fetch_assoc((new db_query("SELECT `id_hs`, `da_thanh_toan` FROM `chi_tiet_phieu_tt_vt` WHERE `id_phieu_tt` = $id AND `id_cong_ty` = $com_id AND `id_hd_dh` = $id_hd_dh "))->result);
+    $list_tt = new db_query("SELECT `id_hs`, `da_thanh_toan` FROM `chi_tiet_phieu_tt_vt` WHERE `id_phieu_tt` = $id AND `id_cong_ty` = $com_id AND `id_hd_dh` = $id_hd_dh ");
 }
 
 header("Content-type: application/octet-stream; charset=utf-8");
@@ -135,20 +135,27 @@ echo '<tr><th colspan="2" style="font-size:18px;height:60px;vertical-align: midd
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Trạng thái:</td>
-    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;">Hoàn thành</td>
+    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= ($row['trang_thai'] != 1) ? "Hoàn thành" : "Chưa hoàn thành" ?></td>
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Người lập:</td>
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= $all_nv[$row['id_nguoi_lap']]['ep_name'] ?></td>
 </tr>
-<!-- <tr style="height:40px">
-    <td colspan="2" style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px;font-weight: bold; border-top: 1px solid;">Danh sách hồ sơ</td>
-</tr>
-<tr style="height:40px">
-    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px; border-top: 1px solid;">Còn phải thanh toán:</td>
-    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px; border-top: 1px solid;">25.000.000</td>
-</tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Thanh toán:</td>
-    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;">25.000.000</td>
-</tr> -->
+    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= formatMoney($row['so_tien']) ?></td>
+</tr>
+<tr style="height:40px">
+    <td colspan="2" style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px;font-weight: bold; border-top: 1px solid;">Danh sách hồ sơ</td>
+</tr>
+<? while ($iten_pt = mysql_fetch_assoc($list_tt->result)) {
+    $id_hs = $iten_pt['id_hs'];?>
+    <tr style="height:40px">
+        <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px; border-top: 1px solid;">Hồ sơ thanh toán:</td>
+        <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px; border-top: 1px solid;">HS - <?= $id_hs ?></td>
+    </tr>
+    <tr style="height:40px">
+        <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px; border-top: 1px solid;">Đã thanh toán:</td>
+        <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px; border-top: 1px solid;"><?= formatMoney($iten_pt['da_thanh_toan']) ?></td>
+    </tr>
+<? } ?>

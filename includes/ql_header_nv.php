@@ -29,7 +29,8 @@ if(isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1){
             <img src="../img/menu.png" alt="menu" class="avt_menu">
         </div>
         <div class="ctiet_cty">
-            <span class="ten_cty_nv"><?= $com_name ?></span>|
+            <span class="ten_cty_nv"><?= $com_name ?></span>
+            <span class="thanh_chan">|</span>
             <span class="text-bold">ID: <?= $com_id ?></span>
         </div>
     </div>

@@ -32,6 +32,7 @@ $co3 = count($don_gia);
 $tongtr_vat = $_POST['tongtr_vat'];
 $co4 = count($tongtr_vat);
 
+
 $thue = $_POST['thue'];
 $tongs_vat = $_POST['tongs_vat'];
 $co5 = count($tongs_vat);
@@ -45,23 +46,33 @@ $ngay_tao = strtotime(date('Y-m-d', time()));
 $gio_tao = strtotime(date('H:i:s', time()));
 
 
-if ($phieu_yc != "" && $nha_cc != "" && $co1 == $co2 && $co2 == $co3 && $co3 == $co4 && $co4 == $co5) {
+if ($phieu_yc != "" && $nha_cc != "") {
 
-    $inser_bg = new db_query("INSERT INTO `bao_gia`(`id`, `id_yc_bg`, `id_nha_cc`, `id_nguoi_lap`, `quyen_nlap`, `ngay_gui`, `ngay_bd`, `ngay_kt`, `ngay_tao`,
-                            `ngay_chinh_sua`, `id_cong_ty`) VALUES ('','$phieu_yc','$nha_cc','$user_id','$phan_quyen_nk','$ngay_gui','$tg_apdung','$tg_ketthuc','$ngay_tao','','$com_id')");
+    if($co1 > 0){
+        if($co1 != $co2 || $co2 != $co3){
+            echo "Điền đầy đủ thông tin vật tư";
+        }else if($co1 == $co2 && $co2 == $co3){
+            $inser_bg = new db_query("INSERT INTO `bao_gia`(`id`, `id_yc_bg`, `id_nha_cc`, `id_nguoi_lap`, `quyen_nlap`, `ngay_gui`, `ngay_bd`,
+                                        `ngay_kt`, `ngay_tao`, `ngay_chinh_sua`, `id_cong_ty`) VALUES ('','$phieu_yc','$nha_cc','$user_id',
+                                        '$phan_quyen_nk','$ngay_gui','$tg_apdung','$tg_ketthuc','$ngay_tao','','$com_id')");
 
-    $id_inser = new db_query("SELECT LAST_INSERT_ID() AS id_baog");
-    $id_baog = mysql_fetch_assoc($id_inser->result)['id_baog'];
+            $id_inser = new db_query("SELECT LAST_INSERT_ID() AS id_baog");
+            $id_baog = mysql_fetch_assoc($id_inser->result)['id_baog'];
 
-    for ($i = 0; $i < $co2; $i++) {
-        $up_bgia_vt = new db_query("INSERT INTO `vat_tu_da_bao_gia`(`id`, `id_bao_gia`, `id_vat_tu`, `so_luong_bg`, `don_gia`,
+            for ($i = 0; $i < $co1; $i++) {
+                $up_bgia_vt = new db_query("INSERT INTO `vat_tu_da_bao_gia`(`id`, `id_bao_gia`, `id_vat_tu`, `so_luong_bg`, `don_gia`,
                                     `tong_tien_trvat`, `thue_vat`, `tong_tien_svat`, `cs_kem_theo`, `sl_da_dat_hang`, `id_cong_ty`)
                                     VALUES ('','$id_baog','$id_vt[$i]','$sl_bg[$i]','$don_gia[$i]','$tongtr_vat[$i]','$thue[$i]','$tongs_vat[$i]',
                                     '$chinh_sach_khac[$i]','$so_luong_da_dat[$i]','$com_id')");
-    };
+            };
 
-    $noi_dung_nk = "Bạn đã thêm phiếu yêu cầu báo giá: BG - " . $id_baog;
-    $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`,`role`, `ngay_tao`,`gio_tao`, `noi_dung`) VALUES('', '$user_id','$phan_quyen_nk', '$ngay_tao','$gio_tao', '$noi_dung_nk')");
+            $noi_dung_nk = "Bạn đã thêm phiếu yêu cầu báo giá: BG - " . $id_baog;
+            $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`,`role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
+                                VALUES('', '$user_id','$phan_quyen_nk', '$ngay_tao','$gio_tao', '$noi_dung_nk','$com_id')");
+        }
+    }else{
+        echo "Điền đầy đủ thông tin vật tư";
+    }
 } else {
     echo "Bạn thêm phiếu báo giá thất bại, vui lòng thử lại!";
 }

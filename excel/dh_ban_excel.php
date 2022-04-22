@@ -50,14 +50,11 @@ for ($i = 0; $i < $count; $i++) {
 };
 
 $curl = curl_init();
-$data = array(
-    'id_com' => $com_id,
-);
-curl_setopt($curl, CURLOPT_POST, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+$token = $_COOKIE['accc_token'];
+curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/dscongtrinh.php');
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
 $response = curl_exec($curl);
 curl_close($curl);
 $data_list = json_decode($response, true);
@@ -262,6 +259,6 @@ echo '<tr><th colspan="2" style="font-size:18px;height:60px;vertical-align: midd
     </tr>
     <tr style="height:40px">
         <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Địa điểm giao hàng:</td>
-        <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= number_format($row1['dia_diem_giao_hang']) ?></td>
+        <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= $row1['dia_diem_giao_hang'] ?></td>
     </tr>
 <? } ?>

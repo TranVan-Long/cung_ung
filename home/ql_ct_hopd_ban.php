@@ -139,7 +139,7 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thuế suất VAT</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $hd_detail['thue_vat'] ?>%</p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= formatMoney($hd_detail['thue_vat']) ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">

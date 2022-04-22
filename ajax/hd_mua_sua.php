@@ -1,26 +1,25 @@
 <?
 include("config.php");
 
-$user_id                  = getValue('user_id', 'int', 'POST', '');
-$com_id                 = getValue('com_id', 'int', 'POST', '');
-$role                 = getValue('role', 'int', 'POST', '');
+$user_id = getValue('user_id', 'int', 'POST', '');
+$com_id = getValue('com_id', 'int', 'POST', '');
+$role = getValue('role', 'int', 'POST', '');
 
-
-$hd_id                  = getValue('hd_id', 'int', 'POST', '');
-$ngay_ky_hd             = strtotime($_POST['ngay_ky_hd']);
-$id_nha_cung_cap        = getValue('id_nha_cung_cap', 'int', 'POST', '');
-$dan_ctrinh             = $_POST['dan_ctrinh'];
-$hd_nguyen_tac          = $_POST['hd_nguyen_tac'];
-$hinh_thuc              = $_POST['hinh_thuc'];
-$truoc_vat              = $_POST['truoc_vat'];
-$don_gia_vat            = $_POST['don_gia_vat'];
-$thue_vat               = $_POST['thue_vat'];
-$chiet_khau             = $_POST['chiet_khau'];
-$sau_vat                = $_POST['sau_vat'];
-$bao_hanh               = $_POST['bao_hanh'];
-$gt_bao_hanh            = $_POST['gt_bao_hanh'];
-$bao_lanh               = $_POST['bao_lanh'];
-$gt_bao_lanh            = $_POST['gt_bao_lanh'];
+$hd_id = getValue('hd_id', 'int', 'POST', '');
+$ngay_ky_hd = strtotime($_POST['ngay_ky_hd']);
+$id_nha_cung_cap = getValue('id_nha_cung_cap', 'int', 'POST', '');
+$dan_ctrinh = getValue('dan_ctrinh', 'int', 'POST', '');
+$hd_nguyen_tac = $_POST['hd_nguyen_tac'];
+$hinh_thuc = $_POST['hinh_thuc'];
+$truoc_vat = $_POST['truoc_vat'];
+$don_gia_vat = $_POST['don_gia_vat'];
+$thue_vat = $_POST['thue_vat'];
+$chiet_khau = $_POST['chiet_khau'];
+$sau_vat = $_POST['sau_vat'];
+$bao_hanh = $_POST['bao_hanh'];
+$gt_bao_hanh = $_POST['gt_bao_hanh'];
+$bao_lanh = $_POST['bao_lanh'];
+$gt_bao_lanh = $_POST['gt_bao_lanh'];
 if ($_POST['han_bao_lanh'] != "") {
     $han_bao_lanh = strtotime($_POST['han_bao_lanh']);
 } else {
@@ -38,11 +37,19 @@ if ($_POST['ngay_ket_thuc'] != "") {
 } else {
     $ngay_ket_thuc = 0;
 }
-$bao_gom_van_chuyen     = $_POST['bao_gom_van_chuyen'];
+$bao_gom_van_chuyen     = getValue('bao_gom_van_chuyen', 'int', 'POST', '');
 $yc_tiendo              = $_POST['yc_tiendo'];
+$yc_tiendo = sql_injection_rp($yc_tiendo);
+
 $noi_dung_hd            = $_POST['noi_dung_hd'];
+$noi_dung_hd = sql_injection_rp($noi_dung_hd);
+
 $noi_dung_luu_y         = $_POST['noi_dung_luu_y'];
+$noi_dung_luu_y = sql_injection_rp($noi_dung_luu_y);
+
 $dieu_khoan_tt          = $_POST['dieu_khoan_tt'];
+$dieu_khoan_tt = sql_injection_rp($dieu_khoan_tt);
+
 $ten_nh                 = $_POST['ten_nh'];
 $so_taik                = $_POST['so_taik'];
 $bao_gia                = $_POST['bao_gia'];
@@ -67,7 +74,15 @@ $vt_tien_svat           = $_POST['vt_tien_svat'];
 
 if ($id_nha_cung_cap != "") {
     if ($vt_id_vat_tu_old != "" || $vt_vat_tu != "") {
-        $sua_hd_mua_vt = new db_query("UPDATE `hop_dong` SET `ngay_ky_hd` = '$ngay_ky_hd', `id_nha_cc_kh` = '$id_nha_cung_cap',`hd_nguyen_tac` = '$hd_nguyen_tac', `hinh_thuc_hd` = '$hinh_thuc', `gia_tri_trvat` = '$truoc_vat', `bao_gom_vat` = '$don_gia_vat', `thue_vat` = '$thue_vat', `tien_chiet_khau` = '$chiet_khau', `gia_tri_svat` = '$sau_vat',`giu_lai_bhanh` = '$bao_hanh',`gia_tri_bhanh` = '$gt_bao_hanh',`bao_lanh_hd` = '$bao_lanh',`gia_tri_blanh` = '$gt_bao_lanh',`thoi_han_blanh` = '$han_bao_lanh', `tg_bd_thuc_hien` = '$ngay_bat_dau', `tg_kt_thuc_hien` = '$ngay_ket_thuc', `bgom_vchuyen` = '$bao_gom_van_chuyen',`yc_tien_do` = '$yc_tiendo',`noi_dung_hd` = '$noi_dung_hd', `noi_dung_luu_y` = '$noi_dung_luu_y', `dieu_khoan_tt` = '$dieu_khoan_tt', `ten_ngan_hang` = '$ten_nh', `so_tk` = '$so_taik', `id_bao_gia` = '$bao_gia', `thoa_tuan_hoa_don`= '$tthuan_hdon' WHERE `id` = '$hd_id'");
+        $sua_hd_mua_vt = new db_query("UPDATE `hop_dong` SET `ngay_ky_hd` = '$ngay_ky_hd', `id_nha_cc_kh` = '$id_nha_cung_cap', `id_du_an_ctrinh` = '$dan_ctrinh',
+                                        `hd_nguyen_tac` = '$hd_nguyen_tac', `hinh_thuc_hd` = '$hinh_thuc', `gia_tri_trvat` = '$truoc_vat',
+                                        `bao_gom_vat` = '$don_gia_vat', `thue_vat` = '$thue_vat', `tien_chiet_khau` = '$chiet_khau',
+                                        `gia_tri_svat` = '$sau_vat',`giu_lai_bhanh` = '$bao_hanh',`gia_tri_bhanh` = '$gt_bao_hanh',
+                                        `bao_lanh_hd` = '$bao_lanh',`gia_tri_blanh` = '$gt_bao_lanh',`thoi_han_blanh` = '$han_bao_lanh',
+                                        `tg_bd_thuc_hien` = '$ngay_bat_dau', `tg_kt_thuc_hien` = '$ngay_ket_thuc', `bgom_vchuyen` = '$bao_gom_van_chuyen',
+                                        `yc_tien_do` = '$yc_tiendo',`noi_dung_hd` = '$noi_dung_hd', `noi_dung_luu_y` = '$noi_dung_luu_y',
+                                        `dieu_khoan_tt` = '$dieu_khoan_tt', `ten_ngan_hang` = '$ten_nh', `so_tk` = '$so_taik', `id_bao_gia` = '$bao_gia',
+                                        `thoa_tuan_hoa_don`= '$tthuan_hdon' WHERE `id` = '$hd_id'");
 
 
         for ($i = 0; $i < count($vt_id_vat_tu_old); $i++) {

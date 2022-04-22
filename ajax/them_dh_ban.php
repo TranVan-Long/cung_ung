@@ -25,7 +25,7 @@ $nguoi_nhan = $_POST['nguoi_nhan'];
 $dt_nguoi_nhan = $_POST['dt_nguoi_nhan'];
 $baoh_hd = getValue('baoh_hd', 'int', 'POST', '');
 $gia_tri_bh = getValue('gia_tri_bh', 'int', 'POST', '');
-$ghi_chu = getValue('ghi_chu', 'int', 'POST', '');
+$ghi_chu = sql_injection_rp($_POST['ghi_chu']);
 $giatr_vat = $_POST['giatr_vat'];
 $dgia_vat = getValue('dgia_vat', 'int', 'POST', '');
 $thue_vat = getValue('thue_vat', 'int', 'POST', '');
@@ -33,7 +33,7 @@ $phan_loai_nk = getValue('phan_loai_nk', 'int', 'POST', '');
 $tien_chkhau = $_POST['tien_chkhau'];
 $gias_vat = $_POST['gias_vat'];
 $chi_phi_vc = $_POST['chi_phi_vc'];
-$ghic_vc = $_POST['ghic_vc'];
+$ghic_vc = sql_injection_rp($_POST['ghic_vc']);
 
 $id_vt = $_POST['id_vt'];
 $cou = count($id_vt);

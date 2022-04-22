@@ -16,7 +16,7 @@
                     <a href="/" class="cr_weight_bold share_fsize_tow share_clr_tow <?= ($_SERVER['REDIRECT_URL'] == '/') ? "active" : "" ?>">Trang chủ</a>
                 </li>
                 <li>
-                    <a href="https://timviec365.vn/blog/c248/quan-ly-nganh-xay-dung" class="cr_weight_bold share_fsize_tow share_clr_tow">Tin tức</a>
+                    <a href="https://timviec365.vn/blog/c248/quan-ly-nganh-xay-dung" target="_blank" class="cr_weight_bold share_fsize_tow share_clr_tow">Tin tức</a>
                 </li>
                 <li>
                     <a href="huong-dan.html" class="cr_weight_bold share_fsize_tow share_clr_tow <?= ($_SERVER['REDIRECT_URL'] == '/huong-dan.html') ? "active" : "" ?>">Hướng dẫn</a>

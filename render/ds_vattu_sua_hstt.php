@@ -233,7 +233,7 @@ if ($com_id != "" && $id_hs != "" && $id_hd_dh != "" && $loai_hs != "") {
                         </tbody>
                     </table>
                 </div>
-                <? } else {
+            <? } else {
                 if (mysql_num_rows($check_ttai->result) > 0) { ?>
                     <div class="tbl-header">
                         <table>
@@ -779,7 +779,7 @@ if ($com_id != "" && $id_hs != "" && $id_hd_dh != "" && $loai_hs != "") {
                         </tbody>
                     </table>
                 </div>
-                <? } else {
+            <? } else {
                 if (mysql_num_rows($check_ttai->result) > 0) { ?>
                     <div class="tbl-header">
                         <table>
@@ -1323,7 +1323,7 @@ if ($com_id != "" && $id_hs != "" && $id_hd_dh != "" && $loai_hs != "") {
                         </tbody>
                     </table>
                 </div>
-                <? } else {
+            <? } else {
                 if (mysql_num_rows($check_ttai->result) > 0) { ?>
                     <div class="tbl-header">
                         <table>
@@ -1563,7 +1563,7 @@ if ($com_id != "" && $id_hs != "" && $id_hd_dh != "" && $loai_hs != "") {
                                             <p class="tong_tienvt"><?= $row1['thanh_tien'] ?></p>
                                         </td>
                                         <td class="w-10">
-                                            <input type="text" name="kl_luy_ke_ky_truoc" data="" value="0" class="tex_center" readonly>
+                                            <input type="text" name="kl_luy_ke_ky_truoc" data="0" value="0" class="tex_center" readonly>
                                         </td>
                                         <td class="w-10">
                                             <input type="text" name="kl_luy_ke_ky_nay" autocomplete="off" oninput="<?= $oninput ?>" class="tex_center" onkeyup="kl_hs_doi(this)">

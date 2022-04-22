@@ -2,8 +2,6 @@
 include "../includes/icon.php";
 include("config.php");
 
-
-
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
@@ -363,35 +361,71 @@ $vat_tu_data = $list_vt['data']['items'];
             var chi_phi_khac = $("input[name='chi_phi_khac']").val();
             var tien_svat = $(".tong_tatca").text();
 
-            $.ajax({
-                url: '../ajax/them_hs_tt.php',
-                type: 'POST',
-                data: {
-                    loai_hs: loai_hs,
-                    hd_dh: hd_dh,
-                    dot_nthu: dot_nthu,
-                    thoi_han_tt: thoi_han_tt,
-                    thoig_nthu: thoig_nthu,
-                    com_id: com_id,
-                    user_id: user_id,
-                    id_vt: id_vt,
-                    sl_kynay: sl_kynay,
-                    giatri_kn: giatri_kn,
-                    tong_tien_ky_nay: tong_tien_ky_nay,
-                    chi_phi_khac: chi_phi_khac,
-                    tien_thue: tien_thue,
-                    tien_svat: tien_svat,
-                    phan_quyen_nk: phan_quyen_nk,
-                },
-                success: function(data) {
-                    if (data == "") {
-                        alert("Bạn đã tạo hồ sơ thanh toán thành công");
-                        window.location.href = "/quan-ly-ho-so-thanh-toan.html";
-                    } else if (data != "") {
-                        alert(data);
-                    }
+            if (thoig_nthu != "" && thoi_han_tt != "") {
+                if (thoi_han_tt < thoig_nthu) {
+                    alert("Thời hạn thanh toán phải nhỏ hơn thời hạn nghiệm thu");
+                } else {
+                    $.ajax({
+                        url: '../ajax/them_hs_tt.php',
+                        type: 'POST',
+                        data: {
+                            loai_hs: loai_hs,
+                            hd_dh: hd_dh,
+                            dot_nthu: dot_nthu,
+                            thoi_han_tt: thoi_han_tt,
+                            thoig_nthu: thoig_nthu,
+                            com_id: com_id,
+                            user_id: user_id,
+                            id_vt: id_vt,
+                            sl_kynay: sl_kynay,
+                            giatri_kn: giatri_kn,
+                            tong_tien_ky_nay: tong_tien_ky_nay,
+                            chi_phi_khac: chi_phi_khac,
+                            tien_thue: tien_thue,
+                            tien_svat: tien_svat,
+                            phan_quyen_nk: phan_quyen_nk,
+                        },
+                        success: function(data) {
+                            if (data == "") {
+                                alert("Bạn đã tạo hồ sơ thanh toán thành công");
+                                window.location.href = "/quan-ly-ho-so-thanh-toan.html";
+                            } else if (data != "") {
+                                alert(data);
+                            }
+                        }
+                    });
                 }
-            });
+            } else {
+                $.ajax({
+                    url: '../ajax/them_hs_tt.php',
+                    type: 'POST',
+                    data: {
+                        loai_hs: loai_hs,
+                        hd_dh: hd_dh,
+                        dot_nthu: dot_nthu,
+                        thoi_han_tt: thoi_han_tt,
+                        thoig_nthu: thoig_nthu,
+                        com_id: com_id,
+                        user_id: user_id,
+                        id_vt: id_vt,
+                        sl_kynay: sl_kynay,
+                        giatri_kn: giatri_kn,
+                        tong_tien_ky_nay: tong_tien_ky_nay,
+                        chi_phi_khac: chi_phi_khac,
+                        tien_thue: tien_thue,
+                        tien_svat: tien_svat,
+                        phan_quyen_nk: phan_quyen_nk,
+                    },
+                    success: function(data) {
+                        if (data == "") {
+                            alert("Bạn đã tạo hồ sơ thanh toán thành công");
+                            window.location.href = "/quan-ly-ho-so-thanh-toan.html";
+                        } else if (data != "") {
+                            alert(data);
+                        }
+                    }
+                });
+            }
         }
     });
 </script>

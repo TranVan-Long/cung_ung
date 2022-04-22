@@ -133,13 +133,13 @@ $stt = 1;
                                             <option value="<?= $row1['id'] ?>" <?= ($row1['id'] == $tk_ct) ? "selected" : "" ?>><?= $row1['ten_nha_cc_kh'] ?></option>
                                         <? }
                                     } else if ($tk == 3) {
-                                        $list_vt = new db_query("SELECT `id`,`so_dkkd` FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ORDER BY `id` ASC");
+                                        $list_vt = new db_query("SELECT `id`,`so_dkkd` FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id AND `so_dkkd` != '' ORDER BY `id` ASC");
                                         while ($row1 = mysql_fetch_assoc($list_vt->result)) {
                                         ?>
                                             <option value="<?= $row1['id'] ?>" <?= ($row1['id'] == $tk_ct) ? "selected" : "" ?>><?= $row1['so_dkkd'] ?></option>
                                         <? }
                                     } else if ($tk == 4) {
-                                        $list_vt = new db_query("SELECT `id`,`ma_so_thue` FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ORDER BY `id` ASC");
+                                        $list_vt = new db_query("SELECT `id`,`ma_so_thue` FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id AND `ma_so_thue` != '' ORDER BY `id` ASC");
                                         while ($row1 = mysql_fetch_assoc($list_vt->result)) {
                                         ?>
                                             <option value="<?= $row1['id'] ?>" <?= ($row1['id'] == $tk_ct) ? "selected" : "" ?>><?= $row1['ma_so_thue'] ?></option>

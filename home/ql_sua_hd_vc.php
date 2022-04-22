@@ -54,15 +54,13 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 
 
     $hd_vat_tu = new db_query("SELECT * FROM `vat_tu_hd_vc` WHERE `id_hd_vc` = '" . $hd_id . "' ");
+
     $curl = curl_init();
-    $data = array(
-        'id_com' => $com_id,
-    );
-    curl_setopt($curl, CURLOPT_POST, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/dscongtrinh.php');
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
     $response = curl_exec($curl);
     curl_close($curl);
     $list_cong_trinh = json_decode($response, true);
@@ -147,7 +145,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                         <select name="id_nha_cung_cap" class="form-control all_nhacc">
                                             <option value="">-- Chọn nhà cung cấp --</option>
                                             <?
-                                            $get_ncc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 1");
+                                            $get_ncc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ORDER BY `id` DESC ");
                                             while ($ncc_fetch = mysql_fetch_assoc($get_ncc->result)) {
                                             ?>
                                                 <option value="<?= $ncc_fetch['id'] ?>" <?= ($id_ncc == $ncc_fetch['id']) ? "selected" : "" ?>><?= $ncc_fetch['ten_nha_cc_kh'] ?></option>
@@ -171,13 +169,13 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                     </div>
                                     <div class="form-group  d_flex fl_agi form_lb">
                                         <label for="don_gia_vat">Đơn giá đã bao gồm VAT</label>
-                                        <input type="checkbox" id="don_gia_vat" name="don_gia_vat" <?= ($hd_detail['bao_gom_vat'] == 1) ? "checked" : "" ?>>
+                                        <input type="checkbox" id="don_gia_vat" name="don_gia_vat" onclick="dongiavat_vc(this)" <?= ($hd_detail['bao_gom_vat'] == 1) ? "checked" : "" ?>>
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Thuế suất VAT</label>
-                                        <input type="number" name="thue_vat" value="<?= $hd_detail['thue_vat'] ?>" class="form-control thue_vat_tong" onkeyup="thue_vc_doi(this)" placeholder="Nhập thuế suất VAT">
+                                        <input type="number" name="thue_vat" oninput="<?= $oninput ?>" value="<?= $hd_detail['thue_vat'] ?>" class="form-control thue_vat_tong" onkeyup="thue_vc_doi(this)" placeholder="Nhập thuế suất VAT">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -190,7 +188,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                         <div class="bao_hanh w_100 float_l d_flex fl_agi">
                                             <div class="bef_ptram">
                                                 <span class="phan_tram">%</span>
-                                                <input type="number" name="bao_hanh" onkeyup="baoHanh()" value="<?= $hd_detail['giu_lai_bhanh'] ?>" class="baoh_pt gr_padd share_fsize_tow pt_bao_hanh">
+                                                <input type="number" name="bao_hanh" oninput="<?= $oninput ?>" onkeyup="baoHanh(),check_nbhanh(this)" value="<?= $hd_detail['giu_lai_bhanh'] ?>" class="baoh_pt gr_padd share_fsize_tow pt_bao_hanh">
                                             </div>
                                             <span>tương đương</span>
                                             <input type="number" name="gt_bao_hanh" value="<?= $hd_detail['gia_tri_bhanh'] ?>" class="gia_tri gr_padd share_fsize_tow gia_tri_bh" readonly>
@@ -203,7 +201,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                         <div class="bao_hanh w_100 float_l d_flex fl_agi">
                                             <div class="bef_ptram">
                                                 <span class="phan_tram">%</span>
-                                                <input type="number" name="bao_lanh" onkeyup="baoLanh()" value="<?= $hd_detail['bao_lanh_hd'] ?>" class="baoh_pt gr_padd share_fsize_tow pt_bao_lanh">
+                                                <input type="number" name="bao_lanh" oninput="<?= $oninput ?>" onkeyup="baoLanh(),check_nblanh(this)" value="<?= $hd_detail['bao_lanh_hd'] ?>" class="baoh_pt gr_padd share_fsize_tow pt_bao_lanh">
                                             </div>
                                             <span>tương đương</span>
                                             <input type="number" name="gt_bao_lanh" value="<?= $hd_detail['gia_tri_blanh'] ?>" class="gia_tri gr_padd share_fsize_tow gia_tri_bl" readonly>
@@ -231,7 +229,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Hạn mức tín dụng</label>
-                                        <input type="number" name="hmuc_tind" value="<?= $hd_detail['han_muc_tin_dung'] ?>" class="form-control" placeholder="Nhập hạn mức tín dụng">
+                                        <input type="text" name="hmuc_tind" oninput="<?= $oninput ?>" value="<?= $hd_detail['han_muc_tin_dung'] ?>" class="form-control" placeholder="Nhập hạn mức tín dụng">
                                     </div>
                                 </div>
                                 <div class="form-group w_100 float_l">
@@ -257,7 +255,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                     </div>
                                     <div class="form-group">
                                         <label>Số tài khoản</label>
-                                        <input type="number" name="so_taik" value="<?= $hd_detail['so_tk'] ?>" class="form-control" placeholder="Nhập số tài khoản">
+                                        <input type="number" name="so_taik" oninput="<?= $oninput ?>" value="<?= $hd_detail['so_tk'] ?>" class="form-control" placeholder="Nhập số tài khoản">
                                     </div>
                                 </div>
                                 <div class="them_moi_vt w_100 float_l">
@@ -308,18 +306,18 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                         </td>
                                                         <td class="share_tb_three">
                                                             <div class="form-group">
-                                                                <input type="number" name="khoi_luong_old" value="<?= $vt_vc_fetch['khoi_luong'] ?>" class="form-control so_luong" onkeyup="sl_vc_doi(this)">
+                                                                <input type="text" name="khoi_luong_old" oninput="<?= $oninput ?>" value="<?= $vt_vc_fetch['khoi_luong'] ?>" placeholder="Khối lượng phải lớn hơn 0" class="form-control so_luong" onkeyup="sl_vc_doi(this),tong_hd_vc()">
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_four">
                                                             <div class="form-group">
-                                                                <input type="number" name="don_gia_old" value="<?= $vt_vc_fetch['don_gia'] ?>" class="form-control don_gia" onkeyup="dg_vc_doi(this)">
+                                                                <input type="text" name="don_gia_old" oninput="<?= $oninput ?>" value="<?= $vt_vc_fetch['don_gia'] ?>" placeholder="Đơn giá vật tư phải lớn hơn 0" class="form-control don_gia" onkeyup="dg_vc_doi(this),tong_hd_vc()">
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_four">
                                                             <div class="form-group">
                                                                 <input type="hiden" name="vat_ao" value="0" class="share_dnone thue_vat">
-                                                                <input type="number" name="thanh_tien_old" value="<?= $vt_vc_fetch['thanh_tien'] ?>" class="form-control h_border tong_trvat " readonly>
+                                                                <input type="number" name="thanh_tien_old" value="<?= $vt_vc_fetch['thanh_tien'] ?>" class="form-control h_border tong_trvat tong_trvat_hd " readonly>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -409,65 +407,50 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
         baoHanh();
     })
 
+    $(document).ready(function() {
+        if ($("#don_gia_vat").is(":checked")) {
+            $(".thue_vat_tong").val(0);
+            $(".thue_vat_tong").attr("readonly", true);
+        }
+    })
+
     $(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia, .ma_vatt").select2({
         width: '100%',
     });
-    autocomplete(document.getElementById("ten_nh"), bank);
+    // autocomplete(document.getElementById("ten_nh"), bank);
 
-    $('.add_vat_tu').click(function() {
-        var html = `<tr class="item">
-                        <td class="share_tb_one">
-                            <p>
-                                <img src="../img/remove.png" alt="xóa" class="remo_cot_ngang share_cursor">
-                            </p>
-                        </td>
-                        <td class="share_tb_five">
-                            <div class="form-group v-select2">
-                                <select name="thietb_vt" class="share_select form-control">
-                                    <option value="">-- Chọn vật tư/thiết bị --</option>
-                                    <? foreach ($vat_tu_data as $key => $items) { ?>
-                                        <option value="<?= $items['dsvt_id'] ?>"><?= $items['dsvt_name'] ?></option>
-                                    <? } ?>
-                                </select>
-                            </div>
-                        </td>
-                        <td class="share_tb_three">
-                            <div class="form-group">
-                                <input type="text" name="don_vi_tinh" class="form-control">
-                            </div>
-                        </td>
-                        <td class="share_tb_three">
-                            <div class="form-group">
-                                <input type="number" name="khoi_luong" class="form-control so_luong" onkeyup="sl_doi(this), tong_hd_vc()">
-                            </div>
-                        </td>
-                        <td class="share_tb_four">
-                            <div class="form-group">
-                                <input type="number" name="don_gia" class="form-control don_gia" onkeyup="dg_doi(this), tong_hd_vc() ">
-                            </div>
-                        </td>
-                        <td class="share_tb_four">
-                            <div class="form-group">
-                                <input type="number" name="thanh_tien" class="form-control h_border tong_trvat tong_trvat_hd" readonly>
-                            </div>
-                        </td>
-                    </tr>`;
-        $(".ctn_table .table tbody").append(html);
-        RefSelect2();
+    $(".add_vat_tu").click(function() {
+        var com_id = $(".form_add_hp_mua").attr("data1");
+        var bg_vat = 0;
+        if ($("input[name='don_gia_vat']").is(":checked")) {
+            bg_vat = 1;
+        };
+        $.ajax({
+            url: '../render/add_hdvc_vt.php',
+            type: 'POST',
+            data: {
+                com_id: com_id,
+                bg_vat: bg_vat,
+            },
+            success: function(data) {
+                $(".ctn_table .table tbody").append(data);
+                RefSelect2();
+            }
+        });
+
 
         if ($(".ctn_table .table tbody").height() > 105.5) {
             $(".ctn_table .table thead tr").css('width', 'calc(100% - 10px)');
         }
-    });
+    })
 
     var cancel_add = $(".cancel_add");
     cancel_add.click(function() {
         modal_share.show();
     });
+    // xoa vat tu trong bang
     $(".xoa_vt_tb").click(function() {
-
         var id = $(this).attr("data-id");
-
         $.ajax({
             url: '../ajax/hd_vc_xoa_vt.php',
             type: 'POST',
@@ -570,14 +553,14 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             var vt_khoi_luong_old = [];
             $("input[name='khoi_luong_old']").each(function() {
                 var kl_vt_old = $(this).val();
-                if (kl_vt_old != "") {
+                if (kl_vt_old != "" && kl_vt_old != 0) {
                     vt_khoi_luong_old.push(kl_vt_old);
                 }
             });
             var vt_don_gia_old = [];
             $("input[name='don_gia_old']").each(function() {
                 var dg_vat_old = $(this).val();
-                if (dg_vat_old != "") {
+                if (dg_vat_old != "" && dg_vat_old != 0) {
                     vt_don_gia_old.push(dg_vat_old);
                 }
             });
@@ -606,14 +589,14 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             var vt_khoi_luong = [];
             $("input[name='khoi_luong']").each(function() {
                 var kl_vt = $(this).val();
-                if (kl_vt != "") {
+                if (kl_vt != "" && kl_vt != 0) {
                     vt_khoi_luong.push(kl_vt);
                 }
             });
             var vt_don_gia = [];
             $("input[name='don_gia']").each(function() {
                 var dg_vat = $(this).val();
-                if (dg_vat != "") {
+                if (dg_vat != "" && dg_vat != 0) {
                     vt_don_gia.push(dg_vat);
                 }
             });
@@ -625,65 +608,75 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 }
             });
 
-            if (ngay_bat_dau != "" && ngay_ket_thuc != "") {
-                if (ngay_bat_dau < ngay_ket_thuc) {
-                    alert("Thời gian thực hiện ngày bắt đầu không được nhỏ hơn ngày ký hợp đồng.")
-                } else {
-                    $.ajax({
-                        url: '../ajax/hd_vc_sua.php',
-                        type: 'POST',
-                        data: {
-                            hd_id: hd_id,
-                            user_id: user_id,
-                            com_id: com_id,
-                            role: role,
+            if (han_bao_lanh != "" && ngay_bat_dau != "" && ngay_ket_thuc != "") {
+                if (ngay_bat_dau < ngay_ky_hd) {
+                    alert("Ngày bắt đầu phải lớn hơn ngày ký hợp đồng")
+                } else if (ngay_bat_dau >= ngay_ky_hd && ngay_bat_dau > ngay_ket_thuc) {
+                    alert("Ngày bắt đầu phải nhỏ hơn ngày kết thúc");
+                } else if (ngay_bat_dau >= ngay_ky_hd && ngay_bat_dau < ngay_ket_thuc) {
+                    if (han_bao_lanh > ngay_ket_thuc || han_bao_lanh < ngay_bat_dau) {
+                        alert("Thời hạn bảo lãnh phải nhỏ hơn ngày kết thúc và lớn hơn ngày bắt đầu");
+                    } else if (han_bao_lanh > ngay_bat_dau && han_bao_lanh <= ngay_ket_thuc) {
+                        $.ajax({
+                            url: '../ajax/hd_vc_sua.php',
+                            type: 'POST',
+                            data: {
+                                hd_id: hd_id,
+                                user_id: user_id,
+                                com_id: com_id,
+                                role: role,
 
-                            ngay_ky_hd: ngay_ky_hd,
-                            id_nha_cung_cap: id_nha_cung_cap,
-                            dan_ctrinh: dan_ctrinh,
-                            truoc_vat: truoc_vat,
-                            don_gia_vat: don_gia_vat,
-                            thue_vat: thue_vat,
-                            sau_vat: sau_vat,
-                            bao_hanh: bao_hanh,
-                            gt_bao_hanh: gt_bao_hanh,
-                            bao_lanh: bao_lanh,
-                            gt_bao_lanh: gt_bao_lanh,
-                            han_bao_lanh: han_bao_lanh,
-                            ngay_bat_dau: ngay_bat_dau,
-                            ngay_ket_thuc: ngay_ket_thuc,
-                            bao_gom_van_chuyen: bao_gom_van_chuyen,
-                            hmuc_tind: hmuc_tind,
-                            yc_tiendo: yc_tiendo,
-                            noi_dung_hd: noi_dung_hd,
-                            noi_dung_luu_y: noi_dung_luu_y,
-                            dieu_khoan_tt: dieu_khoan_tt,
-                            ten_nh: ten_nh,
-                            so_taik: so_taik,
+                                ngay_ky_hd: ngay_ky_hd,
+                                id_nha_cung_cap: id_nha_cung_cap,
+                                dan_ctrinh: dan_ctrinh,
+                                truoc_vat: truoc_vat,
+                                don_gia_vat: don_gia_vat,
+                                thue_vat: thue_vat,
+                                sau_vat: sau_vat,
+                                bao_hanh: bao_hanh,
+                                gt_bao_hanh: gt_bao_hanh,
+                                bao_lanh: bao_lanh,
+                                gt_bao_lanh: gt_bao_lanh,
+                                han_bao_lanh: han_bao_lanh,
+                                ngay_bat_dau: ngay_bat_dau,
+                                ngay_ket_thuc: ngay_ket_thuc,
+                                bao_gom_van_chuyen: bao_gom_van_chuyen,
+                                hmuc_tind: hmuc_tind,
+                                yc_tiendo: yc_tiendo,
+                                noi_dung_hd: noi_dung_hd,
+                                noi_dung_luu_y: noi_dung_luu_y,
+                                dieu_khoan_tt: dieu_khoan_tt,
+                                ten_nh: ten_nh,
+                                so_taik: so_taik,
 
-                            vt_id_vat_tu_old: vt_id_vat_tu_old,
-                            vt_vat_tu_old: vt_vat_tu_old,
-                            vt_don_vi_tinh_old: vt_don_vi_tinh_old,
-                            vt_khoi_luong_old: vt_khoi_luong_old,
-                            vt_don_gia_old: vt_don_gia_old,
-                            vt_thanh_tien_old: vt_thanh_tien_old,
+                                vt_id_vat_tu_old: vt_id_vat_tu_old,
+                                vt_vat_tu_old: vt_vat_tu_old,
+                                vt_don_vi_tinh_old: vt_don_vi_tinh_old,
+                                vt_khoi_luong_old: vt_khoi_luong_old,
+                                vt_don_gia_old: vt_don_gia_old,
+                                vt_thanh_tien_old: vt_thanh_tien_old,
 
-                            vt_vat_tu: vt_vat_tu,
-                            vt_don_vi_tinh: vt_don_vi_tinh,
-                            vt_khoi_luong: vt_khoi_luong,
-                            vt_don_gia: vt_don_gia,
-                            vt_thanh_tien: vt_thanh_tien
-                        },
-                        success: function(data) {
-                            if (data == "") {
-                                alert("Chỉnh sửa hợp đồng thuê vận chuyển thành công!");
-                                window.location.href = 'quan-ly-chi-tiet-hop-dong-van-chuyen-<?= $hd_id ?>.html';
-                            } else {
-                                alert(data);
+                                vt_vat_tu: vt_vat_tu,
+                                vt_don_vi_tinh: vt_don_vi_tinh,
+                                vt_khoi_luong: vt_khoi_luong,
+                                vt_don_gia: vt_don_gia,
+                                vt_thanh_tien: vt_thanh_tien
+                            },
+                            success: function(data) {
+                                if (data == "") {
+                                    alert("Chỉnh sửa hợp đồng thuê vận chuyển thành công!");
+                                    window.location.href = 'quan-ly-chi-tiet-hop-dong-van-chuyen-<?= $hd_id ?>.html';
+                                } else {
+                                    alert(data);
+                                }
                             }
-                        }
-                    })
+                        })
+                    }
                 }
+            } else if (ngay_bat_dau == "" && ngay_ket_thuc != "") {
+                alert('Nhập ngày thực hiện bắt đầu');
+            } else if (ngay_bat_dau != "" && ngay_ket_thuc == "") {
+                alert('Nhập ngày thực hiện kết thúc')
             } else {
                 $.ajax({
                     url: '../ajax/hd_vc_sua.php',

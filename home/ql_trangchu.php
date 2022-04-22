@@ -57,7 +57,7 @@ if ($da_tra_m == "") {
 $tong_tra_m = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gtri_s  FROM `hop_dong` WHERE `id_cong_ty` = $com_id
                                             AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
                                             AND `tg_bd_thuc_hien` >= $month_start AND `tg_kt_thuc_hien` <= $month_end "))->result)['gtri_s'];
-if($tong_tra_m == ""){
+if ($tong_tra_m == "") {
     $tong_tra_m = 0;
 }
 $con_lai_tra_m = $tong_tra_m - $da_tra_m;
@@ -100,7 +100,7 @@ if ($da_thu_m == "") {
 
 $tong_thu_m = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gtri_s  FROM `hop_dong` WHERE `id_cong_ty` = $com_id
                                             AND `phan_loai` = 2 AND `tg_bd_thuc_hien` >= $month_start AND `tg_kt_thuc_hien` <= $month_end "))->result)['gtri_s'];
-if($tong_thu_m == ""){
+if ($tong_thu_m == "") {
     $tong_thu_m = 0;
 }
 $con_lai_thu_m = $tong_thu_m - $da_thu_m;
@@ -122,26 +122,30 @@ $con_lai_thu_y = $tong_thu_y - $da_thu_y;
 $day_start_t1 = strtotime('first day of January', time());
 $day_end_t1 = strtotime('last day of January', time());
 
-$tong_tra_m1 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `ngay_ky_hd` >= $day_start_t1 AND `ngay_ky_hd` <= $day_end_t1 ")) -> result)['gia_tri_s'];
-if($tong_tra_m1 == ""){
+$tong_tra_m1 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                                AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
+                                                AND `ngay_ky_hd` >= $day_start_t1
+                                                AND `ngay_ky_hd` <= $day_end_t1 "))->result)['gia_tri_s'];
+if ($tong_tra_m1 == "") {
     $tong_tra_m1 = 0;
 }
 $tong_thu_m1 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `ngay_ky_hd` >= $day_start_t1 AND `ngay_ky_hd` <= $day_end_t1 ")) -> result)['gia_tri_s'];
+                            AND `ngay_ky_hd` >= $day_start_t1 AND `ngay_ky_hd` <= $day_end_t1 "))->result)['gia_tri_s'];
 if ($tong_thu_m1 == "") {
     $tong_thu_m1 = 0;
 }
 $day_start_t2 = strtotime('first day of February', time());
 $day_end_t2 = strtotime('last day of February', time());
 
-$tong_tra_m2 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `ngay_ky_hd` >= $day_start_t2 AND `ngay_ky_hd` <= $day_end_t2 ")) -> result)['gia_tri_s'];
+$tong_tra_m2 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                                AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
+                                                AND `ngay_ky_hd` >= $day_start_t2
+                                                AND `ngay_ky_hd` <= $day_end_t2 "))->result)['gia_tri_s'];
 if ($tong_tra_m2 == "") {
     $tong_tra_m2 = 0;
 }
 $tong_thu_m2 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `ngay_ky_hd` >= $day_start_t2 AND `ngay_ky_hd` <= $day_end_t2 ")) -> result)['gia_tri_s'];
+                            AND `ngay_ky_hd` >= $day_start_t2 AND `ngay_ky_hd` <= $day_end_t2 "))->result)['gia_tri_s'];
 if ($tong_thu_m2 == "") {
     $tong_thu_m2 = 0;
 }
@@ -149,13 +153,15 @@ if ($tong_thu_m2 == "") {
 $day_start_t3 = strtotime('first day of March', time());
 $day_end_t3 = strtotime('last day of March', time());
 
-$tong_tra_m3 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `ngay_ky_hd` >= $day_start_t3 AND `ngay_ky_hd` <= $day_end_t3 ")) -> result)['gia_tri_s'];
+$tong_tra_m3 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                                AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
+                                                AND `ngay_ky_hd` >= $day_start_t3
+                                                AND `ngay_ky_hd` <= $day_end_t3 "))->result)['gia_tri_s'];
 if ($tong_tra_m3 == "") {
     $tong_tra_m3 = 0;
 }
 $tong_thu_m3 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `ngay_ky_hd` >= $day_start_t3 AND `ngay_ky_hd` <= $day_end_t3 ")) -> result)['gia_tri_s'];
+                            AND `ngay_ky_hd` >= $day_start_t3 AND `ngay_ky_hd` <= $day_end_t3 "))->result)['gia_tri_s'];
 if ($tong_thu_m3 == "") {
     $tong_thu_m3 = 0;
 }
@@ -163,13 +169,14 @@ if ($tong_thu_m3 == "") {
 $day_start_t4 = strtotime('first day of April', time());
 $day_end_t4 = strtotime('last day of April', time());
 
-$tong_tra_m4 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `ngay_ky_hd` >= $day_start_t4 AND `ngay_ky_hd` <= $day_end_t4 ")) -> result)['gia_tri_s'];
+$tong_tra_m4 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                                AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
+                                                AND `ngay_ky_hd` >= $day_start_t4 AND `ngay_ky_hd` <= $day_end_t4 "))->result)['gia_tri_s'];
 if ($tong_tra_m4 == "") {
     $tong_tra_m4 = 0;
 }
 $tong_thu_m4 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `ngay_ky_hd` >= $day_start_t4 AND `ngay_ky_hd` <= $day_end_t4 ")) -> result)['gia_tri_s'];
+                            AND `ngay_ky_hd` >= $day_start_t4 AND `ngay_ky_hd` <= $day_end_t4 "))->result)['gia_tri_s'];
 if ($tong_thu_m4 == "") {
     $tong_thu_m4 = 0;
 }
@@ -177,13 +184,15 @@ if ($tong_thu_m4 == "") {
 $day_start_t5 = strtotime('first day of May', time());
 $day_end_t5 = strtotime('last day of May', time());
 
-$tong_tra_m5 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `ngay_ky_hd` >= $day_start_t5 AND `ngay_ky_hd` <= $day_end_t5 ")) -> result)['gia_tri_s'];
+$tong_tra_m5 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                                AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
+                                                AND `ngay_ky_hd` >= $day_start_t5
+                                                AND `ngay_ky_hd` <= $day_end_t5 "))->result)['gia_tri_s'];
 if ($tong_tra_m5 == "") {
     $tong_tra_m5 = 0;
 }
 $tong_thu_m5 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `ngay_ky_hd` >= $day_start_t5 AND `ngay_ky_hd` <= $day_end_t5 ")) -> result)['gia_tri_s'];
+                            AND `ngay_ky_hd` >= $day_start_t5 AND `ngay_ky_hd` <= $day_end_t5 "))->result)['gia_tri_s'];
 if ($tong_thu_m5 == "") {
     $tong_thu_m5 = 0;
 }
@@ -191,13 +200,14 @@ if ($tong_thu_m5 == "") {
 $day_start_t6 = strtotime('first day of June', time());
 $day_end_t6 = strtotime('last day of June', time());
 
-$tong_tra_m6 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `ngay_ky_hd` >= $day_start_t6 AND `ngay_ky_hd` <= $day_end_t6 ")) -> result)['gia_tri_s'];
+$tong_tra_m6 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                                AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
+                                                AND `ngay_ky_hd` >= $day_start_t6 AND `ngay_ky_hd` <= $day_end_t6 "))->result)['gia_tri_s'];
 if ($tong_tra_m6 == "") {
     $tong_tra_m6 = 0;
 }
 $tong_thu_m6 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `ngay_ky_hd` >= $day_start_t6 AND `ngay_ky_hd` <= $day_end_t6 ")) -> result)['gia_tri_s'];
+                            AND `ngay_ky_hd` >= $day_start_t6 AND `ngay_ky_hd` <= $day_end_t6 "))->result)['gia_tri_s'];
 if ($tong_thu_m6 == "") {
     $tong_thu_m6 = 0;
 }
@@ -205,13 +215,14 @@ if ($tong_thu_m6 == "") {
 $day_start_t7 = strtotime('first day of July', time());
 $day_end_t7 = strtotime('last day of July', time());
 
-$tong_tra_m7 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `ngay_ky_hd` >= $day_start_t7 AND `ngay_ky_hd` <= $day_end_t7 ")) -> result)['gia_tri_s'];
+$tong_tra_m7 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                                AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
+                                                AND `ngay_ky_hd` >= $day_start_t7 AND `ngay_ky_hd` <= $day_end_t7 "))->result)['gia_tri_s'];
 if ($tong_tra_m7 == "") {
     $tong_tra_m7 = 0;
 }
 $tong_thu_m7 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `ngay_ky_hd` >= $day_start_t7 AND `ngay_ky_hd` <= $day_end_t7 ")) -> result)['gia_tri_s'];
+                            AND `ngay_ky_hd` >= $day_start_t7 AND `ngay_ky_hd` <= $day_end_t7 "))->result)['gia_tri_s'];
 if ($tong_thu_m7 == "") {
     $tong_thu_m7 = 0;
 }
@@ -219,13 +230,14 @@ if ($tong_thu_m7 == "") {
 $day_start_t8 = strtotime('first day of August', time());
 $day_end_t8 = strtotime('last day of August', time());
 
-$tong_tra_m8 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `ngay_ky_hd` >= $day_start_t8 AND `ngay_ky_hd` <= $day_end_t8 ")) -> result)['gia_tri_s'];
+$tong_tra_m8 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                                AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
+                                                AND `ngay_ky_hd` >= $day_start_t8 AND `ngay_ky_hd` <= $day_end_t8 "))->result)['gia_tri_s'];
 if ($tong_tra_m8 == "") {
     $tong_tra_m8 = 0;
 }
 $tong_thu_m8 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `ngay_ky_hd` >= $day_start_t8 AND `ngay_ky_hd` <= $day_end_t8 ")) -> result)['gia_tri_s'];
+                            AND `ngay_ky_hd` >= $day_start_t8 AND `ngay_ky_hd` <= $day_end_t8 "))->result)['gia_tri_s'];
 if ($tong_thu_m8 == "") {
     $tong_thu_m8 = 0;
 }
@@ -233,13 +245,14 @@ if ($tong_thu_m8 == "") {
 $day_start_t9 = strtotime('first day of September', time());
 $day_end_t9 = strtotime('last day of September', time());
 
-$tong_tra_m9 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `ngay_ky_hd` >= $day_start_t9 AND `ngay_ky_hd` <= $day_end_t9 ")) -> result)['gia_tri_s'];
+$tong_tra_m9 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                                AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
+                                                AND `ngay_ky_hd` >= $day_start_t9 AND `ngay_ky_hd` <= $day_end_t9 "))->result)['gia_tri_s'];
 if ($tong_tra_m9 == "") {
     $tong_tra_m9 = 0;
 }
 $tong_thu_m9 = mysql_fetch_assoc((new db_query("SELECT `gia_tri_svat` FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `ngay_ky_hd` >= $day_start_t9 AND `ngay_ky_hd` <= $day_end_t9 ")) -> result)['gia_tri_s'];
+                            AND `ngay_ky_hd` >= $day_start_t9 AND `ngay_ky_hd` <= $day_end_t9 "))->result)['gia_tri_s'];
 if ($tong_thu_m9 == "") {
     $tong_thu_m9 = 0;
 }
@@ -247,13 +260,14 @@ if ($tong_thu_m9 == "") {
 $day_start_t10 = strtotime('first day of October', time());
 $day_end_t10 = strtotime('last day of October', time());
 
-$tong_tra_m10 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `ngay_ky_hd` >= $day_start_t10 AND `ngay_ky_hd` <= $day_end_t10 ")) -> result)['gia_tri_s'];
+$tong_tra_m10 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                                AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
+                                                AND `ngay_ky_hd` >= $day_start_t10 AND `ngay_ky_hd` <= $day_end_t10 "))->result)['gia_tri_s'];
 if ($tong_tra_m10 == "") {
     $tong_tra_m10 = 0;
 }
 $tong_thu_m10 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `ngay_ky_hd` >= $day_start_t10 AND `ngay_ky_hd` <= $day_end_t10 ")) -> result)['gia_tri_s'];
+                            AND `ngay_ky_hd` >= $day_start_t10 AND `ngay_ky_hd` <= $day_end_t10 "))->result)['gia_tri_s'];
 if ($tong_thu_m10 == "") {
     $tong_thu_m10 = 0;
 }
@@ -261,13 +275,14 @@ if ($tong_thu_m10 == "") {
 $day_start_t11 = strtotime('first day of November', time());
 $day_end_t11 = strtotime('last day of November', time());
 
-$tong_tra_m11 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `ngay_ky_hd` >= $day_start_t11 AND `ngay_ky_hd` <= $day_end_t11 ")) -> result)['gia_tri_s'];
+$tong_tra_m11 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                                AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
+                                                AND `ngay_ky_hd` >= $day_start_t11 AND `ngay_ky_hd` <= $day_end_t11 "))->result)['gia_tri_s'];
 if ($tong_tra_m11 == "") {
     $tong_tra_m11 = 0;
 }
 $tong_thu_m11 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `ngay_ky_hd` >= $day_start_t11 AND `ngay_ky_hd` <= $day_end_t11 ")) -> result)['gia_tri_s'];
+                            AND `ngay_ky_hd` >= $day_start_t11 AND `ngay_ky_hd` <= $day_end_t11 "))->result)['gia_tri_s'];
 if ($tong_thu_m11 == "") {
     $tong_thu_m11 = 0;
 }
@@ -275,16 +290,31 @@ if ($tong_thu_m11 == "") {
 $day_start_t12 = strtotime('first day of December', time());
 $day_end_t12 = strtotime('last day of December', time());
 
-$tong_tra_m12 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 1
-                            AND `ngay_ky_hd` >= $day_start_t12 AND `ngay_ky_hd` <= $day_end_t12 ")) -> result)['gia_tri_s'];
+$tong_tra_m12 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id
+                                                AND (`phan_loai` = 1 OR `phan_loai` = 4 OR `phan_loai` = 3)
+                                                AND `ngay_ky_hd` >= $day_start_t12 AND `ngay_ky_hd` <= $day_end_t12 "))->result)['gia_tri_s'];
 if ($tong_tra_m12 == "") {
     $tong_tra_m12 = 0;
 }
 $tong_thu_m12 = mysql_fetch_assoc((new db_query("SELECT SUM(`gia_tri_svat`) AS gia_tri_s FROM `hop_dong` WHERE `id_cong_ty` = $com_id AND `phan_loai` = 2
-                            AND `ngay_ky_hd` >= $day_start_t12 AND `ngay_ky_hd` <= $day_end_t12 ")) -> result)['gia_tri_s'];
+                            AND `ngay_ky_hd` >= $day_start_t12 AND `ngay_ky_hd` <= $day_end_t12 "))->result)['gia_tri_s'];
 if ($tong_thu_m12 == "") {
     $tong_thu_m12 = 0;
 }
+    // $month_start1 = strtotime(date('Y-m-01'));
+    // $month_end1 = strtotime(date("Y-m-t"));
+    // $lngay_dau = getdate($month_start1);
+    // $ngay_dau = $lngay_dau['mday'];
+    // $month = date('m', time());
+    // $year = date('Y', time());
+
+    // $lngay_cuoi = getdate($month_end1);
+    // $ngay_cuoi = $lngay_cuoi['mday'];
+    // for($i = $ngay_dau; $i <= $ngay_cuoi; $i++ ){
+    //     echo "<pre>";
+    //     print_r($year.'-'.$month.'-'.$i);
+    //     echo "<pre>";
+    // }
 
 ?>
 <!DOCTYPE html>
@@ -334,7 +364,7 @@ if ($tong_thu_m12 == "") {
                     </div>
                     <div class="tt_right_one staff_fulln">
                         <div class="ctn_tt_right w_100 float_l">
-                            <h3 class="time_tt cr_weight share_clr_one w_100 float_l">08:00</h3>
+                            <h3 class="time_tt cr_weight share_clr_one w_100 float_l" id="runningTime"></h3>
                             <p class="cr_weight share_clr_one share_fsize_tow w_100 float_l"><?= $array_t[$weekday] ?>,
                                 <?= $date_f ?></p>
                         </div>
@@ -532,6 +562,19 @@ if ($tong_thu_m12 == "") {
 <!-- end -->
 <script type="text/javascript" src="../js/style.js"></script>
 <script>
+    $(document).ready(function() {
+        setInterval(runningTime, 1000);
+    });
+
+    function runningTime() {
+        $.ajax({
+            url: '../ajax/timeScr.php',
+            success: function(data) {
+                $('#runningTime').html(data);
+            },
+        });
+    }
+
     $(".cong_no_tra").change(function() {
         var id = $(this).val();
         var tra_n = $(".theo_ngay").attr("data1");

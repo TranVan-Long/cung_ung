@@ -697,9 +697,9 @@ function getmoney222($string)
             $string = explode(",",$string);
             $string = $string[0];
             $value = arrss(0,$string);
-         }     
+         }
       }
-      
+
    }
    return $value;
 }
@@ -741,12 +741,12 @@ function getmoney($price,$type_pr)
     if($type_pr == 1)
     {
         $price   = intval($price);
-        
-    }  
+
+    }
     if($type_pr == 0)
     {
         $price   = intval($price) *22;
-    } 
+    }
     if($type_pr == 1)
     {
         if(strlen($price) >= 4)
@@ -1159,7 +1159,7 @@ function getValue($value_name, $data_type = "int", $method = "GET", $default_val
    //Do số quá lớn nên phải kiểm tra trước khi trả về giá trị
 	if(($data_type != "str") && !is_array($returnValue) && (strval($returnValue) == "INF")) return 0;
    return $returnValue;
-   /*   
+   /*
 	$valueArray	= array("int" => intval($value), "str" => trim(strval($value)), "flo" => floatval($value), "dbl" => doubleval($value), "arr" => $value);
 	foreach($valueArray as $key => $returnValue){
 		if($data_type == $key){
@@ -2073,7 +2073,7 @@ function get_banner_html($package){
 	$key_checksum	=	md5('bansuachuanepcam');
 	// Active
 	$ban_active	=	($active)?1:0;
-   
+
 	// Replace ngược lại để ko giữ dấu &
 	$ban_html	=	str_replace('myADbanner_and','&',$ban_html);
 
@@ -2098,13 +2098,13 @@ function get_banner_html($package){
 	$end_time	=	($end_time >= strtotime("Today"))  ?  $end_time:( strtotime("Today") + 86400 );
 	// Kiểm tra đã tồn tại banner chưa
 	$row			=	array();
-	$sql_check	=	"SELECT 
-                        ban_id 
-                     FROM 
-                        banner 
-                     WHERE 
-                        ban_position_id = " . $bap_id . " 
-                        AND ban_owner_id = " . $owner_id . " 
+	$sql_check	=	"SELECT
+                        ban_id
+                     FROM
+                        banner
+                     WHERE
+                        ban_position_id = " . $bap_id . "
+                        AND ban_owner_id = " . $owner_id . "
                         AND ban_item_id = " . $item_id;
 	$db_check	=	new db_query($sql_check,__FILE__.__LINE__,"USE_SLAVE");
 	$row			=	mysql_fetch_assoc($db_check->result);
@@ -2118,8 +2118,8 @@ function get_banner_html($package){
 		$start_time	=	strtotime('Today');
 		$last_update	=	time();
 		$ban_admin_id	=	1;
-		$sql_insert	=	"INSERT INTO 
-                           banner 
+		$sql_insert	=	"INSERT INTO
+                           banner
                            (ban_position_id
                            ,ban_active
                            ,ban_start
@@ -2190,15 +2190,15 @@ function get_banner_html($package){
 
  	if($ban_html != ''){
 	// Update lại vào cơ sở dữ liệu
-		$db_update	=	new db_execute("UPDATE 
-                                       banner 
-                                    SET 
+		$db_update	=	new db_execute("UPDATE
+                                       banner
+                                    SET
                                        ban_name = '".$ban_name."'
                                        ,ban_link = 'Link ".$ban_id."'
                                        ,ban_html = '".$ban_html."'
                                        ,ban_end = ".$end_time."
-                                       ,ban_active = ".$ban_active." 
-                                    WHERE 
+                                       ,ban_active = ".$ban_active."
+                                    WHERE
                                        ban_id = ".$ban_id);
 		unset($db_update);
 	}
@@ -2206,7 +2206,7 @@ function get_banner_html($package){
 		$db_delete	=	new db_execute("DELETE FROM banner WHERE ban_id = ".$ban_id);
 		unset($db_delete);
 	}
-   
+
    foreach($web_id as $key => $value){
       // Nếu id web ko hợp lệ thì bỏ qua
       if(!in_array($value,$list_web_id))
@@ -2248,7 +2248,7 @@ function genarateURL($ban_id,$link,$web_id,$pos_id){
             'ban_link'  => $link,
             'cat_id'		=>	0,
             'web_id'    => $web_id,
-            'pos_id'    => $pos_id  
+            'pos_id'    => $pos_id
         );
         if($_SERVER['SERVER_NAME'] == 'localhost'){
         		$domain	=	'localhost:9013';
@@ -2329,7 +2329,7 @@ function checkIp_redis(){
 	unset($db_query);
 	return $arr_return;
  }
- 
+
  /**
   * Hàm check debug
   */
@@ -2337,7 +2337,7 @@ function checkIp_redis(){
    $dump    =  getValue("dump","int","GET",0);
    if($dump == 1  && $_SERVER['REMOTE_ADDR'] == '118.70.233.70'){
       return true;
-   }  
+   }
    return false;
  }
 
@@ -2394,7 +2394,7 @@ function makeML($content,$search='',$replace=''){
     $patterns = array('/\d+\.\d+\.\d+\.\s/i','/\d+\.\d+\.\s/i','/\d+\.\s/i');
     $ml = "<nav class='table-of-contents'><p class='tt_phu_luc'><span>Mục lục:</span></p><ul>";
     $i=$u=$j = 0;
-    
+
     if (!empty($h2s)) {
     foreach($h2s as $h2)
     {
@@ -2442,6 +2442,12 @@ function makeML($content,$search='',$replace=''){
         return $html;
         }
     }
-    //validate form
+//validate form
+
+function sql_injection_rp($string){
+    $arr_s = array('UNION', 'CASE', 'echo', ';', '$', '"', 'script', 'drop', 'delete', '*', "'");
+    $str = str_replace($arr_s, '', $string);
+    return $str;
+}
 
 ?>

@@ -36,27 +36,9 @@ $("#add-quote").click(function () {
         },
         success: function (data) {
             $("#quote-me").append(data);
+            RefSelect2();
         },
     });
-});
-
-$(".ten_vat_tu").change(function () {
-    var id_vt = $(this).val();
-    var _this = $(this);
-    var id_v = _this.parents(".item").attr("data");
-    var com_id = $("#quote-me").attr("data");
-    $.ajax({
-        url: '../render/vat_tu_yc_bg.php',
-        type: 'POST',
-        data: {
-            id_vt: id_vt,
-            id_v: id_v,
-            id_com: com_id,
-        },
-        success: function (data) {
-            _this.parents(".item").html(data);
-        }
-    })
 });
 
 $(".confirm-delete").click(function () {
@@ -73,26 +55,24 @@ $(".confirm-delete").click(function () {
     })
 });
 
-function doi_vt() {
-    $(".ten_vat_tu").change(function () {
-        var id_vt = $(this).val();
-        var _this = $(this);
-        var id_v = _this.parents(".item").attr("data");
-        var com_id = $("#quote-me").attr("data");
-        $.ajax({
-            url: '../render/vat_tu_yc_bg.php',
-            type: 'POST',
-            data: {
-                id_vt: id_vt,
-                id_v: id_v,
-                id_com: com_id,
-            },
-            success: function (data) {
-                _this.parents(".item").html(data);
-            }
-        })
-    });
-    RefSelect2();
+function doi_vt(id) {
+    var id_vt = $(id).val();
+    var id_v = $(id).parents(".item").attr("data");
+    var com_id = $("#quote-me").attr("data");
+    $.ajax({
+        url: '../render/vat_tu_yc_bg.php',
+        type: 'POST',
+        data: {
+            id_vt: id_vt,
+            id_v: id_v,
+            id_com: com_id,
+        },
+        success: function (data) {
+            $(id).parents(".item").html(data);
+            RefSelect2();
+        }
+    })
+
 };
 
 $('.submit-btn').click(function () {
@@ -164,7 +144,7 @@ $('.submit-btn').click(function () {
         var so_luong = [];
         $("input[name='so_luong_vt']").each(function () {
             var sol = $(this).val();
-            if (sol != "") {
+            if (sol != "" && sol != 0) {
                 so_luong.push(sol);
             }
         });
@@ -180,7 +160,7 @@ $('.submit-btn').click(function () {
         var new_so_luong = [];
         $("input[name='so_luong']").each(function () {
             var new_sol = $(this).val();
-            if (new_sol != "") {
+            if (new_sol != "" && new_sol != 0) {
                 new_so_luong.push(new_sol);
             }
         });

@@ -57,7 +57,7 @@ if (isset($id_dh) && $id_dh != "") {
     $list_dhm = new db_query("SELECT d.`id`, d.`id_nha_cc_kh`, d.`id_nguoi_lh`, d.`id_hop_dong`, d.`ngay_ky`, d.`thoi_han`, d.`don_vi_nhan_hang`,
                                 d.`phong_ban`, d.`nguoi_nhan_hang`, d.`dien_thoai_nn`, d.`giu_lai_bao_hanh`, d.`gia_tri_tuong_duong`, d.`ghi_chu`,
                                 d.`gia_tri_don_hang`, d.`thue_vat`, d.`gia_tri_svat`, d.`bao_gom_vat`, d.`chiet_khau`, d.`chi_phi_vchuyen`,
-                                d.`ghi_chu_vchuyen`, d.`ngay_tao`, h.`id_du_an_ctrinh`, n.`ten_nha_cc_kh`, n.`dia_chi_lh`, n.`so_dien_thoai`
+                                d.`ghi_chu_vchuyen`, d.`ngay_tao`, h.`id_du_an_ctrinh`, n.`ten_nha_cc_kh`, n.`dia_chi_lh`, n.`so_dien_thoai`, h.`bgom_vchuyen`
                                 FROM `don_hang` AS d
                                 INNER JOIN `hop_dong` AS h ON d.`id_hop_dong` = h.`id`
                                 INNER JOIN `nha_cc_kh` AS n ON d.`id_nha_cc_kh` = n.`id`
@@ -67,19 +67,17 @@ if (isset($id_dh) && $id_dh != "") {
     $id_ncc = $item['id_nha_cc_kh'];
     $id_nlh = $item['id_nguoi_lh'];
     $id_hdong = $item['id_hop_dong'];
+    $bgom_vc = $item['bgom_vchuyen'];
 
     $list_vt_dhm = new db_query("SELECT `id`, `id_don_hang`, `id_hd`, `id_vat_tu`, `so_luong_theo_hd`, `so_luong_ky_nay`, `thoi_gian_giao_hang`,
                                     `don_gia`, `tong_tien_trvat`, `thue_vat`, `tong_tien_svat`, `dia_diem_giao_hang`
                                     FROM `vat_tu_dh_mua_ban` WHERE `id_don_hang` = $id_dh AND `id_cong_ty` = $com_id ");
     $curl = curl_init();
-    $data = array(
-        'id_com' => $com_id,
-    );
-    curl_setopt($curl, CURLOPT_POST, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+    $token = $_COOKIE['acc_token'];
+    curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/dscongtrinh.php');
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
     $response = curl_exec($curl);
     curl_close($curl);
     $data_list = json_decode($response, true);
@@ -228,7 +226,7 @@ if (isset($id_dh) && $id_dh != "") {
                                     </div>
                                     <div class="form-group">
                                         <label>Ngày ký đơn hàng</label>
-                                        <input type="date" name="ngay_ky" value="<?= ($item['ngay_ky'] != 0) ? date('Y-m-d', $item['ngay_ky']) : "" ?>" class="form-control">
+                                        <input type="date" name="ngay_ky" value="<?= ($item['ngay_ky'] != 0) ? date('Y-m-d', $item['ngay_ky']) : "" ?>" class="form-control ngay_ky">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -238,7 +236,7 @@ if (isset($id_dh) && $id_dh != "") {
                                     </div>
                                     <div class="form-group">
                                         <label>Thời hạn đơn hàng</label>
-                                        <input type="date" name="thoi_han" value="<?= ($item['thoi_han'] != 0) ? date('Y-m-d', $item['thoi_han']) : "" ?>" class="form-control">
+                                        <input type="date" name="thoi_han" value="<?= ($item['thoi_han'] != 0) ? date('Y-m-d', $item['thoi_han']) : "" ?>" class="form-control thoi_han">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -314,7 +312,7 @@ if (isset($id_dh) && $id_dh != "") {
                                         <input type="text" name="gias_vat" value="<?= $item['gia_tri_svat'] ?>" id="tong_sau_vat" class="form-control h_border cr_weight" readonly>
                                     </div>
                                 </div>
-                                <div class="form-row w_100 float_l">
+                                <div class="form-row w_100 float_l chiphi_vc" data="<?= $bgom_vc ?>">
                                     <div class="form-group">
                                         <label>Chi phí vận chuyển</label>
                                         <input type="text" name="chi_phi_vc" class="form-control" value="<?= $item['chi_phi_vchuyen'] ?>" placeholder="Nhập chi phí vận chuyển">
@@ -382,7 +380,7 @@ if (isset($id_dh) && $id_dh != "") {
                                                         </td>
                                                         <td class="share_tb_two">
                                                             <div class="form-group">
-                                                                <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control"  readonly>
+                                                                <input type="text" name="hsan_xuat" value="<?= $all_vattu[$row2['id_vat_tu']]['hsx_name'] ?>" class="form-control" readonly>
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_eight">
@@ -402,7 +400,7 @@ if (isset($id_dh) && $id_dh != "") {
                                                         </td>
                                                         <td class="share_tb_eight">
                                                             <div class="form-group">
-                                                                <input type="date" name="thoig_ghang" value="<?= ($row2['thoi_gian_giao_hang'] != 0) ? date('Y-m-d', $row2['thoi_gian_giao_hang']) : "" ?>" class="form-control">
+                                                                <input type="date" name="thoig_ghang" onkeyup="check_tgian(this)" value="<?= ($row2['thoi_gian_giao_hang'] != 0) ? date('Y-m-d', $row2['thoi_gian_giao_hang']) : "" ?>" class="form-control">
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_two">
@@ -494,6 +492,12 @@ if (isset($id_dh) && $id_dh != "") {
         width: '100%',
     });
 
+    $(document).ready(function() {
+        if ($(".chiphi_vc").attr("data") == 1) {
+            $("input[name='chi_phi_vc']").attr("readonly", true);
+        }
+    })
+
     $(".all_nhacc").change(function() {
         var com_id = $(".form_add_hp_mua").attr("data");
         var id_ncc = $(this).val();
@@ -578,6 +582,18 @@ if (isset($id_dh) && $id_dh != "") {
             },
             success: function(data) {
                 $(".danh_sach_vt").html(data);
+            }
+        });
+
+        $.ajax({
+            url: '../render/check_hdbg_vc.php',
+            type: 'POST',
+            data: {
+                id_hd: id_hd,
+                com_id: com_id,
+            },
+            success: function(data) {
+                $(".chiphi_vc").html(data);
             }
         });
     });
@@ -743,54 +759,120 @@ if (isset($id_dh) && $id_dh != "") {
 
             var phan_loai = $(".ctiet_dk_hp").attr("data");
 
-            $.ajax({
-                url: '../ajax/sua_dh_mua.php',
-                type: 'POST',
-                data: {
-                    com_id: com_id,
-                    user_id: user_id,
-                    id_ncc: id_ncc,
-                    nguoi_lh: nguoi_lh,
-                    hop_dong: hop_dong,
-                    id_dh: id_dh,
-                    ngay_ky: ngay_ky,
-                    thoi_han: thoi_han,
-                    donv_nh: donv_nh,
-                    phong_ban: phong_ban,
-                    nguoi_nh: nguoi_nh,
-                    dient_nnhan: dient_nnhan,
-                    baoh_hd: baoh_hd,
-                    gia_tri: gia_tri,
-                    ghi_chu: ghi_chu,
-                    giatr_vat: giatr_vat,
-                    thue_vat: thue_vat,
-                    tien_ckhau: tien_ckhau,
-                    dgia_vat: dgia_vat,
-                    gias_vat: gias_vat,
-                    chi_phi_vc: chi_phi_vc,
-                    ghic_vc: ghic_vc,
-                    phan_loai: phan_loai,
-                    id_vt_dc: id_vt_dc,
-                    ma_vt: ma_vt,
-                    so_luong_hd: so_luong_hd,
-                    so_luong_kn: so_luong_kn,
-                    thoi_gian_gh: thoi_gian_gh,
-                    don_gia: don_gia,
-                    ttr_vat: ttr_vat,
-                    thue_vat_vt: thue_vat_vt,
-                    tts_vat: tts_vat,
-                    dia_chi_g: dia_chi_g,
+            if (ngay_ky != "" && thoi_han != "") {
+                if (ngay_ky > thoi_han) {
+                    alert("Thời hạn giao hàng không nhỏ hơn ngày ký đơn hàng");
+                } else {
+                    $.ajax({
+                        url: '../ajax/sua_dh_mua.php',
+                        type: 'POST',
+                        data: {
+                            com_id: com_id,
+                            user_id: user_id,
+                            id_ncc: id_ncc,
+                            nguoi_lh: nguoi_lh,
+                            hop_dong: hop_dong,
+                            id_dh: id_dh,
+                            ngay_ky: ngay_ky,
+                            thoi_han: thoi_han,
+                            donv_nh: donv_nh,
+                            phong_ban: phong_ban,
+                            nguoi_nh: nguoi_nh,
+                            dient_nnhan: dient_nnhan,
+                            baoh_hd: baoh_hd,
+                            gia_tri: gia_tri,
+                            ghi_chu: ghi_chu,
+                            giatr_vat: giatr_vat,
+                            thue_vat: thue_vat,
+                            tien_ckhau: tien_ckhau,
+                            dgia_vat: dgia_vat,
+                            gias_vat: gias_vat,
+                            chi_phi_vc: chi_phi_vc,
+                            ghic_vc: ghic_vc,
+                            phan_loai: phan_loai,
+                            id_vt_dc: id_vt_dc,
+                            ma_vt: ma_vt,
+                            so_luong_hd: so_luong_hd,
+                            so_luong_kn: so_luong_kn,
+                            thoi_gian_gh: thoi_gian_gh,
+                            don_gia: don_gia,
+                            ttr_vat: ttr_vat,
+                            thue_vat_vt: thue_vat_vt,
+                            tts_vat: tts_vat,
+                            dia_chi_g: dia_chi_g,
 
-                },
-                success: function(data) {
-                    if (data == "") {
-                        alert("Bạn cập nhật đơn hàng thành công");
-                        window.location.href = "/quan-ly-don-hang.html";
-                    } else {
-                        alert(data);
-                    }
+                        },
+                        success: function(data) {
+                            if (data == "") {
+                                alert("Bạn cập nhật đơn hàng thành công");
+                                window.location.href = "/quan-ly-don-hang.html";
+                            } else {
+                                alert(data);
+                            }
+                        }
+                    })
                 }
-            })
+            } else {
+                $.ajax({
+                    url: '../ajax/sua_dh_mua.php',
+                    type: 'POST',
+                    data: {
+                        com_id: com_id,
+                        user_id: user_id,
+                        id_ncc: id_ncc,
+                        nguoi_lh: nguoi_lh,
+                        hop_dong: hop_dong,
+                        id_dh: id_dh,
+                        ngay_ky: ngay_ky,
+                        thoi_han: thoi_han,
+                        donv_nh: donv_nh,
+                        phong_ban: phong_ban,
+                        nguoi_nh: nguoi_nh,
+                        dient_nnhan: dient_nnhan,
+                        baoh_hd: baoh_hd,
+                        gia_tri: gia_tri,
+                        ghi_chu: ghi_chu,
+                        giatr_vat: giatr_vat,
+                        thue_vat: thue_vat,
+                        tien_ckhau: tien_ckhau,
+                        dgia_vat: dgia_vat,
+                        gias_vat: gias_vat,
+                        chi_phi_vc: chi_phi_vc,
+                        ghic_vc: ghic_vc,
+                        phan_loai: phan_loai,
+                        id_vt_dc: id_vt_dc,
+                        ma_vt: ma_vt,
+                        so_luong_hd: so_luong_hd,
+                        so_luong_kn: so_luong_kn,
+                        thoi_gian_gh: thoi_gian_gh,
+                        don_gia: don_gia,
+                        ttr_vat: ttr_vat,
+                        thue_vat_vt: thue_vat_vt,
+                        tts_vat: tts_vat,
+                        dia_chi_g: dia_chi_g,
+
+                    },
+                    success: function(data) {
+                        if (data == "") {
+                            alert("Bạn cập nhật đơn hàng thành công");
+                            window.location.href = "/quan-ly-don-hang.html";
+                        } else {
+                            alert(data);
+                        }
+                    }
+                })
+            }
+        } else {
+            event.preventDefault();
+            event.stopPropagation();
+            var errorElements = document.querySelectorAll(".error");
+            for (let index = 0; index < errorElements.length; index++) {
+                const element = errorElements[index];
+                $('html, body').animate({
+                    scrollTop: $(errorElements[0]).focus().offset().top - 30
+                }, 1000);
+                return false;
+            }
         }
     });
 </script>

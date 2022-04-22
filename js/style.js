@@ -33,11 +33,10 @@ $(".avt_menu").click(function() {
 });
 
 $(".collapse").click(function() {
-    var id = $(this).attr("data-tab");
-    $(".collapse ul").removeClass("active");
-    // setTimeout(function () {
-        $('#' + id).toggleClass("active");
-    // }, 50);
+    // var id = $(this).attr("data-tab");
+    // $(".collapse ul").removeClass("active");
+    // $('#' + id).toggleClass("active");
+    $(this).children(".collapse ul").toggleClass("active");
 
 });
 
@@ -57,7 +56,7 @@ $(document).on('click', '.remo_cot_ngang', function() {
     }
 });
 
-$(document).on('click', '.dele_cot_ngang', function () {
+$(document).on('click', '.dele_cot_ngang', function() {
     $(this).parents(".ctn_table .table tbody tr").hide();
 
     if ($(".ctn_table .table tbody").height() > 270.5) {

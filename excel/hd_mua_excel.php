@@ -33,17 +33,21 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
 }
 
 $curl = curl_init();
-$data = array(
-    'id_com' => $com_id,
-);
+$token = $_COOKIE['acc_token'];
+curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/dscongtrinh.php');
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-curl_setopt($curl, CURLOPT_URL, "https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php");
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
 $response = curl_exec($curl);
 curl_close($curl);
 $list_ct = json_decode($response, true);
 $cong_trinh_data = $list_ct['data']['items'];
+$cou = count($cong_trinh_data);
+$all_ctr = [];
+for($n = 0; $n < $cou; $n++){
+    $item = $cong_trinh_data[$n];
+    $all_ctr[$item['ctr_id']] = $item;
+}
 
 $get_vat_tu = new db_query("SELECT `id`, `id_vat_tu`, `so_luong`, `don_gia`, `tien_trvat`, `thue_vat`, `tien_svat` FROM `vat_tu_hd_dh` WHERE `id_hd_mua_ban` = $id");
 
@@ -70,7 +74,7 @@ echo '<tr><th colspan="2" style="font-size:18px;height:60px;vertical-align: midd
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Dự án / Công trình:</td>
-    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= $cong_trinh_data[$hd_detail['id_du_an_ctrinh']]['ctr_name'] ?></td>
+    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= $all_ctr[$hd_detail['id_du_an_ctrinh']]['ctr_name'] ?></td>
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Hợp đồng nguyên tắc:</td>
@@ -122,7 +126,9 @@ echo '<tr><th colspan="2" style="font-size:18px;height:60px;vertical-align: midd
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Thời gian thực hiện:</td>
-    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= date('d/m/Y', $hd_detail['tg_bd_thuc_hien']) ?> - <?= date('d/m/Y', $hd_detail['tg_kt_thuc_hien']) ?></td>
+    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;">
+    <?= ($hd_detail['tg_bd_thuc_hien'] != 0)? date('d/m/Y', $hd_detail['tg_bd_thuc_hien']) :"" ?> - <?= ($hd_detail['tg_kt_thuc_hien'] != 0) ? date('d/m/Y', $hd_detail['tg_kt_thuc_hien']) :"" ?>
+</td>
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Hợp đồng bao gồm vận chuyển:</td>

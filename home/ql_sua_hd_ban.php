@@ -110,7 +110,7 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Sửa hợp đồng bán</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" data="<?= $role ?>" data1="<?= $com_id?>" data2="<?= $user_id?>" data3="<?= $hd_id?>">
+                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" data="<?= $role ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>" data3="<?= $hd_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Số hợp đồng</label>
@@ -127,7 +127,7 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
                                         <select name="id_khach_hang" class="form-control all_nhacc">
                                             <option value="">-- Chọn khách hàng --</option>
                                             <?
-                                            $get_kh = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 2");
+                                            $get_kh = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 2 AND `id_cong_ty` = $com_id ORDER BY `id` DESC ");
                                             while ($kh_fetch = mysql_fetch_assoc($get_kh->result)) {
                                             ?>
                                                 <option value="<?= $kh_fetch['id'] ?>" <?= ($id_kh == $kh_fetch['id']) ? "selected" : "" ?>><?= $kh_fetch['ten_nha_cc_kh'] ?></option>
@@ -146,7 +146,7 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
                                     </div>
                                     <div class="form-group  d_flex fl_agi form_lb">
                                         <label for="don_gia_vat">Đơn giá đã bao gồm VAT</label>
-                                        <input type="checkbox" id="don_gia_vat" name="don_gia_vat" <?= ($hd_detail['bao_gom_vat'] == 1) ? "checked" : "" ?>>
+                                        <input type="checkbox" id="don_gia_vat" name="don_gia_vat" <?= ($hd_detail['bao_gom_vat'] == 1) ? "checked" : "" ?> onclick="dongia_vat(this)">
                                     </div>
                                 </div>
                                 <div class="form-row w_100 float_l">
@@ -238,42 +238,42 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
                                                         </td>
                                                         <td class="share_tb_two">
                                                             <div class="form-group">
-                                                                <input type="text" name="don_vi_tinh_old" value="<?= $vat_tu_detail[$vt_ban_fetch['id_vat_tu']]['dvt_name'] ?>" class="form-control" disabled>
+                                                                <input type="text" name="don_vi_tinh_old" value="<?= $vat_tu_detail[$vt_ban_fetch['id_vat_tu']]['dvt_name'] ?>" class="form-control" readonly>
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_two">
                                                             <div class="form-group">
-                                                                <input type="text" name="hang_san_xuat_old" value="<?= $vat_tu_detail[$vt_ban_fetch['id_vat_tu']]['hsx_name'] ?>" class="form-control" disabled>
+                                                                <input type="text" name="hang_san_xuat_old" value="<?= $vat_tu_detail[$vt_ban_fetch['id_vat_tu']]['hsx_name'] ?>" class="form-control" readonly>
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_two">
                                                             <div class="form-group">
-                                                                <input type="text" name="xuat_xu_old" value="<?= $vat_tu_detail[$vt_ban_fetch['id_vat_tu']]['xx_name'] ?>" class="form-control" disabled>
+                                                                <input type="text" name="xuat_xu_old" value="<?= $vat_tu_detail[$vt_ban_fetch['id_vat_tu']]['xx_name'] ?>" class="form-control" readonly>
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_two">
                                                             <div class="form-group">
-                                                                <input type="number" name="so_luong_old" value="<?= $vt_ban_fetch['so_luong'] ?>" class="form-control so_luong" onkeyup="sl_doi(this),tong_vt()">
+                                                                <input type="number" name="so_luong_old" value="<?= $vt_ban_fetch['so_luong'] ?>" class="form-control so_luong" onkeyup="check_slnhap(this),sl_doi(this),tong_vt()">
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_two">
                                                             <div class="form-group">
-                                                                <input type="number" name="don_gia_old" value="<?= $vt_ban_fetch['don_gia'] ?>" class="form-control don_gia" disabled>
+                                                                <input type="number" name="don_gia_old" value="<?= $vt_ban_fetch['don_gia'] ?>" class="form-control don_gia" readonly>
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_two">
                                                             <div class="form-group">
-                                                                <input type="number" name="vt_tien_tvat_old" value="<?= $vt_ban_fetch['tien_trvat'] ?>" class="form-control tong_trvat" disabled>
+                                                                <input type="number" name="vt_tien_tvat_old" value="<?= $vt_ban_fetch['tien_trvat'] ?>" class="form-control tong_trvat" readonly>
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_two">
                                                             <div class="form-group">
-                                                                <input type="number" name="vt_thue_vat_old" value="<?= $vt_ban_fetch['thue_vat'] ?>" class="form-control thue_vat" onkeyup="thue_doi(this),tong_vt()">
+                                                                <input type="number" name="vt_thue_vat_old" value="<?= $vt_ban_fetch['thue_vat'] ?>" data="" class="form-control thue_vat" onkeyup="thue_doi(this),tong_vt()">
                                                             </div>
                                                         </td>
                                                         <td class="share_tb_two">
                                                             <div class="form-group">
-                                                                <input type="text" name="vt_tien_svat_old" value="<?= $vt_ban_fetch['tien_svat'] ?>" class="form-control tong_svat" disabled>
+                                                                <input type="text" name="vt_tien_svat_old" value="<?= $vt_ban_fetch['tien_svat'] ?>" class="form-control tong_svat" readonly>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -357,18 +357,18 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
 <script type="text/javascript" src="../js/app.js"></script>
 
 <script>
-    $(window).on("load", function() {
-        tong_vt();
-        baoLanh();
-        baoHanh();
-    });
     $(document).on('click', '.remo_cot_ngang, .remove-btn', function() {
         tong_vt();
         baoLanh();
         baoHanh();
     })
-
-    autocomplete(document.getElementById("ten_nh"), bank);
+    $(document).ready(function() {
+        // var dongiavat = $("#don_gia_vat").val();
+        if ($("#don_gia_vat").is(":checked")) {
+            $(".thue_vat").attr("readonly", true);
+        }
+    })
+    // autocomplete(document.getElementById("ten_nh"), bank);
 
     $(".all_nhacc, .all_da_ct, .ten_nganhang, .bao_gia").select2({
         width: '100%',
@@ -586,56 +586,63 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
                 }
             });
 
+            if (ngay_bat_dau != "" && ngay_ket_thuc != "") {
+                if (ngay_bat_dau > ngay_ky_hd) {
+                    alert("Thời gian bắt đầu phửi lớn hơn ngày ký hợp đồng");
+                } else if (ngay_bat_dau > ngay_ket_thuc) {
+                    alert("Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc");
+                } else if (ngay_bat_dau >= ngay_ky_hd && ngay_bat_dau <= ngay_ket_thuc) {
+                    $.ajax({
+                        url: '../ajax/hd_ban_sua.php',
+                        type: 'POST',
+                        data: {
+                            user_id: user_id,
+                            com_id: com_id,
+                            hd_id: hd_id,
+                            role: role,
+                            ngay_ky_hd: ngay_ky_hd,
+                            id_khach_hang: id_khach_hang,
+                            hd_nguyen_tac: hd_nguyen_tac,
+                            truoc_vat: truoc_vat,
+                            don_gia_vat: don_gia_vat,
+                            thue_vat: thue_vat,
+                            sau_vat: sau_vat,
+                            ngay_bat_dau: ngay_bat_dau,
+                            ngay_ket_thuc: ngay_ket_thuc,
+                            bao_gom_van_chuyen: bao_gom_van_chuyen,
+                            yc_tiendo: yc_tiendo,
+                            noi_dung_hd: noi_dung_hd,
+                            noi_dung_luu_y: noi_dung_luu_y,
+                            dieu_khoan_tt: dieu_khoan_tt,
+                            ten_nh: ten_nh,
+                            so_taik: so_taik,
 
-            $.ajax({
-                url: '../ajax/hd_ban_sua.php',
-                type: 'POST',
-                data: {
-                    user_id: user_id,
-                    com_id: com_id,
-                    hd_id: hd_id,
-                    role: role,
-                    ngay_ky_hd: ngay_ky_hd,
-                    id_khach_hang: id_khach_hang,
-                    hd_nguyen_tac: hd_nguyen_tac,
-                    truoc_vat: truoc_vat,
-                    don_gia_vat: don_gia_vat,
-                    thue_vat: thue_vat,
-                    sau_vat: sau_vat,
-                    ngay_bat_dau: ngay_bat_dau,
-                    ngay_ket_thuc: ngay_ket_thuc,
-                    bao_gom_van_chuyen: bao_gom_van_chuyen,
-                    yc_tiendo: yc_tiendo,
-                    noi_dung_hd: noi_dung_hd,
-                    noi_dung_luu_y: noi_dung_luu_y,
-                    dieu_khoan_tt: dieu_khoan_tt,
-                    ten_nh: ten_nh,
-                    so_taik: so_taik,
+                            vt_id_vat_tu_old: vt_id_vat_tu_old,
+                            vt_vat_tu_old: vt_vat_tu_old,
+                            vt_so_luong_old: vt_so_luong_old,
+                            vt_don_gia_old: vt_don_gia_old,
+                            vt_tien_tvat_old: vt_tien_tvat_old,
+                            vt_thue_vat_old: vt_thue_vat_old,
+                            vt_tien_svat_old: vt_tien_svat_old,
 
-                    vt_id_vat_tu_old: vt_id_vat_tu_old,
-                    vt_vat_tu_old: vt_vat_tu_old,
-                    vt_so_luong_old: vt_so_luong_old,
-                    vt_don_gia_old: vt_don_gia_old,
-                    vt_tien_tvat_old: vt_tien_tvat_old,
-                    vt_thue_vat_old: vt_thue_vat_old,
-                    vt_tien_svat_old: vt_tien_svat_old,
-
-                    vt_vat_tu: vt_vat_tu,
-                    vt_so_luong: vt_so_luong,
-                    vt_don_gia: vt_don_gia,
-                    vt_tien_tvat: vt_tien_tvat,
-                    vt_thue_vat: vt_thue_vat,
-                    vt_tien_svat: vt_tien_svat,
-                },
-                success: function(data) {
-                    if (data == "") {
-                        alert("Chỉnh sửa hợp đồng bán vật tư thành công!");
-                        window.location.href = 'quan-ly-chi-tiet-hop-dong-ban-<?= $hd_id ?>.html';
-                    } else {
-                        alert(data);
-                    }
+                            vt_vat_tu: vt_vat_tu,
+                            vt_so_luong: vt_so_luong,
+                            vt_don_gia: vt_don_gia,
+                            vt_tien_tvat: vt_tien_tvat,
+                            vt_thue_vat: vt_thue_vat,
+                            vt_tien_svat: vt_tien_svat,
+                        },
+                        success: function(data) {
+                            if (data == "") {
+                                alert("Chỉnh sửa hợp đồng bán vật tư thành công!");
+                                window.location.href = 'quan-ly-chi-tiet-hop-dong-ban-<?= $hd_id ?>.html';
+                            } else {
+                                alert(data);
+                            }
+                        }
+                    })
                 }
-            })
+            }
         }
     });
 </script>

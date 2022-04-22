@@ -6,9 +6,11 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['com_id'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
+        $phan_quyen_nk = 2;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `bao_gia_kh` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
@@ -91,7 +93,7 @@ $date = date('m-d-Y', time());
                 </div>
                 <form action="" class="main-form" data="<?= $com_id ?>" data1="<?= $user_id ?>">
                     <div class="w-100 left mt-10">
-                        <div class="form-control edit-form">
+                        <div class="form-control edit-form" data="<?= $phan_quyen_nk ?>">
                             <div class="form-row left">
                                 <div class="form-col-50 no-border left mb_15">
                                     <label>Số phiếu phản hồi<span class="text-red">&ast;</span></label>
@@ -173,7 +175,7 @@ $date = date('m-d-Y', time());
                                                             </div>
                                                         </td>
                                                         <td class="w-15">
-                                                            <input type="text" name="so_luong_bg" class="so_luong" value="<?= $row2['so_luong_yc_bg'] ?>" onchange="sl_doi(this)">
+                                                            <input type="text" name="so_luong_bg" class="so_luong" oninput="<?= $oninput ?>" value="<?= $row2['so_luong_yc_bg'] ?>" onchange="sl_doi(this)">
                                                         </td>
                                                         <td class="w-15">
                                                             <input type="text" name="don_vi_tinh" value="<?= $list_vt[$row2['id_vat_tu']]['dvt_name'] ?>" readonly>
@@ -358,6 +360,7 @@ $date = date('m-d-Y', time());
             var ngay_bd = $("input[name='tu_ngay']").val();
             var ngay_kt = $("input[name='den_ngay']").val();
             var noi_dung_ph = $("textarea[name='noi_dung_phan_hoi']").val();
+            var phan_quyen_nk = $(".edit-form").attr("data");
 
             var id_v = new Array();
             $(".removeItem_vtp").each(function() {
@@ -378,7 +381,7 @@ $date = date('m-d-Y', time());
             var so_luong = new Array();
             $("input[name='so_luong_bg']").each(function() {
                 var sl = $(this).val();
-                if (sl != "" && sl != 0) {
+                if (sl != "") {
                     so_luong.push(sl);
                 }
             });
@@ -434,6 +437,7 @@ $date = date('m-d-Y', time());
                     new_id_vt: new_id_vt,
                     new_so_luong: new_so_luong,
                     new_don_gia: new_don_gia,
+                    phan_quyen_nk: phan_quyen_nk,
                 },
                 success: function(data) {
                     if (data == "") {

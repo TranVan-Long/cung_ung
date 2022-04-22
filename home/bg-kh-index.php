@@ -7,6 +7,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['user_id'];
         $user_name = $_SESSION['com_name'];
+        $com_name = $_SESSION['com_name'];
         $curl = curl_init();
         $token = $_COOKIE['acc_token'];
         curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_employee_of_company.php');
@@ -22,6 +23,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
         $user_name = $_SESSION['ep_name'];
+        $com_name = $_SESSION['com_name'];
         $curl = curl_init();
         $token = $_COOKIE['acc_token'];
         curl_setopt($curl, CURLOPT_URL, 'https://chamcong.24hpay.vn/service/list_all_my_partner.php?get_all=true');
@@ -69,7 +71,8 @@ if ($tk != "" && $tk_ct != "") {
 $start = ($page - 1) * $currP;
 $start = abs($start);
 
-$ds_bgkh = "SELECT y.`id`, y.`id_nguoi_lap`, y.`nha_cc_kh`, y.`noi_dung_thu`, y.`ngay_bd`, y.`ngay_kt`, y.`phan_loai`, y.`ngay_tao`, y.`id_cong_ty`, n.`ten_nha_cc_kh`
+$ds_bgkh = "SELECT y.`id`, y.`id_nguoi_lap`, y.`nha_cc_kh`, y.`noi_dung_thu`, y.`ngay_bd`, y.`ngay_kt`, y.`phan_loai`, y.`ngay_tao`, y.`id_cong_ty`,
+            n.`ten_nha_cc_kh`, y.`quyen_nlap`
             FROM `yeu_cau_bao_gia` AS y
             INNER JOIN `nha_cc_kh` AS n ON y.`nha_cc_kh` = n.`id`
             WHERE y.`id_cong_ty` = $com_id AND y.`phan_loai` = 2 ";
@@ -214,7 +217,11 @@ $stt = 1;
                                                 <tr>
                                                     <td class="w-15"><?= $stt++ ?></td>
                                                     <td class="w-25"><a href="chi-tiet-bao-gia-cho-khach-hang-<?= $row1['id'] ?>.html" class="text-500">PH-<?= $row1['id'] ?></a></td>
-                                                    <td class="w-30"><?= ($user_id == $row1['id_nguoi_lap']) ? $user_name : $list_nv[$row1['id_nguoi_lap']]['ep_name'] ?></td>
+                                                    <? if ($row1['quyen_nlap'] == 1) { ?>
+                                                        <td class="w-30"><?= $com_name ?></td>
+                                                    <? } else if ($row1['quyen_nlap'] == 2) { ?>
+                                                        <td class="w-30"><?= $list_nv[$row1['id_nguoi_lap']]['ep_name'] ?></td>
+                                                    <? } ?>
                                                     <td class="w-25"><?= date('d/m/Y', $row1['ngay_tao']) ?></td>
                                                     <td class="w-35"><?= $row1['ten_nha_cc_kh'] ?></td>
                                                     <td class="w-35"><?= date('d/m/Y', $row1['ngay_bd']) ?> - <?= date('d/m/Y', $row1['ngay_kt']) ?></td>

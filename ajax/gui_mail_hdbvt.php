@@ -5,6 +5,7 @@ include("../classes/PHPMailer/Mailer.php");
 $id = getValue('id', 'int', 'POST', '');
 $com_id = getValue('com_id', 'int', 'POST', '');
 $com_name = $_POST['com_name'];
+$com_name = sql_injection_rp($com_name);
 
 $curl = curl_init();
 $data = array(
@@ -27,25 +28,31 @@ for ($j = 0; $j < count($data_vttb); $j++) {
     $vat_tu[$item2['dsvt_id']] = $item2;
 }
 
-$hd_get = new db_query("SELECT `ngay_ky_hd`, `id_nha_cc_kh`, `gia_tri_trvat`, `bao_gom_vat`, `thue_vat`, `gia_tri_svat`, `yc_tien_do`, `noi_dung_hd`, `noi_dung_luu_y`, `dieu_khoan_tt` FROM `hop_dong` WHERE `id` = $id");
+$hd_get = new db_query("SELECT `ngay_ky_hd`, `id_nha_cc_kh`, `gia_tri_trvat`, `bao_gom_vat`, `thue_vat`, `gia_tri_svat`, `yc_tien_do`,
+                        `noi_dung_hd`, `noi_dung_luu_y`, `dieu_khoan_tt` FROM `hop_dong` WHERE `id` = $id AND `id_cong_ty`= $com_id ");
 $hd_detail = mysql_fetch_assoc($hd_get->result);
 
 $ncc_id = $hd_detail['id_nha_cc_kh'];
 $ngay_ky_hd = date('d/m/Y', $hd_detail['ngay_ky_hd']);
-$ncc = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh` FROM nha_cc_kh WHERE `id` = $ncc_id"))->result);
+$ncc = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh`, `email` FROM `nha_cc_kh` WHERE `id` = $ncc_id AND `id_cong_ty` = $com_id AND `phan_loai` = 2 "))->result);
 
-if ($hd_detail['bao_gom_vat'] == 1) {
-    $gia_vat = "Giá ở trên đã bao gồm VAT";
-} else {
-    $gia_vat = "Giá ở trên chưa bao gồm VAT";
-}
+$email = $ncc['email'];
+if($email == ""){
+    echo "Chưa cập nhật email khách hàng, vui lòng cập nhật email khách hàng để gửi mail";
+}else if($email != ""){
+    if ($hd_detail['bao_gom_vat'] == 1) {
+        $gia_vat = "Giá ở trên đã bao gồm VAT";
+    } else {
+        $gia_vat = "Giá ở trên chưa bao gồm VAT";
+    }
 
-$list_vt = new db_query("SELECT `id`, `id_vat_tu`, `so_luong`, `don_gia`, `tien_svat` FROM `vat_tu_hd_dh` WHERE `id_hd_mua_ban` = $id");
+    $list_vt = new db_query("SELECT `id`, `id_vat_tu`, `so_luong`, `don_gia`, `tien_svat` FROM `vat_tu_hd_dh` WHERE `id_hd_mua_ban` = $id");
 
-$stt = 1;
-$a = "";
-while ($row = mysql_fetch_assoc($list_vt->result)) {
-    $a .= '<tr style="border: 1px solid #666666;">
+    $stt = 1;
+    $a = "";
+
+    while ($row = mysql_fetch_assoc($list_vt->result)) {
+        $a .= '<tr style="border: 1px solid #666666;">
                 <td style="font-size: 14px; line-height: 16px; color: #474747; text-align: center; padding-top: 18px; padding-bottom: 17px;">' . $stt++ . '</td>
                 <td style="font-size: 14px; line-height: 16px; color: #474747; text-align: center; padding-top: 18px; padding-bottom: 17px;">' . $vat_tu[$row['id_vat_tu']]['dsvt_name'] . '</td>
                 <td style="font-size: 14px; line-height: 16px; color: #474747; text-align: center; padding-top: 18px; padding-bottom: 17px;">' . $vat_tu[$row['id_vat_tu']]['dvt_name'] . '</td>
@@ -53,12 +60,11 @@ while ($row = mysql_fetch_assoc($list_vt->result)) {
                 <td style="font-size: 14px; line-height: 16px; color: #474747; text-align: center; padding-top: 18px; padding-bottom: 17px;">' . $row['don_gia'] . '</td>
                 <td style="font-size: 14px; line-height: 16px; color: #474747; text-align: center; padding-top: 18px; padding-bottom: 17px;">' . $row['tien_svat'] . '</td>
             </tr>';
-}
+    };
 
-$email = "bboyraizo@gmail.com";
-$mailer = new Mailer();
-$subject = "HỢP ĐỒNG BÁN VẬT LIỆU XÂY DỰNG";
-$body = '<div style="width: 724px; float: left; background: #FFFFFF; padding: 90px 40px; border-radius: 8px;">
+    $mailer = new Mailer();
+    $subject = "HỢP ĐỒNG BÁN VẬT LIỆU XÂY DỰNG";
+    $body = '<div style="width: 724px; float: left; background: #FFFFFF; padding: 90px 40px; border-radius: 8px;">
             <h1 style="width: 100%; float: left; margin-bottom: 35px; font-size: 24px; line-height: 28px; text-align: center; font-weight: bold; color: #474747;">HỢP ĐỒNG MUA BÁN VẬT LIỆU XÂY DỰNG</h1>
             <div style="width: 100%; float: left;">
                 <p style="font-size: 14px; line-height: 16px; color: #474747; width: 100%; float: left; margin-bottom: 8px; margin-top: 0;">Số: HĐ- ' . $id . ' </p>
@@ -98,6 +104,7 @@ $body = '<div style="width: 724px; float: left; background: #FFFFFF; padding: 90
                 </div>
             </div>
         </div>';
-//Gửi mail
+    //Gửi mail
 
-$mailer->email($email, $body, $subject, $name);
+    $mailer->email($email, $body, $subject, $name);
+}

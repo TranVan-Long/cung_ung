@@ -12,7 +12,7 @@ $noi_dung_nk = "Bạn đã xóa đơn hàng: ĐH - " .$id_dh;
 if($id_dh != "" && $com_id != "" && $user_id != ""){
 
     $inser_nk = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`, `gio_tao`, `noi_dung`, `id_cong_ty`)
-                            VALUES ('','$user_id','$phan_quyen_nk','$ngay_tao','$gio_tao','$noi_dung_nk','$com_id')")
+                            VALUES ('','$user_id','$phan_quyen_nk','$ngay_tao','$gio_tao','$noi_dung_nk','$com_id')");
 
     $remo_dh = new db_query("DELETE FROM `don_hang` WHERE `id_cong_ty` = $com_id AND `id` = $id_dh ");
 }else{

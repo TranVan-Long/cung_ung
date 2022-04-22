@@ -29,8 +29,9 @@ for ($j = 0; $j < $cou2; $j++) {
 
 if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
     if ($loai_hs == 1) {
-        $list_ploai = mysql_fetch_assoc((new db_query("SELECT `phan_loai`, `id_du_an_ctrinh` FROM `hop_dong`  WHERE `id_cong_ty` = $com_id AND `id` = $dh_hd"))->result);
+        $list_ploai = mysql_fetch_assoc((new db_query("SELECT `phan_loai`, `ngay_ky_hd` FROM `hop_dong`  WHERE `id_cong_ty` = $com_id AND `id` = $dh_hd"))->result);
         $ploai_hd = $list_ploai['phan_loai'];
+        $ngay_ky = date('Y-m-d', $list_ploai['ngay_ky_hd']);
 
         $check_ttai = new db_query("SELECT DISTINCT h.`id_hd_dh` FROM `ho_so_thanh_toan` AS h
                                         INNER JOIN `chi_tiet_hs` AS c ON h.`id` = c.`id_hs`
@@ -45,7 +46,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                     FROM `vat_tu_hd_dh` WHERE `id_hd_mua_ban` = $dh_hd ");
 
             if (mysql_num_rows($check_ttai->result) > 0) { ?>
-                <div class="tbl-header">
+                <div class="tbl-header" data="<?= $ngay_ky ?>">
                     <table>
                         <thead>
                             <tr>
@@ -228,7 +229,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                     </table>
                 </div>
             <? } else { ?>
-                <div class="tbl-header">
+                <div class="tbl-header" data="<?= $ngay_ky ?>">
                     <table>
                         <thead>
                             <tr>
@@ -403,7 +404,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
             $ds_vt = new db_query("SELECT `id_vat_tu_thiet_bi`, `khoi_luong_du_kien`, `han_muc_ca_may`, `don_gia_thue`, `dg_ca_may_phu_troi`,
                                 `thanh_tien_du_kien` FROM `vat_tu_hd_thue` WHERE `id_hd_thue` = $dh_hd ");
             if (mysql_num_rows($check_ttai->result) > 0) { ?>
-                <div class="tbl-header">
+                <div class="tbl-header" data="<?= $ngay_ky ?>">
                     <table>
                         <thead>
                             <tr>
@@ -588,7 +589,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                     </table>
                 </div>
             <? } else { ?>
-                <div class="tbl-header">
+                <div class="tbl-header" data="<?= $ngay_ky ?>">
                     <table>
                         <thead>
                             <tr>
@@ -762,7 +763,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
         } else if ($ploai_hd == 4) {
             $ds_vt = new db_query("SELECT `vat_tu`, `khoi_luong`, `don_gia`, `thanh_tien` FROM `vat_tu_hd_vc` WHERE `id_hd_vc` = $dh_hd ");
             if (mysql_num_rows($check_ttai->result) > 0) { ?>
-                <div class="tbl-header">
+                <div class="tbl-header" data="<?= $ngay_ky ?>">
                     <table>
                         <thead>
                             <tr>
@@ -887,7 +888,8 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10">
-                                    <span class="tong_thue_vat"><?= ($tien_trs['gia_tri_trvat'] * $tien_trs['thue_vat']) / 100 ?></span>
+                                    <span class="tong_thue_vat"><?= formatMoney(($tien_trs['gia_tri_trvat'] * $tien_trs['thue_vat']) / 100) ?></span>
+                                    <span class="thue_vat" data="<?= $tien_trs['thue_vat'] ?>">(<?= $tien_trs['thue_vat'] ?> %)</span>
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
@@ -947,7 +949,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                     </table>
                 </div>
             <? } else { ?>
-                <div class="tbl-header">
+                <div class="tbl-header" data="<?= $ngay_ky ?>">
                     <table>
                         <thead>
                             <tr>
@@ -1003,7 +1005,7 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                         <input type="text" name="kl_luy_ke_ky_truoc" data="0" value="0" class="tex_center" readonly>
                                     </td>
                                     <td class="w-10">
-                                        <input type="text" name="kl_luy_ke_ky_nay" oninput="<?= $oninput ?>" class="tex_center" onkeyup="kl_hs_doi(this)">
+                                        <input type="text" name="kl_luy_ke_ky_nay" autocomplete="off" oninput="<?= $oninput ?>" class="tex_center" onkeyup="kl_hs_doi(this)">
                                     </td>
                                     <td class="w-10">
                                         <input type="text" name="kl_luy_ke_den_nay" data="" value="0" class="tex_center" readonly>
@@ -1058,7 +1060,8 @@ if ($com_id != "" && $loai_hs != "" && $dh_hd != "") {
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>
                                 <td class="w-10">
-                                    <span class="tong_thue_vat"><?= ($tien_trs['gia_tri_trvat'] * $tien_trs['thue_vat']) / 100 ?></span>
+                                    <span class="tong_thue_vat"><?= formatMoney(($tien_trs['gia_tri_trvat'] * $tien_trs['thue_vat']) / 100) ?></span>
+                                    <span class="thue_vat" data="<?= $tien_trs['thue_vat'] ?>">(<?= $tien_trs['thue_vat'] ?> %)</span>
                                 </td>
                                 <td class="w-10"></td>
                                 <td class="w-10"></td>

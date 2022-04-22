@@ -2,14 +2,6 @@
 include "../includes/icon.php";
 include("config.php");
 
-if (isset($_GET['id']) && $_GET['id'] != "") {
-    $hd_id = $_GET['id'];
-    $hd_get = new db_query("SELECT `ngay_ky_hd`, `id_nha_cc_kh`, `id_du_an_ctrinh`, `gia_tri_trvat`, `bao_gom_vat`, `thue_vat`, `gia_tri_svat`, `giu_lai_bhanh`, `gia_tri_bhanh`, `bao_lanh_hd`, `gia_tri_blanh`, `thoi_han_blanh`, `yc_tien_do`,`noi_dung_hd`, `noi_dung_luu_y`, `dieu_khoan_tt`, `ten_ngan_hang`, `so_tk` FROM `hop_dong` WHERE `id` = $hd_id");
-    $hd_detail = mysql_fetch_assoc($hd_get->result);
-
-    $ncc_id = $hd_detail['id_nha_cc_kh'];
-    $ncc = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh` FROM nha_cc_kh WHERE `id` = $ncc_id"))->result);
-}
 
 if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKIE['role'])) {
     if ($_COOKIE['role'] == 1) {
@@ -49,6 +41,17 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     }
 }
 
+if (isset($_GET['id']) && $_GET['id'] != "") {
+    $hd_id = $_GET['id'];
+    $hd_get = new db_query("SELECT `ngay_ky_hd`, `id_nha_cc_kh`, `id_du_an_ctrinh`, `gia_tri_trvat`, `bao_gom_vat`, `thue_vat`, `gia_tri_svat`,
+                            `giu_lai_bhanh`, `gia_tri_bhanh`, `bao_lanh_hd`, `gia_tri_blanh`, `thoi_han_blanh`, `yc_tien_do`,`noi_dung_hd`, `trang_thai`,
+                            `noi_dung_luu_y`, `dieu_khoan_tt`, `ten_ngan_hang`, `so_tk` FROM `hop_dong` WHERE `id` = $hd_id AND `id_cong_ty` = $com_id ");
+    $hd_detail = mysql_fetch_assoc($hd_get->result);
+
+    $ncc_id = $hd_detail['id_nha_cc_kh'];
+    $ncc = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh` FROM nha_cc_kh WHERE `id` = $ncc_id AND `id_cong_ty` = $com_id "))->result);
+}
+
 $curl = curl_init();
 $data = array(
     'id_com' => $com_id,
@@ -69,21 +72,20 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
 }
 
 $curl = curl_init();
-$data = array(
-    'id_com' => $com_id,
-);
-curl_setopt($curl, CURLOPT_POST, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+$token = $_COOKIE['acc_token'];
+curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/dscongtrinh.php');
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
 $response = curl_exec($curl);
 curl_close($curl);
 $list_cong_trinh = json_decode($response, true);
 $cong_trinh_data = $list_cong_trinh['data']['items'];
-for ($i = 0; $i < count($cong_trinh_data); $i++) {
-    $items_ct = $cong_trinh_data[$i];
-    $cong_trinh_detail[$items_ct['ctr_id']] = $items_ct;
+$cou_ctr = count($cong_trinh_data);
+$all_ctr1 = [];
+for ($k = 0; $k < $cou_ctr; $k++) {
+    $items_ctr = $cong_trinh_data[$k];
+    $all_ctr1[$items_ctr['ctr_id']] = $items_ctr;
 }
 ?>
 <!DOCTYPE html>
@@ -129,7 +131,7 @@ for ($i = 0; $i < count($cong_trinh_data); $i++) {
                                 </div>
                                 <div class="ctiet_hd_right pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Ngày ký hợp đồng</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= (!empty($hd_detail['ngay_ky_hd'])) ? date('d/m/Y', $hd_detail['ngay_ky_hd']) : "" ?></p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= ($hd_detail['ngay_ky_hd'] != 0) ? date('d/m/Y', $hd_detail['ngay_ky_hd']) : "" ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
@@ -141,7 +143,7 @@ for ($i = 0; $i < count($cong_trinh_data); $i++) {
                             <div class="chitiet_hd w_100 float_l">
                                 <div class="ctiet_hd_left float_l pl-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Dự án / Công trình</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $cong_trinh_detail[$hd_detail['id_du_an_ctrinh']]['ctr_name'] ?></p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= $all_ctr[$hd_detail['id_du_an_ctrinh']]['ctr_name'] ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
@@ -177,7 +179,7 @@ for ($i = 0; $i < count($cong_trinh_data); $i++) {
                             <div class="chitiet_hd chitiet_hd_brt w_100 float_l">
                                 <div class="ctiet_hd_right float_l pr-10">
                                     <p class="ten_ctiet share_fsize_tow share_clr_one">Thời hạn bảo lãnh</p>
-                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= (!empty($hd_detail['thoi_han_blanh'])) ? date('d/m/Y', $hd_detail['thoi_han_blanh']) : "" ?></p>
+                                    <p class="cr_weight share_fsize_tow share_clr_one"><?= ($hd_detail['thoi_han_blanh'] != 0) ? date('d/m/Y', $hd_detail['thoi_han_blanh']) : "" ?></p>
                                 </div>
                             </div>
                             <div class="chitiet_hd w_100 float_l">
@@ -252,12 +254,13 @@ for ($i = 0; $i < count($cong_trinh_data); $i++) {
                         </div>
                         <div class="xuat_gmc w_100 float_l">
                             <div class="xuat_gmc_two share_xuat_gmc d_flex right mb_10">
-                                <? if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+                                <? if($hd_detail['trang_thai'] == 1){
+                                if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
                                     <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">Xóa</p>
                                     <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_one ml_20">
                                         <a href="chinh-sua-hop-dong-van-chuyen-<?= $hd_id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                     </p>
-                                    <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
+                                <? } else if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 2) {
                                     if (in_array(4, $hop_dong2)) { ?>
                                         <p class="share_w_148 share_h_36 share_fsize_tow cr_weight share_bgr_tow cr_red remove_hd">Xóa</p>
                                     <? }
@@ -266,7 +269,7 @@ for ($i = 0; $i < count($cong_trinh_data); $i++) {
                                             <a href="chinh-sua-hop-dong-van-chuyen-<?= $hd_id ?>.html" class="share_clr_tow">Chỉnh sửa</a>
                                         </p>
                                 <? }
-                                } ?>
+                                }}else if($hd_detail['trang_thai'] == 2){ echo ""; } ?>
                             </div>
                             <div class="xuat_gmc_one share_xuat_gmc d_flex left mb_10 mr_10">
                                 <p class="share_w_148 share_h_36 share_fsize_tow share_clr_tow cr_weight xuat_excel" data=<?= $hd_id ?>>Xuất Excel</p>

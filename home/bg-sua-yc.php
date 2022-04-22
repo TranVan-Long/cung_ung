@@ -267,9 +267,9 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                                                         </td>
                                                         <td class="w-15">
                                                             <? if ($row3['so_luong_yc_bg'] != "" && $row3['so_luong_yc_bg'] != 0) { ?>
-                                                                <input type="text" name="so_luong_vt" value="<?= $row3['so_luong_yc_bg'] ?>">
+                                                                <input type="text" name="so_luong_vt" oninput="<?= $oninput ?>" value="<?= $row3['so_luong_yc_bg'] ?>" placeholder="Nhập số lượng phải lớn hơn 0">
                                                             <? } else { ?>
-                                                                <input type="text" name="so_luong_vt" value="" disabled>
+                                                                <input type="text" name="so_luong_vt" value="" readonly>
                                                             <? } ?>
                                                         </td>
                                                     </tr>

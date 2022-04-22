@@ -1,9 +1,10 @@
 <?
 include('config.php');
 
-$id = $_POST['id_vt'];
-$id_v = $_POST['id_v'];
-$com_id = $_POST['id_com'];
+$id = getValue('id_vt', 'int', 'POST', '');
+$id_v = getValue('id_v', 'int', 'POST', '');
+$com_id = getValue('id_com', 'int', 'POST', '');
+$bgom_vat = getValue('bgom_vat', 'int', 'POST', '');
 
 $curl = curl_init();
 $data = array(
@@ -65,7 +66,7 @@ if (isset($id_v) && $id_v != "") {
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="number" name="so_luong" class="form-control so_luong" onkeyup="sl_doi(this),tong_vt(), baoHanh(), baoLanh()">
+            <input type="text" name="so_luong" oninput="<?= $oninput ?>" class="form-control so_luong" onkeyup="sl_doi(this),tong_vt(), baoHanh(), baoLanh()">
         </div>
     </td>
     <td class="share_tb_two">
@@ -80,7 +81,11 @@ if (isset($id_v) && $id_v != "") {
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="number" name="vt_thue_vat" class="form-control thue_vat" onkeyup="thue_doi(this),tong_vt(), baoHanh(), baoLanh()">
+            <? if ($bgom_vat == 1) { ?>
+                <input type="text" name="vt_thue_vat" oninput="<?= $oninput ?>" data="" class="form-control thue_vat" onkeyup="thue_doi(this),tong_vt(), baoHanh(), baoLanh()" readonly>
+            <? } else if ($bgom_vat == 0) { ?>
+                <input type="text" name="vt_thue_vat" oninput="<?= $oninput ?>" data="" class="form-control thue_vat" onkeyup="thue_doi(this),tong_vt(), baoHanh(), baoLanh()">
+            <? } ?>
         </div>
     </td>
     <td class="share_tb_two">
@@ -120,7 +125,7 @@ if (isset($id_v) && $id_v != "") {
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="number" name="so_luong" class="form-control so_luong" onkeyup="sl_doi(this),tong_vt(), baoHanh(), baoLanh()">
+            <input type="text" name="so_luong" oninput="<?= $oninput ?>" class="form-control so_luong" onkeyup="sl_doi(this),tong_vt(), baoHanh(), baoLanh()">
         </div>
     </td>
     <td class="share_tb_two">
@@ -135,7 +140,11 @@ if (isset($id_v) && $id_v != "") {
     </td>
     <td class="share_tb_two">
         <div class="form-group">
-            <input type="number" name="vt_thue_vat" class="form-control thue_vat" onkeyup="thue_doi(this),tong_vt(), baoHanh(), baoLanh()">
+            <? if ($bgom_vat == 1) { ?>
+                <input type="text" name="vt_thue_vat" oninput="<?= $oninput ?>" data="" class="form-control thue_vat" onkeyup="thue_doi(this),tong_vt(), baoHanh(), baoLanh()" readonly>
+            <? } else if ($bgom_vat == 0) { ?>
+                <input type="text" name="vt_thue_vat" oninput="<?= $oninput ?>" data="" class="form-control thue_vat" onkeyup="thue_doi(this),tong_vt(), baoHanh(), baoLanh()">
+            <? } ?>
         </div>
     </td>
     <td class="share_tb_two">

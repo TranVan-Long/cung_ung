@@ -4,14 +4,32 @@ include("config.php");
 $cong_thu = getValue('cong_thu', 'int', 'POST', '');
 
 $thu_n = $_POST['thu_n'];
+$thu_n = sql_injection_rp($thu_n);
+
 $con_lai_n = $_POST['con_lai_n'];
+$con_lai_n = sql_injection_rp($con_lai_n);
+
 $tong_thu = $_POST['tong_thu'];
+$tong_thu = sql_injection_rp($tong_thu);
+
 $thu_m = $_POST['thu_m'];
+$thu_m = sql_injection_rp($thu_m);
+
 $con_lai_m = $_POST['con_lai_m'];
+$con_lai_m = sql_injection_rp($con_lai_m);
+
 $tong_thu_m = $_POST['tong_thu_m'];
+$tong_thu_m = sql_injection_rp($tong_thu_m);
+
 $thu_y = $_POST['thu_y'];
+$thu_y = sql_injection_rp($thu_y);
+
 $con_lai_y = $_POST['con_lai_y'];
+$con_lai_y = sql_injection_rp($con_lai_y);
+
 $tong_thu_y = $_POST['tong_thu_y'];
+$tong_thu_y = sql_injection_rp($tong_thu_y);
+
 if ($cong_thu == 1) {
 ?>
     <div class="tcong_no w_100 float_l d_flex mb_10 fl_wrap flex_jct">

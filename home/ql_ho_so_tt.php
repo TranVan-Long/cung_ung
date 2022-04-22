@@ -63,8 +63,10 @@ if ($tk_ct != "") {
 $total = mysql_fetch_assoc($cou->result)['total'];
 
 $limit = "LIMIT $start, $ht";
+$sap_xep = " ORDER BY `id` DESC ";
 
 $list_hs .= $sql;
+$list_hs .= $sap_xep;
 $list_hs .= $limit;
 
 $all_hs = new db_query($list_hs);

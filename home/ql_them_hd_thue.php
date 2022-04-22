@@ -24,15 +24,14 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
         }
     }
 }
+
+
 $curl = curl_init();
-$data = array(
-    'id_com' => $com_id,
-);
-curl_setopt($curl, CURLOPT_POST, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+$token = $_COOKIE['acc_token'];
+curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/dscongtrinh.php');
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
 $response = curl_exec($curl);
 curl_close($curl);
 $list_cong_trinh = json_decode($response, true);
@@ -114,7 +113,7 @@ for ($i = 0; $i < count($kho_data); $i++) {
                             Quay lại</a>
                         <h4 class="tieu_de_ct w_100 mt_25 mb_20 float_l share_fsize_tow share_clr_one cr_weight_bold">Thêm hợp đồng thuê</h4>
                         <div class="ctiet_dk_hp w_100 float_l">
-                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" data="<?= $role ?>" data1="<?= $com_id?>" data2="<?= $user_id?>">
+                            <form action="" class="form_add_hp_mua share_distance w_100 float_l" data="<?= $role ?>" data1="<?= $com_id ?>" data2="<?= $user_id ?>">
                                 <div class="form-row w_100 float_l">
                                     <div class="form-group">
                                         <label>Ngày ký hợp đồng <span class="cr_red">*</span></label>
@@ -127,7 +126,7 @@ for ($i = 0; $i < count($kho_data); $i++) {
                                         <select name="id_nha_cung_cap" class="form-control all_nhacc">
                                             <option value="">--Chọn nhà cung cấp--</option>
                                             <?
-                                            $get_ncc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 1");
+                                            $get_ncc = new db_query("SELECT `id`, `ten_nha_cc_kh` FROM `nha_cc_kh` WHERE `phan_loai` = 1 AND `id_cong_ty` = $com_id ");
                                             while ($list_ncc = mysql_fetch_assoc($get_ncc->result)) {
                                             ?>
                                                 <option value="<?= $list_ncc['id'] ?>"><?= $list_ncc['ten_nha_cc_kh'] ?></option>
@@ -229,7 +228,7 @@ for ($i = 0; $i < count($kho_data); $i++) {
                                                                 <input type="text" name="tb_thong_so" class="form-control tb_thong_so">
                                                             </td>
                                                             <td class="w-10">
-                                                                <input type="number" name="tb_so_luong" class="form-control tb_so_luong" onkeyup="khoiLuong(this), thanhTien()">
+                                                                <input type="number" name="tb_so_luong" class="form-control tb_so_luong" onkeyup="khoiLuong(this), thanhTien(), check_slnhap(this)">
                                                             </td>
                                                             <td class="w-10">
                                                                 <div class="v-select2">
@@ -248,9 +247,9 @@ for ($i = 0; $i < count($kho_data); $i++) {
                                                             </td>
                                                             <td class="w-25">
                                                                 <div class="tb-date-range">
-                                                                    <input type="date" name="tb_ngay_bat_dau" class="form-control range date1" onchange="khoiLuong(this), thanhTien()">
+                                                                    <input type="date" name="tb_ngay_bat_dau" class="form-control range date1" onchange="khoiLuong(this), thanhTien()" readonly>
                                                                     <span> - </span>
-                                                                    <input type="date" name="tb_ngay_ket_thuc" class="form-control range date2" onchange="khoiLuong(this), thanhTien()">
+                                                                    <input type="date" name="tb_ngay_ket_thuc" class="form-control range date2" onchange="khoiLuong(this), thanhTien()" readonly>
                                                                 </div>
                                                             </td>
                                                             <td class="w-10">
@@ -339,7 +338,7 @@ for ($i = 0; $i < count($kho_data); $i++) {
     $(".all_nhacc, .all_duan, .ten_nganhang").select2({
         width: '100%',
     });
-    autocomplete(document.getElementById("ten_nh"), bank);
+    // autocomplete(document.getElementById("ten_nh"), bank);
 
     $(".add_vat_tu").click(function() {
         var html = `<tr class="item">
@@ -367,7 +366,7 @@ for ($i = 0; $i < count($kho_data); $i++) {
                             <input type="text" name="tb_thong_so" class="form-control tb_thong_so">
                         </td>
                         <td class="w-10">
-                            <input type="number" name="tb_so_luong" class="form-control tb_so_luong" onkeyup="khoiLuong(this), thanhTien()">
+                            <input type="number" name="tb_so_luong" class="form-control tb_so_luong" onkeyup="khoiLuong(this), thanhTien(), check_slnhap(this)">
                         </td>
                         <td class="w-10">
                             <div class="v-select2">
@@ -386,9 +385,9 @@ for ($i = 0; $i < count($kho_data); $i++) {
                         </td>
                         <td class="w-25">
                             <div class="tb-date-range">
-                                <input type="date" name="tb_ngay_bat_dau" class="form-control range date1" onchange="khoiLuong(this), thanhTien()">
+                                <input type="date" name="tb_ngay_bat_dau" class="form-control range date1" onchange="khoiLuong(this), thanhTien()" readonly>
                                 <span> - </span>
-                                <input type="date" name="tb_ngay_ket_thuc" class="form-control range date2" onchange="khoiLuong(this), thanhTien()">
+                                <input type="date" name="tb_ngay_ket_thuc" class="form-control range date2" onchange="khoiLuong(this), thanhTien()" readonly>
                             </div>
                         </td>
                         <td class="w-10">
@@ -421,6 +420,7 @@ for ($i = 0; $i < count($kho_data); $i++) {
     cancel_add.click(function() {
         modal_share.fadeIn();
     });
+
     function changeKho(id) {
         var com_id = $(".form_add_hp_mua").attr("data1");
         var id_kho = $(id).val();
@@ -436,6 +436,19 @@ for ($i = 0; $i < count($kho_data); $i++) {
             }
         });
     };
+
+    $(".save_add").click(function() {
+        event.preventDefault();
+        event.stopPropagation();
+        var errorElements = document.querySelectorAll(".error");
+        for (let index = 0; index < errorElements.length; index++) {
+            const element = errorElements[index];
+            $('html, body').animate({
+                scrollTop: $(errorElements[0]).focus().offset().top - 30
+            }, 1000);
+            return false;
+        }
+    });
 
     $(".save_add").click(function() {
         var form_add_thue = $(".form_add_hp_mua");
@@ -481,7 +494,7 @@ for ($i = 0; $i < count($kho_data); $i++) {
             var so_taik = $("input[name='so_taik']").val();
             var tong_tien = $("input[name='tong_tien']").val();
 
-            var tb_kho = new Array();
+            var tb_kho = [];
             $("select[name='tb_kho_vt']").each(function() {
                 var id_kho = $(this).val();
                 if (id_kho != "") {
@@ -489,96 +502,97 @@ for ($i = 0; $i < count($kho_data); $i++) {
                 }
             });
 
-            var tb_thiet_bi = new Array();
+            var tb_thiet_bi = [];
             $("select[name='tb_vat_tu_thiet_bi']").each(function() {
                 var id_vt_tb = $(this).val();
                 if (id_vt_tb != "") {
                     tb_thiet_bi.push(id_vt_tb);
                 }
             });
-            var tb_thong_so = new Array();
+            var tb_thong_so = [];
             $("input[name='tb_thong_so']").each(function() {
                 var ts_tb = $(this).val();
                 if (ts_tb != "") {
                     tb_thong_so.push(ts_tb);
                 }
             });
-            var tb_so_luong = new Array();
+            var tb_so_luong = [];
             $("input[name='tb_so_luong']").each(function() {
                 var sl_tb = $(this).val();
                 if (sl_tb != "") {
                     tb_so_luong.push(sl_tb);
                 }
             });
-            var tb_hinh_thuc = new Array();
+            var tb_hinh_thuc = [];
             $("select[name='tb_hinh_thuc_thue']").each(function() {
                 var tb_ht = $(this).val();
                 if (tb_ht != "") {
                     tb_hinh_thuc.push(tb_ht);
                 }
             });
-            var tb_ngay_bat_dau = new Array();
+            var tb_ngay_bat_dau = [];
             $("input[name='tb_ngay_bat_dau']").each(function() {
                 var tgbd_tb = $(this).val();
                 if (tgbd_tb != "") {
-                        tb_ngay_bat_dau.push(tgbd_tb);
+                    tb_ngay_bat_dau.push(tgbd_tb);
                 }
             });
-            var tb_ngay_ket_thuc = new Array();
+            var tb_ngay_ket_thuc = [];
             $("input[name='tb_ngay_ket_thuc']").each(function() {
                 var tgkt_tb = $(this).val();
                 var tgbd_tb = $(this).parents().find("input[name='ngay_bat_dau']").val();
+                // var rong = '';
                 if (tgkt_tb != "") {
                     if (tgkt_tb < tgbd_tb) {
-                        alert("Ngày kết thúc thuê không được nhỏ hơn ngày bắt đầu.")
+                        alert("Ngày kết thúc thuê không được nhỏ hơn ngày bắt đầu.");
                     } else {
                         tb_ngay_ket_thuc.push(tgkt_tb);
                     }
                 }
             });
-            var tb_khoi_luong = new Array();
+            var tb_khoi_luong = [];
             $("input[name='tb_khoi_luong']").each(function() {
                 var kl_tb = $(this).val();
                 if (kl_tb != "") {
                     tb_khoi_luong.push(kl_tb);
                 }
             });
-            var tb_han_muc = new Array();
+            var tb_han_muc = [];
             $("input[name='tb_han_muc']").each(function() {
                 var hm_tb = $(this).val();
                 if (hm_tb != "") {
                     tb_han_muc.push(hm_tb);
                 }
             });
-            var tb_don_gia = new Array();
+            var tb_don_gia = [];
             $("input[name='tb_don_gia']").each(function() {
                 var dg_tb = $(this).val();
                 if (dg_tb != "") {
                     tb_don_gia.push(dg_tb);
                 }
             });
-            var tb_don_gia_ca_may = new Array();
+            var tb_don_gia_ca_may = [];
             $("input[name='tb_don_gia_ca_may']").each(function() {
                 var dgcm_tb = $(this).val();
                 if (dgcm_tb != "") {
                     tb_don_gia_ca_may.push(dgcm_tb);
                 }
             });
-            var tb_thanh_tien = new Array();
+            var tb_thanh_tien = [];
             $("input[name='tb_thanh_tien']").each(function() {
                 var total_tb = $(this).val();
                 if (total_tb != "") {
                     tb_thanh_tien.push(total_tb);
                 }
             });
-            var tb_thoa_thuan_khac = new Array();
+            var tb_thoa_thuan_khac = [];
             $("input[name='tb_thoa_thuan_khac']").each(function() {
                 var ttk_tb = $(this).val();
                 if (ttk_tb != "") {
                     tb_thoa_thuan_khac.push(ttk_tb);
                 }
             });
-            var tb_luu_y = new Array();
+            var tb_luu_y = [];
             $("input[name='tb_luu_y']").each(function() {
                 var ly_tb = $(this).val();
                 if (ly_tb != "") {
@@ -603,13 +617,13 @@ for ($i = 0; $i < count($kho_data); $i++) {
                     dieu_khoan_tt: dieu_khoan_tt,
                     ten_nh: ten_nh,
                     so_taik: so_taik,
-                    tong_tien:tong_tien,
+                    tong_tien: tong_tien,
 
-                    tb_kho:tb_kho,
+                    tb_kho: tb_kho,
                     tb_thiet_bi: tb_thiet_bi,
                     tb_thong_so: tb_thong_so,
                     tb_so_luong: tb_so_luong,
-                    tb_hinh_thuc:tb_hinh_thuc,
+                    tb_hinh_thuc: tb_hinh_thuc,
                     tb_ngay_bat_dau: tb_ngay_bat_dau,
                     tb_ngay_ket_thuc: tb_ngay_ket_thuc,
                     tb_khoi_luong: tb_khoi_luong,

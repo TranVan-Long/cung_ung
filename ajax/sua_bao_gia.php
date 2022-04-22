@@ -43,27 +43,30 @@ $noi_dung_nk = "Bạn đã cập nhật phiếu báo giá: BG - ".$id_bao_gia;
 $ngay_tao = strtotime(date('Y-m-d', time()));
 $gio_tao = strtotime(date('H:i:s', time()));
 
-if($id_ncc != "" && $id_phieu_yc != "" && $co2 == $co3 && $co4 == $co5 && $co2 == $co4){
-
-    $up_bao_gia = new db_query("UPDATE `bao_gia` SET `id_yc_bg`='$id_phieu_yc',`id_nha_cc`='$id_ncc',
+if($id_ncc != "" && $id_phieu_yc != "" ){
+    if($co1 > 0){
+        if($co2 == $co3 && $co1 == $co2){
+            $up_bao_gia = new db_query("UPDATE `bao_gia` SET `id_yc_bg`='$id_phieu_yc',`id_nha_cc`='$id_ncc',
                                 `ngay_bd`='$ngay_bd',`ngay_kt`='$ngay_kt' WHERE `id` = $id_bao_gia AND `id_cong_ty` = $com_id ");
 
-    $remo_bg = new db_query("DELETE FROM `vat_tu_da_bao_gia` WHERE `id_bao_gia` = $id_bao_gia ");
+            $remo_bg = new db_query("DELETE FROM `vat_tu_da_bao_gia` WHERE `id_bao_gia` = $id_bao_gia ");
 
-    for($i = 0; $i < $co2; $i++){
-        $inser_bg = new db_query("INSERT INTO `vat_tu_da_bao_gia`(`id`, `id_bao_gia`, `id_vat_tu`, `so_luong_bg`, `don_gia`, `tong_tien_trvat`,
-                                 `thue_vat`, `tong_tien_svat`, `cs_kem_theo`, `sl_da_dat_hang`)
-                                 VALUES ('','$id_bao_gia','$new_ma_vt[$i]','$new_sl_bg[$i]','$new_dgia[$i]','$new_tongtr[$i]',
-                                 '$new_thue[$i]','$new_tongs[$i]','$new_cs_kt[$i]','$new_ddh[$i]')");
+            for ($i = 0; $i < $co2; $i++) {
+                $inser_bg = new db_query("INSERT INTO `vat_tu_da_bao_gia`(`id`, `id_bao_gia`, `id_vat_tu`, `so_luong_bg`, `don_gia`, `tong_tien_trvat`,
+                                    `thue_vat`, `tong_tien_svat`, `cs_kem_theo`, `sl_da_dat_hang`)
+                                    VALUES ('','$id_bao_gia','$new_ma_vt[$i]','$new_sl_bg[$i]','$new_dgia[$i]','$new_tongtr[$i]',
+                                    '$new_thue[$i]','$new_tongs[$i]','$new_cs_kt[$i]','$new_ddh[$i]')");
+            }
+
+            $inser_nk = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`, `gio_tao`, `noi_dung`,`id_cong_ty`)
+                                VALUES ('','$user_id','$phan_quyen_nk','$ngay_tao','$gio_tao','$noi_dung_nk','$com_id')");
+        }else if($co2 != $co3 || $co1 != $co2){
+            echo "Điền đầy đủ thông tin vật tư";
+        }
+    }else{
+        echo "Điền đầy đủ thông tin vật tư";
     }
-
-    $inser_nk = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`, `role`, `ngay_tao`, `gio_tao`, `noi_dung`)
-                            VALUES ('','$user_id','$phan_quyen_nk','$ngay_tao','$gio_tao','$noi_dung_nk')");
-
-
 }
 else{
     echo "Bạn cập nhật phiếu báo giá không thành công, vui lòng cập nhật lại!";
 }
-
-?>

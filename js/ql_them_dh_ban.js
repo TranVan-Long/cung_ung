@@ -115,7 +115,7 @@ $('.save_add').click(function () {
         }
 
         var id_hd = $("select[name='hop_dong']").val();
-        var ngayky_dh = $("input[name='hop_dong']").val();
+        var ngayky_dh = $("input[name='ngay_ky']").val();
         var id_ctrinh = $("select[name='duan_ctrinh']").val();
         var thoi_han_dh = $("input[name='thoi_han']").val();
         var dv_nha_hang = $("input[name='donv_nh']").val();
@@ -134,7 +134,7 @@ $('.save_add').click(function () {
         var tien_chkhau = $("input[name='tien_ckhau']").val();
         var gias_vat = $("input[name='gias_vat']").val();
         var chi_phi_vc = $("input[name='chi_phi_vc']").val();
-        var ghic_vc = $("input[name='ghic_vc']").val();
+        var ghic_vc = $("textarea[name='ghic_vc']").val();
 
 
         var id_vt = [];

@@ -67,7 +67,10 @@ $total = mysql_fetch_assoc($cou->result)['total'];
 
 $limit = "LIMIT $start,$ht";
 
+$sap_xep = " ORDER BY d.`id` DESC ";
+
 $list_dh .= $sql;
+$list_dh .= $sap_xep;
 $list_dh .= $limit;
 $item_dh = new db_query($list_dh);
 

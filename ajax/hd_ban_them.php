@@ -14,14 +14,35 @@ $don_gia_vat = getValue('don_gia_vat', 'int', 'POST', '');
 $thue_vat = getValue('thue_vat', 'int', 'POST', '');
 
 $sau_vat = $_POST['sau_vat'];
-$ngay_bat_dau = strtotime($_POST['ngay_bat_dau']);
-$ngay_ket_thuc = strtotime($_POST['ngay_ket_thuc']);
+
+if($_POST['ngay_bat_dau'] != ""){
+    $ngay_bat_dau = strtotime($_POST['ngay_bat_dau']);
+}else{
+    $ngay_bat_dau = 0;
+}
+
+if($_POST['ngay_ket_thuc'] != ""){
+    $ngay_ket_thuc = strtotime($_POST['ngay_ket_thuc']);
+}else{
+    $ngay_ket_thuc = 0;
+}
+
 $bao_gom_van_chuyen = $_POST['bao_gom_van_chuyen'];
 $yc_tiendo = $_POST['yc_tiendo'];
+$yc_tiendo = sql_injection_rp($yc_tiendo);
+
 $noi_dung_hd = $_POST['noi_dung_hd'];
+$noi_dung_hd = sql_injection_rp($noi_dung_hd);
+
 $noi_dung_luu_y = $_POST['noi_dung_luu_y'];
+$noi_dung_luu_y = sql_injection_rp($noi_dung_luu_y);
+
 $dieu_khoan_tt = $_POST['dieu_khoan_tt'];
+$dieu_khoan_tt = sql_injection_rp($dieu_khoan_tt);
+
 $ten_nh = $_POST['ten_nh'];
+$ten_nh = sql_injection_rp($ten_nh);
+
 $so_taik = $_POST['so_taik'];
 $phan_loai = 2;
 $trang_thai = 1;
@@ -37,13 +58,14 @@ $vt_truoc_vat = $_POST['vt_truoc_vat'];
 $vt_vat_tax = $_POST['vt_vat_tax'];
 $vt_sau_vat = $_POST['vt_sau_vat'];
 
+$ngay_tao = strtotime(date('Y-m-d', time()));
 if ($ngay_ky_hd != "" && $id_khach_hang != "") {
     if ($count > 0 && $count == $count2) {
         $them_hd_ban = new db_query("INSERT INTO `hop_dong` (`id`, `ngay_ky_hd`, `id_nha_cc_kh`, `hd_nguyen_tac`, `gia_tri_trvat`, `bao_gom_vat`,
     `thue_vat`, `gia_tri_svat`, `tg_bd_thuc_hien`, `tg_kt_thuc_hien`, `bgom_vchuyen`, `yc_tien_do`,`noi_dung_hd`, `noi_dung_luu_y`,
-    `dieu_khoan_tt`, `ten_ngan_hang`, `so_tk`,`phan_loai`, `trang_thai`, `id_cong_ty`) VALUES (NULL, '$ngay_ky_hd', '$id_khach_hang',
+    `dieu_khoan_tt`, `ten_ngan_hang`, `so_tk`,`phan_loai`, `trang_thai`,`ngay_tao`,`quyen_nlap`,`nguoi_lap`, `id_cong_ty`) VALUES (NULL, '$ngay_ky_hd', '$id_khach_hang',
     '$hd_nguyen_tac', '$truoc_vat', '$don_gia_vat', '$thue_vat', '$sau_vat', '$ngay_bat_dau', '$ngay_ket_thuc', '$bao_gom_van_chuyen',
-    '$yc_tiendo', '$noi_dung_hd', '$noi_dung_luu_y', '$dieu_khoan_tt', '$ten_nh', '$so_taik', '$phan_loai','$trang_thai', '$com_id')");
+    '$yc_tiendo', '$noi_dung_hd', '$noi_dung_luu_y', '$dieu_khoan_tt', '$ten_nh', '$so_taik', '$phan_loai','$trang_thai','$ngay_tao','$role','$user_id', '$com_id')");
 
         $row = mysql_fetch_assoc((new db_query("SELECT LAST_INSERT_ID() AS hd_id"))->result);
         $id_hd = $row['hd_id'];
@@ -55,12 +77,12 @@ if ($ngay_ky_hd != "" && $id_khach_hang != "") {
         }
 
         $noi_dung = 'Bạn đã thêm hợp đồng bán vật tư: HĐ - ' . $id_hd;
-        $ngay_tao = strtotime(date('Y-m-d', time()));
+
         $gio_tao = strtotime(date('H:i:s', time()));
         $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`,`role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
                           VALUES('', '$user_id','$role','$ngay_tao','$gio_tao', '$noi_dung','$com_id')");
     } else {
-        echo "Điền đầy đủ thông tin vật tư.";
+        echo "Điền đầy đủ thông tin vật tư và số lượng phải lớn hơn 0";
     }
 } else {
     echo "Thao tác thất bại vui lòng thử lại!";

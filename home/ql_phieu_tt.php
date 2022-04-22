@@ -39,7 +39,8 @@ if ($tk != "" && $tk_ct != "") {
 $start = ($page - 1) * $ht;
 $start = abs($start);
 
-$list_phieu = "SELECT p.`id`, p.`id_hd_dh`, p.`id_ncc_kh`, p.`loai_phieu_tt`, p.`ngay_thanh_toan`, p.`loai_thanh_toan`, p.`so_tien`, p.`phan_loai`, n.`ten_nha_cc_kh`
+$list_phieu = "SELECT p.`id`, p.`id_hd_dh`, p.`id_ncc_kh`, p.`loai_phieu_tt`, p.`ngay_thanh_toan`, p.`loai_thanh_toan`, p.`so_tien`,
+                p.`gia_tri_quy_doi`, p.`phan_loai`, n.`ten_nha_cc_kh`
                 FROM `phieu_thanh_toan` AS p INNER JOIN `nha_cc_kh` AS n ON p.`id_ncc_kh` = n.`id`
                 WHERE p.`id_cong_ty` = $com_id  ";
 
@@ -223,7 +224,7 @@ $stt = 1;
                                                 <td><?= $item1['ten_nha_cc_kh'] ?></td>
                                                 <td><?= $all_ploai[$item1['phan_loai']] ?></td>
                                                 <? if ($item1['loai_thanh_toan'] == 1) { ?>
-                                                    <td><?= ($item1['so_tien'] != 0) ? number_format($item1['so_tien']) : "" ?></td>
+                                                    <td><?= ($item1['gia_tri_quy_doi'] != 0) ? number_format($item1['gia_tri_quy_doi']) : "" ?></td>
                                                 <? } else if ($item1['loai_thanh_toan'] == 2) { ?>
                                                     <td></td>
                                                 <? } ?>
@@ -316,7 +317,7 @@ $stt = 1;
 
     $("#display").change(function() {
         var ht = $(this).val();
-        var tk = (".tim_kiem").val();
+        var tk = $(".tim_kiem").val();
         var tk_ct = $(".tim_kiem_ct").val();
         var page = 1;
 

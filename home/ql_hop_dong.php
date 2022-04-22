@@ -57,25 +57,23 @@ if ($tk_ct == "") {
 $total = mysql_fetch_assoc($cou->result)['total'];
 $limit = " LIMIT $start,$currP";
 $list_hd .= $sql;
-$list_hd .= " ORDER BY `id` ASC";
+$list_hd .= " ORDER BY `id` DESC";
 $list_hd .= $limit;
 $hd_data = new db_query($list_hd);
 
 $stt = 1;
 
 $curl = curl_init();
-$data = array(
-    'id_com' => $com_id,
-);
-curl_setopt($curl, CURLOPT_POST, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+$token = $_COOKIE['acc_token'];
+curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/dscongtrinh.php');
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
 $response = curl_exec($curl);
 curl_close($curl);
 $list_cong_trinh = json_decode($response, true);
 $cong_trinh_data = $list_cong_trinh['data']['items'];
+// print_r($cong_trinh_data);
 
 $cong_trinh_detail = [];
 for ($i = 0; $i < count($cong_trinh_data); $i++) {
@@ -226,11 +224,13 @@ for ($i = 0; $i < count($cong_trinh_data); $i++) {
                                             } else {
                                                 $ngay_bao_lanh = date('d/m/Y', $hd_row['thoi_han_blanh']);
                                             }
-                                            if (!is_null($cong_trinh_detail[$hd_row['id_du_an_ctrinh']]['ctr_name'])) {
-                                                $cong_trinh = $cong_trinh_detail[$hd_row['id_du_an_ctrinh']]['ctr_name'];
-                                            } else {
-                                                $cong_trinh = "";
+
+                                            if($hd_row['id_du_an_ctrinh'] != 0 && $hd_row['id_du_an_ctrinh'] != ""){
+                                                $ten_ctr = $cong_trinh_detail[$hd_row['id_du_an_ctrinh']]['ctr_name'];
+                                            }else{
+                                                $ten_ctr = '';
                                             }
+
                                             $ncc_id = $hd_row['id_nha_cc_kh'];
                                             $ncc = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh` FROM nha_cc_kh WHERE `id` = $ncc_id"))->result);
                                         ?>
@@ -270,7 +270,7 @@ for ($i = 0; $i < count($cong_trinh_data); $i++) {
                                                 </td>
                                                 <td><?= $ngay_bao_lanh ?></td>
                                                 <td><?= $ncc['ten_nha_cc_kh'] ?></td>
-                                                <td><?= $cong_trinh ?></td>
+                                                <td><?= $ten_ctr ?></td>
                                                 <td><? if ($hd_row['noi_dung_hd'] == "") {
                                                     } else {
                                                         if (strlen($hd_row['noi_dung_hd']) > 80) { ?>

@@ -1,7 +1,7 @@
 <?
 include("config.php");
 $com_id = getValue('com_id', 'int', 'POST', '');
-
+$vattu_chon = getValue('vattu_chon', 'arr', 'POST', '');
 $curl = curl_init();
 $data = array(
     'id_com' => $com_id,
@@ -26,9 +26,10 @@ $count = count($kho_vt);
         <div class="v-select2">
             <select name="materials_name" class="share_select materials_name" onchange="change_vt(this)">
                 <option value="">-- Chọn vật tư/thiết bị --</option>
-                <? for ($i = 0; $i < $count; $i++) { ?>
+                <? for ($i = 0; $i < $count; $i++) {
+                    if(in_array($kho_vt[$i]['dsvt_id'], $vattu_chon) == false){ ?>
                     <option value="<?= $kho_vt[$i]['dsvt_id'] ?>"><?= $kho_vt[$i]['dsvt_name'] ?></option>
-                <? } ?>
+                <? }} ?>
             </select>
         </div>
     </td>

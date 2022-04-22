@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -14,14 +14,14 @@
     <meta property="og:locale" content="vi_VN">
     <meta property="og:description" content="Hướng dẫn sử dụng phần mềm quản lý cung ứng xây dựng miễn phí. Tham khảo ngay những hướng dẫn sử dụng phần mềm chi tiết nhất">
     <meta property="og:image" content="https://phanmemquanlycungung.timviec365.vn/img/bgr_banner.png">
-    
+
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:description" content="Hướng dẫn sử dụng phần mềm quản lý cung ứng xây dựng miễn phí. Tham khảo ngay những hướng dẫn sử dụng phần mềm chi tiết nhất">
     <meta name="twitter:title" content="Hướng dẫn sử dụng phần mềm quản lý cung ứng xây dựng">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="canonical" href="https://phanmemquanlycungung.timviec365.vn/huong-dan.html"/>
-    
+    <link rel="canonical" href="https://phanmemquanlycungung.timviec365.vn/huong-dan.html" />
+
 
     <title>Hướng dẫn sử dụng phần mềm quản lý cung ứng xây dựng</title>
     <link href="https://timviec365.vn/favicon.ico" rel="shortcut icon" />
@@ -33,7 +33,7 @@
     <link rel="preload" as="style" rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" media="all" href="../css/style.css" media="all" onload="if (media != 'all')media='all'">
 
-    
+
 </head>
 
 <body>
@@ -171,6 +171,7 @@
             <? include('../includes/inc_footer.php') ?>
         </div>
     </div>
+    <? include("../includes/in_chat.php") ?>
     <? include("../modals/modal_menu_tt.php") ?>
 </body>
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>

@@ -77,14 +77,11 @@ for ($i = 0; $i < count($vat_tu_data); $i++) {
 }
 
 $curl = curl_init();
-$data = array(
-    'id_com' => $com_id,
-);
-curl_setopt($curl, CURLOPT_POST, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/congtrinh.php');
+$token = $_COOKIE['acc_token'];
+curl_setopt($curl, CURLOPT_URL, 'https://phanmemquanlycongtrinh.timviec365.vn/api/dscongtrinh.php');
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
 $response = curl_exec($curl);
 curl_close($curl);
 $list_cong_trinh = json_decode($response, true);
@@ -249,11 +246,20 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
 <script type="text/javascript">
     $("#add-material").click(function() {
         var com_id = $("#nguoi_yeu_cau").attr('data1');
+        var vattu_chon = [];
+        $(".materials_name").each(function() {
+            var idvt = $(this).val();
+            if (idvt != "") {
+                vattu_chon.push(idvt);
+            }
+        });
+
         $.ajax({
             url: '../ajax/ycvt_them_vt.php',
             type: 'POST',
             data: {
                 com_id: com_id,
+                vattu_chon: vattu_chon,
             },
             success: function(data) {
                 $("#materials").append(data);
@@ -265,12 +271,20 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
     function change_vt(id) {
         var id_vt = $(id).val();
         var com_id = $("#nguoi_yeu_cau").attr('data1');
+        var vattu_chon1 = [];
+        $(".materials_name").each(function() {
+            var idvt1 = $(this).val();
+            if (idvt1 != "" && idvt1 != id_vt) {
+                vattu_chon1.push(idvt1);
+            }
+        });
         $.ajax({
             url: '../render/ycvt_vat_tu.php',
             type: 'POST',
             data: {
                 id_vt: id_vt,
                 com_id: com_id,
+                vattu_chon1: vattu_chon1,
             },
             success: function(data) {
                 $(id).parents(".item").html(data);
@@ -279,6 +293,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
         });
 
     };
+
 
 
     $(".submit-btn").click(function() {
@@ -323,9 +338,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
             var cong_trinh = $("#cong_trinh").val();
             var ngay_tao_yeu_cau = $("input[name='ngay_tao_yeu_cau']").val();
             var ngay_phai_hoan_thanh = $("input[name='ngay_phai_hoan_thanh']").val();
-            if (ngay_phai_hoan_thanh == "") {
-                ngay_phai_hoan_thanh = 0;
-            }
+
             var dien_giai = $("#dien_giai").val();
 
             var vat_tu = new Array();
@@ -338,7 +351,7 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
             var so_luong = new Array();
             $("input[name='so_luong']").each(function() {
                 var sl = $(this).val();
-                if (sl != "") {
+                if (sl != "" && sl != 0) {
                     so_luong.push(sl);
                 }
             });
@@ -348,35 +361,31 @@ $cong_trinh_data = $list_cong_trinh['data']['items'];
             var com_id = $("#nguoi_yeu_cau").attr('data1');
             var role = $("#nguoi_yeu_cau").attr('data');
 
-            if (ngay_phai_hoan_thanh >= ngay_tao_yeu_cau || ngay_phai_hoan_thanh == "") {
-                $.ajax({
-                    url: '../ajax/ycvt_them.php',
-                    type: 'POST',
-                    data: {
-                        cong_trinh: cong_trinh,
-                        ngay_tao_yeu_cau: ngay_tao_yeu_cau,
-                        ngay_phai_hoan_thanh: ngay_phai_hoan_thanh,
-                        dien_giai: dien_giai,
+            $.ajax({
+                url: '../ajax/ycvt_them.php',
+                type: 'POST',
+                data: {
+                    cong_trinh: cong_trinh,
+                    ngay_tao_yeu_cau: ngay_tao_yeu_cau,
+                    ngay_phai_hoan_thanh: ngay_phai_hoan_thanh,
+                    dien_giai: dien_giai,
 
-                        vat_tu: vat_tu,
-                        so_luong: so_luong,
+                    vat_tu: vat_tu,
+                    so_luong: so_luong,
 
-                        user_id: user_id,
-                        com_id: com_id,
-                        role: role,
-                    },
-                    success: function(data) {
-                        if (data == "") {
-                            alert("Thêm yêu cầu thành công!");
-                            window.location.href = 'quan-ly-yeu-cau-vat-tu.html';
-                        } else {
-                            alert(data);
-                        }
+                    user_id: user_id,
+                    com_id: com_id,
+                    role: role,
+                },
+                success: function(data) {
+                    if (data == "") {
+                        alert("Thêm yêu cầu thành công!");
+                        window.location.href = 'quan-ly-yeu-cau-vat-tu.html';
+                    } else {
+                        alert(data);
                     }
-                });
-            } else {
-                alert("Ngày phải hoàn thành không được nhỏ hơn ngày tạo yêu cầu.")
-            }
+                }
+            });
         }
     });
 </script>

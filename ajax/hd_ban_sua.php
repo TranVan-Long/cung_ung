@@ -1,48 +1,48 @@
 <?
 include("config.php");
 
-$user_id                  = getValue('user_id', 'int', 'POST', '');
-$com_id                 = getValue('com_id', 'int', 'POST', '');
-$hd_id                  = getValue('hd_id', 'int', 'POST', '');
-$role                  = getValue('role', 'int', 'POST', '');
+$user_id  = getValue('user_id', 'int', 'POST', '');
+$com_id = getValue('com_id', 'int', 'POST', '');
+$hd_id  = getValue('hd_id', 'int', 'POST', '');
+$role  = getValue('role', 'int', 'POST', '');
 
-$ngay_ky_hd             = strtotime($_POST['ngay_ky_hd']);
-$id_khach_hang          = getValue('id_khach_hang', 'int', 'POST', '');
-$hd_nguyen_tac          = $_POST['hd_nguyen_tac'];
-$truoc_vat              = $_POST['truoc_vat'];
-$don_gia_vat            = $_POST['don_gia_vat'];
-$thue_vat               = $_POST['thue_vat'];
-$sau_vat                = $_POST['sau_vat'];
-$ngay_bat_dau           = strtotime($_POST['ngay_bat_dau']);
-$ngay_ket_thuc          = strtotime($_POST['ngay_ket_thuc']);
-$bao_gom_van_chuyen     = $_POST['bao_gom_van_chuyen'];
-$yc_tiendo              = $_POST['yc_tiendo'];
-$noi_dung_hd            = $_POST['noi_dung_hd'];
-$noi_dung_luu_y         = $_POST['noi_dung_luu_y'];
-$dieu_khoan_tt          = $_POST['dieu_khoan_tt'];
-$ten_nh                 = $_POST['ten_nh'];
-$so_taik                = $_POST['so_taik'];
-$phan_loai              = 3;
-$trang_thai             = 1;
+$ngay_ky_hd = strtotime($_POST['ngay_ky_hd']);
+$id_khach_hang = getValue('id_khach_hang', 'int', 'POST', '');
+$hd_nguyen_tac = getValue('hd_nguyen_tac', 'int', 'POST', '');
+$truoc_vat = $_POST['truoc_vat'];
+$don_gia_vat = $_POST['don_gia_vat'];
+$thue_vat = $_POST['thue_vat'];
+$sau_vat = $_POST['sau_vat'];
+$ngay_bat_dau = strtotime($_POST['ngay_bat_dau']);
+$ngay_ket_thuc = strtotime($_POST['ngay_ket_thuc']);
+$bao_gom_van_chuyen = $_POST['bao_gom_van_chuyen'];
+$yc_tiendo = $_POST['yc_tiendo'];
+$noi_dung_hd = $_POST['noi_dung_hd'];
+$noi_dung_luu_y = $_POST['noi_dung_luu_y'];
+$dieu_khoan_tt = $_POST['dieu_khoan_tt'];
+$ten_nh = $_POST['ten_nh'];
+$so_taik = $_POST['so_taik'];
+$phan_loai = 3;
+$trang_thai = 1;
 
-$vt_id_vat_tu_old       = $_POST['vt_id_vat_tu_old'];
-$vt_vat_tu_old          = $_POST['vt_vat_tu_old'];
-$vt_so_luong_old        = $_POST['vt_so_luong_old'];
-$vt_don_gia_old         = $_POST['vt_don_gia_old'];
-$vt_tien_tvat_old       = $_POST['vt_tien_tvat_old'];
-$vt_thue_vat_old        = $_POST['vt_thue_vat_old'];
-$vt_tien_svat_old       = $_POST['vt_tien_svat_old'];
+$vt_id_vat_tu_old = $_POST['vt_id_vat_tu_old'];
+$vt_vat_tu_old = $_POST['vt_vat_tu_old'];
+$vt_so_luong_old = $_POST['vt_so_luong_old'];
+$vt_don_gia_old = $_POST['vt_don_gia_old'];
+$vt_tien_tvat_old = $_POST['vt_tien_tvat_old'];
+$vt_thue_vat_old = $_POST['vt_thue_vat_old'];
+$vt_tien_svat_old = $_POST['vt_tien_svat_old'];
 
 $count_vt_o = count($vt_vat_tu_old);
 $count_vt_o_2 = count($vt_so_luong_old);
 
 
-$vt_vat_tu              = $_POST['vt_vat_tu'];
-$vt_so_luong            = $_POST['vt_so_luong'];
-$vt_don_gia             = $_POST['vt_don_gia'];
-$vt_tien_tvat           = $_POST['vt_tien_tvat'];
-$vt_thue_vat            = $_POST['vt_thue_vat'];
-$vt_tien_svat           = $_POST['vt_tien_svat'];
+$vt_vat_tu = $_POST['vt_vat_tu'];
+$vt_so_luong  = $_POST['vt_so_luong'];
+$vt_don_gia = $_POST['vt_don_gia'];
+$vt_tien_tvat = $_POST['vt_tien_tvat'];
+$vt_thue_vat = $_POST['vt_thue_vat'];
+$vt_tien_svat = $_POST['vt_tien_svat'];
 
 $count_vt = count($vt_vat_tu);
 $count_vt_2 = count($vt_so_luong);

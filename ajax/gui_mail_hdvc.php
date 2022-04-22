@@ -5,18 +5,25 @@ include("../classes/PHPMailer/Mailer.php");
 $id = getValue('id', 'int', 'POST', '');
 $com_id = getValue('com_id', 'int', 'POST', '');
 $com_name = $_POST['com_name'];
+$com_name = sql_injection_rp($com_name);
 
-$hd_get = new db_query("SELECT `id_nha_cc_kh`, `gia_tri_trvat`, `bao_gom_vat`, `thue_vat`, `gia_tri_svat`, `giu_lai_bhanh`, `gia_tri_bhanh`, `bao_lanh_hd`, `gia_tri_blanh`, `thoi_han_blanh`,`noi_dung_hd`, `noi_dung_luu_y`, `dieu_khoan_tt`, `ten_ngan_hang`, `so_tk` FROM `hop_dong` WHERE `id` = $id");
-$hd_detail = mysql_fetch_assoc($hd_get->result);
+if($id != "" && $com_id != ""){
 
-$ncc_id = $hd_detail['id_nha_cc_kh'];
-$ncc = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh` FROM nha_cc_kh WHERE `id` = $ncc_id"))->result);
+    $hd_get = new db_query("SELECT `id_nha_cc_kh`, `gia_tri_trvat`, `bao_gom_vat`, `thue_vat`, `gia_tri_svat`, `giu_lai_bhanh`, `gia_tri_bhanh`, `bao_lanh_hd`, `gia_tri_blanh`, `thoi_han_blanh`,`noi_dung_hd`, `noi_dung_luu_y`, `dieu_khoan_tt`, `ten_ngan_hang`, `so_tk` FROM `hop_dong` WHERE `id` = $id");
+    $hd_detail = mysql_fetch_assoc($hd_get->result);
 
-$list_vt = new db_query("SELECT * FROM `vat_tu_hd_vc` WHERE `id_hd_vc` = $id");
-$stt = 1;
-$a = "";
-while ($row = mysql_fetch_assoc($list_vt->result)) {
-    $a .= '<tr style="border: 1px solid #666666;">
+    $ncc_id = $hd_detail['id_nha_cc_kh'];
+    $ncc = mysql_fetch_assoc((new db_query("SELECT `ten_nha_cc_kh`, `email` FROM nha_cc_kh WHERE `id` = $ncc_id AND `id_cong_ty` = $com_id AND `phan_loai` = 1 "))->result);
+    $email = $ncc['email'];
+
+    if($email == ""){
+        echo "Chưa cập nhật email nhà cung cấp, vui lòng cập nhật email nhà cung cấp để gửi mail!";
+    }else if($email != ""){
+        $list_vt = new db_query("SELECT * FROM `vat_tu_hd_vc` WHERE `id_hd_vc` = $id");
+        $stt = 1;
+        $a = "";
+        while ($row = mysql_fetch_assoc($list_vt->result)) {
+            $a .= '<tr style="border: 1px solid #666666;">
                 <td style="font-size: 14px; line-height: 16px; color: #474747; text-align: center; padding-top: 18px; padding-bottom: 17px;">' . $stt++ . '</td>
                 <td style="font-size: 14px; line-height: 16px; color: #474747; text-align: center; padding-top: 18px; padding-bottom: 17px;">' . $row['vat_tu'] . '</td>
                 <td style="font-size: 14px; line-height: 16px; color: #474747; text-align: center; padding-top: 18px; padding-bottom: 17px;">' . $row['don_vi_tinh'] . '</td>
@@ -24,13 +31,10 @@ while ($row = mysql_fetch_assoc($list_vt->result)) {
                 <td style="font-size: 14px; line-height: 16px; color: #474747; text-align: center; padding-top: 18px; padding-bottom: 17px;">' . $row['don_gia'] . '</td>
                 <td style="font-size: 14px; line-height: 16px; color: #474747; text-align: center; padding-top: 18px; padding-bottom: 17px;">' . $row['thanh_tien'] . '</td>
             </tr>';
-}
-
-
-$email = "bboyraizo@gmail.com";
-$mailer = new Mailer();
-$subject = "HỢP ĐỒNG THUÊ VẬN CHUYỂN";
-$body = '<div style="width: 724px; float: left; background: #FFFFFF; padding: 90px 40px; border-radius: 8px;">
+        };
+        $mailer = new Mailer();
+        $subject = "HỢP ĐỒNG THUÊ VẬN CHUYỂN";
+        $body = '<div style="width: 724px; float: left; background: #FFFFFF; padding: 90px 40px; border-radius: 8px;">
             <h1 style="width: 100%; float: left; margin-bottom: 35px; font-size: 24px; line-height: 28px; text-align: center; font-weight: bold; color: #474747;">HỢP ĐỒNG THUÊ VẬN CHUYỂN</h1>
             <div style="width: 100%; float: left;">
                 <p style="font-size: 14px; line-height: 16px; color: #474747; width: 100%; float: left; margin-bottom: 8px; margin-top: 0;">Số: HĐ-' . $id . ' </p>
@@ -71,6 +75,11 @@ $body = '<div style="width: 724px; float: left; background: #FFFFFF; padding: 90
                 </div>
             </div>
         </div>';
-//Gửi mail
 
-$mailer->email($email, $body, $subject, $name);
+
+        $mailer->email($email, $body, $subject, $name);
+
+    }
+} else {
+    echo "Thiếu thông tin, vui lòng thử lại!";
+}

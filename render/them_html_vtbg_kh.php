@@ -1,7 +1,7 @@
 <?
 include("config.php");
 
-$com_id = $_POST['id_com'];
+$com_id = getValue('id_com', 'int', 'POST', '');
 $curl = curl_init();
 $data = array(
     'id_com' => $com_id,
@@ -14,8 +14,8 @@ curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 $response1 = curl_exec($curl);
 curl_close($curl);
 
-$list_vttb = json_decode($response1,true);
-$data_vttb =$list_vttb['data']['items'];
+$list_vttb = json_decode($response1, true);
+$data_vttb = $list_vttb['data']['items'];
 
 ?>
 <tr class="item" data="">
@@ -26,7 +26,7 @@ $data_vttb =$list_vttb['data']['items'];
         <div class="v-select2">
             <select name="ten_day_du" class="share_select ten_vat_tu" data="<?= $com_id ?>" onchange="change_vt(this)">
                 <option value="">Chọn vật tư thiết bị</option>
-                <? for($i = 0; $i < count($data_vttb); $i++) {?>
+                <? for ($i = 0; $i < count($data_vttb); $i++) { ?>
                     <option value="<?= $data_vttb[$i]['dsvt_id'] ?>">(<?= $data_vttb[$i]['dsvt_id'] ?>) <?= $data_vttb[$i]['dsvt_name'] ?> </option>
                 <? } ?>
             </select>
@@ -38,13 +38,13 @@ $data_vttb =$list_vttb['data']['items'];
         </div>
     </td>
     <td class="w-15">
-        <input type="text" name="so_luong_bao_gia">
+        <input type="text" name="so_luong_bao_gia" oninput="<?= $oninput ?>" >
     </td>
     <td class="w-15">
         <input type="text" name="don_vi_tinh" readonly>
     </td>
     <td class="w-20">
-        <input type="text" name="don_gia">
+        <input type="text" oninput="<?= $oninput ?>" name="don_gia" >
     </td>
     <td class="w-20">
         <input type="text" name="thanh_tien" readonly>

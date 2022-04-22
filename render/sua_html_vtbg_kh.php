@@ -1,7 +1,8 @@
 <?
-$com_id = $_POST['id_com'];
-$id_vt = $_POST['id_vt'];
-$id_p = $_POST['id_p'];
+include("config.php");
+$com_id = getValue('id_com', 'int', 'POST', '');
+$id_vt = getValue('id_vt', 'int', 'POST', '');
+$id_p = getValue('id_p', 'int', 'POST', '');
 $curl = curl_init();
 $data = array(
     'id_com' => $com_id,
@@ -49,7 +50,7 @@ if ($id_p != "") {
         </div>
     </td>
     <td class="w-15">
-        <input type="text" name="so_luong_bg" class="so_luong" onkeyup="sl_doi(this)">
+        <input type="text" name="so_luong_bg" class="so_luong" oninput="<?= $oninput ?>" onkeyup="sl_doi(this)">
     </td>
     <td class="w-15">
         <input type="text" name="don_vi_tinh" value="<?= $dv_tinh ?>" readonly>
@@ -80,7 +81,7 @@ if ($id_p != "") {
         </div>
     </td>
     <td class="w-15">
-        <input type="text" name="so_luong_bao_gia" class="so_luong" onkeyup="sl_doi(this)">
+        <input type="text" name="so_luong_bao_gia" class="so_luong" oninput="<?= $oninput ?>" onkeyup="sl_doi(this)">
     </td>
     <td class="w-15">
         <input type="text" name="don_vi_tinh" value="<?= $dv_tinh ?>" readonly>

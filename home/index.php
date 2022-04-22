@@ -147,7 +147,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                             <div class="avt_tnang">
                                                 <img src="../img/tinhnang4.png" alt="Quản lý cung ứng, xuất nhập vật tư">
                                             </div>
-                                            <p class="share_fsize_tow share_clr_one">Quản lý cung ứng, xuất nhập vật tư
+                                            <p class="share_fsize_tow share_clr_one cr_weight">Quản lý cung ứng, xuất nhập vật tư
                                             </p>
                                         </div>
                                     </div>
@@ -156,7 +156,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                             <div class="avt_tnang">
                                                 <img src="../img/tinhnang3.png" alt="Quản lý hợp đồng, thanh quyết toán">
                                             </div>
-                                            <p class="share_fsize_tow share_clr_one">Quản lý hợp đồng, thanh quyết toán
+                                            <p class="share_fsize_tow share_clr_one cr_weight">Quản lý hợp đồng, thanh quyết toán
                                             </p>
                                         </div>
                                     </div>
@@ -165,7 +165,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                             <div class="avt_tnang">
                                                 <img src="../img/tinhnang2.png" alt="Quản lý nhà cung cấp, thầu phụ">
                                             </div>
-                                            <p class="share_fsize_tow share_clr_one">Quản lý nhà cung cấp, thầu phụ</p>
+                                            <p class="share_fsize_tow share_clr_one cr_weight">Quản lý nhà cung cấp, thầu phụ</p>
                                         </div>
                                     </div>
                                     <div class="tinhn_one">
@@ -173,7 +173,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                             <div class="avt_tnang">
                                                 <img src="../img/tinhnang1.png" alt="Báo cáo theo dõi vật tư">
                                             </div>
-                                            <p class="share_fsize_tow share_clr_one">Báo cáo theo dõi vật tư</p>
+                                            <p class="share_fsize_tow share_clr_one cr_weight">Báo cáo theo dõi vật tư</p>
                                         </div>
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                     <div class="loii_one w_100 float_l">
                                         <div class="ctn_loii_ctiet w_100 float_l">
                                             <div class="avt_loii_dd float_l">
-                                                <img src="../img/loiich1.png" alt="Kiểm soát chặt chẽ cung ứng & sử dụng vật tư">
+                                                <img src="../img/loiich5.png" alt="Kiểm soát chặt chẽ cung ứng & sử dụng vật tư">
                                             </div>
                                             <div class="ttin_loii ttin_loii_o float_r">
                                                 <h4 class="tde_ttin w_100 float_l share_fsize_four share_clr_one cr_weight">
@@ -207,7 +207,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                     <div class="loii_one w_100 float_l">
                                         <div class="ctn_loii_ctiet w_100 float_l">
                                             <div class="avt_loii_dd float_r">
-                                                <img src="../img/loiich2.png" alt="Quản lý chi phí công trình hiệu quả, giảm thiểu rủi ro tài chính">
+                                                <img src="../img/loiich4.png" alt="Quản lý chi phí công trình hiệu quả, giảm thiểu rủi ro tài chính">
                                             </div>
                                             <div class="ttin_loii ttin_loii_t float_l">
                                                 <h4 class="tde_ttin w_100 float_l share_fsize_four share_clr_one cr_weight">
@@ -243,7 +243,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                     <div class="loii_one w_100 float_l">
                                         <div class="ctn_loii_ctiet w_100 float_l">
                                             <div class="avt_loii_dd float_r">
-                                                <img src="../img/loiich4.png" alt="Quản lý thông tin khách hàng & nhà cung cấp dễ dàng">
+                                                <img src="../img/loiich2.png" alt="Quản lý thông tin khách hàng & nhà cung cấp dễ dàng">
                                             </div>
                                             <div class="ttin_loii ttin_loii_t float_l">
                                                 <h4 class="tde_ttin w_100 float_l share_fsize_four share_clr_one cr_weight">
@@ -259,7 +259,7 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
                                     <div class="loii_one w_100 float_l">
                                         <div class="ctn_loii_ctiet w_100 float_l">
                                             <div class="avt_loii_dd float_l">
-                                                <img src="../img/loiich5.png" alt="Theo dõi tiến độ các lần nghiệm thu và thanh toán">
+                                                <img src="../img/loiich1.png" alt="Theo dõi tiến độ các lần nghiệm thu và thanh toán">
                                             </div>
                                             <div class="ttin_loii ttin_loii_o float_r">
                                                 <h4 class="tde_ttin w_100 float_l share_fsize_four share_clr_one cr_weight">

@@ -44,7 +44,7 @@ $count6     = count($tb_don_gia);
 $count7     = count($tb_don_gia_ca_may);
 $count8    = count($tb_thanh_tien);
 
-
+$ngay_tao = strtotime(date('Y-m-d', time()));
 if ($ngay_ky_hd != "" && $id_nha_cung_cap != "") {
     if ($count == 0) {
         echo "Thêm ít nhất 1 thiết bị!";
@@ -52,7 +52,11 @@ if ($ngay_ky_hd != "" && $id_nha_cung_cap != "") {
         if ($count != $count1 || $count1 != $count2 || $count2 != $count3 || $count3 != $count4 || $count4 != $count5 || $count5 != $count6 || $count6 != $count7 || $count7 != $count8) {
             echo "Vui lòng điền đầy đủ thông tin thiết bị.";
         } else {
-            $them_hd_ban = new db_query("INSERT INTO `hop_dong` (`id`, `ngay_ky_hd`, `id_nha_cc_kh`,`id_du_an_ctrinh`, `thue_noi_bo`,`noi_dung_hd`, `noi_dung_luu_y`, `dieu_khoan_tt`, `ten_ngan_hang`, `so_tk`,`phan_loai`, `trang_thai`,`gia_tri_trvat`,`gia_tri_svat`, `id_cong_ty`) VALUES (NULL,'$ngay_ky_hd','$id_nha_cung_cap','$dan_ctrinh', '$thue_noi_bo', '$noi_dung_hd', '$noi_dung_luu_y', '$dieu_khoan_tt','$ten_nh', '$so_taik', '$phan_loai','$trang_thai','$tong_tien','$tong_tien', '$com_id')");
+            $them_hd_ban = new db_query("INSERT INTO `hop_dong` (`id`, `ngay_ky_hd`, `id_nha_cc_kh`,`id_du_an_ctrinh`, `thue_noi_bo`,`noi_dung_hd`,
+            `noi_dung_luu_y`, `dieu_khoan_tt`, `ten_ngan_hang`, `so_tk`,`phan_loai`, `trang_thai`,`ngay_tao`,`gia_tri_trvat`,`gia_tri_svat`,`quyen_nlap`,
+            `nguoi_lap`, `id_cong_ty`)
+            VALUES (NULL,'$ngay_ky_hd','$id_nha_cung_cap','$dan_ctrinh', '$thue_noi_bo', '$noi_dung_hd', '$noi_dung_luu_y', '$dieu_khoan_tt','$ten_nh',
+            '$so_taik', '$phan_loai','$trang_thai','$ngay_tao','$tong_tien','$tong_tien', '$role','$user_id', '$com_id')");
 
             $row = mysql_fetch_assoc((new db_query("SELECT LAST_INSERT_ID() AS hd_id"))->result);
             $id_hd = $row['hd_id'];
@@ -67,7 +71,7 @@ if ($ngay_ky_hd != "" && $id_nha_cung_cap != "") {
 
             //save log
             $noi_dung = 'Bạn đã thêm hợp đồng thuê thiết bị: HĐ - ' . $id_hd;
-            $ngay_tao = strtotime(date('Y-m-d', time()));
+
             $gio_tao = strtotime(date('H:i:s', time()));
             $log = new db_query("INSERT INTO `nhat_ky_hd`(`id`, `id_nguoi_dung`,`role`, `ngay_tao`,`gio_tao`, `noi_dung`,`id_cong_ty`)
             VALUES('', '$user_id','$role', '$ngay_tao','$gio_tao', '$noi_dung','$com_id')");

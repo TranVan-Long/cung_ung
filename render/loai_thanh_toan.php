@@ -27,7 +27,7 @@ if ($loai_phieu != "" && $hd_dh != "" && $loai_tt != "" && $id_phieu == "") {
                 </div>
             </div>
         </div>
-        <? } else if ($loai_tt == 2) {
+    <? } else if ($loai_tt == 2) {
         if ($loai_phieu == 1) {
 
             $tong_tatca = mysql_fetch_assoc((new db_query("SELECT SUM(`tong_tien_tatca`) AS tongtien FROM `ho_so_thanh_toan` WHERE `id_cong_ty` = $com_id

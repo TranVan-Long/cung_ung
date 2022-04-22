@@ -240,28 +240,26 @@ $cou = count($list_congtrinh);
             },
             success: function(data) {
                 $("#quote-me").append(data);
+                RefSelect2();
             }
         });
     });
 
-    function doi_vt() {
-        $(".ten_vat_tu").change(function() {
-            var id_vt = $(this).val();
-            var _this = $(this);
-            var id_com = "<?= $com_id ?>";
-            $.ajax({
-                url: '../render/vat_tu_yc_bg.php',
-                type: 'POST',
-                data: {
-                    id_vt: id_vt,
-                    id_com: id_com,
-                },
-                success: function(data) {
-                    _this.parents(".item").html(data);
-                }
-            })
-        });
-        RefSelect2();
+    function doi_vt(id) {
+        var id_vt = $(id).val();
+        var id_com = $(id).attr("data");
+        $.ajax({
+            url: '../render/vat_tu_yc_bg.php',
+            type: 'POST',
+            data: {
+                id_vt: id_vt,
+                id_com: id_com,
+            },
+            success: function(data) {
+                $(id).parents(".item").html(data);
+                RefSelect2();
+            }
+        })
     };
 
     $('.submit-btn').click(function() {
@@ -325,7 +323,7 @@ $cou = count($list_congtrinh);
             var so_luong = new Array();
             $("input[name='so_luong']").each(function() {
                 var sol = $(this).val();
-                if (sol != "") {
+                if (sol != "" && sol != 0) {
                     so_luong.push(sol);
                 }
             });

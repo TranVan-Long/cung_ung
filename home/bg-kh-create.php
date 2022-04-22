@@ -6,9 +6,11 @@ if (isset($_COOKIE['acc_token']) && isset($_COOKIE['rf_token']) && isset($_COOKI
     if ($_COOKIE['role'] == 1) {
         $com_id = $_SESSION['com_id'];
         $user_id = $_SESSION['com_id'];
+        $phan_quyen_nk = 1;
     } else if ($_COOKIE['role'] == 2) {
         $com_id = $_SESSION['user_com_id'];
         $user_id = $_SESSION['ep_id'];
+        $phan_quyen_nk = 1;
         $kiem_tra_nv = new db_query("SELECT `id` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id ");
         if (mysql_num_rows($kiem_tra_nv->result) > 0) {
             $item_nv = mysql_fetch_assoc((new db_query("SELECT `bao_gia_kh` FROM `phan_quyen` WHERE `id_nhan_vien` = $user_id AND `id_cong_ty` = $com_id "))->result);
@@ -60,7 +62,7 @@ $list_kh = new db_query("SELECT `id`, `ten_nha_cc_kh`, `phan_loai`, `id_cong_ty`
                     <a class="text-black" href="quan-ly-bao-gia-cho-khach-hang.html"><?php echo $ic_lt ?> Quay lại</a>
                     <p class="page-title mt-20">Thêm báo giá cho khách hàng</p>
                 </div>
-                <form action="" class="main-form">
+                <form class="main-form" data="<?= $phan_quyen_nk ?>">
                     <div class="w-100 left mt-10">
                         <div class="form-control edit-form">
                             <div class="form-row left">
@@ -197,13 +199,26 @@ $list_kh = new db_query("SELECT `id`, `ten_nha_cc_kh`, `phan_loai`, `id_cong_ty`
         })
     };
 
+    $(".submit-btn").click(function() {
+        event.preventDefault();
+        event.stopPropagation();
+        var errorElements = document.querySelectorAll(".error");
+        for (let index = 0; index < errorElements.length; index++) {
+            const element = errorElements[index];
+            $('html, body').animate({
+                scrollTop: $(errorElements[0]).focus().offset().top - 30
+            }, 1000);
+            return false;
+        }
+    });
+
     $('.submit-btn').click(function() {
         var form = $('.main-form');
         $.validator.addMethod("dateRange",
             function() {
                 var date1 = $("#startDate").val();
                 var date2 = $("#endDate").val();
-                return (date1 < date2);
+                return (date1 <= date2);
             })
         form.validate({
             errorPlacement: function(error, element) {
@@ -249,8 +264,9 @@ $list_kh = new db_query("SELECT `id`, `ten_nha_cc_kh`, `phan_loai`, `id_cong_ty`
             var ngay_bd = $("input[name='tu_ngay']").val();
             var ngay_kt = $("input[name='den_ngay']").val();
             var noi_dung_ph = $("textarea[name='noi_dung_phan_hoi']").val();
+            var phan_quyen_nk = $(".main-form").attr("data");
 
-            var id_vt = new Array();
+            var id_vt = [];
             $("select[name='ten_day_du']").each(function() {
                 var vt = $(this).val();
                 if (vt != "") {
@@ -258,7 +274,7 @@ $list_kh = new db_query("SELECT `id`, `ten_nha_cc_kh`, `phan_loai`, `id_cong_ty`
                 }
             });
 
-            var so_luong = new Array();
+            var so_luong = [];
             $("input[name='so_luong_bao_gia']").each(function() {
                 var vt1 = $(this).parents(".item").find(".ten_vat_tu").val();
                 var sl = $(this).val();
@@ -288,6 +304,7 @@ $list_kh = new db_query("SELECT `id`, `ten_nha_cc_kh`, `phan_loai`, `id_cong_ty`
                     don_gia: don_gia,
                     com_id: com_id,
                     user_id: user_id,
+                    phan_quyen_nk: phan_quyen_nk,
                 },
                 success: function(data) {
                     if (data == "") {

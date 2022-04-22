@@ -49,10 +49,10 @@ $id = getValue('id', 'int', 'GET', 0);
 
 if ($id != "") {
     $list_ptt = new db_query("SELECT p.`id`, p.`id_hd_dh`, p.`id_ncc_kh`, p.`loai_phieu_tt`, p.`ngay_thanh_toan`, p.`hinh_thuc_tt`, p.`loai_thanh_toan`, p.`phan_loai`,
-                            p.`nguoi_nhan_tien`, p.`so_tien_tam_ung`, p.`ty_gia`, p.`phi_giao_dich`, p.`gia_tri_quy_doi`, p.`trang_thai`, p.`id_nguoi_lap`, n.`ten_nha_cc_kh`
+                            p.`nguoi_nhan_tien`, p.`so_tien`, p.`ty_gia`, p.`phi_giao_dich`, p.`gia_tri_quy_doi`, p.`trang_thai`, p.`id_nguoi_lap`, n.`ten_nha_cc_kh`
                             FROM `phieu_thanh_toan` AS p
                             INNER JOIN `nha_cc_kh` AS n ON p.`id_ncc_kh` = n.`id`
-                            WHERE p.`id` = $id AND p.`id_cong_ty` = $com_id ");
+                            WHERE p.`id` = $id AND p.`id_cong_ty` = $com_id AND p.`loai_thanh_toan` = 1 ");
     $item = mysql_fetch_assoc($list_ptt->result);
 
     if ($item['hinh_thuc_tt'] == 1) {
@@ -119,11 +119,7 @@ echo '<tr><th colspan="2" style="font-size:18px;height:60px;vertical-align: midd
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Số tiền:</td>
-    <? if ($item['loai_thanh_toan'] == 1) { ?>
-        <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= ($item['so_tien_tam_ung'] != 0) ? number_format($item['so_tien_tam_ung']) : "" ?></td>
-    <? } ?>
-
-
+    <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 300px;"><?= ($item['so_tien'] != 0) ? number_format($item['so_tien']) : "" ?></td>
 </tr>
 <tr style="height:40px">
     <td style="vertical-align: middle;font-size: 14px;text-align: center;width: 200px">Tỷ giá:</td>
